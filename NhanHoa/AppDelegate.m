@@ -7,15 +7,50 @@
 //
 
 #import "AppDelegate.h"
+#import "RegisterDomainViewController.h"
+#import "RegisteredDomainViewController.h"
+#import "MoreViewController.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
+@synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
+    UINavigationController *registerNav = [[UINavigationController alloc] initWithRootViewController:registerDomainVC];
+    
+    UIImage *image = [UIImage imageNamed:@"domain"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UITabBarItem *registerItem = [[UITabBarItem alloc] initWithTitle:@"Đăng ký tên miền" image:image selectedImage:nil];
+    
+    registerNav.tabBarItem = registerItem;
+    
+    RegisteredDomainViewController *registeredDomainVC = [[RegisteredDomainViewController alloc] initWithNibName:@"RegisteredDomainViewController" bundle:nil];
+    UINavigationController *registeredNav = [[UINavigationController alloc] initWithRootViewController:registeredDomainVC];
+    
+    UITabBarItem *registeredItem = [[UITabBarItem alloc] initWithTitle:@"Danh sách đăng ký" image:[UIImage imageNamed:@"domain"] selectedImage:nil];
+    registeredNav.tabBarItem = registeredItem;
+    
+    
+    MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
+    UINavigationController *moreNav = [[UINavigationController alloc] initWithRootViewController:moreVC];
+    
+    UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:@"Thêm" image:[UIImage imageNamed:@"domain"] tag:2];
+    moreNav.tabBarItem = moreItem;
+    
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = @[registerNav , registeredNav, moreNav];
+    
+    [self.window setRootViewController:tabBarController];
+    [self.window makeKeyAndVisible];
+    
     // Override point for customization after application launch.
     return YES;
 }

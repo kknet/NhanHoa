@@ -1,0 +1,26 @@
+PODS:
+  - CocoaLumberjack (3.5.1):
+    - CocoaLumberjack/Core (= 3.5.1)
+  - CocoaLumberjack/Core (3.5.1)
+  - Masonry (1.1.0)
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - CocoaLumberjack
+  - Masonry
+  - Toast
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - CocoaLumberjack
+    - Masonry
+    - Toast
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 2101f8a5508197a305e737d16c5c2e9e2157628c
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: 57884f998a5dd10d5e2b2c0036da09de3a6f5ff2
+
+COCOAPODS: 1.5.0
