@@ -22,6 +22,8 @@
 		156B8C25226ECF8C0020EDCB /* domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C22226ECF8C0020EDCB /* domain.png */; };
 		156B8C26226ECF8C0020EDCB /* domain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C23226ECF8C0020EDCB /* domain@2x.png */; };
 		156B8C27226ECF8C0020EDCB /* domain@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C24226ECF8C0020EDCB /* domain@3x.png */; };
+		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
+		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,10 @@
 		156B8C22226ECF8C0020EDCB /* domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = domain.png; sourceTree = "<group>"; };
 		156B8C23226ECF8C0020EDCB /* domain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "domain@2x.png"; sourceTree = "<group>"; };
 		156B8C24226ECF8C0020EDCB /* domain@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "domain@3x.png"; sourceTree = "<group>"; };
+		15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NhanHoa_PrefixHeader.pch; sourceTree = SOURCE_ROOT; };
+		15E084C222715E830010429B /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
+		15E084C422715E830010429B /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB713FC581A7341037EFCDC /* Pods-NhanHoa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.debug.xcconfig"; sourceTree = "<group>"; };
 		E48A0D7532D3BDB2838DF12F /* Pods-NhanHoa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.release.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +96,7 @@
 				156B8C14226ECAEB0020EDCB /* Registerd domain */,
 				1508460F226EC9A900428514 /* More */,
 				15084609226EC98A00428514 /* Register domain */,
+				15E084C122715E670010429B /* SignIn */,
 				150845F2226EBF2400428514 /* AppDelegate.h */,
 				150845F3226EBF2400428514 /* AppDelegate.m */,
 				150845F5226EBF2400428514 /* ViewController.h */,
@@ -137,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				156B8C21226ECF740020EDCB /* images */,
+				15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -149,6 +157,16 @@
 				156B8C24226ECF8C0020EDCB /* domain@3x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		15E084C122715E670010429B /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				15E084C222715E830010429B /* LaunchViewController.h */,
+				15E084C322715E830010429B /* LaunchViewController.m */,
+				15E084C422715E830010429B /* LaunchViewController.xib */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
@@ -233,6 +251,7 @@
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
 				156B8C25226ECF8C0020EDCB /* domain.png in Resources */,
+				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
 				156B8C27226ECF8C0020EDCB /* domain@3x.png in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
 			);
@@ -269,6 +288,7 @@
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
+				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
@@ -414,6 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
+				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -435,6 +456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
