@@ -55,6 +55,7 @@
 		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		15E084C422715E830010429B /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FA12602272783D002E290D /* AppString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppString.h; sourceTree = "<group>"; };
 		BFB713FC581A7341037EFCDC /* Pods-NhanHoa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.debug.xcconfig"; sourceTree = "<group>"; };
 		E48A0D7532D3BDB2838DF12F /* Pods-NhanHoa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.release.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +146,7 @@
 			children = (
 				156B8C21226ECF740020EDCB /* images */,
 				15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */,
+				84FA12602272783D002E290D /* AppString.h */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -436,7 +438,7 @@
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
 				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,7 +460,7 @@
 				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
