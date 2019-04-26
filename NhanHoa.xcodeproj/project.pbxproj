@@ -17,6 +17,7 @@
 		1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1508460C226EC9A400428514 /* RegisterDomainViewController.xib */; };
 		15084613226EC9B800428514 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15084611226EC9B800428514 /* MoreViewController.m */; };
 		15084614226EC9B800428514 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15084612226EC9B800428514 /* MoreViewController.xib */; };
+		15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 15224F0A2272EDDF00A45C3B /* AppUtils.m */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
 		156B8C25226ECF8C0020EDCB /* domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C22226ECF8C0020EDCB /* domain.png */; };
@@ -24,6 +25,14 @@
 		156B8C27226ECF8C0020EDCB /* domain@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C24226ECF8C0020EDCB /* domain@3x.png */; };
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
 		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
+		15E92AD22272A2F3004AB658 /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACD2272A2F1004AB658 /* app-icon.png */; };
+		15E92AD32272A2F3004AB658 /* graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACE2272A2F1004AB658 /* graphic.png */; };
+		15E92AD42272A2F3004AB658 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACF2272A2F2004AB658 /* logo.png */; };
+		15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AD02272A2F2004AB658 /* show_pass_act.png */; };
+		15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AD12272A2F2004AB658 /* show_pass_def.png */; };
+		15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E92AFA2272BB88004AB658 /* SignInViewController.m */; };
+		15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AFB2272BB88004AB658 /* SignInViewController.xib */; };
+		15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E92AFE2272BC31004AB658 /* UIKit.framework */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +53,8 @@
 		15084610226EC9B800428514 /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		15084611226EC9B800428514 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		15084612226EC9B800428514 /* MoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
+		15224F092272EDDF00A45C3B /* AppUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		15224F0A2272EDDF00A45C3B /* AppUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
@@ -54,6 +65,15 @@
 		15E084C222715E830010429B /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		15E084C422715E830010429B /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
+		15E92ACD2272A2F1004AB658 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
+		15E92ACE2272A2F1004AB658 /* graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphic.png; sourceTree = "<group>"; };
+		15E92ACF2272A2F2004AB658 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		15E92AD02272A2F2004AB658 /* show_pass_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show_pass_act.png; sourceTree = "<group>"; };
+		15E92AD12272A2F2004AB658 /* show_pass_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show_pass_def.png; sourceTree = "<group>"; };
+		15E92AF92272BB88004AB658 /* SignInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		15E92AFA2272BB88004AB658 /* SignInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		15E92AFB2272BB88004AB658 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		15E92AFE2272BC31004AB658 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FA12602272783D002E290D /* AppString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppString.h; sourceTree = "<group>"; };
 		BFB713FC581A7341037EFCDC /* Pods-NhanHoa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */,
 				6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +114,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				15224F082272EDCC00A45C3B /* Utils */,
 				156B8C20226ECF6D0020EDCB /* Resources */,
 				156B8C14226ECAEB0020EDCB /* Registerd domain */,
 				1508460F226EC9A900428514 /* More */,
@@ -131,6 +153,15 @@
 			path = More;
 			sourceTree = "<group>";
 		};
+		15224F082272EDCC00A45C3B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				15224F092272EDDF00A45C3B /* AppUtils.h */,
+				15224F0A2272EDDF00A45C3B /* AppUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		156B8C14226ECAEB0020EDCB /* Registerd domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +188,11 @@
 				156B8C22226ECF8C0020EDCB /* domain.png */,
 				156B8C23226ECF8C0020EDCB /* domain@2x.png */,
 				156B8C24226ECF8C0020EDCB /* domain@3x.png */,
+				15E92ACD2272A2F1004AB658 /* app-icon.png */,
+				15E92ACE2272A2F1004AB658 /* graphic.png */,
+				15E92ACF2272A2F2004AB658 /* logo.png */,
+				15E92AD02272A2F2004AB658 /* show_pass_act.png */,
+				15E92AD12272A2F2004AB658 /* show_pass_def.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -167,6 +203,9 @@
 				15E084C222715E830010429B /* LaunchViewController.h */,
 				15E084C322715E830010429B /* LaunchViewController.m */,
 				15E084C422715E830010429B /* LaunchViewController.xib */,
+				15E92AF92272BB88004AB658 /* SignInViewController.h */,
+				15E92AFA2272BB88004AB658 /* SignInViewController.m */,
+				15E92AFB2272BB88004AB658 /* SignInViewController.xib */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -174,6 +213,7 @@
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15E92AFE2272BC31004AB658 /* UIKit.framework */,
 				666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */,
 			);
 			name = Frameworks;
@@ -246,15 +286,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
+				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
+				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
 				156B8C26226ECF8C0020EDCB /* domain@2x.png in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
+				15E92AD32272A2F3004AB658 /* graphic.png in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
+				15E92AD22272A2F3004AB658 /* app-icon.png in Resources */,
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
 				156B8C25226ECF8C0020EDCB /* domain.png in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
 				156B8C27226ECF8C0020EDCB /* domain@3x.png in Resources */,
+				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,9 +333,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
+				15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,

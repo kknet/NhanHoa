@@ -24,8 +24,9 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
     LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+    UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
     
-    [self.window setRootViewController:launchVC];
+    [self.window setRootViewController:launchNav];
     [self.window makeKeyAndVisible];
     
     
