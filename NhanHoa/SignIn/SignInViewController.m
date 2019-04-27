@@ -7,6 +7,7 @@
 //
 
 #import "SignInViewController.h"
+#import "AppTabbarViewController.h"
 
 @interface SignInViewController (){
     UIColor *signInColor;
@@ -48,6 +49,12 @@
 - (void)startSignIn {
     btnSignIn.backgroundColor = signInColor;
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"login_state"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
+    [self presentViewController:tabbarVC animated:YES completion:nil];
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {

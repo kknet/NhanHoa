@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "RegisterDomainViewController.h"
-#import "RegisteredDomainViewController.h"
-#import "MoreViewController.h"
+#import "AppTabbarViewController.h"
 #import "LaunchViewController.h"
 
 @interface AppDelegate ()
@@ -17,48 +15,28 @@
 @end
 
 @implementation AppDelegate
-@synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
-    LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
-    UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
+    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"fondoTabBar"]];
+    [UITabBar appearance].layer.borderWidth = 0.0f;
+    [UITabBar appearance].clipsToBounds = true;
     
-    [self.window setRootViewController:launchNav];
-    [self.window makeKeyAndVisible];
-    
-    
-//    RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-//    UINavigationController *registerNav = [[UINavigationController alloc] initWithRootViewController:registerDomainVC];
-//
-//    UIImage *image = [UIImage imageNamed:@"domain"];
-//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//
-//    UITabBarItem *registerItem = [[UITabBarItem alloc] initWithTitle:@"Đăng ký tên miền" image:image selectedImage:nil];
-//
-//    registerNav.tabBarItem = registerItem;
-//
-//    RegisteredDomainViewController *registeredDomainVC = [[RegisteredDomainViewController alloc] initWithNibName:@"RegisteredDomainViewController" bundle:nil];
-//    UINavigationController *registeredNav = [[UINavigationController alloc] initWithRootViewController:registeredDomainVC];
-//
-//    UITabBarItem *registeredItem = [[UITabBarItem alloc] initWithTitle:@"Danh sách đăng ký" image:[UIImage imageNamed:@"domain"] selectedImage:nil];
-//    registeredNav.tabBarItem = registeredItem;
-//
-//
-//    MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
-//    UINavigationController *moreNav = [[UINavigationController alloc] initWithRootViewController:moreVC];
-//
-//    UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:@"Thêm" image:[UIImage imageNamed:@"domain"] tag:2];
-//    moreNav.tabBarItem = moreItem;
-//
-//    self.tabBarController = [[UITabBarController alloc] init];
-//    self.tabBarController.viewControllers = @[registerNav , registeredNav, moreNav];
-//
-//    [self.window setRootViewController:tabBarController];
-//    [self.window makeKeyAndVisible];
-    
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:@"login_state"];
+    if (loginState == nil || [loginState isEqualToString:@"NO"]) {
+        LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+        UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
+        
+        [self.window setRootViewController:launchNav];
+        [self.window makeKeyAndVisible];
+        
+    }else{
+        AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
+        [self.window setRootViewController:tabbarVC];
+        [self.window makeKeyAndVisible];
+    }
     // Override point for customization after application launch.
     return YES;
 }
