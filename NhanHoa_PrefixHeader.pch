@@ -12,5 +12,6 @@
 #import "Masonry.h"
 #import "AppString.h"
 #import "AppUtils.h"
+#import "AppDelegate.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */

@@ -7,6 +7,7 @@
 //
 
 #import "AppUtils.h"
+#import "CustomTextAttachment.h"
 
 @implementation AppUtils
 
@@ -42,5 +43,37 @@
     return randomString;
 }
 
++ (NSAttributedString *)generateTextWithContent: (NSString *)string font:(UIFont *)font color: (UIColor *)color image: (UIImage *)image size: (float)size imageFirst: (BOOL)imageFirst
+{
+    CustomTextAttachment *attachment = [[CustomTextAttachment alloc] init];
+    attachment.image = image;
+    [attachment setImageHeight: size];
+    
+    NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
+    
+    NSMutableAttributedString *result;
+    if (imageFirst) {
+        NSString *content = [NSString stringWithFormat:@" %@", string];
+        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:content];
+        
+        [contentString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, contentString.length)];
+        [contentString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, contentString.length)];
+        
+        result = [[NSMutableAttributedString alloc] initWithAttributedString: attachmentString];
+        [result appendAttributedString: contentString];
+        
+    }else{
+        NSString *content = [NSString stringWithFormat:@"%@ ", string];
+        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:content];
+        
+        [contentString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, contentString.length)];
+        [contentString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, contentString.length)];
+        
+        result = [[NSMutableAttributedString alloc] initWithAttributedString: contentString];
+        [result appendAttributedString: attachmentString];
+    }
+    
+    return result;
+}
 
 @end

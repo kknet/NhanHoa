@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UIButton *icNotify;
 @property (weak, nonatomic) IBOutlet UIButton *icClear;
-@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
+@property (weak, nonatomic) IBOutlet UIButton *btnSearch;
 
 @property (weak, nonatomic) IBOutlet UIView *viewBanner;
 

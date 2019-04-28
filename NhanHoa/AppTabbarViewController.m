@@ -102,6 +102,7 @@
 - (void)setupUIForView {
     tabBarController.tabBar.tintColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
     tabBarController.tabBar.barTintColor = UIColor.whiteColor;
+    tabBarController.tabBar.backgroundColor = UIColor.whiteColor;
 }
 
 - (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color{

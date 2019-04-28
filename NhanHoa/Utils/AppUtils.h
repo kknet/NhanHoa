@@ -14,4 +14,6 @@
 + (CGSize)getSizeWithText: (NSString *)text withFont: (UIFont *)font;
 + (CGSize)getSizeWithText: (NSString *)text withFont: (UIFont *)font andMaxWidth: (float )maxWidth;
 + (NSString *)randomStringWithLength: (int)len;
++ (NSAttributedString *)generateTextWithContent: (NSString *)string font:(UIFont *)font color: (UIColor *)color image: (UIImage *)image size: (float)size imageFirst: (BOOL)imageFirst;
+
 @end
