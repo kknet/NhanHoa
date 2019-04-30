@@ -97,4 +97,13 @@
     view.layer.shadowOpacity = 0.4;
 }
 
+- (void)updateSizeButtonForSize: (float)size {
+    [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.parentView.mas_centerY);
+        make.right.equalTo(self.parentView).offset(-self.padding);
+        make.width.mas_equalTo(size);
+        make.height.mas_equalTo(36.0);
+    }];
+}
+
 @end

@@ -17,6 +17,7 @@
     UITableView *tbRelatedDomain;
     NSMutableArray *listData;
     float hCell;
+    float sizeLargeText;
 }
 @end
 
@@ -29,6 +30,7 @@
     [self setupUIForView];
     self.title = @"Kết quả tra cứu";
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -38,6 +40,7 @@
     tag = 100;
     padding = 15.0;
     hCell = 90.0;
+    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[UIFont fontWithName:RobotoRegular size:15.0]].width + 10.0;
     
     [listSearch removeObject:@""];
     
@@ -158,7 +161,6 @@
         
     }else if (listSearch.count == 1) {
         
-        
         float heightView = whoisView.lbDNSSECValue.frame.origin.y + whoisView.lbDNSSECValue.frame.size
         .height + 15.0 + whoisView.lbTitle.frame.size.height/2 + whoisView.lbTitle.frame.origin.y;
         [whoisView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -176,7 +178,7 @@
             make.height.mas_equalTo(hTableView);
         }];
         
-        float contentSize = heightView + hTableView;
+        float contentSize = heightView + 10 + hTableView + padding;
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
     }
 }
@@ -219,8 +221,12 @@
     
     if (domain.isRegistered) {
         [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
+        [cell updateSizeButtonForSize: sizeLargeText];
+        cell.btnChoose.backgroundColor = ORANGE_COLOR;
     }else{
         [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        [cell updateSizeButtonForSize: 60.0];
+        cell.btnChoose.backgroundColor = BLUE_COLOR;
     }
     
     cell.btnSpecial.hidden = TRUE;

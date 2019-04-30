@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float padding;
 - (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
+- (void)updateSizeButtonForSize: (float)size;
+
 @end
 
 NS_ASSUME_NONNULL_END
