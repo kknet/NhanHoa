@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface RegisterDomainViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UIView *viewBanner;
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UILabel *lbWWW;
@@ -33,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbManyOptions;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
+@property (nonatomic, assign) float hCell;
+@property (nonatomic, assign) float padding;
 
 - (IBAction)icSearchClick:(UIButton *)sender;
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+Toast.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -23,6 +24,12 @@ typedef enum TypeHomeMenu{
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) CSToastStyle *errorStyle;
+@property (strong, nonatomic) CSToastStyle *warningStyle;
+@property (strong, nonatomic) CSToastStyle *successStyle;
+
++(AppDelegate *) sharedInstance;
 
 @end
 

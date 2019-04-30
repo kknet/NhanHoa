@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "RegisterDomainViewController.h"
+#import "WhoIsViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 
@@ -90,6 +91,9 @@
             break;
         }
         case eSearchDomain:{
+            WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
+            whoIsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: whoIsVC animated:YES];
             break;
         }
         case eRecharge:{

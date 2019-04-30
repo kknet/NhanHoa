@@ -55,7 +55,7 @@
     }];
     
     lbDescription.textColor = [UIColor colorWithRed:(83/255.0) green:(98/255.0) blue:(127/255.0) alpha:1.0];
-    lbDescription.font = [UIFont systemFontOfSize:21.0 weight:UIFontWeightRegular];
+    lbDescription.font = [UIFont fontWithName:RobotoRegular size:21.0];
     [lbDescription mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.viewTop.mas_centerY).offset(-20.0);
         make.left.equalTo(self.viewTop).offset(15.0);
@@ -73,7 +73,7 @@
     }];
     
     lbWelcome.textColor = lbDescription.textColor;
-    lbWelcome.font = [UIFont systemFontOfSize:21.0 weight:UIFontWeightRegular];
+    lbWelcome.font = [UIFont fontWithName:RobotoRegular size:21.0];
     [lbWelcome mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.imgLogo.mas_top).offset(-15.0);
         make.left.right.equalTo(self.viewTop);
@@ -87,7 +87,7 @@
     float hButton = 48.0;
     signInColor = [UIColor colorWithRed:(240/255.0) green:(138/255.0) blue:(38/255.0) alpha:1.0];
     btnSignIn.layer.cornerRadius = hButton/2;
-    btnSignIn.titleLabel.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightRegular];
+    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoRegular size:20.0];
     btnSignIn.layer.borderWidth = 1.0;
     btnSignIn.layer.borderColor = signInColor.CGColor;
     btnSignIn.backgroundColor = signInColor;
@@ -111,7 +111,7 @@
         make.height.mas_equalTo(hButton);
     }];
     
-    lbCompany.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    lbCompany.font = [UIFont fontWithName:RobotoRegular size:15.0];
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.viewBottom);
         make.height.mas_equalTo(38.0);

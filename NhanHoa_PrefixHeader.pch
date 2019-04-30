@@ -13,5 +13,6 @@
 #import "AppString.h"
 #import "AppUtils.h"
 #import "AppDelegate.h"
+#import "UIView+Toast.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */

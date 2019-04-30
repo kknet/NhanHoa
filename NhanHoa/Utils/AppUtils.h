@@ -15,5 +15,8 @@
 + (CGSize)getSizeWithText: (NSString *)text withFont: (UIFont *)font andMaxWidth: (float )maxWidth;
 + (NSString *)randomStringWithLength: (int)len;
 + (NSAttributedString *)generateTextWithContent: (NSString *)string font:(UIFont *)font color: (UIColor *)color image: (UIImage *)image size: (float)size imageFirst: (BOOL)imageFirst;
++ (NSString *)convertStringToCurrencyFormat: (NSString *)content;
++ (NSAttributedString *)convertLineStringToCurrencyFormat: (NSString *)content;
++ (void)addDashedLineForView: (UIView *)view color: (UIColor *)color;
 
 @end

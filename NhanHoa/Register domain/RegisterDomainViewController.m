@@ -7,23 +7,35 @@
 //
 
 #import "RegisterDomainViewController.h"
+#import "SearchDomainViewController.h"
+#import "SuggestDomainCell.h"
+#import "SuggestMenuObject.h"
 
-@interface RegisterDomainViewController ()
+@interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
+    NSMutableArray *listData;
+}
 
 @end
 
 @implementation RegisterDomainViewController
-@synthesize viewBanner, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
+@synthesize scvContent, viewBanner, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
+@synthesize hCell, padding;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self createListData];
     [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.title = @"Đăng ký tên miền";
+    [self reUpdateLayoutForView];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,32 +43,95 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)createListData {
+    listData = [[NSMutableArray alloc] init];
+    
+    SuggestMenuObject *xyz = [[SuggestMenuObject alloc] init];
+    xyz.image = @"xyz";
+    xyz.name = @"Đăng ký tên miền quốc tế";
+    xyz.price = @"29000";
+    xyz.oldPrice = @"280000";
+    [listData addObject: xyz];
+    
+    SuggestMenuObject *vn = [[SuggestMenuObject alloc] init];
+    vn.image = @"vn";
+    vn.name = @"Đăng ký tên miền quốc tế";
+    vn.price = @"29000";
+    vn.oldPrice = @"280000";
+    [listData addObject: vn];
+    
+    SuggestMenuObject *com = [[SuggestMenuObject alloc] init];
+    com.image = @"com";
+    com.name = @"Đăng ký tên miền quốc tế";
+    com.price = @"29000";
+    com.oldPrice = @"280000";
+    [listData addObject: vn];
+    
+    SuggestMenuObject *comvn = [[SuggestMenuObject alloc] init];
+    comvn.image = @"comvn";
+    comvn.name = @"Đăng ký tên miền quốc tế";
+    comvn.price = @"29000";
+    comvn.oldPrice = @"280000";
+    [listData addObject: comvn];
+    
+    SuggestMenuObject *net = [[SuggestMenuObject alloc] init];
+    net.image = @"net";
+    net.name = @"Đăng ký tên miền quốc tế";
+    net.price = @"29000";
+    net.oldPrice = @"280000";
+    [listData addObject: net];
+}
+
+- (void)reUpdateLayoutForView {
+    float hTableView = listData.count * hCell;
+    [tbContent mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(self.padding);
+        make.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hTableView);
+    }];
+}
+
+- (void)viewDidLayoutSubviews {
+    float contentSize = tbContent.frame.origin.y + listData.count * hCell + self.padding;
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
+}
+
 - (void)setupUIForView {
-    self.view.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    float padding = 10.0;
+    hCell = 90.0;
+    
+    scvContent.delegate = self;
+    [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.view);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+    }];
+    
+    padding = 15.0;
     float hBanner = 150.0;
     viewBanner.clipsToBounds = YES;
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
+        make.top.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hBanner);
     }];
     
     //  search UI
-    float hSearch = 40.0;
+    float hSearch = 38.0;
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
     tfSearch.layer.borderWidth = 1.5;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
+        make.left.equalTo(self.scvContent).offset(self.padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
         make.centerY.equalTo(self.viewBanner.mas_bottom);
         make.height.mas_equalTo(hSearch);
     }];
     
     icSearch.layer.cornerRadius = hSearch/2;
-    icSearch.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.tfSearch);
         make.width.mas_equalTo(hSearch);
@@ -72,7 +147,7 @@
     lbWWW.backgroundColor = UIColor.clearColor;
     lbWWW.text = @"WWW.";
     lbWWW.textColor = [UIColor colorWithRed:(41/255.0) green:(121/255.0) blue:(216/255.0) alpha:1.0];
-    lbWWW.font = [UIFont fontWithName:RobotoBold size:15.0];
+    lbWWW.font = [UIFont fontWithName:RobotoBold size:13.0];
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.tfSearch);
         make.width.mas_equalTo(60);
@@ -80,11 +155,12 @@
     
     //  info view
     float hItemView = 80.0;
-    float hInfo = hSearch/2 + 40.0 + hItemView + 20.0;
+    float hInfo = hSearch/2 + 10.0 + 40.0 + hItemView + 20.0;
     viewInfo.backgroundColor = UIColor.clearColor;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
+        make.left.equalTo(self.scvContent);
         make.top.equalTo(self.viewBanner.mas_bottom);
+        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hInfo);
     }];
     
@@ -92,8 +168,9 @@
     lbTitle.attributedText = contentStr;
     lbTitle.textAlignment = NSTextAlignmentCenter;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo).offset(hSearch/2);
-        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.viewInfo).offset(hSearch/2 + 10.0);
+        make.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(40.0);
     }];
     
@@ -113,7 +190,7 @@
     }];
     
     lbRenew.textColor = UIColor.whiteColor;
-    lbRenew.font = [UIFont fontWithName:RobotoRegular size:13.5];
+    lbRenew.font = [UIFont fontWithName:RobotoRegular size:13];
     lbRenew.text = @"Kiểm tra nhiều tên miền";
     lbRenew.numberOfLines = 5.0;
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,7 +211,7 @@
     viewSearch.layer.cornerRadius = 5.0;
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewRenew);
-        make.right.equalTo(self.viewRenew.mas_left).offset(-padding);
+        make.right.equalTo(self.viewRenew.mas_left).offset(-self.padding);
         make.width.mas_equalTo(sizeItem);
     }];
     
@@ -160,7 +237,7 @@
     viewTransferDomain.layer.cornerRadius = 5.0;
     [viewTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewRenew);
-        make.left.equalTo(self.viewRenew.mas_right).offset(padding);
+        make.left.equalTo(self.viewRenew.mas_right).offset(self.padding);
         make.width.mas_equalTo(sizeItem);
     }];
     
@@ -188,8 +265,8 @@
     lbSepa.lineBreakMode = NSLineBreakByTruncatingTail;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewInfo.mas_bottom);
-        make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
+        make.left.equalTo(self.scvContent).offset(self.padding);
+        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(1.0);
     }];
     
@@ -199,21 +276,68 @@
     lbManyOptions.textColor = [UIColor colorWithRed:(57/255.0) green:(65/255.0) blue:(86/255.0) alpha:1.0];
     [lbManyOptions mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepa.mas_bottom).offset(20.0);
-        make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
-        make.width.mas_equalTo(1.0);
+        make.left.equalTo(self.scvContent).offset(self.padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
     }];
     
-    tbContent.backgroundColor = UIColor.lightGrayColor;
+    [tbContent registerNib:[UINib nibWithNibName:@"SuggestDomainCell" bundle:nil] forCellReuseIdentifier:@"SuggestDomainCell"];
+    tbContent.backgroundColor = UIColor.clearColor;
+    tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
+    tbContent.delegate = self;
+    tbContent.dataSource = self;
+    tbContent.scrollEnabled = NO;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(padding);
-        make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view).offset(-5.0);
+        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(self.padding);
+        make.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.bottom.equalTo(self.scvContent).offset(-5.0);
     }];
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
+    [self.navigationController pushViewController:searchDomainVC animated:YES];
+}
+
+#pragma mark - UITableview
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return listData.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SuggestDomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestDomainCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    SuggestMenuObject *object = [listData objectAtIndex: indexPath.row];
+    cell.imgType.image = [UIImage imageNamed: object.image];
+    cell.lbDomain.text = object.name;
+    
+    NSString *strPrice = [AppUtils convertStringToCurrencyFormat: object.price];
+    cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", strPrice];
+    
+    NSString *oldPrice = [AppUtils convertStringToCurrencyFormat: object.oldPrice];
+    cell.lbOldPrice.text = [NSString stringWithFormat:@"%@đ/năm", oldPrice];
+    
+    cell.padding = padding;
+    cell.hItem = hCell;
+    [cell addBoxShadowForView:cell.viewParent withColor:UIColor.blackColor];
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return hCell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    CGPoint scrollViewOffset = scrollView.contentOffset;
+    if (scrollViewOffset.y < 0) {
+        [scrollView setContentOffset:CGPointMake(0, 0)];
+    }
 }
 
 @end

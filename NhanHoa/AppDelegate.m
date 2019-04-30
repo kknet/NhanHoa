@@ -15,10 +15,12 @@
 @end
 
 @implementation AppDelegate
+@synthesize errorStyle, warningStyle, successStyle;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
     
+    //  custom tabbar & navigation bar
     NSDictionary *titleInfo = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoItalic size:0.1], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateNormal];
     [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateHighlighted];
@@ -28,6 +30,18 @@
     UINavigationBar.appearance.translucent = NO;
     
     UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
+    
+    //  setup message style
+    warningStyle = [[CSToastStyle alloc] initWithDefaultStyle];
+    warningStyle.backgroundColor = ORANGE_COLOR;
+    warningStyle.messageColor = UIColor.whiteColor;
+    warningStyle.messageFont = [UIFont fontWithName:RobotoRegular size:15.0];
+    warningStyle.cornerRadius = 20.0;
+    warningStyle.messageAlignment = NSTextAlignmentCenter;
+    warningStyle.messageNumberOfLines = 5;
+    warningStyle.shadowColor = UIColor.blackColor;
+    warningStyle.shadowOpacity = 1.0;
+    warningStyle.shadowOffset = CGSizeMake(-5, -5);
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -79,5 +93,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
++(AppDelegate *)sharedInstance{
+    return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);
+}
 
 @end

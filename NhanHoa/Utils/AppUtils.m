@@ -76,4 +76,50 @@
     return result;
 }
 
++ (NSString *)convertStringToCurrencyFormat: (NSString *)content {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    formatter.maximumFractionDigits = 2;
+    formatter.positiveFormat = @"#,##0";
+    NSString *result = [formatter stringFromNumber:[NSNumber numberWithDouble:[content doubleValue]]];
+    
+    return result;
+}
+
++ (NSAttributedString *)convertLineStringToCurrencyFormat: (NSString *)content {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    formatter.maximumFractionDigits = 2;
+    formatter.positiveFormat = @"#,##0";
+    NSString *result = [formatter stringFromNumber:[NSNumber numberWithDouble:[content doubleValue]]];
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:@"Hello Good Morning"];
+    [attributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[attributeString length]}];
+    
+    
+    
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.lineSpacing = 40.0;
+    
+    NSDictionary *infoAttr = [NSDictionary dictionaryWithObjectsAndKeys:paragraph, NSParagraphStyleAttributeName, nil];
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString  alloc] initWithString:result];
+    [attrString addAttributes:infoAttr range:NSMakeRange(0, attrString.length)];
+    
+    return attrString;
+}
+
++ (void)addDashedLineForView: (UIView *)view color: (UIColor *)color {
+    CAShapeLayer *viewBorder = [CAShapeLayer layer];
+    viewBorder.strokeColor = color.CGColor;
+    viewBorder.fillColor = nil;
+    viewBorder.lineDashPattern = @[@2, @2];
+    viewBorder.frame = CGRectMake(0, 0, SCREEN_WIDTH-30, 365-35);
+    viewBorder.path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, SCREEN_WIDTH-30, 365-35)].CGPath;
+    [view.layer addSublayer:viewBorder];
+}
+
+
+
 @end

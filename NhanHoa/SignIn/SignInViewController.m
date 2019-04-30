@@ -84,7 +84,7 @@
     tfAccount.textColor = textColor;
     tfAccount.layer.cornerRadius = hTextfield/2;
     tfAccount.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
-    tfAccount.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
+    tfAccount.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [tfAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewTop).offset(self.padding);
         make.right.equalTo(self.viewTop).offset(-self.padding);
@@ -220,7 +220,7 @@
     
     //  sign in button
     float hButton = 48.0;
-    btnSignIn.titleLabel.font = [UIFont systemFontOfSize:18.0 weight:UIFontWeightRegular];
+    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnSignIn.layer.borderColor = signInColor.CGColor;
     btnSignIn.layer.cornerRadius = hButton/2;
