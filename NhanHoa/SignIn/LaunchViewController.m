@@ -8,6 +8,7 @@
 
 #import "LaunchViewController.h"
 #import "SignInViewController.h"
+#import "RegisterAccountViewController.h"
 
 @interface LaunchViewController (){
     UIColor *signInColor;
@@ -23,9 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationController.navigationBarHidden = YES;
     
     [self setupUIForView];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -173,6 +178,9 @@
 - (void)goToRegisterView {
     btnRegister.backgroundColor = UIColor.whiteColor;
     [btnRegister setTitleColor:registerColor forState:UIControlStateNormal];
+    
+    RegisterAccountViewController *registerVC = [[RegisterAccountViewController alloc] initWithNibName:@"RegisterAccountViewController" bundle:nil];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 @end

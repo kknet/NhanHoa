@@ -32,7 +32,8 @@
     }else{
         [listDomain removeAllObjects];
     }
-    [listDomain addObject:@"nongquadi.vn"];
+    //  [listDomain addObject:@"nongquadi.vn"];
+    [listDomain addObject:@""];
     [listDomain addObject:@""];
     [listDomain addObject:@""];
     

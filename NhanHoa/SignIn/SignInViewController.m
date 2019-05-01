@@ -8,6 +8,7 @@
 
 #import "SignInViewController.h"
 #import "AppTabbarViewController.h"
+#import "RegisterAccountViewController.h"
 
 @interface SignInViewController (){
     UIColor *signInColor;
@@ -29,12 +30,24 @@
     [self.view addGestureRecognizer: tapOnScreen];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = TRUE;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)icShowPassClicked:(UIButton *)sender {
+    if (tfPassword.isSecureTextEntry) {
+        tfPassword.secureTextEntry = FALSE;
+        [icShowPass setImage:[UIImage imageNamed:@"hide_pass_white"] forState:UIControlStateNormal];
+    }else{
+        tfPassword.secureTextEntry = TRUE;
+        [icShowPass setImage:[UIImage imageNamed:@"show_pass_white"] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)btnForgotPassPress:(UIButton *)sender {
@@ -58,6 +71,8 @@
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
+    RegisterAccountViewController *registerVC = [[RegisterAccountViewController alloc] initWithNibName:@"RegisterAccountViewController" bundle:nil];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 - (void)closeKeyboard {

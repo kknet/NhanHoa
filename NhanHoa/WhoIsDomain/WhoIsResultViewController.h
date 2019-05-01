@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WhoIsDomainView.h"
+#import "WhoIsNoResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *listSearch;
 @property (nonatomic, assign) float padding;
 @property (nonatomic, strong) WhoIsDomainView *whoisView;
+@property (nonatomic, strong) WhoIsNoResult *noResultView;
 
 @end
 

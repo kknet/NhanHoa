@@ -239,7 +239,7 @@
     
     lbPrice.text = @"29,000đ";
     lbPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbPrice.textColor = [UIColor colorWithRed:(213/255.0) green:(53/255.0) blue:(91/255.0) alpha:1.0];
+    lbPrice.textColor = NEW_PRICE_COLOR;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbDomainName);
         make.top.equalTo(self.viewDomain.mas_centerY).offset(2.0);
@@ -247,7 +247,7 @@
     
     lbOldPrice.text = @"180,000đ";
     lbOldPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbOldPrice.textColor = [UIColor colorWithRed:(171/255.0) green:(187/255.0) blue:(203/255.0) alpha:1.0];
+    lbOldPrice.textColor = OLD_PRICE_COLOR;
     [lbOldPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbPrice.mas_right).offset(5.0);
         make.top.equalTo(self.lbPrice);

@@ -10,7 +10,7 @@
 #import "DomainCell.h"
 #import "DomainObject.h"
 
-@interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource> {
+@interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate> {
     NSMutableArray *listTagView;
     int tag;
     
@@ -22,7 +22,7 @@
 @end
 
 @implementation WhoIsResultViewController
-@synthesize scvContent, listSearch, padding, whoisView;
+@synthesize scvContent, listSearch, padding, whoisView, noResultView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,6 +102,7 @@
         
         float hTableView = listData.count * hCell + 50.0;
         tbRelatedDomain = [[UITableView alloc] init];
+        tbRelatedDomain.backgroundColor = UIColor.clearColor;
         [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
         tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
         tbRelatedDomain.delegate = self;
@@ -121,8 +122,66 @@
         lbHeader.text = @"Các tên miền liên quan";
         lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
         lbHeader.textColor = TITLE_COLOR;
+        [viewHeader addSubview: lbHeader];
+        tbRelatedDomain.tableHeaderView = viewHeader;
+    }else{
+        [self createDemoData];
+        
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
+                noResultView = (WhoIsNoResult *) currentObject;
+                break;
+            }
+        }
+        
+        NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", @"lanhquadi.com"];
+        NSRange range = [content rangeOfString: @"lanhquadi.com"];
+        if (range.location != NSNotFound) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+            noResultView.lbContent.attributedText = attr;
+        }else{
+            noResultView.lbContent.text = content;
+        }
+        float textSize = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+        float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+        [scvContent addSubview: noResultView];
+        [noResultView setupUIForView];
+        [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.scvContent);
+            make.top.equalTo(self.scvContent);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+            make.height.mas_equalTo(hView);
+        }];
+        
+        float hTableView = listData.count * hCell + 40.0;
+        tbRelatedDomain = [[UITableView alloc] init];
+        tbRelatedDomain.backgroundColor = UIColor.clearColor;
+        [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
+        tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
+        tbRelatedDomain.delegate = self;
+        tbRelatedDomain.dataSource = self;
+        [self.scvContent addSubview: tbRelatedDomain];
+        
+        [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.scvContent);
+            make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+            make.height.mas_equalTo(hTableView);
+        }];
+        
+        UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
+        
+        UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
+        lbHeader.text = @"Các tên miền liên quan";
+        lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+        lbHeader.textColor = TITLE_COLOR;
+        [viewHeader addSubview: lbHeader];
         tbRelatedDomain.tableHeaderView = viewHeader;
         
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
     }
 }
 
@@ -180,11 +239,14 @@
         
         float contentSize = heightView + 10 + hTableView + padding;
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
+    }else{
+        
     }
 }
 
 - (void)setupUIForView {
     scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
+    scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
@@ -291,6 +353,13 @@
     domain4.warningContent = @"";
     domain4.isRegistered = TRUE;
     [listData addObject: domain4];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    CGPoint scrollViewOffset = scrollView.contentOffset;
+    if (scrollViewOffset.y < 0) {
+        [scrollView setContentOffset:CGPointMake(0, 0)];
+    }
 }
 
 @end

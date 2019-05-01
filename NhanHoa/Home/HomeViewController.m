@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "RegisterDomainViewController.h"
 #import "WhoIsViewController.h"
+#import "RenewedDomainViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 
@@ -88,6 +89,9 @@
             break;
         }
         case eRenewDomain:{
+            RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+            renewedVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: renewedVC animated:YES];
             break;
         }
         case eSearchDomain:{
