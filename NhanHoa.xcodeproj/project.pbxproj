@@ -155,6 +155,14 @@
 		845D32CB2279624D0047B196 /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 845D32C92279624C0047B196 /* arrow_down.png */; };
 		845D32CE227967750047B196 /* BusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D32CD227967750047B196 /* BusinessProfileView.m */; };
 		845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845D32CF2279677E0047B196 /* BusinessProfileView.xib */; };
+		8460F63B227A625300A185B0 /* RenewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F639227A625300A185B0 /* RenewViewController.m */; };
+		8460F63C227A625300A185B0 /* RenewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F63A227A625300A185B0 /* RenewViewController.xib */; };
+		8460F641227A644300A185B0 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F63F227A644300A185B0 /* CartViewController.m */; };
+		8460F642227A644300A185B0 /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F640227A644300A185B0 /* CartViewController.xib */; };
+		8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F645227A651400A185B0 /* PromotionCodeView.m */; };
+		8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F647227A651E00A185B0 /* PromotionCodeView.xib */; };
+		8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F64A227A686C00A185B0 /* CartDomainItemCell.m */; };
+		8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */; };
 		846A41932275C759003C5D87 /* search_multi_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 846A41912275C758003C5D87 /* search_multi_domain.png */; };
 		846A41942275C759003C5D87 /* search_multi_domain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846A41922275C759003C5D87 /* search_multi_domain@2x.png */; };
 		846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846AACB22276C96A005BC87E /* SearchDomainViewController.m */; };
@@ -358,6 +366,18 @@
 		845D32CC227967750047B196 /* BusinessProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BusinessProfileView.h; sourceTree = "<group>"; };
 		845D32CD227967750047B196 /* BusinessProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BusinessProfileView.m; sourceTree = "<group>"; };
 		845D32CF2279677E0047B196 /* BusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusinessProfileView.xib; sourceTree = "<group>"; };
+		8460F638227A625300A185B0 /* RenewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewViewController.h; sourceTree = "<group>"; };
+		8460F639227A625300A185B0 /* RenewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewViewController.m; sourceTree = "<group>"; };
+		8460F63A227A625300A185B0 /* RenewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewViewController.xib; sourceTree = "<group>"; };
+		8460F63E227A644300A185B0 /* CartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
+		8460F63F227A644300A185B0 /* CartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
+		8460F640227A644300A185B0 /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
+		8460F644227A651400A185B0 /* PromotionCodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PromotionCodeView.h; sourceTree = "<group>"; };
+		8460F645227A651400A185B0 /* PromotionCodeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PromotionCodeView.m; sourceTree = "<group>"; };
+		8460F647227A651E00A185B0 /* PromotionCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionCodeView.xib; sourceTree = "<group>"; };
+		8460F649227A686C00A185B0 /* CartDomainItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartDomainItemCell.h; sourceTree = "<group>"; };
+		8460F64A227A686C00A185B0 /* CartDomainItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartDomainItemCell.m; sourceTree = "<group>"; };
+		8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartDomainItemCell.xib; sourceTree = "<group>"; };
 		846A41912275C758003C5D87 /* search_multi_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_multi_domain.png; sourceTree = "<group>"; };
 		846A41922275C759003C5D87 /* search_multi_domain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_multi_domain@2x.png"; sourceTree = "<group>"; };
 		846AACB12276C96A005BC87E /* SearchDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchDomainViewController.h; sourceTree = "<group>"; };
@@ -426,6 +446,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				8460F63D227A632900A185B0 /* Cart */,
 				841F008C2274B2CB00F1B314 /* AppObjects */,
 				156B8C20226ECF6D0020EDCB /* Resources */,
 				1517FB79227450560044E878 /* Account */,
@@ -779,6 +800,30 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		8460F63D227A632900A185B0 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				8460F643227A650100A185B0 /* UI */,
+				8460F63E227A644300A185B0 /* CartViewController.h */,
+				8460F63F227A644300A185B0 /* CartViewController.m */,
+				8460F640227A644300A185B0 /* CartViewController.xib */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		8460F643227A650100A185B0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8460F644227A651400A185B0 /* PromotionCodeView.h */,
+				8460F645227A651400A185B0 /* PromotionCodeView.m */,
+				8460F647227A651E00A185B0 /* PromotionCodeView.xib */,
+				8460F649227A686C00A185B0 /* CartDomainItemCell.h */,
+				8460F64A227A686C00A185B0 /* CartDomainItemCell.m */,
+				8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		8490A5A02279A10500B921B7 /* RenewedDomain */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +834,9 @@
 				8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */,
 				8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */,
 				8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */,
+				8460F638227A625300A185B0 /* RenewViewController.h */,
+				8460F639227A625300A185B0 /* RenewViewController.m */,
+				8460F63A227A625300A185B0 /* RenewViewController.xib */,
 			);
 			path = RenewedDomain;
 			sourceTree = "<group>";
@@ -909,6 +957,7 @@
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
+				8460F63C227A625300A185B0 /* RenewViewController.xib in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				1517FB652274465B0044E878 /* menu_list_domain@2x.png in Resources */,
@@ -923,6 +972,7 @@
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
+				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
@@ -951,6 +1001,7 @@
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
+				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
 				1517FB7E227450710044E878 /* AccountViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
@@ -960,6 +1011,7 @@
 				845D32C6227943A20047B196 /* no_tick.png in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
+				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				1517FBB722745D9B0044E878 /* notify@2x.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
@@ -1047,6 +1099,7 @@
 				840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */,
 				845D32CE227967750047B196 /* BusinessProfileView.m in Sources */,
 				842F81CA2275BD4600D6DE6D /* CustomTextAttachment.m in Sources */,
+				8460F63B227A625300A185B0 /* RenewViewController.m in Sources */,
 				845D32BC22793DF50047B196 /* RegisterAccountStep2ViewController.m in Sources */,
 				841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */,
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
@@ -1062,7 +1115,10 @@
 				15084602226EBF2900428514 /* main.m in Sources */,
 				15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */,
 				841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */,
+				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
+				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
+				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,

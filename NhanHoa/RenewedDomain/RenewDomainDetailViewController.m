@@ -29,7 +29,7 @@
         lbTopDomain.text = domainObj.domainName;
         lbDomainValue.text = domainObj.domainName;
         lbStateValue.text = domainObj.state;
-        lbRegisterDateValue.text = [NSString stringWithFormat:<#(nonnull NSString *), ...#>]
+        lbRegisterDateValue.text = [NSString stringWithFormat:@"S:%@\nE:%@", domainObj.registerDate, domainObj.registerDate];
         if ([domainObj.state isEqualToString:@"Sắp hết hạn"]) {
             lbStateValue.textColor = NEW_PRICE_COLOR;
             
@@ -43,6 +43,7 @@
 }
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
+    
 }
 
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
@@ -66,12 +67,12 @@
     
     viewDetail.layer.cornerRadius = 5.0;
     viewDetail.layer.borderWidth = 1.0;
-    viewDetail.layer.borderColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0].CGColor;
+    viewDetail.layer.borderColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0].CGColor;
     [viewDetail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTopDomain.mas_centerY);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(255.0);
+        make.height.mas_equalTo(270.0);
     }];
     
     //  ID
@@ -172,6 +173,36 @@
     [lbStateValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRegisterDateValue);
         make.top.bottom.equalTo(self.lbState);
+    }];
+    
+    float hBTN = 40.0;
+    
+    btnChangeDNS.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnChangeDNS.backgroundColor = BLUE_COLOR;
+    btnChangeDNS.layer.cornerRadius = hBTN/2;
+    [btnChangeDNS mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
+        make.bottom.equalTo(self.view).offset(-2*padding);
+        make.height.mas_equalTo(hBTN);
+    }];
+    
+    btnUpdatePassport.titleLabel.font = btnChangeDNS.titleLabel.font;
+    btnUpdatePassport.backgroundColor = BLUE_COLOR;
+    btnUpdatePassport.layer.cornerRadius = hBTN/2;
+    [btnUpdatePassport mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.btnChangeDNS);
+        make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-padding);
+        make.height.equalTo(self.btnChangeDNS.mas_height);
+    }];
+    
+    btnRenewDomain.titleLabel.font = btnChangeDNS.titleLabel.font;
+    btnRenewDomain.backgroundColor = BLUE_COLOR;
+    btnRenewDomain.layer.cornerRadius = hBTN/2;
+    [btnRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.btnUpdatePassport);
+        make.bottom.equalTo(self.btnUpdatePassport.mas_top).offset(-padding);
+        make.height.equalTo(self.btnUpdatePassport.mas_height);
     }];
 }
 
