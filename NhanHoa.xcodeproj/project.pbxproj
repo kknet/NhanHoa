@@ -75,6 +75,14 @@
 		15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 15224F0A2272EDDF00A45C3B /* AppUtils.m */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		159F7D8E227AAC4800A64586 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8C227AAC4500A64586 /* trash@2x.png */; };
+		159F7D8F227AAC4800A64586 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8D227AAC4700A64586 /* trash.png */; };
+		159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7D91227AC88E00A64586 /* PaymentViewController.m */; };
+		159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D92227AC88E00A64586 /* PaymentViewController.xib */; };
+		159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7D96227AC92B00A64586 /* PaymentStepView.m */; };
+		159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D98227AC93800A64586 /* PaymentStepView.xib */; };
+		159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7DB9227AF63300A64586 /* DomainProfileCell.m */; };
+		159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7DBA227AF63300A64586 /* DomainProfileCell.xib */; };
 		15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A613B022744C56000F6779 /* AppTabbarViewController.m */; };
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
 		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
@@ -268,6 +276,17 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		159F7D8C227AAC4500A64586 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash@2x.png"; sourceTree = "<group>"; };
+		159F7D8D227AAC4700A64586 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
+		159F7D90227AC88E00A64586 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		159F7D91227AC88E00A64586 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
+		159F7D92227AC88E00A64586 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
+		159F7D95227AC92B00A64586 /* PaymentStepView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentStepView.h; sourceTree = "<group>"; };
+		159F7D96227AC92B00A64586 /* PaymentStepView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentStepView.m; sourceTree = "<group>"; };
+		159F7D98227AC93800A64586 /* PaymentStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentStepView.xib; sourceTree = "<group>"; };
+		159F7DB8227AF63300A64586 /* DomainProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainProfileCell.h; sourceTree = "<group>"; };
+		159F7DB9227AF63300A64586 /* DomainProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainProfileCell.m; sourceTree = "<group>"; };
+		159F7DBA227AF63300A64586 /* DomainProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainProfileCell.xib; sourceTree = "<group>"; };
 		15A613AF22744C56000F6779 /* AppTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTabbarViewController.h; sourceTree = "<group>"; };
 		15A613B022744C56000F6779 /* AppTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppTabbarViewController.m; sourceTree = "<group>"; };
 		15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NhanHoa_PrefixHeader.pch; sourceTree = SOURCE_ROOT; };
@@ -666,6 +685,8 @@
 				845D32C5227943A20047B196 /* tick_orange.png */,
 				845D32C92279624C0047B196 /* arrow_down.png */,
 				845D32C82279624C0047B196 /* arrow_down@2x.png */,
+				159F7D8D227AAC4700A64586 /* trash.png */,
+				159F7D8C227AAC4500A64586 /* trash@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -807,6 +828,9 @@
 				8460F63E227A644300A185B0 /* CartViewController.h */,
 				8460F63F227A644300A185B0 /* CartViewController.m */,
 				8460F640227A644300A185B0 /* CartViewController.xib */,
+				159F7D90227AC88E00A64586 /* PaymentViewController.h */,
+				159F7D91227AC88E00A64586 /* PaymentViewController.m */,
+				159F7D92227AC88E00A64586 /* PaymentViewController.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -820,6 +844,12 @@
 				8460F649227A686C00A185B0 /* CartDomainItemCell.h */,
 				8460F64A227A686C00A185B0 /* CartDomainItemCell.m */,
 				8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */,
+				159F7D95227AC92B00A64586 /* PaymentStepView.h */,
+				159F7D96227AC92B00A64586 /* PaymentStepView.m */,
+				159F7D98227AC93800A64586 /* PaymentStepView.xib */,
+				159F7DB8227AF63300A64586 /* DomainProfileCell.h */,
+				159F7DB9227AF63300A64586 /* DomainProfileCell.m */,
+				159F7DBA227AF63300A64586 /* DomainProfileCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -932,6 +962,7 @@
 				845D32BD22793DF50047B196 /* RegisterAccountStep2ViewController.xib in Resources */,
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
+				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				1517FBB922745D9B0044E878 /* search@2x.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
@@ -950,6 +981,7 @@
 				1517FBBE22745D9B0044E878 /* caseback@2x.png in Resources */,
 				846AACBC2276CAFE005BC87E /* cart.png in Resources */,
 				840F5DF122770962005BFC57 /* special_notext.png in Resources */,
+				159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
@@ -962,6 +994,7 @@
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				1517FB652274465B0044E878 /* menu_list_domain@2x.png in Resources */,
 				846AACBD2276CAFE005BC87E /* cart@2x.png in Resources */,
+				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				8446F4B92277C55E008F4EE9 /* add@2x.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
@@ -1012,6 +1045,7 @@
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
+				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				1517FBB722745D9B0044E878 /* notify@2x.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
@@ -1058,6 +1092,7 @@
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
+				159F7D8E227AAC4800A64586 /* trash@2x.png in Resources */,
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				840F5DF022770962005BFC57 /* special_text@2x.png in Resources */,
 				846A41942275C759003C5D87 /* search_multi_domain@2x.png in Resources */,
@@ -1118,6 +1153,8 @@
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
+				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
+				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
@@ -1129,6 +1166,7 @@
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
+				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,

@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *icNotify;
 @property (weak, nonatomic) IBOutlet UIButton *icClear;
 @property (weak, nonatomic) IBOutlet UIButton *btnSearch;
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
+
 
 @property (weak, nonatomic) IBOutlet UIView *viewBanner;
 
@@ -33,6 +36,7 @@
 
 - (IBAction)icNotifyClick:(UIButton *)sender;
 - (IBAction)icClearClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 
 @property (nonatomic, assign) float hMenu;
 

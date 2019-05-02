@@ -13,20 +13,24 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hTextfield = 38.0;
     
     tfCode.layer.borderWidth = 1.0;
     tfCode.layer.cornerRadius = 38.0/2;
     tfCode.layer.borderColor = ORANGE_COLOR.CGColor;
+    tfCode.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [tfCode mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(38.0);
+        make.height.mas_equalTo(hTextfield);
     }];
+    tfCode.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
+    tfCode.leftViewMode = UITextFieldViewModeAlways;
     
-    float btnPadding = 2.0;
+    float btnPadding = 3.0;
     btnApply.layer.borderWidth = 1.0;
-    btnApply.layer.cornerRadius = 38.0/2;
+    btnApply.layer.cornerRadius = (hTextfield - 2*btnPadding)/2;
     btnApply.layer.borderColor = ORANGE_COLOR.CGColor;
     [btnApply mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tfCode.mas_right).offset(-btnPadding);

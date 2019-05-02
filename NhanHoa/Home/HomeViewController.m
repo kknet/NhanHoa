@@ -10,6 +10,7 @@
 #import "RegisterDomainViewController.h"
 #import "WhoIsViewController.h"
 #import "RenewedDomainViewController.h"
+#import "CartViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 
@@ -20,7 +21,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize viewSearch, tfSearch, icNotify, icClear, btnSearch;
+@synthesize viewSearch, tfSearch, icNotify, icClear, btnSearch, icCart, lbCount;
 @synthesize viewBanner;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
@@ -52,6 +53,12 @@
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {
+}
+
+- (IBAction)icCartClick:(UIButton *)sender {
+    CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
+    cartVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController: cartVC animated:YES];
 }
 
 #pragma mark - UICollectionview menu
@@ -184,11 +191,27 @@
     }];
     float statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     
-    icNotify.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
-    [icNotify mas_makeConstraints:^(MASConstraintMaker *make) {
+    icCart.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.right.equalTo(self.viewSearch);
         make.top.equalTo(self.viewSearch).offset(statusBarHeight);
         make.width.mas_equalTo(hSearch - statusBarHeight);
+    }];
+    
+    lbCount.clipsToBounds = TRUE;
+    lbCount.layer.cornerRadius = 20.0/2;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.icCart).offset(3.0);
+        make.right.equalTo(self.icCart).offset(-3.0);
+        make.width.height.mas_equalTo(20.0);
+    }];
+    
+    icNotify.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
+    [icNotify mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icCart);
+        make.right.equalTo(self.icCart.mas_left);
+        make.width.equalTo(self.icCart.mas_width);
     }];
     
     float hTextfield = 34.0;
