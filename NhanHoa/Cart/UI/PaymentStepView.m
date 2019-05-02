@@ -15,6 +15,7 @@
     float padding = 3.0;
     float hStepIcon = 22.0;
     
+    self.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     UIColor *disableColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(200/255.0) alpha:1.0];
     lbSepa2.textColor = disableColor;
     lbSepa2.text = @"--------";
@@ -107,6 +108,31 @@
         make.centerX.equalTo(self.lbFour.mas_centerX);
         make.width.equalTo(self.lbProfile.mas_width);
     }];
+}
+
+- (void)updateUIForStep: (PaymentStep)step {
+    UIColor *disableColor = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(200/255.0) alpha:1.0];
+    
+    if (step == ePaymentProfile) {
+        lbProfile.textColor = lbOne.backgroundColor = BLUE_COLOR;
+        lbSepa1.textColor = lbSepa2.textColor = lbSepa3.textColor = disableColor;
+        lbTwo.backgroundColor = lbThree.backgroundColor = lbFour.backgroundColor = disableColor;
+        lbConfirm.textColor = lbPayment.textColor = lbDone.textColor = disableColor;
+        
+    }else if (step == ePaymentConfirm) {
+        lbProfile.textColor = lbConfirm.textColor = lbOne.backgroundColor = lbTwo.backgroundColor = lbSepa1.textColor = BLUE_COLOR;
+        lbSepa2.textColor = lbSepa3.textColor = disableColor;
+        lbThree.backgroundColor = lbFour.backgroundColor = disableColor;
+        lbPayment.textColor = lbDone.textColor = disableColor;
+        
+    }else if (step == ePaymentCharge) {
+        lbProfile.textColor = lbConfirm.textColor = lbPayment.textColor = lbOne.backgroundColor = lbTwo.backgroundColor = lbThree.backgroundColor = lbSepa1.textColor = lbSepa2.textColor = BLUE_COLOR;
+        
+        lbSepa3.textColor = lbFour.backgroundColor = lbDone.textColor = disableColor;
+        
+    }else{
+        lbProfile.textColor = lbConfirm.textColor = lbPayment.textColor = lbDone.textColor = lbOne.backgroundColor = lbTwo.backgroundColor = lbThree.backgroundColor = lbFour.backgroundColor = lbSepa1.textColor = lbSepa2.textColor = lbSepa3.textColor = BLUE_COLOR;
+    }
 }
 
 @end

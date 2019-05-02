@@ -184,6 +184,8 @@
 		846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */ = {isa = PBXBuildFile; fileRef = 846EA90A2276E95C00F1D7DB /* search_sad.png */; };
 		846EA90F2276E95C00F1D7DB /* search_smile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846EA90B2276E95C00F1D7DB /* search_smile@2x.png */; };
 		846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 846EA9112276EF6D00F1D7DB /* DomainObject.m */; };
+		8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8477A59F227B4DAE003194E8 /* SelectProfileView.m */; };
+		8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */; };
 		8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5A22279A12E00B921B7 /* RenewedDomainViewController.m */; };
 		8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */; };
 		8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5A82279A74400B921B7 /* ExpireDomainCell.m */; };
@@ -191,6 +193,8 @@
 		8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */; };
 		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
+		84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2B227B350F00FCFC58 /* ic_profile.png */; };
+		84C78F2E227B351200FCFC58 /* ic_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2C227B351000FCFC58 /* ic_profile@2x.png */; };
 		84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DE29A62277F133005691AD /* WhoIsDomainView.m */; };
 		84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE29A82277F13E005691AD /* WhoIsDomainView.xib */; };
 /* End PBXBuildFile section */
@@ -412,6 +416,9 @@
 		846EA90B2276E95C00F1D7DB /* search_smile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_smile@2x.png"; sourceTree = "<group>"; };
 		846EA9102276EF6D00F1D7DB /* DomainObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainObject.h; sourceTree = "<group>"; };
 		846EA9112276EF6D00F1D7DB /* DomainObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainObject.m; sourceTree = "<group>"; };
+		8477A59E227B4DAE003194E8 /* SelectProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectProfileView.h; sourceTree = "<group>"; };
+		8477A59F227B4DAE003194E8 /* SelectProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectProfileView.m; sourceTree = "<group>"; };
+		8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectProfileView.xib; sourceTree = "<group>"; };
 		8490A5A12279A12E00B921B7 /* RenewedDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewedDomainViewController.h; sourceTree = "<group>"; };
 		8490A5A22279A12E00B921B7 /* RenewedDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewedDomainViewController.m; sourceTree = "<group>"; };
 		8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewedDomainViewController.xib; sourceTree = "<group>"; };
@@ -423,6 +430,8 @@
 		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
 		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
 		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
+		84C78F2B227B350F00FCFC58 /* ic_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_profile.png; sourceTree = "<group>"; };
+		84C78F2C227B351000FCFC58 /* ic_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_profile@2x.png"; sourceTree = "<group>"; };
 		84DE29A52277F133005691AD /* WhoIsDomainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsDomainView.h; sourceTree = "<group>"; };
 		84DE29A62277F133005691AD /* WhoIsDomainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsDomainView.m; sourceTree = "<group>"; };
 		84DE29A82277F13E005691AD /* WhoIsDomainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsDomainView.xib; sourceTree = "<group>"; };
@@ -687,6 +696,8 @@
 				845D32C82279624C0047B196 /* arrow_down@2x.png */,
 				159F7D8D227AAC4700A64586 /* trash.png */,
 				159F7D8C227AAC4500A64586 /* trash@2x.png */,
+				84C78F2B227B350F00FCFC58 /* ic_profile.png */,
+				84C78F2C227B351000FCFC58 /* ic_profile@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -850,6 +861,9 @@
 				159F7DB8227AF63300A64586 /* DomainProfileCell.h */,
 				159F7DB9227AF63300A64586 /* DomainProfileCell.m */,
 				159F7DBA227AF63300A64586 /* DomainProfileCell.xib */,
+				8477A59E227B4DAE003194E8 /* SelectProfileView.h */,
+				8477A59F227B4DAE003194E8 /* SelectProfileView.m */,
+				8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1029,6 +1043,7 @@
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				1517FBBC22745D9B0044E878 /* wallet@2x.png in Resources */,
 				1517FB612274465B0044E878 /* menu_withdrawal@2x.png in Resources */,
+				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
@@ -1045,6 +1060,7 @@
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
+				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				1517FBB722745D9B0044E878 /* notify@2x.png in Resources */,
@@ -1078,6 +1094,7 @@
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
+				84C78F2E227B351200FCFC58 /* ic_profile@2x.png in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
 				840F5DF522770962005BFC57 /* special_text.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
@@ -1139,6 +1156,7 @@
 				841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */,
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
+				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
 				1517FB7D227450710044E878 /* AccountViewController.m in Sources */,
 				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,

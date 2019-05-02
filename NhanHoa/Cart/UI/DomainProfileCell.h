@@ -16,5 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIView *viewProfileInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *imgType;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileDesc;
+@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
+
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hBTN;
+
+- (void)showProfileView: (BOOL)show;
 
 @end

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    ePaymentProfile,
+    ePaymentConfirm,
+    ePaymentCharge,
+    ePaymentDone,
+}PaymentStep;
+
 @interface PaymentStepView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *lbOne;
@@ -22,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbPayment;
 @property (weak, nonatomic) IBOutlet UILabel *lbDone;
 
+- (void)updateUIForStep: (PaymentStep)step;
 - (void)setupUIForView;
 
 @end
