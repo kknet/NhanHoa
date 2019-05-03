@@ -10,7 +10,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SelectProfileViewDelegate
+- (void)onIconCloseClicked;
+@end
+
 @interface SelectProfileView : UIView
+@property (nonatomic,strong) id<NSObject, SelectProfileViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icAdd;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UITableView *tbProfile;
+@property (weak, nonatomic) IBOutlet UIButton *icClose;
+
+@property (nonatomic, assign) float hHeader;
+
+- (void)setupUIForView;
+- (IBAction)icAddClick:(UIButton *)sender;
+- (IBAction)icCloseClick:(UIButton *)sender;
 
 @end
 

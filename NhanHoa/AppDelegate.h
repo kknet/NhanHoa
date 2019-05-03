@@ -31,5 +31,7 @@ typedef enum TypeHomeMenu{
 
 +(AppDelegate *) sharedInstance;
 
+@property (nonatomic, assign) float hStatusBar;
+
 @end
 

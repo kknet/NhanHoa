@@ -171,6 +171,16 @@
 		8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F647227A651E00A185B0 /* PromotionCodeView.xib */; };
 		8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F64A227A686C00A185B0 /* CartDomainItemCell.m */; };
 		8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */; };
+		8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8464D732227BB7C900381DE5 /* ProfileDetailCell.m */; };
+		8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8464D733227BB7C900381DE5 /* ProfileDetailCell.xib */; };
+		8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D736227BBC8600381DE5 /* passport_front.png */; };
+		8464D73F227BBC8A00381DE5 /* passport_behind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D737227BBC8600381DE5 /* passport_behind@2x.png */; };
+		8464D740227BBC8A00381DE5 /* passport_empty_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D738227BBC8700381DE5 /* passport_empty_front.png */; };
+		8464D741227BBC8A00381DE5 /* passport_empty_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D739227BBC8800381DE5 /* passport_empty_front@2x.png */; };
+		8464D742227BBC8A00381DE5 /* passport_empty_behind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73A227BBC8800381DE5 /* passport_empty_behind@2x.png */; };
+		8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73B227BBC8900381DE5 /* passport_empty_behind.png */; };
+		8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73C227BBC8900381DE5 /* passport_behind.png */; };
+		8464D745227BBC8A00381DE5 /* passport_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73D227BBC8A00381DE5 /* passport_front@2x.png */; };
 		846A41932275C759003C5D87 /* search_multi_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 846A41912275C758003C5D87 /* search_multi_domain.png */; };
 		846A41942275C759003C5D87 /* search_multi_domain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846A41922275C759003C5D87 /* search_multi_domain@2x.png */; };
 		846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846AACB22276C96A005BC87E /* SearchDomainViewController.m */; };
@@ -401,6 +411,17 @@
 		8460F649227A686C00A185B0 /* CartDomainItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartDomainItemCell.h; sourceTree = "<group>"; };
 		8460F64A227A686C00A185B0 /* CartDomainItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartDomainItemCell.m; sourceTree = "<group>"; };
 		8460F64B227A686C00A185B0 /* CartDomainItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartDomainItemCell.xib; sourceTree = "<group>"; };
+		8464D731227BB7C900381DE5 /* ProfileDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileDetailCell.h; sourceTree = "<group>"; };
+		8464D732227BB7C900381DE5 /* ProfileDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileDetailCell.m; sourceTree = "<group>"; };
+		8464D733227BB7C900381DE5 /* ProfileDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailCell.xib; sourceTree = "<group>"; };
+		8464D736227BBC8600381DE5 /* passport_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_front.png; sourceTree = "<group>"; };
+		8464D737227BBC8600381DE5 /* passport_behind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passport_behind@2x.png"; sourceTree = "<group>"; };
+		8464D738227BBC8700381DE5 /* passport_empty_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_empty_front.png; sourceTree = "<group>"; };
+		8464D739227BBC8800381DE5 /* passport_empty_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passport_empty_front@2x.png"; sourceTree = "<group>"; };
+		8464D73A227BBC8800381DE5 /* passport_empty_behind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passport_empty_behind@2x.png"; sourceTree = "<group>"; };
+		8464D73B227BBC8900381DE5 /* passport_empty_behind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_empty_behind.png; sourceTree = "<group>"; };
+		8464D73C227BBC8900381DE5 /* passport_behind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_behind.png; sourceTree = "<group>"; };
+		8464D73D227BBC8A00381DE5 /* passport_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passport_front@2x.png"; sourceTree = "<group>"; };
 		846A41912275C758003C5D87 /* search_multi_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_multi_domain.png; sourceTree = "<group>"; };
 		846A41922275C759003C5D87 /* search_multi_domain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_multi_domain@2x.png"; sourceTree = "<group>"; };
 		846AACB12276C96A005BC87E /* SearchDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchDomainViewController.h; sourceTree = "<group>"; };
@@ -698,6 +719,14 @@
 				159F7D8C227AAC4500A64586 /* trash@2x.png */,
 				84C78F2B227B350F00FCFC58 /* ic_profile.png */,
 				84C78F2C227B351000FCFC58 /* ic_profile@2x.png */,
+				8464D73C227BBC8900381DE5 /* passport_behind.png */,
+				8464D737227BBC8600381DE5 /* passport_behind@2x.png */,
+				8464D73B227BBC8900381DE5 /* passport_empty_behind.png */,
+				8464D73A227BBC8800381DE5 /* passport_empty_behind@2x.png */,
+				8464D738227BBC8700381DE5 /* passport_empty_front.png */,
+				8464D739227BBC8800381DE5 /* passport_empty_front@2x.png */,
+				8464D736227BBC8600381DE5 /* passport_front.png */,
+				8464D73D227BBC8A00381DE5 /* passport_front@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -864,6 +893,9 @@
 				8477A59E227B4DAE003194E8 /* SelectProfileView.h */,
 				8477A59F227B4DAE003194E8 /* SelectProfileView.m */,
 				8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */,
+				8464D731227BB7C900381DE5 /* ProfileDetailCell.h */,
+				8464D732227BB7C900381DE5 /* ProfileDetailCell.m */,
+				8464D733227BB7C900381DE5 /* ProfileDetailCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -977,6 +1009,8 @@
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
+				8464D742227BBC8A00381DE5 /* passport_empty_behind@2x.png in Resources */,
+				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				1517FBB922745D9B0044E878 /* search@2x.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
@@ -990,6 +1024,7 @@
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
 				1517FB602274465B0044E878 /* menu_recharge.png in Resources */,
 				1517FBA022745D810044E878 /* tabbar_BO_act.png in Resources */,
+				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				842F81B6227561ED00D6DE6D /* Roboto-Bold.ttf in Resources */,
 				1517FBBE22745D9B0044E878 /* caseback@2x.png in Resources */,
@@ -1003,6 +1038,7 @@
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
+				8464D73F227BBC8A00381DE5 /* passport_behind@2x.png in Resources */,
 				8460F63C227A625300A185B0 /* RenewViewController.xib in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
@@ -1047,6 +1083,7 @@
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
+				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
@@ -1055,6 +1092,8 @@
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
 				1517FB642274465B0044E878 /* menu_list_domain.png in Resources */,
+				8464D741227BBC8A00381DE5 /* passport_empty_front@2x.png in Resources */,
+				8464D745227BBC8A00381DE5 /* passport_front@2x.png in Resources */,
 				1517FB9722745D810044E878 /* tabbar_history_act.png in Resources */,
 				845D32C6227943A20047B196 /* no_tick.png in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
@@ -1074,6 +1113,7 @@
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
 				841966932276077400C14516 /* comvn.png in Resources */,
 				842F81C6227581A300D6DE6D /* ic_search_domain@2x.png in Resources */,
+				8464D740227BBC8A00381DE5 /* passport_empty_front.png in Resources */,
 				842F81B7227561ED00D6DE6D /* Roboto-Medium.ttf in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
@@ -1089,6 +1129,7 @@
 				1517FB9B22745D810044E878 /* tabbar_history_act@2x.png in Resources */,
 				841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */,
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
+				8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
@@ -1161,6 +1202,7 @@
 				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
+				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
 				8419668A227604E300C14516 /* SuggestMenuObject.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,

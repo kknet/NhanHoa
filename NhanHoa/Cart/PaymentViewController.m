@@ -7,10 +7,9 @@
 //
 
 #import "PaymentViewController.h"
-#import "ProfileListViewController.h"
 #import "DomainProfileCell.h"
 
-@interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate>{
     float hCell;
     float hSmallCell;
 }
@@ -18,7 +17,7 @@
 @end
 
 @implementation PaymentViewController
-@synthesize viewMenu, scvContent, tbContent, btnPayment;
+@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView;
 @synthesize hMenu;
 
 - (void)viewDidLoad {
@@ -110,15 +109,60 @@
     [viewMenu updateUIForStep: ePaymentProfile];
 }
 
+#pragma mark - SelectProfileViewDelegate
+
+- (void)showProfileList: (BOOL)show {
+    if (show) {
+        [chooseProfileView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.right.equalTo(self.view);
+        }];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.view layoutIfNeeded];
+        }completion:^(BOOL finished) {
+            self.navigationController.navigationBarHidden = show;
+        }];
+        
+    }else{
+        self.navigationController.navigationBarHidden = show;
+        [chooseProfileView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+            make.left.bottom.right.equalTo(self.view);
+        }];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+}
+
 - (void)chooseProfile: (UIButton *)sender {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.2;
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromTop;
-    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
-    
-    ProfileListViewController *profileListVC = [[ProfileListViewController alloc] initWithNibName:@"ProfileListViewController" bundle:nil];
-    [self.navigationController pushViewController:profileListVC animated:NO];
+    if (chooseProfileView.frame.origin.y == 0) {
+        [self showProfileList: FALSE];
+    }else{
+        [self showProfileList: TRUE];
+    }
+}
+
+- (void)addListProfileForChoose {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"SelectProfileView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[SelectProfileView class]]) {
+            chooseProfileView = (SelectProfileView *) currentObject;
+            break;
+        }
+    }
+    chooseProfileView.delegate = self;
+    chooseProfileView.hHeader = [AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height;
+    [self.view addSubview: chooseProfileView];
+    [chooseProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        make.left.bottom.right.equalTo(self.view);
+    }];
+    [chooseProfileView setupUIForView];
+}
+
+- (void)onIconCloseClicked {
+    [self showProfileList: FALSE];
 }
 
 #pragma mark - UITableview

@@ -16,11 +16,14 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
+@synthesize hStatusBar;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
     
     //  custom tabbar & navigation bar
+    hStatusBar = application.statusBarFrame.size.height;
+    
     NSDictionary *titleInfo = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoItalic size:0.1], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateNormal];
     [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateHighlighted];

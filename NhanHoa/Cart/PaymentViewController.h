@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PaymentStepView.h"
+#import "SelectProfileView.h"
 
 @interface PaymentViewController : UIViewController
 
 @property (nonatomic, strong) PaymentStepView *viewMenu;
+@property (nonatomic, strong) SelectProfileView *chooseProfileView;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnPayment;

@@ -23,6 +23,9 @@
                             <rect key="frame" x="272" y="5" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="add.png"/>
+                            <connections>
+                                <action selector="icAddClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="NdU-bL-B4u"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Danh sách hồ sơ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuV-E6-4x8">
                             <rect key="frame" x="96" y="15" width="128" height="21"/>
@@ -31,6 +34,14 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGB-GM-dy1">
+                            <rect key="frame" x="8" y="5" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="close.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="GXk-dn-yY1"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -42,10 +53,18 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="531" y="155"/>
+            <connections>
+                <outlet property="icAdd" destination="bmC-WS-p9t" id="3i9-6K-A6l"/>
+                <outlet property="icClose" destination="vGB-GM-dy1" id="smq-r6-XLN"/>
+                <outlet property="lbTitle" destination="SuV-E6-4x8" id="2Fx-m7-25z"/>
+                <outlet property="tbProfile" destination="G9a-nu-wTc" id="ZVb-Cx-CJ6"/>
+                <outlet property="viewHeader" destination="LW3-xV-tug" id="gKK-rP-0vo"/>
+            </connections>
+            <point key="canvasLocation" x="564.79999999999995" y="138.53073463268368"/>
         </view>
     </objects>
     <resources>
         <image name="add.png" width="200" height="200"/>
+        <image name="close.png" width="200" height="200"/>
     </resources>
 </document>
