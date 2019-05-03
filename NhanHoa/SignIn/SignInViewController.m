@@ -9,16 +9,34 @@
 #import "SignInViewController.h"
 #import "AppTabbarViewController.h"
 #import "RegisterAccountViewController.h"
+#import "WebServices.h"
+#import <CommonCrypto/CommonDigest.h>
 
-@interface SignInViewController (){
+@interface SignInViewController ()<WebServicesDelegate>{
     UIColor *signInColor;
     UIColor *textColor;
+    WebServices *webService;
 }
+@end
 
+@implementation NSString (MD5)
+- (NSString *)MD5String {
+    const char *cstr = [self UTF8String];
+    unsigned char result[16];
+    CC_MD5(cstr, (int)strlen(cstr), result);
+    
+    return [NSString stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
 @end
 
 @implementation SignInViewController
-@synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister;
+@synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister, icWaiting;
 @synthesize hHeader, padding;
 
 - (void)viewDidLoad {
@@ -33,6 +51,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+    }
+    webService.delegate = self;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    webService = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,9 +93,31 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"login_state"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
     AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
     [self presentViewController:tabbarVC animated:YES completion:nil];
+    return;
+    
+    if ([AppUtils isNullOrEmpty: tfAccount.text] || [AppUtils isNullOrEmpty: tfPassword.text]) {
+        [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin!" duration:2.0 position:CSToastPositionCenter style:nil];
+        return;
+    }
+    
+    [icWaiting startAnimating];
+    icWaiting.hidden = FALSE;
+    
+    NSString *password = [[tfPassword.text MD5String] lowercaseString];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:login_mode forKey:@"mod"];
+    [jsonDict setObject:tfAccount.text forKey:@"username"];
+    [jsonDict setObject:password forKey:@"password"];
+    
+    [webService callWebServiceWithLink:login_func withParams:jsonDict];
+    
+    //[webService callWebServiceWithLink:login_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
@@ -246,6 +296,43 @@
         make.right.equalTo(self.view).offset(-self.padding);
         make.height.mas_equalTo(hButton);
     }];
+    
+    icWaiting.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    icWaiting.backgroundColor = UIColor.whiteColor;
+    icWaiting.alpha = 0.5;
+    [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    icWaiting.hidden = TRUE;
 }
 
+#pragma mark - Webservice delegate
+
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [icWaiting stopAnimating];
+    icWaiting.hidden = TRUE;
+    
+    if ([link isEqualToString:@""]) {
+        [self.view makeToast:@"Lỗi không xác định" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+    }else if ([link isEqualToString: login_func]) {
+        [self.view makeToast:@"Sai thông tin đăng nhập. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionBottom style:[AppDelegate sharedInstance].errorStyle];
+    }
+    
+    //
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if ([link isEqualToString:login_func]) {
+        
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    NSLog(@"%d", responeCode);
+}
 @end

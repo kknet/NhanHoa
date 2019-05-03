@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -65,6 +65,9 @@
                             <rect key="frame" x="8" y="34" width="23" height="23"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="tick_orange.png"/>
+                            <connections>
+                                <action selector="icPersonalClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="gvG-Db-bK9"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cho cá nhân" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR3-4C-yEk">
                             <rect key="frame" x="39" y="36" width="86" height="18"/>
@@ -77,6 +80,9 @@
                             <rect key="frame" x="153" y="34" width="23" height="23"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="no_tick.png"/>
+                            <connections>
+                                <action selector="icBusinessClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="xqS-JJ-lEy"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cho doanh nghiệp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njq-JA-2v6">
                             <rect key="frame" x="184" y="36" width="126" height="18"/>
@@ -110,6 +116,9 @@
                             <rect key="frame" x="7" y="178" width="23" height="23"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="tick_orange.png"/>
+                            <connections>
+                                <action selector="icMaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Djd-3o-1Tw"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nam" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqd-GX-pLL">
                             <rect key="frame" x="38" y="180" width="32" height="18"/>
@@ -122,6 +131,9 @@
                             <rect key="frame" x="93" y="178" width="23" height="23"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="no_tick.png"/>
+                            <connections>
+                                <action selector="icFemaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="fdS-4c-JOB"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nữ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDq-r9-q6K">
                             <rect key="frame" x="124" y="180" width="21" height="18"/>
@@ -222,6 +234,9 @@
                             <rect key="frame" x="12" y="488" width="86" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="btnCountryPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="F0I-7l-l6D"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/Thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9F1-q5-liv">
                             <rect key="frame" x="196" y="466" width="109" height="18"/>
@@ -246,10 +261,61 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CtD-nk-0Zz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="picture.png" translatesAutoresizingMaskIntoConstraints="NO" id="CtD-nk-0Zz">
                             <rect key="frame" x="8" y="530" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ảnh CMND 2 mặt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIp-U1-oD5">
+                            <rect key="frame" x="50" y="536" width="119" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-Sb-ova">
+                            <rect key="frame" x="7" y="577" width="138" height="103"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mặt trước" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hz1-JK-2PI">
+                            <rect key="frame" x="49" y="688" width="67" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_behind.png" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-OU-Dt4">
+                            <rect key="frame" x="163" y="577" width="142" height="103"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mặt sau" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGX-4S-6sS">
+                            <rect key="frame" x="221" y="688" width="55" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aj-hQ-rDK">
+                            <rect key="frame" x="33" y="744" width="97" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Hủy">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="btnCancelPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="aU9-M6-stP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgO-NV-DEw">
+                            <rect key="frame" x="179" y="744" width="97" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Lưu hồ sơ">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="btnSavePress:" destination="iN0-l3-epB" eventType="touchUpInside" id="MxK-4h-k5K"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </scrollView>
@@ -257,13 +323,52 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnCancel" destination="1aj-hQ-rDK" id="YJv-TF-pw8"/>
+                <outlet property="btnCity" destination="KBw-6I-CPl" id="FHa-DM-JJK"/>
+                <outlet property="btnCountry" destination="zaz-97-945" id="E9w-Vj-TBn"/>
+                <outlet property="btnSave" destination="tgO-NV-DEw" id="79I-rD-7T0"/>
                 <outlet property="icAdd" destination="bmC-WS-p9t" id="3i9-6K-A6l"/>
+                <outlet property="icBusiness" destination="kNm-nJ-nOc" id="Qcv-DR-zhL"/>
                 <outlet property="icClose" destination="vGB-GM-dy1" id="smq-r6-XLN"/>
+                <outlet property="icFemale" destination="d0K-EM-qCW" id="dcs-EJ-KM8"/>
+                <outlet property="icMale" destination="K1G-oA-q3C" id="Jxo-t5-kHt"/>
+                <outlet property="icPersonal" destination="xHf-Gd-wCE" id="hrQ-kz-iO1"/>
+                <outlet property="imgArrCity" destination="TAr-Ub-Hih" id="kQV-oR-c3p"/>
+                <outlet property="imgArrCountry" destination="uIU-9w-MuM" id="1eI-SK-vlY"/>
+                <outlet property="imgPassport" destination="CtD-nk-0Zz" id="eRD-cZ-A9Z"/>
+                <outlet property="imgPassportBehind" destination="VFA-OU-Dt4" id="f0Z-Vw-vkH"/>
+                <outlet property="imgPassportFront" destination="PsR-Sb-ova" id="Ep7-ij-Vkf"/>
+                <outlet property="lbAddress" destination="guf-Lf-zbc" id="bTz-Vh-knh"/>
+                <outlet property="lbBOD" destination="UGR-73-4pm" id="EZb-TL-IR1"/>
+                <outlet property="lbBusiness" destination="njq-JA-2v6" id="PIY-C8-t9Y"/>
+                <outlet property="lbCity" destination="9F1-q5-liv" id="inG-ZL-4br"/>
+                <outlet property="lbCountry" destination="TzT-rE-apw" id="oOb-z9-dvD"/>
+                <outlet property="lbEmail" destination="BNv-Tb-gcH" id="S7z-SG-XUr"/>
+                <outlet property="lbFemale" destination="RDq-r9-q6K" id="Tfd-oE-d64"/>
+                <outlet property="lbMale" destination="Xqd-GX-pLL" id="kfu-qT-YHk"/>
+                <outlet property="lbName" destination="fS8-jP-Ysu" id="6ih-b3-hN0"/>
+                <outlet property="lbPassport" destination="pmQ-hC-99s" id="Wcd-BG-3oo"/>
+                <outlet property="lbPassportBehind" destination="nGX-4S-6sS" id="tci-Jb-K7e"/>
+                <outlet property="lbPassportFront" destination="hz1-JK-2PI" id="rym-K3-wV4"/>
+                <outlet property="lbPersonal" destination="AR3-4C-yEk" id="kkk-Ij-vNn"/>
+                <outlet property="lbPhone" destination="Eve-MH-NZM" id="Zmq-Sv-JyK"/>
+                <outlet property="lbSex" destination="nkp-S4-G5o" id="S82-Kw-3o8"/>
                 <outlet property="lbTitle" destination="SuV-E6-4x8" id="2Fx-m7-25z"/>
+                <outlet property="lbTitlePassport" destination="RIp-U1-oD5" id="cnG-xA-AFB"/>
+                <outlet property="lbVision" destination="UbV-PY-h9b" id="cIw-hj-aVs"/>
+                <outlet property="scvAddProfile" destination="McC-C0-Aab" id="Axc-Tp-ItF"/>
                 <outlet property="tbProfile" destination="G9a-nu-wTc" id="ZVb-Cx-CJ6"/>
+                <outlet property="tfAddress" destination="OdD-o8-rK1" id="qga-g7-Iu2"/>
+                <outlet property="tfBOD" destination="SFV-XG-Smw" id="dTy-qu-F3f"/>
+                <outlet property="tfCity" destination="HUr-AC-1zw" id="Rm8-jy-UgB"/>
+                <outlet property="tfCountry" destination="qj0-Cl-g6b" id="cLV-uH-Z8f"/>
+                <outlet property="tfEmail" destination="hUL-cQ-gSg" id="46V-uq-DKx"/>
+                <outlet property="tfName" destination="n8e-FF-5nW" id="ICd-oM-kVn"/>
+                <outlet property="tfPassport" destination="Asq-ff-FKu" id="sja-yC-l85"/>
+                <outlet property="tfPhone" destination="cuh-df-FJS" id="4uA-WX-m83"/>
                 <outlet property="viewHeader" destination="LW3-xV-tug" id="gKK-rP-0vo"/>
             </connections>
-            <point key="canvasLocation" x="-2" y="306"/>
+            <point key="canvasLocation" x="-133" y="175"/>
         </view>
     </objects>
     <resources>
@@ -271,6 +376,9 @@
         <image name="arrow_down.png" width="100" height="100"/>
         <image name="close.png" width="200" height="200"/>
         <image name="no_tick.png" width="200" height="200"/>
+        <image name="passport_empty_behind.png" width="512" height="323"/>
+        <image name="passport_empty_front.png" width="512" height="323"/>
+        <image name="picture.png" width="200" height="200"/>
         <image name="tick_orange.png" width="200" height="200"/>
     </resources>
 </document>

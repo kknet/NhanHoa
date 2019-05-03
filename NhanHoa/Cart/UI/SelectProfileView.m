@@ -13,6 +13,9 @@
 @synthesize viewHeader, icAdd, lbTitle, tbProfile, icClose;
 @synthesize hHeader, delegate, selectedRow;
 
+//  Add profile
+@synthesize scvAddProfile, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, imgPassportBehind, lbPassportFront, lbPassportBehind, btnSave, btnCancel;
+
 - (void)setupUIForView {
     selectedRow = 0;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -49,6 +52,65 @@
         make.top.equalTo(self.viewHeader.mas_bottom);
         make.left.right.bottom.equalTo(self);
     }];
+    
+    //  setup for add profile
+    float padding = 15.0;
+    float mTop = 10.0;
+    
+    [scvAddProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.right.bottom.equalTo(self);
+    }];
+    
+    lbVision.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbVision.textColor = TITLE_COLOR;
+    [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.scvAddProfile);
+        make.left.equalTo(self).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.height.mas_equalTo(40.0);
+    }];
+    
+    //  Choose type profile
+    icPersonal.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbVision.mas_bottom).offset(5.0);
+        make.left.equalTo(self.lbVision).offset(-4.0);
+        make.width.height.mas_equalTo(30.0);
+    }];
+    
+    lbPersonal.textColor = lbVision.textColor;
+    lbPersonal.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    [lbPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icPersonal);
+        make.left.equalTo(self.icPersonal.mas_right).offset(3.0);
+        make.right.equalTo(self.mas_centerX);
+    }];
+    
+    icBusiness.imageEdgeInsets = icPersonal.imageEdgeInsets;
+    [icBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icPersonal);
+        make.left.equalTo(self.mas_centerX);
+        make.width.equalTo(self.icPersonal.mas_width);
+    }];
+    
+    lbBusiness.textColor = lbVision.textColor;
+    lbBusiness.font = lbPersonal.font;
+    [lbBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.lbPersonal);
+        make.left.equalTo(self.icBusiness.mas_right).offset(3.0);
+        make.right.equalTo(self).offset(-padding);
+    }];
+    
+    //  Name
+    lbName.textColor = lbVision.textColor;
+    lbName.font = lbPersonal.font;
+    [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbBusiness.mas_bottom).offset(mTop);
+        make.left.right.equalTo(self.lbVision);
+        mas_equalTo(.he)
+    }];
+    
 }
 
 - (IBAction)icAddClick:(UIButton *)sender {
@@ -119,4 +181,24 @@
 }
 
 
+- (IBAction)icPersonalClick:(UIButton *)sender {
+}
+
+- (IBAction)icBusinessClick:(UIButton *)sender {
+}
+
+- (IBAction)icMaleClick:(UIButton *)sender {
+}
+
+- (IBAction)icFemaleClick:(UIButton *)sender {
+}
+
+- (IBAction)btnCountryPress:(UIButton *)sender {
+}
+
+- (IBAction)btnCancelPress:(UIButton *)sender {
+}
+
+- (IBAction)btnSavePress:(UIButton *)sender {
+}
 @end

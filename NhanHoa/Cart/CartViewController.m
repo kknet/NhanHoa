@@ -225,7 +225,7 @@
         make.left.equalTo(self.scvContent);
         make.top.equalTo(self.tbDomains.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hPromoView);
+        make.height.mas_equalTo(self.hPromoView);
     }];
     [promoView setupUIForView];
 }
@@ -241,6 +241,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSDictionary *domain = [listData objectAtIndex: indexPath.row];
     NSString *domainName = [domain objectForKey:@"name"];

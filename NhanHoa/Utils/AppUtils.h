@@ -18,5 +18,8 @@
 + (NSString *)convertStringToCurrencyFormat: (NSString *)content;
 + (NSAttributedString *)convertLineStringToCurrencyFormat: (NSString *)content;
 + (void)addDashedLineForView: (UIView *)view color: (UIColor *)color;
++(BOOL)isNullOrEmpty:(NSString*)string;
++ (NSString *)getCurrentDate;
++ (NSString *)getCurrentDateTimeToString;
 
 @end

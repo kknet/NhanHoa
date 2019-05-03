@@ -21,6 +21,14 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
+#define link_api    @"https://nhanhoa.com/app-awk"
+#define login_func  @"Login"
+
+
+#define login_mode  @"login"
+
+#define logsFolderName      @"LogFiles"
+
 #define IS_IPHONE ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPhone" ] )
 #define IS_IPOD   ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPod touch" ] )
 

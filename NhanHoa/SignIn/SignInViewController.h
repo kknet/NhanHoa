@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SignInViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLogo;
 @property (weak, nonatomic) IBOutlet UILabel *lbCompany;

@@ -144,6 +144,7 @@
 		842F81CA2275BD4600D6DE6D /* CustomTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 842F81C92275BD4600D6DE6D /* CustomTextAttachment.m */; };
 		842F81CD2275BEF300D6DE6D /* info_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 842F81CB2275BEF300D6DE6D /* info_red@2x.png */; };
 		842F81CE2275BEF300D6DE6D /* info_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 842F81CC2275BEF300D6DE6D /* info_red.png */; };
+		8430B552227C887000548480 /* WriteLogsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430B550227C886F00548480 /* WriteLogsUtils.m */; };
 		8446F4B02277C16B008F4EE9 /* WhoIsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8446F4AE2277C16B008F4EE9 /* WhoIsCell.m */; };
 		8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */; };
 		8446F4B62277C55E008F4EE9 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4B22277C55D008F4EE9 /* add.png */; };
@@ -204,6 +205,8 @@
 		8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */; };
 		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
+		84999C12227C86550006C80A /* WebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C10227C86550006C80A /* WebServices.m */; };
+		84999C15227C86CB0006C80A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C14227C86CB0006C80A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2B227B350F00FCFC58 /* ic_profile.png */; };
 		84C78F2E227B351200FCFC58 /* ic_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2C227B351000FCFC58 /* ic_profile@2x.png */; };
 		84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DE29A62277F133005691AD /* WhoIsDomainView.m */; };
@@ -377,6 +380,8 @@
 		842F81C92275BD4600D6DE6D /* CustomTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextAttachment.m; sourceTree = "<group>"; };
 		842F81CB2275BEF300D6DE6D /* info_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_red@2x.png"; sourceTree = "<group>"; };
 		842F81CC2275BEF300D6DE6D /* info_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_red.png; sourceTree = "<group>"; };
+		8430B550227C886F00548480 /* WriteLogsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteLogsUtils.m; sourceTree = "<group>"; };
+		8430B551227C886F00548480 /* WriteLogsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteLogsUtils.h; sourceTree = "<group>"; };
 		8446F4AD2277C16B008F4EE9 /* WhoIsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsCell.h; sourceTree = "<group>"; };
 		8446F4AE2277C16B008F4EE9 /* WhoIsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsCell.m; sourceTree = "<group>"; };
 		8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsCell.xib; sourceTree = "<group>"; };
@@ -453,6 +458,10 @@
 		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
 		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
 		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
+		84999C10227C86550006C80A /* WebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServices.m; sourceTree = "<group>"; };
+		84999C11227C86550006C80A /* WebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServices.h; sourceTree = "<group>"; };
+		84999C13227C86CB0006C80A /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		84999C14227C86CB0006C80A /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		84C78F2B227B350F00FCFC58 /* ic_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_profile.png; sourceTree = "<group>"; };
 		84C78F2C227B351000FCFC58 /* ic_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_profile@2x.png"; sourceTree = "<group>"; };
 		84DE29A52277F133005691AD /* WhoIsDomainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsDomainView.h; sourceTree = "<group>"; };
@@ -497,6 +506,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				84999C0F227C863B0006C80A /* Web services */,
 				8460F63D227A632900A185B0 /* Cart */,
 				841F008C2274B2CB00F1B314 /* AppObjects */,
 				156B8C20226ECF6D0020EDCB /* Resources */,
@@ -596,6 +606,8 @@
 			children = (
 				15224F092272EDDF00A45C3B /* AppUtils.h */,
 				15224F0A2272EDDF00A45C3B /* AppUtils.m */,
+				8430B551227C886F00548480 /* WriteLogsUtils.h */,
+				8430B550227C886F00548480 /* WriteLogsUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -930,6 +942,17 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		84999C0F227C863B0006C80A /* Web services */ = {
+			isa = PBXGroup;
+			children = (
+				84999C11227C86550006C80A /* WebServices.h */,
+				84999C10227C86550006C80A /* WebServices.m */,
+				84999C13227C86CB0006C80A /* JSONKit.h */,
+				84999C14227C86CB0006C80A /* JSONKit.m */,
+			);
+			path = "Web services";
+			sourceTree = "<group>";
+		};
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,10 +1233,12 @@
 				8419668A227604E300C14516 /* SuggestMenuObject.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
+				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
 				15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */,
 				841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */,
+				84999C15227C86CB0006C80A /* JSONKit.m in Sources */,
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
@@ -1223,6 +1248,7 @@
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,
+				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */,

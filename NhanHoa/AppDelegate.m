@@ -16,10 +16,13 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar;
+@synthesize hStatusBar, logFilePath;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
+    
+    NSString *subDirectory = [NSString stringWithFormat:@"%@/%@.txt", logsFolderName, [AppUtils getCurrentDate]];
+    logFilePath = [WriteLogsUtils makeFilePathWithFileName: subDirectory];
     
     //  custom tabbar & navigation bar
     hStatusBar = application.statusBarFrame.size.height;
@@ -36,7 +39,7 @@
     
     //  setup message style
     warningStyle = [[CSToastStyle alloc] initWithDefaultStyle];
-    warningStyle.backgroundColor = ORANGE_COLOR;
+    warningStyle.backgroundColor = [UIColor colorWithRed:(254/255.0) green:(196/255.0) blue:(46/255.0) alpha:1.0];
     warningStyle.messageColor = UIColor.whiteColor;
     warningStyle.messageFont = [UIFont fontWithName:RobotoRegular size:15.0];
     warningStyle.cornerRadius = 20.0;
@@ -45,6 +48,17 @@
     warningStyle.shadowColor = UIColor.blackColor;
     warningStyle.shadowOpacity = 1.0;
     warningStyle.shadowOffset = CGSizeMake(-5, -5);
+    
+    errorStyle = [[CSToastStyle alloc] initWithDefaultStyle];
+    errorStyle.backgroundColor = [UIColor colorWithRed:(211/255.0) green:(55/255.0) blue:(55/255.0) alpha:1.0];
+    errorStyle.messageColor = UIColor.whiteColor;
+    errorStyle.messageFont = [UIFont fontWithName:RobotoRegular size:15.0];
+    errorStyle.cornerRadius = 20.0;
+    errorStyle.messageAlignment = NSTextAlignmentCenter;
+    errorStyle.messageNumberOfLines = 5;
+    errorStyle.shadowColor = UIColor.blackColor;
+    errorStyle.shadowOpacity = 1.0;
+    errorStyle.shadowOffset = CGSizeMake(-5, -5);
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     

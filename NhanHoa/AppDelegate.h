@@ -30,7 +30,7 @@ typedef enum TypeHomeMenu{
 @property (strong, nonatomic) CSToastStyle *successStyle;
 
 +(AppDelegate *) sharedInstance;
-
+@property (nonatomic, strong) NSString *logFilePath;
 @property (nonatomic, assign) float hStatusBar;
 
 @end

@@ -120,6 +120,22 @@
     [view.layer addSublayer:viewBorder];
 }
 
++(BOOL)isNullOrEmpty:(NSString*)string{
+    return string == nil || string==(id)[NSNull null] || [string isEqualToString: @""];
+}
 
++ (NSString *)getCurrentDate{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+    [dateFormat setDateFormat:@"dd-MM-yyyy"];
+    NSString *dateString = [dateFormat stringFromDate:date];
+    return dateString;
+}
+
++ (NSString *)getCurrentDateTimeToString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    return [dateFormatter stringFromDate:[NSDate date]];
+}
 
 @end
