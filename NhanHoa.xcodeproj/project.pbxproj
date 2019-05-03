@@ -73,6 +73,7 @@
 		1517FBBD22745D9B0044E878 /* caseback.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FBB522745D990044E878 /* caseback.png */; };
 		1517FBBE22745D9B0044E878 /* caseback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FBB622745D9A0044E878 /* caseback@2x.png */; };
 		15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 15224F0A2272EDDF00A45C3B /* AppUtils.m */; };
+		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
 		159F7D8E227AAC4800A64586 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8C227AAC4500A64586 /* trash@2x.png */; };
@@ -287,6 +288,7 @@
 		1517FBB622745D9A0044E878 /* caseback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caseback@2x.png"; sourceTree = "<group>"; };
 		15224F092272EDDF00A45C3B /* AppUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		15224F0A2272EDDF00A45C3B /* AppUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		15362863227C0686006827F9 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 				8464D739227BBC8800381DE5 /* passport_empty_front@2x.png */,
 				8464D736227BBC8600381DE5 /* passport_front.png */,
 				8464D73D227BBC8A00381DE5 /* passport_front@2x.png */,
+				15362863227C0686006827F9 /* picture.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1084,6 +1087,7 @@
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
+				15362864227C0688006827F9 /* picture.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,

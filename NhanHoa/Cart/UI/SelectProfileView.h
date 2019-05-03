@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onIconCloseClicked;
 @end
 
-@interface SelectProfileView : UIView
+@interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource>
+
 @property (nonatomic,strong) id<NSObject, SelectProfileViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icAdd;
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icClose;
 
 @property (nonatomic, assign) float hHeader;
+@property (nonatomic, assign) int selectedRow;
 
 - (void)setupUIForView;
 - (IBAction)icAddClick:(UIButton *)sender;

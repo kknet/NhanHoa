@@ -13,7 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProfileDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imgProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeName;
+@property (weak, nonatomic) IBOutlet UILabel *lbTypeNameValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileName;
+@property (weak, nonatomic) IBOutlet UILabel *lbProfileNameValue;
+@property (weak, nonatomic) IBOutlet UILabel *lbCompany;
+@property (weak, nonatomic) IBOutlet UILabel *lbCompanyValue;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
 
 @property (weak, nonatomic) IBOutlet UIView *viewDetail;
@@ -35,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTitlePassport;
 @property (weak, nonatomic) IBOutlet UIImageView *imgFrontPassport;
 @property (weak, nonatomic) IBOutlet UIImageView *imgBehindPassport;
+@property (weak, nonatomic) IBOutlet UILabel *lbBehind;
+@property (weak, nonatomic) IBOutlet UILabel *lbFront;
+
+@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
+
+- (void)updateUIForBusinessProfile: (BOOL)business;
 
 @end
 
