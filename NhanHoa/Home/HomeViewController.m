@@ -218,8 +218,7 @@
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
     tfSearch.font = [UIFont fontWithName:@"HelveticateNeue" size:15.0];
     tfSearch.layer.cornerRadius = hTextfield/2;
-    tfSearch.textColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0)
-                                          blue:(230/255.0) alpha:1.0];
+    tfSearch.textColor = BORDER_COLOR;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewSearch).offset(padding);
         make.right.equalTo(self.icNotify.mas_left);

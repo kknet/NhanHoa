@@ -77,7 +77,7 @@
     }];
     
     tfName.layer.borderWidth = 1.0;
-    tfName.layer.borderColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0].CGColor;
+    tfName.layer.borderColor = BORDER_COLOR.CGColor;
     tfName.layer.cornerRadius = 3.0;
     tfName.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [tfName mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -23,7 +23,7 @@
     float padding = 15.0;
     viewContent.layer.cornerRadius = 6.0;
     viewContent.layer.borderWidth = 1.0;
-    viewContent.layer.borderColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0].CGColor;
+    viewContent.layer.borderColor = BORDER_COLOR.CGColor;
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitle.mas_centerY);
         make.left.equalTo(self).offset(padding);
@@ -40,7 +40,7 @@
         make.height.mas_equalTo(25.0);
     }];
     
-    lbSepa1.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0];
+    lbSepa1.backgroundColor = BORDER_COLOR;
     [lbSepa1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRegistrarInfo);
         make.top.equalTo(self.lbRegistrarInfo.mas_bottom);

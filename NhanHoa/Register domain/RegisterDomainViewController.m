@@ -260,7 +260,7 @@
     }];
     
     //  sepa
-    lbSepa.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0];
+    lbSepa.backgroundColor = BORDER_COLOR;
     lbSepa.adjustsFontSizeToFitWidth = NO;
     lbSepa.lineBreakMode = NSLineBreakByTruncatingTail;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {

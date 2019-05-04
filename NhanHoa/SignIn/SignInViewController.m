@@ -14,7 +14,6 @@
 
 @interface SignInViewController ()<WebServicesDelegate>{
     UIColor *signInColor;
-    UIColor *textColor;
     WebServices *webService;
 }
 @end
@@ -133,7 +132,6 @@
     hHeader = SCREEN_HEIGHT * 7/9;
     padding = 30.0;
     signInColor = [UIColor colorWithRed:(240/255.0) green:(138/255.0) blue:(38/255.0) alpha:1.0];
-    textColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0];
     
     //  view top
     viewTop.backgroundColor = UIColor.clearColor;
@@ -146,7 +144,7 @@
     float originY = (hHeader/2 - (hTextfield + 15 + hTextfield + hTextfield))/2;
     
     //  account textfield
-    tfAccount.textColor = textColor;
+    tfAccount.textColor = BORDER_COLOR;
     tfAccount.layer.cornerRadius = hTextfield/2;
     tfAccount.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
     tfAccount.font = [UIFont fontWithName:RobotoRegular size:16.0];
@@ -164,7 +162,7 @@
     tfAccount.rightViewMode = UITextFieldViewModeAlways;
     
     //  password textfield
-    tfPassword.textColor = textColor;
+    tfPassword.textColor = BORDER_COLOR;
     tfPassword.secureTextEntry = YES;
     tfPassword.layer.cornerRadius = hTextfield/2;
     tfPassword.backgroundColor = tfAccount.backgroundColor;
@@ -191,7 +189,7 @@
     
     //  forgot password
     btnForgotPass.backgroundColor = UIColor.clearColor;
-    [btnForgotPass setTitleColor:textColor forState:UIControlStateNormal];
+    [btnForgotPass setTitleColor:BORDER_COLOR forState:UIControlStateNormal];
     [btnForgotPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.tfPassword);
         make.top.equalTo(self.tfPassword.mas_bottom);
@@ -259,7 +257,7 @@
     originY = hHalfBottomView + (hHalfBottomView - 30.0)/2;
     
     lbNotAccount.font = [UIFont systemFontOfSize:16.0];
-    lbNotAccount.textColor = textColor;
+    lbNotAccount.textColor = BORDER_COLOR;
     [lbNotAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewBottom).offset(originY);
         make.left.equalTo(self.viewBottom).offset(originX);

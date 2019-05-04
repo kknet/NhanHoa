@@ -87,7 +87,7 @@
     }];
     
     tfBusinessName.layer.borderWidth = 1.0;
-    tfBusinessName.layer.borderColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0].CGColor;
+    tfBusinessName.layer.borderColor = BORDER_COLOR.CGColor;
     tfBusinessName.layer.cornerRadius = 3.0;
     tfBusinessName.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [tfBusinessName mas_makeConstraints:^(MASConstraintMaker *make) {

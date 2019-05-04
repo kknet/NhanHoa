@@ -259,7 +259,7 @@
         make.height.mas_equalTo(1.0);
     }];
     
-    lbSepaView.backgroundColor = [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0];
+    lbSepaView.backgroundColor = BORDER_COLOR;
     [lbSepaView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewResult.mas_bottom).offset(self.padding);
         make.left.equalTo(self.scvContent).offset(self.padding);
