@@ -1,26 +1,24 @@
 PODS:
-  - CocoaLumberjack (3.5.1):
-    - CocoaLumberjack/Core (= 3.5.1)
-  - CocoaLumberjack/Core (3.5.1)
   - Masonry (1.1.0)
+  - ProgressHUD (2.51)
   - Toast (4.0.0)
 
 DEPENDENCIES:
-  - CocoaLumberjack
   - Masonry
+  - ProgressHUD
   - Toast
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - CocoaLumberjack
+  https://github.com/cocoapods/specs.git:
     - Masonry
+    - ProgressHUD
     - Toast
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 2101f8a5508197a305e737d16c5c2e9e2157628c
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  ProgressHUD: 54b4c2fa202bf3da7dddc1c698ae4e6376333bd9
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 57884f998a5dd10d5e2b2c0036da09de3a6f5ff2
+PODFILE CHECKSUM: 5c956e548afe1eee1bdb2973acfbb5c65f72deee
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

@@ -138,4 +138,12 @@
     return [dateFormatter stringFromDate:[NSDate date]];
 }
 
++ (BOOL)checkNetworkAvailable {
+    NetworkStatus internetStatus = [[AppDelegate sharedInstance].internetReachable currentReachabilityStatus];
+    if (internetStatus == ReachableViaWiFi || internetStatus == ReachableViaWWAN) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 @end

@@ -21,5 +21,6 @@
 +(BOOL)isNullOrEmpty:(NSString*)string;
 + (NSString *)getCurrentDate;
 + (NSString *)getCurrentDateTimeToString;
++ (BOOL)checkNetworkAvailable;
 
 @end

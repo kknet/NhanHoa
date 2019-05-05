@@ -57,7 +57,6 @@
         make.width.mas_equalTo(60.0);
     }];
     
-    lbName.text = @"nongquadi.com";
     lbName.font = [UIFont fontWithName:RobotoBold size:16.0];
     lbName.textColor = BLUE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,6 +86,26 @@
         make.centerY.equalTo(self.lbOldPrice.mas_centerY);
         make.height.mas_equalTo(1.0);
     }];
+}
+
+- (void)showContentOfDomainWithInfo: (NSDictionary *)info {
+    NSString *domain = [info objectForKey:@"domain"];
+    if ([AppUtils isNullOrEmpty: domain]) {
+        domain = unknown;
+    }
+    lbDomain.text = lbName.text = domain;
+    
+    NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain];
+    NSRange range = [content rangeOfString: domain];
+    if (range.location != NSNotFound) {
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+        
+        lbContent.attributedText = attr;
+    }else{
+        lbContent.text = content;
+    }
 }
 
 @end

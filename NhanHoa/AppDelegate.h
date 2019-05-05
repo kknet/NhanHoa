@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+Toast.h"
+#import "WebServices.h"
+#import "Reachability.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -21,7 +23,7 @@ typedef enum TypeHomeMenu{
     eSupport,
 }TypeHomeMenu;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServicesDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -32,6 +34,12 @@ typedef enum TypeHomeMenu{
 +(AppDelegate *) sharedInstance;
 @property (nonatomic, strong) NSString *logFilePath;
 @property (nonatomic, assign) float hStatusBar;
+
+@property (nonatomic, strong) NSDictionary *userInfo;
+@property (nonatomic, strong) WebServices *webService;
+
+@property (nonatomic, assign) BOOL internetActive;
+@property (strong, nonatomic) Reachability *internetReachable;
 
 @end
 

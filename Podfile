@@ -8,5 +8,6 @@ target 'NhanHoa' do
   # Pods for NhanHoa
   	pod 'Masonry'
   	pod 'Toast'
-  	pod 'CocoaLumberjack'
+    pod 'ProgressHUD'
+#    pod 'MBProgressHUD', '~> 1.1.0'
 end

@@ -33,8 +33,8 @@
         [listDomain removeAllObjects];
     }
     //  [listDomain addObject:@"nongquadi.vn"];
-    [listDomain addObject:@""];
-    [listDomain addObject:@""];
+    [listDomain addObject:@"giaohangnhanh.comfort"];
+    [listDomain addObject:@"giaohangnhanh.com"];
     [listDomain addObject:@""];
     
     /*
@@ -50,10 +50,16 @@
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
-
 - (IBAction)btnSearchPress:(UIButton *)sender {
+    NSMutableArray *result = [[NSMutableArray alloc] initWithArray: listDomain];
+    [result removeObject:@""];
+    if (result.count == 0) {
+        [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    
     WhoIsResultViewController *whoIsResultVC = [[WhoIsResultViewController alloc] init];
-    whoIsResultVC.listSearch = listDomain;
+    whoIsResultVC.listSearch = result;
     [self.navigationController pushViewController:whoIsResultVC animated:YES];
 }
 
@@ -80,7 +86,7 @@
     padding = 15.0;
     btnSearch.layer.cornerRadius = 40.0/2;
     btnSearch.backgroundColor = BLUE_COLOR;
-    btnSearch.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    btnSearch.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(self.padding);
         make.bottom.right.equalTo(self.view).offset(-self.padding);

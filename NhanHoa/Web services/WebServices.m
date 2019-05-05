@@ -127,16 +127,16 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSString *strURL = [[[connection currentRequest] URL] absoluteString];
+    //  NSString *strURL = [[[connection currentRequest] URL] absoluteString];
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    [delegate receivedResponeCode:strURL withCode:(int)[httpResponse statusCode]];
+    NSString *function = [self getFunctionFromRequestURL:[[connection currentRequest] URL]];
+    [delegate receivedResponeCode:function withCode:(int)[httpResponse statusCode]];
 }
 
 // This method receives the error report in case of connection is not made to server.
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSURL *requestURL = [[connection currentRequest] URL];
-    NSString *urlPath = requestURL.path;
-    NSString *function = [urlPath stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    NSString *function = [self getFunctionFromRequestURL:requestURL];
     
     NSString *strError = [error.userInfo objectForKey:@"NSLocalizedDescription"];
     [delegate failedToCallWebService:function andError:strError];
@@ -169,8 +169,7 @@
                             [delegate failedToCallWebService:function andError:data];
                             
                         }else if ([data isKindOfClass:[NSDictionary class]]){
-                            NSString *message = [data objectForKey:@"message"];
-                            [delegate failedToCallWebService:function andError:message];
+                            [delegate failedToCallWebService:function andError:data];
                         }
                         
                     }else {
@@ -197,6 +196,23 @@
             [delegate failedToCallWebService:strURL andError:result];
         }
     }
+}
+
+- (NSString *)getFunctionFromRequestURL: (NSURL *)requestURL {
+    NSString *urlPath = requestURL.path;
+    if ([urlPath hasSuffix:@"/"]) {
+        urlPath = [urlPath stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    }
+    
+    NSString *function = @"";
+    if (![AppUtils isNullOrEmpty: urlPath]) {
+        NSArray *tmpArr = [urlPath componentsSeparatedByString:@"/"];
+        if (tmpArr != nil) {
+            function = (NSString *)[tmpArr lastObject];
+            return function;
+        }
+    }
+    return @"";
 }
 
 @end

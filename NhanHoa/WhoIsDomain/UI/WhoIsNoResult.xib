@@ -91,10 +91,10 @@
                 <outlet property="lbSepa" destination="FbB-QJ-bgz" id="mMJ-tA-gq0"/>
                 <outlet property="viewDomain" destination="iig-wF-nvg" id="gNY-0e-MEe"/>
             </connections>
-            <point key="canvasLocation" x="-256" y="19"/>
+            <point key="canvasLocation" x="-490" y="19"/>
         </view>
     </objects>
     <resources>
-        <image name="search_smile.png" width="200" height="200"/>
+        <image name="search_smile.png" width="100" height="100"/>
     </resources>
 </document>

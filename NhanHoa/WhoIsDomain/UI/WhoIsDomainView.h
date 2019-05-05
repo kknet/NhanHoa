@@ -25,9 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbRegisterNameValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbOwner;
 @property (weak, nonatomic) IBOutlet UILabel *lbOwnerValue;
-@property (weak, nonatomic) IBOutlet UILabel *lbDomainLocking;
-@property (weak, nonatomic) IBOutlet UILabel *lbDomainLockingValue;
-@property (weak, nonatomic) IBOutlet UIButton *btnMoreInfo;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbImportantDates;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa2;
@@ -44,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDNSSECValue;
 
 - (void)setupUIForView;
+- (void)showContentOfDomainWithInfo: (NSDictionary *)info;
 
 @end
 

@@ -9,7 +9,7 @@
 #import "WhoIsDomainView.h"
 
 @implementation WhoIsDomainView
-@synthesize lbTitle, viewContent, lbRegistrarInfo, lbSepa1, lbDomain, lbDomainValue, lbStatus, lbStatusValue, lbRegisterName, lbRegisterNameValue, lbOwner, lbOwnerValue, lbDomainLocking, lbDomainLockingValue, btnMoreInfo, lbImportantDates, lbSepa2, lbIssueDate, lbIssueDateValue, lbExpiredDate, lbExpiredDateValue, lbNameServers, lbSepa3, lbDNS, lbDNSValue, lbDNSSEC, lbDNSSECValue;
+@synthesize lbTitle, viewContent, lbRegistrarInfo, lbSepa1, lbDomain, lbDomainValue, lbStatus, lbStatusValue, lbRegisterName, lbRegisterNameValue, lbOwner, lbOwnerValue, lbImportantDates, lbSepa2, lbIssueDate, lbIssueDateValue, lbExpiredDate, lbExpiredDateValue, lbNameServers, lbSepa3, lbDNS, lbDNSValue, lbDNSSEC, lbDNSSECValue;
 
 - (void)setupUIForView {
     lbTitle.textColor = BLUE_COLOR;
@@ -120,38 +120,12 @@
         //make.height.mas_equalTo(25.0);
     }];
     
-    lbDomainLocking.textColor = lbDomain.textColor;
-    lbDomainLocking.font = lbDomain.font;
-    [lbDomainLocking mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbOwnerValue.mas_bottom);
-        make.left.right.equalTo(self.lbOwner);
-        make.height.mas_equalTo(25.0);
-    }];
-    
-    lbDomainLockingValue.textColor = OLD_PRICE_COLOR;
-    lbDomainLockingValue.font = lbDomainValue.font;
-    [lbDomainLockingValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbDomainLocking);
-        make.left.equalTo(self.lbOwnerValue);
-        make.height.mas_greaterThanOrEqualTo(25.0);
-        //make.height.mas_equalTo(25.0);
-    }];
-    
-    btnMoreInfo.titleLabel.font = [UIFont fontWithName:RobotoMediumItalic size:16.0];
-    [btnMoreInfo setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    [btnMoreInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbDomainLockingValue.mas_right).offset(10.0);
-        make.centerY.equalTo(self.lbDomainLocking.mas_centerY);
-        make.width.mas_equalTo(100.0);
-        make.height.equalTo(self.lbDomainLocking.mas_height);
-    }];
-    
     //  inportant dates
     lbImportantDates.textColor = lbRegistrarInfo.textColor;
     lbImportantDates.font = lbRegistrarInfo.font;
     [lbImportantDates mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRegistrarInfo);
-        make.top.equalTo(self.lbDomainLockingValue.mas_bottom).offset(padding);
+        make.top.equalTo(self.lbOwnerValue.mas_bottom).offset(padding);
         make.height.equalTo(self.lbRegistrarInfo.mas_height);
     }];
     
@@ -162,10 +136,10 @@
         make.height.mas_equalTo(1.0);
     }];
     
-    lbIssueDate.textColor = lbDomainValue.textColor;
-    lbIssueDate.font = lbDomainValue.font;
+    lbIssueDate.textColor = lbOwner.textColor;
+    lbIssueDate.font = lbOwner.font;
     [lbIssueDate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDomainLocking);
+        make.left.right.equalTo(self.lbOwner);
         make.top.equalTo(self.lbSepa2.mas_bottom).offset(10.0);
         make.height.mas_equalTo(25.0);
     }];
@@ -179,8 +153,8 @@
         //make.height.mas_equalTo(25.0);
     }];
     
-    lbExpiredDate.textColor = lbDomainValue.textColor;
-    lbExpiredDate.font = lbDomainValue.font;
+    lbExpiredDate.textColor = lbDomain.textColor;
+    lbExpiredDate.font = lbDomain.font;
     [lbExpiredDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbIssueDate);
         make.top.equalTo(self.lbIssueDateValue.mas_bottom);
@@ -223,7 +197,6 @@
     lbDNSValue.textColor = lbDomainValue.textColor;
     lbDNSValue.font = lbDomainValue.font;
     lbDNSValue.numberOfLines = 10;
-    lbDNSValue.text = @"abd.com\ndef.com.vn\ngoogle.com.vn";
     [lbDNSValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDNS);
         make.left.right.equalTo(self.lbIssueDateValue);
@@ -247,6 +220,62 @@
         make.height.mas_greaterThanOrEqualTo(25.0);
         //make.height.mas_equalTo(25.0);
     }];
+}
+
+- (void)showContentOfDomainWithInfo: (NSDictionary *)info {
+    NSString *domain = [info objectForKey:@"domain"];
+    NSString *dns = [info objectForKey:@"dns"];
+    NSString *start = [info objectForKey:@"start"];
+    NSString *expired = [info objectForKey:@"expired"];
+    NSString *registrar = [info objectForKey:@"registrar"];
+    NSString *status = [info objectForKey:@"status"];
+    NSString *dnssec = [info objectForKey:@"dnssec"];
+    
+    if (![AppUtils isNullOrEmpty: domain]) {
+        lbTitle.text = lbDomainValue.text = domain;
+    }else{
+        lbTitle.text = lbDomainValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: status]) {
+        lbStatusValue.text = status;
+    }else{
+        lbStatusValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: registrar]) {
+        lbRegisterNameValue.text = registrar;
+    }else{
+        lbRegisterNameValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: start]) {
+        lbIssueDateValue.text = start;
+    }else{
+        lbIssueDateValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: expired]) {
+        lbExpiredDateValue.text = expired;
+    }else{
+        lbExpiredDateValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: dns]) {
+        dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
+        dns = [dns stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+        lbDNSValue.text = dns;
+    }else{
+        lbDNSValue.text = @"";
+    }
+    
+    if (![AppUtils isNullOrEmpty: dnssec]) {
+        lbDNSSECValue.text = dnssec;
+    }else{
+        lbDNSSECValue.text = @"";
+    }
+    
+    lbOwnerValue.text = @"";
 }
 
 @end

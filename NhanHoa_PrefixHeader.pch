@@ -15,5 +15,6 @@
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
 #import "WriteLogsUtils.h"
+#import "ProgressHUD.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */

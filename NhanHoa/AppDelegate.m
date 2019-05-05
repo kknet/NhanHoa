@@ -16,7 +16,7 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar, logFilePath;
+@synthesize hStatusBar, logFilePath, userInfo, webService, internetReachable, internetActive;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -66,18 +66,34 @@
     [UITabBar appearance].layer.borderWidth = 0.0f;
     [UITabBar appearance].clipsToBounds = true;
     
-    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:@"login_state"];
+    //  status network
+    internetReachable = [Reachability reachabilityForInternetConnection];
+    [internetReachable startNotifier];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:)
+                                                 name:kReachabilityChangedNotification object:nil];
+    
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState == nil || [loginState isEqualToString:@"NO"]) {
-        LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
-        UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
-        
-        [self.window setRootViewController:launchNav];
-        [self.window makeKeyAndVisible];
+        [self showStartLoginView];
         
     }else{
-        AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
-        [self.window setRootViewController:tabbarVC];
-        [self.window makeKeyAndVisible];
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+        
+        if (![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD]) {
+            NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+            [jsonDict setObject:login_mod forKey:@"mod"];
+            [jsonDict setObject:USERNAME forKey:@"username"];
+            [jsonDict setObject:PASSWORD forKey:@"password"];
+            [webService callWebServiceWithLink:login_func withParams:jsonDict];
+            
+            AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
+            [self.window setRootViewController:tabbarVC];
+            [self.window makeKeyAndVisible];
+        }else{
+            [self showStartLoginView];
+        }
     }
     // Override point for customization after application launch.
     return YES;
@@ -112,6 +128,61 @@
 
 +(AppDelegate *)sharedInstance{
     return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);
+}
+
+- (void)showStartLoginView {
+    LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+    UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
+    
+    [self.window setRootViewController:launchNav];
+    [self.window makeKeyAndVisible];
+}
+
+- (void)checkNetworkStatus:(NSNotification *)notice
+{
+    // called after network status changes
+    NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"\n[%s] Network status is %d", __FUNCTION__, internetStatus] toFilePath: logFilePath];
+    
+    switch (internetStatus){
+        case NotReachable: {
+            internetActive = NO;
+            break;
+        }
+        case ReachableViaWiFi: {
+            internetActive = YES;
+            break;
+        }
+        case ReachableViaWWAN: {
+            internetActive = YES;
+            
+            break;
+        }
+    }
+}
+
+#pragma mark - Webserviec
+-(void)failedToCallWebService:(NSString *)link andError:(id)error {
+    
+}
+
+-(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    if ([link isEqualToString:login_func]) {
+        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            userInfo = [[NSDictionary alloc] initWithDictionary: data];
+        }
+    }
+}
+
+-(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if ([link isEqualToString: login_func]) {
+        if (responeCode != 200) {
+            [self showStartLoginView];
+            [self.window makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+    }
 }
 
 @end

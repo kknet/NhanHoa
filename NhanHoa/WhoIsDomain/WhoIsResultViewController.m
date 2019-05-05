@@ -9,8 +9,11 @@
 #import "WhoIsResultViewController.h"
 #import "DomainCell.h"
 #import "DomainObject.h"
+#import "AccountModel.h"
 
 @interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate> {
+    NSMutableArray *listResults;
+    
     NSMutableArray *listTagView;
     int tag;
     
@@ -23,6 +26,7 @@
 
 @implementation WhoIsResultViewController
 @synthesize scvContent, listSearch, padding, whoisView, noResultView;
+@synthesize webService;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,168 +40,71 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
-    listTagView = [[NSMutableArray alloc] init];
-    tag = 100;
-    padding = 15.0;
-    hCell = 90.0;
-    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[UIFont fontWithName:RobotoRegular size:15.0]].width + 10.0;
+    [WriteLogsUtils writeForGoToScreen: @"WhoIsResultViewController"];
     
     [listSearch removeObject:@""];
+    padding = 15.0;
+    hCell = 90.0;
     
-    float contentSize = 0;
+    listTagView = [[NSMutableArray alloc] init];
+    tag = 100;
     
-    if (listSearch.count > 1) {
-        for (int index=0; index<listSearch.count; index++) {
-            tag = tag + 5;
-            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
-            WhoIsDomainView *whoIsView;
-            for(id currentObject in toplevelObject){
-                if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
-                    whoIsView = (WhoIsDomainView *) currentObject;
-                    break;
-                }
-            }
-            
-            float hView = 430.0;
-            float originY;
-            if (index == 0) {
-                originY = 0;
-                contentSize = hView;
-            }else{
-                originY = contentSize + 10.0;
-                contentSize = contentSize + 10.0 + hView;
-            }
-            [scvContent addSubview:whoIsView];
-            [whoIsView setupUIForView];
-            [whoIsView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.scvContent);
-                make.top.equalTo(self.scvContent).offset(originY);
-                make.width.mas_equalTo(SCREEN_WIDTH);
-                make.height.mas_equalTo(hView);
-            }];
-            whoIsView.tag = tag;
-            [listTagView addObject:[NSNumber numberWithInt: tag]];
-        }
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-    }else if (listSearch.count == 1) {
-        [self createDemoData];
-        
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
-                whoisView = (WhoIsDomainView *) currentObject;
-                break;
-            }
-        }
-        
-        float hView = 430.0;
-        [scvContent addSubview: whoisView];
-        [whoisView setupUIForView];
-        [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hView);
-        }];
-        
-        float hTableView = listData.count * hCell + 50.0;
-        tbRelatedDomain = [[UITableView alloc] init];
-        tbRelatedDomain.backgroundColor = UIColor.clearColor;
-        [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
-        tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
-        tbRelatedDomain.delegate = self;
-        tbRelatedDomain.dataSource = self;
-        [self.scvContent addSubview: tbRelatedDomain];
-        
-        [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hTableView);
-        }];
-        
-        UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
-        
-        UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
-        lbHeader.text = @"Các tên miền liên quan";
-        lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
-        lbHeader.textColor = TITLE_COLOR;
-        [viewHeader addSubview: lbHeader];
-        tbRelatedDomain.tableHeaderView = viewHeader;
-    }else{
-        [self createDemoData];
-        
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
-                noResultView = (WhoIsNoResult *) currentObject;
-                break;
-            }
-        }
-        
-        NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", @"lanhquadi.com"];
-        NSRange range = [content rangeOfString: @"lanhquadi.com"];
-        if (range.location != NSNotFound) {
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
-            noResultView.lbContent.attributedText = attr;
-        }else{
-            noResultView.lbContent.text = content;
-        }
-        float textSize = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-        float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
-        [scvContent addSubview: noResultView];
-        [noResultView setupUIForView];
-        [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hView);
-        }];
-        
-        float hTableView = listData.count * hCell + 40.0;
-        tbRelatedDomain = [[UITableView alloc] init];
-        tbRelatedDomain.backgroundColor = UIColor.clearColor;
-        [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
-        tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
-        tbRelatedDomain.delegate = self;
-        tbRelatedDomain.dataSource = self;
-        [self.scvContent addSubview: tbRelatedDomain];
-        
-        [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hTableView);
-        }];
-        
-        UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
-        
-        UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
-        lbHeader.text = @"Các tên miền liên quan";
-        lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
-        lbHeader.textColor = TITLE_COLOR;
-        [viewHeader addSubview: lbHeader];
-        tbRelatedDomain.tableHeaderView = viewHeader;
-        
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
+    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[UIFont fontWithName:RobotoRegular size:15.0]].width + 10.0;
+    
+    //  prepare webservice
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
     }
+    webService.delegate = self;
+    
+    //  prepare result array
+    if (listResults == nil) {
+        listResults = [[NSMutableArray alloc] init];
+    }
+    [listResults removeAllObjects];
+    
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang tìm kiếm..." Interaction:NO];
+    
+    [self checkWhoIsForListDomains];
 }
 
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear: animated];
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     
-    if (listSearch.count > 1) {
+    if (listResults.count > 1) {
         float contentSize = 0;
         for (int i=0; i<listTagView.count; i++) {
             int tag = [[listTagView objectAtIndex: i] intValue];
-            WhoIsDomainView *view = [scvContent viewWithTag: tag];
-            if (view != nil && [view isKindOfClass:[WhoIsDomainView class]]) {
+            id view = [scvContent viewWithTag: tag];
+            if ([view isKindOfClass:[WhoIsNoResult class]])
+            {
+                WhoIsNoResult *view = [scvContent viewWithTag: tag];
                 
+                float textSize = [AppUtils getSizeWithText:view.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+                float heightView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+                
+                float originY = 0;
+                if (i == 0) {
+                    view.frame = CGRectMake(0, 0, SCREEN_WIDTH, heightView);
+                    contentSize = heightView;
+                }else{
+                    originY = contentSize + 10.0;
+                    contentSize = contentSize + 10.0 + heightView;
+                }
+                
+                [view mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.scvContent);
+                    make.top.equalTo(self.scvContent).offset(originY);
+                    make.width.mas_equalTo(SCREEN_WIDTH);
+                    make.height.mas_equalTo(heightView);
+                }];
+                
+            }else if ([view isKindOfClass:[WhoIsDomainView class]])
+            {
+                WhoIsDomainView *view = [scvContent viewWithTag: tag];
                 float heightView = view.lbDNSSECValue.frame.origin.y + view.lbDNSSECValue.frame.size
-                .height + 15.0 + view.lbTitle.frame.size.height/2 + view.lbTitle.frame.origin.y;
+                .height + 15.0 + view.lbTitle.frame.size.height + view.lbTitle.frame.origin.y;
                 
                 float originY = 0;
                 if (i == 0) {
@@ -218,30 +125,30 @@
         }
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
         
-    }else if (listSearch.count == 1) {
-        
-        float heightView = whoisView.lbDNSSECValue.frame.origin.y + whoisView.lbDNSSECValue.frame.size
-        .height + 15.0 + whoisView.lbTitle.frame.size.height/2 + whoisView.lbTitle.frame.origin.y;
-        [whoisView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(heightView);
-        }];
-        
-        float hTableView = 50.0 + listData.count * hCell;
-        [tbRelatedDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hTableView);
-        }];
-        
-        float contentSize = heightView + 10 + hTableView + padding;
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-    }else{
-        
+    }else if (listResults.count == 1){
+        if (whoisView != nil) {
+            float heightView = whoisView.lbDNSSECValue.frame.origin.y + whoisView.lbDNSSECValue.frame.size
+            .height + 15.0 + whoisView.lbTitle.frame.size.height + whoisView.lbTitle.frame.origin.y;
+            [whoisView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.scvContent);
+                make.top.equalTo(self.scvContent);
+                make.width.mas_equalTo(SCREEN_WIDTH);
+                make.height.mas_equalTo(heightView);
+            }];
+            
+            float hTableView = 50.0 + listData.count * hCell;
+            [tbRelatedDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.scvContent);
+                make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
+                make.width.mas_equalTo(SCREEN_WIDTH);
+                make.height.mas_equalTo(hTableView);
+            }];
+            
+            float contentSize = heightView + 10 + hTableView + padding;
+            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
+        }
     }
+    
 }
 
 - (void)setupUIForView {
@@ -360,6 +267,311 @@
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
+}
+
+- (void)showDomainList {
+    float contentSize = 0;
+    if (listResults.count > 1) {
+        for (int index=0; index<listResults.count; index++) {
+            tag = tag + 5;
+            
+            NSDictionary *info = [listResults objectAtIndex: index];
+            NSString *errorCode = [info objectForKey:@"errorCode"];
+            
+            if ([AppUtils isNullOrEmpty: errorCode]) {
+                [self addWhoIsResultViewWithInfo:info index:index contentSize:contentSize];
+                
+            }else{
+                [self addWhoIsNoResultViewWithInfo:info index:index contentSize:contentSize];
+                
+                //[self addWhoIsNoResultViewForOneItem: info];
+            }
+        }
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
+    }else if (listResults.count == 1) {
+        [self createDemoData];
+        
+        NSDictionary *info = [listResults firstObject];
+        NSString *errorCode = [info objectForKey:@"errorCode"];
+        
+        if ([AppUtils isNullOrEmpty: errorCode]) {
+            [self addWhoIsResultViewForOneItem: info];
+            
+        }else{
+            [self addWhoIsNoResultViewForOneItem: info];
+        }
+        
+    }else{
+        [self createDemoData];
+        
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
+                noResultView = (WhoIsNoResult *) currentObject;
+                break;
+            }
+        }
+        
+        NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", @"lanhquadi.com"];
+        NSRange range = [content rangeOfString: @"lanhquadi.com"];
+        if (range.location != NSNotFound) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+            noResultView.lbContent.attributedText = attr;
+        }else{
+            noResultView.lbContent.text = content;
+        }
+        float textSize = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+        float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+        [scvContent addSubview: noResultView];
+        [noResultView setupUIForView];
+        [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.scvContent);
+            make.top.equalTo(self.scvContent);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+            make.height.mas_equalTo(hView);
+        }];
+        
+        float hTableView = listData.count * hCell + 40.0;
+        tbRelatedDomain = [[UITableView alloc] init];
+        tbRelatedDomain.backgroundColor = UIColor.clearColor;
+        [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
+        tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
+        tbRelatedDomain.delegate = self;
+        tbRelatedDomain.dataSource = self;
+        [self.scvContent addSubview: tbRelatedDomain];
+        
+        [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.scvContent);
+            make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+            make.height.mas_equalTo(hTableView);
+        }];
+        
+        UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
+        
+        UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
+        lbHeader.text = @"Các tên miền liên quan";
+        lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+        lbHeader.textColor = TITLE_COLOR;
+        [viewHeader addSubview: lbHeader];
+        tbRelatedDomain.tableHeaderView = viewHeader;
+        
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
+    }
+}
+
+- (void)addWhoIsResultViewForOneItem: (NSDictionary *)info {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
+            whoisView = (WhoIsDomainView *) currentObject;
+            break;
+        }
+    }
+    
+    float hView = 380.0;
+    [scvContent addSubview: whoisView];
+    [whoisView setupUIForView];
+    [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hView);
+    }];
+    
+    [whoisView showContentOfDomainWithInfo: info];
+    
+    float hTableView = listData.count * hCell + 50.0;
+    tbRelatedDomain = [[UITableView alloc] init];
+    tbRelatedDomain.backgroundColor = UIColor.clearColor;
+    [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
+    tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
+    tbRelatedDomain.delegate = self;
+    tbRelatedDomain.dataSource = self;
+    [self.scvContent addSubview: tbRelatedDomain];
+    
+    [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hTableView);
+    }];
+    
+    UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
+    
+    UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
+    lbHeader.text = @"Các tên miền liên quan";
+    lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbHeader.textColor = TITLE_COLOR;
+    [viewHeader addSubview: lbHeader];
+    tbRelatedDomain.tableHeaderView = viewHeader;
+}
+
+- (void)addWhoIsResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
+    WhoIsDomainView *whoIsView;
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
+            whoIsView = (WhoIsDomainView *) currentObject;
+            break;
+        }
+    }
+    
+    float hView = 430.0;
+    float originY;
+    if (index == 0) {
+        originY = 0;
+        contentSize = hView;
+    }else{
+        originY = contentSize + 10.0;
+        contentSize = contentSize + 10.0 + hView;
+    }
+    [scvContent addSubview:whoIsView];
+    [whoIsView setupUIForView];
+    [whoIsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.scvContent).offset(originY);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hView);
+    }];
+    whoIsView.tag = tag;
+    [listTagView addObject:[NSNumber numberWithInt: tag]];
+    [whoIsView showContentOfDomainWithInfo: info];
+}
+
+- (void)addWhoIsNoResultViewForOneItem: (NSDictionary *)info {
+    NSString *domain = [info objectForKey:@"domain"];
+    if ([AppUtils isNullOrEmpty: domain]) {
+        domain = @"Chưa xác định";
+    }
+    
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
+            noResultView = (WhoIsNoResult *) currentObject;
+            break;
+        }
+    }
+    [noResultView showContentOfDomainWithInfo: info];
+    
+    float textSize = [AppUtils getSizeWithText:noResultView.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+    [scvContent addSubview: noResultView];
+    [noResultView setupUIForView];
+    [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hView);
+    }];
+    
+    float hTableView = listData.count * hCell + 40.0;
+    tbRelatedDomain = [[UITableView alloc] init];
+    tbRelatedDomain.backgroundColor = UIColor.clearColor;
+    [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
+    tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
+    tbRelatedDomain.delegate = self;
+    tbRelatedDomain.dataSource = self;
+    [self.scvContent addSubview: tbRelatedDomain];
+    
+    [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hTableView);
+    }];
+    
+    UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
+    
+    UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
+    lbHeader.text = @"Các tên miền liên quan";
+    lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbHeader.textColor = TITLE_COLOR;
+    [viewHeader addSubview: lbHeader];
+    tbRelatedDomain.tableHeaderView = viewHeader;
+    
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
+}
+
+- (void)addWhoIsNoResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize
+{
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
+    WhoIsNoResult *noView;
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
+            noView = (WhoIsNoResult *) currentObject;
+            break;
+        }
+    }
+    [noView showContentOfDomainWithInfo: info];
+    
+    float textSize = [AppUtils getSizeWithText:noView.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+    
+    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+    float originY;
+    if (index == 0) {
+        originY = 0;
+        contentSize = hView;
+    }else{
+        originY = contentSize + 10.0;
+        contentSize = contentSize + 10.0 + hView;
+    }
+    [scvContent addSubview: noView];
+    [noView setupUIForView];
+    
+    [noView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.scvContent).offset(originY);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hView);
+    }];
+    noView.tag = tag;
+    [listTagView addObject:[NSNumber numberWithInt: tag]];
+}
+
+#pragma mark - Webserice
+- (void)checkWhoIsForListDomains {
+    if (listSearch.count > 0) {
+        NSString *domain = [listSearch firstObject];
+        [listSearch removeObjectAtIndex: 0];
+        
+        NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+        [jsonDict setObject:whois_mod forKey:@"mod"];
+        [jsonDict setObject:domain forKey:@"domain"];
+        [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
+        [jsonDict setObject:[NSNumber numberWithInt: 1] forKey:@"type"];
+        [webService callWebServiceWithLink:whois_func withParams:jsonDict];
+        
+        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    }else{
+        [ProgressHUD dismiss];
+        [self showDomainList];
+    }
+}
+
+-(void)failedToCallWebService:(NSString *)link andError:(id)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    if ([link isEqualToString: whois_func]) {
+        if ([error isKindOfClass:[NSDictionary class]]) {
+            [listResults addObject: error];
+        }
+        [self checkWhoIsForListDomains];
+    }
+}
+
+-(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    if ([link isEqualToString: whois_func]) {
+        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            [listResults addObject: data];
+        }
+        [self checkWhoIsForListDomains];
+    }
+}
+
+-(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 @end

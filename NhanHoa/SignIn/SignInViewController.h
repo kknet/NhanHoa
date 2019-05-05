@@ -10,7 +10,6 @@
 
 @interface SignInViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLogo;
 @property (weak, nonatomic) IBOutlet UILabel *lbCompany;
@@ -33,5 +32,7 @@
 
 @property (nonatomic, assign) float hHeader;
 @property (nonatomic, assign) float padding;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 
 @end

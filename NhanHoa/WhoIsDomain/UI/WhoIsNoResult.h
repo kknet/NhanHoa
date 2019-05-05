@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
 
 - (void)setupUIForView;
+- (void)showContentOfDomainWithInfo: (NSDictionary *)info;
 
 @end
 

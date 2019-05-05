@@ -33,7 +33,7 @@
     tfDomain.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0, 40.0)];
     tfDomain.rightViewMode = UITextFieldViewModeAlways;
     
-    lbWWW.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbWWW.font = [UIFont fontWithName:RobotoMedium size:13.0];
     lbWWW.textColor = BLUE_COLOR;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.tfDomain);
