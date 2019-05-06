@@ -38,6 +38,7 @@ typedef enum TypeSelectDomain{
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     type = eAllDomain;
+    self.title = @"Tên miền đã đăng ký";
 }
 
 - (IBAction)btnAllDomainPress:(UIButton *)sender {

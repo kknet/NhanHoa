@@ -182,6 +182,15 @@
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
 		84999C12227C86550006C80A /* WebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C10227C86550006C80A /* WebServices.m */; };
 		84999C15227C86CB0006C80A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C14227C86CB0006C80A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E31172280632E003A8813 /* AccountSettingViewController.m */; };
+		849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E31182280632E003A8813 /* AccountSettingViewController.xib */; };
+		849E311C2280647B003A8813 /* photo-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 849E311B2280647A003A8813 /* photo-camera.png */; };
+		849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E311E22806C8E003A8813 /* ChangePasswordViewController.m */; };
+		849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */; };
+		849E312522807393003A8813 /* ContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E312322807393003A8813 /* ContactInfoViewController.m */; };
+		849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E312422807393003A8813 /* ContactInfoViewController.xib */; };
+		849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E3128228074C5003A8813 /* ContactInfoCell.m */; };
+		849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E3129228074C5003A8813 /* ContactInfoCell.xib */; };
 		84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2B227B350F00FCFC58 /* ic_profile.png */; };
 		84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DE29A62277F133005691AD /* WhoIsDomainView.m */; };
 		84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE29A82277F13E005691AD /* WhoIsDomainView.xib */; };
@@ -414,6 +423,19 @@
 		84999C11227C86550006C80A /* WebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServices.h; sourceTree = "<group>"; };
 		84999C13227C86CB0006C80A /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		84999C14227C86CB0006C80A /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		849E31162280632E003A8813 /* AccountSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
+		849E31172280632E003A8813 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
+		849E31182280632E003A8813 /* AccountSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountSettingViewController.xib; sourceTree = "<group>"; };
+		849E311B2280647A003A8813 /* photo-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-camera.png"; sourceTree = "<group>"; };
+		849E311D22806C8E003A8813 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		849E311E22806C8E003A8813 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		849E312222807393003A8813 /* ContactInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactInfoViewController.h; sourceTree = "<group>"; };
+		849E312322807393003A8813 /* ContactInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactInfoViewController.m; sourceTree = "<group>"; };
+		849E312422807393003A8813 /* ContactInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoViewController.xib; sourceTree = "<group>"; };
+		849E3127228074C5003A8813 /* ContactInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactInfoCell.h; sourceTree = "<group>"; };
+		849E3128228074C5003A8813 /* ContactInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactInfoCell.m; sourceTree = "<group>"; };
+		849E3129228074C5003A8813 /* ContactInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoCell.xib; sourceTree = "<group>"; };
 		84C78F2B227B350F00FCFC58 /* ic_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_profile.png; sourceTree = "<group>"; };
 		84DE29A52277F133005691AD /* WhoIsDomainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsDomainView.h; sourceTree = "<group>"; };
 		84DE29A62277F133005691AD /* WhoIsDomainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsDomainView.m; sourceTree = "<group>"; };
@@ -509,6 +531,15 @@
 				15084610226EC9B800428514 /* MoreViewController.h */,
 				15084611226EC9B800428514 /* MoreViewController.m */,
 				15084612226EC9B800428514 /* MoreViewController.xib */,
+				849E31162280632E003A8813 /* AccountSettingViewController.h */,
+				849E31172280632E003A8813 /* AccountSettingViewController.m */,
+				849E31182280632E003A8813 /* AccountSettingViewController.xib */,
+				849E311D22806C8E003A8813 /* ChangePasswordViewController.h */,
+				849E311E22806C8E003A8813 /* ChangePasswordViewController.m */,
+				849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */,
+				849E312222807393003A8813 /* ContactInfoViewController.h */,
+				849E312322807393003A8813 /* ContactInfoViewController.m */,
+				849E312422807393003A8813 /* ContactInfoViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -655,6 +686,7 @@
 				15362863227C0686006827F9 /* picture.png */,
 				15865BD822803D35004A8575 /* right-arrow.png */,
 				15865BDA228047FF004A8575 /* default_avatar.png */,
+				849E311B2280647A003A8813 /* photo-camera.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -668,6 +700,9 @@
 				15865BD322803AE9004A8575 /* SettingMenuCell.h */,
 				15865BD422803AE9004A8575 /* SettingMenuCell.m */,
 				15865BD522803AE9004A8575 /* SettingMenuCell.xib */,
+				849E3127228074C5003A8813 /* ContactInfoCell.h */,
+				849E3128228074C5003A8813 /* ContactInfoCell.m */,
+				849E3129228074C5003A8813 /* ContactInfoCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1017,6 +1052,7 @@
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
+				849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */,
 				841F00852274A97D00F1B314 /* banner.jpg in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
 				841966872276016400C14516 /* SuggestDomainCell.xib in Resources */,
@@ -1048,6 +1084,8 @@
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
+				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
+				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
@@ -1062,9 +1100,11 @@
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
+				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
 				1517FBAD22745D810044E878 /* tabbar_history_act@3x.png in Resources */,
+				849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */,
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
 				15E92AD32272A2F3004AB658 /* graphic.png in Resources */,
 				842F81B3227561ED00D6DE6D /* Roboto-Black.ttf in Resources */,
@@ -1184,8 +1224,10 @@
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
+				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
+				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
@@ -1193,6 +1235,8 @@
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
+				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
+				849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */,
 				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,

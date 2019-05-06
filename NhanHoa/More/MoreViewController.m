@@ -7,9 +7,13 @@
 //
 
 #import "MoreViewController.h"
+#import "AccountSettingViewController.h"
+#import "ContactInfoViewController.h"
+#import "RenewedDomainViewController.h"
+#import "SignInViewController.h"
 #import "SettingMenuCell.h"
 
-@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @end
 
@@ -86,6 +90,7 @@
         make.width.mas_equalTo(hSearch);
     }];
     
+    icClose.hidden = TRUE;
     icClose.layer.cornerRadius = hSearch/2;
     icClose.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
     [icClose mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,6 +164,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SettingMenuCell *cell = (SettingMenuCell *)[tableView dequeueReusableCellWithIdentifier:@"SettingMenuCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     switch (indexPath.row) {
         case eSettingAccount:{
@@ -201,6 +207,38 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case eSettingAccount:{
+            AccountSettingViewController *accSettingVC = [[AccountSettingViewController alloc] initWithNibName:@"AccountSettingViewController" bundle:nil];
+            accSettingVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController:accSettingVC animated:TRUE];
+            break;
+        }
+        case eContactInfo:{
+            ContactInfoViewController *contactInfoVC = [[ContactInfoViewController alloc] initWithNibName:@"ContactInfoViewController" bundle:nil];
+            contactInfoVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController:contactInfoVC animated:TRUE];
+            break;
+        }
+        case eManagerDomainList:{
+            RenewedDomainViewController *renewedDomainVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+            renewedDomainVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController:renewedDomainVC animated:TRUE];
+            break;
+        }
+        case eSignOut:{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Bạn có muốn đăng xuất khỏi ứng dụng hay không?" delegate:self cancelButtonTitle:@"Đăng xuất" otherButtonTitles:@"Không", nil];
+            alertView.tag = 1;
+            [alertView show];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60.0;
 }
@@ -209,6 +247,21 @@
     CGPoint scrollViewOffset = scrollView.contentOffset;
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
+    }
+}
+
+#pragma mark - UIAlertview
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1) {
+        if (buttonIndex == 0) {
+            [AppDelegate sharedInstance].userInfo = nil;
+            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:key_password];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+            [self presentViewController:signInVC animated:TRUE completion:nil];
+        }
     }
 }
 
