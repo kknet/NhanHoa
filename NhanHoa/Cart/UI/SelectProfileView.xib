@@ -42,6 +42,14 @@
                                 <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="GXk-dn-yY1"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIJ-OS-8n2">
+                            <rect key="frame" x="0.0" y="0.0" width="48" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="back.png"/>
+                            <connections>
+                                <action selector="icBackClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="thA-Hj-Sid"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -272,7 +280,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-Sb-ova">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-Sb-ova">
                             <rect key="frame" x="7" y="577" width="138" height="103"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -283,7 +291,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_behind.png" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-OU-Dt4">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_behind.png" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-OU-Dt4">
                             <rect key="frame" x="163" y="577" width="142" height="103"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -328,6 +336,7 @@
                 <outlet property="btnCountry" destination="zaz-97-945" id="E9w-Vj-TBn"/>
                 <outlet property="btnSave" destination="tgO-NV-DEw" id="79I-rD-7T0"/>
                 <outlet property="icAdd" destination="bmC-WS-p9t" id="3i9-6K-A6l"/>
+                <outlet property="icBack" destination="EIJ-OS-8n2" id="fvJ-Oj-7fk"/>
                 <outlet property="icBusiness" destination="kNm-nJ-nOc" id="Qcv-DR-zhL"/>
                 <outlet property="icClose" destination="vGB-GM-dy1" id="smq-r6-XLN"/>
                 <outlet property="icFemale" destination="d0K-EM-qCW" id="dcs-EJ-KM8"/>
@@ -368,17 +377,18 @@
                 <outlet property="tfPhone" destination="cuh-df-FJS" id="4uA-WX-m83"/>
                 <outlet property="viewHeader" destination="LW3-xV-tug" id="gKK-rP-0vo"/>
             </connections>
-            <point key="canvasLocation" x="-133" y="175"/>
+            <point key="canvasLocation" x="-715.20000000000005" y="-81.859070464767626"/>
         </view>
     </objects>
     <resources>
-        <image name="add.png" width="200" height="200"/>
+        <image name="add.png" width="100" height="100"/>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="close.png" width="200" height="200"/>
-        <image name="no_tick.png" width="200" height="200"/>
-        <image name="passport_empty_behind.png" width="512" height="323"/>
-        <image name="passport_empty_front.png" width="512" height="323"/>
+        <image name="back.png" width="100" height="100"/>
+        <image name="close.png" width="100" height="100"/>
+        <image name="no_tick.png" width="100" height="100"/>
+        <image name="passport_empty_behind.png" width="400" height="252"/>
+        <image name="passport_empty_front.png" width="400" height="252"/>
         <image name="picture.png" width="200" height="200"/>
-        <image name="tick_orange.png" width="200" height="200"/>
+        <image name="tick_orange.png" width="100" height="100"/>
     </resources>
 </document>

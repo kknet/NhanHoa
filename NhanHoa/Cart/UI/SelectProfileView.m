@@ -10,7 +10,7 @@
 #import "ProfileDetailCell.h"
 
 @implementation SelectProfileView
-@synthesize viewHeader, icAdd, lbTitle, tbProfile, icClose;
+@synthesize viewHeader, icAdd, lbTitle, tbProfile, icClose, icBack;
 @synthesize hHeader, delegate, selectedRow;
 
 //  Add profile
@@ -28,6 +28,12 @@
         make.top.equalTo(self).offset([AppDelegate sharedInstance].hStatusBar);
         make.left.equalTo(self);
         make.width.height.mas_equalTo(self.hHeader - [AppDelegate sharedInstance].hStatusBar);
+    }];
+    
+    icBack.hidden = TRUE;
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.icClose);
     }];
     
     icAdd.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
@@ -61,7 +67,9 @@
     
     [scvAddProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewHeader.mas_bottom);
-        make.left.right.bottom.equalTo(self);
+        make.left.equalTo(self).offset(SCREEN_WIDTH);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.bottom.equalTo(self);
     }];
     
     lbVision.font = [UIFont fontWithName:RobotoMedium size:16.0];
@@ -76,7 +84,7 @@
     //  Choose type profile
     icPersonal.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbVision.mas_bottom).offset(5.0);
+        make.top.equalTo(self.lbVision.mas_bottom).offset(mTop);
         make.left.equalTo(self.lbVision).offset(-4.0);
         make.width.height.mas_equalTo(hLabel);
     }];
@@ -169,6 +177,32 @@
         make.left.equalTo(self).offset(SCREEN_WIDTH/4);
         make.top.bottom.equalTo(self.icMale);
         make.width.equalTo(self.icMale.mas_width);
+    }];
+    
+    //  add action when tap on male label
+    UITapGestureRecognizer *tapOnMale = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectMale)];
+    lbMale.userInteractionEnabled = TRUE;
+    [lbMale addGestureRecognizer: tapOnMale];
+    
+    lbMale.font = lbPersonal.font;
+    lbMale.textColor = lbPersonal.textColor;
+    [lbMale mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icMale);
+        make.left.equalTo(self.icMale.mas_right).offset(5.0);
+        make.right.equalTo(self.icFemale.mas_left).offset(-5.0);
+    }];
+    
+    //  add action when tap on female label
+    UITapGestureRecognizer *tapOnFemale = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectFemale)];
+    lbFemale.userInteractionEnabled = TRUE;
+    [lbFemale addGestureRecognizer: tapOnFemale];
+    
+    lbFemale.font = lbMale.font;
+    lbFemale.textColor = lbMale.textColor;
+    [lbFemale mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icFemale);
+        make.left.equalTo(self.icFemale.mas_right).offset(5.0);
+        make.right.equalTo(self.mas_centerX);
     }];
     
     //  CMND
@@ -336,13 +370,15 @@
     lbTitlePassport.font = lbVision.font;
     lbTitlePassport.textColor = lbVision.textColor;
     [lbTitlePassport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfCountry.mas_bottom).offset(mTop);
         make.left.equalTo(self.imgPassport.mas_right).offset(10.0);
+        make.centerY.equalTo(self.imgPassport.mas_centerY);
         make.right.equalTo(self.lbAddress.mas_right);
+        make.height.mas_equalTo(hTextfield);
     }];
     
     float wItem = (SCREEN_WIDTH-3*padding)/2;
     float hItem = wItem * 2/3;
+    imgPassportFront.clipsToBounds = TRUE;
     [imgPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitlePassport.mas_bottom);
         make.left.equalTo(self.scvAddProfile).offset(padding);
@@ -358,6 +394,7 @@
         make.height.equalTo(self.lbName.mas_height);
     }];
     
+    imgPassportBehind.clipsToBounds = TRUE;
     [imgPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.imgPassportFront);
         make.left.equalTo(self.imgPassportFront.mas_right).offset(padding);
@@ -371,13 +408,70 @@
         make.top.equalTo(self.imgPassportBehind.mas_bottom);
         make.height.equalTo(self.lbName.mas_height);
     }];
+    
+    btnCancel.layer.cornerRadius = 40.0/2;
+    btnCancel.backgroundColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
+    btnCancel.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.imgPassportFront);
+        make.top.equalTo(self.lbPassportFront.mas_bottom).offset(2*padding);
+        make.height.mas_equalTo(40.0);
+    }];
+    
+    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
+    btnSave.backgroundColor = BLUE_COLOR;
+    btnSave.titleLabel.font = btnCancel.titleLabel.font;
+    [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.imgPassportBehind);
+        make.top.bottom.equalTo(self.btnCancel);
+    }];
+}
+
+- (void)selectMale {
+    [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+}
+
+- (void)selectFemale {
+    [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
 }
 
 - (IBAction)icAddClick:(UIButton *)sender {
+    lbTitle.text = @"Thêm mới hồ sơ";
+    icBack.hidden = FALSE;
+    icClose.hidden = icAdd.hidden = TRUE;
+    
+    [scvAddProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.bottom.equalTo(self);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self layoutIfNeeded];
+    }];
 }
 
 - (IBAction)icCloseClick:(UIButton *)sender {
     [delegate onIconCloseClicked];
+}
+
+- (IBAction)icBackClick:(UIButton *)sender {
+    [scvAddProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.equalTo(self).offset(SCREEN_WIDTH);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.bottom.equalTo(self);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        lbTitle.text = @"Danh sách hồ sơ";
+        icBack.hidden = TRUE;
+        icClose.hidden = icAdd.hidden = FALSE;
+    }];
 }
 
 #pragma mark - UITableview
@@ -394,9 +488,9 @@
     ProfileDetailCell *cell = (ProfileDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileDetailCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.row == 0) {
-        [cell updateUIForBusinessProfile: FALSE];
+        //[cell updateUIForBusinessProfile: FALSE];
     }else{
-        [cell updateUIForBusinessProfile: TRUE];
+        //[cell updateUIForBusinessProfile: TRUE];
     }
     
     return cell;

@@ -36,23 +36,29 @@
     
     //  type name
     lbTypeName.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTypeName.clipsToBounds = TRUE;
     lbTypeName.textColor = TITLE_COLOR;
+    lbTypeName.backgroundColor = UIColor.redColor;
     [lbTypeName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
         make.top.equalTo(self.imgProfile);
         make.height.mas_equalTo(20.0);
+        //make.width.mas_equalTo(90.0);
     }];
     
+    lbTypeNameValue.clipsToBounds = TRUE;
     lbTypeNameValue.backgroundColor = UIColor.greenColor;
     lbTypeNameValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
     lbTypeNameValue.textColor = TITLE_COLOR;
     [lbTypeNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbTypeName.mas_right).offset(5.0);
         make.top.bottom.equalTo(self.lbTypeName);
-        make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
+        make.right.equalTo(self).offset(-padding);
+        //  make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
     }];
     
     //  company
+    lbCompany.backgroundColor = UIColor.redColor;
     lbCompany.clipsToBounds = TRUE;
     lbCompany.font = lbTypeName.font;
     lbCompany.textColor = lbTypeName.textColor;
@@ -66,9 +72,9 @@
     lbCompanyValue.font = lbTypeNameValue.font;
     lbCompanyValue.textColor = lbTypeNameValue.textColor;
     [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbCompany.mas_right).offset(5.0);
+        make.left.equalTo(self.lbCompany.mas_right).offset(5.0);
         make.top.bottom.equalTo(self.lbCompany);
-        make.height.equalTo(self.lbTypeName.mas_height);
+        make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
     }];
     
     //  profile name
@@ -83,9 +89,9 @@
     lbProfileNameValue.font = lbTypeNameValue.font;
     lbProfileNameValue.textColor = lbTypeNameValue.textColor;
     [lbProfileNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbProfileName.mas_right).offset(5.0);
+        make.left.equalTo(self.lbProfileName.mas_right).offset(5.0);
         make.top.bottom.equalTo(self.lbProfileName);
-        make.height.equalTo(self.lbTypeName.mas_height);
+        make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UITableView *tbProfile;
 @property (weak, nonatomic) IBOutlet UIButton *icClose;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
 
 @property (nonatomic, assign) float hHeader;
 @property (nonatomic, assign) int selectedRow;
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUIForView;
 - (IBAction)icAddClick:(UIButton *)sender;
 - (IBAction)icCloseClick:(UIButton *)sender;
+- (IBAction)icBackClick:(UIButton *)sender;
 
 //  Add profile
 @property (weak, nonatomic) IBOutlet UIScrollView *scvAddProfile;

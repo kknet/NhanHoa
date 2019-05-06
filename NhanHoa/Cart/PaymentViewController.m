@@ -159,6 +159,11 @@
         make.left.bottom.right.equalTo(self.view);
     }];
     [chooseProfileView setupUIForView];
+    
+    float wPassport = (SCREEN_WIDTH-3*15.0)/2;
+    float hPassport = wPassport * 2/3;
+    float hScrollView = 40 + 9*10.0 + 9*30 + 8*38 + hPassport + 2*15 + 40 + 2*15;
+    chooseProfileView.scvAddProfile.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
 
 - (void)onIconCloseClicked {
