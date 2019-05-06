@@ -276,7 +276,7 @@
     
     lbMainWallet.text = @"Tài khoản chính";
     lbMainWallet.textColor = TITLE_COLOR;
-    lbMainWallet.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
+    lbMainWallet.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgMainWallet.mas_right).offset(5.0);
         make.bottom.equalTo(self.viewMainWallet.mas_centerY);
@@ -285,7 +285,7 @@
     
     lbMoney.text = @"1.200.000 VND";
     lbMoney.textColor = ORANGE_COLOR;
-    lbMoney.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0];
+    lbMoney.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbMainWallet);
         make.top.equalTo(self.viewMainWallet.mas_centerY);
@@ -306,7 +306,7 @@
     
     lbRewards.text = @"Điểm thưởng";
     lbRewards.textColor = TITLE_COLOR;
-    lbRewards.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
+    lbRewards.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgRewards.mas_right).offset(5.0);
         make.bottom.equalTo(self.viewRewards.mas_centerY);
@@ -315,7 +315,7 @@
     
     lbRewardsPoints.text = @"76 điểm";
     lbRewardsPoints.textColor = ORANGE_COLOR;
-    lbRewardsPoints.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0];
+    lbRewardsPoints.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRewards);
         make.top.equalTo(self.viewRewards.mas_centerY);

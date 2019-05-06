@@ -10,7 +10,7 @@
 #import "HomeViewController.h"
 #import "BOViewController.h"
 #import "TransHistoryViewController.h"
-#import "AccountViewController.h"
+#import "MoreViewController.h"
 
 @interface AppTabbarViewController (){
     UIColor *actColor;
@@ -81,8 +81,8 @@
     transHisNav.tabBarItem = transHisItem;
     
     //  Tabbar account
-    AccountViewController *accountVC = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
-    UINavigationController *accountNav = [[UINavigationController alloc] initWithRootViewController: accountVC];
+    MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
+    UINavigationController *moreNav = [[UINavigationController alloc] initWithRootViewController: moreVC];
     
     UIImage *imgAcc = [UIImage imageNamed:@"tabbar_acc_def"];
     imgAcc = [imgAcc imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -93,9 +93,9 @@
     UITabBarItem *accItem = [[UITabBarItem alloc] initWithTitle:@"Tài khoản" image:imgAcc selectedImage:imgAccAct];
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
-    accountNav.tabBarItem = accItem;
+    moreNav.tabBarItem = accItem;
     
-    tabBarController.viewControllers = @[homeNav, boNav , transHisNav, accountNav];
+    tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
     [self.view addSubview: tabBarController.view];
 }
 

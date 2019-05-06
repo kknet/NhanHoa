@@ -32,8 +32,6 @@
 		1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB7022744D8B0044E878 /* BOViewController.xib */; };
 		1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1517FB7522744EE40044E878 /* TransHistoryViewController.m */; };
 		1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB7622744EE40044E878 /* TransHistoryViewController.xib */; };
-		1517FB7D227450710044E878 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1517FB7B227450710044E878 /* AccountViewController.m */; };
-		1517FB7E227450710044E878 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB7C227450710044E878 /* AccountViewController.xib */; };
 		1517FB9722745D810044E878 /* tabbar_history_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB7F22745D720044E878 /* tabbar_history_act.png */; };
 		1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB8022745D730044E878 /* tabbar_history_def@2x.png */; };
 		1517FB9922745D810044E878 /* tabbar_home_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB8122745D730044E878 /* tabbar_home_act@2x.png */; };
@@ -63,6 +61,12 @@
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BCF227FDFA5004A8575 /* AccountInfoView.m */; };
+		15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD1227FDFB7004A8575 /* AccountInfoView.xib */; };
+		15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BD422803AE9004A8575 /* SettingMenuCell.m */; };
+		15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD522803AE9004A8575 /* SettingMenuCell.xib */; };
+		15865BD922803D36004A8575 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD822803D35004A8575 /* right-arrow.png */; };
+		15865BDB228047FF004A8575 /* default_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BDA228047FF004A8575 /* default_avatar.png */; };
 		159F7D8F227AAC4800A64586 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8D227AAC4700A64586 /* trash.png */; };
 		159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7D91227AC88E00A64586 /* PaymentViewController.m */; };
 		159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D92227AC88E00A64586 /* PaymentViewController.xib */; };
@@ -218,9 +222,6 @@
 		1517FB7422744EE40044E878 /* TransHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransHistoryViewController.h; sourceTree = "<group>"; };
 		1517FB7522744EE40044E878 /* TransHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransHistoryViewController.m; sourceTree = "<group>"; };
 		1517FB7622744EE40044E878 /* TransHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransHistoryViewController.xib; sourceTree = "<group>"; };
-		1517FB7A227450710044E878 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
-		1517FB7B227450710044E878 /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
-		1517FB7C227450710044E878 /* AccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
 		1517FB7F22745D720044E878 /* tabbar_history_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_history_act.png; sourceTree = "<group>"; };
 		1517FB8022745D730044E878 /* tabbar_history_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_history_def@2x.png"; sourceTree = "<group>"; };
 		1517FB8122745D730044E878 /* tabbar_home_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_home_act@2x.png"; sourceTree = "<group>"; };
@@ -252,6 +253,14 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		15865BCE227FDFA5004A8575 /* AccountInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountInfoView.h; sourceTree = "<group>"; };
+		15865BCF227FDFA5004A8575 /* AccountInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountInfoView.m; sourceTree = "<group>"; };
+		15865BD1227FDFB7004A8575 /* AccountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountInfoView.xib; sourceTree = "<group>"; };
+		15865BD322803AE9004A8575 /* SettingMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingMenuCell.h; sourceTree = "<group>"; };
+		15865BD422803AE9004A8575 /* SettingMenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingMenuCell.m; sourceTree = "<group>"; };
+		15865BD522803AE9004A8575 /* SettingMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCell.xib; sourceTree = "<group>"; };
+		15865BD822803D35004A8575 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
+		15865BDA228047FF004A8575 /* default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_avatar.png; sourceTree = "<group>"; };
 		159F7D8D227AAC4700A64586 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		159F7D90227AC88E00A64586 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		159F7D91227AC88E00A64586 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
@@ -454,7 +463,6 @@
 				84999C0F227C863B0006C80A /* Web services */,
 				8460F63D227A632900A185B0 /* Cart */,
 				841F008C2274B2CB00F1B314 /* AppObjects */,
-				1517FB79227450560044E878 /* Account */,
 				1517FB7322744EBC0044E878 /* Transaction history */,
 				1517FB6D22744D4B0044E878 /* BO */,
 				15224F082272EDCC00A45C3B /* Utils */,
@@ -497,6 +505,7 @@
 		1508460F226EC9A900428514 /* More */ = {
 			isa = PBXGroup;
 			children = (
+				15865BCD227FDF8D004A8575 /* UI */,
 				15084610226EC9B800428514 /* MoreViewController.h */,
 				15084611226EC9B800428514 /* MoreViewController.m */,
 				15084612226EC9B800428514 /* MoreViewController.xib */,
@@ -533,16 +542,6 @@
 				1517FB7622744EE40044E878 /* TransHistoryViewController.xib */,
 			);
 			path = "Transaction history";
-			sourceTree = "<group>";
-		};
-		1517FB79227450560044E878 /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				1517FB7A227450710044E878 /* AccountViewController.h */,
-				1517FB7B227450710044E878 /* AccountViewController.m */,
-				1517FB7C227450710044E878 /* AccountViewController.xib */,
-			);
-			path = Account;
 			sourceTree = "<group>";
 		};
 		15224F082272EDCC00A45C3B /* Utils */ = {
@@ -654,8 +653,23 @@
 				8464D738227BBC8700381DE5 /* passport_empty_front.png */,
 				8464D736227BBC8600381DE5 /* passport_front.png */,
 				15362863227C0686006827F9 /* picture.png */,
+				15865BD822803D35004A8575 /* right-arrow.png */,
+				15865BDA228047FF004A8575 /* default_avatar.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		15865BCD227FDF8D004A8575 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				15865BCE227FDFA5004A8575 /* AccountInfoView.h */,
+				15865BCF227FDFA5004A8575 /* AccountInfoView.m */,
+				15865BD1227FDFB7004A8575 /* AccountInfoView.xib */,
+				15865BD322803AE9004A8575 /* SettingMenuCell.h */,
+				15865BD422803AE9004A8575 /* SettingMenuCell.m */,
+				15865BD522803AE9004A8575 /* SettingMenuCell.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		15E084C122715E670010429B /* SignIn */ = {
@@ -992,6 +1006,7 @@
 				159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
+				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
@@ -1010,6 +1025,7 @@
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
+				15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
 				842F81BF2275794C00D6DE6D /* tabbar_acc_def@2x.png in Resources */,
@@ -1031,10 +1047,10 @@
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
+				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
-				1517FB7E227450710044E878 /* AccountViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
@@ -1090,6 +1106,7 @@
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
+				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1150,12 +1167,12 @@
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
-				1517FB7D227450710044E878 /* AccountViewController.m in Sources */,
 				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
 				8419668A227604E300C14516 /* SuggestMenuObject.m in Sources */,
+				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
@@ -1166,6 +1183,7 @@
 				84999C15227C86CB0006C80A /* JSONKit.m in Sources */,
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
+				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,

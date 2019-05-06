@@ -344,6 +344,7 @@
     }];
     
     
+    
     [imgArrCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tfCity.mas_right).offset(-7.5);
         make.centerY.equalTo(self.tfCity.mas_centerY);
@@ -488,9 +489,9 @@
     ProfileDetailCell *cell = (ProfileDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileDetailCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.row == 0) {
-        //[cell updateUIForBusinessProfile: FALSE];
+        [cell updateUIForBusinessProfile: FALSE];
     }else{
-        //[cell updateUIForBusinessProfile: TRUE];
+        [cell updateUIForBusinessProfile: TRUE];
     }
     
     return cell;
