@@ -146,4 +146,28 @@
     return FALSE;
 }
 
++ (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color
+{
+    view.layer.masksToBounds = NO;
+    view.layer.shadowOffset = CGSizeMake(0, 0);
+    view.layer.shadowColor = color.CGColor;
+    view.layer.shadowOpacity = 0.4;
+}
+
++ (float)getHeightOfWhoIsDomainViewWithContent: (NSString *)content font:(UIFont *)font heightItem: (float)hItem maxSize: (float)maxSize
+{
+    float padding = 15.0;
+    float defaultHeight = 20 + hItem/2 + 2*padding + hItem + 1.0 + 4*hItem + padding + hItem + 1.0 + 2*hItem + padding + hItem + 1.0 + hItem + padding;
+    
+    float textSize = hItem;
+    if (![AppUtils isNullOrEmpty: content]) {
+        textSize = [AppUtils getSizeWithText:content withFont:font andMaxWidth:maxSize].height;
+        if (textSize < hItem) {
+            textSize = hItem;
+        }
+    }
+    return defaultHeight + textSize;
+    
+}
+
 @end

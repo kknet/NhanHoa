@@ -194,13 +194,6 @@
         }else{
             NSURL *requestURL = [[connection currentRequest] URL];
             NSString *function = [self getFunctionFromRequestURL: requestURL];
-            if (![AppUtils isNullOrEmpty: function]) {
-                if ([function isEqualToString: whois_func]) {
-                    [delegate successfulToCallWebService:function withData:object];
-                }else{
-                    [delegate failedToCallWebService:function andError:result];
-                }
-            }
             [delegate failedToCallWebService:function andError:result];
         }
     }

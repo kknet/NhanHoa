@@ -61,6 +61,11 @@
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1581745C2281406E00DD8EC9 /* DomainModel.m */; };
+		158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */; };
+		158174642281854700DD8EC9 /* close_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 158174622281854500DD8EC9 /* close_gray.png */; };
+		158174652281854700DD8EC9 /* close_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 158174632281854600DD8EC9 /* close_blue.png */; };
+		158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */; };
 		15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BCF227FDFA5004A8575 /* AccountInfoView.m */; };
 		15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD1227FDFB7004A8575 /* AccountInfoView.xib */; };
 		15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BD422803AE9004A8575 /* SettingMenuCell.m */; };
@@ -77,6 +82,7 @@
 		15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A613B022744C56000F6779 /* AppTabbarViewController.m */; };
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
 		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
+		15E7380222812A2200EFB017 /* dashline.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E7380122812A1C00EFB017 /* dashline.png */; };
 		15E92AD22272A2F3004AB658 /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACD2272A2F1004AB658 /* app-icon.png */; };
 		15E92AD32272A2F3004AB658 /* graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACE2272A2F1004AB658 /* graphic.png */; };
 		15E92AD42272A2F3004AB658 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACF2272A2F2004AB658 /* logo.png */; };
@@ -88,9 +94,7 @@
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
 		840F5DE822770848005BFC57 /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DE622770848005BFC57 /* DomainCell.m */; };
 		840F5DE922770848005BFC57 /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DE722770848005BFC57 /* DomainCell.xib */; };
-		840F5DF122770962005BFC57 /* special_notext.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DEB22770961005BFC57 /* special_notext.png */; };
 		840F5DF322770962005BFC57 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DED22770962005BFC57 /* warning.png */; };
-		840F5DF522770962005BFC57 /* special_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DEF22770962005BFC57 /* special_text.png */; };
 		840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DF82277328B005BFC57 /* WhoIsViewController.m */; };
 		840F5DFB2277328B005BFC57 /* WhoIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DF92277328B005BFC57 /* WhoIsViewController.xib */; };
 		841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841485FD2277EB0600CC58AF /* WhoIsResultViewController.m */; };
@@ -268,6 +272,14 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		1581745B2281406E00DD8EC9 /* DomainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainModel.h; sourceTree = "<group>"; };
+		1581745C2281406E00DD8EC9 /* DomainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainModel.m; sourceTree = "<group>"; };
+		1581745F2281825C00DD8EC9 /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
+		158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDescriptionPoupView.m; sourceTree = "<group>"; };
+		158174622281854500DD8EC9 /* close_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_gray.png; sourceTree = "<group>"; };
+		158174632281854600DD8EC9 /* close_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_blue.png; sourceTree = "<group>"; };
+		158174672281914B00DD8EC9 /* WhoisDomainPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoisDomainPopupView.h; sourceTree = "<group>"; };
+		158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoisDomainPopupView.m; sourceTree = "<group>"; };
 		15865BCE227FDFA5004A8575 /* AccountInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountInfoView.h; sourceTree = "<group>"; };
 		15865BCF227FDFA5004A8575 /* AccountInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountInfoView.m; sourceTree = "<group>"; };
 		15865BD1227FDFB7004A8575 /* AccountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountInfoView.xib; sourceTree = "<group>"; };
@@ -292,6 +304,7 @@
 		15E084C222715E830010429B /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		15E084C422715E830010429B /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
+		15E7380122812A1C00EFB017 /* dashline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashline.png; sourceTree = "<group>"; };
 		15E92ACD2272A2F1004AB658 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
 		15E92ACE2272A2F1004AB658 /* graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphic.png; sourceTree = "<group>"; };
 		15E92ACF2272A2F2004AB658 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -305,9 +318,7 @@
 		840F5DE522770848005BFC57 /* DomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainCell.h; sourceTree = "<group>"; };
 		840F5DE622770848005BFC57 /* DomainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainCell.m; sourceTree = "<group>"; };
 		840F5DE722770848005BFC57 /* DomainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainCell.xib; sourceTree = "<group>"; };
-		840F5DEB22770961005BFC57 /* special_notext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = special_notext.png; sourceTree = "<group>"; };
 		840F5DED22770962005BFC57 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
-		840F5DEF22770962005BFC57 /* special_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = special_text.png; sourceTree = "<group>"; };
 		840F5DF72277328B005BFC57 /* WhoIsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsViewController.h; sourceTree = "<group>"; };
 		840F5DF82277328B005BFC57 /* WhoIsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsViewController.m; sourceTree = "<group>"; };
 		840F5DF92277328B005BFC57 /* WhoIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsViewController.xib; sourceTree = "<group>"; };
@@ -677,11 +688,11 @@
 				846AACBA2276CAFE005BC87E /* cart.png */,
 				846EA90A2276E95C00F1D7DB /* search_sad.png */,
 				846EA9092276E95C00F1D7DB /* search_smile.png */,
-				840F5DEB22770961005BFC57 /* special_notext.png */,
-				840F5DEF22770962005BFC57 /* special_text.png */,
 				840F5DED22770962005BFC57 /* warning.png */,
 				8446F4B22277C55D008F4EE9 /* add.png */,
 				8446F4B32277C55D008F4EE9 /* close.png */,
+				158174632281854600DD8EC9 /* close_blue.png */,
+				158174622281854500DD8EC9 /* close_gray.png */,
 				845D32B222792C530047B196 /* hide_pass.png */,
 				845D32B122792C530047B196 /* show_pass.png */,
 				845D32B52279335C0047B196 /* hide_pass_white.png */,
@@ -705,6 +716,7 @@
 				84588A9A228093E900B59E0F /* ic_setting_acc.png */,
 				84588A98228093E800B59E0F /* ic_signout.png */,
 				84588A99228093E900B59E0F /* ic_support.png */,
+				15E7380122812A1C00EFB017 /* dashline.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -768,6 +780,10 @@
 				840F5DE522770848005BFC57 /* DomainCell.h */,
 				840F5DE622770848005BFC57 /* DomainCell.m */,
 				840F5DE722770848005BFC57 /* DomainCell.xib */,
+				1581745F2281825C00DD8EC9 /* DomainDescriptionPoupView.h */,
+				158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */,
+				158174672281914B00DD8EC9 /* WhoisDomainPopupView.h */,
+				158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -916,6 +932,8 @@
 			children = (
 				847E9AA5227EAB2D00C83F5A /* AccountModel.h */,
 				847E9AA6227EAB2D00C83F5A /* AccountModel.m */,
+				1581745B2281406E00DD8EC9 /* DomainModel.h */,
+				1581745C2281406E00DD8EC9 /* DomainModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1055,7 +1073,6 @@
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				842F81B6227561ED00D6DE6D /* Roboto-Bold.ttf in Resources */,
 				846AACBC2276CAFE005BC87E /* cart.png in Resources */,
-				840F5DF122770962005BFC57 /* special_notext.png in Resources */,
 				159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
@@ -1122,6 +1139,7 @@
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
+				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
@@ -1144,19 +1162,20 @@
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
+				15E7380222812A2200EFB017 /* dashline.png in Resources */,
 				1517FB9922745D810044E878 /* tabbar_home_act@2x.png in Resources */,
 				15E92AD22272A2F3004AB658 /* app-icon.png in Resources */,
 				1517FB9B22745D810044E878 /* tabbar_history_act@2x.png in Resources */,
 				841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */,
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
 				8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */,
+				158174652281854700DD8EC9 /* close_blue.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
-				840F5DF522770962005BFC57 /* special_text.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
@@ -1228,6 +1247,7 @@
 				8460F63B227A625300A185B0 /* RenewViewController.m in Sources */,
 				845D32BC22793DF50047B196 /* RegisterAccountStep2ViewController.m in Sources */,
 				841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */,
+				1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */,
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
@@ -1269,6 +1289,8 @@
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
+				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
+				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,

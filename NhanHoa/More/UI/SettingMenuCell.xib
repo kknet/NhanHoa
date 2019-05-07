@@ -29,29 +29,27 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sp-Sd-m81">
-                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="QKs-HO-irq">
                         <rect key="frame" x="289" y="10" width="23" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dashline.png" translatesAutoresizingMaskIntoConstraints="NO" id="pXB-an-wf6">
+                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgArrow" destination="QKs-HO-irq" id="jwj-kb-gPe"/>
+                <outlet property="imgSepa" destination="pXB-an-wf6" id="p3U-cs-x4F"/>
                 <outlet property="imgType" destination="TBL-34-vBQ" id="5q1-f2-bCR"/>
                 <outlet property="lbName" destination="QkD-Y3-za2" id="wJd-ZZ-IPd"/>
-                <outlet property="lbSepa" destination="1Sp-Sd-m81" id="Ftl-tT-jAE"/>
             </connections>
-            <point key="canvasLocation" x="-168" y="38"/>
+            <point key="canvasLocation" x="-352" y="-60"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="dashline.png" width="610" height="3"/>
         <image name="right-arrow.png" width="100" height="100"/>
     </resources>
 </document>

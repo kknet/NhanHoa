@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgType;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow;
-@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSepa;
 
 @end

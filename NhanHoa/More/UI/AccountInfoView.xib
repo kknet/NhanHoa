@@ -33,7 +33,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOZ-i9-Jdy">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dashline.png" translatesAutoresizingMaskIntoConstraints="NO" id="nOZ-i9-Jdy">
                     <rect key="frame" x="9" y="69" width="311" height="3"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -104,11 +104,12 @@
                 <outlet property="viewReward" destination="lqk-pL-aZG" id="4AF-Nf-oV8"/>
                 <outlet property="viewWallet" destination="mtF-Gl-ilI" id="Z2N-fO-0xV"/>
             </connections>
-            <point key="canvasLocation" x="34" y="-60"/>
+            <point key="canvasLocation" x="-93" y="-50"/>
         </view>
     </objects>
     <resources>
         <image name="caseback.png" width="201" height="201"/>
+        <image name="dashline.png" width="610" height="3"/>
         <image name="default_avatar.png" width="200" height="200"/>
         <image name="wallet.png" width="201" height="201"/>
     </resources>

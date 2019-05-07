@@ -131,6 +131,7 @@
     }];
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, hSearch)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
+    tfSearch.text = @"lequangkhai";
     
     icSearch.layer.cornerRadius = hSearch/2;
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
@@ -297,6 +298,8 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    [self.view endEditing: TRUE];
+    
     if ([AppUtils isNullOrEmpty: tfSearch.text]) {
         [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
@@ -341,6 +344,8 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    [self.view endEditing: TRUE];
+    
     CGPoint scrollViewOffset = scrollView.contentOffset;
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];

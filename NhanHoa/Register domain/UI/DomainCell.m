@@ -9,7 +9,7 @@
 #import "DomainCell.h"
 
 @implementation DomainCell
-@synthesize lbDomain, lbPrice, btnChoose, btnSpecial, btnWarning, parentView, padding, lbOldPrice, lbSepa;
+@synthesize lbDomain, lbPrice, btnChoose, btnWarning, parentView, padding;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,7 +27,7 @@
     }];
     
     btnChoose.backgroundColor = BLUE_COLOR;
-    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:15.0];
+    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
     btnChoose.layer.cornerRadius = 36.0/2;
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.parentView.mas_centerY);
@@ -36,7 +36,8 @@
         make.height.mas_equalTo(36.0);
     }];
     
-    lbDomain.font = [UIFont fontWithName:RobotoMedium size:15.0];
+    lbDomain.textColor = TITLE_COLOR;
+    lbDomain.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.parentView).offset(self.padding);
         make.bottom.equalTo(self.parentView.mas_centerY).offset(-2.0);
@@ -49,37 +50,11 @@
         make.width.height.mas_equalTo(35.0);
     }];
     
-    
-    UIImage *imgSpecial = [UIImage imageNamed:@"special_text"];
-    float wIcon = 24.0 * imgSpecial.size.width / imgSpecial.size.height;
-    
-    [btnSpecial mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.btnWarning.mas_right).offset(5.0);
-        make.bottom.equalTo(self.lbDomain.mas_bottom);
-        make.width.mas_equalTo(wIcon);
-        make.height.mas_equalTo(24.0);
-    }];
-    
     lbPrice.textColor = NEW_PRICE_COLOR;
     lbPrice.font = [UIFont fontWithName:RobotoMedium size:15.0];
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.parentView).offset(self.padding);
         make.top.equalTo(self.parentView.mas_centerY).offset(2.0);
-    }];
-    
-    lbOldPrice.textColor = OLD_PRICE_COLOR;
-    lbOldPrice.font = lbPrice.font;
-    [lbOldPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbPrice.mas_right).offset(5.0);
-        make.top.equalTo(self.lbPrice);
-    }];
-    
-    lbSepa.text = @"";
-    lbSepa.backgroundColor = OLD_PRICE_COLOR;
-    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lbOldPrice.mas_centerY);
-        make.left.right.equalTo(self.lbOldPrice);
-        make.height.mas_equalTo(1.0);
     }];
 }
 
@@ -97,13 +72,66 @@
     view.layer.shadowOpacity = 0.4;
 }
 
-- (void)updateSizeButtonForSize: (float)size {
+- (void)updateSizeButtonWithContent: (NSString *)content {
+    float size = [AppUtils getSizeWithText:content withFont:btnChoose.titleLabel.font].width + 10;
+    if (size < 60.0) {
+        size = 60.0;
+    }
+    
     [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.parentView.mas_centerY);
         make.right.equalTo(self.parentView).offset(-self.padding);
         make.width.mas_equalTo(size);
         make.height.mas_equalTo(36.0);
     }];
+}
+
+- (void)showPriceForDomainCell: (BOOL)show {
+    float size = [AppUtils getSizeWithText:btnChoose.currentTitle withFont:btnChoose.titleLabel.font].width + 10;
+    if (size < 60.0) {
+        size = 60.0;
+    }
+    
+    [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.parentView.mas_centerY);
+        make.right.equalTo(self.parentView).offset(-self.padding);
+        make.width.mas_equalTo(size);
+        make.height.mas_equalTo(36.0);
+    }];
+    
+    if (show) {
+        [lbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.parentView).offset(self.padding);
+            make.bottom.equalTo(self.parentView.mas_centerY).offset(-2.0);
+        }];
+        
+        [btnWarning mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbDomain.mas_right);
+            make.centerY.equalTo(self.lbDomain.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        
+        lbPrice.hidden = FALSE;
+        [lbPrice mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.parentView).offset(self.padding);
+            make.top.equalTo(self.parentView.mas_centerY).offset(2.0);
+        }];
+        
+    }else{
+        [lbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.parentView).offset(self.padding);
+            make.top.bottom.equalTo(self.parentView);
+        }];
+        
+        [btnWarning mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbDomain.mas_right);
+            make.centerY.equalTo(self.lbDomain.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        lbPrice.hidden = TRUE;
+    }
+    
+    
 }
 
 @end

@@ -22,5 +22,8 @@
 + (NSString *)getCurrentDate;
 + (NSString *)getCurrentDateTimeToString;
 + (BOOL)checkNetworkAvailable;
++ (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
+
++ (float)getHeightOfWhoIsDomainViewWithContent: (NSString *)content font:(UIFont *)font heightItem: (float)hItem maxSize: (float)maxSize;
 
 @end

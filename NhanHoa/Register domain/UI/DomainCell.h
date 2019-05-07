@@ -16,15 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
-@property (weak, nonatomic) IBOutlet UIButton *btnSpecial;
 @property (weak, nonatomic) IBOutlet UIButton *btnWarning;
-@property (weak, nonatomic) IBOutlet UILabel *lbOldPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 @property (nonatomic, assign) float padding;
 - (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
-- (void)updateSizeButtonForSize: (float)size;
+- (void)updateSizeButtonWithContent: (NSString *)content;
+- (void)showPriceForDomainCell: (BOOL)show;
 
 @end
 

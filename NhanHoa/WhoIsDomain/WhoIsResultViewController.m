@@ -103,8 +103,10 @@
             }else if ([view isKindOfClass:[WhoIsDomainView class]])
             {
                 WhoIsDomainView *view = [scvContent viewWithTag: tag];
-                float heightView = view.lbDNSSECValue.frame.origin.y + view.lbDNSSECValue.frame.size
-                .height + 15.0 + view.lbTitle.frame.size.height + view.lbTitle.frame.origin.y;
+                float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
+                float heightView = [AppUtils getHeightOfWhoIsDomainViewWithContent:view.lbDNSValue.text font:[UIFont fontWithName:RobotoRegular size:14.0] heightItem:view.hLabel maxSize:maxSize];
+                
+                //float heightView = view.lbDNSSECValue.frame.origin.y + view.lbDNSSECValue.frame.size.height + 15.0 + view.lbTitle.frame.size.height/2 + view.lbTitle.frame.origin.y;
                 
                 float originY = 0;
                 if (i == 0) {
@@ -115,12 +117,14 @@
                     contentSize = contentSize + 10.0 + heightView;
                 }
                 
+                view.backgroundColor = UIColor.blueColor;
                 [view mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.scvContent);
                     make.top.equalTo(self.scvContent).offset(originY);
                     make.width.mas_equalTo(SCREEN_WIDTH);
                     make.height.mas_equalTo(heightView);
                 }];
+                [view layoutIfNeeded];
             }
         }
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
@@ -179,9 +183,6 @@
     NSString *price = [AppUtils convertStringToCurrencyFormat:domain.price];
     cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
     
-    NSString *oldPrice = [AppUtils convertStringToCurrencyFormat:domain.oldPrice];
-    cell.lbOldPrice.text = [NSString stringWithFormat:@"%@đ", oldPrice];
-    
     if (domain.warning) {
         cell.btnWarning.hidden = FALSE;
     }else{
@@ -190,15 +191,13 @@
     
     if (domain.isRegistered) {
         [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
-        [cell updateSizeButtonForSize: sizeLargeText];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
     }else{
         [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
-        [cell updateSizeButtonForSize: 60.0];
         cell.btnChoose.backgroundColor = BLUE_COLOR;
     }
+    [cell updateSizeButtonWithContent:cell.btnChoose.currentTitle];
     
-    cell.btnSpecial.hidden = TRUE;
     [cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
     return cell;
@@ -370,8 +369,9 @@
             break;
         }
     }
+    whoisView.hLabel = 25.0;
     
-    float hView = 380.0;
+    float hView = 340.0;
     [scvContent addSubview: whoisView];
     [whoisView setupUIForView];
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -418,8 +418,17 @@
             break;
         }
     }
+    whoIsView.hLabel = 25.0;
     
-    float hView = 430.0;
+    NSString *dns = [info objectForKey:@"dns"];
+    if (![AppUtils isNullOrEmpty: dns]) {
+        dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
+        dns = [dns stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+    }
+    
+    float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
+    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[UIFont fontWithName:RobotoRegular size:14.0] heightItem:whoIsView.hLabel maxSize:maxSize];
+    
     float originY;
     if (index == 0) {
         originY = 0;
@@ -429,13 +438,15 @@
         contentSize = contentSize + 10.0 + hView;
     }
     [scvContent addSubview:whoIsView];
-    [whoIsView setupUIForView];
+    
     [whoIsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
         make.top.equalTo(self.scvContent).offset(originY);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
+    [whoIsView setupUIForView];
+    
     whoIsView.tag = tag;
     [listTagView addObject:[NSNumber numberWithInt: tag]];
     [whoIsView showContentOfDomainWithInfo: info];

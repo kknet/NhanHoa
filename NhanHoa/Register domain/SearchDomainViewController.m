@@ -7,13 +7,18 @@
 //
 
 #import "SearchDomainViewController.h"
-#import "DomainObject.h"
 #import "DomainCell.h"
 #import "AccountModel.h"
+#import "DomainModel.h"
+#import "DomainDescriptionPoupView.h"
+#import "WhoisDomainPopupView.h"
 
 @interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
-    NSMutableArray *listData;
+    NSMutableArray *listKeys;
+    NSString *firstDomain;
+    NSDictionary *firstDomainInfo;
     float hCell;
+    float hSmallCell;
 }
 
 @end
@@ -23,12 +28,11 @@
 @synthesize viewHeader, icBack, icCart, lbTitle, lbCount;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
-@synthesize padding, strSearch, webService, resultDict;
+@synthesize padding, strSearch, webService, resultDict, hTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self createDemoData];
     [self setupUIForView];
 }
 
@@ -48,24 +52,7 @@
     
     tfSearch.text = strSearch;
     [self hideUIForSearch: TRUE];
-    [self checkCurrentDomain];
-    
-    return;
-    
-    NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", strSearch];
-    NSRange range = [content rangeOfString: strSearch];
-    if (range.location != NSNotFound) {
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
-        lbSearchContent.attributedText = attr;
-    }else{
-        lbSearchContent.text = content;
-    }
-    
-    tfSearch.text = strSearch;
-    
-    [self reUpdateLayoutForView];
+    [self checkCurrentDomain:strSearch type:0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -73,7 +60,7 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    float contentSize = tbDomains.frame.origin.y + listData.count * hCell + self.padding;
+    float contentSize = tbDomains.frame.origin.y + self.hTableView + self.padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
 }
 
@@ -95,18 +82,21 @@
 }
 
 - (void)reUpdateLayoutForView {
-    float hTableView = listData.count * hCell;
+    //  get height of tableview
+    hTableView = [self getHeightTableView];
+    
     [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepaView.mas_bottom).offset(self.padding);
         make.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTableView);
+        make.height.mas_equalTo(self.hTableView);
     }];
 }
 
 - (void)setupUIForView {
     padding = 15.0;
-    hCell = 90.0;
+    hCell = 80.0;
+    hSmallCell = 65.0;
     
     //  header view
     float hHeader = [UIApplication sharedApplication].statusBarFrame.size.height + 50.0;
@@ -286,6 +276,7 @@
         make.height.mas_equalTo(1.0);
     }];
     
+    lbRelationDomain.font = [UIFont fontWithName:RobotoMedium size:17.0];
     [lbRelationDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepaView.mas_bottom).offset(self.padding);
         make.left.equalTo(self.scvContent).offset(self.padding);
@@ -293,6 +284,7 @@
         make.height.mas_equalTo(40.0);
     }];
     
+    tbDomains.scrollEnabled = FALSE;
     tbDomains.backgroundColor = UIColor.clearColor;
     tbDomains.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbDomains registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
@@ -305,65 +297,93 @@
     }];
 }
 
-- (void)createDemoData {
-    listData = [[NSMutableArray alloc] init];
-    
-    DomainObject *domain = [[DomainObject alloc] init];
-    domain.domain = @"lanhquadi.org";
-    domain.price = @"29000";
-    domain.oldPrice = @"180000";
-    domain.special = FALSE;
-    domain.warning = FALSE;
-    domain.warningContent = @"";
-    [listData addObject: domain];
-    
-    DomainObject *domain1 = [[DomainObject alloc] init];
-    domain1.domain = @"lanhquadi.top";
-    domain1.price = @"100000";
-    domain1.oldPrice = @"150000";
-    domain1.special = TRUE;
-    domain1.warning = FALSE;
-    domain1.warningContent = @"";
-    [listData addObject: domain1];
-    
-    DomainObject *domain2 = [[DomainObject alloc] init];
-    domain2.domain = @"lanhquadi.org.vn";
-    domain2.price = @"350000";
-    domain2.oldPrice = @"";
-    domain2.special = NO;
-    domain2.warning = TRUE;
-    domain2.warningContent = @"Tên miền giành cho các tổ chức hoạt động trong lĩnh vực chính trị, văn hoá, xã hội. Cá nhân không thể đăng ký tên miền này!";
-    [listData addObject: domain2];
-    
-    DomainObject *domain3 = [[DomainObject alloc] init];
-    domain3.domain = @"lanhquadi.vn";
-    domain3.price = @"85000";
-    domain3.oldPrice = @"170000";
-    domain3.special = FALSE;
-    domain3.warning = FALSE;
-    domain3.warningContent = @"";
-    [listData addObject: domain3];
-    
-    DomainObject *domain4 = [[DomainObject alloc] init];
-    domain4.domain = @"lanhquadi.net.vn";
-    domain4.price = @"630000";
-    domain4.oldPrice = @"";
-    domain4.special = FALSE;
-    domain4.warning = FALSE;
-    domain4.warningContent = @"";
-    [listData addObject: domain4];
-}
-
-- (void)checkCurrentDomain {
+- (void)checkCurrentDomain: (NSString *)domain type: (int)type {
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:whois_mod forKey:@"mod"];
-    [jsonDict setObject:strSearch forKey:@"domain"];
+    [jsonDict setObject:domain forKey:@"domain"];
     [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
-    [jsonDict setObject:[NSNumber numberWithInt: 0] forKey:@"type"];
+    [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
     [webService callWebServiceWithLink:whois_func withParams:jsonDict];
     
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
+
+- (void)prepareDataToDisplay {
+    listKeys = [[NSMutableArray alloc] initWithArray:[resultDict allKeys]];
+    NSRange extRange = [strSearch rangeOfString:@"."];
+    if (extRange.location == NSNotFound) {
+        if (listKeys.count > 0) {
+            
+            for (int index=0; index<listKeys.count; index++) {
+                NSString *domain = [listKeys objectAtIndex: index];
+                NSDictionary *info = [resultDict objectForKey: domain];
+                id available = [info objectForKey:@"available"];
+                
+                if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
+                {
+                    firstDomain = domain;
+                    firstDomainInfo = [resultDict objectForKey:firstDomain];
+                    break;
+                    
+                }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
+                {
+                    firstDomain = domain;
+                    firstDomainInfo = [resultDict objectForKey:firstDomain];
+                    break;
+                }
+            }
+            
+            if ([AppUtils isNullOrEmpty: firstDomain]) {
+                firstDomain = [listKeys firstObject];
+                firstDomainInfo = [resultDict objectForKey: firstDomain];
+            }
+            [listKeys removeObject: firstDomain];
+            [resultDict removeObjectForKey: firstDomain];
+            
+            [self hideUIForSearch: FALSE];
+            
+            NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
+            NSRange range = [content rangeOfString: firstDomain];
+            if (range.location != NSNotFound) {
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+                lbSearchContent.attributedText = attr;
+            }else{
+                lbSearchContent.text = content;
+            }
+            
+            lbDomainName.text = firstDomain;
+            NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
+            if (![AppUtils isNullOrEmpty: price]) {
+                lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
+            }
+            lbOldPrice.hidden = lbSepa.hidden = TRUE;
+            [self reUpdateLayoutForView];
+            [tbDomains reloadData];
+        }
+    }else{
+        
+    }
+}
+
+- (float)getHeightTableView {
+    float hTableView = 0;
+    
+    for (int index=0; index<listKeys.count; index++) {
+        NSString *domain = [listKeys objectAtIndex: index];
+        NSDictionary *info = [resultDict objectForKey: domain];
+        id available = [info objectForKey:@"available"];
+        if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
+        {
+            hTableView+= hCell;
+        }else{
+            hTableView+= hSmallCell;
+        }
+    }
+    return hTableView;
+}
+
 
 #pragma mark - Webservice
 -(void)failedToCallWebService:(NSString *)link andError:(id)error {
@@ -378,7 +398,8 @@
         [ProgressHUD dismiss];
 
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            resultDict = [[NSDictionary alloc] initWithDictionary: data];
+            resultDict = [[NSMutableDictionary alloc] initWithDictionary: data];
+            [self prepareDataToDisplay];
         }
     }
 }
@@ -395,29 +416,105 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listData.count;
+    return listKeys.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DomainCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    DomainObject *domain = [listData objectAtIndex: indexPath.row];
-    cell.lbDomain.text = domain.domain;
+    NSString *domain = [listKeys objectAtIndex: indexPath.row];
+    NSDictionary *info = [resultDict objectForKey: domain];
     
-    NSString *price = [AppUtils convertStringToCurrencyFormat:domain.price];
-    cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
-    
-    NSString *oldPrice = [AppUtils convertStringToCurrencyFormat:domain.oldPrice];
-    cell.lbOldPrice.text = [NSString stringWithFormat:@"%@đ", oldPrice];
-    
+    cell.lbDomain.text = domain;
+    //  check available domain
+    id available = [info objectForKey:@"available"];
+    if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
+    {
+        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        cell.btnChoose.backgroundColor = BLUE_COLOR;
+        
+        NSString *price = [DomainModel getPriceFromDomainInfo: info];
+        if (![AppUtils isNullOrEmpty: price]) {
+            price = [AppUtils convertStringToCurrencyFormat: price];
+            cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
+        }else{
+            cell.lbPrice.text = @"Liên hệ";
+        }
+        [cell showPriceForDomainCell: TRUE];
+        
+        //  check flag
+        id flag = [info objectForKey:@"flag"];
+        if (([flag isKindOfClass:[NSNumber class]] && [flag intValue] == 1) || [flag boolValue] == 1)
+        {
+            cell.btnWarning.hidden = FALSE;
+            [cell.btnWarning addTarget:self
+                                action:@selector(showDescriptionForCurrentDomain)
+                      forControlEvents:UIControlEventTouchUpInside];
+            
+        }else{
+            cell.btnWarning.hidden = TRUE;
+        }
+        
+        cell.btnChoose.tag = indexPath.row;
+        [cell.btnChoose addTarget:self
+                           action:@selector(chooseThisDomain:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
+        cell.btnChoose.backgroundColor = ORANGE_COLOR;
+        cell.lbPrice.text = @"";
+        
+        
+        [cell showPriceForDomainCell: FALSE];
+        
+        cell.btnWarning.hidden = TRUE;
+        
+        cell.btnChoose.tag = indexPath.row;
+        [cell.btnChoose addTarget:self
+                           action:@selector(viewInfoOfDomain:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    }
     [cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return hCell;
+- (void)showDescriptionForCurrentDomain
+{
+    NSString *content = @"Lưu ý: Trong một số trường hợp, các tên miền gắn liền với tên thương hiệu riêng đã bảo hộ hoặc thương hiệu nổi tiếng hoặc các tên miền đang đấu giá, chính sách giá sẽ được căn cứ theo giá thực tế trong hệ thống tại thời điểm đăng ký (không theo CTKM). Khi đó, bộ phận kinh doanh của chúng tôi sẽ thông báo lại Quý khách.";
+    
+    float sizeContent = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:20.0] andMaxWidth:(280-30.0)].height;
+    float hPopup = 40.0 + sizeContent + 5.0 + 15.0;
+    
+    DomainDescriptionPoupView *popupView = [[DomainDescriptionPoupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, (SCREEN_HEIGHT - hPopup)/2, 300, hPopup)];
+    popupView.lbContent.text = content;
+    [popupView showInView:self.view animated:TRUE];
+    [AppUtils addBoxShadowForView:popupView withColor:UIColor.whiteColor];
+}
+
+- (void)viewInfoOfDomain: (UIButton *)sender {
+    NSString *domain = [listKeys objectAtIndex: sender.tag];
+    
+    float hPopup = 35 + 11*30.0 + 2*15.0 + 2*10.0;
+    float wPopup = (SCREEN_WIDTH-10.0);
+    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(5.0, (SCREEN_HEIGHT - hPopup)/2, wPopup, hPopup)];
+    popupView.domain = domain;
+    [popupView showInView:self.view animated:TRUE];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *domain = [listKeys objectAtIndex: indexPath.row];
+    NSDictionary *info = [resultDict objectForKey: domain];
+    
+    id available = [info objectForKey:@"available"];
+    if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
+    {
+        return hCell;
+    }else{
+        return hSmallCell;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
@@ -426,4 +523,5 @@
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
 }
+
 @end

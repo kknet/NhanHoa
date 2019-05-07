@@ -153,15 +153,7 @@
     }];
     [accInfoView setupUIForView];
     
-    [self addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
-}
-
-- (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color
-{
-    view.layer.masksToBounds = NO;
-    view.layer.shadowOffset = CGSizeMake(0, 0);
-    view.layer.shadowColor = color.CGColor;
-    view.layer.shadowOpacity = 0.4;
+    [AppUtils addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
 }
 
 #pragma mark - UITableview
@@ -215,10 +207,10 @@
     
     if (indexPath.row == eSignOut) {
         cell.backgroundColor = UIColor.clearColor;
-        cell.lbSepa.hidden = TRUE;
+        cell.imgSepa.hidden = TRUE;
     }else{
         cell.backgroundColor = UIColor.whiteColor;
-        cell.lbSepa.hidden = FALSE;
+        cell.imgSepa.hidden = FALSE;
     }
     
     return cell;
@@ -280,6 +272,11 @@
             [self presentViewController:signInVC animated:TRUE completion:nil];
         }
     }
+    
+    
+    
+
+    
 }
 
 @end

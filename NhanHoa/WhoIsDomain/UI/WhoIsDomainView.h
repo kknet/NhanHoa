@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUIForView;
 - (void)showContentOfDomainWithInfo: (NSDictionary *)info;
 
+@property (nonatomic, assign) float hLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END
