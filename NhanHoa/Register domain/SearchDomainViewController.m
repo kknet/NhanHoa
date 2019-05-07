@@ -9,11 +9,11 @@
 #import "SearchDomainViewController.h"
 #import "DomainObject.h"
 #import "DomainCell.h"
+#import "AccountModel.h"
 
 @interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
     NSMutableArray *listData;
     float hCell;
-    NSString *strSearch;
 }
 
 @end
@@ -23,7 +23,7 @@
 @synthesize viewHeader, icBack, icCart, lbTitle, lbCount;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
-@synthesize padding;
+@synthesize padding, strSearch, webService, resultDict;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,8 +34,23 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [self.navigationController setNavigationBarHidden: YES];
-    strSearch = @"lanhquadi.com";
+    [self.navigationController setNavigationBarHidden: TRUE];
+    
+    [WriteLogsUtils writeForGoToScreen: @"SearchDomainViewController"];
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+    }
+    webService.delegate = self;
+    
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
+    
+    tfSearch.text = strSearch;
+    [self hideUIForSearch: TRUE];
+    [self checkCurrentDomain];
+    
+    return;
     
     NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", strSearch];
     NSRange range = [content rangeOfString: strSearch];
@@ -73,6 +88,10 @@
 }
 
 - (IBAction)btnChoosePress:(UIButton *)sender {
+}
+
+- (void)hideUIForSearch: (BOOL)hide {
+    viewResult.hidden = lbSepaView.hidden = lbRelationDomain.hidden = tbDomains.hidden = hide;
 }
 
 - (void)reUpdateLayoutForView {
@@ -333,6 +352,41 @@
     domain4.warning = FALSE;
     domain4.warningContent = @"";
     [listData addObject: domain4];
+}
+
+- (void)checkCurrentDomain {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:whois_mod forKey:@"mod"];
+    [jsonDict setObject:strSearch forKey:@"domain"];
+    [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
+    [jsonDict setObject:[NSNumber numberWithInt: 0] forKey:@"type"];
+    [webService callWebServiceWithLink:whois_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+#pragma mark - Webservice
+-(void)failedToCallWebService:(NSString *)link andError:(id)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+}
+
+-(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if ([link isEqualToString: whois_func]) {
+        [ProgressHUD dismiss];
+
+        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            resultDict = [[NSDictionary alloc] initWithDictionary: data];
+        }
+    }
+}
+
+-(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
 }
 
 #pragma mark - UITableview

@@ -32,6 +32,17 @@
     self.navigationController.navigationBarHidden = TRUE;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    if (tbContent.contentSize.height > tbContent.frame.size.height) {
+        tbContent.scrollEnabled = TRUE;
+    }else{
+        tbContent.scrollEnabled = FALSE;
+    }
+    
+    //  39h
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     self.navigationController.navigationBarHidden = FALSE;
@@ -169,25 +180,31 @@
     switch (indexPath.row) {
         case eSettingAccount:{
             cell.lbName.text = @"Cài đặt tài khoản";
+            cell.imgType.image = [UIImage imageNamed:@"ic_setting_acc.png"];
             break;
         }
         case eContactInfo:{
             cell.lbName.text = @"Thông tin liên lạc";
+            cell.imgType.image = [UIImage imageNamed:@"ic_contact_info"];
             break;
         }
         case eManagerDomainList:{
             cell.lbName.text = @"Quản lý tên miền";
+            cell.imgType.image = [UIImage imageNamed:@"ic_manager_domain"];
             break;
         }
         case eCustomnerSupport:{
+            cell.imgType.image = [UIImage imageNamed:@"ic_support"];
             cell.lbName.text = @"Hỗ trợ khách hàng";
             break;
         }
         case eApplicationInfo:{
+            cell.imgType.image = [UIImage imageNamed:@"ic_about"];
             cell.lbName.text = @"Thông tin ứng dụng";
             break;
         }
         case eSignOut:{
+            cell.imgType.image = [UIImage imageNamed:@"ic_signout"];
             cell.lbName.text = @"Đăng xuất";
             break;
         }

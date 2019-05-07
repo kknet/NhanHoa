@@ -562,6 +562,8 @@
 }
 
 -(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if ([link isEqualToString: whois_func]) {
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
             [listResults addObject: data];

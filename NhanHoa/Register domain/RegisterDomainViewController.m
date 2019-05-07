@@ -129,6 +129,8 @@
         make.centerY.equalTo(self.viewBanner.mas_bottom);
         make.height.mas_equalTo(hSearch);
     }];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, hSearch)];
+    tfSearch.leftViewMode = UITextFieldViewModeAlways;
     
     icSearch.layer.cornerRadius = hSearch/2;
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
@@ -295,7 +297,12 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfSearch.text]) {
+        [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
     SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
+    searchDomainVC.strSearch = tfSearch.text;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
 }
 

@@ -192,8 +192,16 @@
                 [delegate failedToCallWebService:strURL andError:result];
             }
         }else{
-            NSString *strURL = [[[connection currentRequest] URL] absoluteString];
-            [delegate failedToCallWebService:strURL andError:result];
+            NSURL *requestURL = [[connection currentRequest] URL];
+            NSString *function = [self getFunctionFromRequestURL: requestURL];
+            if (![AppUtils isNullOrEmpty: function]) {
+                if ([function isEqualToString: whois_func]) {
+                    [delegate successfulToCallWebService:function withData:object];
+                }else{
+                    [delegate failedToCallWebService:function andError:result];
+                }
+            }
+            [delegate failedToCallWebService:function andError:result];
         }
     }
 }

@@ -19,7 +19,7 @@
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(35.0);
     }];
     
     [imgArrow mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -31,7 +31,7 @@
     lbName.font = [UIFont fontWithName:RobotoMedium size:16.0];
     lbName.textColor = TITLE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgType.mas_right).offset(5.0);
+        make.left.equalTo(self.imgType.mas_right).offset(padding);
         make.right.equalTo(self.imgArrow.mas_left).offset(-5.0);
         make.top.bottom.equalTo(self.imgType);
     }];
