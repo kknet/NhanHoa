@@ -125,6 +125,7 @@
                     make.height.mas_equalTo(heightView);
                 }];
                 [view layoutIfNeeded];
+                
             }
         }
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);

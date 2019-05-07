@@ -155,7 +155,7 @@
     [lbIssueDateValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbIssueDate);
         make.left.right.equalTo(self.lbOwnerValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.height.mas_equalTo(self.hLabel);
         //make.height.mas_equalTo(25.0);
     }];
     
@@ -172,7 +172,7 @@
     [lbExpiredDateValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbExpiredDate);
         make.left.right.equalTo(self.lbIssueDateValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.height.mas_equalTo(self.hLabel);
         //make.height.mas_equalTo(25.0);
     }];
     
@@ -202,7 +202,7 @@
     
     lbDNSValue.textColor = lbDomainValue.textColor;
     lbDNSValue.font = lbDomainValue.font;
-    lbDNSValue.numberOfLines = 10;
+    //lbDNSValue.numberOfLines = 10;
     [lbDNSValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDNS);
         make.left.right.equalTo(self.lbIssueDateValue);
@@ -224,7 +224,7 @@
     [lbDNSSECValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDNSSEC);
         make.left.right.equalTo(self.lbDNSValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.height.mas_equalTo(self.hLabel);
         //make.height.mas_equalTo(25.0);
     }];
 }
