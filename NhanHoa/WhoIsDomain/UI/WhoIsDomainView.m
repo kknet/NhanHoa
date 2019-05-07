@@ -19,14 +19,13 @@
     
     lbTitle.textColor = BLUE_COLOR;
     lbTitle.backgroundColor = UIColor.whiteColor;
-    lbTitle.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbTitle.font = [UIFont fontWithName:RobotoBold size:17.0];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(20.0);
         make.centerX.equalTo(self.mas_centerX);
         make.height.mas_equalTo(30.0);
     }];
     float padding = 15.0;
-    viewContent.backgroundColor = UIColor.greenColor;
     viewContent.layer.cornerRadius = 6.0;
     viewContent.layer.borderWidth = 1.0;
     viewContent.layer.borderColor = BORDER_COLOR.CGColor;
@@ -38,7 +37,7 @@
     }];
     
     lbRegistrarInfo.textColor = TITLE_COLOR;
-    lbRegistrarInfo.font = [UIFont fontWithName:RobotoMedium size:18.0];
+    lbRegistrarInfo.font = [UIFont fontWithName:RobotoMedium size:15.0];
     [lbRegistrarInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewContent).offset(padding);
         make.right.equalTo(self.viewContent).offset(-padding);
@@ -54,7 +53,7 @@
     }];
     
     lbDomain.textColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1.0];
-    lbDomain.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbDomain.font = [UIFont fontWithName:RobotoRegular size:15.0];
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepa1.mas_bottom);
         make.left.equalTo(self.lbSepa1);
@@ -202,7 +201,7 @@
     
     lbDNSValue.textColor = lbDomainValue.textColor;
     lbDNSValue.font = lbDomainValue.font;
-    //lbDNSValue.numberOfLines = 10;
+    lbDNSValue.numberOfLines = 10;
     [lbDNSValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDNS);
         make.left.right.equalTo(self.lbIssueDateValue);
@@ -218,7 +217,6 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    lbDNSSECValue.backgroundColor = UIColor.redColor;
     lbDNSSECValue.textColor = lbDomainValue.textColor;
     lbDNSSECValue.font = lbDomainValue.font;
     [lbDNSSECValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -238,8 +236,17 @@
     NSString *status = [info objectForKey:@"status"];
     NSString *dnssec = [info objectForKey:@"dnssec"];
     
+    
     if (![AppUtils isNullOrEmpty: domain]) {
         lbTitle.text = lbDomainValue.text = domain;
+        float wContent = [AppUtils getSizeWithText:domain withFont:lbTitle.font].width + 20;
+        
+        [lbTitle mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(20.0);
+            make.centerX.equalTo(self.mas_centerX);
+            make.height.mas_equalTo(30.0);
+            make.width.mas_equalTo(wContent);
+        }];
     }else{
         lbTitle.text = lbDomainValue.text = @"";
     }
@@ -283,6 +290,10 @@
     }
     
     lbOwnerValue.text = @"";
+}
+
+- (void)resetAllValueForView {
+    lbStatusValue.text = lbRegisterNameValue.text = lbOwnerValue.text = lbIssueDateValue.text = lbExpiredDateValue.text = lbDNSValue.text = lbDNSSECValue.text = @"";
 }
 
 @end

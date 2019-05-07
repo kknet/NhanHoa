@@ -496,7 +496,9 @@
 - (void)viewInfoOfDomain: (UIButton *)sender {
     NSString *domain = [listKeys objectAtIndex: sender.tag];
     
-    float hPopup = 35 + 11*30.0 + 2*15.0 + 2*10.0;
+    float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
+    
+    float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[UIFont fontWithName:RobotoRegular size:16.0] heightItem:28.0 maxSize:maxSize];
     float wPopup = (SCREEN_WIDTH-10.0);
     WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(5.0, (SCREEN_HEIGHT - hPopup)/2, wPopup, hPopup)];
     popupView.domain = domain;

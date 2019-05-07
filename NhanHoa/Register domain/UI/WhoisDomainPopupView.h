@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) WebServices *webService;
 @property (nonatomic, strong) NSString *domain;
+@property (nonatomic, assign) float hItem;
 
 - (void)showInView:(UIView *)aView animated:(BOOL)animated;
 - (void)fadeOut;

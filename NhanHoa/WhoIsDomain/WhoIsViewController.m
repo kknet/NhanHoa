@@ -33,7 +33,7 @@
         [listDomain removeAllObjects];
     }
     //  [listDomain addObject:@"nongquadi.vn"];
-    [listDomain addObject:@"giaohangnhanh.comfort"];
+    [listDomain addObject:@"giaohangnhanh.com.vn"];
     [listDomain addObject:@"giaohangnhanh.com"];
     [listDomain addObject:@""];
     

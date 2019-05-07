@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float hItem;
 
 - (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
+- (void)showOldPriceForCell: (BOOL)show ;
 
 @end
 

@@ -117,7 +117,6 @@
                     contentSize = contentSize + 10.0 + heightView;
                 }
                 
-                view.backgroundColor = UIColor.blueColor;
                 [view mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.scvContent);
                     make.top.equalTo(self.scvContent).offset(originY);
@@ -370,6 +369,7 @@
             break;
         }
     }
+    [whoisView resetAllValueForView];
     whoisView.hLabel = 25.0;
     
     float hView = 340.0;
@@ -419,6 +419,7 @@
             break;
         }
     }
+    [whoIsView resetAllValueForView];
     whoIsView.hLabel = 25.0;
     
     NSString *dns = [info objectForKey:@"dns"];

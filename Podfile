@@ -9,5 +9,6 @@ target 'NhanHoa' do
   	pod 'Masonry'
   	pod 'Toast'
     pod 'ProgressHUD'
+    pod 'SDWebImage'
 #    pod 'MBProgressHUD', '~> 1.1.0'
 end

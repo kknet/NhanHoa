@@ -16,5 +16,6 @@
 #import "UIView+Toast.h"
 #import "WriteLogsUtils.h"
 #import "ProgressHUD.h"
+#import "UIImageView+WebCache.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */

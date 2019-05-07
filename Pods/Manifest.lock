@@ -1,24 +1,30 @@
 PODS:
   - Masonry (1.1.0)
   - ProgressHUD (2.51)
+  - SDWebImage (4.4.1):
+    - SDWebImage/Core (= 4.4.1)
+  - SDWebImage/Core (4.4.1)
   - Toast (4.0.0)
 
 DEPENDENCIES:
   - Masonry
   - ProgressHUD
+  - SDWebImage
   - Toast
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Masonry
     - ProgressHUD
+    - SDWebImage
     - Toast
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ProgressHUD: 54b4c2fa202bf3da7dddc1c698ae4e6376333bd9
+  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 5c956e548afe1eee1bdb2973acfbb5c65f72deee
+PODFILE CHECKSUM: f06748ebedefa310fc863940ba9f6b2fc34f1831
 
 COCOAPODS: 1.5.2

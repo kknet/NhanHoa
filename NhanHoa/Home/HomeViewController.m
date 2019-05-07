@@ -16,13 +16,14 @@
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSMutableArray *listMenu;
+    NSString *bannerURL;
 }
 
 @end
 
 @implementation HomeViewController
 @synthesize viewSearch, tfSearch, icNotify, icClear, btnSearch, icCart, lbCount;
-@synthesize viewBanner;
+@synthesize scvBanner;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
 @synthesize hMenu;
@@ -32,6 +33,8 @@
     // Do any additional setup after loading the view from its nib.
     [self createDataForMenuView];
     [self setupUIForView];
+    
+    [self addBannerImageForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -59,6 +62,44 @@
     CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
     cartVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController: cartVC animated:YES];
+}
+
+- (void)addBannerImageForView
+{
+    if ([AppDelegate sharedInstance].userInfo != nil) {
+        id banner = [[AppDelegate sharedInstance].userInfo objectForKey:@"banner"];
+        if ([banner isKindOfClass:[NSDictionary class]]) {
+            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, scvBanner.frame.size.height)];
+            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
+            imgBanner.clipsToBounds = TRUE;
+            imgBanner.userInteractionEnabled = TRUE;
+            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage)];
+            [imgBanner addGestureRecognizer: tapOnBanner];
+            [scvBanner addSubview: imgBanner];
+            
+            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, scvBanner.frame.size.height);
+            
+            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, scvBanner.frame.size.height)];
+            icLoading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            [icLoading startAnimating];
+            [scvBanner addSubview: icLoading];
+            
+            NSString *image = [banner objectForKey:@"image"];
+            bannerURL = [banner objectForKey:@"url"];
+            
+            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
+            {
+                [icLoading stopAnimating];
+                [icLoading removeFromSuperview];
+            }];
+        }
+    }
+}
+
+-(void)whenTapOnBannerImage {
+    if (![AppUtils isNullOrEmpty: bannerURL]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:bannerURL]];
+    }
 }
 
 #pragma mark - UICollectionview menu
@@ -321,8 +362,9 @@
         make.top.equalTo(self.viewRewards.mas_centerY);
     }];
     
-    viewBanner.backgroundColor = UIColor.lightGrayColor;
-    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+    scvBanner.backgroundColor = UIColor.whiteColor;
+    scvBanner.pagingEnabled = TRUE;
+    [scvBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(self.viewSearch.mas_bottom);
         make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);

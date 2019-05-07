@@ -10,7 +10,7 @@
 #import "AccountModel.h"
 
 @implementation WhoisDomainPopupView
-@synthesize whoisView, icClose, icWaiting, domain, webService;
+@synthesize whoisView, icClose, icWaiting, domain, webService, hItem;
 
 - (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame: frame];
@@ -28,9 +28,11 @@
                 break;
             }
         }
-        whoisView.hLabel = 30.0;
+        hItem = 28.0;
+        whoisView.hLabel = hItem;
         [self addSubview: whoisView];
         [whoisView setupUIForView];
+        [whoisView resetAllValueForView];
         [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.bottom.equalTo(self);
         }];
@@ -143,7 +145,19 @@
         icWaiting.hidden = TRUE;
         
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            NSString *dns = [data objectForKey:@"dns"];
+            if (![AppUtils isNullOrEmpty: dns]) {
+                dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
+                dns = [dns stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+            }
+            float maxSize = (SCREEN_WIDTH - 4*15.0)/2 + 35.0;
+            float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:whoisView.lbDNSValue.font heightItem:hItem maxSize:maxSize];
+            
             [whoisView showContentOfDomainWithInfo: data];
+            
+            [UIView animateWithDuration:0.1 animations:^{
+                self.frame = CGRectMake(5.0, (SCREEN_HEIGHT-hPopup)/2, SCREEN_WIDTH-10.0, hPopup);
+            }];
         }
     }
 }

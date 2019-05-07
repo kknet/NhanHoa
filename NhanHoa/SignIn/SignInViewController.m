@@ -58,11 +58,17 @@
     }
     webService.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+    if (loginState != nil && ![loginState isEqualToString:@"NO"] && ![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD])
+    {
+        [self autoSignInWithSavedInformation];
+    }else{
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardDidShowNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
+                                                     name:UIKeyboardWillHideNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -93,6 +99,17 @@
     sender.backgroundColor = UIColor.whiteColor;
     [sender setTitleColor:signInColor forState:UIControlStateNormal];
     [self performSelector:@selector(startSignIn) withObject:nil afterDelay:0.1];
+}
+
+- (void)autoSignInWithSavedInformation {
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:login_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [webService callWebServiceWithLink:login_func withParams:jsonDict];
 }
 
 //  Hiển thị bàn phím
@@ -330,13 +347,17 @@
 }
 
 - (void)processForLoginSuccessful {
-    NSString *password = [[tfPassword.text MD5String] lowercaseString];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:login_state];
-    [[NSUserDefaults standardUserDefaults] setObject:tfAccount.text forKey:key_login];
-    [[NSUserDefaults standardUserDefaults] setObject:password forKey:key_password];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+    if (loginState == nil || [loginState isEqualToString:@"NO"])
+    {
+        NSString *password = [[tfPassword.text MD5String] lowercaseString];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:login_state];
+        [[NSUserDefaults standardUserDefaults] setObject:tfAccount.text forKey:key_login];
+        [[NSUserDefaults standardUserDefaults] setObject:password forKey:key_password];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+        
     AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
     [self presentViewController:tabbarVC animated:YES completion:nil];
 }

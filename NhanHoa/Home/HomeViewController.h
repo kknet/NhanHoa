@@ -18,8 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
 @property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
-
-@property (weak, nonatomic) IBOutlet UIView *viewBanner;
+@property (weak, nonatomic) IBOutlet UIScrollView *scvBanner;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
 @property (weak, nonatomic) IBOutlet UIView *viewMainWallet;

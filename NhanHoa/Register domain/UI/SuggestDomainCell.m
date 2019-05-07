@@ -41,7 +41,7 @@
     }];
     
     lbPrice.textColor = [UIColor colorWithRed:(213/255.0) green:(52/255.0) blue:(93/255.0) alpha:1.0];
-    lbPrice.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbPrice.font = [UIFont fontWithName:RobotoMedium size:15.0];
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.viewParent.mas_centerY);
         make.left.equalTo(self.lbSepa.mas_right).offset(10.0);
@@ -71,6 +71,47 @@
         make.left.right.equalTo(self.lbOldPrice);
         make.height.mas_equalTo(1.0);
     }];
+}
+
+- (void)showOldPriceForCell: (BOOL)show {
+    if (show) {
+        [lbPrice mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.viewParent.mas_centerY);
+            make.left.equalTo(self.lbSepa.mas_right).offset(10.0);
+            make.right.equalTo(self.viewParent).offset(-5.0);
+            make.height.mas_equalTo(25.0);
+        }];
+        
+        [lbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.lbPrice);
+            make.bottom.equalTo(self.lbPrice.mas_top);
+        }];
+        
+        lbOldPrice.hidden = FALSE;
+        [lbOldPrice mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbPrice);
+            make.top.equalTo(self.lbPrice.mas_bottom);
+        }];
+        
+        lbPriceLine.hidden = FALSE;
+        [lbPriceLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.lbOldPrice.mas_centerY);
+            make.left.right.equalTo(self.lbOldPrice);
+            make.height.mas_equalTo(1.0);
+        }];
+    }else{
+        lbOldPrice.hidden = lbPriceLine.hidden = TRUE;
+        [lbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.viewParent.mas_centerY).offset(-2.0);
+            make.left.equalTo(self.lbSepa.mas_right).offset(10.0);
+            make.right.equalTo(self.viewParent).offset(-5.0);
+        }];
+        
+        [lbPrice mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.lbDomain);
+            make.top.equalTo(self.viewParent.mas_centerY).offset(2.0);
+        }];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

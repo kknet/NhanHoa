@@ -9,10 +9,10 @@
 #import "RegisterDomainViewController.h"
 #import "SearchDomainViewController.h"
 #import "SuggestDomainCell.h"
-#import "SuggestMenuObject.h"
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
     NSMutableArray *listData;
+    NSDictionary *resultDict;
 }
 
 @end
@@ -38,6 +38,10 @@
     [super viewDidAppear: animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -45,41 +49,11 @@
 
 - (void)createListData {
     listData = [[NSMutableArray alloc] init];
-    
-    SuggestMenuObject *xyz = [[SuggestMenuObject alloc] init];
-    xyz.image = @"xyz";
-    xyz.name = @"Đăng ký tên miền quốc tế";
-    xyz.price = @"29000";
-    xyz.oldPrice = @"280000";
-    [listData addObject: xyz];
-    
-    SuggestMenuObject *vn = [[SuggestMenuObject alloc] init];
-    vn.image = @"vn";
-    vn.name = @"Đăng ký tên miền quốc tế";
-    vn.price = @"29000";
-    vn.oldPrice = @"280000";
-    [listData addObject: vn];
-    
-    SuggestMenuObject *com = [[SuggestMenuObject alloc] init];
-    com.image = @"com";
-    com.name = @"Đăng ký tên miền quốc tế";
-    com.price = @"29000";
-    com.oldPrice = @"280000";
-    [listData addObject: vn];
-    
-    SuggestMenuObject *comvn = [[SuggestMenuObject alloc] init];
-    comvn.image = @"comvn";
-    comvn.name = @"Đăng ký tên miền quốc tế";
-    comvn.price = @"29000";
-    comvn.oldPrice = @"280000";
-    [listData addObject: comvn];
-    
-    SuggestMenuObject *net = [[SuggestMenuObject alloc] init];
-    net.image = @"net";
-    net.name = @"Đăng ký tên miền quốc tế";
-    net.price = @"29000";
-    net.oldPrice = @"280000";
-    [listData addObject: net];
+    id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
+    if (listPrice != nil && [listPrice isKindOfClass:[NSDictionary class]]) {
+        listData = [[NSMutableArray alloc] initWithArray:[listPrice allKeys]];
+        resultDict = [[NSDictionary alloc] initWithDictionary: listPrice];
+    }
 }
 
 - (void)reUpdateLayoutForView {
@@ -322,20 +296,30 @@
 {
     SuggestDomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestDomainCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SuggestMenuObject *object = [listData objectAtIndex: indexPath.row];
-    cell.imgType.image = [UIImage imageNamed: object.image];
-    cell.lbDomain.text = object.name;
     
-    NSString *strPrice = [AppUtils convertStringToCurrencyFormat: object.price];
-    cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", strPrice];
+    NSString *key = [listData objectAtIndex: indexPath.row];
+    id price = [resultDict objectForKey: key];
+    if ([price isKindOfClass:[NSNumber class]]) {
+        NSString *strPrice = [NSString stringWithFormat:@"%d", [price intValue]];
+        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: strPrice]];
+        
+    }else if ([price isKindOfClass:[NSString class]]) {
+        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: (NSString *)price]];
+    }
     
-    NSString *oldPrice = [AppUtils convertStringToCurrencyFormat: object.oldPrice];
-    cell.lbOldPrice.text = [NSString stringWithFormat:@"%@đ/năm", oldPrice];
+    NSString *image = key;
+    
+    if ([image hasPrefix:@"."]) {
+        image = [image substringFromIndex: 1];
+    }
+    cell.imgType.image = [UIImage imageNamed: image];
+    
+    cell.lbDomain.text = @"Không yêu cầu điều kiện đi kèm";
     
     cell.padding = padding;
     cell.hItem = hCell;
     [cell addBoxShadowForView:cell.viewParent withColor:UIColor.blackColor];
-    
+    [cell showOldPriceForCell: FALSE];
     return cell;
 }
 

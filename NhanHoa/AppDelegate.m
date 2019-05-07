@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AppTabbarViewController.h"
 #import "LaunchViewController.h"
+#import "SignInViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar, logFilePath, userInfo, webService, internetReachable, internetActive;
+@synthesize hStatusBar, logFilePath, userInfo, internetReachable, internetActive;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -78,22 +79,11 @@
         [self showStartLoginView];
         
     }else{
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
+        SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+        UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
         
-        if (![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD]) {
-            NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-            [jsonDict setObject:login_mod forKey:@"mod"];
-            [jsonDict setObject:USERNAME forKey:@"username"];
-            [jsonDict setObject:PASSWORD forKey:@"password"];
-            [webService callWebServiceWithLink:login_func withParams:jsonDict];
-            
-            AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
-            [self.window setRootViewController:tabbarVC];
-            [self.window makeKeyAndVisible];
-        }else{
-            [self showStartLoginView];
-        }
+        [self.window setRootViewController:signInNav];
+        [self.window makeKeyAndVisible];
     }
     // Override point for customization after application launch.
     return YES;
@@ -157,30 +147,6 @@
             internetActive = YES;
             
             break;
-        }
-    }
-}
-
-#pragma mark - Webserviec
--(void)failedToCallWebService:(NSString *)link andError:(id)error {
-    
-}
-
--(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    if ([link isEqualToString:login_func]) {
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            userInfo = [[NSDictionary alloc] initWithDictionary: data];
-        }
-    }
-}
-
--(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if ([link isEqualToString: login_func]) {
-        if (responeCode != 200) {
-            [self showStartLoginView];
-            [self.window makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }
     }
 }
