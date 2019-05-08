@@ -32,6 +32,7 @@
 
 #define logsFolderName      @"LogFiles"
 #define login_state         @"login_state"
+#define year_for_domain     @"year_for_domain"
 
 #define key_login               @"key_login"
 #define key_password            @"key_password"

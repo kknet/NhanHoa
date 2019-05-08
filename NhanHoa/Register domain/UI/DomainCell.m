@@ -87,7 +87,7 @@
 }
 
 - (void)showPriceForDomainCell: (BOOL)show {
-    float size = [AppUtils getSizeWithText:btnChoose.currentTitle withFont:btnChoose.titleLabel.font].width + 10;
+    float size = [AppUtils getSizeWithText:btnChoose.currentTitle withFont:btnChoose.titleLabel.font].width + 15;
     if (size < 60.0) {
         size = 60.0;
     }

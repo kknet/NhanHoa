@@ -469,9 +469,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        lbTitle.text = @"Danh sách hồ sơ";
-        icBack.hidden = TRUE;
-        icClose.hidden = icAdd.hidden = FALSE;
+        self.lbTitle.text = @"Danh sách hồ sơ";
+        self.icBack.hidden = TRUE;
+        self.icClose.hidden = self.icAdd.hidden = FALSE;
     }];
 }
 

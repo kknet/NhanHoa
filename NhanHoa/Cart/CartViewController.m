@@ -7,27 +7,43 @@
 //
 
 #import "CartViewController.h"
-#import "CartDomainItemCell.h"
 #import "PaymentViewController.h"
+#import "CartDomainItemCell.h"
+#import "SelectYearsCell.h"
+#import "CartModel.h"
 
 @interface CartViewController ()<UITableViewDelegate, UITableViewDataSource>{
-    NSMutableArray *listData;
     float hCell;
+    int selectedIndex;
 }
 
 @end
 
 @implementation CartViewController
 
-@synthesize scvContent, viewInfo, lbInfo, lbCount, tbDomains, promoView, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop;
+@synthesize scvContent, viewInfo, lbInfo, lbCount, tbDomains, promoView, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
 @synthesize hInfo, hPromoView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self createDemoData];
-    [self setupUIForView];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    
     self.title = @"Giỏ hàng";
+    [self setupUIForView];
+    [self addTableViewForSelectYears];
+    
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        viewEmpty.hidden = FALSE;
+        scvContent.hidden = TRUE;
+    }else{
+        lbCount.text = [NSString stringWithFormat:@"%d tên miền", [[CartModel getInstance] countItemInCart]];
+        viewEmpty.hidden = TRUE;
+        scvContent.hidden = FALSE;
+    }
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
@@ -39,40 +55,36 @@
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
-- (void)createDemoData {
-    listData = [[NSMutableArray alloc] init];
-    
-    NSMutableDictionary *domain1 = [[NSMutableDictionary alloc] init];
-    [domain1 setObject:@"lanhquadi.com" forKey:@"name"];
-    [domain1 setObject:@".com" forKey:@"type"];
-    [domain1 setObject:@"280.000" forKey:@"first_price"];
-    [domain1 setObject:@"1.480.000" forKey:@"total_price"];
-    [domain1 setObject:@"2" forKey:@"years"];
-    [listData addObject: domain1];
-    
-    NSMutableDictionary *domain2 = [[NSMutableDictionary alloc] init];
-    [domain2 setObject:@"lanhquadi.com.vn" forKey:@"name"];
-    [domain2 setObject:@".com" forKey:@"type"];
-    [domain2 setObject:@"180.000" forKey:@"first_price"];
-    [domain2 setObject:@"630.000" forKey:@"total_price"];
-    [domain2 setObject:@"1" forKey:@"years"];
-    [listData addObject: domain2];
-    
-    NSMutableDictionary *domain3 = [[NSMutableDictionary alloc] init];
-    [domain3 setObject:@"lequangkhai.com" forKey:@"name"];
-    [domain3 setObject:@".com" forKey:@"type"];
-    [domain3 setObject:@"80.000" forKey:@"first_price"];
-    [domain3 setObject:@"780.000" forKey:@"total_price"];
-    [domain3 setObject:@"3" forKey:@"years"];
-    [listData addObject: domain3];
-}
-
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     float padding = 15.0;
     hInfo = 40.0;
     hCell = 106.0;
     
+    //  empty view
+    viewEmpty.hidden = TRUE;
+    viewEmpty.clipsToBounds = TRUE;
+    [viewEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    [imgCartEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.viewEmpty.mas_centerX);
+        make.centerY.equalTo(self.viewEmpty.mas_centerY).offset(-20.0);
+        make.width.height.mas_equalTo(120.0);
+    }];
+    
+    lbEmpty.text = @"Giỏ hàng trống";
+    lbEmpty.textColor = [UIColor colorWithRed:(180/255.0) green:(180/255.0)
+                                         blue:(180/255.0) alpha:1.0];
+    lbEmpty.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [lbEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imgCartEmpty.mas_bottom);
+        make.left.equalTo(self.viewEmpty).offset(10.0);
+        make.right.equalTo(self.viewEmpty).offset(-10.0);
+        make.height.mas_equalTo(40.0);
+    }];
+    
+    //  scroll view content
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
@@ -100,7 +112,7 @@
         make.left.equalTo(self.viewInfo.mas_centerX);
     }];
     
-    float hTableView = listData.count * hCell;
+    float hTableView = [[CartModel getInstance] countItemInCart] * hCell;
     tbDomains.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbDomains registerNib:[UINib nibWithNibName:@"CartDomainItemCell" bundle:nil] forCellReuseIdentifier:@"CartDomainItemCell"];
     tbDomains.delegate = self;
@@ -236,31 +248,124 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listData.count;
+    if (tableView == tbSelectYear) {
+        return 10;
+    }
+    return [[CartModel getInstance] countItemInCart];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    NSDictionary *domain = [listData objectAtIndex: indexPath.row];
-    NSString *domainName = [domain objectForKey:@"name"];
-    NSString *type = [domain objectForKey:@"type"];
-    NSString *firstPrice = [domain objectForKey:@"first_price"];
-    NSString *totalPrice = [domain objectForKey:@"total_price"];
-    NSString *years = [domain objectForKey:@"years"];
-    
-    cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
-    cell.lbName.text = domainName;
-    cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", firstPrice];
-    cell.lbDescription.text = [NSString stringWithFormat:@"Tên miền quốc tế .%@", type];
-    cell.tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
-    cell.lbTotalPrice.text = [NSString stringWithFormat:@"%@đ", totalPrice];
-    
-    return cell;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == tbSelectYear) {
+        SelectYearsCell *cell = (SelectYearsCell *)[tableView dequeueReusableCellWithIdentifier:@"SelectYearsCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.lbContent.text = [NSString stringWithFormat:@"%d năm", (int)indexPath.row + 1];
+        return cell;
+        
+    }else{
+        CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
+        NSString *domainName = [domainInfo objectForKey:@"domain"];
+        
+        NSString *price = @"";
+        id firstYearPrice = [domainInfo objectForKey:@"price_first_year"];
+        if (firstYearPrice != nil && [firstYearPrice isKindOfClass:[NSNumber class]]) {
+            price = [NSString stringWithFormat:@"%d", [firstYearPrice intValue]];
+            price = [AppUtils convertStringToCurrencyFormat: price];
+        }
+        NSString *years = [domainInfo objectForKey:year_for_domain];
+        
+        cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
+        cell.lbName.text = domainName;
+        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
+        cell.tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
+        
+        cell.lbDescription.hidden = TRUE;
+        cell.btnYears.tag = indexPath.row;
+        [cell.btnYears addTarget:self
+                          action:@selector(selectYearsForDomain:)
+                forControlEvents:UIControlEventTouchUpInside];
+        
+        //  total price
+        long totalPrice = [[CartModel getInstance] getTotalPriceForDomain: domainInfo];
+        NSString *total = [NSString stringWithFormat:@"%ld", totalPrice];
+        total = [AppUtils convertStringToCurrencyFormat: total];
+        cell.lbTotalPrice.text = [NSString stringWithFormat:@"%@đ", total];
+        
+        return cell;
+    }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == tbSelectYear) {
+        if (selectedIndex < [[CartModel getInstance] countItemInCart]) {
+            NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: selectedIndex];
+            [domainInfo setObject:[NSString stringWithFormat:@"%d", (int)(indexPath.row+1)] forKey:year_for_domain];
+            [tbDomains reloadData];
+            
+            [UIView animateWithDuration:0.15 animations:^{
+                self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
+            }];
+        }
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == tbSelectYear) {
+        return 38.0;
+    }
     return hCell;
 }
+
+- (void)selectYearsForDomain: (UIButton *)sender {
+    selectedIndex = (int)sender.tag;
+    
+    CartDomainItemCell *cell = (CartDomainItemCell *)[tbDomains cellForRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0]];
+    CGRect frame = [tbDomains convertRect:cell.frame toView:scvContent];
+    
+    float newYFrame = frame.origin.y + cell.btnYears.frame.origin.y + cell.btnYears.frame.size.height + 2;
+    
+    if (tbSelectYear.frame.origin.y == newYFrame) {
+        float hTbView = 0;
+        if (tbSelectYear.frame.size.height == 0) {
+            hTbView = 6*sender.frame.size.height;
+        }
+        tbSelectYear.hidden = TRUE;
+        tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, 0);
+        
+        tbSelectYear.hidden = FALSE;
+        [UIView animateWithDuration:0.15 animations:^{
+            self.tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
+        }];
+    }else{
+        tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, 0);
+        
+        float hTbView = 6*sender.frame.size.height;
+        [UIView animateWithDuration:0.15 animations:^{
+            self.tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
+        }];
+    }
+}
+
+- (void)addTableViewForSelectYears {
+    if (tbSelectYear == nil) {
+        tbSelectYear = [[UITableView alloc] init];
+        
+        [tbSelectYear registerNib:[UINib nibWithNibName:@"SelectYearsCell" bundle:nil] forCellReuseIdentifier:@"SelectYearsCell"];
+        
+        tbSelectYear.separatorStyle = UITableViewCellSelectionStyleNone;
+        tbSelectYear.backgroundColor = UIColor.whiteColor;
+        tbSelectYear.layer.cornerRadius = 5.0;
+        tbSelectYear.layer.borderWidth = 1.0;
+        tbSelectYear.layer.borderColor = BORDER_COLOR.CGColor;
+        tbSelectYear.delegate = self;
+        tbSelectYear.dataSource = self;
+        [self.scvContent addSubview: tbSelectYear];
+    }
+}
+
 @end

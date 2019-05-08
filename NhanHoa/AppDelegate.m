@@ -36,7 +36,7 @@
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.translucent = NO;
     
-    UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
+    UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:18.0], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     
     //  setup message style
     warningStyle = [[CSToastStyle alloc] initWithDefaultStyle];

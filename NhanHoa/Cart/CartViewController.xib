@@ -13,7 +13,9 @@
             <connections>
                 <outlet property="btnContinue" destination="unZ-3z-V5B" id="aaF-XS-VFY"/>
                 <outlet property="btnGoShop" destination="xlQ-fi-NkD" id="hy8-W0-nsL"/>
+                <outlet property="imgCartEmpty" destination="dDA-IQ-x8I" id="c0v-bI-89q"/>
                 <outlet property="lbCount" destination="F2k-oc-eoK" id="Oc8-64-1xV"/>
+                <outlet property="lbEmpty" destination="dMV-Qe-eWt" id="7aG-QZ-hVZ"/>
                 <outlet property="lbInfo" destination="WeE-eO-Jcn" id="Qba-hQ-yym"/>
                 <outlet property="lbPrice" destination="rhL-14-Mjt" id="JmE-sz-atV"/>
                 <outlet property="lbPriceValue" destination="dXH-K0-fGa" id="VJT-xs-kaQ"/>
@@ -26,6 +28,7 @@
                 <outlet property="scvContent" destination="bMi-Nl-Wia" id="o8n-XJ-Hzr"/>
                 <outlet property="tbDomains" destination="cmP-zG-8QG" id="5w4-NJ-Dhb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewEmpty" destination="3H1-L8-DSB" id="bhG-gc-Cy9"/>
                 <outlet property="viewFooter" destination="yoZ-X9-a0r" id="r7M-AF-SRT"/>
                 <outlet property="viewInfo" destination="aZ4-Cw-4AC" id="mKr-rC-Scq"/>
             </connections>
@@ -35,6 +38,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3H1-L8-DSB">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cart_empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="dDA-IQ-x8I">
+                            <rect key="frame" x="40" y="176" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMV-Qe-eWt">
+                            <rect key="frame" x="139" y="229" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMi-Nl-Wia">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -155,7 +176,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="82" y="59"/>
+            <point key="canvasLocation" x="-736" y="26"/>
         </view>
     </objects>
+    <resources>
+        <image name="cart_empty.png" width="250" height="250"/>
+    </resources>
 </document>

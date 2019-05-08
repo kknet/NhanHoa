@@ -13,10 +13,12 @@
 #import "CartViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
+#import "CartModel.h"
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSMutableArray *listMenu;
     NSString *bannerURL;
+    float hBanner;
 }
 
 @end
@@ -40,6 +42,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self.navigationController setNavigationBarHidden: YES];
+    
+    //  Show cart item
+    [[CartModel getInstance] displayCartInfoWithView: lbCount];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -69,7 +74,7 @@
     if ([AppDelegate sharedInstance].userInfo != nil) {
         id banner = [[AppDelegate sharedInstance].userInfo objectForKey:@"banner"];
         if ([banner isKindOfClass:[NSDictionary class]]) {
-            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, scvBanner.frame.size.height)];
+            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
             imgBanner.contentMode = UIViewContentModeScaleAspectFill;
             imgBanner.clipsToBounds = TRUE;
             imgBanner.userInteractionEnabled = TRUE;
@@ -77,9 +82,9 @@
             [imgBanner addGestureRecognizer: tapOnBanner];
             [scvBanner addSubview: imgBanner];
             
-            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, scvBanner.frame.size.height);
+            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
             
-            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, scvBanner.frame.size.height)];
+            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
             icLoading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
             [icLoading startAnimating];
             [scvBanner addSubview: icLoading];
@@ -369,6 +374,8 @@
         make.top.equalTo(self.viewSearch.mas_bottom);
         make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
     }];
+    
+    hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
 }
 
 @end

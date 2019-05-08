@@ -61,6 +61,11 @@
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		157F0C122282966600DCB7D4 /* back_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C112282966300DCB7D4 /* back_medium.png */; };
+		157F0C15228297C500DCB7D4 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 157F0C14228297C500DCB7D4 /* CartModel.m */; };
+		157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C162282C81900DCB7D4 /* cart_empty.png */; };
+		157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 157F0C192282E80400DCB7D4 /* SelectYearsCell.m */; };
+		157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */; };
 		1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1581745C2281406E00DD8EC9 /* DomainModel.m */; };
 		158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */; };
 		158174642281854700DD8EC9 /* close_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 158174622281854500DD8EC9 /* close_gray.png */; };
@@ -272,6 +277,13 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		157F0C112282966300DCB7D4 /* back_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_medium.png; sourceTree = "<group>"; };
+		157F0C13228297C500DCB7D4 /* CartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
+		157F0C14228297C500DCB7D4 /* CartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
+		157F0C162282C81900DCB7D4 /* cart_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cart_empty.png; sourceTree = "<group>"; };
+		157F0C182282E80400DCB7D4 /* SelectYearsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectYearsCell.h; sourceTree = "<group>"; };
+		157F0C192282E80400DCB7D4 /* SelectYearsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectYearsCell.m; sourceTree = "<group>"; };
+		157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectYearsCell.xib; sourceTree = "<group>"; };
 		1581745B2281406E00DD8EC9 /* DomainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainModel.h; sourceTree = "<group>"; };
 		1581745C2281406E00DD8EC9 /* DomainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainModel.m; sourceTree = "<group>"; };
 		1581745F2281825C00DD8EC9 /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
@@ -685,6 +697,7 @@
 				8419668C2276077200C14516 /* vn.png */,
 				8419668D2276077300C14516 /* xyz.png */,
 				846AACB72276CAC0005BC87E /* back.png */,
+				157F0C112282966300DCB7D4 /* back_medium.png */,
 				846AACBA2276CAFE005BC87E /* cart.png */,
 				846EA90A2276E95C00F1D7DB /* search_sad.png */,
 				846EA9092276E95C00F1D7DB /* search_smile.png */,
@@ -717,6 +730,7 @@
 				84588A98228093E800B59E0F /* ic_signout.png */,
 				84588A99228093E900B59E0F /* ic_support.png */,
 				15E7380122812A1C00EFB017 /* dashline.png */,
+				157F0C162282C81900DCB7D4 /* cart_empty.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -921,6 +935,9 @@
 				8464D731227BB7C900381DE5 /* ProfileDetailCell.h */,
 				8464D732227BB7C900381DE5 /* ProfileDetailCell.m */,
 				8464D733227BB7C900381DE5 /* ProfileDetailCell.xib */,
+				157F0C182282E80400DCB7D4 /* SelectYearsCell.h */,
+				157F0C192282E80400DCB7D4 /* SelectYearsCell.m */,
+				157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -932,6 +949,8 @@
 				847E9AA6227EAB2D00C83F5A /* AccountModel.m */,
 				1581745B2281406E00DD8EC9 /* DomainModel.h */,
 				1581745C2281406E00DD8EC9 /* DomainModel.m */,
+				157F0C13228297C500DCB7D4 /* CartModel.h */,
+				157F0C14228297C500DCB7D4 /* CartModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1090,6 +1109,7 @@
 				841F00852274A97D00F1B314 /* banner.jpg in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
 				84588AA2228093F000B59E0F /* ic_manager_domain.png in Resources */,
+				157F0C122282966600DCB7D4 /* back_medium.png in Resources */,
 				841966872276016400C14516 /* SuggestDomainCell.xib in Resources */,
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
@@ -1128,6 +1148,7 @@
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
+				157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */,
 				1517FB642274465B0044E878 /* menu_list_domain.png in Resources */,
 				1517FB9722745D810044E878 /* tabbar_history_act.png in Resources */,
 				845D32C6227943A20047B196 /* no_tick.png in Resources */,
@@ -1177,6 +1198,7 @@
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
+				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
 				1517FBA922745D810044E878 /* tabbar_history_def.png in Resources */,
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
@@ -1287,8 +1309,10 @@
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
+				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
 				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
+				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,

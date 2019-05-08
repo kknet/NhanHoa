@@ -13,19 +13,22 @@
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
     NSMutableArray *listData;
     NSDictionary *resultDict;
+    NSString *bannerURL;
 }
 
 @end
 
 @implementation RegisterDomainViewController
-@synthesize scvContent, viewBanner, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
-@synthesize hCell, padding;
+@synthesize scvContent, viewBanner, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent, scvBanner;
+@synthesize hCell, padding, hBanner;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self createListData];
+    [self createListDomainPrice];
     [self setupUIForView];
+    
+    [self addBannerImageForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -47,7 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)createListData {
+- (void)createListDomainPrice {
     listData = [[NSMutableArray alloc] init];
     id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
     if (listPrice != nil && [listPrice isKindOfClass:[NSDictionary class]]) {
@@ -71,6 +74,44 @@
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
 }
 
+- (void)addBannerImageForView
+{
+    if ([AppDelegate sharedInstance].userInfo != nil) {
+        id banner = [[AppDelegate sharedInstance].userInfo objectForKey:@"banner"];
+        if ([banner isKindOfClass:[NSDictionary class]]) {
+            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
+            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
+            imgBanner.clipsToBounds = TRUE;
+            imgBanner.userInteractionEnabled = TRUE;
+            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage)];
+            [imgBanner addGestureRecognizer: tapOnBanner];
+            [scvBanner addSubview: imgBanner];
+            
+            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
+            
+            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
+            icLoading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            [icLoading startAnimating];
+            [scvBanner addSubview: icLoading];
+            
+            NSString *image = [banner objectForKey:@"image"];
+            bannerURL = [banner objectForKey:@"url"];
+            
+            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
+             {
+                 [icLoading stopAnimating];
+                 [icLoading removeFromSuperview];
+             }];
+        }
+    }
+}
+
+-(void)whenTapOnBannerImage {
+    if (![AppUtils isNullOrEmpty: bannerURL]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:bannerURL]];
+    }
+}
+
 - (void)setupUIForView {
     self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -83,20 +124,30 @@
     }];
     
     padding = 15.0;
-    float hBanner = 150.0;
+    hBanner = 150.0;
     viewBanner.clipsToBounds = YES;
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hBanner);
+        make.height.mas_equalTo(self.hBanner);
+    }];
+    
+    viewBanner.hidden = TRUE;
+    [scvBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(self.hBanner);
     }];
     
     //  search UI
     float hSearch = 38.0;
+    tfSearch.text = @"anvatsaigon";
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
-    tfSearch.layer.borderWidth = 1.5;
+    tfSearch.layer.borderWidth = 2;
+    tfSearch.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    tfSearch.textColor = TITLE_COLOR;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent).offset(self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
@@ -104,9 +155,7 @@
         make.height.mas_equalTo(hSearch);
     }];
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, hSearch)];
-    tfSearch.leftViewMode = UITextFieldViewModeAlways;
-    tfSearch.text = @"lequangkhai";
-    
+    tfSearch.leftViewMode = UITextFieldViewModeAlways;    
     icSearch.layer.cornerRadius = hSearch/2;
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {

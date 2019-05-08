@@ -48,7 +48,7 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3r-Hh-OAB">
                             <rect key="frame" x="8" y="8" width="35" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="back.png"/>
+                            <state key="normal" title="Button" image="back_medium.png"/>
                             <connections>
                                 <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="iem-ok-KYN"/>
                             </connections>
@@ -208,7 +208,7 @@
         </view>
     </objects>
     <resources>
-        <image name="back.png" width="100" height="100"/>
+        <image name="back_medium.png" width="128" height="128"/>
         <image name="cart.png" width="100" height="100"/>
         <image name="ic_search_domain.png" width="100" height="100"/>
         <image name="search_smile.png" width="100" height="100"/>

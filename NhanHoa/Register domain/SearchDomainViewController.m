@@ -7,11 +7,13 @@
 //
 
 #import "SearchDomainViewController.h"
+#import "CartViewController.h"
 #import "DomainCell.h"
 #import "AccountModel.h"
 #import "DomainModel.h"
 #import "DomainDescriptionPoupView.h"
 #import "WhoisDomainPopupView.h"
+#import "CartModel.h"
 
 @interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
     NSMutableArray *listKeys;
@@ -42,6 +44,9 @@
     
     [WriteLogsUtils writeForGoToScreen: @"SearchDomainViewController"];
     
+    //  show cart
+    [[CartModel getInstance] displayCartInfoWithView: lbCount];
+    
     if (webService == nil) {
         webService = [[WebServices alloc] init];
     }
@@ -53,6 +58,7 @@
     tfSearch.text = strSearch;
     [self hideUIForSearch: TRUE];
     [self checkCurrentDomain:strSearch type:0];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -65,6 +71,8 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
+    [self.navigationController pushViewController: cartVC animated:YES];
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -72,9 +80,57 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    [self.view endEditing: TRUE];
+    
+    if ([AppUtils isNullOrEmpty: tfSearch.text]) {
+        [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
+    
+    strSearch = tfSearch.text;
+    [self hideUIForSearch: TRUE];
+    [self checkCurrentDomain:strSearch type:0];
 }
 
 - (IBAction)btnChoosePress:(UIButton *)sender {
+    if (firstDomainInfo != nil) {
+        BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo];
+        if (exists) {
+            //  remove domain from cart
+            [[CartModel getInstance] removeDomainFromCart: firstDomainInfo];
+            
+            //  change button title
+            [sender setTitle:@"Chọn" forState:UIControlStateNormal];
+            sender.backgroundColor = BLUE_COLOR;
+            
+        }else{
+            //  add domain to cart
+            [[CartModel getInstance] addDomainToCart: firstDomainInfo];
+            
+            //  change button title
+            [sender setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+            sender.backgroundColor = NEW_PRICE_COLOR;
+        }
+        [[CartModel getInstance] displayCartInfoWithView: lbCount];
+        
+        [self updateLayoutForChooseMainDomain: sender];
+    }
+}
+
+- (void)updateLayoutForChooseMainDomain: (UIButton *)sender {
+    float sizeText = [AppUtils getSizeWithText:sender.currentTitle withFont:sender.titleLabel.font].width + 15;
+    if (sizeText < 60.0) {
+        sizeText = 60.0;
+    }
+    [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.viewDomain).offset(-self.padding);
+        make.centerY.equalTo(self.viewDomain.mas_centerY);
+        make.height.mas_equalTo(36.0);
+        make.width.mas_equalTo(sizeText);
+    }];
 }
 
 - (void)hideUIForSearch: (BOOL)hide {
@@ -82,9 +138,11 @@
 }
 
 - (void)reUpdateLayoutForView {
+    //  layout for choose button
+    [self updateLayoutForChooseMainDomain: btnChoose];
+    
     //  get height of tableview
     hTableView = [self getHeightTableView];
-    
     [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepaView.mas_bottom).offset(self.padding);
         make.left.equalTo(self.scvContent);
@@ -114,9 +172,9 @@
         make.width.mas_equalTo(200.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewHeader);
+        make.left.equalTo(self.viewHeader).offset(-5.0);
         make.centerY.equalTo(self.lbTitle.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
@@ -359,6 +417,16 @@
                 lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
             }
             lbOldPrice.hidden = lbSepa.hidden = TRUE;
+            
+            if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
+                btnChoose.backgroundColor = NEW_PRICE_COLOR;
+                [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+                
+            }else{
+                btnChoose.backgroundColor = BLUE_COLOR;
+                [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            }
+            
             [self reUpdateLayoutForView];
             [tbDomains reloadData];
         }
@@ -431,8 +499,16 @@
     id available = [info objectForKey:@"available"];
     if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
     {
-        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
-        cell.btnChoose.backgroundColor = BLUE_COLOR;
+        if ([[CartModel getInstance] checkCurrentDomainExistsInCart: info]) {
+            [cell.btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+            cell.btnChoose.backgroundColor = NEW_PRICE_COLOR;
+        }else{
+            [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            cell.btnChoose.backgroundColor = BLUE_COLOR;
+        }
+        
+//        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+//        cell.btnChoose.backgroundColor = BLUE_COLOR;
         
         NSString *price = [DomainModel getPriceFromDomainInfo: info];
         if (![AppUtils isNullOrEmpty: price]) {
@@ -478,6 +554,25 @@
     [cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
     return cell;
+}
+
+- (void)chooseThisDomain: (UIButton *)sender {
+    int index = (int)sender.tag;
+    if (index < listKeys.count) {
+        NSString *domain = [listKeys objectAtIndex: index];
+        NSDictionary *infoDomain = [resultDict objectForKey: domain];
+        if (infoDomain != nil) {
+            BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: infoDomain];
+            if (exists) {
+                [[CartModel getInstance] removeDomainFromCart: infoDomain];
+                
+            }else{
+                [[CartModel getInstance] addDomainToCart: infoDomain];
+            }
+            [[CartModel getInstance] displayCartInfoWithView: lbCount];
+            [tbDomains reloadData];
+        }
+    }
 }
 
 - (void)showDescriptionForCurrentDomain

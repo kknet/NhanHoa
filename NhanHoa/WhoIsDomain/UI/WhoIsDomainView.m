@@ -293,7 +293,7 @@
 }
 
 - (void)resetAllValueForView {
-    lbStatusValue.text = lbRegisterNameValue.text = lbOwnerValue.text = lbIssueDateValue.text = lbExpiredDateValue.text = lbDNSValue.text = lbDNSSECValue.text = @"";
+    lbDomainValue.text = lbStatusValue.text = lbRegisterNameValue.text = lbOwnerValue.text = lbIssueDateValue.text = lbExpiredDateValue.text = lbDNSValue.text = lbDNSSECValue.text = @"";
 }
 
 @end
