@@ -19,5 +19,9 @@
 - (void)displayCartInfoWithView: (UILabel *)lbCount;
 - (BOOL)checkCurrentDomainExistsInCart: (NSDictionary *)info;
 - (long)getTotalPriceForDomain: (NSDictionary *)info;
+- (long)getTotalVATForCart;
+- (long)getTotalDomainPriceForCart;
+- (long)getTotalPriceForCart;
+- (NSDictionary *)getCartPriceInfo ;
 
 @end

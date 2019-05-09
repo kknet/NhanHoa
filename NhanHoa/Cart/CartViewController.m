@@ -44,6 +44,8 @@
         viewEmpty.hidden = TRUE;
         scvContent.hidden = FALSE;
     }
+
+    [self updateAllPriceForView];
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
@@ -53,6 +55,23 @@
 
 - (IBAction)btnGoShopPress:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (void)updateAllPriceForView {
+    //  show price for cart
+    NSDictionary *priceCartInfo = [[CartModel getInstance] getCartPriceInfo];
+    NSNumber *VAT = [priceCartInfo objectForKey:@"VAT"];
+    NSNumber *domainPrice = [priceCartInfo objectForKey:@"domain_price"];
+    NSNumber *totalPrice = [priceCartInfo objectForKey:@"total_price"];
+    
+    NSString *feeVAT = [NSString stringWithFormat:@"%ld", [VAT longValue]];
+    lbVATValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:feeVAT]];
+    
+    NSString *strDomainPrice = [NSString stringWithFormat:@"%ld", [domainPrice longValue]];
+    lbPriceValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:strDomainPrice]];
+    
+    NSString *strTotalPrice = [NSString stringWithFormat:@"%ld", [totalPrice longValue]];
+    lbTotalValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]];
 }
 
 - (void)setupUIForView {
@@ -305,6 +324,7 @@
             NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: selectedIndex];
             [domainInfo setObject:[NSString stringWithFormat:@"%d", (int)(indexPath.row+1)] forKey:year_for_domain];
             [tbDomains reloadData];
+            [self updateAllPriceForView];
             
             [UIView animateWithDuration:0.15 animations:^{
                 self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);

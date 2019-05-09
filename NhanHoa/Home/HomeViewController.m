@@ -11,6 +11,8 @@
 #import "WhoIsViewController.h"
 #import "RenewedDomainViewController.h"
 #import "CartViewController.h"
+#import "TopupViewController.h"
+#import "BonusAccountViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
@@ -154,9 +156,15 @@
             break;
         }
         case eRecharge:{
+            TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+            topupVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: topupVC animated:YES];
             break;
         }
         case eRewardsPoints:{
+            BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
+            bonusAccVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: bonusAccVC animated:YES];
             break;
         }
         case eManagerDomain:{
