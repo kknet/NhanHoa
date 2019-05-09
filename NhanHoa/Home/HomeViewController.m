@@ -13,6 +13,9 @@
 #import "CartViewController.h"
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
+#import "WithdrawalBonusAccountViewController.h"
+#import "ProfileManagerViewController.h"
+#import "NotifyViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
@@ -60,6 +63,9 @@
 }
 
 - (IBAction)icNotifyClick:(UIButton *)sender {
+    NotifyViewController *notifyVC = [[NotifyViewController alloc] initWithNibName:@"NotifyViewController" bundle:nil];
+    notifyVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:notifyVC animated:YES];
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {
@@ -171,9 +177,15 @@
             break;
         }
         case eWithdrawal:{
+            WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
+            withdrawVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: withdrawVC animated:YES];
             break;
         }
         case eProfile:{
+            ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
+            profileVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: profileVC animated:YES];
             break;
         }
         case eSupport:{

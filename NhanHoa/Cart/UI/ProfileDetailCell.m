@@ -9,7 +9,9 @@
 #import "ProfileDetailCell.h"
 
 @implementation ProfileDetailCell
-@synthesize imgProfile, lbTypeName, lbTypeNameValue, lbProfileName, lbProfileNameValue, lbCompany, lbCompanyValue, btnChoose, viewDetail, lbDomainType, lbDomainTypeValue, lbName, lbNameValue, lbBOD, lbBODValue, lbPassport, lbPassportValue, lbAddress, lbAddressValue, lbPhone, lbPhoneValue, lbEmail, lbEmailValue, iconPassport, lbTitlePassport, imgFrontPassport, imgBehindPassport, lbSepa, lbFront, lbBehind;
+@synthesize viewDomain, lbDomain, viewHeader, imgProfile, lbTypeName, lbTypeNameValue, lbProfileName, lbProfileNameValue, lbCompany, lbCompanyValue, btnChoose, viewDetail, lbDomainType, lbDomainTypeValue, lbName, lbNameValue, lbBOD, lbBODValue, lbPassport, lbPassportValue, lbAddress, lbAddressValue, lbPhone, lbPhoneValue, lbEmail, lbEmailValue, iconPassport, lbTitlePassport, imgFrontPassport, imgBehindPassport, lbSepa, lbFront, lbBehind;
+
+@synthesize sizeType, sizeCompany, sizeProfile;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -18,77 +20,90 @@
     float hBTN = 35.0;
     
     //  header: 10 + 20 + 20 + 10
-    float mTop = (60.0 - hBTN)/2;
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.height.mas_equalTo(80.0);
+    }];
+    
+    [viewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.height.mas_equalTo(80.0);
+    }];
+    
+    lbDomain.textColor = TITLE_COLOR;
+    lbDomain.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.viewDomain).offset(padding);
+        make.right.equalTo(self.viewDomain).offset(-padding);
+        make.top.bottom.equalTo(self.viewDomain);
+    }];
+    
     btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
     btnChoose.layer.cornerRadius = hBTN/2;
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(self).offset(mTop);
+        make.centerY.equalTo(self.viewHeader.mas_centerY);
+        make.right.equalTo(self.viewHeader).offset(-padding);
         make.width.mas_equalTo(70.0);
         make.height.mas_equalTo(hBTN);
     }];
     
     [imgProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(padding);
-        make.top.equalTo(self).offset(10.0);
+        make.centerY.equalTo(self.viewHeader.mas_centerY);
+        make.left.equalTo(self.viewHeader).offset(padding);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    //  type name
-    float wContent = [AppUtils getSizeWithText:@"Loại tên miền: " withFont: [UIFont fontWithName:RobotoRegular size:16.0]].width;
-    lbTypeName.font = [UIFont fontWithName:RobotoRegular size:16.0];
-    lbTypeName.textColor = TITLE_COLOR;
-    [lbTypeName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
-        make.top.equalTo(self.imgProfile);
-        make.height.mas_equalTo(20.0);
-        make.width.mas_equalTo(wContent);
-    }];
+    //  get size
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width + 10;
+    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont: lbTypeName.font].width + 10;
+    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont: lbTypeName.font].width + 10;
     
-    lbTypeNameValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbTypeNameValue.textColor = TITLE_COLOR;
-    [lbTypeNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbTypeName.mas_right).offset(5.0);
-        make.top.bottom.equalTo(self.lbTypeName);
-        make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
-    }];
+    //  set font and color
+    lbTypeName.font = lbCompany.font = lbProfileName.font = textFont;
+    lbTypeNameValue.font = lbCompanyValue.font = lbProfileNameValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbTypeName.textColor = lbTypeNameValue.textColor = lbCompany.textColor = lbCompanyValue.textColor = lbProfileName.textColor = lbProfileNameValue.textColor = TITLE_COLOR;
     
     //  company
-    wContent = [AppUtils getSizeWithText:@"Tên công ty: " withFont: lbTypeName.font].width;
-    lbCompany.font = lbTypeName.font;
-    lbCompany.textColor = lbTypeName.textColor;
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbTypeName);
-        make.top.equalTo(self.lbTypeName.mas_bottom);
-        make.height.equalTo(self.lbTypeName.mas_height);
-        make.width.mas_equalTo(wContent);
+        make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
+        make.centerY.equalTo(self.viewHeader.mas_centerY);
+        make.width.mas_equalTo(self.sizeCompany);
+        make.height.mas_equalTo(20.0);
     }];
     
-    lbCompanyValue.font = lbTypeNameValue.font;
-    lbCompanyValue.textColor = lbTypeNameValue.textColor;
     [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbCompany.mas_right).offset(5.0);
+        make.left.equalTo(self.lbCompany.mas_right);
         make.top.bottom.equalTo(self.lbCompany);
         make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
     }];
     
+    //  domain type
+    [lbTypeName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.lbCompany);
+        make.bottom.equalTo(self.lbCompany.mas_top);
+        make.height.mas_equalTo(20.0);
+        make.width.mas_equalTo(self.sizeType);
+    }];
+    
+    [lbTypeNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.lbTypeName.mas_right);
+        make.right.equalTo(self.lbCompanyValue.mas_right);
+        make.top.bottom.equalTo(self.lbTypeName);
+    }];
+    
     //  profile name
-    wContent = [AppUtils getSizeWithText:@"Hồ sơ: " withFont: lbTypeName.font].width;
-    lbProfileName.font = lbTypeName.font;
-    lbProfileName.textColor = lbTypeName.textColor;
     [lbProfileName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbCompany);
         make.top.equalTo(self.lbCompany.mas_bottom);
-        make.height.equalTo(self.lbCompany.mas_height);
-        make.width.mas_equalTo(wContent);
+        make.height.mas_equalTo(20.0);
+        make.width.mas_equalTo(self.sizeProfile);
     }];
     
-    lbProfileNameValue.font = lbTypeNameValue.font;
-    lbProfileNameValue.textColor = lbTypeNameValue.textColor;
     [lbProfileNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbProfileName.mas_right).offset(5.0);
+        make.left.equalTo(self.lbProfileName.mas_right);
+        make.right.equalTo(self.lbCompanyValue.mas_right);
         make.top.bottom.equalTo(self.lbProfileName);
-        make.right.equalTo(self.btnChoose.mas_left).offset(-5.0);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
@@ -101,11 +116,11 @@
     [viewDetail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
         make.bottom.equalTo(self.lbSepa.mas_top);
-        make.top.equalTo(self.lbProfileName.mas_bottom).offset(10.0);
+        make.top.equalTo(self.viewHeader.mas_bottom);
     }];
     
     float hLabel = 30.0;
-    float wSmallItem = (SCREEN_WIDTH - 3*padding)/3;
+    float wSmallItem = [AppUtils getSizeWithText:@"Họ tên đầy đủ:" withFont:[UIFont fontWithName:RobotoRegular size:16.0]].width + 5;
     lbDomainType.font = [UIFont fontWithName:RobotoRegular size:16.0];
     lbDomainType.textColor = TITLE_COLOR;
     [lbDomainType mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -118,7 +133,7 @@
     lbDomainTypeValue.textColor = TITLE_COLOR;
     [lbDomainTypeValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbDomainType);
-        make.left.equalTo(self.lbDomainType.mas_right).offset(padding);
+        make.left.equalTo(self.lbDomainType.mas_right);
         make.right.equalTo(self.viewDetail).offset(-padding);
     }];
     
@@ -184,7 +199,7 @@
     [lbAddressValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbAddress);
         make.left.right.equalTo(self.lbPassportValue);
-        make.height.greaterThanOrEqualTo(self.lbAddress.mas_height);
+        make.height.mas_equalTo(2*hLabel);
     }];
     
     //  Phone
@@ -229,9 +244,10 @@
     lbTitlePassport.font = lbTypeName.font;
     lbTitlePassport.textColor = lbTypeName.textColor;
     [lbTitlePassport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.iconPassport);
+        make.centerY.equalTo(self.iconPassport.mas_centerY);
         make.left.equalTo(self.iconPassport.mas_right).offset(5.0);
         make.right.equalTo(self.viewDetail).offset(-padding);
+        make.height.mas_equalTo(hLabel);
     }];
     
     float wItem = (SCREEN_WIDTH-3*padding)/2;
@@ -273,49 +289,23 @@
 }
 
 - (void)updateUIForBusinessProfile: (BOOL)business {
-    float mTop;
     if (business) {
-        mTop = 80.0;
-        float wContent = [AppUtils getSizeWithText:@"Tên công ty: " withFont: lbTypeName.font].width;
         lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
         [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbTypeName);
-            make.top.equalTo(self.lbTypeName.mas_bottom);
+            make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
+            make.centerY.equalTo(self.imgProfile.mas_centerY);
+            make.width.mas_equalTo(self.sizeCompany);
             make.height.mas_equalTo(20.0);
-            make.width.mas_equalTo(wContent);
-        }];
-        
-        wContent = [AppUtils getSizeWithText:@"Hồ sơ: " withFont: lbTypeName.font].width;
-        [lbProfileName mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbCompany);
-            make.top.equalTo(self.lbCompany.mas_bottom);
-            make.height.equalTo(self.lbCompany.mas_height);
-            make.width.mas_equalTo(wContent);
         }];
     }else{
-        mTop = 60.0;
-        float wContent = [AppUtils getSizeWithText:@"Tên công ty: " withFont: lbTypeName.font].width;
+        lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
         [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbTypeName);
-            make.top.equalTo(self.lbTypeName.mas_bottom);
-            make.height.mas_equalTo(0);
-            make.width.mas_equalTo(wContent);
-        }];
-        
-        wContent = [AppUtils getSizeWithText:@"Hồ sơ: " withFont: lbTypeName.font].width;
-        [lbProfileName mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbCompany);
-            make.top.equalTo(self.lbTypeName.mas_bottom);
-            make.height.equalTo(self.lbTypeName.mas_height);
-            make.width.mas_equalTo(wContent);
+            make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
+            make.centerY.equalTo(self.imgProfile.mas_centerY);
+            make.width.mas_equalTo(self.sizeCompany);
+            make.height.mas_equalTo(0.0);
         }];
     }
-    
-    [viewDetail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.bottom.equalTo(self.lbSepa.mas_top);
-        make.top.equalTo(self).offset(mTop);
-    }];
 }
 
 @end

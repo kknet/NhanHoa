@@ -11,6 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileDetailCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIView *viewDomain;
+@property (weak, nonatomic) IBOutlet UILabel *lbDomain;
+
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIImageView *imgProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeName;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeNameValue;
@@ -46,6 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 - (void)updateUIForBusinessProfile: (BOOL)business;
+
+@property (nonatomic, assign) float sizeType;
+@property (nonatomic, assign) float sizeCompany;
+@property (nonatomic, assign) float sizeProfile;
 
 @end
 

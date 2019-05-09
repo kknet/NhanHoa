@@ -7,6 +7,7 @@
 //
 
 #import "RenewDomainDetailViewController.h"
+#import "RenewDomainCartViewController.h"
 
 @interface RenewDomainDetailViewController ()
 
@@ -19,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Gia hạn tên miền";
     [self setupUIForView];
 }
 
@@ -43,7 +45,8 @@
 }
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
-    
+    RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
+    [self.navigationController pushViewController:renewCartVC animated:TRUE];
 }
 
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
@@ -57,10 +60,11 @@
     float padding = 15.0;
     float hItem = 30.0;
     
+    lbTopDomain.backgroundColor = UIColor.whiteColor;
     lbTopDomain.font = [UIFont fontWithName:RobotoBold size:17.0];
     lbTopDomain.textColor = BLUE_COLOR;
     [lbTopDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view).offset(padding);
+        make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.mas_equalTo(50.0);
     }];

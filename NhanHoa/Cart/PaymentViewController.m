@@ -8,6 +8,7 @@
 
 #import "PaymentViewController.h"
 #import "DomainProfileCell.h"
+#import "CartModel.h"
 
 @interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate>{
     float hCell;
@@ -17,8 +18,8 @@
 @end
 
 @implementation PaymentViewController
-@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView;
-@synthesize hMenu;
+@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile;
+@synthesize hMenu, hTbConfirm;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,12 +39,13 @@
     hCell = 115.0;  //  10 + 35 + 60 + 10
     hSmallCell = 55; //  10 + 35 + 10;
     
+    [self addStepMenuForView];
+    
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.view);
+        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
-    
-    [self addStepMenuForView];
     
     float hTableView = 2 * hCell;
     tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -57,34 +59,45 @@
         make.height.mas_equalTo(hTableView);
     }];
     
-    float hScroll = SCREEN_HEIGHT - ([UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height);
+    float hScroll = SCREEN_HEIGHT - ([UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height + hMenu);
     
-    btnPayment.layer.cornerRadius = 40.0/2;
+    float hBTN = 45.0;
+    btnPayment.layer.cornerRadius = hBTN/2;
     btnPayment.backgroundColor = BLUE_COLOR;
     btnPayment.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     
-    float curHeight = hMenu + [self getHeightTableView];
-    if (curHeight + 2*padding + 40.0 + 2*padding > hScroll) {
+    float curHeight = [self getHeightTableView];
+    if (curHeight + 2*padding + hBTN + 2*padding > hScroll) {
         
         [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.scvContent).offset(padding);
             make.top.equalTo(self.tbContent.mas_bottom).offset(2*padding);
             make.width.mas_equalTo(SCREEN_WIDTH-padding*2);
-            make.height.mas_equalTo(40.0);
+            make.height.mas_equalTo(hBTN);
         }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, curHeight + 2*padding + 40.0 + 2*padding);
+        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, curHeight + 2*padding + hBTN + 2*padding);
     }else{
-        float mTop = hScroll - (2*padding + 40.0);
+        float mTop = hScroll - (2*padding + hBTN);
         [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.scvContent).offset(padding);
             make.top.equalTo(self.scvContent).offset(mTop);
             make.width.mas_equalTo(SCREEN_WIDTH-padding*2);
-            make.height.mas_equalTo(40.0);
+            make.height.mas_equalTo(hBTN);
         }];
         self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hScroll);
     }
     
     [self addListProfileForChoose];
+    
+    //  setup for confỉm profile table view
+    hTbConfirm = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu);
+    
+    tbConfirmProfile.hidden = TRUE;
+    [tbConfirmProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        make.height.mas_equalTo(self.hTbConfirm);
+    }];
 }
 
 - (float)getHeightTableView {
@@ -99,9 +112,9 @@
             break;
         }
     }
-    [self.scvContent addSubview: viewMenu];
+    [self.view addSubview: viewMenu];
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
+        make.top.left.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(self.hMenu);
     }];
@@ -176,7 +189,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return [[CartModel getInstance] countItemInCart];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -184,14 +197,16 @@
     DomainProfileCell *cell = (DomainProfileCell *)[tableView dequeueReusableCellWithIdentifier:@"DomainProfileCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
+    NSString *domain = [domainInfo objectForKey:@"domain"];
+    
+    cell.lbDomain.text = domain;
+    
     if (indexPath.row == 0) {
-        cell.lbDomain.text = @"lanhquadi.com";
-        //cell.lbProfileDesc.text = [NSString stringWithFormat:@"Loại tên miền: Cá nhân\nHồ sơ: Nguyễn Thị Hoa"];
         cell.lbProfileDesc.text = [NSString stringWithFormat:@"Loại tên miền: Doanh nghiệp\nTên công ty: Cơm trưa Anzi\nHồ sơ: Nguyễn Thị Hoa"];
         [cell.btnChooseProfile setTitle:@"Đã chọn" forState:UIControlStateNormal];
         [cell showProfileView: TRUE];
     }else{
-        cell.lbDomain.text = @"lanhquadi.com.vn";
         cell.lbProfileDesc.text = [NSString stringWithFormat:@"Loại tên miền: Doanh nghiệp\nTên công ty: Cơm trưa Anzi\nHồ sơ: Nguyễn Thị Hoa"];
         [cell.btnChooseProfile setTitle:@"Chọn hồ sơ" forState:UIControlStateNormal];
         [cell showProfileView: FALSE];
@@ -214,4 +229,19 @@
 
 
 
+- (IBAction)btnPaymentPress:(UIButton *)sender {
+    [viewMenu updateUIForStep: ePaymentConfirm];
+    
+    scvContent.hidden = TRUE;
+    tbConfirmProfile.hidden = FALSE;
+    tbConfirmProfile.backgroundColor = UIColor.redColor;
+    [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(self.hTbConfirm);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
 @end

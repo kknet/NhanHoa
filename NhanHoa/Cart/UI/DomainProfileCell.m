@@ -9,17 +9,23 @@
 #import "DomainProfileCell.h"
 
 @implementation DomainProfileCell
-@synthesize lbDomain, btnChooseProfile, viewProfileInfo, imgType, lbProfileDesc, lbSepa;
-@synthesize padding, hBTN;
+@synthesize lbDomain, btnChooseProfile, viewProfileInfo, imgType, lbType, lbTypeValue, lbCompany, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
+@synthesize padding, hBTN, sizeType, sizeCompany, sizeProfile;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     padding = 15.0;
-    hBTN = 35.0;
+    hBTN = 30.0;
+    
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width+10;
+    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width+10;
+    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+10;
+    
     
     btnChooseProfile.layer.cornerRadius = hBTN/2;
-    btnChooseProfile.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    btnChooseProfile.titleLabel.font = textFont;
     btnChooseProfile.backgroundColor = BLUE_COLOR;
     [btnChooseProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-self.padding);
@@ -41,22 +47,55 @@
     [viewProfileInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnChooseProfile.mas_bottom);
         make.bottom.equalTo(self).offset(-10.0);
-        make.left.equalTo(self).offset(self.padding);
-        make.right.equalTo(self).offset(-self.padding);
+        make.left.right.equalTo(self);
     }];
     
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.left.equalTo(self.viewProfileInfo);
+        make.left.equalTo(self.viewProfileInfo).offset(self.padding);
         make.width.height.mas_equalTo(35.0);
     }];
     
-    lbProfileDesc.numberOfLines = 10;
-    lbProfileDesc.font = [UIFont fontWithName:RobotoRegular size:15.0];
-    lbProfileDesc.textColor = [UIColor colorWithRed:(100/255.0) green:(100/255.0) blue:(100/255.0) alpha:1.0];
-    [lbProfileDesc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.viewProfileInfo);
-        make.left.equalTo(self.imgType.mas_right).offset(10.0);
+    //  company
+    [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
+        make.left.equalTo(self.imgType.mas_right).offset(5.0);
+        make.height.mas_equalTo(20.0);
+        make.width.mas_equalTo(self.sizeCompany);
+    }];
+    
+    [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.lbCompany);
+        make.left.equalTo(self.lbCompany.mas_right);
+        make.right.equalTo(self.viewProfileInfo).offset(-self.padding);
+    }];
+    
+    //  type
+    [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.lbCompany.mas_top);
+        make.left.equalTo(self.lbCompany);
+        make.height.mas_equalTo(20.0);
+        make.width.mas_equalTo(self.sizeType);
+    }];
+    
+    [lbTypeValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.lbType);
+        make.left.equalTo(self.lbType.mas_right);
+        make.right.equalTo(self.viewProfileInfo).offset(-self.padding);
+    }];
+    
+    //  profile
+    [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbCompany.mas_bottom);
+        make.left.equalTo(self.lbCompany);
+        make.height.mas_equalTo(20.0);
+        make.width.mas_equalTo(self.sizeProfile);
+    }];
+    
+    [lbProfileValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.lbProfile);
+        make.left.equalTo(self.lbProfile.mas_right);
+        make.right.equalTo(self.viewProfileInfo).offset(-self.padding);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];

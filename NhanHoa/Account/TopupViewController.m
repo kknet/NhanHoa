@@ -59,9 +59,16 @@
 - (IBAction)btnTopupPress:(UIButton *)sender {
 }
 
+- (void)closeKeyboard {
+    [self.view endEditing: TRUE];
+}
+
 - (void)setupUIForView {
     float hInfo = 140.0;
     float padding = 15.0;
+    
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
+    [self.view addGestureRecognizer: tapOnScreen];
     
     //  view info
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -157,6 +164,7 @@
         make.right.equalTo(self.view).offset(-padding);
     }];
     
+    tfMoney.keyboardType = UIKeyboardTypeNumberPad;
     tfMoney.textColor = TITLE_COLOR;
     tfMoney.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [tfMoney mas_makeConstraints:^(MASConstraintMaker *make) {

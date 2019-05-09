@@ -507,11 +507,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == selectedRow) {
-        if (selectedRow == 0) {
-            return [self getHeightProfileForBusiness: FALSE];
-        }else{
-            return [self getHeightProfileForBusiness: TRUE];
-        }
+        return [self getHeightProfileTableViewCell];
     }else{
         if (indexPath.row == 0) {
             return 61.0;
@@ -521,18 +517,14 @@
     }
 }
 
-- (float)getHeightProfileForBusiness: (BOOL)isBusiness {
+- (float)getHeightProfileTableViewCell {
     float hItem = 30.0;
     
     float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
     float hPassport = wPassport * 2/3;
     float hDetailView = 15 + 9 * hItem + hPassport + hItem + 15;
     
-    if (isBusiness) {
-        return 80 + hDetailView + 1;
-    }else{
-        return 60 + hDetailView + 1;
-    }
+    return 80 + hDetailView + 1;
 }
 
 

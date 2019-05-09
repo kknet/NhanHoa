@@ -85,6 +85,18 @@
 		159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7DB9227AF63300A64586 /* DomainProfileCell.m */; };
 		159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7DBA227AF63300A64586 /* DomainProfileCell.xib */; };
 		15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A613B022744C56000F6779 /* AppTabbarViewController.m */; };
+		15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */; };
+		15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */; };
+		15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD792283CB89004C0452 /* ProfileManagerCell.m */; };
+		15D1BD7C2283CB8A004C0452 /* ProfileManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */; };
+		15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */; };
+		15D1BD812283D618004C0452 /* RenewDomainCartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */; };
+		15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD842283E5EB004C0452 /* SupportViewController.m */; };
+		15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD852283E5EB004C0452 /* SupportViewController.xib */; };
+		15D1BD8B2283E92C004C0452 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD892283E92C004C0452 /* NotifyViewController.m */; };
+		15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */; };
+		15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD8E2283E9D8004C0452 /* NotificationCell.m */; };
+		15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */; };
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
 		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
 		15E7380222812A2200EFB017 /* dashline.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E7380122812A1C00EFB017 /* dashline.png */; };
@@ -163,8 +175,6 @@
 		845D32CE227967750047B196 /* BusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D32CD227967750047B196 /* BusinessProfileView.m */; };
 		845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845D32CF2279677E0047B196 /* BusinessProfileView.xib */; };
 		845D8134227EE56C005734CF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D8132227EE56C005734CF /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		8460F63B227A625300A185B0 /* RenewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F639227A625300A185B0 /* RenewViewController.m */; };
-		8460F63C227A625300A185B0 /* RenewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F63A227A625300A185B0 /* RenewViewController.xib */; };
 		8460F641227A644300A185B0 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F63F227A644300A185B0 /* CartViewController.m */; };
 		8460F642227A644300A185B0 /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8460F640227A644300A185B0 /* CartViewController.xib */; };
 		8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8460F645227A651400A185B0 /* PromotionCodeView.m */; };
@@ -322,6 +332,24 @@
 		159F7DBA227AF63300A64586 /* DomainProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainProfileCell.xib; sourceTree = "<group>"; };
 		15A613AF22744C56000F6779 /* AppTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTabbarViewController.h; sourceTree = "<group>"; };
 		15A613B022744C56000F6779 /* AppTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppTabbarViewController.m; sourceTree = "<group>"; };
+		15D1BD722283CA31004C0452 /* ProfileManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileManagerViewController.h; sourceTree = "<group>"; };
+		15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileManagerViewController.m; sourceTree = "<group>"; };
+		15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileManagerViewController.xib; sourceTree = "<group>"; };
+		15D1BD782283CB89004C0452 /* ProfileManagerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileManagerCell.h; sourceTree = "<group>"; };
+		15D1BD792283CB89004C0452 /* ProfileManagerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileManagerCell.m; sourceTree = "<group>"; };
+		15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileManagerCell.xib; sourceTree = "<group>"; };
+		15D1BD7D2283D618004C0452 /* RenewDomainCartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainCartViewController.h; sourceTree = "<group>"; };
+		15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainCartViewController.m; sourceTree = "<group>"; };
+		15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainCartViewController.xib; sourceTree = "<group>"; };
+		15D1BD832283E5EB004C0452 /* SupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
+		15D1BD842283E5EB004C0452 /* SupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
+		15D1BD852283E5EB004C0452 /* SupportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportViewController.xib; sourceTree = "<group>"; };
+		15D1BD882283E92C004C0452 /* NotifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyViewController.h; sourceTree = "<group>"; };
+		15D1BD892283E92C004C0452 /* NotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
+		15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotifyViewController.xib; sourceTree = "<group>"; };
+		15D1BD8D2283E9D8004C0452 /* NotificationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		15D1BD8E2283E9D8004C0452 /* NotificationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
 		15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NhanHoa_PrefixHeader.pch; sourceTree = SOURCE_ROOT; };
 		15E084C222715E830010429B /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
@@ -418,9 +446,6 @@
 		845D32CF2279677E0047B196 /* BusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusinessProfileView.xib; sourceTree = "<group>"; };
 		845D8132227EE56C005734CF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		845D8133227EE56C005734CF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		8460F638227A625300A185B0 /* RenewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewViewController.h; sourceTree = "<group>"; };
-		8460F639227A625300A185B0 /* RenewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewViewController.m; sourceTree = "<group>"; };
-		8460F63A227A625300A185B0 /* RenewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewViewController.xib; sourceTree = "<group>"; };
 		8460F63E227A644300A185B0 /* CartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
 		8460F63F227A644300A185B0 /* CartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
 		8460F640227A644300A185B0 /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
@@ -537,12 +562,10 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
-				8481F88922832D5100C88EB1 /* Account */,
 				845D8130227EE54B005734CF /* Outsources */,
 				847E9AA4227EAB1C00C83F5A /* Model */,
 				156B8C20226ECF6D0020EDCB /* Resources */,
 				84999C0F227C863B0006C80A /* Web services */,
-				8460F63D227A632900A185B0 /* Cart */,
 				841F008C2274B2CB00F1B314 /* AppObjects */,
 				1517FB7322744EBC0044E878 /* Transaction history */,
 				1517FB6D22744D4B0044E878 /* BO */,
@@ -553,6 +576,10 @@
 				8490A5A02279A10500B921B7 /* RenewedDomain */,
 				1508460F226EC9A900428514 /* More */,
 				15084609226EC98A00428514 /* Register domain */,
+				8481F88922832D5100C88EB1 /* Account */,
+				8460F63D227A632900A185B0 /* Cart */,
+				15D1BD712283CA0A004C0452 /* Profiles */,
+				15D1BD822283E5D3004C0452 /* SupportCustomer */,
 				1517FB67227446790044E878 /* Home */,
 				150845F2226EBF2400428514 /* AppDelegate.h */,
 				150845F3226EBF2400428514 /* AppDelegate.m */,
@@ -610,6 +637,9 @@
 				1517FB68227446980044E878 /* HomeViewController.h */,
 				1517FB69227446980044E878 /* HomeViewController.m */,
 				1517FB6A227446980044E878 /* HomeViewController.xib */,
+				15D1BD882283E92C004C0452 /* NotifyViewController.h */,
+				15D1BD892283E92C004C0452 /* NotifyViewController.m */,
+				15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -778,6 +808,37 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		15D1BD712283CA0A004C0452 /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				15D1BD772283CB70004C0452 /* UI */,
+				15D1BD722283CA31004C0452 /* ProfileManagerViewController.h */,
+				15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */,
+				15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */,
+			);
+			path = Profiles;
+			sourceTree = "<group>";
+		};
+		15D1BD772283CB70004C0452 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				15D1BD782283CB89004C0452 /* ProfileManagerCell.h */,
+				15D1BD792283CB89004C0452 /* ProfileManagerCell.m */,
+				15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		15D1BD822283E5D3004C0452 /* SupportCustomer */ = {
+			isa = PBXGroup;
+			children = (
+				15D1BD832283E5EB004C0452 /* SupportViewController.h */,
+				15D1BD842283E5EB004C0452 /* SupportViewController.m */,
+				15D1BD852283E5EB004C0452 /* SupportViewController.xib */,
+			);
+			path = SupportCustomer;
+			sourceTree = "<group>";
+		};
 		15E084C122715E670010429B /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -835,6 +896,9 @@
 				841F00872274B0A100F1B314 /* HomeMenuCell.h */,
 				841F00882274B0A100F1B314 /* HomeMenuCell.m */,
 				841F00892274B0A100F1B314 /* HomeMenuCell.xib */,
+				15D1BD8D2283E9D8004C0452 /* NotificationCell.h */,
+				15D1BD8E2283E9D8004C0452 /* NotificationCell.m */,
+				15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1009,9 +1073,9 @@
 				8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */,
 				8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */,
 				8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */,
-				8460F638227A625300A185B0 /* RenewViewController.h */,
-				8460F639227A625300A185B0 /* RenewViewController.m */,
-				8460F63A227A625300A185B0 /* RenewViewController.xib */,
+				15D1BD7D2283D618004C0452 /* RenewDomainCartViewController.h */,
+				15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */,
+				15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */,
 			);
 			path = RenewedDomain;
 			sourceTree = "<group>";
@@ -1151,11 +1215,11 @@
 				84588AA0228093F000B59E0F /* ic_setting_acc.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
+				15D1BD7C2283CB8A004C0452 /* ProfileManagerCell.xib in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				84F1730622833310006AEE87 /* wallet_white.png in Resources */,
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
-				8460F63C227A625300A185B0 /* RenewViewController.xib in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
@@ -1194,6 +1258,7 @@
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
+				15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */,
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
@@ -1230,6 +1295,7 @@
 				84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */,
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
 				841966932276077400C14516 /* comvn.png in Resources */,
+				15D1BD812283D618004C0452 /* RenewDomainCartViewController.xib in Resources */,
 				8464D740227BBC8A00381DE5 /* passport_empty_front.png in Resources */,
 				842F81B7227561ED00D6DE6D /* Roboto-Medium.ttf in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
@@ -1251,6 +1317,7 @@
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
+				15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
@@ -1267,7 +1334,9 @@
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
+				15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
+				15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
 				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
@@ -1324,9 +1393,9 @@
 				8446F4B02277C16B008F4EE9 /* WhoIsCell.m in Sources */,
 				840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */,
 				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
+				15D1BD8B2283E92C004C0452 /* NotifyViewController.m in Sources */,
 				845D32CE227967750047B196 /* BusinessProfileView.m in Sources */,
 				842F81CA2275BD4600D6DE6D /* CustomTextAttachment.m in Sources */,
-				8460F63B227A625300A185B0 /* RenewViewController.m in Sources */,
 				845D32BC22793DF50047B196 /* RegisterAccountStep2ViewController.m in Sources */,
 				841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */,
 				1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */,
@@ -1350,8 +1419,10 @@
 				84999C15227C86CB0006C80A /* JSONKit.m in Sources */,
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
+				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
+				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
@@ -1376,9 +1447,12 @@
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
 				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
+				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
+				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
+				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
