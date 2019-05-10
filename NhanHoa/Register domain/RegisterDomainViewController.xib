@@ -22,12 +22,10 @@
                 <outlet property="lbTitle" destination="02O-BP-AxM" id="hWv-47-i1V"/>
                 <outlet property="lbTransferDomain" destination="78r-uH-rsx" id="gop-gW-Oxr"/>
                 <outlet property="lbWWW" destination="1na-3a-uiK" id="IM7-7u-eZ4"/>
-                <outlet property="scvBanner" destination="lN3-fX-lE1" id="hbv-28-s2f"/>
                 <outlet property="scvContent" destination="K7c-Tc-W0c" id="1kn-bd-wgh"/>
                 <outlet property="tbContent" destination="Yzd-Hs-9to" id="j3d-sn-0N8"/>
                 <outlet property="tfSearch" destination="JUy-rR-nB8" id="ghm-xG-bct"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewBanner" destination="TbB-qE-nLU" id="b5J-Db-Rxd"/>
                 <outlet property="viewInfo" destination="qdF-AY-870" id="EcP-dl-d0F"/>
                 <outlet property="viewRenew" destination="j6B-eN-A5c" id="Njl-bo-Iqr"/>
                 <outlet property="viewSearch" destination="nAk-BY-D8W" id="jGa-8x-zWm"/>
@@ -43,21 +41,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lN3-fX-lE1">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </scrollView>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-qE-nLU">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="banner.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="7sj-8U-gWs">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdF-AY-870">
                             <rect key="frame" x="0.0" y="167" width="320" height="121"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -174,11 +157,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-1485" y="-479"/>
+            <point key="canvasLocation" x="-1777" y="-502"/>
         </view>
     </objects>
     <resources>
-        <image name="banner.jpg" width="752" height="375"/>
         <image name="ic_search_domain.png" width="100" height="100"/>
     </resources>
 </document>

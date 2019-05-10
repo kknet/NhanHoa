@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BannerSliderView.h"
 
 @interface RegisterDomainViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
-@property (weak, nonatomic) IBOutlet UIView *viewBanner;
-@property (weak, nonatomic) IBOutlet UIScrollView *scvBanner;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UILabel *lbWWW;
@@ -42,5 +41,7 @@
 @property (nonatomic, assign) float hBanner;
 
 - (IBAction)icSearchClick:(UIButton *)sender;
+
+@property (nonatomic, strong) BannerSliderView *viewBanner;
 
 @end

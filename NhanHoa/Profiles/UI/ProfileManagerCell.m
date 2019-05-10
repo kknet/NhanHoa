@@ -16,11 +16,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
+    
+    lbTypeValue.text = lbCompanyValue.text = lbProfileValue.text = @"";
+    
     // Configure the view for the selected state
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     
@@ -38,6 +36,10 @@
     
     lbProfile.text = @"Hồ sơ:";
     sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width + 5;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
 }
 
 - (void)setupUIForBusiness: (BOOL)business {

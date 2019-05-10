@@ -21,14 +21,19 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
-#define TAG_HUD     100
+#define TAG_HUD             100
+#define TIME_FOR_SLIDER     6
 
-#define link_api    @"https://nhanhoa.com/app-awk"
-#define login_func  @"Login"
-#define whois_func  @"Whois"
+#define link_api            @"https://nhanhoa.com/app-awk"
+#define login_func          @"Login"
+#define whois_func          @"Whois"
+#define get_profile_func    @"ListContact"
 
-#define login_mod   @"login"
-#define whois_mod   @"whois"
+
+#define login_mod       @"login"
+#define whois_mod       @"whois"
+#define get_profile_mod @"contact_list"
+
 
 #define logsFolderName      @"LogFiles"
 #define login_state         @"login_state"
@@ -57,5 +62,8 @@
 
 #define N_A         @"Không giá trị"
 #define unknown     @"Chưa xác định"
+
+#define text_personal @"Cá nhân"
+#define text_business @"Doanh nghiệp"
 
 #endif /* AppString_h */

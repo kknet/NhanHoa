@@ -22,7 +22,6 @@
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSMutableArray *listMenu;
-    NSString *bannerURL;
     float hBanner;
 }
 
@@ -30,23 +29,23 @@
 
 @implementation HomeViewController
 @synthesize viewSearch, tfSearch, icNotify, icClear, btnSearch, icCart, lbCount;
-@synthesize scvBanner;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
-@synthesize hMenu;
+@synthesize hMenu, viewBanner;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self createDataForMenuView];
-    [self setupUIForView];
-    
-    [self addBannerImageForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self.navigationController setNavigationBarHidden: YES];
+    
+    [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
+    
+    [self setupUIForView];
     
     //  Show cart item
     [[CartModel getInstance] displayCartInfoWithView: lbCount];
@@ -79,39 +78,28 @@
 
 - (void)addBannerImageForView
 {
-    if ([AppDelegate sharedInstance].userInfo != nil) {
-        id banner = [[AppDelegate sharedInstance].userInfo objectForKey:@"banner"];
-        if ([banner isKindOfClass:[NSDictionary class]]) {
-            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
-            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
-            imgBanner.clipsToBounds = TRUE;
-            imgBanner.userInteractionEnabled = TRUE;
-            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage)];
-            [imgBanner addGestureRecognizer: tapOnBanner];
-            [scvBanner addSubview: imgBanner];
-            
-            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
-            
-            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
-            icLoading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            [icLoading startAnimating];
-            [scvBanner addSubview: icLoading];
-            
-            NSString *image = [banner objectForKey:@"image"];
-            bannerURL = [banner objectForKey:@"url"];
-            
-            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
-            {
-                [icLoading stopAnimating];
-                [icLoading removeFromSuperview];
-            }];
+    if ([AppDelegate sharedInstance].userInfo != nil)
+    {
+        float paddingY = 10.0;
+        if (viewBanner == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[BannerSliderView class]]) {
+                    viewBanner = (BannerSliderView *) currentObject;
+                    break;
+                }
+            }
+            [self.view addSubview: viewBanner];
         }
-    }
-}
-
--(void)whenTapOnBannerImage {
-    if (![AppUtils isNullOrEmpty: bannerURL]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:bannerURL]];
+        [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.viewSearch.mas_bottom);
+            make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
+        }];
+        
+        viewBanner.hBanner = hBanner;
+        [viewBanner setupUIForView];
+        [viewBanner showBannersForSliderView];
     }
 }
 
@@ -387,15 +375,8 @@
         make.top.equalTo(self.viewRewards.mas_centerY);
     }];
     
-    scvBanner.backgroundColor = UIColor.whiteColor;
-    scvBanner.pagingEnabled = TRUE;
-    [scvBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.viewSearch.mas_bottom);
-        make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
-    }];
-    
     hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
+    [self addBannerImageForView];
 }
 
 @end

@@ -61,6 +61,12 @@
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E6922852BDE00D1ACDA /* BannerSliderView.m */; };
+		157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */; };
+		157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6D2285380700D1ACDA /* circle_full_blue.png */; };
+		157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */; };
+		157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */; };
+		157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */; };
 		157F0C122282966600DCB7D4 /* back_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C112282966300DCB7D4 /* back_medium.png */; };
 		157F0C15228297C500DCB7D4 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 157F0C14228297C500DCB7D4 /* CartModel.m */; };
 		157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C162282C81900DCB7D4 /* cart_empty.png */; };
@@ -301,6 +307,14 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		157E2E6822852BDE00D1ACDA /* BannerSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerSliderView.h; sourceTree = "<group>"; };
+		157E2E6922852BDE00D1ACDA /* BannerSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerSliderView.m; sourceTree = "<group>"; };
+		157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerSliderView.xib; sourceTree = "<group>"; };
+		157E2E6D2285380700D1ACDA /* circle_full_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_full_blue.png; sourceTree = "<group>"; };
+		157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_not_full_blue.png; sourceTree = "<group>"; };
+		157E2E7222856EC600D1ACDA /* ProfileDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileDetailsViewController.h; sourceTree = "<group>"; };
+		157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileDetailsViewController.m; sourceTree = "<group>"; };
+		157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailsViewController.xib; sourceTree = "<group>"; };
 		157F0C112282966300DCB7D4 /* back_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_medium.png; sourceTree = "<group>"; };
 		157F0C13228297C500DCB7D4 /* CartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
 		157F0C14228297C500DCB7D4 /* CartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
@@ -799,6 +813,8 @@
 				84A63C472283A91500C52B8A /* gift-box.png */,
 				84A1646B2284EA5C0001B833 /* atm.png */,
 				84A1646C2284EA5C0001B833 /* visa.png */,
+				157E2E6D2285380700D1ACDA /* circle_full_blue.png */,
+				157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -826,6 +842,9 @@
 				15D1BD722283CA31004C0452 /* ProfileManagerViewController.h */,
 				15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */,
 				15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */,
+				157E2E7222856EC600D1ACDA /* ProfileDetailsViewController.h */,
+				157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */,
+				157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -910,6 +929,9 @@
 				15D1BD8D2283E9D8004C0452 /* NotificationCell.h */,
 				15D1BD8E2283E9D8004C0452 /* NotificationCell.m */,
 				15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */,
+				157E2E6822852BDE00D1ACDA /* BannerSliderView.h */,
+				157E2E6922852BDE00D1ACDA /* BannerSliderView.m */,
+				157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1214,7 +1236,9 @@
 				841966942276077400C14516 /* com.png in Resources */,
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
+				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
 				842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */,
+				157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */,
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
 				1517FB602274465B0044E878 /* menu_recharge.png in Resources */,
@@ -1262,6 +1286,7 @@
 				846AACB52276C96A005BC87E /* SearchDomainViewController.xib in Resources */,
 				1517FB6C227446980044E878 /* HomeViewController.xib in Resources */,
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
+				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				842F81B4227561ED00D6DE6D /* Roboto-BlackItalic.ttf in Resources */,
 				1517FBBB22745D9B0044E878 /* notify.png in Resources */,
@@ -1323,6 +1348,7 @@
 				84A1646D2284EA5C0001B833 /* atm.png in Resources */,
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
+				157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
 				15E7380222812A2200EFB017 /* dashline.png in Resources */,
 				1517FB9922745D810044E878 /* tabbar_home_act@2x.png in Resources */,
@@ -1436,6 +1462,7 @@
 				841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */,
 				84999C15227C86CB0006C80A /* JSONKit.m in Sources */,
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
+				157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
@@ -1465,6 +1492,7 @@
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
 				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
+				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BannerSliderView.h"
 
 @interface HomeViewController : UIViewController
 
@@ -17,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSearch;
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
 @property (weak, nonatomic) IBOutlet UILabel *lbCount;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scvBanner;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
 @property (weak, nonatomic) IBOutlet UIView *viewMainWallet;
@@ -38,5 +37,7 @@
 - (IBAction)icCartClick:(UIButton *)sender;
 
 @property (nonatomic, assign) float hMenu;
+
+@property (nonatomic, strong) BannerSliderView *viewBanner;
 
 @end

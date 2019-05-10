@@ -18,4 +18,14 @@
     return @"";
 }
 
++ (NSString *)getCusUsernameOfUser {
+    NSString *cusUsername = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_username"];
+    if (![AppUtils isNullOrEmpty: cusUsername]) {
+        return cusUsername;
+    }
+    return @"";
+}
+
+
+
 @end

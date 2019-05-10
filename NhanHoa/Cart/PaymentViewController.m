@@ -158,7 +158,18 @@
 }
 
 - (void)btnConfirmProfilePress {
+    [viewMenu updateUIForStep: ePaymentCharge];
     
+    scvContent.hidden = tbConfirmProfile.hidden = TRUE;
+    tbPaymentMethod.hidden = FALSE;
+    
+    [tbPaymentMethod mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.left.right.bottom.equalTo(self.view);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)setupTableChoosePaymentMethodForView {
@@ -166,12 +177,13 @@
     [tbPaymentMethod registerNib:[UINib nibWithNibName:@"PaymentMethodCell" bundle:nil] forCellReuseIdentifier:@"PaymentMethodCell"];
     tbPaymentMethod.delegate = self;
     tbPaymentMethod.dataSource = self;
+    tbPaymentMethod.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbPaymentMethod mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(0);
     }];
     
-    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu + hTbConfirm);
+    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu + 2*60.0);
     
     UIView *footerView;
     if (hFooter < 75) {
@@ -355,7 +367,7 @@
             return hSmallCell;
         }
     }else if (tableView == tbPaymentMethod){
-        return 40.0;
+        return 60.0;
     }else {
         return [self getHeightProfileTableViewCell];
     }
@@ -374,7 +386,7 @@
 - (IBAction)btnPaymentPress:(UIButton *)sender {
     [viewMenu updateUIForStep: ePaymentConfirm];
     
-    scvContent.hidden = TRUE;
+    scvContent.hidden = tbPaymentMethod.hidden = TRUE;
     tbConfirmProfile.hidden = FALSE;
     
     [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {

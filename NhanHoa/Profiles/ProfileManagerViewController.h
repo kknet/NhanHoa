@@ -10,6 +10,7 @@
 
 @interface ProfileManagerViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 @property (weak, nonatomic) IBOutlet UITableView *tbProfiles;
 
 @end

@@ -12,23 +12,19 @@
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
     NSMutableArray *listData;
-    NSDictionary *resultDict;
-    NSString *bannerURL;
 }
 
 @end
 
 @implementation RegisterDomainViewController
-@synthesize scvContent, viewBanner, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent, scvBanner;
-@synthesize hCell, padding, hBanner;
+@synthesize scvContent, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
+@synthesize hCell, padding, hBanner, viewBanner;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self createListDomainPrice];
     [self setupUIForView];
-    
-    [self addBannerImageForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -53,9 +49,8 @@
 - (void)createListDomainPrice {
     listData = [[NSMutableArray alloc] init];
     id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
-    if (listPrice != nil && [listPrice isKindOfClass:[NSDictionary class]]) {
-        listData = [[NSMutableArray alloc] initWithArray:[listPrice allKeys]];
-        resultDict = [[NSDictionary alloc] initWithDictionary: listPrice];
+    if (listPrice != nil && [listPrice isKindOfClass:[NSArray class]]) {
+        listData = [[NSMutableArray alloc] initWithArray:listPrice];
     }
 }
 
@@ -76,39 +71,31 @@
 
 - (void)addBannerImageForView
 {
-    if ([AppDelegate sharedInstance].userInfo != nil) {
-        id banner = [[AppDelegate sharedInstance].userInfo objectForKey:@"banner"];
-        if ([banner isKindOfClass:[NSDictionary class]]) {
-            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
-            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
-            imgBanner.clipsToBounds = TRUE;
-            imgBanner.userInteractionEnabled = TRUE;
-            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage)];
-            [imgBanner addGestureRecognizer: tapOnBanner];
-            [scvBanner addSubview: imgBanner];
-            
-            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
-            
-            UIActivityIndicatorView *icLoading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
-            icLoading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            [icLoading startAnimating];
-            [scvBanner addSubview: icLoading];
-            
-            NSString *image = [banner objectForKey:@"image"];
-            bannerURL = [banner objectForKey:@"url"];
-            
-            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
-             {
-                 [icLoading stopAnimating];
-                 [icLoading removeFromSuperview];
-             }];
+    if ([AppDelegate sharedInstance].userInfo != nil)
+    {
+        if (viewBanner == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[BannerSliderView class]]) {
+                    viewBanner = (BannerSliderView *) currentObject;
+                    break;
+                }
+            }
+            [self.scvContent addSubview: viewBanner];
         }
-    }
-}
-
--(void)whenTapOnBannerImage {
-    if (![AppUtils isNullOrEmpty: bannerURL]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:bannerURL]];
+        [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.equalTo(self.scvContent);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+            make.height.mas_equalTo(self.hBanner);
+        }];
+        
+        viewBanner.hBanner = hBanner;
+        [viewBanner setupUIForView];
+        [viewBanner showBannersForSliderView];
+        
+        [self.scvContent bringSubviewToFront: tfSearch];
+        [self.scvContent bringSubviewToFront: lbWWW];
+        [self.scvContent bringSubviewToFront: icSearch];
     }
 }
 
@@ -125,6 +112,9 @@
     
     padding = 15.0;
     hBanner = 150.0;
+    
+    [self addBannerImageForView];
+    
     viewBanner.clipsToBounds = YES;
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
@@ -132,12 +122,6 @@
         make.height.mas_equalTo(self.hBanner);
     }];
     
-    viewBanner.hidden = TRUE;
-    [scvBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hBanner);
-    }];
     
     //  search UI
     float hSearch = 38.0;
@@ -346,8 +330,10 @@
     SuggestDomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestDomainCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSString *key = [listData objectAtIndex: indexPath.row];
-    id price = [resultDict objectForKey: key];
+    NSDictionary *info = [listData objectAtIndex: indexPath.row];
+    NSString *name = [info objectForKey:@"name"];
+    id price = [info objectForKey:@"price"];
+    
     if ([price isKindOfClass:[NSNumber class]]) {
         NSString *strPrice = [NSString stringWithFormat:@"%d", [price intValue]];
         cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: strPrice]];
@@ -356,8 +342,7 @@
         cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: (NSString *)price]];
     }
     
-    NSString *image = key;
-    
+    NSString *image = name;
     if ([image hasPrefix:@"."]) {
         image = [image substringFromIndex: 1];
     }

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AccountModel : NSObject
 
 + (NSString *)getCusIdOfUser;
++ (NSString *)getCusUsernameOfUser;
 
 @end
 
