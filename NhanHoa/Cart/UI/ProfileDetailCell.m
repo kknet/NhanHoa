@@ -308,4 +308,20 @@
     }
 }
 
+- (void)showProfileDetailWithDomainView {
+    viewHeader.hidden = TRUE;
+    viewDomain.hidden = FALSE;
+    
+    [viewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.height.mas_equalTo(40.0);
+    }];
+    
+    [viewDetail mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.bottom.equalTo(self.lbSepa.mas_top);
+        make.top.equalTo(self.viewDomain.mas_bottom);
+    }];
+}
+
 @end

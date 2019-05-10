@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 - (void)updateUIForBusinessProfile: (BOOL)business;
+- (void)showProfileDetailWithDomainView;
 
 @property (nonatomic, assign) float sizeType;
 @property (nonatomic, assign) float sizeCompany;

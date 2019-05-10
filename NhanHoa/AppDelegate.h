@@ -22,6 +22,11 @@ typedef enum TypeHomeMenu{
     eSupport,
 }TypeHomeMenu;
 
+typedef enum PaymentMethod{
+    ePaymentWithATM,
+    ePaymentWithVisaMaster,
+}PaymentMethod;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

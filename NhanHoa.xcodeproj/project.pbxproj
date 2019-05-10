@@ -125,6 +125,8 @@
 		841966922276077400C14516 /* xyz.png in Resources */ = {isa = PBXBuildFile; fileRef = 8419668D2276077300C14516 /* xyz.png */; };
 		841966932276077400C14516 /* comvn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8419668E2276077300C14516 /* comvn.png */; };
 		841966942276077400C14516 /* com.png in Resources */ = {isa = PBXBuildFile; fileRef = 8419668F2276077300C14516 /* com.png */; };
+		841E7C602284E2E80074DDF5 /* PaymentMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841E7C5E2284E2E80074DDF5 /* PaymentMethodCell.m */; };
+		841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841E7C5F2284E2E80074DDF5 /* PaymentMethodCell.xib */; };
 		841F00852274A97D00F1B314 /* banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 841F00842274A97D00F1B314 /* banner.jpg */; };
 		841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841F00882274B0A100F1B314 /* HomeMenuCell.m */; };
 		841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F00892274B0A100F1B314 /* HomeMenuCell.xib */; };
@@ -218,6 +220,8 @@
 		849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E312422807393003A8813 /* ContactInfoViewController.xib */; };
 		849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E3128228074C5003A8813 /* ContactInfoCell.m */; };
 		849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E3129228074C5003A8813 /* ContactInfoCell.xib */; };
+		84A1646D2284EA5C0001B833 /* atm.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A1646B2284EA5C0001B833 /* atm.png */; };
+		84A1646E2284EA5C0001B833 /* visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A1646C2284EA5C0001B833 /* visa.png */; };
 		84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A63C3D22839E9100C52B8A /* BonusAccountViewController.m */; };
 		84A63C4022839E9100C52B8A /* BonusAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A63C3E22839E9100C52B8A /* BonusAccountViewController.xib */; };
 		84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A63C432283A11400C52B8A /* BonusHistoryCell.m */; };
@@ -386,6 +390,9 @@
 		8419668D2276077300C14516 /* xyz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xyz.png; sourceTree = "<group>"; };
 		8419668E2276077300C14516 /* comvn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comvn.png; sourceTree = "<group>"; };
 		8419668F2276077300C14516 /* com.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = com.png; sourceTree = "<group>"; };
+		841E7C5D2284E2E80074DDF5 /* PaymentMethodCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodCell.h; sourceTree = "<group>"; };
+		841E7C5E2284E2E80074DDF5 /* PaymentMethodCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodCell.m; sourceTree = "<group>"; };
+		841E7C5F2284E2E80074DDF5 /* PaymentMethodCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodCell.xib; sourceTree = "<group>"; };
 		841F00842274A97D00F1B314 /* banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner.jpg; sourceTree = "<group>"; };
 		841F00872274B0A100F1B314 /* HomeMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeMenuCell.h; sourceTree = "<group>"; };
 		841F00882274B0A100F1B314 /* HomeMenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeMenuCell.m; sourceTree = "<group>"; };
@@ -508,6 +515,8 @@
 		849E3127228074C5003A8813 /* ContactInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactInfoCell.h; sourceTree = "<group>"; };
 		849E3128228074C5003A8813 /* ContactInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactInfoCell.m; sourceTree = "<group>"; };
 		849E3129228074C5003A8813 /* ContactInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoCell.xib; sourceTree = "<group>"; };
+		84A1646B2284EA5C0001B833 /* atm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atm.png; sourceTree = "<group>"; };
+		84A1646C2284EA5C0001B833 /* visa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa.png; sourceTree = "<group>"; };
 		84A63C3C22839E9100C52B8A /* BonusAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BonusAccountViewController.h; sourceTree = "<group>"; };
 		84A63C3D22839E9100C52B8A /* BonusAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BonusAccountViewController.m; sourceTree = "<group>"; };
 		84A63C3E22839E9100C52B8A /* BonusAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BonusAccountViewController.xib; sourceTree = "<group>"; };
@@ -788,6 +797,8 @@
 				157F0C162282C81900DCB7D4 /* cart_empty.png */,
 				84F1730522833310006AEE87 /* wallet_white.png */,
 				84A63C472283A91500C52B8A /* gift-box.png */,
+				84A1646B2284EA5C0001B833 /* atm.png */,
+				84A1646C2284EA5C0001B833 /* visa.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1029,6 +1040,9 @@
 				157F0C182282E80400DCB7D4 /* SelectYearsCell.h */,
 				157F0C192282E80400DCB7D4 /* SelectYearsCell.m */,
 				157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */,
+				841E7C5D2284E2E80074DDF5 /* PaymentMethodCell.h */,
+				841E7C5E2284E2E80074DDF5 /* PaymentMethodCell.m */,
+				841E7C5F2284E2E80074DDF5 /* PaymentMethodCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1190,6 +1204,7 @@
 			files = (
 				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
 				1517FBBA22745D9B0044E878 /* wallet.png in Resources */,
+				84A1646E2284EA5C0001B833 /* visa.png in Resources */,
 				845D32BD22793DF50047B196 /* RegisterAccountStep2ViewController.xib in Resources */,
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
@@ -1253,6 +1268,7 @@
 				1517FB9F22745D810044E878 /* tababr_acc_act@3x.png in Resources */,
 				84588A9E228093F000B59E0F /* ic_signout.png in Resources */,
 				1517FBA622745D810044E878 /* tabbar_BO_def@3x.png in Resources */,
+				841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */,
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
@@ -1304,6 +1320,7 @@
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
 				845D32B72279335C0047B196 /* hide_pass_white.png in Resources */,
+				84A1646D2284EA5C0001B833 /* atm.png in Resources */,
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
@@ -1391,6 +1408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8446F4B02277C16B008F4EE9 /* WhoIsCell.m in Sources */,
+				841E7C602284E2E80074DDF5 /* PaymentMethodCell.m in Sources */,
 				840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */,
 				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
 				15D1BD8B2283E92C004C0452 /* NotifyViewController.m in Sources */,

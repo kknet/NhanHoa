@@ -20,9 +20,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnPayment;
 @property (nonatomic, assign) float hMenu;
 @property (nonatomic, assign) float hTbConfirm;
+@property (nonatomic, assign) float padding;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbConfirmProfile;
-
+@property (weak, nonatomic) IBOutlet UITableView *tbPaymentMethod;
 
 - (IBAction)btnPaymentPress:(UIButton *)sender;
 
