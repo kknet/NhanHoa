@@ -163,6 +163,8 @@
 		8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */; };
 		8446F4B62277C55E008F4EE9 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4B22277C55D008F4EE9 /* add.png */; };
 		8446F4B72277C55E008F4EE9 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4B32277C55D008F4EE9 /* close.png */; };
+		84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84555EF922863D2600FE77C1 /* AddProfileViewController.m */; };
+		84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84555EFA22863D2600FE77C1 /* AddProfileViewController.xib */; };
 		84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 84588A97228093E800B59E0F /* ic_contact_info.png */; };
 		84588A9E228093F000B59E0F /* ic_signout.png in Resources */ = {isa = PBXBuildFile; fileRef = 84588A98228093E800B59E0F /* ic_signout.png */; };
 		84588A9F228093F000B59E0F /* ic_support.png in Resources */ = {isa = PBXBuildFile; fileRef = 84588A99228093E900B59E0F /* ic_support.png */; };
@@ -215,6 +217,8 @@
 		8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */; };
 		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
+		849827832285D50C00201ED7 /* NewProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849827822285D50C00201ED7 /* NewProfileView.m */; };
+		849827852285D51900201ED7 /* NewProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849827842285D51900201ED7 /* NewProfileView.xib */; };
 		84999C12227C86550006C80A /* WebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C10227C86550006C80A /* WebServices.m */; };
 		84999C15227C86CB0006C80A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C14227C86CB0006C80A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E31172280632E003A8813 /* AccountSettingViewController.m */; };
@@ -443,6 +447,9 @@
 		8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsCell.xib; sourceTree = "<group>"; };
 		8446F4B22277C55D008F4EE9 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		8446F4B32277C55D008F4EE9 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		84555EF822863D2600FE77C1 /* AddProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddProfileViewController.h; sourceTree = "<group>"; };
+		84555EF922863D2600FE77C1 /* AddProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddProfileViewController.m; sourceTree = "<group>"; };
+		84555EFA22863D2600FE77C1 /* AddProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddProfileViewController.xib; sourceTree = "<group>"; };
 		84588A97228093E800B59E0F /* ic_contact_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_contact_info.png; sourceTree = "<group>"; };
 		84588A98228093E800B59E0F /* ic_signout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_signout.png; sourceTree = "<group>"; };
 		84588A99228093E900B59E0F /* ic_support.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_support.png; sourceTree = "<group>"; };
@@ -512,6 +519,9 @@
 		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
 		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
 		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
+		849827812285D50C00201ED7 /* NewProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewProfileView.h; sourceTree = "<group>"; };
+		849827822285D50C00201ED7 /* NewProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewProfileView.m; sourceTree = "<group>"; };
+		849827842285D51900201ED7 /* NewProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewProfileView.xib; sourceTree = "<group>"; };
 		84999C10227C86550006C80A /* WebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServices.m; sourceTree = "<group>"; };
 		84999C11227C86550006C80A /* WebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServices.h; sourceTree = "<group>"; };
 		84999C13227C86CB0006C80A /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -845,6 +855,9 @@
 				157E2E7222856EC600D1ACDA /* ProfileDetailsViewController.h */,
 				157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */,
 				157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */,
+				84555EF822863D2600FE77C1 /* AddProfileViewController.h */,
+				84555EF922863D2600FE77C1 /* AddProfileViewController.m */,
+				84555EFA22863D2600FE77C1 /* AddProfileViewController.xib */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -855,6 +868,9 @@
 				15D1BD782283CB89004C0452 /* ProfileManagerCell.h */,
 				15D1BD792283CB89004C0452 /* ProfileManagerCell.m */,
 				15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */,
+				849827812285D50C00201ED7 /* NewProfileView.h */,
+				849827822285D50C00201ED7 /* NewProfileView.m */,
+				849827842285D51900201ED7 /* NewProfileView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1234,6 +1250,7 @@
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
+				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
 				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
@@ -1361,6 +1378,7 @@
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */,
+				849827852285D51900201ED7 /* NewProfileView.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
@@ -1495,6 +1513,7 @@
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
+				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
@@ -1502,6 +1521,7 @@
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
+				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -54,6 +54,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [self.navigationController setNavigationBarHidden: NO];
+    [viewBanner.slideTimer invalidate];
+    viewBanner.slideTimer = nil;
+    [viewBanner removeFromSuperview];
+    viewBanner = nil;
 }
 
 - (void)didReceiveMemoryWarning {

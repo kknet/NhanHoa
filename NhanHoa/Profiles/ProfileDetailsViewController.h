@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbPassportBehid;
 @property (weak, nonatomic) IBOutlet UIButton *btnUpdate;
 
+@property (nonatomic, strong) NSDictionary *profileInfo;
+
 - (IBAction)btnUpdatePress:(UIButton *)sender;
 
 @end
