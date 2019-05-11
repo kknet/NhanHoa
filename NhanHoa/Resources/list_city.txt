@@ -1,0 +1,66 @@
+1|Hồ Chí Minh
+2|Hà Nội
+3|An Giang
+4|Bạc Liêu
+5|Bà Rịa - Vũng Tàu
+6|Bắc Kạn
+7|Bắc Giang
+8|Bắc Ninh
+9|Bến Tre
+10|Bình Dương
+11|Bình Định
+12|Bình Phước
+13|Bình Thuận
+14|Cao Bằng
+15|Cà Mau
+16|Cần Thơ
+17|Đà Nẵng
+18|Đắk Lắk
+19|Đồng Nai
+20|Đồng Tháp
+21|Hà Giang
+23|Hà Nam
+24|Hà Tây
+25|Hà Tĩnh
+26|Hải Dương
+27|Hải Phòng
+28|Hòa Bình
+29|Hưng Yên
+30|Khánh Hòa
+31|Kiên Giang
+32|Kon Tum
+33|Lai Châu
+34|Lạng Sơn
+35|Lào Cai
+36|Lâm Đồng
+37|Long An
+38|Nam Định
+39|Nghệ An
+40|Ninh Bình
+41|Ninh Thuận
+42|Phú Thọ
+43|Phú Yên
+44|Quảng Bình
+45|Quảng Nam
+46|Quảng Ngãi
+47|Quảng Ninh
+48|Quảng Trị
+49|Sóc Trăng
+50|Sơn La
+51|Tây Ninh
+52|Thái Bình
+53|Thái Nguyên
+54|Thanh Hóa
+55|Thừa Thiên Huế
+56|Tiền Giang
+57|Trà Vinh
+58|Tuyên Quang
+59|Vĩnh Long
+60|Vĩnh Phúc
+61|Yên Bái
+62|Đắk Nông
+63|Gia Lai
+64|Điện Biên
+65|Hậu Giang
+66|Buôn Ma Thuột
+67|Crimmitschau

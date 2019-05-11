@@ -58,6 +58,11 @@
 		1517FBBB22745D9B0044E878 /* notify.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FBB322745D980044E878 /* notify.png */; };
 		1517FBBD22745D9B0044E878 /* caseback.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FBB522745D990044E878 /* caseback.png */; };
 		15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 15224F0A2272EDDF00A45C3B /* AppUtils.m */; };
+		153035E5228675B0005E7DB2 /* list_city.txt in Resources */ = {isa = PBXBuildFile; fileRef = 153035E4228675AF005E7DB2 /* list_city.txt */; };
+		153035E822867773005E7DB2 /* CityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035E722867773005E7DB2 /* CityObject.m */; };
+		153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EB22867C48005E7DB2 /* ChooseCityPopupView.m */; };
+		153035F022868056005E7DB2 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EE22868056005E7DB2 /* CityCell.m */; };
+		153035F122868056005E7DB2 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153035EF22868056005E7DB2 /* CityCell.xib */; };
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
@@ -307,6 +312,14 @@
 		1517FBB522745D990044E878 /* caseback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caseback.png; sourceTree = "<group>"; };
 		15224F092272EDDF00A45C3B /* AppUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		15224F0A2272EDDF00A45C3B /* AppUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		153035E4228675AF005E7DB2 /* list_city.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = list_city.txt; sourceTree = "<group>"; };
+		153035E622867773005E7DB2 /* CityObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityObject.h; sourceTree = "<group>"; };
+		153035E722867773005E7DB2 /* CityObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityObject.m; sourceTree = "<group>"; };
+		153035EA22867C48005E7DB2 /* ChooseCityPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCityPopupView.h; sourceTree = "<group>"; };
+		153035EB22867C48005E7DB2 /* ChooseCityPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCityPopupView.m; sourceTree = "<group>"; };
+		153035ED22868056005E7DB2 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
+		153035EE22868056005E7DB2 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
+		153035EF22868056005E7DB2 /* CityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
 		15362863227C0686006827F9 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
@@ -600,6 +613,7 @@
 				156B8C20226ECF6D0020EDCB /* Resources */,
 				84999C0F227C863B0006C80A /* Web services */,
 				841F008C2274B2CB00F1B314 /* AppObjects */,
+				153035E922867C29005E7DB2 /* App UI */,
 				1517FB7322744EBC0044E878 /* Transaction history */,
 				1517FB6D22744D4B0044E878 /* BO */,
 				15224F082272EDCC00A45C3B /* Utils */,
@@ -708,6 +722,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		153035E922867C29005E7DB2 /* App UI */ = {
+			isa = PBXGroup;
+			children = (
+				153035EA22867C48005E7DB2 /* ChooseCityPopupView.h */,
+				153035EB22867C48005E7DB2 /* ChooseCityPopupView.m */,
+				153035ED22868056005E7DB2 /* CityCell.h */,
+				153035EE22868056005E7DB2 /* CityCell.m */,
+				153035EF22868056005E7DB2 /* CityCell.xib */,
+			);
+			path = "App UI";
+			sourceTree = "<group>";
+		};
 		156B8C14226ECAEB0020EDCB /* Registerd domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +751,7 @@
 				156B8C21226ECF740020EDCB /* images */,
 				15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */,
 				84FA12602272783D002E290D /* AppString.h */,
+				153035E4228675AF005E7DB2 /* list_city.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -963,6 +990,8 @@
 				846EA9112276EF6D00F1D7DB /* DomainObject.m */,
 				8490A5AC2279AA5100B921B7 /* ExpireDomainObject.h */,
 				8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */,
+				153035E622867773005E7DB2 /* CityObject.h */,
+				153035E722867773005E7DB2 /* CityObject.m */,
 			);
 			path = AppObjects;
 			sourceTree = "<group>";
@@ -1250,6 +1279,7 @@
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
+				153035E5228675B0005E7DB2 /* list_city.txt in Resources */,
 				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
@@ -1385,6 +1415,7 @@
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
+				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
 				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
@@ -1482,6 +1513,7 @@
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
+				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
@@ -1496,6 +1528,7 @@
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
+				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
 				849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
@@ -1504,6 +1537,7 @@
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
+				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
 				84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */,

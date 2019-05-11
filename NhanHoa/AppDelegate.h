@@ -43,6 +43,8 @@ typedef enum PaymentMethod{
 
 @property (nonatomic, assign) BOOL internetActive;
 @property (strong, nonatomic) Reachability *internetReachable;
+@property (strong, nonatomic) NSMutableArray *listCity;
+
 
 @end
 

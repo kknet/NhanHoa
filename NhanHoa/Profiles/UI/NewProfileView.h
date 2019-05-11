@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onSaveButtonClicked: (NSDictionary *)info;
 @end
 
-@interface NewProfileView : UIView
+@interface NewProfileView : UIView<ChooseCityPopupViewDelegate>
 
 @property (retain) id <NSObject, NewProfileViewDelegate > delegate;
 
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icBusiness;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusiness;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarningName;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UILabel *lbGender;
@@ -35,19 +37,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbFemale;
 @property (weak, nonatomic) IBOutlet UILabel *lbBOD;
 @property (weak, nonatomic) IBOutlet UITextField *tfBOD;
+@property (weak, nonatomic) IBOutlet UIButton *btnBOD;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbPassport;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassport;
 @property (weak, nonatomic) IBOutlet UILabel *lbPhone;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarningPhone;
+
 @property (weak, nonatomic) IBOutlet UITextField *tfPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 @property (weak, nonatomic) IBOutlet UILabel *lbAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarningAddress;
+
 @property (weak, nonatomic) IBOutlet UITextField *tfAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarningCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrCountry;
 @property (weak, nonatomic) IBOutlet UIButton *btnCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbCity;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarningCity;
+
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrCity;
 @property (weak, nonatomic) IBOutlet UIButton *btnCity;
@@ -63,6 +74,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupForAddProfileUI;
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
+- (IBAction)btnBODPress:(UIButton *)sender;
+- (IBAction)btnCityPress:(UIButton *)sender;
+- (IBAction)icMaleClick:(UIButton *)sender;
+- (IBAction)icFemaleClick:(UIButton *)sender;
+
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+
+@property (nonatomic, assign) float hNav;
+@property (nonatomic, assign) int gender;
 
 @end
 
