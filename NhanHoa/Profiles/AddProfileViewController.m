@@ -74,6 +74,7 @@
         make.top.left.bottom.right.equalTo(self.view);
     }];
     [addNewProfile setupForAddProfileUI];
+    [addNewProfile setupViewForAddNewProfileView];
 }
 
 @end

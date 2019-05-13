@@ -9,29 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Cart/PaymentViewController.m"
-            timestampString = "579169813.6365891"
+            filePath = "NhanHoa/Profiles/UI/NewProfileView.m"
+            timestampString = "579438394.50787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "-setupTableChoosePaymentMethodForView"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "-closeKeyboard"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Profiles/ProfileManagerViewController.m"
-            timestampString = "579169813.636727"
+            filePath = "NhanHoa/Register domain/SearchDomainViewController.m"
+            timestampString = "579438394.507969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "-receivedResponeCode:withCode:"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
+            landmarkName = "-failedToCallWebService:andError:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NhanHoa/Cart/PaymentViewController.m"
+            timestampString = "579438394.508047"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
+            landmarkName = "-getHeightProfileTableViewCell"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -30,6 +30,6 @@
 @property (nonatomic, assign) float sizeCompany;
 @property (nonatomic, assign) float sizeProfile;
 
-- (void)showProfileView: (BOOL)show;
-
+- (void)showProfileView: (BOOL)show withBusiness: (BOOL)business;
+- (void)showProfileContentWithInfo: (NSDictionary *)profile;
 @end

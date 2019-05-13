@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateUIForBusinessProfile: (BOOL)business;
 - (void)showProfileDetailWithDomainView;
+- (void)displayProfileInfo: (NSDictionary *)info;
 
 @property (nonatomic, assign) float sizeType;
 @property (nonatomic, assign) float sizeCompany;

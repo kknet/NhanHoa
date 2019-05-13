@@ -28,7 +28,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Đăng ký tên miền";
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
     [self setupUIForView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    viewMenu = nil;
+    chooseProfileView = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -223,7 +233,9 @@
 
 #pragma mark - SelectProfileViewDelegate
 
-- (void)showProfileList: (BOOL)show {
+- (void)showProfileList: (BOOL)show withTag: (int)tag {
+    chooseProfileView.cartIndexItemSelect = tag;
+    
     if (show) {
         [chooseProfileView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(self.view);
@@ -248,10 +260,11 @@
 }
 
 - (void)chooseProfile: (UIButton *)sender {
+    int tag = (int)sender.tag;
     if (chooseProfileView.frame.origin.y == 0) {
-        [self showProfileList: FALSE];
+        [self showProfileList: FALSE withTag: -1];
     }else{
-        [self showProfileList: TRUE];
+        [self showProfileList: TRUE withTag: tag];
     }
 }
 
@@ -279,7 +292,12 @@
 }
 
 - (void)onIconCloseClicked {
-    [self showProfileList: FALSE];
+    [self showProfileList: FALSE withTag: -1];
+}
+
+-(void)onSelectedProfileForDomain {
+    [self onIconCloseClicked];
+    [tbContent reloadData];
 }
 
 #pragma mark - UITableview
@@ -303,16 +321,28 @@
         DomainProfileCell *cell = (DomainProfileCell *)[tableView dequeueReusableCellWithIdentifier:@"DomainProfileCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        
         cell.lbDomain.text = domain;
         
-        if (indexPath.row == 0) {
-            [cell.btnChooseProfile setTitle:@"Đã chọn" forState:UIControlStateNormal];
-            [cell showProfileView: TRUE];
-        }else{
+        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        if (profile == nil) {
             [cell.btnChooseProfile setTitle:@"Chọn hồ sơ" forState:UIControlStateNormal];
-            [cell showProfileView: FALSE];
+            cell.btnChooseProfile.backgroundColor = BLUE_COLOR;
+            
+            [cell showProfileView:FALSE withBusiness:FALSE];
+        }else{
+            [cell.btnChooseProfile setTitle:@"Đã chọn" forState:UIControlStateNormal];
+            cell.btnChooseProfile.backgroundColor = ORANGE_COLOR;
+            
+            NSString *type = [profile objectForKey:@"cus_own_type"];
+            if ([type isEqualToString:@"0"]) {
+                [cell showProfileView: TRUE withBusiness: FALSE];
+            }else{
+                [cell showProfileView: TRUE withBusiness: TRUE];
+            }
+            
+            [cell showProfileContentWithInfo: profile];
         }
+        
         cell.btnChooseProfile.tag = indexPath.row;
         [cell.btnChooseProfile addTarget:self
                                   action:@selector(chooseProfile:)
@@ -361,10 +391,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == tbContent) {
-        if (indexPath.row == 0) {
-            return hCell;
-        }else{
+        NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
+        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        if (profile == nil) {
             return hSmallCell;
+        }else{
+            return hCell;
         }
     }else if (tableView == tbPaymentMethod){
         return 60.0;

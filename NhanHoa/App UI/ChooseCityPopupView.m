@@ -31,7 +31,7 @@
         
         //  close popup
         icClose = [[UIButton alloc] init];
-        icClose.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+        icClose.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
         [icClose setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [icClose addTarget:self
                     action:@selector(fadeOut)
@@ -43,7 +43,7 @@
         }];
         
         lbTitle = [[UILabel alloc] init];
-        lbTitle.text = @"Chọn thành phố";
+        lbTitle.text = @"Chọn Tỉnh/Thành phố";
         lbTitle.textColor = UIColor.whiteColor;
         lbTitle.font = [UIFont fontWithName:RobotoRegular size:18.0];
         [viewHeader addSubview: lbTitle];
@@ -121,6 +121,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CityCell *cell = (CityCell *)[tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     CityObject *city = [[AppDelegate sharedInstance].listCity objectAtIndex: indexPath.row];
     cell.lbName.text = city.name;
     return cell;

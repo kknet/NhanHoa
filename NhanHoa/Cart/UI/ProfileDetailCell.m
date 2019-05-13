@@ -18,16 +18,17 @@
     // Initialization code
     float padding = 15.0;
     float hBTN = 35.0;
+    float hHeaderItem = 25.0;
     
     //  header: 10 + 20 + 20 + 10
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
-        make.height.mas_equalTo(80.0);
+        make.height.mas_equalTo(3*hHeaderItem);
     }];
     
     [viewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
-        make.height.mas_equalTo(80.0);
+        make.height.mas_equalTo(3*hHeaderItem);
     }];
     
     lbDomain.textColor = TITLE_COLOR;
@@ -56,8 +57,8 @@
     //  get size
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width + 10;
-    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont: lbTypeName.font].width + 10;
-    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont: lbTypeName.font].width + 10;
+    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont: textFont].width + 10;
+    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont: textFont].width + 10;
     
     //  set font and color
     lbTypeName.font = lbCompany.font = lbProfileName.font = textFont;
@@ -69,7 +70,7 @@
         make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
         make.centerY.equalTo(self.viewHeader.mas_centerY);
         make.width.mas_equalTo(self.sizeCompany);
-        make.height.mas_equalTo(20.0);
+        make.height.mas_equalTo(hHeaderItem);
     }];
     
     [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +83,7 @@
     [lbTypeName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbCompany);
         make.bottom.equalTo(self.lbCompany.mas_top);
-        make.height.mas_equalTo(20.0);
+        make.height.mas_equalTo(hHeaderItem);
         make.width.mas_equalTo(self.sizeType);
     }];
     
@@ -96,7 +97,7 @@
     [lbProfileName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbCompany);
         make.top.equalTo(self.lbCompany.mas_bottom);
-        make.height.mas_equalTo(20.0);
+        make.height.mas_equalTo(hHeaderItem);
         make.width.mas_equalTo(self.sizeProfile);
     }];
     
@@ -289,22 +290,51 @@
 }
 
 - (void)updateUIForBusinessProfile: (BOOL)business {
+    float hLabel = 25.0;
     if (business) {
-        lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
+        //  company
         [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
-            make.centerY.equalTo(self.imgProfile.mas_centerY);
+            make.centerY.equalTo(self.viewHeader.mas_centerY);
             make.width.mas_equalTo(self.sizeCompany);
-            make.height.mas_equalTo(20.0);
+            make.height.mas_equalTo(hLabel);
         }];
+        
+        //  domain type
+        [lbTypeName mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbCompany);
+            make.bottom.equalTo(self.lbCompany.mas_top);
+            make.height.mas_equalTo(hLabel);
+            make.width.mas_equalTo(self.sizeType);
+        }];
+        
+        //  profile name
+        [lbProfileName mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbCompany);
+            make.top.equalTo(self.lbCompany.mas_bottom);
+            make.height.mas_equalTo(hLabel);
+            make.width.mas_equalTo(self.sizeProfile);
+        }];
+        
+        lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
     }else{
-        lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
-        [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        [lbTypeName mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
-            make.centerY.equalTo(self.imgProfile.mas_centerY);
-            make.width.mas_equalTo(self.sizeCompany);
-            make.height.mas_equalTo(0.0);
+            make.bottom.equalTo(self.viewHeader.mas_centerY);
+            make.width.mas_equalTo(self.sizeType);
+            make.height.mas_equalTo(hLabel);
         }];
+        
+        //  profile name
+        [lbProfileName mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.lbCompany);
+            make.top.equalTo(self.lbTypeName.mas_bottom);
+            make.height.mas_equalTo(hLabel);
+            make.width.mas_equalTo(self.sizeProfile);
+        }];
+        
+        lbCompany.textColor = lbCompanyValue.textColor = UIColor.clearColor;
     }
 }
 
@@ -323,5 +353,82 @@
         make.top.equalTo(self.viewDomain.mas_bottom);
     }];
 }
+
+- (void)displayProfileInfo: (NSDictionary *)info
+{
+    NSString *type = [info objectForKey:@"cus_own_type"];
+    if ([type isEqualToString:@"0"]) {
+        lbTypeNameValue.text = lbDomainTypeValue.text = text_personal;
+    }else{
+        lbTypeNameValue.text = lbDomainTypeValue.text = text_business;
+        
+        NSString *cus_company = [info objectForKey:@"cus_company"];
+        if (cus_company != nil) {
+            lbProfileNameValue.text = cus_company;
+        }else{
+            lbProfileNameValue.text = @"";
+        }
+    }
+    
+    //  Show profile name
+    NSString *name = [info objectForKey:@"cus_realname"];
+    if (name != nil && [name isKindOfClass:[NSString class]]) {
+        lbProfileNameValue.text = lbNameValue.text = name;
+    }else{
+        lbProfileNameValue.text = lbNameValue.text = @"";
+    }
+    
+    NSString *cus_birthday = [info objectForKey:@"cus_birthday"];
+    if (cus_birthday != nil && [cus_birthday isKindOfClass:[NSString class]]) {
+        lbBODValue.text = cus_birthday;
+    }else{
+        lbBODValue.text = @"";
+    }
+    
+    NSString *cus_card_id = [info objectForKey:@"cus_card_id"];
+    if (cus_card_id != nil && [cus_card_id isKindOfClass:[NSString class]]) {
+        lbPassportValue.text = cus_card_id;
+    }else{
+        lbPassportValue.text = @"";
+    }
+    
+    NSString *cus_address = [info objectForKey:@"cus_address"];
+    if (cus_address != nil && [cus_address isKindOfClass:[NSString class]]) {
+        lbAddressValue.text = cus_address;
+    }else{
+        lbAddressValue.text = @"";
+    }
+    
+    NSString *cus_contract_phone = [info objectForKey:@"cus_contract_phone"];
+    if (cus_contract_phone != nil && [cus_contract_phone isKindOfClass:[NSString class]])
+    {
+        lbPhoneValue.text = cus_contract_phone;
+    }else{
+        lbPhoneValue.text = @"";
+    }
+    
+    NSString *cus_email = [info objectForKey:@"cus_email"];
+    if (cus_email != nil && [cus_email isKindOfClass:[NSString class]])
+    {
+        lbEmailValue.text = cus_email;
+    }else{
+        lbEmailValue.text = @"";
+    }
+    
+    NSString *frontImg = [info objectForKey:@"cus_idcard_front_img"];
+    if (![AppUtils isNullOrEmpty: frontImg]) {
+        
+    }else{
+        imgFrontPassport.image = [UIImage imageNamed:@"passport_empty_front"];
+    }
+    
+    NSString *backImg = [info objectForKey:@"cus_idcard_back_img"];
+    if (![AppUtils isNullOrEmpty: backImg]) {
+        
+    }else{
+        imgBehindPassport.image = [UIImage imageNamed:@"passport_empty_behind"];
+    }
+}
+
 
 @end

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onSaveButtonClicked: (NSDictionary *)info;
 @end
 
-@interface NewProfileView : UIView<ChooseCityPopupViewDelegate>
+@interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate>
 
 @property (retain) id <NSObject, NewProfileViewDelegate > delegate;
 
@@ -62,12 +62,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrCity;
 @property (weak, nonatomic) IBOutlet UIButton *btnCity;
+
+@property (weak, nonatomic) IBOutlet UIView *viewPassport;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPassport;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitlePassport;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPassportFront;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPassportBehind;
 @property (weak, nonatomic) IBOutlet UILabel *lbPassportFront;
 @property (weak, nonatomic) IBOutlet UILabel *lbPassportBehind;
+
+@property (weak, nonatomic) IBOutlet UIView *viewSecure;
+@property (weak, nonatomic) IBOutlet UITextField *tfSecure;
+@property (weak, nonatomic) IBOutlet UILabel *lbSecure;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSecure;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
 
@@ -84,6 +92,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float hNav;
 @property (nonatomic, assign) int gender;
+@property (nonatomic, strong) NSString *cityCode;
+
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float mTop;
+@property (nonatomic, assign) float hTextfield;
+@property (nonatomic, assign) float hLabel;
+
+- (void)setupViewForAddNewProfileView;
 
 @end
 

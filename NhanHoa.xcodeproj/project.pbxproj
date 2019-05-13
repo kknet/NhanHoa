@@ -66,6 +66,8 @@
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
+		1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1579ABC72289522600B92E04 /* NewBusinessProfileView.m */; };
+		1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1579ABC92289524A00B92E04 /* NewBusinessProfileView.xib */; };
 		157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E6922852BDE00D1ACDA /* BannerSliderView.m */; };
 		157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */; };
 		157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6D2285380700D1ACDA /* circle_full_blue.png */; };
@@ -324,6 +326,9 @@
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
+		1579ABC62289522600B92E04 /* NewBusinessProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewBusinessProfileView.h; sourceTree = "<group>"; };
+		1579ABC72289522600B92E04 /* NewBusinessProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewBusinessProfileView.m; sourceTree = "<group>"; };
+		1579ABC92289524A00B92E04 /* NewBusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewBusinessProfileView.xib; sourceTree = "<group>"; };
 		157E2E6822852BDE00D1ACDA /* BannerSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerSliderView.h; sourceTree = "<group>"; };
 		157E2E6922852BDE00D1ACDA /* BannerSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerSliderView.m; sourceTree = "<group>"; };
 		157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerSliderView.xib; sourceTree = "<group>"; };
@@ -898,6 +903,9 @@
 				849827812285D50C00201ED7 /* NewProfileView.h */,
 				849827822285D50C00201ED7 /* NewProfileView.m */,
 				849827842285D51900201ED7 /* NewProfileView.xib */,
+				1579ABC62289522600B92E04 /* NewBusinessProfileView.h */,
+				1579ABC72289522600B92E04 /* NewBusinessProfileView.m */,
+				1579ABC92289524A00B92E04 /* NewBusinessProfileView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1350,6 +1358,7 @@
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
+				1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */,
 				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
@@ -1535,6 +1544,7 @@
 				8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */,
 				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
+				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,

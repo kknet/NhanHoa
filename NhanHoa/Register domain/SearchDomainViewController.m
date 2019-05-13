@@ -16,8 +16,6 @@
 #import "CartModel.h"
 
 @interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
-    NSMutableArray *listKeys;
-    NSString *firstDomain;
     NSDictionary *firstDomainInfo;
     float hCell;
     float hSmallCell;
@@ -30,7 +28,7 @@
 @synthesize viewHeader, icBack, icCart, lbTitle, lbCount;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
-@synthesize padding, strSearch, webService, resultDict, hTableView;
+@synthesize padding, strSearch, webService, listDomains, hTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -367,39 +365,36 @@
 }
 
 - (void)prepareDataToDisplay {
-    listKeys = [[NSMutableArray alloc] initWithArray:[resultDict allKeys]];
     NSRange extRange = [strSearch rangeOfString:@"."];
     if (extRange.location == NSNotFound) {
-        if (listKeys.count > 0) {
+        if (listDomains.count > 0) {
             
-            for (int index=0; index<listKeys.count; index++) {
-                NSString *domain = [listKeys objectAtIndex: index];
-                NSDictionary *info = [resultDict objectForKey: domain];
+            for (int index=0; index<listDomains.count; index++)
+            {
+                NSDictionary *info = [listDomains objectAtIndex: index];
                 id available = [info objectForKey:@"available"];
                 
                 if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
                 {
-                    firstDomain = domain;
-                    firstDomainInfo = [resultDict objectForKey:firstDomain];
+                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
                     break;
                     
                 }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
                 {
-                    firstDomain = domain;
-                    firstDomainInfo = [resultDict objectForKey:firstDomain];
+                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
                     break;
                 }
             }
             
-            if ([AppUtils isNullOrEmpty: firstDomain]) {
-                firstDomain = [listKeys firstObject];
-                firstDomainInfo = [resultDict objectForKey: firstDomain];
+            if (firstDomainInfo == nil) {
+                NSDictionary *first = [listDomains firstObject];
+                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: first];
             }
-            [listKeys removeObject: firstDomain];
-            [resultDict removeObjectForKey: firstDomain];
+            [listDomains removeObject: firstDomainInfo];
             
             [self hideUIForSearch: FALSE];
             
+            NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
             NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
             NSRange range = [content rangeOfString: firstDomain];
             if (range.location != NSNotFound) {
@@ -438,9 +433,8 @@
 - (float)getHeightTableView {
     float hTableView = 0;
     
-    for (int index=0; index<listKeys.count; index++) {
-        NSString *domain = [listKeys objectAtIndex: index];
-        NSDictionary *info = [resultDict objectForKey: domain];
+    for (int index=0; index<listDomains.count; index++) {
+        NSDictionary *info = [listDomains objectAtIndex: index];
         id available = [info objectForKey:@"available"];
         if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
         {
@@ -465,8 +459,8 @@
     if ([link isEqualToString: whois_func]) {
         [ProgressHUD dismiss];
 
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            resultDict = [[NSMutableDictionary alloc] initWithDictionary: data];
+        if (data != nil && [data isKindOfClass:[NSArray class]]) {
+            listDomains = [[NSMutableArray alloc] initWithArray: (NSArray *)data];
             [self prepareDataToDisplay];
         }
     }
@@ -484,15 +478,15 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listKeys.count;
+    return listDomains.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DomainCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSString *domain = [listKeys objectAtIndex: indexPath.row];
-    NSDictionary *info = [resultDict objectForKey: domain];
+    NSDictionary *info = [listDomains objectAtIndex: indexPath.row];
+    NSString *domain = [info objectForKey: @"domain"];
     
     cell.lbDomain.text = domain;
     //  check available domain
@@ -558,9 +552,8 @@
 
 - (void)chooseThisDomain: (UIButton *)sender {
     int index = (int)sender.tag;
-    if (index < listKeys.count) {
-        NSString *domain = [listKeys objectAtIndex: index];
-        NSDictionary *infoDomain = [resultDict objectForKey: domain];
+    if (index < listDomains.count) {
+        NSDictionary *infoDomain = [listDomains objectAtIndex: index];
         if (infoDomain != nil) {
             BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: infoDomain];
             if (exists) {
@@ -589,7 +582,8 @@
 }
 
 - (void)viewInfoOfDomain: (UIButton *)sender {
-    NSString *domain = [listKeys objectAtIndex: sender.tag];
+    NSDictionary *info = [listDomains objectAtIndex: sender.tag];
+    NSString *domain = [info objectForKey:@"domain"];
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
     
@@ -602,9 +596,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *domain = [listKeys objectAtIndex: indexPath.row];
-    NSDictionary *info = [resultDict objectForKey: domain];
-    
+    NSDictionary *info = [listDomains objectAtIndex: indexPath.row];
     id available = [info objectForKey:@"available"];
     if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
     {

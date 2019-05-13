@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *strSearch;
 
 @property (nonatomic, strong) WebServices *webService;
-@property (nonatomic, strong) NSMutableDictionary *resultDict;
+@property (nonatomic, strong) NSMutableArray *listDomains;
 @property (nonatomic, assign) float hTableView;
 
 - (IBAction)icCartClick:(UIButton *)sender;

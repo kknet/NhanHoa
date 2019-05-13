@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WebServices.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SelectProfileViewDelegate
 - (void)onIconCloseClicked;
+- (void)onSelectedProfileForDomain;
 @end
 
-@interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource>
+@interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource, WebServicesDelegate>
 
 @property (nonatomic,strong) id<NSObject, SelectProfileViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
@@ -23,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tbProfile;
 @property (weak, nonatomic) IBOutlet UIButton *icClose;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 @property (nonatomic, assign) float hHeader;
 @property (nonatomic, assign) int selectedRow;
@@ -82,6 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnSavePress:(UIButton *)sender;
 
+@property (nonatomic, strong) WebServices *webService;
+@property (nonatomic, strong) NSMutableArray *listProfiles;
+@property (nonatomic, assign) int cartIndexItemSelect;
 
 @end
 

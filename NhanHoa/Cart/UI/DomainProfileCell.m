@@ -112,7 +112,7 @@
     // Configure the view for the selected state
 }
 
-- (void)showProfileView: (BOOL)show {
+- (void)showProfileView: (BOOL)show withBusiness: (BOOL)business {
     NSString *content = btnChooseProfile.currentTitle;
     float wText = [AppUtils getSizeWithText:content withFont:btnChooseProfile.titleLabel.font].width;
     
@@ -124,12 +124,59 @@
     }];
     
     if (show) {
-        [viewProfileInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+        [viewProfileInfo mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.btnChooseProfile.mas_bottom);
             make.bottom.equalTo(self).offset(-10.0);
             make.left.equalTo(self).offset(self.padding);
             make.right.equalTo(self).offset(-self.padding);
         }];
+        
+        if (business) {
+            lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
+            
+            [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
+                make.left.equalTo(self.imgType.mas_right).offset(5.0);
+                make.height.mas_equalTo(20.0);
+                make.width.mas_equalTo(self.sizeCompany);
+            }];
+            
+            //  type
+            [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.lbCompany.mas_top);
+                make.left.equalTo(self.lbCompany);
+                make.height.mas_equalTo(20.0);
+                make.width.mas_equalTo(self.sizeType);
+            }];
+            
+            //  profile
+            [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.lbCompany.mas_bottom);
+                make.left.equalTo(self.lbCompany);
+                make.height.mas_equalTo(20.0);
+                make.width.mas_equalTo(self.sizeProfile);
+            }];
+            
+        }else{
+            lbCompany.textColor = lbCompanyValue.textColor = UIColor.clearColor;
+            
+            //  type
+            [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.imgType.mas_right).offset(5.0);
+                make.bottom.equalTo(self.viewProfileInfo.mas_centerY);
+                make.height.mas_equalTo(20.0);
+                make.width.mas_equalTo(self.sizeType);
+            }];
+            
+            //  profile
+            [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.viewProfileInfo.mas_centerY);
+                make.left.equalTo(self.lbType);
+                make.height.mas_equalTo(20.0);
+                make.width.mas_equalTo(self.sizeProfile);
+            }];
+        }
+        
     }else{
         [viewProfileInfo mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.btnChooseProfile.mas_bottom);
@@ -137,6 +184,31 @@
             make.right.equalTo(self).offset(-self.padding);
             make.height.mas_equalTo(0);
         }];
+    }
+}
+
+- (void)showProfileContentWithInfo: (NSDictionary *)profile {
+    NSString *type = [profile objectForKey:@"cus_own_type"];
+    if ([type isEqualToString:@"0"]) {
+        lbTypeValue.text = text_personal;
+        lbCompanyValue.text = @"";
+    }else{
+        lbTypeValue.text = text_business;
+        
+        NSString *cus_company = [profile objectForKey:@"cus_company"];
+        if (cus_company != nil) {
+            lbCompanyValue.text = cus_company;
+        }else{
+            lbCompanyValue.text = @"";
+        }
+    }
+    
+    //  Show profile name
+    NSString *name = [profile objectForKey:@"cus_realname"];
+    if (name != nil && [name isKindOfClass:[NSString class]]) {
+        lbProfileValue.text = name;
+    }else{
+        lbProfileValue.text = @"";
     }
 }
 

@@ -8,13 +8,16 @@
 
 #import "SelectProfileView.h"
 #import "ProfileDetailCell.h"
+#import "AccountModel.h"
+#import "CartModel.h"
 
 @implementation SelectProfileView
 @synthesize viewHeader, icAdd, lbTitle, tbProfile, icClose, icBack;
-@synthesize hHeader, delegate, selectedRow;
+@synthesize hHeader, delegate, selectedRow, cartIndexItemSelect;
 
 //  Add profile
-@synthesize scvAddProfile, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, imgPassportBehind, lbPassportFront, lbPassportBehind, btnSave, btnCancel;
+@synthesize scvAddProfile, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, imgPassportBehind, lbPassportFront, lbPassportBehind, btnSave, btnCancel, lbNoData;
+@synthesize webService, listProfiles;
 
 - (void)setupUIForView {
     selectedRow = 0;
@@ -55,6 +58,14 @@
     tbProfile.delegate = self;
     tbProfile.dataSource = self;
     [tbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.right.bottom.equalTo(self);
+    }];
+    
+    lbNoData.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    lbNoData.textColor = [UIColor colorWithRed:(80/255.0) green:(80/255.0)
+                                          blue:(80/255.0) alpha:1.0];
+    [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewHeader.mas_bottom);
         make.left.right.bottom.equalTo(self);
     }];
@@ -343,8 +354,6 @@
         make.left.right.equalTo(self.lbCity);
     }];
     
-    
-    
     [imgArrCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tfCity.mas_right).offset(-7.5);
         make.centerY.equalTo(self.tfCity.mas_centerY);
@@ -426,6 +435,25 @@
         make.left.right.equalTo(self.imgPassportBehind);
         make.top.bottom.equalTo(self.btnCancel);
     }];
+    
+    //  web service
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    [self getListProfilesForAccount];
+}
+
+- (void)getListProfilesForAccount {
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:get_profile_mod forKey:@"mod"];
+    [jsonDict setObject:[AccountModel getCusUsernameOfUser] forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    
+    [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
 }
 
 - (void)selectMale {
@@ -475,26 +503,109 @@
     }];
 }
 
+- (void)displayInformationWithData: (id)data {
+    if ([data isKindOfClass:[NSArray class]]) {
+        if (data == nil || [(NSArray *)data count] == 0) {
+            lbNoData.text = @"Không có dữ liệu";
+            lbNoData.hidden = FALSE;
+            tbProfile.hidden = TRUE;
+            
+        }else{
+            listProfiles = [[NSMutableArray alloc] initWithArray: data];
+            
+            lbNoData.hidden = TRUE;
+            tbProfile.hidden = FALSE;
+            [tbProfile reloadData];
+        }
+    }
+}
+
+#pragma mark - Webservice delegate
+
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    lbNoData.text = @"Đã có lỗi xảy ra. Vui lòng thử lại!";
+    lbNoData.hidden = FALSE;
+    tbProfile.hidden = TRUE;
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    if ([link isEqualToString:get_profile_func]) {
+        [self displayInformationWithData: data];
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    
+    if ([link isEqualToString: get_profile_func]) {
+        if (responeCode != 200) {
+            [self makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+    }
+}
+
 #pragma mark - UITableview
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return listProfiles.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProfileDetailCell *cell = (ProfileDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileDetailCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row == 0) {
+    
+    NSDictionary *profileInfo = [listProfiles objectAtIndex: indexPath.row];
+    
+    NSString *type = [profileInfo objectForKey:@"cus_own_type"];
+    if ([type isEqualToString:@"0"]) {
+        cell.lbTypeNameValue.text = text_personal;
         [cell updateUIForBusinessProfile: FALSE];
     }else{
+        cell.lbTypeNameValue.text = text_business;
+        
+        NSString *cus_company = [profileInfo objectForKey:@"cus_company"];
+        if (cus_company != nil) {
+            cell.lbProfileNameValue.text = cus_company;
+        }
         [cell updateUIForBusinessProfile: TRUE];
     }
     
+    //  Show profile name
+    NSString *name = [profileInfo objectForKey:@"cus_realname"];
+    if (name != nil && [name isKindOfClass:[NSString class]]) {
+        cell.lbProfileNameValue.text = name;
+    }
+    [cell displayProfileInfo: profileInfo];
+    
+    cell.btnChoose.tag = indexPath.row;
+    [cell.btnChoose addTarget:self
+                       action:@selector(chooseProfileForDomain:)
+             forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
+}
+
+- (void)chooseProfileForDomain: (UIButton *)sender {
+    if (sender.tag < listProfiles.count && cartIndexItemSelect >= 0 && cartIndexItemSelect < [[CartModel getInstance] countItemInCart])
+    {
+        NSDictionary *profile = [listProfiles objectAtIndex: sender.tag];
+        NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: cartIndexItemSelect];
+        [domainInfo setObject:profile forKey:@"profile"];
+        
+        [delegate onSelectedProfileForDomain];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -507,24 +618,20 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == selectedRow) {
-        return [self getHeightProfileTableViewCell];
+        return [self getHeightProfileTableViewCell: (int)indexPath.row];
     }else{
-        if (indexPath.row == 0) {
-            return 61.0;
-        }else{
-            return 81.0;
-        }
+        return 75.0;
     }
 }
 
-- (float)getHeightProfileTableViewCell {
+- (float)getHeightProfileTableViewCell: (int)row {
     float hItem = 30.0;
     
     float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
     float hPassport = wPassport * 2/3;
     float hDetailView = 15 + 9 * hItem + hPassport + hItem + 15;
     
-    return 80 + hDetailView + 1;
+    return 75.0 + hDetailView;
 }
 
 
@@ -548,4 +655,5 @@
 
 - (IBAction)btnSavePress:(UIButton *)sender {
 }
+
 @end

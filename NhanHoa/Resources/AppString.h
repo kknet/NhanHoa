@@ -23,6 +23,7 @@
 
 #define TAG_HUD             100
 #define TIME_FOR_SLIDER     6
+#define COUNTRY_CODE        @"231"
 
 #define link_api            @"https://nhanhoa.com/app-awk"
 #define login_func          @"Login"
