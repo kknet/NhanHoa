@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "PaymentStepView.h"
 #import "SelectProfileView.h"
+#import "OnepayPaymentView.h"
 
 @interface PaymentViewController : UIViewController
 
 @property (nonatomic, strong) PaymentStepView *viewMenu;
 @property (nonatomic, strong) SelectProfileView *chooseProfileView;
+@property (nonatomic, strong) OnepayPaymentView *onepayView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
@@ -23,7 +25,6 @@
 @property (nonatomic, assign) float padding;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbConfirmProfile;
-@property (weak, nonatomic) IBOutlet UITableView *tbPaymentMethod;
 
 - (IBAction)btnPaymentPress:(UIButton *)sender;
 

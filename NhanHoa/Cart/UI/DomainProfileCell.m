@@ -19,10 +19,12 @@
     hBTN = 30.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width+10;
-    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width+10;
-    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+10;
+    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width+5;
+    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width+5;
+    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+5;
     
+    lbType.font = lbTypeValue.font = lbProfile.font = lbProfileValue.font = lbCompany.font = lbCompanyValue.font = textFont;
+    lbDomain.textColor = lbType.textColor = lbTypeValue.textColor = lbCompany.textColor = lbCompanyValue.textColor = lbProfile.textColor = lbProfileValue.textColor = TITLE_COLOR;
     
     btnChooseProfile.layer.cornerRadius = hBTN/2;
     btnChooseProfile.titleLabel.font = textFont;
@@ -35,7 +37,6 @@
     }];
     
     lbDomain.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbDomain.textColor = TITLE_COLOR;
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(self.padding);
         make.right.equalTo(self.btnChooseProfile.mas_left).offset(-10.0);

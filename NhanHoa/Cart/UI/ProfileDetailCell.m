@@ -392,9 +392,9 @@
         lbPassportValue.text = @"";
     }
     
-    NSString *cus_address = [info objectForKey:@"cus_address"];
-    if (cus_address != nil && [cus_address isKindOfClass:[NSString class]]) {
-        lbAddressValue.text = cus_address;
+    NSString *cus_contract_address = [info objectForKey:@"cus_contract_address"];
+    if (cus_contract_address != nil && [cus_contract_address isKindOfClass:[NSString class]]) {
+        lbAddressValue.text = cus_contract_address;
     }else{
         lbAddressValue.text = @"";
     }

@@ -9,7 +9,7 @@
 #import "PaymentMethodCell.h"
 
 @implementation PaymentMethodCell
-@synthesize imgType, lbTitle, imgChoose;
+@synthesize imgType, lbTitle, imgChoose, lbSepa;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -34,6 +34,13 @@
         make.left.equalTo(self.imgType.mas_right).offset(padding);
         make.right.equalTo(self.imgChoose.mas_left).offset(-padding);
         make.top.bottom.equalTo(self.imgType);
+    }];
+    
+    lbSepa.text = @"";
+    lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.mas_equalTo(1.0);
     }];
 }
 

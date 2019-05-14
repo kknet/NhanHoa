@@ -21,7 +21,7 @@
 @end
 
 @implementation PaymentViewController
-@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile, tbPaymentMethod;
+@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile, onepayView;
 @synthesize hMenu, hTbConfirm, padding;
 
 - (void)viewDidLoad {
@@ -106,7 +106,7 @@
     hTbConfirm = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu);
     
     [self setupTableConfirmProfileForView];
-    [self setupTableChoosePaymentMethodForView];
+    [self setupChoosePaymentMethodView];
 }
 
 - (float)getHeightTableView {
@@ -169,50 +169,35 @@
 
 - (void)btnConfirmProfilePress {
     [viewMenu updateUIForStep: ePaymentCharge];
-    
     scvContent.hidden = tbConfirmProfile.hidden = TRUE;
-    tbPaymentMethod.hidden = FALSE;
+    onepayView.hidden = FALSE;
     
-    [tbPaymentMethod mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [onepayView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
+    [onepayView setupUIForViewWithMenuHeight:hMenu heightNav:self.navigationController.navigationBar.frame.size.height padding:padding];
+    
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
 
-- (void)setupTableChoosePaymentMethodForView {
-    tbPaymentMethod.hidden = TRUE;
-    [tbPaymentMethod registerNib:[UINib nibWithNibName:@"PaymentMethodCell" bundle:nil] forCellReuseIdentifier:@"PaymentMethodCell"];
-    tbPaymentMethod.delegate = self;
-    tbPaymentMethod.dataSource = self;
-    tbPaymentMethod.separatorStyle = UITableViewCellSelectionStyleNone;
-    [tbPaymentMethod mas_makeConstraints:^(MASConstraintMaker *make) {
+- (void)setupChoosePaymentMethodView {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OnepayPaymentView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[OnepayPaymentView class]]) {
+            onepayView = (OnepayPaymentView *) currentObject;
+            break;
+        }
+    }
+    [self.view addSubview: onepayView];
+    [onepayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(0);
     }];
-    
-    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu + 2*60.0);
-    
-    UIView *footerView;
-    if (hFooter < 75) {
-        hFooter = 75.0;
-    }
-    footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
-    footerView.backgroundColor = UIColor.whiteColor;
-    
-    UIButton *btnConfirmPayment = [[UIButton alloc] initWithFrame:CGRectMake(padding, footerView.frame.size.height-padding-45.0, footerView.frame.size.width-2*padding, 45.0)];
-    [btnConfirmPayment setTitle:@"Tiến hành thang toán" forState:UIControlStateNormal];
-    btnConfirmPayment.backgroundColor = BLUE_COLOR;
-    [btnConfirmPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnConfirmPayment.layer.cornerRadius = 45.0/2;
-    btnConfirmPayment.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
-    [footerView addSubview: btnConfirmPayment];
-    [btnConfirmPayment addTarget:self
-                          action:@selector(btnConfirmPaymentPress)
-                forControlEvents:UIControlEventTouchUpInside];
-    tbPaymentMethod.tableFooterView = footerView;
+    onepayView.backgroundColor = UIColor.orangeColor;
+    [onepayView setupUIForViewWithMenuHeight: hMenu heightNav: self.navigationController.navigationBar.frame.size.height padding: padding];
 }
 
 - (void)btnConfirmPaymentPress {
@@ -220,9 +205,9 @@
     
     scvContent.hidden = TRUE;
     tbConfirmProfile.hidden = TRUE;
-    tbPaymentMethod.hidden = FALSE;
+    onepayView.hidden = FALSE;
     
-    [tbPaymentMethod mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [onepayView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
@@ -306,9 +291,6 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == tbPaymentMethod) {
-        return 2;
-    }
     return [[CartModel getInstance] countItemInCart];
 }
 
@@ -350,26 +332,6 @@
         
         return cell;
         
-    }else if (tableView == tbPaymentMethod){
-        PaymentMethodCell *cell = (PaymentMethodCell *)[tableView dequeueReusableCellWithIdentifier:@"PaymentMethodCell" forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (indexPath.row == 0) {
-            cell.imgType.image = [UIImage imageNamed:@"atm.png"];
-            cell.lbTitle.text = @"Cổng thanh toán nội địa";
-    
-        }else{
-            cell.imgType.image = [UIImage imageNamed:@"visa.png"];
-            cell.lbTitle.text = @"Cổng thanh toán quốc tế";
-        }
-        
-        if (typePaymentMethod == (PaymentMethod)indexPath.row) {
-            cell.imgChoose.hidden = FALSE;
-        }else{
-            cell.imgChoose.hidden = TRUE;
-        }
-        
-        return cell;
-        
     }else{
         ProfileDetailCell *cell = (ProfileDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileDetailCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -377,16 +339,17 @@
         cell.lbDomain.text = domain;
         
         [cell showProfileDetailWithDomainView];
+        
+        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        [cell displayProfileInfo: profile];
+        
         return cell;
     }
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == tbPaymentMethod) {
-        typePaymentMethod = (PaymentMethod)indexPath.row;
-        [tbPaymentMethod reloadData];
-    }
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -398,8 +361,6 @@
         }else{
             return hCell;
         }
-    }else if (tableView == tbPaymentMethod){
-        return 60.0;
     }else {
         return [self getHeightProfileTableViewCell];
     }
@@ -418,7 +379,7 @@
 - (IBAction)btnPaymentPress:(UIButton *)sender {
     [viewMenu updateUIForStep: ePaymentConfirm];
     
-    scvContent.hidden = tbPaymentMethod.hidden = TRUE;
+    scvContent.hidden = onepayView.hidden = TRUE;
     tbConfirmProfile.hidden = FALSE;
     
     [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {

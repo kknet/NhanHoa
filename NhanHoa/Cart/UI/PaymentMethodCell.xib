@@ -33,14 +33,22 @@
                         <rect key="frame" x="277" y="8" width="27" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1FR-aU-3qx">
+                        <rect key="frame" x="139" y="11" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgChoose" destination="mex-Lm-KTp" id="cBY-BT-xoP"/>
                 <outlet property="imgType" destination="3A7-AX-uL0" id="aDu-uN-13s"/>
+                <outlet property="lbSepa" destination="1FR-aU-3qx" id="kJe-ZL-G6o"/>
                 <outlet property="lbTitle" destination="ucV-Is-HGM" id="7Dz-2F-dsw"/>
             </connections>
-            <point key="canvasLocation" x="-262" y="44"/>
+            <point key="canvasLocation" x="-195" y="-106"/>
         </tableViewCell>
     </objects>
     <resources>

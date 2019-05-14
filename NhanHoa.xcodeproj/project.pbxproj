@@ -212,6 +212,8 @@
 		846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 846EA9092276E95C00F1D7DB /* search_smile.png */; };
 		846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */ = {isa = PBXBuildFile; fileRef = 846EA90A2276E95C00F1D7DB /* search_sad.png */; };
 		846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 846EA9112276EF6D00F1D7DB /* DomainObject.m */; };
+		8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8471D256228A39CE00445A88 /* OnepayPaymentView.m */; };
+		8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8471D258228A39DF00445A88 /* OnepayPaymentView.xib */; };
 		8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8477A59F227B4DAE003194E8 /* SelectProfileView.m */; };
 		8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */; };
 		847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E9AA6227EAB2D00C83F5A /* AccountModel.m */; };
@@ -518,6 +520,9 @@
 		846EA90A2276E95C00F1D7DB /* search_sad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_sad.png; sourceTree = "<group>"; };
 		846EA9102276EF6D00F1D7DB /* DomainObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainObject.h; sourceTree = "<group>"; };
 		846EA9112276EF6D00F1D7DB /* DomainObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainObject.m; sourceTree = "<group>"; };
+		8471D255228A39CE00445A88 /* OnepayPaymentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OnepayPaymentView.h; sourceTree = "<group>"; };
+		8471D256228A39CE00445A88 /* OnepayPaymentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OnepayPaymentView.m; sourceTree = "<group>"; };
+		8471D258228A39DF00445A88 /* OnepayPaymentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnepayPaymentView.xib; sourceTree = "<group>"; };
 		8477A59E227B4DAE003194E8 /* SelectProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectProfileView.h; sourceTree = "<group>"; };
 		8477A59F227B4DAE003194E8 /* SelectProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectProfileView.m; sourceTree = "<group>"; };
 		8477A5A1227B4DBD003194E8 /* SelectProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectProfileView.xib; sourceTree = "<group>"; };
@@ -1118,6 +1123,9 @@
 				841E7C5D2284E2E80074DDF5 /* PaymentMethodCell.h */,
 				841E7C5E2284E2E80074DDF5 /* PaymentMethodCell.m */,
 				841E7C5F2284E2E80074DDF5 /* PaymentMethodCell.xib */,
+				8471D255228A39CE00445A88 /* OnepayPaymentView.h */,
+				8471D256228A39CE00445A88 /* OnepayPaymentView.m */,
+				8471D258228A39DF00445A88 /* OnepayPaymentView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1362,6 +1370,7 @@
 				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
+				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
@@ -1525,6 +1534,7 @@
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
+				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
 				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
