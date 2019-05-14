@@ -10,14 +10,16 @@
 #import "PaymentStepView.h"
 #import "SelectProfileView.h"
 #import "OnepayPaymentView.h"
+#import "PaymentResultView.h"
 
 @interface PaymentViewController : UIViewController
 
 @property (nonatomic, strong) PaymentStepView *viewMenu;
 @property (nonatomic, strong) SelectProfileView *chooseProfileView;
 @property (nonatomic, strong) OnepayPaymentView *onepayView;
+@property (nonatomic, strong) PaymentResultView *paymentResultView;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
+@property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnPayment;
 @property (nonatomic, assign) float hMenu;

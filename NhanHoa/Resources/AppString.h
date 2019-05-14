@@ -25,6 +25,32 @@
 #define TIME_FOR_SLIDER     6
 #define COUNTRY_CODE        @"231"
 
+#define MERCHANT_ID         @"ONEPAY"
+#define ACCESSCODE          @"D67342C2"
+#define HASHCODE            @"A3EFDFABA8653DF2342E8DAC29B51AF0"
+
+#define MERCHANT_ID_VISA    @"TESTONEPAY"
+#define ACCESSCODE_VISA     @"6BEB2546"
+#define HASHCODE_VISA       @"6D0870CDE5F24F34F3915FB0045120DB"
+
+#define Approved_Code               @"0"
+#define Bank_Declined_Code          @"1"
+#define Merchant_not_exist_Code     @"3"
+#define Invalid_access_Code         @"4"
+#define Invalid_amount_Code         @"5"
+#define Invalid_currency_Code       @"6"
+#define Unspecified_failure_Code    @"7"
+#define Invalid_card_number_Code    @"8"
+#define Invalid_card_name_Code      @"9"
+#define Expired_card_Code           @"10"
+#define Card_not_registed_Code      @"11"
+#define Invalid_card_date_Code      @"12"
+#define Exist_Amount_Code           @"13"
+#define Insufficient_fund_Code      @"21"
+#define User_cancel_Code            @"99"
+#define Failured_Content            @"Giao dịch thất bại"
+
+#define return_url          @"https://api.websudo.xyz/dr.php"
 #define link_api            @"https://nhanhoa.com/app-awk"
 #define login_func          @"Login"
 #define whois_func          @"Whois"

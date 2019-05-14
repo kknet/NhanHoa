@@ -188,6 +188,20 @@
     return [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithLong:totalVAT], @"VAT", [NSNumber numberWithLong:domainPrice], @"domain_price", [NSNumber numberWithLong:totalPrice], @"total_price", nil];
 }
 
+- (BOOL)checkAllProfileForCart {
+    BOOL result = TRUE;
+    for (int index=0; index<listDomain.count; index++)
+    {
+        NSDictionary *domainInfo = [listDomain objectAtIndex: index];
+        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        if (profile == nil) {
+            result = FALSE;
+            break;
+        }
+    }
+    return result;
+}
+
 /* Json of one domain item
 available = 1;
 domain = "anvatsaigon.org";

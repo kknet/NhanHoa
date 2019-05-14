@@ -12,7 +12,7 @@
 #import "PaymentMethodCell.h"
 #import "CartModel.h"
 
-@interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate>{
+@interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate, OnepayPaymentViewDelegate>{
     float hCell;
     float hSmallCell;
     PaymentMethod typePaymentMethod;
@@ -21,7 +21,7 @@
 @end
 
 @implementation PaymentViewController
-@synthesize viewMenu, scvContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile, onepayView;
+@synthesize viewMenu, viewContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile, onepayView, paymentResultView;
 @synthesize hMenu, hTbConfirm, padding;
 
 - (void)viewDidLoad {
@@ -37,8 +37,18 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    
+    [viewMenu removeFromSuperview];
     viewMenu = nil;
+    
+    [chooseProfileView removeFromSuperview];
     chooseProfileView = nil;
+    
+    [onepayView removeFromSuperview];
+    onepayView = nil;
+    
+    [paymentResultView removeFromSuperview];
+    paymentResultView = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,51 +64,29 @@
     
     [self addStepMenuForView];
     
-    [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
+    [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom);
-        make.left.bottom.equalTo(self.view);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.bottom.right.equalTo(self.view);
     }];
-    
-    float hTableView = 2 * hCell;
-    tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbContent.delegate = self;
-    tbContent.dataSource = self;
-    [tbContent registerNib:[UINib nibWithNibName:@"DomainProfileCell" bundle:nil] forCellReuseIdentifier:@"DomainProfileCell"];
-    [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.viewMenu.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTableView);
-    }];
-    
-    float hScroll = SCREEN_HEIGHT - ([UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height + hMenu);
     
     float hBTN = 45.0;
     btnPayment.layer.cornerRadius = hBTN/2;
     btnPayment.backgroundColor = BLUE_COLOR;
     btnPayment.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.viewContent).offset(self.padding);
+        make.bottom.right.equalTo(self.viewContent).offset(-self.padding);
+        make.height.mas_equalTo(hBTN);
+    }];
     
-    float curHeight = [self getHeightTableView];
-    if (curHeight + 2*padding + hBTN + 2*padding > hScroll) {
-        
-        [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent).offset(self.padding);
-            make.top.equalTo(self.tbContent.mas_bottom).offset(2*self.padding);
-            make.width.mas_equalTo(SCREEN_WIDTH-self.padding*2);
-            make.height.mas_equalTo(hBTN);
-        }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, curHeight + 2*padding + hBTN + 2*padding);
-    }else{
-        float mTop = hScroll - (2*padding + hBTN);
-        [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent).offset(self.padding);
-            make.top.equalTo(self.scvContent).offset(mTop);
-            make.width.mas_equalTo(SCREEN_WIDTH-self.padding*2);
-            make.height.mas_equalTo(hBTN);
-        }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hScroll);
-    }
+    tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
+    tbContent.delegate = self;
+    tbContent.dataSource = self;
+    [tbContent registerNib:[UINib nibWithNibName:@"DomainProfileCell" bundle:nil] forCellReuseIdentifier:@"DomainProfileCell"];
+    [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.viewContent);
+        make.bottom.equalTo(self.btnPayment.mas_top).offset(-self.padding);
+    }];
     
     [self addListProfileForChoose];
     
@@ -169,7 +157,7 @@
 
 - (void)btnConfirmProfilePress {
     [viewMenu updateUIForStep: ePaymentCharge];
-    scvContent.hidden = tbConfirmProfile.hidden = TRUE;
+    viewContent.hidden = tbConfirmProfile.hidden = TRUE;
     onepayView.hidden = FALSE;
     
     [onepayView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -192,6 +180,7 @@
         }
     }
     [self.view addSubview: onepayView];
+    onepayView.delegate = self;
     [onepayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(0);
@@ -203,8 +192,7 @@
 - (void)btnConfirmPaymentPress {
     [viewMenu updateUIForStep: ePaymentCharge];
     
-    scvContent.hidden = TRUE;
-    tbConfirmProfile.hidden = TRUE;
+    viewContent.hidden = tbConfirmProfile.hidden = TRUE;
     onepayView.hidden = FALSE;
     
     [onepayView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -222,6 +210,7 @@
     chooseProfileView.cartIndexItemSelect = tag;
     
     if (show) {
+        self.navigationController.navigationBarHidden = show;
         [chooseProfileView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(self.view);
         }];
@@ -229,7 +218,7 @@
         [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
         }completion:^(BOOL finished) {
-            self.navigationController.navigationBarHidden = show;
+            
         }];
         
     }else{
@@ -377,9 +366,15 @@
 }
 
 - (IBAction)btnPaymentPress:(UIButton *)sender {
+    BOOL ready = [[CartModel getInstance] checkAllProfileForCart];
+    if (!ready) {
+        [self.view makeToast:@"Vui lòng chọn đầy đủ hồ sơ cho tên miền!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     [viewMenu updateUIForStep: ePaymentConfirm];
     
-    scvContent.hidden = onepayView.hidden = TRUE;
+    viewContent.hidden = onepayView.hidden = TRUE;
     tbConfirmProfile.hidden = FALSE;
     
     [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -391,4 +386,41 @@
         [self.view layoutIfNeeded];
     }];
 }
+
+- (void)quitCartView {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+#pragma mark - Onepay View Delegate
+-(void)paymentResultWithInfo:(NSDictionary *)info {
+    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
+    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
+        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
+            [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(quitCartView) withObject:nil afterDelay:2.0];
+        }
+    }
+    
+    [viewMenu updateUIForStep: ePaymentDone];
+    if (paymentResultView == nil) {
+        [self addPaymentResultViewForMainView];
+    }
+}
+
+- (void)addPaymentResultViewForMainView {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PaymentResultView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[PaymentResultView class]]) {
+            paymentResultView = (PaymentResultView *) currentObject;
+            break;
+        }
+    }
+    [self.view addSubview: paymentResultView];
+    [paymentResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.left.right.bottom.equalTo(self.view);
+    }];
+    [paymentResultView setupUIForView];
+}
+
 @end

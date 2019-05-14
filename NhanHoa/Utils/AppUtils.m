@@ -167,7 +167,70 @@
         }
     }
     return defaultHeight + textSize;
+}
+
++ (NSString *)generateIDForTransaction {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
+    NSString *curDate = [dateFormatter stringFromDate:[NSDate date]];
     
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%@_%f", curDate, time];
+}
+
++ (NSString *)getPaymentResultWithResponseCode: (NSString *)responseCode
+{
+    NSString *result = @"";
+    if ([responseCode isEqualToString: @"0"]) {
+        result = @"Giao dịch thành công";   //  Approved
+        
+    }else if ([responseCode isEqualToString:@"1"]){
+        result = @"Ngân hàng từ chối giao dịch";    //  Bank Declined
+        
+    }else if ([responseCode isEqualToString:@"3"]){
+        result = @"Mã đơn vị không tồn tại";    //  Merchant not exist
+        
+    }else if ([responseCode isEqualToString:@"4"]){
+        result = @"Không đúng access code";    //  Invalid access code
+        
+    }else if ([responseCode isEqualToString:@"5"]){
+        result = @"Số tiền không hợp lệ";    //  Invalid amount
+        
+    }else if ([responseCode isEqualToString:@"6"]){
+        result = @"Mã tiền tệ không tồn tại";    //  Invalid currency code
+        
+    }else if ([responseCode isEqualToString:@"7"]){
+        result = @"Lỗi không xác định";    //  Unspecified Failure
+        
+    }else if ([responseCode isEqualToString:@"8"]){
+        result = @"Số thẻ không đúng";    //  Invalid card Number
+        
+    }else if ([responseCode isEqualToString:@"9"]){
+        result = @"Tên chủ thẻ không đúng";    //  Invalid card name
+        
+    }else if ([responseCode isEqualToString:@"10"]){
+        result = @"Thẻ hết hạn/Thẻ bị khóa";    //  Expired Card
+        
+    }else if ([responseCode isEqualToString:@"11"]){
+        result = @"Thẻ chưa đăng ký sử dụng dịch vụ";    //  Card Not Registed Service(internet banking)
+        
+    }else if ([responseCode isEqualToString:@"12"]){
+        result = @"Ngày phát hành/Hết hạn không đúng";    //  Invalid card date
+        
+    }else if ([responseCode isEqualToString:@"13"]){
+        result = @"Vượt quá hạn mức thanh toán";    //  Exist Amount
+        
+    }else if ([responseCode isEqualToString:@"21"]){
+        result = @"Số tiền không đủ để thanh toán";    //  Insufficient fund
+        
+    }else if ([responseCode isEqualToString:@"99"]){
+        result = @"Người sủ dụng hủy giao dịch";    //  User cancel
+        
+    }else{
+        result = @"Giao dịch thất bại";    //  Failured
+    }
+    return result;
 }
 
 @end

@@ -25,5 +25,7 @@
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
 + (float)getHeightOfWhoIsDomainViewWithContent: (NSString *)content font:(UIFont *)font heightItem: (float)hItem maxSize: (float)maxSize;
++ (NSString *)generateIDForTransaction;
++ (NSString *)getPaymentResultWithResponseCode: (NSString *)responseCode;
 
 @end

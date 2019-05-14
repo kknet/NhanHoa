@@ -98,6 +98,9 @@
 		159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7DB9227AF63300A64586 /* DomainProfileCell.m */; };
 		159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7DBA227AF63300A64586 /* DomainProfileCell.xib */; };
 		15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A613B022744C56000F6779 /* AppTabbarViewController.m */; };
+		15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8C2228A76B4002F4F0F /* nhanhoa.sqlite */; };
+		15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */; };
+		15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */; };
 		15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */; };
 		15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */; };
 		15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD792283CB89004C0452 /* ProfileManagerCell.m */; };
@@ -374,6 +377,10 @@
 		159F7DBA227AF63300A64586 /* DomainProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainProfileCell.xib; sourceTree = "<group>"; };
 		15A613AF22744C56000F6779 /* AppTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTabbarViewController.h; sourceTree = "<group>"; };
 		15A613B022744C56000F6779 /* AppTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppTabbarViewController.m; sourceTree = "<group>"; };
+		15C1A8C2228A76B4002F4F0F /* nhanhoa.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = nhanhoa.sqlite; sourceTree = "<group>"; };
+		15C1A8CE228AB0DC002F4F0F /* PaymentResultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentResultView.h; sourceTree = "<group>"; };
+		15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentResultView.m; sourceTree = "<group>"; };
+		15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentResultView.xib; sourceTree = "<group>"; };
 		15D1BD722283CA31004C0452 /* ProfileManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileManagerViewController.h; sourceTree = "<group>"; };
 		15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileManagerViewController.m; sourceTree = "<group>"; };
 		15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileManagerViewController.xib; sourceTree = "<group>"; };
@@ -757,6 +764,7 @@
 		156B8C20226ECF6D0020EDCB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15C1A894228A6B38002F4F0F /* database */,
 				842F81A022755C7200D6DE6D /* fonts */,
 				156B8C21226ECF740020EDCB /* images */,
 				15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */,
@@ -880,6 +888,14 @@
 				849E3129228074C5003A8813 /* ContactInfoCell.xib */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		15C1A894228A6B38002F4F0F /* database */ = {
+			isa = PBXGroup;
+			children = (
+				15C1A8C2228A76B4002F4F0F /* nhanhoa.sqlite */,
+			);
+			path = database;
 			sourceTree = "<group>";
 		};
 		15D1BD712283CA0A004C0452 /* Profiles */ = {
@@ -1126,6 +1142,9 @@
 				8471D255228A39CE00445A88 /* OnepayPaymentView.h */,
 				8471D256228A39CE00445A88 /* OnepayPaymentView.m */,
 				8471D258228A39DF00445A88 /* OnepayPaymentView.xib */,
+				15C1A8CE228AB0DC002F4F0F /* PaymentResultView.h */,
+				15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */,
+				15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1339,6 +1358,8 @@
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
+				15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */,
+				15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */,
 				15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
@@ -1536,6 +1557,7 @@
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
+				15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */,
 				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,

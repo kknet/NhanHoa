@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Cart/PaymentViewController.m"
-            timestampString = "579438394.508047"
+            filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
+            timestampString = "579522482.1932631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "-getHeightProfileTableViewCell"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "-webViewDidFinishLoad:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

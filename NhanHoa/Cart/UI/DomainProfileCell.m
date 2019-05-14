@@ -16,7 +16,7 @@
     [super awakeFromNib];
     // Initialization code
     padding = 15.0;
-    hBTN = 30.0;
+    hBTN = 34.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width+5;
