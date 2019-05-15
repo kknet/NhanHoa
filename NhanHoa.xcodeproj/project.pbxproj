@@ -169,6 +169,9 @@
 		842F81CE2275BEF300D6DE6D /* info_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 842F81CC2275BEF300D6DE6D /* info_red.png */; };
 		8430B552227C887000548480 /* WriteLogsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430B550227C886F00548480 /* WriteLogsUtils.m */; };
 		843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */ = {isa = PBXBuildFile; fileRef = 843A0CA62281FD9C00A51CC6 /* com.vn.png */; };
+		843F5AC6228B8D5A00DC179F /* list_price.png in Resources */ = {isa = PBXBuildFile; fileRef = 843F5AC5228B8D5900DC179F /* list_price.png */; };
+		843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F5AC8228B8E0B00DC179F /* PriceListView.m */; };
+		843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843F5ACA228B8E1600DC179F /* PriceListView.xib */; };
 		8446F4B02277C16B008F4EE9 /* WhoIsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8446F4AE2277C16B008F4EE9 /* WhoIsCell.m */; };
 		8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */; };
 		8446F4B62277C55E008F4EE9 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8446F4B22277C55D008F4EE9 /* add.png */; };
@@ -469,6 +472,10 @@
 		8430B550227C886F00548480 /* WriteLogsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteLogsUtils.m; sourceTree = "<group>"; };
 		8430B551227C886F00548480 /* WriteLogsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteLogsUtils.h; sourceTree = "<group>"; };
 		843A0CA62281FD9C00A51CC6 /* com.vn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = com.vn.png; sourceTree = "<group>"; };
+		843F5AC5228B8D5900DC179F /* list_price.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_price.png; sourceTree = "<group>"; };
+		843F5AC7228B8E0B00DC179F /* PriceListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceListView.h; sourceTree = "<group>"; };
+		843F5AC8228B8E0B00DC179F /* PriceListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceListView.m; sourceTree = "<group>"; };
+		843F5ACA228B8E1600DC179F /* PriceListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceListView.xib; sourceTree = "<group>"; };
 		8446F4AD2277C16B008F4EE9 /* WhoIsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsCell.h; sourceTree = "<group>"; };
 		8446F4AE2277C16B008F4EE9 /* WhoIsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsCell.m; sourceTree = "<group>"; };
 		8446F4AF2277C16B008F4EE9 /* WhoIsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsCell.xib; sourceTree = "<group>"; };
@@ -870,6 +877,7 @@
 				84A1646C2284EA5C0001B833 /* visa.png */,
 				157E2E6D2285380700D1ACDA /* circle_full_blue.png */,
 				157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */,
+				843F5AC5228B8D5900DC179F /* list_price.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1202,6 +1210,9 @@
 				8490A5A72279A74400B921B7 /* ExpireDomainCell.h */,
 				8490A5A82279A74400B921B7 /* ExpireDomainCell.m */,
 				8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */,
+				843F5AC7228B8E0B00DC179F /* PriceListView.h */,
+				843F5AC8228B8E0B00DC179F /* PriceListView.m */,
+				843F5ACA228B8E1600DC179F /* PriceListView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1444,6 +1455,7 @@
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
 				8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */,
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
+				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */,
@@ -1471,6 +1483,7 @@
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
 				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
+				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1561,6 +1574,7 @@
 				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
+				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,

@@ -25,14 +25,19 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </webView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="v4D-QX-JFO">
+                    <rect key="frame" x="150" y="230" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="icWaiting" destination="v4D-QX-JFO" id="eFd-18-gGj"/>
                 <outlet property="tbMethod" destination="QTg-df-52t" id="pGt-JG-Wiz"/>
                 <outlet property="wvPayment" destination="KEq-TD-Oiu" id="xsV-Fk-FSm"/>
             </connections>
-            <point key="canvasLocation" x="113.59999999999999" y="120.53973013493254"/>
+            <point key="canvasLocation" x="-378" y="36"/>
         </view>
     </objects>
 </document>

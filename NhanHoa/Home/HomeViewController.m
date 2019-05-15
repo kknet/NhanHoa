@@ -19,6 +19,7 @@
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
+#import "AccountModel.h"
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSMutableArray *listMenu;
@@ -49,6 +50,7 @@
     
     //  Show cart item
     [[CartModel getInstance] displayCartInfoWithView: lbCount];
+    [self showUserWalletView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -104,6 +106,23 @@
         viewBanner.hBanner = hBanner;
         [viewBanner setupUIForView];
         [viewBanner showBannersForSliderView];
+    }
+}
+
+- (void)showUserWalletView {
+    NSString *totalBalance = [AccountModel getCusTotalBalance];
+    if (![AppUtils isNullOrEmpty: totalBalance]) {
+        totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
+        lbMoney.text = [NSString stringWithFormat:@"%@ VNĐ", totalBalance];
+    }else{
+        lbMoney.text = @"0 VNĐ";
+    }
+    
+    NSString *points = [AccountModel getCusTotalPoint];
+    if (![AppUtils isNullOrEmpty: points]) {
+        lbRewardsPoints.text = [NSString stringWithFormat:@"%@ điểm", points];
+    }else{
+        lbRewardsPoints.text = @"0 điểm";
     }
 }
 
@@ -321,6 +340,10 @@
         make.height.mas_equalTo(hWallet);
     }];
     
+    UITapGestureRecognizer *tapOnMainWallet = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnMainWallet)];
+    viewMainWallet.userInteractionEnabled = TRUE;
+    [viewMainWallet addGestureRecognizer: tapOnMainWallet];
+    
     [viewMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.viewWallet);
         make.right.equalTo(self.viewWallet.mas_centerX);
@@ -350,6 +373,10 @@
     }];
     
     //  rewards view
+    UITapGestureRecognizer *tapOnPoints = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnPoints)];
+    viewRewards.userInteractionEnabled = TRUE;
+    [viewRewards addGestureRecognizer: tapOnPoints];
+    
     [viewRewards mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.viewWallet);
         make.left.equalTo(self.viewWallet.mas_centerX);
@@ -382,5 +409,18 @@
     hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
     [self addBannerImageForView];
 }
+
+- (void)whenTapOnMainWallet {
+    TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+    topupVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController: topupVC animated:YES];
+}
+
+- (void)whenTapOnPoints {
+    BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
+    bonusAccVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController: bonusAccVC animated:YES];
+}
+
 
 @end

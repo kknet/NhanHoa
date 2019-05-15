@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)getCusIdOfUser;
 + (NSString *)getCusUsernameOfUser;
++ (NSString *)getCusTotalBalance;
++ (NSString *)getCusTotalPoint;
 
 @end
 

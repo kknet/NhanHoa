@@ -24,5 +24,6 @@
 - (long)getTotalPriceForCart;
 - (NSDictionary *)getCartPriceInfo ;
 - (BOOL)checkAllProfileForCart;
+- (long)demoGetPriceForRenewDomain;
 
 @end

@@ -154,6 +154,10 @@
     return totalPrice;
 }
 
+- (long)demoGetPriceForRenewDomain {
+    return 600000;
+}
+
 //  Get all value such as: total price for all domain, VAT fee, total money
 - (NSDictionary *)getCartPriceInfo {
     long totalVAT = 0;

@@ -11,7 +11,7 @@
 #import "CartModel.h"
 
 @implementation OnepayPaymentView
-@synthesize tbMethod, wvPayment, typePaymentMethod, delegate;
+@synthesize tbMethod, wvPayment, typePaymentMethod, delegate, typePayment, icWaiting, topupMoney;
 
 - (void)setupUIForViewWithMenuHeight: (float)hMenu heightNav:(float)hNav padding: (float)padding
 {
@@ -28,14 +28,27 @@
     
     float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + hNav + hMenu + 2*60.0);
     
+    //  15 + 45 + 10 + 45 + 15
+    
     UIView *footerView;
-    if (hFooter < 75) {
-        hFooter = 75.0;
+    if (hFooter < 130) {
+        hFooter = 130;
     }
     footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     footerView.backgroundColor = UIColor.whiteColor;
     
-    UIButton *btnConfirmPayment = [[UIButton alloc] initWithFrame:CGRectMake(padding, footerView.frame.size.height-padding-45.0, footerView.frame.size.width-2*padding, 45.0)];
+    UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectMake(padding, footerView.frame.size.height-padding-45.0, footerView.frame.size.width-2*padding, 45.0)];
+    [btnCancel setTitle:@"Hủy" forState:UIControlStateNormal];
+    btnCancel.backgroundColor = [UIColor colorWithRed:(202/255.0) green:(212/255.0) blue:(224/255.0) alpha:1.0];
+    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    btnCancel.layer.cornerRadius = 45.0/2;
+    btnCancel.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [footerView addSubview: btnCancel];
+    [btnCancel addTarget:self
+                          action:@selector(btnCancelPress)
+                forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *btnConfirmPayment = [[UIButton alloc] initWithFrame:CGRectMake(btnCancel.frame.origin.x, btnCancel.frame.origin.y - 10.0 - btnCancel.frame.size.height, btnCancel.frame.size.width, btnCancel.frame.size.height)];
     [btnConfirmPayment setTitle:@"Tiến hành thang toán" forState:UIControlStateNormal];
     btnConfirmPayment.backgroundColor = BLUE_COLOR;
     [btnConfirmPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -45,6 +58,7 @@
     [btnConfirmPayment addTarget:self
                           action:@selector(btnConfirmPaymentPress)
                 forControlEvents:UIControlEventTouchUpInside];
+    
     tbMethod.tableFooterView = footerView;
     
     wvPayment.hidden = TRUE;
@@ -55,6 +69,17 @@
     [wvPayment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
+    
+    icWaiting.hidden = TRUE;
+    icWaiting.backgroundColor = UIColor.whiteColor;
+    icWaiting.alpha = 0.5;
+    [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self);
+    }];
+}
+
+- (void)btnCancelPress {
+    [delegate onPaymentCancelButtonClick];
 }
 
 - (void)btnConfirmPaymentPress {
@@ -66,45 +91,80 @@
         returnURL = @"";
         
         //  Thêm 2 số 0 vào amount hiện tại
-        long totalMoney = [[CartModel getInstance] getTotalPriceForCart];
-        NSString *amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+        NSString *amount = @"";
+        if ([typePayment isEqualToString: register_domain]) {
+            long totalMoney = [[CartModel getInstance] getTotalPriceForCart];
+            amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+            
+        }else if ([typePayment isEqualToString: renew_domain]) {
+            long totalMoney = [[CartModel getInstance] demoGetPriceForRenewDomain];
+            amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+            
+        }else if ([typePayment isEqualToString: topup_money]) {
+            amount = [NSString stringWithFormat:@"%ld00", topupMoney];
+        }
         
-        NSString *transactionID = [AppUtils generateIDForTransaction];
-        //  20190514_1557803641.218678
-        NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=D67342C2&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=%@&vpc_Version=2", amount, transactionID, returnURL];
-        
-        NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, @"A3EFDFABA8653DF2342E8DAC29B51AF0"];
-        
-        NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:get_hash_url]];
-        NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        //  074D8D27C3ED8409130B6C6029F026FB35F749405D19C16A6A055530803503DA
-        NSString *url = [NSString stringWithFormat:@"https://mtf.onepay.vn/onecomm-pay/vpc.op?%@&vpc_SecureHash=%@", params, secureHash];
-        [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+        if (![AppUtils isNullOrEmpty: amount]) {
+            icWaiting.hidden = FALSE;
+            [icWaiting startAnimating];
+            
+            NSString *transactionID = [AppUtils generateIDForTransaction];
+            //  20190514_1557803641.218678
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=D67342C2&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=%@&vpc_Version=2", amount, transactionID, returnURL];
+            
+            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, @"A3EFDFABA8653DF2342E8DAC29B51AF0"];
+            
+            NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:get_hash_url]];
+            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //  074D8D27C3ED8409130B6C6029F026FB35F749405D19C16A6A055530803503DA
+            NSString *url = [NSString stringWithFormat:@"https://mtf.onepay.vn/onecomm-pay/vpc.op?%@&vpc_SecureHash=%@", params, secureHash];
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+            
+        }else{
+            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
         
     }else if (typePaymentMethod == ePaymentWithVisaMaster) {
         NSString *returnURL = @"https://api.websudo.xyz/dr.php";
-        returnURL = @"";
         
         NSString *vpc_MerchTxnRef = [AppUtils generateIDForTransaction];
         NSString *lang = @"vn";
         
         //  Thêm 2 số 0 vào amount hiện tại
-        long totalMoney = [[CartModel getInstance] getTotalPriceForCart];
-        NSString *amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+        NSString *amount = @"";
+        if ([typePayment isEqualToString: register_domain]) {
+            long totalMoney = [[CartModel getInstance] getTotalPriceForCart];
+            amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+            
+        }else if ([typePayment isEqualToString: renew_domain]) {
+            long totalMoney = [[CartModel getInstance] demoGetPriceForRenewDomain];
+            amount = [NSString stringWithFormat:@"%ld00", totalMoney];
+            
+        }else if ([typePayment isEqualToString: topup_money]) {
+            amount = [NSString stringWithFormat:@"%ld00", topupMoney];
+        }
         
-        NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
-        
-        NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
-        
-        NSURL *urlLink = [NSURL URLWithString:get_hash_url];
-        NSData *data = [NSData dataWithContentsOfURL: urlLink];
-        NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        //
-        returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, returnURL, secureHash];
-        
-        NSString *url = [NSString stringWithFormat:@"https://mtf.onepay.vn/vpcpay/vpcpay.op?%@&vpc_SecureHash=%@", params, secureHash];
-        [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+        if (![AppUtils isNullOrEmpty: amount]) {
+            icWaiting.hidden = FALSE;
+            [icWaiting startAnimating];
+            
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
+            
+            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
+            
+            NSURL *urlLink = [NSURL URLWithString:get_hash_url];
+            NSData *data = [NSData dataWithContentsOfURL: urlLink];
+            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //
+            returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, @"JSECURETEST01", returnURL, secureHash];
+            
+            NSString *url = [NSString stringWithFormat:@"https://mtf.onepay.vn/vpcpay/vpcpay.op?%@&vpc_SecureHash=%@", params, secureHash];
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+            
+        }else{
+            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
     }
 }
 
@@ -151,17 +211,28 @@
 }
 #pragma mark - Webview delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSLog(@"---start: %@", request.URL.absoluteString);
+    
     return YES;
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSString *url = [webView.request.URL absoluteString];
+    
     //url = @"https://mtf.onepay.vn/onecomm-pay/http?vpc_AdditionData=970425&vpc_Amount=1500000000&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=201904191555668012.153090&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_TransactionNo=1701694&vpc_TxnResponseCode=0&vpc_Version=2&vpc_SecureHash=898C1DA1E61A34BF0B66494E224D763D04376A52426CBC909E528D328E9704EE";
+    
+    if (webView.loading) {
+        return;
+    }
     
     NSString *query = [webView.request.URL query];
     if (query != nil && ![query isEqualToString:@""])
     {
+        if ([[webView stringByEvaluatingJavaScriptFromString:@"document.readyState"] isEqualToString:@"complete"])
+        {
+            icWaiting.hidden = TRUE;
+            [icWaiting stopAnimating];
+            NSLog(@"----Done");
+        }
+        
         NSDictionary *info = [self getResultInfoFromString: query];
         NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
         if (vpc_TxnResponseCode != nil)

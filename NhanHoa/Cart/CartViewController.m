@@ -219,14 +219,14 @@
         make.top.bottom.equalTo(self.lbTotal);
     }];
     
-    btnContinue.layer.cornerRadius = 50.0/2;
+    btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTotalValue.mas_bottom).offset(2*padding);
         make.left.equalTo(self.viewFooter).offset(padding);
         make.right.equalTo(self.viewFooter).offset(-padding);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(45.0);
     }];
     
     btnGoShop.backgroundColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0];
@@ -260,6 +260,20 @@
     }];
     [promoView setupUIForView];
 }
+
+- (void)removeDomainFromCart: (UIButton *)sender {
+    int index = (int)sender.tag;
+    if (index < [[CartModel getInstance] countItemInCart]) {
+        NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: index];
+        //  remove domain from cart
+        [[CartModel getInstance] removeDomainFromCart: domainInfo];
+        
+        [tbDomains reloadData];
+        
+        [self updateAllPriceForView];
+    }
+}
+
 
 #pragma mark - UITableview
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -306,6 +320,11 @@
         cell.btnYears.tag = indexPath.row;
         [cell.btnYears addTarget:self
                           action:@selector(selectYearsForDomain:)
+                forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.icRemove.tag = indexPath.row;
+        [cell.icRemove addTarget:self
+                          action:@selector(removeDomainFromCart:)
                 forControlEvents:UIControlEventTouchUpInside];
         
         //  total price

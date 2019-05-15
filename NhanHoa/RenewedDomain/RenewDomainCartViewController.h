@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PromotionCodeView.h"
+#import "OnepayPaymentView.h"
 
 @interface RenewDomainCartViewController : UIViewController
+
+@property (nonatomic, strong) OnepayPaymentView *paymentView;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;

@@ -9,13 +9,14 @@
 #import "RenewDomainCartViewController.h"
 #import "CartDomainItemCell.h"
 #import "SelectYearsCell.h"
+#import "PaymentMethodCell.h"
 
-@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, OnepayPaymentViewDelegate>
 
 @end
 
 @implementation RenewDomainCartViewController
-@synthesize tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotalPrice, lbTotalPriceValue, btnContinue, promoView, tbSelectYear;
+@synthesize paymentView, tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotalPrice, lbTotalPriceValue, btnContinue, promoView, tbSelectYear;
 @synthesize hCell, hPromoView;
 
 - (void)viewDidLoad {
@@ -28,6 +29,25 @@
     [super viewWillAppear: animated];
     [self setupUIForView];
     [self addTableViewForSelectYears];
+    
+    if (paymentView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OnepayPaymentView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OnepayPaymentView class]]) {
+                paymentView = (OnepayPaymentView *) currentObject;
+                break;
+            }
+        }
+        paymentView.typePayment = renew_domain;
+        [self.view addSubview: paymentView];
+        paymentView.delegate = self;
+        [paymentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.mas_equalTo(0);
+        }];
+        [paymentView setupUIForViewWithMenuHeight:0 heightNav: self.navigationController.navigationBar.frame.size.height padding: 15.0];
+    }
+    
     [self updateAllPriceForView];
 }
 
@@ -37,7 +57,15 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    [paymentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
     
+    [paymentView setupUIForViewWithMenuHeight:0 heightNav:self.navigationController.navigationBar.frame.size.height padding:15.0];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)addPromotionView {
@@ -59,11 +87,16 @@
     [promoView setupUIForView];
 }
 
+- (void)confirmPaymentPress {
+    
+}
+
 - (void)setupUIForView {
     float padding = 15.0;
     hCell = 106.0;
     
     [tbDomain registerNib:[UINib nibWithNibName:@"CartDomainItemCell" bundle:nil] forCellReuseIdentifier:@"CartDomainItemCell"];
+    tbDomain.scrollEnabled = FALSE;
     tbDomain.delegate = self;
     tbDomain.dataSource = self;
     tbDomain.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -83,13 +116,13 @@
     [self addPromotionView];
     
     //  continue button
-    btnContinue.layer.cornerRadius = 50.0/2;
+    btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(45.0);
     }];
     
     //  footer view
@@ -268,6 +301,21 @@
         tbSelectYear.delegate = self;
         tbSelectYear.dataSource = self;
         [self.view addSubview: tbSelectYear];
+    }
+}
+
+- (void)backToPreviousView {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+-(void)paymentResultWithInfo:(NSDictionary *)info {
+    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
+    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
+        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
+            [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(backToPreviousView) withObject:nil afterDelay:2.0];
+            return;
+        }
     }
 }
 

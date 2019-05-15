@@ -40,7 +40,7 @@
         tbContent.scrollEnabled = FALSE;
     }
     
-    //  64
+    //  70
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

@@ -16,9 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnAllDomain;
 @property (weak, nonatomic) IBOutlet UIButton *btnExpireDomain;
 @property (weak, nonatomic) IBOutlet UITableView *tbDomain;
+@property (weak, nonatomic) IBOutlet UIButton *btnPriceList;
 
 - (IBAction)btnAllDomainPress:(UIButton *)sender;
 - (IBAction)btnExpirePress:(UIButton *)sender;
+- (IBAction)btnPriceListPress:(UIButton *)sender;
 
 @property (nonatomic, assign) float padding;
 

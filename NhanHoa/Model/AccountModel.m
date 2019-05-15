@@ -26,6 +26,28 @@
     return @"";
 }
 
++ (NSString *)getCusTotalBalance {
+    id totalBalance = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_total_balance"];
+    
+    if (totalBalance != nil && [totalBalance isKindOfClass:[NSNumber class]]) {
+        return [NSString stringWithFormat:@"%ld", [totalBalance longValue]];
+        
+    }else if (totalBalance != nil && [totalBalance isKindOfClass:[NSString class]]) {
+        return totalBalance;
+    }
+    return @"";
+}
 
++ (NSString *)getCusTotalPoint {
+    id totalPoint = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_total_point"];
+    
+    if (totalPoint != nil && [totalPoint isKindOfClass:[NSNumber class]]) {
+        return [NSString stringWithFormat:@"%ld", [totalPoint longValue]];
+        
+    }else if (totalPoint != nil && [totalPoint isKindOfClass:[NSString class]]) {
+        return totalPoint;
+    }
+    return @"";
+}
 
 @end

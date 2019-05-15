@@ -66,7 +66,7 @@
     [lbTopDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(40.0);
     }];
     
     viewDetail.layer.cornerRadius = 5.0;

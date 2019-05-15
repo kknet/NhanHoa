@@ -18,7 +18,7 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar, logFilePath, userInfo, internetReachable, internetActive, listCity;
+@synthesize hStatusBar, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -39,11 +39,13 @@
     
     UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:18.0], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     
+    listNumber = [[NSArray alloc] initWithObjects: @"+", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    
     //  setup message style
     warningStyle = [[CSToastStyle alloc] initWithDefaultStyle];
     warningStyle.backgroundColor = [UIColor colorWithRed:(254/255.0) green:(196/255.0) blue:(46/255.0) alpha:1.0];
     warningStyle.messageColor = UIColor.whiteColor;
-    warningStyle.messageFont = [UIFont fontWithName:RobotoRegular size:15.0];
+    warningStyle.messageFont = [UIFont fontWithName:RobotoRegular size:18.0];
     warningStyle.cornerRadius = 20.0;
     warningStyle.messageAlignment = NSTextAlignmentCenter;
     warningStyle.messageNumberOfLines = 5;
@@ -54,7 +56,7 @@
     errorStyle = [[CSToastStyle alloc] initWithDefaultStyle];
     errorStyle.backgroundColor = [UIColor colorWithRed:(211/255.0) green:(55/255.0) blue:(55/255.0) alpha:1.0];
     errorStyle.messageColor = UIColor.whiteColor;
-    errorStyle.messageFont = [UIFont fontWithName:RobotoRegular size:15.0];
+    errorStyle.messageFont = [UIFont fontWithName:RobotoRegular size:18.0];
     errorStyle.cornerRadius = 20.0;
     errorStyle.messageAlignment = NSTextAlignmentCenter;
     errorStyle.messageNumberOfLines = 5;

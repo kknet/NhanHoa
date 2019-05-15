@@ -179,6 +179,7 @@
             break;
         }
     }
+    onepayView.typePayment = register_domain;
     [self.view addSubview: onepayView];
     onepayView.delegate = self;
     [onepayView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -398,6 +399,7 @@
         if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
             [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
             [self performSelector:@selector(quitCartView) withObject:nil afterDelay:2.0];
+            return;
         }
     }
     

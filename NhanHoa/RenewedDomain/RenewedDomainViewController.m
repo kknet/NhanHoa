@@ -25,7 +25,7 @@ typedef enum TypeSelectDomain{
 @end
 
 @implementation RenewedDomainViewController
-@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain;
+@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList;
 @synthesize padding;
 
 - (void)viewDidLoad {
@@ -41,10 +41,25 @@ typedef enum TypeSelectDomain{
     self.title = @"Tên miền đã đăng ký";
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    if (tbDomain.frame.size.height >= tbDomain.contentSize.height) {
+        tbDomain.scrollEnabled = FALSE;
+    }else{
+        tbDomain.scrollEnabled = TRUE;
+    }
+}
+
 - (IBAction)btnAllDomainPress:(UIButton *)sender {
     if (type == eAllDomain) {
         return;
     }
+    [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.viewMenu);
+        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
+        make.bottom.equalTo(self.btnPriceList.mas_top);
+    }];
+    
     type = eAllDomain;
     [tbDomain reloadData];
     
@@ -59,6 +74,12 @@ typedef enum TypeSelectDomain{
     if (type == eExpireDomain) {
         return;
     }
+    [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.viewMenu);
+        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
+        make.bottom.equalTo(self.view);
+    }];
+    
     type = eExpireDomain;
     [tbDomain reloadData];
     
@@ -67,6 +88,9 @@ typedef enum TypeSelectDomain{
     
     [btnAllDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = UIColor.clearColor;
+}
+
+- (IBAction)btnPriceListPress:(UIButton *)sender {
 }
 
 - (void)setupUIForView {
@@ -98,6 +122,15 @@ typedef enum TypeSelectDomain{
         make.right.top.bottom.equalTo(self.viewMenu);
     }];
     
+    NSAttributedString *titleAttrStr = [AppUtils generateTextWithContent:@"Bảng giá duy trì tên miền 2019" font:[UIFont fontWithName:RobotoMedium size:16.0] color:[UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:1.0] image:[UIImage imageNamed:@"list_price"] size:20.0 imageFirst:TRUE];
+    [btnPriceList setAttributedTitle:titleAttrStr forState:UIControlStateNormal];
+    
+    btnPriceList.backgroundColor = [UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:0.3];
+    [btnPriceList mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(50.0);
+    }];
+    
     tbDomain.separatorStyle = UITableViewCellSelectionStyleNone;
     tbDomain.delegate = self;
     tbDomain.dataSource = self;
@@ -105,7 +138,7 @@ typedef enum TypeSelectDomain{
     [tbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.viewMenu);
         make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
-        make.bottom.equalTo(self.view).offset(-self.padding);
+        make.bottom.equalTo(self.btnPriceList.mas_top);
     }];
 }
 

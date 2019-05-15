@@ -82,7 +82,7 @@
     formatter.maximumFractionDigits = 2;
     formatter.positiveFormat = @"#,##0";
     NSString *result = [formatter stringFromNumber:[NSNumber numberWithDouble:[content doubleValue]]];
-    
+    result = [result stringByReplacingOccurrencesOfString:@"," withString:@"."];
     return result;
 }
 
@@ -231,6 +231,18 @@
         result = @"Giao dịch thất bại";    //  Failured
     }
     return result;
+}
+
+// Remove all special characters from string
++ (BOOL)checkValidCurrency: (NSString *)money {
+    for (int index=0; index<money.length; index++) {
+        char character = [money characterAtIndex: index];
+        NSString *str = [NSString stringWithFormat:@"%c", character];
+        if (![[AppDelegate sharedInstance].listNumber containsObject: str]) {
+            return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 @end

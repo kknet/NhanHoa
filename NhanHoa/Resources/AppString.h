@@ -33,6 +33,10 @@
 #define ACCESSCODE_VISA     @"6BEB2546"
 #define HASHCODE_VISA       @"6D0870CDE5F24F34F3915FB0045120DB"
 
+#define register_domain     @"register_domain"
+#define renew_domain        @"renew_domain"
+#define topup_money         @"topup_money"
+
 #define Approved_Code               @"0"
 #define Bank_Declined_Code          @"1"
 #define Merchant_not_exist_Code     @"3"
