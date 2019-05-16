@@ -91,7 +91,7 @@
     [self addListProfileForChoose];
     
     //  setup for confỉm profile table view
-    hTbConfirm = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu);
+    hTbConfirm = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu);
     
     [self setupTableConfirmProfileForView];
     [self setupChoosePaymentMethodView];
@@ -133,7 +133,7 @@
         make.height.mas_equalTo(0);
     }];
     
-    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height + hMenu + hTbConfirm);
+    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu + hTbConfirm);
     
     UIView *footerView;
     if (hFooter < 75) {
@@ -164,7 +164,7 @@
         make.top.equalTo(self.viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
-    [onepayView setupUIForViewWithMenuHeight:hMenu heightNav:self.navigationController.navigationBar.frame.size.height padding:padding];
+    [onepayView setupUIForViewWithMenuHeight:hMenu padding:padding];
     
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
@@ -187,7 +187,7 @@
         make.height.mas_equalTo(0);
     }];
     onepayView.backgroundColor = UIColor.orangeColor;
-    [onepayView setupUIForViewWithMenuHeight: hMenu heightNav: self.navigationController.navigationBar.frame.size.height padding: padding];
+    [onepayView setupUIForViewWithMenuHeight:hMenu padding:padding];
 }
 
 - (void)btnConfirmPaymentPress {
@@ -252,7 +252,7 @@
         }
     }
     chooseProfileView.delegate = self;
-    chooseProfileView.hHeader = [AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height;
+    chooseProfileView.hHeader = [AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav;
     [self.view addSubview: chooseProfileView];
     [chooseProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(SCREEN_HEIGHT);

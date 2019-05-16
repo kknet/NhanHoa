@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,6 +30,9 @@
                             <rect key="frame" x="8" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="close.png"/>
+                            <connections>
+                                <action selector="icCloseClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="AcA-aR-OeQ"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.16900000000000001" green="0.53000000000000003" blue="0.94899999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,6 +47,9 @@
                             <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="Tất cả tên miền"/>
+                            <connections>
+                                <action selector="btnAllDomainsPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Xvw-mO-seS"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tv8-PG-rBY">
                             <rect key="frame" x="134" y="0.0" width="154" height="38"/>
@@ -52,6 +58,9 @@
                             <state key="normal" title="Tên miền sắp hết hạn">
                                 <color key="titleColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="btnExpireDomainsPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="0AA-7C-2yT"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.8862745098" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,7 +73,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="129.59999999999999" y="118.74062968515743"/>
+            <connections>
+                <outlet property="btnAllDomains" destination="6rn-IL-vn7" id="by0-YI-0e8"/>
+                <outlet property="btnExpireDomains" destination="Tv8-PG-rBY" id="xyd-jh-I5V"/>
+                <outlet property="icClose" destination="QyB-37-N6T" id="Bnm-yY-rz1"/>
+                <outlet property="lbTitle" destination="pVt-un-7PE" id="9FW-S9-DJK"/>
+                <outlet property="tbDomains" destination="QPf-sv-vZS" id="F8F-Sf-9Hg"/>
+                <outlet property="viewHeader" destination="avi-p6-kT1" id="5Wn-LP-qGz"/>
+                <outlet property="viewMenu" destination="pyO-DY-BKr" id="9m2-7y-Ca8"/>
+            </connections>
+            <point key="canvasLocation" x="-50" y="93"/>
         </view>
     </objects>
     <resources>

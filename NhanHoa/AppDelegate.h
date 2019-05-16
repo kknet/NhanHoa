@@ -38,6 +38,7 @@ typedef enum PaymentMethod{
 +(AppDelegate *) sharedInstance;
 @property (nonatomic, strong) NSString *logFilePath;
 @property (nonatomic, assign) float hStatusBar;
+@property (nonatomic, assign) float hNav;
 
 @property (nonatomic, strong) NSDictionary *userInfo;
 

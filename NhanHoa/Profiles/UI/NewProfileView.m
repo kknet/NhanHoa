@@ -13,7 +13,7 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
 
-@synthesize delegate, datePicker, toolBar, hNav, gender, cityCode, padding, mTop, hTextfield, hLabel;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hTextfield, hLabel;
 
 - (void)setupForAddProfileUI {
     //  setup for add profile
@@ -635,10 +635,7 @@
 
 - (IBAction)btnCityPress:(UIButton *)sender
 {
-    if (hNav == 0) {
-        hNav = 64.0;
-    }
-    float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + hNav);
+    float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
     popupView.delegate = self;

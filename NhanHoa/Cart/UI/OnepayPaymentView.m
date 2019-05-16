@@ -13,7 +13,7 @@
 @implementation OnepayPaymentView
 @synthesize tbMethod, wvPayment, typePaymentMethod, delegate, typePayment, icWaiting, topupMoney;
 
-- (void)setupUIForViewWithMenuHeight: (float)hMenu heightNav:(float)hNav padding: (float)padding
+- (void)setupUIForViewWithMenuHeight: (float)hMenu padding: (float)padding
 {
     self.clipsToBounds = TRUE;
     typePaymentMethod = ePaymentWithATM;
@@ -26,7 +26,7 @@
         make.top.left.bottom.right.equalTo(self);
     }];
     
-    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + hNav + hMenu + 2*60.0);
+    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu + 2*60.0);
     
     //  15 + 45 + 10 + 45 + 15
     

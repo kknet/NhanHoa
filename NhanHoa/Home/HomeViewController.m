@@ -53,6 +53,15 @@
     [self showUserWalletView];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    if (self.navigationController.navigationBar.frame.size.height > 0) {
+        [AppDelegate sharedInstance].hNav = self.navigationController.navigationBar.frame.size.height;
+    }else{
+        [AppDelegate sharedInstance].hNav = 50.0;
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [self.navigationController setNavigationBarHidden: NO];

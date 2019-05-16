@@ -16,7 +16,7 @@ typedef enum TypeSelectDomain{
     eExpireDomain,
 }TypeSelectDomain;
 
-@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate>{
     NSMutableArray *listAll;
     NSMutableArray *listExpire;
     TypeSelectDomain type;
@@ -25,7 +25,7 @@ typedef enum TypeSelectDomain{
 @end
 
 @implementation RenewedDomainViewController
-@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList;
+@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList, priceView;
 @synthesize padding;
 
 - (void)viewDidLoad {
@@ -91,6 +91,25 @@ typedef enum TypeSelectDomain{
 }
 
 - (IBAction)btnPriceListPress:(UIButton *)sender {
+    if (priceView == nil) {
+        [self addPriceListViewForMainView];
+    }
+    priceView.delegate = self;
+    self.navigationController.navigationBarHidden = TRUE;
+    [priceView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+}
+
+- (void)addPriceListViewForMainView {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PriceListView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[PriceListView class]]) {
+            priceView = (PriceListView *) currentObject;
+            break;
+        }
+    }
+    [self.view addSubview: priceView];
 }
 
 - (void)setupUIForView {
@@ -277,6 +296,14 @@ typedef enum TypeSelectDomain{
     return 60.0;
 }
 
+#pragma mark - Price list view delegate
+-(void)onCloseViewDomainPrice {
+    self.navigationController.navigationBarHidden = FALSE;
+    [priceView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.height.mas_equalTo(0);
+    }];
+}
 
 
 @end

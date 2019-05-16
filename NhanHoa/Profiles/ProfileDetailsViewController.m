@@ -423,7 +423,7 @@
     lbType.textColor = lbTypeValue.textColor = lbFullname.textColor = lbFullnameValue.textColor = lbBOD.textColor = lbBODValue.textColor = lbPassport.textColor = lbPassportValue.textColor = lbAddress.textColor = lbAddressValue.textColor = lbPhone.textColor = lbPhoneValue.textColor = lbEmail.textColor = lbEmailValue.textColor = lbPassportTitle.textColor = lbPassportFront.textColor = lbPassportBehid.textColor = TITLE_COLOR;
     
     float curHeight = 10*hItem + padding + hPassport;
-    float maxHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + self.navigationController.navigationBar.frame.size.height);
+    float maxHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     
     btnUpdate.layer.cornerRadius = 45.0/2;
     btnUpdate.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PriceListView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnPriceListPress:(UIButton *)sender;
 
 @property (nonatomic, assign) float padding;
+
+@property (nonatomic, weak) PriceListView *priceView;
 
 @end
 

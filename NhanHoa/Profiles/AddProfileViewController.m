@@ -69,7 +69,6 @@
         }
         [self.view addSubview: addNewProfile];
     }
-    addNewProfile.hNav = self.navigationController.navigationBar.frame.size.height;
     [addNewProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];

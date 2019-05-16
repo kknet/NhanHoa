@@ -103,7 +103,7 @@
     [paymentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.bottom.equalTo(self.view);
     }];
-    [paymentView setupUIForViewWithMenuHeight:0 heightNav: self.navigationController.navigationBar.frame.size.height padding: 15.0];
+    [paymentView setupUIForViewWithMenuHeight:0 padding:15.0];
 }
 
 - (void)addPaymentViewForCurrentView {

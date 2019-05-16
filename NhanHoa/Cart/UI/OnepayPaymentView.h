@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIWebView *wvPayment;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 
-- (void)setupUIForViewWithMenuHeight: (float)hMenu heightNav:(float)hNav padding: (float)padding;
+- (void)setupUIForViewWithMenuHeight: (float)hMenu padding: (float)padding;
 @property (nonatomic, assign) PaymentMethod typePaymentMethod;
 
 @property (nonatomic, assign) NSString *typePayment;

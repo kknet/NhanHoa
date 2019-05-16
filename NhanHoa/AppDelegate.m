@@ -18,7 +18,7 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
+@synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title

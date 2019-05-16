@@ -90,7 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIView *toolBar;
 
-@property (nonatomic, assign) float hNav;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, strong) NSString *cityCode;
 
