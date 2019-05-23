@@ -360,6 +360,7 @@
         make.width.height.mas_equalTo(20.0);
     }];
     
+    //  front image
     imgPassportFront.clipsToBounds = TRUE;
     [imgPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitlePassport.mas_bottom);
@@ -367,6 +368,9 @@
         make.width.mas_equalTo(wPassport);
         make.height.mas_equalTo(hPassport);
     }];
+    imgPassportFront.userInteractionEnabled = TRUE;
+    UITapGestureRecognizer *tapOnFrontImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnFrontImage)];
+    [imgPassportFront addGestureRecognizer: tapOnFrontImg];
     
     [lbPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.imgPassportFront);
@@ -380,6 +384,9 @@
         make.left.equalTo(self.imgPassportFront.mas_right).offset(self.padding);
         make.width.equalTo(self.imgPassportFront.mas_width);
     }];
+    imgPassportBehind.userInteractionEnabled = TRUE;
+    UITapGestureRecognizer *tapOnBehindImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBehindImage)];
+    [imgPassportBehind addGestureRecognizer: tapOnBehindImg];
     
     [lbPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.imgPassportBehind);
@@ -601,7 +608,9 @@
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
-    
+    if ([delegate respondsToSelector:@selector(onCancelButtonClicked)]) {
+        [delegate onCancelButtonClicked];
+    }
 }
 
 - (IBAction)btnBODPress:(UIButton *)sender {
@@ -665,6 +674,18 @@
     [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
     gender = 0;
+}
+
+- (void)whenTapOnFrontImage {
+    if ([delegate respondsToSelector:@selector(onPassportFrontPress)]) {
+        [delegate onPassportFrontPress];
+    }
+}
+
+- (void)whenTapOnBehindImage {
+    if ([delegate respondsToSelector:@selector(onPassportBehindPress)]) {
+        [delegate onPassportBehindPress];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate

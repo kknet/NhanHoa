@@ -149,6 +149,7 @@
 		841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 841F008E2274B2E000F1B314 /* HomeMenuObject.m */; };
 		8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8428FBFF22786F3B006BF4DB /* WhoIsNoResult.m */; };
 		8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428FC0122786F49006BF4DB /* WhoIsNoResult.xib */; };
+		842D754D22960A8F0028F392 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842D754C22960A8F0028F392 /* AVFoundation.framework */; };
 		842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F81A2227561EC00D6DE6D /* Roboto-MediumItalic.ttf */; };
 		842F81AF227561ED00D6DE6D /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F81A3227561EC00D6DE6D /* Roboto-ThinItalic.ttf */; };
 		842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F81A4227561EC00D6DE6D /* Roboto-Thin.ttf */; };
@@ -450,6 +451,7 @@
 		8428FBFE22786F3B006BF4DB /* WhoIsNoResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsNoResult.h; sourceTree = "<group>"; };
 		8428FBFF22786F3B006BF4DB /* WhoIsNoResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsNoResult.m; sourceTree = "<group>"; };
 		8428FC0122786F49006BF4DB /* WhoIsNoResult.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsNoResult.xib; sourceTree = "<group>"; };
+		842D754C22960A8F0028F392 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		842F81A2227561EC00D6DE6D /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		842F81A3227561EC00D6DE6D /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		842F81A4227561EC00D6DE6D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842D754D22960A8F0028F392 /* AVFoundation.framework in Frameworks */,
 				15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */,
 				6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */,
 			);
@@ -1241,6 +1244,7 @@
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				842D754C22960A8F0028F392 /* AVFoundation.framework */,
 				15E92AFE2272BC31004AB658 /* UIKit.framework */,
 				666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */,
 			);

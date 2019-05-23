@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol NewProfileViewDelegate
 - (void)onCancelButtonClicked;
 - (void)onSaveButtonClicked: (NSDictionary *)info;
+- (void)onPassportFrontPress;
+- (void)onPassportBehindPress;
 @end
 
 @interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate>

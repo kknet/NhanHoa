@@ -43,7 +43,7 @@
         }];
         
         lbTitle = [[UILabel alloc] init];
-        lbTitle.text = @"Chọn Tỉnh/Thành phố";
+        lbTitle.text = @"Tỉnh/Thành phố";
         lbTitle.textColor = UIColor.whiteColor;
         lbTitle.font = [UIFont fontWithName:RobotoRegular size:18.0];
         [viewHeader addSubview: lbTitle];
