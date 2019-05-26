@@ -47,5 +47,17 @@ typedef enum PaymentMethod{
 @property (strong, nonatomic) NSMutableArray *listCity;
 @property (nonatomic, strong) NSArray *listNumber;
 
+- (void)enableSizeForBarButtonItem: (BOOL)enable;
+
+@property (nonatomic, strong) UIFont *fontRegular;
+@property (nonatomic, strong) UIFont *fontBold;
+@property (nonatomic, strong) UIFont *fontMedium;
+@property (nonatomic, strong) UIFont *fontThin;
+@property (nonatomic, strong) UIFont *fontItalic;
+@property (nonatomic, strong) UIFont *fontDesc;
+@property (nonatomic, strong) UIFont *fontBTN;
+@property (nonatomic, assign) float hTextfield;
+@property (nonatomic, assign) float radius;
+
 @end
 

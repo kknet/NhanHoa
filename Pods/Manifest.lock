@@ -13,7 +13,7 @@ DEPENDENCIES:
   - Toast
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Masonry
     - ProgressHUD
     - SDWebImage
@@ -27,4 +27,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f06748ebedefa310fc863940ba9f6b2fc34f1831
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.7.0

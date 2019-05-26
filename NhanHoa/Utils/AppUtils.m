@@ -8,6 +8,7 @@
 
 #import "AppUtils.h"
 #import "CustomTextAttachment.h"
+#import <sys/utsname.h>
 
 @implementation AppUtils
 
@@ -243,6 +244,28 @@
         }
     }
     return TRUE;
+}
+
+//  https://www.theiphonewiki.com/wiki/Models
++ (NSString *)getModelsOfCurrentDevice {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *modelType =  [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    return modelType;
+}
+
++ (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor {
+    textfield.layer.borderWidth = 1.0;
+    textfield.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    textfield.layer.borderColor = borderColor.CGColor;
+    
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 7.5, textfield.frame.size.height)];
+    textfield.leftView = leftView;
+    textfield.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 7.5, textfield.frame.size.height)];
+    textfield.rightView = rightView;
+    textfield.rightViewMode = UITextFieldViewModeAlways;
 }
 
 @end

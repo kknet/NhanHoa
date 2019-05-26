@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PersonalProfileView : UIView
+@protocol PersonalProfileViewDelegate <NSObject>
+- (void)readyToRegisterAccount: (NSDictionary *)info;
+@end
 
+@interface PersonalProfileView : UIView<UITextFieldDelegate, UIGestureRecognizerDelegate, ChooseCityPopupViewDelegate>
+
+@property (nonatomic, strong) id<PersonalProfileViewDelegate, NSObject> delegate;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbVision;
 @property (weak, nonatomic) IBOutlet UIButton *icPersonal;
@@ -27,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbFemale;
 @property (weak, nonatomic) IBOutlet UILabel *lbBOD;
 @property (weak, nonatomic) IBOutlet UITextField *tfBOD;
+@property (weak, nonatomic) IBOutlet UIButton *btnBOD;
 @property (weak, nonatomic) IBOutlet UILabel *lbPassport;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassport;
 @property (weak, nonatomic) IBOutlet UILabel *lbPhone;
@@ -53,8 +60,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)icMaleClick:(UIButton *)sender;
 - (IBAction)icFemaleClick:(UIButton *)sender;
 - (IBAction)btnRegisterPress:(UIButton *)sender;
+- (IBAction)btnBODPress:(UIButton *)sender;
+- (IBAction)btnCityPress:(UIButton *)sender;
 
 - (void)setupUIForView;
+
+@property (nonatomic, strong) UIView *transparentView;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+
+@property (nonatomic, assign) int ownType;
+@property (nonatomic, assign) int gender;
+@property (nonatomic, strong) NSString *cityCode;
 
 @end
 

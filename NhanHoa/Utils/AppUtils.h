@@ -28,5 +28,7 @@
 + (NSString *)generateIDForTransaction;
 + (NSString *)getPaymentResultWithResponseCode: (NSString *)responseCode;
 + (BOOL)checkValidCurrency: (NSString *)money;
++ (NSString *)getModelsOfCurrentDevice;
++ (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor;
 
 @end

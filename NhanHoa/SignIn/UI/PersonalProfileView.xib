@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -124,6 +124,14 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FI9-P6-TlW">
+                    <rect key="frame" x="137" y="355" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnBODPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="xij-xR-y9x"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CMND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBs-QS-IKC">
                     <rect key="frame" x="16" y="285" width="51" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -240,11 +248,15 @@
                     <rect key="frame" x="167" y="539" width="137" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="IFk-ww-AEE"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnBOD" destination="FI9-P6-TlW" id="P0B-mT-fmh"/>
                 <outlet property="btnCity" destination="UGv-o4-JyU" id="j4E-m7-Qdn"/>
                 <outlet property="btnCountry" destination="FKF-en-afi" id="dVH-DD-Pb4"/>
                 <outlet property="btnRegister" destination="7fb-Vt-yJJ" id="Eal-pP-mI4"/>
@@ -279,12 +291,12 @@
                 <outlet property="tfPhone" destination="gxf-zC-qsA" id="lMr-89-x2p"/>
                 <outlet property="tfSecureCode" destination="RHR-wO-3ks" id="qRN-m6-152"/>
             </connections>
-            <point key="canvasLocation" x="355" y="76"/>
+            <point key="canvasLocation" x="173" y="93"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="200" height="200"/>
-        <image name="tick_orange.png" width="200" height="200"/>
+        <image name="no_tick.png" width="80" height="80"/>
+        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
     </resources>
 </document>

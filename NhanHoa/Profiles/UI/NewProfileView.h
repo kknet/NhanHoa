@@ -97,7 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float mTop;
-@property (nonatomic, assign) float hTextfield;
 @property (nonatomic, assign) float hLabel;
 
 - (void)setupViewForAddNewProfileView;

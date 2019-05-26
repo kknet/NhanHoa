@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BusinessProfileView : UIView
+@protocol BusinessProfileViewDelegate
+- (void)readyToRegisterBusinessAccount: (NSDictionary *)info;
+@end
+
+@interface BusinessProfileView : UIView<UIGestureRecognizerDelegate, UITextFieldDelegate, ChooseCityPopupViewDelegate>
+
+@property (nonatomic, strong) id <BusinessProfileViewDelegate, NSObject> delegate;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbVision;
 @property (weak, nonatomic) IBOutlet UIButton *icPersonal;
@@ -21,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbInfoBusiness;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessName;
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessName;
+@property (weak, nonatomic) IBOutlet UILabel *lbTaxCode;
+@property (weak, nonatomic) IBOutlet UITextField *tfTaxCode;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessAddress;
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessPhone;
@@ -52,12 +63,30 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
+@property (weak, nonatomic) IBOutlet UILabel *lbPerAddress;
+@property (weak, nonatomic) IBOutlet UITextField *tfPerAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lbPerCountry;
+@property (weak, nonatomic) IBOutlet UITextField *tfPerCountry;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPerCountryArrow;
+@property (weak, nonatomic) IBOutlet UILabel *lbPerCity;
+@property (weak, nonatomic) IBOutlet UITextField *tfPerCity;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPerCityArrow;
+@property (weak, nonatomic) IBOutlet UIButton *btnPerCity;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbCode;
 @property (weak, nonatomic) IBOutlet UITextField *tfCode;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCode;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
 - (void)setupUIForView;
+- (IBAction)chooseBusinessCityPress:(UIButton *)sender;
+- (IBAction)choosePersonalCityPress:(UIButton *)sender;
+- (IBAction)btnRegisterPress:(UIButton *)sender;
+
+@property (nonatomic, strong) NSString *businessCityCode;
+@property (nonatomic, strong) NSString *cityCode;
+@property (nonatomic, assign) int gender;
+@property (nonatomic, assign) int typeCity;
 
 @end
 

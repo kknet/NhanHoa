@@ -13,14 +13,13 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hTextfield, hLabel;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel;
 
 - (void)setupForAddProfileUI {
     //  setup for add profile
     padding = 15.0;
     mTop = 10.0;
     hLabel = 30.0;
-    hTextfield = 38.0;
     gender = 1;
     
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
@@ -361,6 +360,7 @@
     }];
     
     //  front image
+    imgPassportFront.layer.cornerRadius = 5.0;
     imgPassportFront.clipsToBounds = TRUE;
     [imgPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitlePassport.mas_bottom);
@@ -378,6 +378,7 @@
         make.height.equalTo(self.lbName.mas_height);
     }];
     
+    imgPassportBehind.layer.cornerRadius = imgPassportBehind.layer.cornerRadius;
     imgPassportBehind.clipsToBounds = TRUE;
     [imgPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.imgPassportFront);
@@ -482,7 +483,7 @@
     }];
     
     UIButton *btnClose = [[UIButton alloc] init];
-    [btnClose setTitle:@"Đóng" forState:UIControlStateNormal];
+    [btnClose setTitle:text_close forState:UIControlStateNormal];
     btnClose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -582,29 +583,40 @@
         return;
     }
     
-    /*
-    NSString *name = tfName.text;
-    NSString *bod = tfBOD.text;
-    NSString *passport = tfPassport.text;
-    NSString *phone = tfPhone.text;
-    NSString *email = tfEmail.text;
-    NSString *address = tfAddress.text;
-    NSString *city = cityCode;
-     
-     //  own_type
-     //  cn_name
-     //  cn_sex
-     //  cn_day
-     //  cn_month
-     //  cn_year
-     //  cn_cmnd
-     //  cn_phone
-     //  cn_rl_email
-     //  cn_address
-     //  cn_country
-     //  cn_city
-     
-    */
+mod: add_contact
+username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
+password: MD5 (mật khẩu khách đăng nhập)
+    Thông tin tạo hồ sơ
+own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
+    if (own_type: 0) { // cá nhân
+    cn_name: Họ và tên (string)
+    cn_sex: number (1: nam | 0: nữ)
+    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+    cn_cmnd: string / number (Số CMND / Passport)
+    cn_phone: string / number (Số ĐT)
+    cn_address: string (địa chỉ)
+    cn_country: 231 (cố định: Viêt Nam [231])
+    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+    cmnd_a: URL (Link hình CMND mặt trước)
+    cmnd_b: URL (Link hình CMND mặt sau)
+    } elseif (own_type: 1) { // công ty / tổ chức
+    tc_tc_name: string (tên cty / tổ chức)
+    tc_tc_mst: string / number (mã số thuế)
+    tc_tc_address: string (địa chỉ cty / tổ chức)
+    tc_tc_phone: string / number (số đt cty / tổ chức)
+    tc_tc_country: 231 (cố định: Viêt Nam [231])
+    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
+    cn_position: string (chức vụ người đại diện)
+    cn_name: Họ và tên (string)
+    cn_sex: number (1: nam | 0: nữ)
+    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+    cn_cmnd: string / number (Số CMND / Passport)
+    cn_phone: string / number (Số ĐT)
+    cn_address: string (địa chỉ)
+    cn_country: 231 (cố định: Viêt Nam [231])
+    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
+    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {

@@ -9,17 +9,37 @@
 #import "RegisterAccountStep2ViewController.h"
 #import "PersonalProfileView.h"
 #import "BusinessProfileView.h"
+#import "AccountModel.h"
+#import "WebServices.h"
+#import <CommonCrypto/CommonDigest.h>
 
-@interface RegisterAccountStep2ViewController ()<UIScrollViewDelegate>{
+@interface RegisterAccountStep2ViewController ()<UIScrollViewDelegate, PersonalProfileViewDelegate, BusinessProfileViewDelegate, WebServicesDelegate>{
     PersonalProfileView *personalProfile;
     BusinessProfileView *businessProfile;
+    WebServices *webService;
 }
+@end
 
+@implementation NSString (MD5)
+- (NSString *)MD5String {
+    const char *cstr = [self UTF8String];
+    unsigned char result[16];
+    CC_MD5(cstr, (int)strlen(cstr), result);
+    
+    return [NSString stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
 @end
 
 @implementation RegisterAccountStep2ViewController
 @synthesize viewMenu, viewAccInfo, lbAccount, lbNumOne, lbSepa, viewProfileInfo, lbProfile, lbNumTwo, scvContent;
 @synthesize hMenu;
+@synthesize email, password;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +52,11 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification object:nil];
@@ -68,6 +93,7 @@
             break;
         }
     }
+    personalProfile.delegate = self;
     [personalProfile.icPersonal addTarget:self
                                    action:@selector(selectPersonalProfile)
                          forControlEvents:UIControlEventTouchUpInside];
@@ -92,7 +118,7 @@
         38: is height of textfield
         15: is padding for view
     */
-    float hView = 110 + 7*10 + 7*30 + 7*38 + 40.0 + 4*15.0;
+    float hView = 110 + 7*10 + 7*30 + 7*[AppDelegate sharedInstance].hTextfield + 45.0 + 4*15.0;
     
     [personalProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
@@ -111,6 +137,7 @@
             break;
         }
     }
+    businessProfile.delegate = self;
     [businessProfile.icPersonal addTarget:self
                                    action:@selector(selectPersonalProfile)
                          forControlEvents:UIControlEventTouchUpInside];
@@ -135,7 +162,7 @@
      38: is height of textfield
      15: is padding for view
      */
-    float hView = 110 + 11*10 + 13*30 + 11*38 + 7*15 + 40.0;
+    float hView = 110 + 14*10 + 16*30 + 14*[AppDelegate sharedInstance].hTextfield + 7*15 + 45.0;
     [businessProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
@@ -159,9 +186,19 @@
     
     if (personalProfile == nil) {
         [self addPersonalProfileView];
+    }else{
+        float hView = 110 + 7*10 + 7*30 + 7*[AppDelegate sharedInstance].hTextfield + 45.0 + 4*15.0;
+//        [personalProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.left.equalTo(self.scvContent);
+//            make.width.mas_equalTo(SCREEN_WIDTH);
+//            make.height.mas_equalTo(hView);
+//        }];
+        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
     }
     personalProfile.hidden = FALSE;
     businessProfile.hidden = TRUE;
+    
+    
 }
 
 - (void)selectBusinessProfile {
@@ -177,6 +214,14 @@
     
     if (businessProfile == nil) {
         [self addBusinessProfileView];
+    }else{
+        float hView = 110 + 14*10 + 16*30 + 14*[AppDelegate sharedInstance].hTextfield + 7*15 + 45.0;
+//        [businessProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.left.equalTo(self.scvContent);
+//            make.width.mas_equalTo(SCREEN_WIDTH);
+//            make.height.mas_equalTo(hView);
+//        }];
+        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
     }
     personalProfile.hidden = TRUE;
     businessProfile.hidden = FALSE;
@@ -203,7 +248,7 @@
         make.right.equalTo(self.lbSepa.mas_left);
     }];
     
-    lbAccount.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbAccount.font = [AppDelegate sharedInstance].fontDesc;
     [lbAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewAccInfo);
         make.right.equalTo(self.viewAccInfo).offset(-2.0);
@@ -248,7 +293,74 @@
 
 //implementation
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.view endEditing: TRUE];
+    //  [self.view endEditing: TRUE];
+}
+
+#pragma mark - PersonalViewDelegate
+- (void)readyToRegisterAccount:(NSDictionary *)info
+{
+    if ([AppUtils isNullOrEmpty: email] || [AppUtils isNullOrEmpty: password]) {
+        [self.view makeToast:@"Thông tin không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
+    [jsonDict setObject:register_account_mod forKey:@"mod"];
+    [jsonDict setObject:email forKey:@"email"];
+    [jsonDict setObject:[[password MD5String] lowercaseString] forKey:@"password"];
+    
+    [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)readyToRegisterBusinessAccount:(NSDictionary *)info {
+    if ([AppUtils isNullOrEmpty: email] || [AppUtils isNullOrEmpty: password]) {
+        [self.view makeToast:@"Thông tin không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
+    [jsonDict setObject:register_account_mod forKey:@"mod"];
+    [jsonDict setObject:email forKey:@"email"];
+    [jsonDict setObject:[[password MD5String] lowercaseString] forKey:@"password"];
+    
+    [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
+}
+
+#pragma mark - Webservice delegate
+
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    if ([link isEqualToString:register_account_func]) {
+        
+    }
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    if ([link isEqualToString:register_account_func]) {
+        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            
+        }
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    if ([link isEqualToString: register_account_func]) {
+        
+    }
 }
 
 @end

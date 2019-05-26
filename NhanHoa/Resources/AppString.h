@@ -9,6 +9,34 @@
 #ifndef AppString_h
 #define AppString_h
 
+#define simulator       @"x86_64"
+#define Iphone4s        @"iPhone4,1"
+#define Iphone5_1       @"iPhone5,1"
+#define Iphone5_2       @"iPhone5,2"
+#define Iphone5c_1      @"iPhone5,3"
+#define Iphone5c_2      @"iPhone5,4"
+#define Iphone5s_1      @"iPhone6,1"
+#define Iphone5s_2      @"iPhone6,2"
+#define Iphone6         @"iPhone7,2"
+#define Iphone6_Plus    @"iPhone7,1"
+#define Iphone6s        @"iPhone8,1"
+#define Iphone6s_Plus   @"iPhone8,2"
+#define IphoneSE        @"iPhone8,4"
+#define Iphone7_1       @"iPhone9,1"
+#define Iphone7_2       @"iPhone9,3"
+#define Iphone7_Plus1   @"iPhone9,2"
+#define Iphone7_Plus2   @"iPhone9,4"
+#define Iphone8_1       @"iPhone10,1"
+#define Iphone8_2       @"iPhone10,4"
+#define Iphone8_Plus1   @"iPhone10,2"
+#define Iphone8_Plus2   @"iPhone10,5"
+#define IphoneX_1       @"iPhone10,3"
+#define IphoneX_2       @"iPhone10,6"
+#define IphoneXR        @"iPhone11,8"
+#define IphoneXS        @"iPhone11,2"
+#define IphoneXS_Max1   @"iPhone11,6"
+#define IphoneXS_Max2   @"iPhone11,4"
+
 #define RobotoBlack         @"Roboto-Black"
 #define RobotoBlackItalic   @"Roboto-BlackItalic"
 #define RobotoBold          @"Roboto-Bold"
@@ -20,6 +48,12 @@
 #define RobotoRegular       @"Roboto-Regular"
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
+
+#define type_men            1
+#define type_women          0
+
+#define type_personal       0
+#define type_business       1
 
 #define TAG_HUD             100
 #define TIME_FOR_SLIDER     6
@@ -54,16 +88,19 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
-#define return_url          @"https://api.websudo.xyz/dr.php"
-#define link_api            @"https://nhanhoa.com/app-awk"
-#define login_func          @"Login"
-#define whois_func          @"Whois"
-#define get_profile_func    @"ListContact"
+#define return_url              @"https://api.websudo.xyz/dr.php"
+#define link_api                @"https://nhanhoa.com/app-awk"
+#define login_func              @"Login"
+#define whois_func              @"Whois"
+#define get_profile_func        @"ListContact"
+#define register_account_func   @"RegisterAccount"
 
 
-#define login_mod       @"login"
-#define whois_mod       @"whois"
-#define get_profile_mod @"contact_list"
+#define login_mod               @"login"
+#define whois_mod               @"whois"
+#define get_profile_mod         @"contact_list"
+#define register_account_mod    @"register_account"
+#define add_contact_mod         @"add_contact"
 
 
 #define logsFolderName      @"LogFiles"
@@ -90,11 +127,20 @@
 #define NEW_PRICE_COLOR [UIColor colorWithRed:(213/255.0) green:(53/255.0) blue:(93/255.0) alpha:1.0]
 #define OLD_PRICE_COLOR [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(204/255.0) alpha:1.0]
 #define BORDER_COLOR [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0]
+#define LIGHT_GRAY_COLOR [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0]
+
+#define FRONT_EMPTY_IMG [UIImage imageNamed:@"passport_empty_front.png"]
+#define BEHIND_EMPTY_IMG [UIImage imageNamed:@"passport_empty_behind.png"]
 
 #define N_A         @"Không giá trị"
 #define unknown     @"Chưa xác định"
 
 #define text_personal @"Cá nhân"
 #define text_business @"Doanh nghiệp"
+
+#define not_access_camera  @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
+
+
+#define text_close  @"Đóng"
 
 #endif /* AppString_h */

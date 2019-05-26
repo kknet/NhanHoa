@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float hMenu;
 
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *password;
+
 @end
 
 NS_ASSUME_NONNULL_END

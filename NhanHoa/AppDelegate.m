@@ -19,9 +19,12 @@
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
+@synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
+    
+    [self setupFontForApp];
     
     NSString *subDirectory = [NSString stringWithFormat:@"%@/%@.txt", logsFolderName, [AppUtils getCurrentDate]];
     logFilePath = [WriteLogsUtils makeFilePathWithFileName: subDirectory];
@@ -29,9 +32,7 @@
     //  custom tabbar & navigation bar
     hStatusBar = application.statusBarFrame.size.height;
     
-    NSDictionary *titleInfo = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoItalic size:0.1], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
-    [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateNormal];
-    [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateHighlighted];
+    [self enableSizeForBarButtonItem: FALSE];
     
     UINavigationBar.appearance.barTintColor = NAV_COLOR;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
@@ -357,5 +358,74 @@
     CityObject *city67 = [[CityObject alloc] initWithCode:@"67" name:@"Crimmitschau"];
     [listCity addObject: city67];
 }
+
+- (void)enableSizeForBarButtonItem: (BOOL)enable {
+    float fontSize = 0.1;
+    if (enable) {
+        fontSize = 18.0;
+    }
+    NSDictionary *titleInfo = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:fontSize], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
+    [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateNormal];
+    [UIBarButtonItem.appearance setTitleTextAttributes:titleInfo forState:UIControlStateHighlighted];
+}
+
+- (void)setupFontForApp {
+    radius = 3.0;
+    
+    NSString *deviceMode = [AppUtils getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
+    {
+        //  Screen width: 320.000000 - Screen height: 667.000000
+        fontBold = [UIFont fontWithName:RobotoBold size:16.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+        hTextfield = 38.0;
+        
+    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
+    {
+        //  Screen width: 375.000000 - Screen height: 667.000000
+        fontBold = [UIFont fontWithName:RobotoBold size:16.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+        hTextfield = 38.0;
+        
+    }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
+    {
+        //  Screen width: 414.000000 - Screen height: 736.000000
+        fontBold = [UIFont fontWithName:RobotoBold size:18.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+        
+        hTextfield = 40.0;
+        
+    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
+        //  Screen width: 375.000000 - Screen height: 812.000000
+        fontBold = [UIFont fontWithName:RobotoBold size:18.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+        
+        hTextfield = 40.0;
+        
+    }else{
+        fontBold = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+        hTextfield = 38.0;
+    }
+}
+
 
 @end

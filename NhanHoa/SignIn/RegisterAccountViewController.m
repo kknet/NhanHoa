@@ -8,6 +8,7 @@
 
 #import "RegisterAccountViewController.h"
 #import "SignInViewController.h"
+#import "AppUtils.h"
 #import "RegisterAccountStep2ViewController.h"
 
 @interface RegisterAccountViewController ()<UITextFieldDelegate>{
@@ -34,10 +35,23 @@
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = NO;
     [self setupMenuForStep: 1];
+    
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    if ([tfEmail.text isEqualToString:@""] || [tfPassword.text isEqualToString:@""] || [tfConfirmPass.text isEqualToString:@""]) {
+        [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if (![tfPassword.text isEqualToString:tfConfirmPass.text]) {
+        [self.view makeToast:@"Xác nhận mật khẩu không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     RegisterAccountStep2ViewController *registerStep2VC = [[RegisterAccountStep2ViewController alloc] initWithNibName:@"RegisterAccountStep2ViewController" bundle:nil];
+    registerStep2VC.email = tfEmail.text;
+    registerStep2VC.password = tfPassword.text;
     [self.navigationController pushViewController:registerStep2VC animated:TRUE];
 }
 
@@ -77,7 +91,6 @@
     float hMenu = 60.0;
     float padding = 15.0;
     float hSmallLB = 30.0;
-    float hTextfield = 38.0;
     float mTop = 10.0;
     
     self.view.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
@@ -98,7 +111,7 @@
         make.right.equalTo(self.lbSepa.mas_left);
     }];
     
-    lbAccount.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbAccount.font = [AppDelegate sharedInstance].fontDesc;
     [lbAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewAccInfo);
         make.right.equalTo(self.viewAccInfo).offset(-2.0);
@@ -139,7 +152,7 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
     
-    lbStepOne.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbStepOne.font = [AppDelegate sharedInstance].fontBold;
     lbStepOne.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
     [lbStepOne mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.scvAccInfo.mas_top);
@@ -149,7 +162,7 @@
     }];
     
     //  Email
-    lbEmail.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbEmail.font = [AppDelegate sharedInstance].fontMedium;
     lbEmail.textColor = lbStepOne.textColor;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbStepOne.mas_bottom);
@@ -157,16 +170,20 @@
         make.height.mas_equalTo(hSmallLB);
     }];
     
-    tfEmail.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    [AppUtils setBorderForTextfield:tfEmail borderColor:BORDER_COLOR];
+    tfEmail.font = [AppDelegate sharedInstance].fontRegular;
     tfEmail.textColor = lbStepOne.textColor;
+    tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
+    tfEmail.delegate = self;
+    tfEmail.returnKeyType = UIReturnKeyNext;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbEmail.mas_bottom);
         make.left.right.equalTo(self.lbEmail);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     //  Password
-    lbPassword.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbPassword.font = [AppDelegate sharedInstance].fontMedium;
     lbPassword.textColor = lbStepOne.textColor;
     [lbPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfEmail.mas_bottom).offset(mTop);
@@ -174,24 +191,26 @@
         make.height.mas_equalTo(hSmallLB);
     }];
     
+    [AppUtils setBorderForTextfield:tfPassword borderColor:BORDER_COLOR];
     tfPassword.font = tfEmail.font;
     tfPassword.textColor = lbStepOne.textColor;
     tfPassword.secureTextEntry = TRUE;
     tfPassword.delegate = self;
+    tfPassword.returnKeyType = UIReturnKeyNext;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbPassword.mas_bottom);
         make.left.right.equalTo(self.lbPassword);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     icShowPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.tfPassword);
-        make.width.mas_equalTo(hTextfield);
+        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     //  Confirm password
-    lbConfirmPass.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbConfirmPass.font = [AppDelegate sharedInstance].fontMedium;
     lbConfirmPass.textColor = lbStepOne.textColor;
     [lbConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfPassword.mas_bottom).offset(mTop);
@@ -199,30 +218,32 @@
         make.height.mas_equalTo(hSmallLB);
     }];
     
+    [AppUtils setBorderForTextfield:tfConfirmPass borderColor:BORDER_COLOR];
     tfConfirmPass.font = tfEmail.font;
     tfConfirmPass.textColor = lbStepOne.textColor;
     tfConfirmPass.secureTextEntry = TRUE;
     tfConfirmPass.delegate = self;
+    tfConfirmPass.returnKeyType = UIReturnKeyDone;
     [tfConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbConfirmPass.mas_bottom);
         make.left.right.equalTo(self.lbConfirmPass);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     icShowConfirmPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.tfConfirmPass);
-        make.width.mas_equalTo(hTextfield);
+        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
    
     //  footer
     float hScv = SCREEN_HEIGHT - ([UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height + hMenu + 10.0);
     
-    float widthText = [AppUtils getSizeWithText:@"Bạn đã có tài khoản?" withFont:[UIFont fontWithName:RobotoRegular size:16.0]].width;
+    float widthText = [AppUtils getSizeWithText:@"Bạn đã có tài khoản?" withFont:[AppDelegate sharedInstance].fontRegular].width;
     
-    float widthBTN = [AppUtils getSizeWithText:@"ĐĂNG NHẬP" withFont:[UIFont fontWithName:RobotoMedium size:16.0]].width;
+    float widthBTN = [AppUtils getSizeWithText:@"ĐĂNG NHẬP" withFont:[AppDelegate sharedInstance].fontRegular].width;
     float originX = (SCREEN_WIDTH - (widthText + 5.0 + widthBTN))/2;
-    lbHaveAccount.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbHaveAccount.font = [AppDelegate sharedInstance].fontRegular;
     lbHaveAccount.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
     [lbHaveAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvAccInfo).offset(originX);
@@ -231,8 +252,7 @@
         make.height.mas_equalTo(60.0);
     }];
     
-    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
-    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    btnSignIn.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     [btnSignIn setTitleColor:ORANGE_COLOR forState:UIControlStateNormal];
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbHaveAccount.mas_right).offset(5.0);
@@ -240,7 +260,7 @@
         make.width.mas_equalTo(widthBTN);
     }];
     
-    btnContinue.titleLabel.font = [UIFont fontWithName:RobotoMedium size:18.0];
+    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.layer.cornerRadius = 45.0/2;
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -274,6 +294,19 @@
     
     rc.size.height = 400;
     [scvAccInfo scrollRectToVisible:rc animated:YES];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfEmail) {
+        [tfPassword becomeFirstResponder];
+        
+    }else if (textField == tfPassword) {
+        [tfConfirmPass becomeFirstResponder];
+        
+    }else if (textField == tfConfirmPass){
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
 }
 
 @end

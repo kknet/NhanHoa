@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -74,6 +74,20 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã số thuế" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nv8-Ay-IEZ">
+                    <rect key="frame" x="139" y="577" width="85" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mã số thuế" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m0Z-oi-Xxd">
+                    <rect key="frame" x="111" y="572" width="97" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Địa chỉ doanh nghiệp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mO-5V-bbt">
                     <rect key="frame" x="16" y="240" width="161" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -109,7 +123,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-O9-s9o">
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Việt nam" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-O9-s9o">
                     <rect key="frame" x="16" y="417" width="105" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <nil key="textColor"/>
@@ -147,6 +161,9 @@
                     <rect key="frame" x="167" y="417" width="137" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="chooseBusinessCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="vT8-bA-jO7"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phần thông tin người đăng ký" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MM-Mv-CsZ">
                     <rect key="frame" x="15" y="481" width="224" height="21"/>
@@ -270,6 +287,64 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Địa chỉ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jax-M5-2eX">
+                    <rect key="frame" x="139" y="577" width="52" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập địa chỉ" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Vw-XN-db7">
+                    <rect key="frame" x="111" y="572" width="97" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quốc gia" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJ3-19-Iy7">
+                    <rect key="frame" x="15" y="954" width="69" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Việt nam" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="haR-FE-vfa">
+                    <rect key="frame" x="15" y="954" width="97" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="4bF-2t-zAm">
+                    <rect key="frame" x="100" y="954" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOE-2n-RDU">
+                    <rect key="frame" x="139" y="577" width="116" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2dp-H3-w82">
+                    <rect key="frame" x="111" y="572" width="97" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="VQV-Ec-e6o">
+                    <rect key="frame" x="150" y="954" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEY-I8-GWf">
+                    <rect key="frame" x="137" y="572" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="choosePersonalCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="TGx-uc-hBj"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã bảo mật" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsD-a8-heC">
                     <rect key="frame" x="17" y="1005" width="91" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -295,6 +370,9 @@
                     <state key="normal" title="Đăng ký">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="btnRegisterPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="uLy-3V-pQE"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -302,6 +380,7 @@
             <connections>
                 <outlet property="btnCity" destination="SYn-Qp-Ut5" id="r5I-TY-r4Z"/>
                 <outlet property="btnCountry" destination="SNc-1W-RIo" id="a1O-ES-FVc"/>
+                <outlet property="btnPerCity" destination="gEY-I8-GWf" id="epn-Th-fjo"/>
                 <outlet property="btnRegister" destination="aD2-AY-YJ8" id="Kh5-rI-v41"/>
                 <outlet property="icBusiness" destination="2vl-he-OHn" id="47W-oD-ItF"/>
                 <outlet property="icFemale" destination="Qme-WT-Im7" id="eTP-2r-V2s"/>
@@ -310,6 +389,8 @@
                 <outlet property="imgCity" destination="RRR-H8-ChA" id="kRq-eK-nXi"/>
                 <outlet property="imgCode" destination="Ogw-ej-iE9" id="62h-aw-bQz"/>
                 <outlet property="imgCountry" destination="yu8-Ub-zws" id="ZTA-dT-06X"/>
+                <outlet property="imgPerCityArrow" destination="VQV-Ec-e6o" id="13x-Bw-mRm"/>
+                <outlet property="imgPerCountryArrow" destination="4bF-2t-zAm" id="MdO-11-grp"/>
                 <outlet property="lbBOD" destination="jgd-Bf-k78" id="T7Q-T6-tVm"/>
                 <outlet property="lbBusiness" destination="bdt-To-7zd" id="2tH-aO-PY9"/>
                 <outlet property="lbBusinessAddress" destination="9mO-5V-bbt" id="IvH-as-7aB"/>
@@ -324,11 +405,15 @@
                 <outlet property="lbInfoRegister" destination="7MM-Mv-CsZ" id="nJn-yA-047"/>
                 <outlet property="lbMale" destination="XMJ-3g-I0s" id="kws-oM-BHg"/>
                 <outlet property="lbPassport" destination="45C-6u-NlD" id="5H9-1e-KyD"/>
+                <outlet property="lbPerAddress" destination="jax-M5-2eX" id="BPd-6x-ZIv"/>
+                <outlet property="lbPerCity" destination="YOE-2n-RDU" id="rP9-M5-RFJ"/>
+                <outlet property="lbPerCountry" destination="cJ3-19-Iy7" id="1nF-nD-6ou"/>
                 <outlet property="lbPersonal" destination="DYi-dl-Yzm" id="wCI-wi-2f1"/>
                 <outlet property="lbPhone" destination="uFa-8R-XwS" id="jzl-bs-T6W"/>
                 <outlet property="lbPosition" destination="NN2-mj-i9U" id="krh-7b-A6M"/>
                 <outlet property="lbRegisterName" destination="Ttu-s3-fDj" id="aor-T6-Gvj"/>
                 <outlet property="lbSex" destination="2XZ-WG-PhJ" id="ZbD-k5-TJB"/>
+                <outlet property="lbTaxCode" destination="nv8-Ay-IEZ" id="Wjj-QB-vEX"/>
                 <outlet property="lbTitle" destination="jcb-LN-lqt" id="erl-fl-dU3"/>
                 <outlet property="lbVision" destination="wf2-az-wte" id="DdZ-WN-pAS"/>
                 <outlet property="tfBOD" destination="vcC-k4-5fd" id="pQ0-OE-DGp"/>
@@ -340,16 +425,20 @@
                 <outlet property="tfCountry" destination="JSD-O9-s9o" id="kIF-D8-MXC"/>
                 <outlet property="tfEmail" destination="9c1-PF-Z8s" id="9UR-ep-rFG"/>
                 <outlet property="tfPassport" destination="rYc-Kz-wba" id="hz8-Sb-Xb5"/>
+                <outlet property="tfPerAddress" destination="7Vw-XN-db7" id="skn-s9-iEN"/>
+                <outlet property="tfPerCity" destination="2dp-H3-w82" id="PJN-q0-tsW"/>
+                <outlet property="tfPerCountry" destination="haR-FE-vfa" id="egM-XK-Pee"/>
                 <outlet property="tfPhone" destination="9lK-55-bZh" id="9GH-lR-Bwn"/>
                 <outlet property="tfPosition" destination="6rJ-yX-1up" id="IIz-ze-9dU"/>
                 <outlet property="tfRegisterName" destination="F3g-ID-IRu" id="4AN-wE-Cp7"/>
+                <outlet property="tfTaxCode" destination="m0Z-oi-Xxd" id="1la-sm-BeI"/>
             </connections>
-            <point key="canvasLocation" x="-56" y="218"/>
+            <point key="canvasLocation" x="-322" y="200"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="100" height="100"/>
-        <image name="tick_orange.png" width="100" height="100"/>
+        <image name="no_tick.png" width="80" height="80"/>
+        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
     </resources>
 </document>

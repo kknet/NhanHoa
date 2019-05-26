@@ -8,10 +8,16 @@
 
 #import "AddProfileViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <Photos/PHAsset.h>
 
-@interface AddProfileViewController ()<NewProfileViewDelegate, UIActionSheetDelegate> {
+@interface AddProfileViewController ()<NewProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+{
+    int type;
+    
     UIImage *imgFront;
     UIImage *imgBehind;
+    UIImagePickerController *imagePickerController;
 }
 @end
 
@@ -28,6 +34,8 @@
     [WriteLogsUtils writeForGoToScreen: @"SignInViewController"];
     
     self.title = @"Tạo hồ sơ";
+    type = 1;
+    
     [self addNewProfileViewIfNeed];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
@@ -37,8 +45,9 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear: animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    imagePickerController = nil;
 }
 
 //  Hiển thị bàn phím
@@ -97,16 +106,28 @@
 }
 
 - (void)onPassportBehindPress {
+    type = 2;
     
-}
-
-- (void)onPassportFrontPress {
-    if (imgFront == nil) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", nil];
+    if (imgBehind == nil) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", nil];
         actionSheet.tag = 1;
         [actionSheet showInView: self.view];
     }else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", @"Xóa ảnh", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", @"Xóa ảnh", nil];
+        actionSheet.tag = 2;
+        [actionSheet showInView: self.view];
+    }
+}
+
+- (void)onPassportFrontPress {
+    type = 1;
+    
+    if (imgFront == nil) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", nil];
+        actionSheet.tag = 1;
+        [actionSheet showInView: self.view];
+    }else{
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", @"Xóa ảnh", nil];
         actionSheet.tag = 2;
         [actionSheet showInView: self.view];
     }
@@ -114,20 +135,38 @@
 
 #pragma mark - ActionSheet delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (actionSheet.tag == 1) {
+    if (actionSheet.tag == 1)
+    {
         if (buttonIndex == 0) {
             [self requestToAccessYourCamera];
             
         }else if (buttonIndex == 1){
-            
+            [self onSelectPhotosGallery];
         }
         
     }else if (actionSheet.tag == 2){
-        
+        if (buttonIndex == 0) {
+            [self requestToAccessYourCamera];
+            
+        }else if (buttonIndex == 1){
+            [self onSelectPhotosGallery];
+            
+        }else if (buttonIndex == 2) {
+            [self removeCurrentPhotot];
+        }
     }
 }
 
-//  [Khai Le - 18/01/2019]
+- (void)removeCurrentPhotot {
+    if (type == 1) {
+        imgFront = nil;
+        addNewProfile.imgPassportFront.image = FRONT_EMPTY_IMG;
+    }else{
+        imgBehind = nil;
+        addNewProfile.imgPassportBehind.image = FRONT_EMPTY_IMG;
+    }
+}
+
 - (void)requestToAccessYourCamera {
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
@@ -136,33 +175,35 @@
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted){
             dispatch_sync(dispatch_get_main_queue(), ^{
                 if (granted) {
-                    [self goToImagePickerView];
+                    [self goToCaptureImagePickerView];
                 }else{
-                    [DeviceUtils showWarningWhenRejectedRequiredPermissionWithAVSession: NO];
+                    [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
                 }
             });
         }];
     }else{
         if (cameraAuthStatus == AVAuthorizationStatusAuthorized) {
-            [self goToImagePickerView];
+            [self goToCaptureImagePickerView];
         }else{
             if (cameraAuthStatus != AVAuthorizationStatusAuthorized && cameraAuthStatus != AVAuthorizationStatusNotDetermined) {
-                [[iMomeetAppDelegate sharedInstance] performSelectorOnMainThread:@selector(showPermissionCameraPopup) withObject:nil waitUntilDone:NO];
+                [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
             }
         }
     }
 }
 
-- (void)goToImagePickerView {
-    UIImagePickerController *imgagePickerVC = [[UIImagePickerController alloc] init];
-    imgagePickerVC.delegate = self;
-    imgagePickerVC.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    imgagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    imgagePickerVC.allowsEditing = NO;
-    [self presentViewController:imgagePickerVC animated:YES completion:nil];
+- (void)goToCaptureImagePickerView {
+    if (imagePickerController == nil) {
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = NO;
+    }
+    imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-- (void)didSelectImageButton {
+- (void)onSelectPhotosGallery {
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
     if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -170,7 +211,7 @@
                 if (status == PHAuthorizationStatusAuthorized) {
                     [self goToGalleryPhotosView];
                 }else{
-                    [DeviceUtils showWarningWhenRejectedRequiredPermissionWithAVSession: NO];
+                    [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
                 }
             });
         }];
@@ -178,33 +219,42 @@
         if (photoAuthStatus == PHAuthorizationStatusAuthorized) {
             [self goToGalleryPhotosView];
         }else{
-            [[iMomeetAppDelegate sharedInstance] performSelectorOnMainThread:@selector(showPermissionPhotosPopup) withObject:nil waitUntilDone:NO];
+            [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
         }
     }
 }
 
 - (void)goToGalleryPhotosView {
-    YMSPhotoPickerViewController *pickerViewController = [[YMSPhotoPickerViewController alloc] init];
-    pickerViewController.numberOfPhotoToSelect = 5;
-    pickerViewController.theme.tintColor = UIColor.whiteColor;
-    pickerViewController.theme.titleLabelTextColor = UIColor.whiteColor;
-    pickerViewController.theme.navigationBarBackgroundColor = [UIColor colorWithRed:0.169 green:0.53 blue:0.949 alpha:1.0];
-    //      pickerViewController.theme.orderTintColor = customCameraColor;
-    //      pickerViewController.theme.cameraVeilColor = customCameraColor;
-    //      pickerViewController.theme.cameraIconColor = [UIColor whiteColor];
-    pickerViewController.theme.statusBarStyle = UIStatusBarStyleLightContent;
-    [self yms_presentCustomAlbumPhotoView:pickerViewController delegate:self];
+    [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
     
-    return;
-    
-    HMImagePickerController *imagePickerController = [[HMImagePickerController alloc] init];
-    [imagePickerController setUpAppNavigation];
+    if (imagePickerController == nil) {
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = FALSE;
+    }
     imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    imagePickerController.allowsEditing = NO;
-    imagePickerController.delegate = self;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
+#pragma mark - UIImagePickerViewDelegate
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
+{
+    //You can retrieve the actual UIImage
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    if (type == 1) {
+        addNewProfile.imgPassportFront.image = image;
+        imgFront = image;
+    }else{
+        addNewProfile.imgPassportBehind.image = image;
+        imgBehind = image;
+    }
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
