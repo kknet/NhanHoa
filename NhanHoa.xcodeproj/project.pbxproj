@@ -125,6 +125,8 @@
 		15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AFB2272BB88004AB658 /* SignInViewController.xib */; };
 		15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E92AFE2272BC31004AB658 /* UIKit.framework */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
+		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
+		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
 		56F0958F229A7B7D00AF381B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0958E229A7B7D00AF381B /* Photos.framework */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
 		840F5DE822770848005BFC57 /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DE622770848005BFC57 /* DomainCell.m */; };
@@ -420,6 +422,9 @@
 		15E92AFB2272BB88004AB658 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		15E92AFE2272BC31004AB658 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5649C7902299A3D90015DB1D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
+		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
+		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
 		56F0958E229A7B7D00AF381B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		840F5DE522770848005BFC57 /* DomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainCell.h; sourceTree = "<group>"; };
@@ -751,6 +756,8 @@
 				15224F0A2272EDDF00A45C3B /* AppUtils.m */,
 				8430B551227C886F00548480 /* WriteLogsUtils.h */,
 				8430B550227C886F00548480 /* WriteLogsUtils.m */,
+				569A0578229CA74100FD10D8 /* UploadPicture.h */,
+				569A0577229CA74100FD10D8 /* UploadPicture.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -786,6 +793,7 @@
 				15E084BB227156A40010429B /* NhanHoa_PrefixHeader.pch */,
 				84FA12602272783D002E290D /* AppString.h */,
 				153035E4228675AF005E7DB2 /* list_city.txt */,
+				56A58E60229C3B99003402C1 /* ios_upload_file.php */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1451,6 +1459,7 @@
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
+				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
 				845D32B72279335C0047B196 /* hide_pass_white.png in Resources */,
@@ -1588,6 +1597,7 @@
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,
+				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,

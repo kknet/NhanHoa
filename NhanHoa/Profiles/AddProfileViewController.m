@@ -152,17 +152,19 @@
             [self onSelectPhotosGallery];
             
         }else if (buttonIndex == 2) {
-            [self removeCurrentPhotot];
+            [self removeCurrentPhotos];
         }
     }
 }
 
-- (void)removeCurrentPhotot {
+- (void)removeCurrentPhotos {
     if (type == 1) {
         imgFront = nil;
+        addNewProfile.imgFront = imgFront;
         addNewProfile.imgPassportFront.image = FRONT_EMPTY_IMG;
     }else{
         imgBehind = nil;
+        addNewProfile.imgBehind = imgBehind;
         addNewProfile.imgPassportBehind.image = FRONT_EMPTY_IMG;
     }
 }
@@ -247,11 +249,13 @@
     //You can retrieve the actual UIImage
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (type == 1) {
-        addNewProfile.imgPassportFront.image = image;
         imgFront = image;
+        addNewProfile.imgFront = imgFront;
+        addNewProfile.imgPassportFront.image = image;
     }else{
-        addNewProfile.imgPassportBehind.image = image;
         imgBehind = image;
+        addNewProfile.imgBehind = imgBehind;
+        addNewProfile.imgPassportBehind.image = image;
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];

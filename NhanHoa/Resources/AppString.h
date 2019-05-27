@@ -88,6 +88,7 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
+#define link_upload_photo       @"https://api.websudo.xyz"
 #define return_url              @"https://api.websudo.xyz/dr.php"
 #define link_api                @"https://nhanhoa.com/app-awk"
 #define login_func              @"Login"
@@ -144,3 +145,12 @@
 #define text_close  @"Đóng"
 
 #endif /* AppString_h */
+
+
+
+/*
+ IP Host / FTP: 103.57.210.79
+ Username:       apitest
+ Password:       Ck79QMp6
+ Domain:         api.websudo.xyz
+*/

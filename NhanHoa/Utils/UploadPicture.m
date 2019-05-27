@@ -1,46 +1,31 @@
 //
-//  BOViewController.m
-//  NhanHoa
+//  UploadPicture.m
+//  linphone
 //
-//  Created by lam quang quan on 4/27/19.
-//  Copyright © 2019 Nhan Hoa. All rights reserved.
+//  Created by admin on 12/9/17.
 //
 
-#import "BOViewController.h"
+#import "UploadPicture.h"
 
-@interface BOViewController ()
+@implementation UploadPicture
 
-@end
-
-@implementation BOViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _responseData = [[NSMutableData alloc] init];
+    }
+    return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)uploadData:(NSData *)data withName: (NSString *)imageName beginUploadBlock:(void(^)(UploadPicture *uploadSession))beginBlock finishUploadBlock:(void(^)(UploadPicture *uploadSession))finishBlock
+{
+    beginUploadBlock = beginBlock;
+    finishUploadBlock = finishBlock;
     
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)btnUploadPress:(UIButton *)sender {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        UIImage *image = [UIImage imageNamed:@"passport_front.png"];
-        NSData *data = UIImagePNGRepresentation(image);
-        
-        NSString *urlString = @"https://api.websudo.xyz/ios_upload_file.php";
+        //  CFRunLoopWakeUp(CFRunLoopGetCurrent());
+        NSString *urlString = [ NSString stringWithFormat:@"%@/ios_upload_file.php", link_upload_photo];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setURL:[NSURL URLWithString:urlString]];
@@ -53,7 +38,7 @@
         NSMutableData *body = [NSMutableData data];
         if (data != nil) {
             [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"%@\"\r\n", @"anh_cmnd.png"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"%@\"\r\n", imageName] dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:data];
             [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -68,12 +53,29 @@
             if (data){
                 //do something with data
                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"%@", value);
+                self.namePicture = value;
+                self->finishUploadBlock(self);
             }else if (error){
-                NSLog(@"%@", [error localizedDescription]);
+                self.uploadError = error;
+                self->finishUploadBlock(self);
             }
         }];
+        
+        if (self->beginUploadBlock) {
+            self->beginUploadBlock(self);
+        }
     });
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [_responseData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"NgnUploadSession - Finish upload");
+    id json = [NSJSONSerialization JSONObjectWithData:_responseData options:0 error:nil];
+    NSLog(@"%@", json);
+    finishUploadBlock(self);
 }
 
 @end

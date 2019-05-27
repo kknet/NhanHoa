@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onPassportBehindPress;
 @end
 
-@interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate>
+@interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (retain) id <NSObject, NewProfileViewDelegate > delegate;
 
@@ -98,6 +98,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float mTop;
 @property (nonatomic, assign) float hLabel;
+
+@property (nonatomic, strong) UIImage *imgFront;
+@property (nonatomic, strong) NSString *linkFrontPassport;
+
+@property (nonatomic, strong) UIImage *imgBehind;
+@property (nonatomic, strong) NSString *linkBehindPassport;
 
 - (void)setupViewForAddNewProfileView;
 

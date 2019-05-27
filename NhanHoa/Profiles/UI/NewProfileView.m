@@ -8,12 +8,14 @@
 
 #import "NewProfileView.h"
 #import "CityObject.h"
+#import "UploadPicture.h"
+#import "AccountModel.h"
 
 @implementation NewProfileView
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport;
 
 - (void)setupForAddProfileUI {
     //  setup for add profile
@@ -26,12 +28,10 @@
     tapOnView.delegate = self;
     [self addGestureRecognizer: tapOnView];
     
-    UIFont *regularFont = [UIFont fontWithName:RobotoRegular size:16.0];
-    UIFont *mediuFont = [UIFont fontWithName:RobotoMedium size:16.0];
-    
     [scvPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
+    scvPersonal.delegate = self;
     
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.scvPersonal);
@@ -68,7 +68,7 @@
     }];
     
     //  Name
-    float sizeText = [AppUtils getSizeWithText:@"Họ tên" withFont:regularFont].width + 5.0;
+    float sizeText = [AppUtils getSizeWithText:@"Họ tên" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbBusiness.mas_bottom).offset(self.mTop);
         make.left.equalTo(self.lbVision);
@@ -83,16 +83,12 @@
         make.width.mas_equalTo(20.0);
     }];
     
-    tfName.layer.borderWidth = 1.0;
-    tfName.layer.borderColor = BORDER_COLOR.CGColor;
-    tfName.layer.cornerRadius = 3.0;
+    [AppUtils setBorderForTextfield:tfName borderColor:BORDER_COLOR];
     [tfName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbName.mas_bottom);
         make.left.right.equalTo(self.lbVision);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfName.leftViewMode = UITextFieldViewModeAlways;
     
     //  gender and birth of day
     [lbBOD mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,16 +98,12 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    tfBOD.layer.borderWidth = tfName.layer.borderWidth;
-    tfBOD.layer.borderColor =  tfName.layer.borderColor;
-    tfBOD.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfBOD borderColor:BORDER_COLOR];
     [tfBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbBOD.mas_bottom);
         make.left.right.equalTo(self.lbBOD);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfBOD.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfBOD.leftViewMode = UITextFieldViewModeAlways;
     
     [btnBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.bottom.equalTo(self.tfBOD);
@@ -168,20 +160,15 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    tfPassport.layer.borderWidth = tfName.layer.borderWidth;
-    tfPassport.layer.borderColor =  tfName.layer.borderColor;
-    tfPassport.layer.cornerRadius = tfName.layer.cornerRadius;
-    tfPassport.keyboardType = UIKeyboardTypeNumberPad;
+    [AppUtils setBorderForTextfield:tfPassport borderColor:BORDER_COLOR];
     [tfPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbPassport.mas_bottom);
         make.left.right.equalTo(self.lbPassport);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfPassport.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfPassport.leftViewMode = UITextFieldViewModeAlways;
     
     //  Phone
-    sizeText = [AppUtils getSizeWithText:@"Số điện thoại" withFont:regularFont].width + 5.0;
+    sizeText = [AppUtils getSizeWithText:@"Số điện thoại" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
     [lbPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfPassport.mas_bottom).offset(self.mTop);
         make.left.equalTo(self.tfPassport);
@@ -196,16 +183,12 @@
         make.width.mas_equalTo(20.0);
     }];
     
-    tfPhone.layer.borderWidth = tfName.layer.borderWidth;
-    tfPhone.layer.borderColor =  tfName.layer.borderColor;
-    tfPhone.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfPhone borderColor:BORDER_COLOR];
     [tfPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbPhone.mas_bottom);
         make.left.right.equalTo(self.lbVision);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfPhone.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfPhone.leftViewMode = UITextFieldViewModeAlways;
     
     //  Email
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,19 +197,15 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    tfEmail.layer.borderWidth = tfName.layer.borderWidth;
-    tfEmail.layer.borderColor =  tfName.layer.borderColor;
-    tfEmail.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfEmail borderColor:BORDER_COLOR];
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbEmail.mas_bottom);
         make.left.right.equalTo(self.lbEmail);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfEmail.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfEmail.leftViewMode = UITextFieldViewModeAlways;
     
     //  address
-    sizeText = [AppUtils getSizeWithText:@"Địa chỉ" withFont:regularFont].width + 5.0;
+    sizeText = [AppUtils getSizeWithText:@"Địa chỉ" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
     [lbAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfEmail.mas_bottom).offset(self.mTop);
         make.left.equalTo(self.tfEmail);
@@ -241,19 +220,15 @@
         make.width.mas_equalTo(20.0);
     }];
     
-    tfAddress.layer.borderWidth = tfName.layer.borderWidth;
-    tfAddress.layer.borderColor =  tfName.layer.borderColor;
-    tfAddress.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfAddress borderColor:BORDER_COLOR];
     [tfAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbAddress.mas_bottom);
         make.left.right.equalTo(self.lbVision);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfAddress.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfAddress.leftViewMode = UITextFieldViewModeAlways;
     
     //  country, district
-    sizeText = [AppUtils getSizeWithText:@"Quốc gia" withFont:regularFont].width + 5.0;
+    sizeText = [AppUtils getSizeWithText:@"Quốc gia" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
     [lbCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfAddress.mas_bottom).offset(self.mTop);
         make.left.equalTo(self).offset(self.padding);
@@ -268,19 +243,15 @@
         make.width.mas_equalTo(20.0);
     }];
     
-    tfCountry.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
-    tfCountry.layer.borderWidth = tfName.layer.borderWidth;
-    tfCountry.layer.borderColor =  tfName.layer.borderColor;
-    tfCountry.layer.cornerRadius = tfName.layer.cornerRadius;
+    tfCountry.backgroundColor = LIGHT_GRAY_COLOR;
+    [AppUtils setBorderForTextfield:tfCountry borderColor:BORDER_COLOR];
     [tfCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbCountry.mas_bottom);
         make.left.equalTo(self.lbCountry);
         make.right.equalTo(self.scvPersonal.mas_centerX).offset(-self.padding/2);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     tfCountry.text = @"Việt Nam";
-    tfCountry.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfCountry.leftViewMode = UITextFieldViewModeAlways;
     
     [imgArrCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tfCountry.mas_right).offset(-7.5);
@@ -288,15 +259,12 @@
         make.width.height.mas_equalTo(14.0);
     }];
     
-    tfCountry.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30.0, hTextfield)];
-    tfCountry.rightViewMode = UITextFieldViewModeAlways;
-    
     [btnCountry setTitle:@"" forState:UIControlStateNormal];
     [btnCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.tfCountry);
     }];
     
-    sizeText = [AppUtils getSizeWithText:@"Tỉnh/Thành phố" withFont:regularFont].width + 5.0;
+    sizeText = [AppUtils getSizeWithText:@"Tỉnh/Thành phố" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
     [lbCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbCountry);
         make.left.equalTo(self.mas_centerX).offset(self.padding/2);
@@ -310,9 +278,7 @@
         make.width.mas_equalTo(20.0);
     }];
     
-    tfCity.layer.borderWidth = tfName.layer.borderWidth;
-    tfCity.layer.borderColor =  tfName.layer.borderColor;
-    tfCity.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfCity borderColor:BORDER_COLOR];
     [tfCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.tfCountry);
         make.left.equalTo(self.lbCity);
@@ -324,11 +290,6 @@
         make.centerY.equalTo(self.tfCity.mas_centerY);
         make.width.height.mas_equalTo(14.0);
     }];
-    tfCity.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfCity.leftViewMode = UITextFieldViewModeAlways;
-    
-    tfCity.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30.0, hTextfield)];
-    tfCity.rightViewMode = UITextFieldViewModeAlways;
     
     [btnCity setTitle:@"" forState:UIControlStateNormal];
     [btnCity mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -338,7 +299,7 @@
     //  view passport
     float wPassport = (SCREEN_WIDTH-3*padding)/2;
     float hPassport = wPassport * 2/3;
-    float hViewPassport = mTop + hTextfield + hPassport + hLabel;
+    float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
     
     [viewPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvPersonal);
@@ -350,7 +311,7 @@
     [lbTitlePassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewPassport).offset(self.padding + 20.0 + 10);
         make.top.right.equalTo(self.viewPassport).offset(self.mTop);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     [imgPassport mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -401,7 +362,7 @@
         make.left.equalTo(self.scvPersonal);
         make.top.equalTo(self.viewPassport.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.mTop + self.hLabel + self.hTextfield);
+        make.height.mas_equalTo(self.mTop + self.hLabel + [AppDelegate sharedInstance].hTextfield);
     }];
     
     [lbSecure mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -411,17 +372,13 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    tfSecure.layer.borderWidth = tfName.layer.borderWidth;
-    tfSecure.layer.borderColor =  ORANGE_COLOR.CGColor;
-    tfSecure.layer.cornerRadius = tfName.layer.cornerRadius;
+    [AppUtils setBorderForTextfield:tfSecure borderColor:ORANGE_COLOR];
     [tfSecure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSecure.mas_bottom);
         make.left.equalTo(self.lbSecure);
         make.right.equalTo(self.viewSecure.mas_centerX).offset(-self.padding/2);
-        make.height.mas_equalTo(self.hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfSecure.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
-    tfSecure.leftViewMode = UITextFieldViewModeAlways;
     
     [imgSecure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.tfSecure);
@@ -444,11 +401,11 @@
         make.top.bottom.equalTo(self.btnCancel);
     }];
     
-    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*hTextfield + (mTop + hTextfield + hPassport + hLabel) + (mTop + hLabel + hTextfield) + 2*padding + 45 + 2*padding;
+    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*[AppDelegate sharedInstance].hTextfield + (mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45 + 2*padding;
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
     
-    lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = mediuFont;
-    lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfEmail.font = tfAddress.font = tfCountry.font = tfCity.font = lbPassportFront.font = lbPassportBehind.font = regularFont;
+    lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = [AppDelegate sharedInstance].fontMedium;
+    lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfEmail.font = tfAddress.font = tfCountry.font = tfCity.font = lbPassportFront.font = lbPassportBehind.font = [AppDelegate sharedInstance].fontRegular;
     
     btnCancel.titleLabel.font = btnSave.titleLabel.font = [UIFont fontWithName:RobotoMedium size:18.0];
     
@@ -459,6 +416,12 @@
     
     //  40 + mTop + hLabel + (mTop + hLabel + hTextfield)(name) + (mTop + hLabel + hTextfield)(gender) + (mTop + hLabel + hTextfield)(passport) + (mTop + hLabel + hTextfield)(phone) + (mTop + hLabel + hTextfield)(email) + (mTop + hLabel + hTextfield)(address) + (mTop + hLabel + hTextfield)(country) + hViewPassport + (2*padding + 45.0 + 2*padding)
     
+    tfName.text = @"Lê Khải";
+    tfPassport.text = @"123456789";
+    tfPhone.text = @"0363430737";
+    tfEmail.text = @"lekhai0212@gmail.com";
+    tfAddress.text = @"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh";
+    tfBOD.text = @"02/12/1991";
 }
 
 - (void)addDatePickerForView {
@@ -523,7 +486,7 @@
     
     float wPassport = (SCREEN_WIDTH-3*padding)/2;
     float hPassport = wPassport * 2/3;
-    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*hTextfield + (mTop + hTextfield + hPassport + hLabel) + 2*padding + 45 + 2*padding;
+    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*[AppDelegate sharedInstance].hTextfield + (mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel) + 2*padding + 45 + 2*padding;
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
 
@@ -559,12 +522,12 @@
 
 - (IBAction)btnSavePress:(UIButton *)sender {
     if ([AppUtils isNullOrEmpty: tfName.text]) {
-        [self makeToast:@"Bạn chưa nhập họ tên!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Bạn chưa nhập Họ tên!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfBOD.text]) {
-        [self makeToast:@"Bạn chưa nhập ngày sinh!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Bạn chưa chọn ngày sinh!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -574,49 +537,63 @@
     }
     
     if ([AppUtils isNullOrEmpty: tfCountry.text]) {
-        [self makeToast:@"Bạn chưa chọn quốc gia!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Bạn chưa chọn Quốc gia!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: cityCode]) {
-        [self makeToast:@"Bạn chưa chọn tỉnh/thành phố!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Bạn chưa chọn Tỉnh/thành phố!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
-mod: add_contact
-username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-password: MD5 (mật khẩu khách đăng nhập)
-    Thông tin tạo hồ sơ
-own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-    cn_name: Họ và tên (string)
-    cn_sex: number (1: nam | 0: nữ)
-    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-    cn_cmnd: string / number (Số CMND / Passport)
-    cn_phone: string / number (Số ĐT)
-    cn_address: string (địa chỉ)
-    cn_country: 231 (cố định: Viêt Nam [231])
-    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    cmnd_a: URL (Link hình CMND mặt trước)
-    cmnd_b: URL (Link hình CMND mặt sau)
-    } elseif (own_type: 1) { // công ty / tổ chức
-    tc_tc_name: string (tên cty / tổ chức)
-    tc_tc_mst: string / number (mã số thuế)
-    tc_tc_address: string (địa chỉ cty / tổ chức)
-    tc_tc_phone: string / number (số đt cty / tổ chức)
-    tc_tc_country: 231 (cố định: Viêt Nam [231])
-    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-    cn_position: string (chức vụ người đại diện)
-    cn_name: Họ và tên (string)
-    cn_sex: number (1: nam | 0: nữ)
-    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-    cn_cmnd: string / number (Số CMND / Passport)
-    cn_phone: string / number (Số ĐT)
-    cn_address: string (địa chỉ)
-    cn_country: 231 (cố định: Viêt Nam [231])
-    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
-    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
+    if (imgFront == nil || imgBehind == nil) {
+        [self makeToast:@"Bạn chưa chọn ảnh CMND!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if (imgFront != nil) {
+        [self startUploadPassportFontPictures];
+    }
+    
+    
+    
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+    [info setObject:tfName.text forKey:@"cn_name"];
+    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfBOD.text forKey:@"cn_birthday"];
+    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+    [info setObject:tfPhone.text forKey:@"cn_phone"];
+    [info setObject:tfAddress.text forKey:@"cn_address"];
+    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
+    [info setObject:cityCode forKey:@"cn_city"];
+    [info setObject:cityCode forKey:@"cmnd_a"];
+    [info setObject:cityCode forKey:@"cmnd_b"];
+    
+    
+//mod: add_contact
+//username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
+//password: MD5 (mật khẩu khách đăng nhập)
+//    Thông tin tạo hồ sơ
+//own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
+//(own_type: 1) { // công ty / tổ chức
+//    tc_tc_name: string (tên cty / tổ chức)
+//    tc_tc_mst: string / number (mã số thuế)
+//    tc_tc_address: string (địa chỉ cty / tổ chức)
+//    tc_tc_phone: string / number (số đt cty / tổ chức)
+//    tc_tc_country: 231 (cố định: Viêt Nam [231])
+//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
+//    cn_position: string (chức vụ người đại diện)
+//    cn_name: Họ và tên (string)
+//    cn_sex: number (1: nam | 0: nữ)
+//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+//    cn_cmnd: string / number (Số CMND / Passport)
+//    cn_phone: string / number (Số ĐT)
+//    cn_address: string (địa chỉ)
+//    cn_country: 231 (cố định: Viêt Nam [231])
+//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+//    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
+//    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
@@ -679,13 +656,13 @@ own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
 - (void)selectMale {
     [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
-    gender = 1;
+    gender = type_men;
 }
 
 - (void)selectFemale {
     [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
-    gender = 0;
+    gender = type_women;
 }
 
 - (void)whenTapOnFrontImage {
@@ -700,6 +677,36 @@ own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
     }
 }
 
+- (void)startUploadPassportFontPictures {
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
+    
+    __block NSData *frontUploadData = UIImagePNGRepresentation(imgFront);
+    if (uploadData == nil) {
+        uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
+    }
+    NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        UploadPicture *session = [[UploadPicture alloc] init];
+        [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
+                    [self makeToast:@"Ảnh CMND mặt trước của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                }else{
+                    self.linkFrontPassport = uploadSession.namePicture;
+                    //  continue upload passport behind image
+                    uploadData = UIImagePNGRepresentation(self.imgBehind);
+                    if (uploadData == nil) {
+                        uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
+                    }
+                    
+                }
+            });
+        }];
+    });
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 -(BOOL)gestureRecognizer:(UIGestureRecognizer * __unused)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -708,6 +715,10 @@ own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
         return NO;
     }
     return YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self closePickerView];
 }
 
 @end

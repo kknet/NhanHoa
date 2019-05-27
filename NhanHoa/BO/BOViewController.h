@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BOViewController : UIViewController
+- (IBAction)btnUploadPress:(UIButton *)sender;
 
 @end
