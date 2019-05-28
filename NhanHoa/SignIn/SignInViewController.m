@@ -146,7 +146,7 @@
     }
     
     if (![AppUtils checkNetworkAvailable]) {
-        [self.view makeToast:@"Không có kết nối internet. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -371,7 +371,7 @@
         [ProgressHUD dismiss];
         
         if (![AppUtils checkNetworkAvailable]) {
-            [self.view makeToast:@"Không có kết nối internet. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
+            [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
         }else{
             [self.view makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }

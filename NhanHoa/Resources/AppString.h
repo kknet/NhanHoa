@@ -95,6 +95,7 @@
 #define whois_func              @"Whois"
 #define get_profile_func        @"ListContact"
 #define register_account_func   @"RegisterAccount"
+#define add_contact_func        @"AddContact"
 
 
 #define login_mod               @"login"
@@ -139,10 +140,12 @@
 #define text_personal @"Cá nhân"
 #define text_business @"Doanh nghiệp"
 
-#define not_access_camera  @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
-
+#define not_access_camera   @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
+#define no_internet         @"Không có kết nối internet. Vui lòng kiểm tra lại!"
 
 #define text_close  @"Đóng"
+
+
 
 #endif /* AppString_h */
 

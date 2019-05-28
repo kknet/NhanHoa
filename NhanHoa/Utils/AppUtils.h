@@ -30,5 +30,6 @@
 + (BOOL)checkValidCurrency: (NSString *)money;
 + (NSString *)getModelsOfCurrentDevice;
 + (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor;
++ (NSString *)getMD5StringOfString: (NSString *)string;
 
 @end

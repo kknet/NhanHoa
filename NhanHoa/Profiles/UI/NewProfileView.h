@@ -8,17 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "ChooseCityPopupView.h"
+#import "WebServices.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol NewProfileViewDelegate
 - (void)onCancelButtonClicked;
-- (void)onSaveButtonClicked: (NSDictionary *)info;
 - (void)onPassportFrontPress;
 - (void)onPassportBehindPress;
+- (void)profileWasCreated;
 @end
 
-@interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate>
+@interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, WebServicesDelegate>
 
 @property (retain) id <NSObject, NewProfileViewDelegate > delegate;
 
@@ -80,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
+
+@property (nonatomic, strong) WebServices *webService;
 
 - (void)setupForAddProfileUI;
 - (IBAction)btnSavePress:(UIButton *)sender;

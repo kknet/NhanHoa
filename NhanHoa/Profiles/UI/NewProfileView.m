@@ -15,7 +15,7 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService;
 
 - (void)setupForAddProfileUI {
     //  setup for add profile
@@ -23,6 +23,8 @@
     mTop = 10.0;
     hLabel = 30.0;
     gender = 1;
+    linkFrontPassport = @"";
+    linkBehindPassport = @"";
     
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     tapOnView.delegate = self;
@@ -546,54 +548,13 @@
         return;
     }
     
-    if (imgFront == nil || imgBehind == nil) {
-        [self makeToast:@"Bạn chưa chọn ảnh CMND!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
+    if (imgFront != nil || imgBehind != nil) {
+        [self startUploadPassportPictures];
+    }else{
+        linkFrontPassport = @"";
+        linkBehindPassport = @"";
+        [self startAddProfile];
     }
-    
-    if (imgFront != nil) {
-        [self startUploadPassportFontPictures];
-    }
-    
-    
-    
-    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
-    [info setObject:tfName.text forKey:@"cn_name"];
-    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
-    [info setObject:tfBOD.text forKey:@"cn_birthday"];
-    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
-    [info setObject:tfPhone.text forKey:@"cn_phone"];
-    [info setObject:tfAddress.text forKey:@"cn_address"];
-    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-    [info setObject:cityCode forKey:@"cn_city"];
-    [info setObject:cityCode forKey:@"cmnd_a"];
-    [info setObject:cityCode forKey:@"cmnd_b"];
-    
-    
-//mod: add_contact
-//username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-//password: MD5 (mật khẩu khách đăng nhập)
-//    Thông tin tạo hồ sơ
-//own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-//(own_type: 1) { // công ty / tổ chức
-//    tc_tc_name: string (tên cty / tổ chức)
-//    tc_tc_mst: string / number (mã số thuế)
-//    tc_tc_address: string (địa chỉ cty / tổ chức)
-//    tc_tc_phone: string / number (số đt cty / tổ chức)
-//    tc_tc_country: 231 (cố định: Viêt Nam [231])
-//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-//    cn_position: string (chức vụ người đại diện)
-//    cn_name: Họ và tên (string)
-//    cn_sex: number (1: nam | 0: nữ)
-//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-//    cn_cmnd: string / number (Số CMND / Passport)
-//    cn_phone: string / number (Số ĐT)
-//    cn_address: string (địa chỉ)
-//    cn_country: 231 (cố định: Viêt Nam [231])
-//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-//    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
-//    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
@@ -677,34 +638,95 @@
     }
 }
 
-- (void)startUploadPassportFontPictures {
+- (void)startUploadPassportPictures {
     [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
     [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
     
-    __block NSData *frontUploadData = UIImagePNGRepresentation(imgFront);
-    if (uploadData == nil) {
-        uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
-    }
-    NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        UploadPicture *session = [[UploadPicture alloc] init];
-        [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                    [self makeToast:@"Ảnh CMND mặt trước của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-                }else{
-                    self.linkFrontPassport = uploadSession.namePicture;
-                    //  continue upload passport behind image
-                    uploadData = UIImagePNGRepresentation(self.imgBehind);
-                    if (uploadData == nil) {
-                        uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
+    if (imgFront != nil) {
+        __block NSData *uploadData = UIImagePNGRepresentation(imgFront);
+        if (uploadData == nil) {
+            uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
+        }
+        NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            UploadPicture *session = [[UploadPicture alloc] init];
+            [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
+                        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Can not upload front passport", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [self makeToast:@"Ảnh CMND mặt trước của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                        
+                        self.linkFrontPassport = @"";
+                    }else{
+                        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        
+                        self.linkFrontPassport = uploadSession.namePicture;
                     }
                     
-                }
-            });
-        }];
-    });
+                    [self startUploadPassportBehindPictures];
+                });
+            }];
+        });
+    }else{
+        self.linkFrontPassport = @"";
+        [self startUploadPassportBehindPictures];
+    }
+}
+
+- (void)startUploadPassportBehindPictures {
+    if (imgBehind != nil) {
+        __block NSData *uploadData = UIImagePNGRepresentation(imgBehind);
+        if (uploadData == nil) {
+            uploadData = UIImageJPEGRepresentation(imgBehind, 1.0);
+        }
+        NSString *imageName = [NSString stringWithFormat:@"%@_passport_behind_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            UploadPicture *session = [[UploadPicture alloc] init];
+            [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
+                        [self makeToast:@"Ảnh CMND mặt sau của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                        self.linkBehindPassport = @"";
+                        
+                    }else{
+                        self.linkBehindPassport = uploadSession.namePicture;
+                    }
+                    [self startAddProfile];
+                });
+            }];
+        });
+    }else{
+        [self startAddProfile];
+    }
+}
+
+- (void)startAddProfile {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:add_contact_mod forKey:@"mod"];
+    [info setObject:USERNAME forKey:@"username"];
+    [info setObject:PASSWORD forKey:@"password"];
+    [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+    [info setObject:tfName.text forKey:@"cn_name"];
+    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfBOD.text forKey:@"cn_birthday"];
+    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+    [info setObject:tfPhone.text forKey:@"cn_phone"];
+    [info setObject:tfAddress.text forKey:@"cn_address"];
+    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
+    [info setObject:cityCode forKey:@"cn_city"];
+    [info setObject:linkFrontPassport forKey:@"cmnd_a"];
+    [info setObject:linkBehindPassport forKey:@"cmnd_b"];
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    
+    [webService callWebServiceWithLink:add_contact_func withParams:info];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -719,6 +741,69 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self closePickerView];
+}
+
+//mod: add_contact
+//username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
+//password: MD5 (mật khẩu khách đăng nhập)
+//    Thông tin tạo hồ sơ
+//own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
+//(own_type: 1) { // công ty / tổ chức
+//    tc_tc_name: string (tên cty / tổ chức)
+//    tc_tc_mst: string / number (mã số thuế)
+//    tc_tc_address: string (địa chỉ cty / tổ chức)
+//    tc_tc_phone: string / number (số đt cty / tổ chức)
+//    tc_tc_country: 231 (cố định: Viêt Nam [231])
+//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
+//    cn_position: string (chức vụ người đại diện)
+//    cn_name: Họ và tên (string)
+//    cn_sex: number (1: nam | 0: nữ)
+//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+//    cn_cmnd: string / number (Số CMND / Passport)
+//    cn_phone: string / number (Số ĐT)
+//    cn_address: string (địa chỉ)
+//    cn_country: 231 (cố định: Viêt Nam [231])
+//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+//    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
+//    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
+
+#pragma mark - Webservice Delegate
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    if ([link isEqualToString:add_contact_func]) {
+    
+        if (![AppUtils checkNetworkAvailable]) {
+            [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
+        }else{
+            [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+    }
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    if ([link isEqualToString:add_contact_func]) {
+        [self profileWasCreatedSuccessful];
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)profileWasCreatedSuccessful {
+    [self makeToast:@"Hồ sơ đã được tạo thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+- (void)dismissView {
+    if ([delegate respondsToSelector:@selector(profileWasCreated)]) {
+        [delegate profileWasCreated];
+    }
 }
 
 @end

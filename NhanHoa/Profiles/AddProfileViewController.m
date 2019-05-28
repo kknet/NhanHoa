@@ -93,10 +93,9 @@
     [addNewProfile setupViewForAddNewProfileView];
 }
 
-#pragma New Profile view delegate
-- (void)onSaveButtonClicked:(NSDictionary *)info {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] info = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
+#pragma NewProfileView delegate
+- (void)profileWasCreated {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 - (void)onCancelButtonClicked {

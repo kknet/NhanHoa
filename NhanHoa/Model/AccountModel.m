@@ -50,4 +50,9 @@
     return @"";
 }
 
++ (NSString *)getCusPassword {
+    NSString *password = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_password"];
+    return password;
+}
+
 @end
