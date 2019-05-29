@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onPassportFrontPress;
 - (void)onPassportBehindPress;
 - (void)profileWasCreated;
+- (void)onSelectBusinessProfile;
 @end
 
 @interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, WebServicesDelegate>
@@ -57,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbWarningCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgArrCountry;
 @property (weak, nonatomic) IBOutlet UIButton *btnCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbCity;
 @property (weak, nonatomic) IBOutlet UILabel *lbWarningCity;
@@ -109,7 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *linkBehindPassport;
 
 - (void)setupViewForAddNewProfileView;
-
+- (void)removePassportFrontPhoto;
+- (void)removePassportBehindPhoto;
 @end
 
 NS_ASSUME_NONNULL_END

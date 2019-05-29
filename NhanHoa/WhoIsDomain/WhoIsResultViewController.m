@@ -193,7 +193,7 @@
         [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
     }else{
-        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        [cell.btnChoose setTitle:text_choose forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = BLUE_COLOR;
     }
     [cell updateSizeButtonWithContent:cell.btnChoose.currentTitle];

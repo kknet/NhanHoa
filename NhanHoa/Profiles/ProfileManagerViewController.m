@@ -34,11 +34,7 @@
         webService.delegate = self;
     }
     
-    if (listProfiles == nil) {
-        listProfiles = [[NSMutableArray alloc] init];
-    }
-    [listProfiles removeAllObjects];
-    
+    [AppDelegate sharedInstance].needReloadListProfile = FALSE;
     [self getListProfilesForAccount];
 }
 
@@ -48,6 +44,10 @@
     [WriteLogsUtils writeForGoToScreen: @"ProfileManagerViewController"];
     
     [self addRightBarButtonForNavigationBar];
+    if ([AppDelegate sharedInstance].needReloadListProfile) {
+        [AppDelegate sharedInstance].needReloadListProfile = FALSE;
+        [self getListProfilesForAccount];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -107,9 +107,18 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     
     [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)displayInformationWithData: (id)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] data = %@", __FUNCTION__, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (listProfiles == nil) {
+        listProfiles = [[NSMutableArray alloc] init];
+    }
+    [listProfiles removeAllObjects];
+    
     if ([data isKindOfClass:[NSArray class]]) {
         if (data == nil || [(NSArray *)data count] == 0) {
             lbNoData.text = @"Không có dữ liệu";

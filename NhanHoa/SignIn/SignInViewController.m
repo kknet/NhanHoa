@@ -12,7 +12,7 @@
 #import "WebServices.h"
 #import <CommonCrypto/CommonDigest.h>
 
-@interface SignInViewController ()<WebServicesDelegate>{
+@interface SignInViewController ()<WebServicesDelegate, UITextFieldDelegate>{
     UIColor *signInColor;
     WebServices *webService;
 }
@@ -93,6 +93,7 @@
 }
 
 - (IBAction)btnForgotPassPress:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_forgot_password]];
 }
 
 - (IBAction)btnSignInPress:(UIButton *)sender {
@@ -295,6 +296,9 @@
     tfPassword.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfPassword.rightViewMode = UITextFieldViewModeAlways;
     
+    tfPassword.delegate = self;
+    tfPassword.returnKeyType = UIReturnKeyDone;
+    
     icShowPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tfPassword.mas_right);
@@ -313,11 +317,16 @@
         make.height.mas_equalTo(hTextfield);
     }];
     [AppUtils setPlaceholder:@"Tài khoản đăng nhập" textfield:tfAccount color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
+    
     tfAccount.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfAccount.leftViewMode = UITextFieldViewModeAlways;
     
     tfAccount.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfAccount.rightViewMode = UITextFieldViewModeAlways;
+    
+    tfAccount.delegate = self;
+    tfAccount.returnKeyType = UIReturnKeyNext;
+    tfAccount.keyboardType = UIKeyboardTypeEmailAddress;
     
     //  footer
     CGSize sizeText = [AppUtils getSizeWithText:@"Bạn chưa có tài khoản?" withFont:[UIFont fontWithName:RobotoRegular size:17.0]];
@@ -372,8 +381,6 @@
         
         if (![AppUtils checkNetworkAvailable]) {
             [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        }else{
-            [self.view makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }
     }
 }
@@ -400,4 +407,16 @@
         }
     }
 }
+
+#pragma mark - UITextfield Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfAccount) {
+        [tfPassword becomeFirstResponder];
+        
+    }else if (textField == tfPassword) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
+}
+
 @end

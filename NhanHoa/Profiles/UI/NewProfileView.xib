@@ -213,10 +213,6 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="gJb-nO-RKv">
-                            <rect key="frame" x="77" y="495" width="21" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAt-Du-dvt">
                             <rect key="frame" x="12" y="488" width="86" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -362,7 +358,6 @@
                 <outlet property="icMale" destination="7x2-YJ-mzc" id="rOh-12-hNJ"/>
                 <outlet property="icPersonal" destination="irp-nL-VDg" id="LtX-HX-JCj"/>
                 <outlet property="imgArrCity" destination="EXu-3U-5VS" id="gd8-S1-2aW"/>
-                <outlet property="imgArrCountry" destination="gJb-nO-RKv" id="ht8-rg-Ilk"/>
                 <outlet property="imgPassport" destination="LGa-do-JQQ" id="34E-DQ-zwd"/>
                 <outlet property="imgPassportBehind" destination="f9Q-JD-8Uw" id="SHs-6k-xTS"/>
                 <outlet property="imgPassportFront" destination="Xc9-I9-VRq" id="fF4-3x-z16"/>
@@ -403,7 +398,7 @@
                 <outlet property="viewPassport" destination="6UR-AC-xJS" id="GVP-pS-6h8"/>
                 <outlet property="viewSecure" destination="Hn0-5c-EKT" id="Y51-ao-IFn"/>
             </connections>
-            <point key="canvasLocation" x="-2610" y="-417"/>
+            <point key="canvasLocation" x="-3011" y="-463"/>
         </view>
     </objects>
     <resources>

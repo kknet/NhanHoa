@@ -7,8 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
+#import "WebServices.h"
 
-@interface NewBusinessProfileView : UIView
+@protocol NewBusinessProfileViewDelegate
+- (void)onSelectPersonalProfile;
+- (void)onBusinessPassportFrontPress;
+- (void)onBusinessPassportBehindPress;
+- (void)businessProfileWasCreated;
+@end
+
+@interface NewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ChooseCityPopupViewDelegate, UITextFieldDelegate, WebServicesDelegate>
+
+@property (nonatomic, strong) id<NewBusinessProfileViewDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -21,14 +32,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbInfoBusiness;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessName;
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessName;
+@property (weak, nonatomic) IBOutlet UILabel *lbTaxCode;
+@property (weak, nonatomic) IBOutlet UITextField *tfTaxCode;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessAddress;
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessPhone;
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
-@property (weak, nonatomic) IBOutlet UIButton *btnCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbCity;
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCity;
@@ -44,27 +55,66 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbFemale;
 @property (weak, nonatomic) IBOutlet UILabel *lbBOD;
 @property (weak, nonatomic) IBOutlet UITextField *tfBOD;
+@property (weak, nonatomic) IBOutlet UIButton *btnBOD;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbPosition;
 @property (weak, nonatomic) IBOutlet UITextField *tfPosition;
 @property (weak, nonatomic) IBOutlet UILabel *lbPassport;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassport;
 @property (weak, nonatomic) IBOutlet UILabel *lbPhone;
 @property (weak, nonatomic) IBOutlet UITextField *tfPhone;
-@property (weak, nonatomic) IBOutlet UILabel *lbEmail;
-@property (weak, nonatomic) IBOutlet UITextField *tfEmail;
-@property (weak, nonatomic) IBOutlet UIView *viewSecure;
+@property (weak, nonatomic) IBOutlet UILabel *lbAddress;
+@property (weak, nonatomic) IBOutlet UITextField *tfAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lbPerCountry;
+@property (weak, nonatomic) IBOutlet UITextField *tfPerCountry;
+@property (weak, nonatomic) IBOutlet UILabel *lbPerCity;
+@property (weak, nonatomic) IBOutlet UITextField *tfPerCity;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPerCityArrow;
+@property (weak, nonatomic) IBOutlet UIButton *btnPerCity;
 
-@property (weak, nonatomic) IBOutlet UILabel *lbCode;
-@property (weak, nonatomic) IBOutlet UITextField *tfCode;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCode;
-@property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+@property (weak, nonatomic) IBOutlet UIView *viewPassport;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPassport;
+@property (weak, nonatomic) IBOutlet UILabel *lbPassportTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPassportFront;
+@property (weak, nonatomic) IBOutlet UILabel *lbPassportFront;
+@property (weak, nonatomic) IBOutlet UIImageView *imgPassportBehind;
+@property (weak, nonatomic) IBOutlet UILabel *lbPassportBehind;
+
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
 
-
 @property (nonatomic, assign) float padding;
-@property (nonatomic, assign) float hTextfield;
 @property (nonatomic, assign) float hLabel;
 @property (nonatomic, assign) float mTop;
+
+@property (nonatomic, strong) ChooseCityPopupView *popupChooseCity;
+
+- (void)setupUIForViewForAddProfile: (BOOL)isAddNew;
+- (IBAction)btnSavePress:(UIButton *)sender;
+- (IBAction)btnCancelPress:(UIButton *)sender;
+- (IBAction)btnPerCityPress:(UIButton *)sender;
+- (IBAction)btnCityPress:(UIButton *)sender;
+- (IBAction)btnBODPress:(UIButton *)sender;
+- (IBAction)icMaleClick:(UIButton *)sender;
+- (IBAction)icFemaleClick:(UIButton *)sender;
+
+@property (nonatomic, strong) NSString *businessCity;
+@property (nonatomic, strong) NSString *personalCity;
+@property (nonatomic, assign) int gender;
+
+
+@property (nonatomic, strong) UIImage *imgFront;
+@property (nonatomic, strong) NSString *linkFrontPassport;
+
+@property (nonatomic, strong) UIImage *imgBehind;
+@property (nonatomic, strong) NSString *linkBehindPassport;
+
+@property (nonatomic, strong) WebServices *webService;
+
+- (void)removePassportFrontPhoto;
+- (void)removePassportBehindPhoto;
 
 @end

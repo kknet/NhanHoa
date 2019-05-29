@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NewBusinessProfileView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="1217"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="1370"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJ5-GK-02I">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="1217"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1370"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2. Cập nhật hồ sơ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FnO-je-z5N">
@@ -71,15 +71,22 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySZ-ey-lK9">
-                            <rect key="frame" x="163" y="167" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tên doanh nghiệp" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9qR-GE-LGd">
                             <rect key="frame" x="15" y="196" width="289" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã số thuế" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvg-1e-vwV">
+                            <rect key="frame" x="139" y="598" width="85" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập mã số thuế" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WSO-ip-u9s">
+                            <rect key="frame" x="111" y="593" width="97" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -90,13 +97,6 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfx-1F-A5T">
-                            <rect key="frame" x="185" y="240" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập địa chỉ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AJe-jQ-5DD">
@@ -113,13 +113,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14H-wq-fih">
-                            <rect key="frame" x="234" y="320" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập số điện thoại" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FhM-G2-4iG">
                             <rect key="frame" x="17" y="349" width="289" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -134,13 +127,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gS-vZ-PIt">
-                            <rect key="frame" x="96" y="388" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5O-7y-cCj">
                             <rect key="frame" x="16" y="417" width="105" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -148,27 +134,11 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="hXy-mk-XRP">
-                            <rect key="frame" x="87" y="417" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Eo-2B-5s9">
-                            <rect key="frame" x="17" y="417" width="104" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/Thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsp-k0-RCK">
                             <rect key="frame" x="167" y="387" width="121" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qk0-Fa-nKU">
-                            <rect key="frame" x="292" y="387" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L11-Q9-Wvq">
@@ -186,6 +156,9 @@
                             <rect key="frame" x="167" y="417" width="137" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="btnCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="ap1-JX-h3A"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phần thông tin người đăng ký" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtR-Ik-HOy">
                             <rect key="frame" x="15" y="481" width="224" height="21"/>
@@ -219,6 +192,9 @@
                             <rect key="frame" x="18" y="630" width="26" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="tick_orange.png"/>
+                            <connections>
+                                <action selector="icMaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Dxg-5X-BR8"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ll-MF-j9r">
                             <rect key="frame" x="52" y="635" width="30" height="17"/>
@@ -231,6 +207,9 @@
                             <rect key="frame" x="90" y="630" width="26" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="no_tick.png"/>
+                            <connections>
+                                <action selector="icFemaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Jl4-AK-5Fn"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nữ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5T-wb-GBY">
                             <rect key="frame" x="124" y="635" width="36" height="17"/>
@@ -253,18 +232,19 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biT-tE-73o">
+                            <rect key="frame" x="137" y="670" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="btnBODPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="q8w-H2-xNx"/>
+                            </connections>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chức vụ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K96-uJ-ngH">
                             <rect key="frame" x="20" y="680" width="64" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsg-8Z-DnI">
-                            <rect key="frame" x="98" y="680" width="20" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chức vụ" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oMO-65-Sxf">
@@ -302,74 +282,142 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cht-dz-SZX">
-                            <rect key="frame" x="17" y="925" width="41" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Địa chỉ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cht-dz-SZX">
+                            <rect key="frame" x="17" y="925" width="52" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NJZ-Po-vPv">
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập địa chỉ" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NJZ-Po-vPv">
                             <rect key="frame" x="15" y="954" width="289" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQC-bl-hDo">
-                            <rect key="frame" x="15" y="1096" width="299" height="37"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="Sao chéop thông tin">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdd-FK-KAk">
-                            <rect key="frame" x="16" y="1156" width="135" height="37"/>
+                            <rect key="frame" x="9" y="1325" width="135" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Hủy">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="btnCancelPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="PBs-g2-fSP"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJ1-sV-qDa">
-                            <rect key="frame" x="177" y="1156" width="135" height="37"/>
+                            <rect key="frame" x="170" y="1325" width="135" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Lưu hồ sơ">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="btnSavePress:" destination="iN0-l3-epB" eventType="touchUpInside" id="2xf-23-fQj"/>
+                            </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nK-s0-Kbf">
-                            <rect key="frame" x="240" y="846" width="20" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quốc gia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKy-oU-vxm">
+                            <rect key="frame" x="9" y="992" width="69" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5Z-GF-dpG">
-                            <rect key="frame" x="191" y="518" width="20" height="21"/>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Việt nam" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pAd-Ft-eN6">
+                            <rect key="frame" x="8" y="1016" width="123" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/Thành phố" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dit-iG-z0O">
+                            <rect key="frame" x="181" y="992" width="121" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="odN-XC-UiP">
+                            <rect key="frame" x="181" y="1016" width="125" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="stI-tz-3Gl">
+                            <rect key="frame" x="275" y="1016" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEs-ik-6iD">
+                            <rect key="frame" x="193" y="1016" width="113" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="btnPerCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="uA2-PT-vgh"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbx-am-k2R">
+                            <rect key="frame" x="1" y="1067" width="320" height="150"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="picture.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Xt-5q-T0u">
+                                    <rect key="frame" x="8" y="0.0" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ảnh CMND 2 mặt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOi-G8-iXc">
+                                    <rect key="frame" x="46" y="6" width="119" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mhn-Me-UdA">
+                                    <rect key="frame" x="8" y="38" width="138" height="103"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mặt trước" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJe-0q-hst">
+                                    <rect key="frame" x="44" y="132" width="67" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="passport_empty_behind.png" translatesAutoresizingMaskIntoConstraints="NO" id="BAH-Dx-2XB">
+                                    <rect key="frame" x="170" y="39" width="142" height="103"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mặt sau" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08u-e2-QIs">
+                                    <rect key="frame" x="214" y="132" width="55" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </view>
                     </subviews>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnBOD" destination="biT-tE-73o" id="FIt-AY-ZUc"/>
                 <outlet property="btnCancel" destination="tdd-FK-KAk" id="DVm-RA-bjK"/>
                 <outlet property="btnCity" destination="Kyk-uf-3DM" id="vpN-9o-6sh"/>
-                <outlet property="btnCountry" destination="0Eo-2B-5s9" id="abe-FC-rKx"/>
+                <outlet property="btnPerCity" destination="rEs-ik-6iD" id="dxR-lv-Rxx"/>
                 <outlet property="btnSave" destination="EJ1-sV-qDa" id="gpg-xE-Hz4"/>
                 <outlet property="icBusiness" destination="toG-CX-cY5" id="X6f-7b-JiQ"/>
                 <outlet property="icFemale" destination="vcp-mZ-RpE" id="dDf-lD-4gm"/>
                 <outlet property="icMale" destination="Zbl-Ld-crO" id="223-Ld-D9Y"/>
                 <outlet property="icPersonal" destination="mXS-Jl-dDo" id="fVV-K0-7yo"/>
                 <outlet property="imgCity" destination="HDK-Un-jUy" id="Blq-gO-kcv"/>
-                <outlet property="imgCountry" destination="hXy-mk-XRP" id="Ioh-nF-Kyy"/>
+                <outlet property="imgPassport" destination="6Xt-5q-T0u" id="rjw-xr-dTG"/>
+                <outlet property="imgPassportBehind" destination="BAH-Dx-2XB" id="XcB-hN-a1d"/>
+                <outlet property="imgPassportFront" destination="Mhn-Me-UdA" id="oiE-gM-htv"/>
+                <outlet property="imgPerCityArrow" destination="stI-tz-3Gl" id="o7G-9A-mXN"/>
+                <outlet property="lbAddress" destination="Cht-dz-SZX" id="YJK-jF-hiy"/>
                 <outlet property="lbBOD" destination="Blv-WD-yFM" id="QY0-sm-DdP"/>
                 <outlet property="lbBusiness" destination="FM9-Db-ENf" id="4iw-R5-Bww"/>
                 <outlet property="lbBusinessAddress" destination="HMk-F9-cPc" id="Wgh-Tv-XAz"/>
@@ -377,38 +425,50 @@
                 <outlet property="lbBusinessPhone" destination="IBE-ak-vvi" id="5Vg-hE-h6b"/>
                 <outlet property="lbCity" destination="hsp-k0-RCK" id="gvt-MD-t4k"/>
                 <outlet property="lbCountry" destination="LAn-oH-bnp" id="Xzo-7q-AhE"/>
-                <outlet property="lbEmail" destination="Cht-dz-SZX" id="TF8-WB-mdQ"/>
                 <outlet property="lbFemale" destination="A5T-wb-GBY" id="NM4-MQ-6eB"/>
                 <outlet property="lbGender" destination="0AM-f6-L0E" id="LSL-vM-sfc"/>
                 <outlet property="lbInfoBusiness" destination="7dD-od-XCP" id="FZB-WZ-V58"/>
                 <outlet property="lbInfoRegister" destination="gtR-Ik-HOy" id="B6Y-Le-Oux"/>
                 <outlet property="lbMale" destination="6Ll-MF-j9r" id="bCG-mX-8Q5"/>
-                <outlet property="lbPassport" destination="AdM-89-zxN" id="7sY-Jq-W0Q"/>
+                <outlet property="lbPassport" destination="AdM-89-zxN" id="Xot-3P-POA"/>
+                <outlet property="lbPassportBehind" destination="08u-e2-QIs" id="1Ei-Rc-2EI"/>
+                <outlet property="lbPassportFront" destination="RJe-0q-hst" id="Own-Sg-Iqw"/>
+                <outlet property="lbPassportTitle" destination="dOi-G8-iXc" id="MCS-wH-4Q5"/>
+                <outlet property="lbPerCity" destination="Dit-iG-z0O" id="n5H-88-k6C"/>
+                <outlet property="lbPerCountry" destination="YKy-oU-vxm" id="6s4-Ly-a6V"/>
                 <outlet property="lbPersonal" destination="lXF-CI-BX2" id="MOz-2S-LLA"/>
                 <outlet property="lbPhone" destination="a2q-GM-XGv" id="lJm-Cq-eta"/>
                 <outlet property="lbPosition" destination="K96-uJ-ngH" id="hc9-8m-dxp"/>
                 <outlet property="lbRegisterName" destination="kT9-Sz-Kdk" id="Mjq-3o-oPx"/>
+                <outlet property="lbTaxCode" destination="rvg-1e-vwV" id="HFp-F8-2ur"/>
                 <outlet property="lbTitle" destination="FnO-je-z5N" id="W5w-j0-gGk"/>
                 <outlet property="lbVision" destination="cKJ-YC-vbj" id="x3C-nj-YRy"/>
                 <outlet property="scvContent" destination="eJ5-GK-02I" id="gMX-DK-frt"/>
+                <outlet property="tfAddress" destination="NJZ-Po-vPv" id="SKC-Db-Hxx"/>
                 <outlet property="tfBOD" destination="X6f-EI-VNH" id="45y-V2-x7Z"/>
                 <outlet property="tfBusinessAddress" destination="AJe-jQ-5DD" id="l6s-Xc-kHD"/>
                 <outlet property="tfBusinessName" destination="9qR-GE-LGd" id="hmv-Ov-3cv"/>
                 <outlet property="tfBusinessPhone" destination="FhM-G2-4iG" id="8ei-bP-XPy"/>
                 <outlet property="tfCity" destination="L11-Q9-Wvq" id="KnE-Uv-Is8"/>
                 <outlet property="tfCountry" destination="n5O-7y-cCj" id="SoC-3O-SFk"/>
-                <outlet property="tfEmail" destination="NJZ-Po-vPv" id="sL6-xs-rBQ"/>
                 <outlet property="tfPassport" destination="bKo-45-JHn" id="dEY-6S-08V"/>
+                <outlet property="tfPerCity" destination="odN-XC-UiP" id="654-bM-JiG"/>
+                <outlet property="tfPerCountry" destination="pAd-Ft-eN6" id="3OB-3S-XCw"/>
                 <outlet property="tfPhone" destination="lgV-k9-6C9" id="oPH-a8-HxK"/>
                 <outlet property="tfPosition" destination="oMO-65-Sxf" id="sJN-YQ-Ru8"/>
                 <outlet property="tfRegisterName" destination="RST-iN-Ugw" id="xFz-Gv-pUX"/>
+                <outlet property="tfTaxCode" destination="WSO-ip-u9s" id="L7x-Uz-dDY"/>
+                <outlet property="viewPassport" destination="zbx-am-k2R" id="vi3-Ok-6Tg"/>
             </connections>
-            <point key="canvasLocation" x="-336" y="233"/>
+            <point key="canvasLocation" x="-178" y="-64"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="100" height="100"/>
-        <image name="tick_orange.png" width="100" height="100"/>
+        <image name="no_tick.png" width="80" height="80"/>
+        <image name="passport_empty_behind.png" width="400" height="252"/>
+        <image name="passport_empty_front.png" width="400" height="252"/>
+        <image name="picture.png" width="150" height="150"/>
+        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
     </resources>
 </document>

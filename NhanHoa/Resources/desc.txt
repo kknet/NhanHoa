@@ -109,22 +109,21 @@ status: (NOT YET)
     }
     *Kết quả trả về: anh em send test để xem kết quả
 
-status:
-    -   Done for add personal profile
-    -   Not yet: 
+status: DONE
 
 5. ChangePassword (Đổi mật khẩu)
-*Send request (Post / Get) [Auto]
-mod: change_password
-username: string
-old_password: MD5
-new_password: MD5 (min 7 ký tự)
-re_new_password: MD5
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: change_password
+    username: string
+    old_password: MD5
+    new_password: MD5 (min 7 ký tự)
+    re_new_password: MD5
+    *Kết quả trả về: anh em send test để xem kết quả
 
 6. ForgotPassword (Quên mật khẩu)
-Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
+    Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
 
+status: DONE
 
 7. EditContact (Sửa hồ sơ)
 *Send request (Post / Get) [Auto]
@@ -265,3 +264,11 @@ username: string
 password: MD5
 domain: string (tên miền)
 *Kết quả trả về: anh em send test để xem kết quả
+
+
+
+
+6h20
+giam chat luong anh
+xoay anh
+suggest các tài khoản đã đăng nhập thành công trước đó

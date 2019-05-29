@@ -20,6 +20,8 @@
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
+@synthesize needReloadListProfile;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -381,6 +383,7 @@
         fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
         fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         hTextfield = 38.0;
         
@@ -392,6 +395,7 @@
         fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
         fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         hTextfield = 38.0;
         
@@ -403,6 +407,7 @@
         fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
         fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
         hTextfield = 40.0;
         
@@ -413,6 +418,7 @@
         fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
         fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
         hTextfield = 40.0;
         
@@ -422,6 +428,7 @@
         fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
         fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         hTextfield = 38.0;
     }

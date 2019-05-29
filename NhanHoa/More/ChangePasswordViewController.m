@@ -7,13 +7,15 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "WebServices.h"
 
-@interface ChangePasswordViewController ()
-
+@interface ChangePasswordViewController ()<WebServicesDelegate> {
+    WebServices *webService;
+}
 @end
 
 @implementation ChangePasswordViewController
-@synthesize lbOldPass, tfOldPass, lbNewPass, tfNewPass, lbConfirm, tfConfirm, btnSave, btnCancel;
+@synthesize lbOldPass, tfOldPass, lbNewPass, tfNewPass, lbConfirm, tfConfirm, btnSave, btnCancel, lbWarning;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,11 +30,13 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
-    float hTextfield = 38.0;
     
     //  Old password
-    lbOldPass.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbOldPass.textColor = TITLE_COLOR;
+    lbOldPass.font = lbNewPass.font = lbConfirm.font = [AppDelegate sharedInstance].fontMedium;
+    tfOldPass.font = tfNewPass.font = tfConfirm.font = [AppDelegate sharedInstance].fontRegular;
+    
+    lbOldPass.textColor = lbNewPass.textColor = lbConfirm.textColor = TITLE_COLOR;
+    
     [lbOldPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.top.equalTo(self.view).offset(10.0);
@@ -41,43 +45,39 @@
     }];
     
     tfOldPass.secureTextEntry = TRUE;
-    tfOldPass.font = [UIFont fontWithName:RobotoRegular size:17.0];
-    tfOldPass.layer.cornerRadius = 5.0;
-    tfOldPass.layer.borderColor = BORDER_COLOR.CGColor;
-    tfOldPass.layer.borderWidth = 1.0;
+    [AppUtils setBorderForTextfield:tfOldPass borderColor:BORDER_COLOR];
     [tfOldPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbOldPass.mas_bottom);
         make.left.right.equalTo(self.lbOldPass);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfOldPass.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
-    tfOldPass.leftViewMode = UITextFieldViewModeAlways;
     
     //  New password
-    lbNewPass.font = lbOldPass.font;
-    lbNewPass.textColor = TITLE_COLOR;
+    float widthText = [AppUtils getSizeWithText:lbNewPass.text withFont:lbNewPass.font].width + 10.0;
     [lbNewPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfOldPass.mas_bottom).offset(10.0);
-        make.left.right.equalTo(self.tfOldPass);
+        make.left.equalTo(self.tfOldPass);
+        make.width.mas_equalTo(widthText);
         make.height.equalTo(self.lbOldPass.mas_height);
     }];
     
+    lbWarning.font = [AppDelegate sharedInstance].fontItalic;
+    lbWarning.textColor = NEW_PRICE_COLOR;
+    [lbWarning mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.lbNewPass);
+        make.left.equalTo(self.lbNewPass.mas_right);
+        make.right.equalTo(self.tfOldPass);
+    }];
+    
     tfNewPass.secureTextEntry = TRUE;
-    tfNewPass.layer.cornerRadius = tfOldPass.layer.cornerRadius;
-    tfNewPass.layer.borderColor = tfOldPass.layer.borderColor;
-    tfNewPass.layer.borderWidth = tfOldPass.layer.borderWidth;
-    tfNewPass.font = tfOldPass.font;
+    [AppUtils setBorderForTextfield:tfNewPass borderColor:BORDER_COLOR];
     [tfNewPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbNewPass.mas_bottom);
         make.left.right.equalTo(self.lbNewPass);
         make.height.equalTo(self.tfOldPass.mas_height);
     }];
-    tfNewPass.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
-    tfNewPass.leftViewMode = UITextFieldViewModeAlways;
     
     //  Confirm password
-    lbConfirm.font = lbOldPass.font;
-    lbConfirm.textColor = TITLE_COLOR;
     [lbConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfNewPass.mas_bottom).offset(10.0);
         make.left.right.equalTo(self.tfNewPass);
@@ -85,22 +85,18 @@
     }];
     
     tfConfirm.secureTextEntry = TRUE;
-    tfConfirm.layer.cornerRadius = tfOldPass.layer.cornerRadius;
-    tfConfirm.layer.borderColor = tfOldPass.layer.borderColor;
-    tfConfirm.layer.borderWidth = tfOldPass.layer.borderWidth;
-    tfConfirm.font = tfOldPass.font;
+    [AppUtils setBorderForTextfield:tfConfirm borderColor:BORDER_COLOR];
     [tfConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbConfirm.mas_bottom);
         make.left.right.equalTo(self.lbConfirm);
         make.height.equalTo(self.tfOldPass.mas_height);
     }];
-    tfConfirm.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
-    tfConfirm.leftViewMode = UITextFieldViewModeAlways;
     
     //  footer button
     float hBTN = 45.0;
-    btnCancel.layer.cornerRadius = hBTN/2;
-    btnCancel.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnCancel.titleLabel.font = btnSave.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnCancel.layer.cornerRadius = btnSave.layer.cornerRadius = hBTN/2;
+    
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.bottom.equalTo(self.view).offset(-2*padding);
@@ -108,9 +104,7 @@
         make.height.mas_equalTo(hBTN);
     }];
     
-    btnSave.layer.cornerRadius = hBTN/2;
     btnSave.backgroundColor = BLUE_COLOR;
-    btnSave.titleLabel.font = btnCancel.titleLabel.font;
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.btnCancel);
         make.left.equalTo(self.btnCancel.mas_right).offset(padding);
@@ -119,8 +113,51 @@
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
+    tfOldPass.text = tfNewPass.text = tfConfirm.text = @"";
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfOldPass.text]) {
+        [self.view makeToast:@"Bạn chưa nhập mật khẩu hiện tại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfNewPass.text]) {
+        [self.view makeToast:@"Bạn chưa nhập mật khẩu mới!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfConfirm.text]) {
+        [self.view makeToast:@"Bạn chưa nhập mật khẩu xác nhận!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if (![tfNewPass.text isEqualToString: tfConfirm.text]) {
+        [self.view makeToast:@"Xác nhận mật khẩu không chính xác. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    NSString *oldMd5Pass = [AppUtils getMD5StringOfString: tfOldPass.text];
+    if (![oldMd5Pass isEqualToString: PASSWORD]) {
+        [self.view makeToast:@"Mật khẩu hiện tại bạn nhập không chính xác. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    
+    NSString *newPass = [AppUtils getMD5StringOfString: tfNewPass.text];
+    
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:change_password_mod forKey:@"mod"];
+    [info setObject:USERNAME forKey:@"username"];
+    [info setObject:PASSWORD forKey:@"old_password"];
+    [info setObject:newPass forKey:@"new_password"];
+    [info setObject:newPass forKey:@"re_new_password"];
+    
+    
 }
+
 @end

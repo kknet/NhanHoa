@@ -13,7 +13,7 @@
 
 @implementation NewProfileView
 
-@synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, imgArrCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
+@synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
 
 @synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService;
 
@@ -62,12 +62,19 @@
         make.left.equalTo(self.mas_centerX);
         make.width.equalTo(self.icPersonal.mas_width);
     }];
+    [icBusiness addTarget:self
+                   action:@selector(whenTapOnBusiness)
+         forControlEvents:UIControlEventTouchUpInside];
     
     [lbBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbPersonal);
         make.left.equalTo(self.icBusiness.mas_right).offset(3.0);
         make.right.equalTo(self).offset(-self.padding);
     }];
+    //  Add target for lbBusiness
+    UITapGestureRecognizer *tapOnBusiness = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBusiness)];
+    lbBusiness.userInteractionEnabled = TRUE;
+    [lbBusiness addGestureRecognizer: tapOnBusiness];
     
     //  Name
     float sizeText = [AppUtils getSizeWithText:@"Họ tên" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
@@ -255,12 +262,6 @@
     }];
     tfCountry.text = @"Việt Nam";
     
-    [imgArrCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfCountry.mas_right).offset(-7.5);
-        make.centerY.equalTo(self.tfCountry.mas_centerY);
-        make.width.height.mas_equalTo(14.0);
-    }];
-    
     [btnCountry setTitle:@"" forState:UIControlStateNormal];
     [btnCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.tfCountry);
@@ -407,6 +408,7 @@
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
     
     lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = [AppDelegate sharedInstance].fontMedium;
+    
     lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfEmail.font = tfAddress.font = tfCountry.font = tfCity.font = lbPassportFront.font = lbPassportBehind.font = [AppDelegate sharedInstance].fontRegular;
     
     btnCancel.titleLabel.font = btnSave.titleLabel.font = [UIFont fontWithName:RobotoMedium size:18.0];
@@ -418,12 +420,12 @@
     
     //  40 + mTop + hLabel + (mTop + hLabel + hTextfield)(name) + (mTop + hLabel + hTextfield)(gender) + (mTop + hLabel + hTextfield)(passport) + (mTop + hLabel + hTextfield)(phone) + (mTop + hLabel + hTextfield)(email) + (mTop + hLabel + hTextfield)(address) + (mTop + hLabel + hTextfield)(country) + hViewPassport + (2*padding + 45.0 + 2*padding)
     
-    tfName.text = @"Lê Khải";
-    tfPassport.text = @"123456789";
-    tfPhone.text = @"0363430737";
-    tfEmail.text = @"lekhai0212@gmail.com";
+    tfName.text = @"Thiền Nguyễn";
+    tfPassport.text = @"212987654";
+    tfPhone.text = @"0984123456";
+    tfEmail.text = @"thiengnguyen0804@gmail.com";
     tfAddress.text = @"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh";
-    tfBOD.text = @"02/12/1991";
+    tfBOD.text = @"08/04/1992";
 }
 
 - (void)addDatePickerForView {
@@ -463,7 +465,7 @@
     }];
     
     UIButton *btnChoose = [[UIButton alloc] init];
-    [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+    [btnChoose setTitle:text_choose forState:UIControlStateNormal];
     btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -638,6 +640,12 @@
     }
 }
 
+- (void)whenTapOnBusiness {
+    if ([delegate respondsToSelector:@selector(onSelectBusinessProfile)]) {
+        [delegate onSelectBusinessProfile];
+    }
+}
+
 - (void)startUploadPassportPictures {
     [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
     [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
@@ -647,7 +655,7 @@
         if (uploadData == nil) {
             uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
         }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -680,7 +688,7 @@
         if (uploadData == nil) {
             uploadData = UIImageJPEGRepresentation(imgBehind, 1.0);
         }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_behind_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        NSString *imageName = [NSString stringWithFormat:@"%@_passport_behind_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -743,30 +751,6 @@
     [self closePickerView];
 }
 
-//mod: add_contact
-//username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-//password: MD5 (mật khẩu khách đăng nhập)
-//    Thông tin tạo hồ sơ
-//own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-//(own_type: 1) { // công ty / tổ chức
-//    tc_tc_name: string (tên cty / tổ chức)
-//    tc_tc_mst: string / number (mã số thuế)
-//    tc_tc_address: string (địa chỉ cty / tổ chức)
-//    tc_tc_phone: string / number (số đt cty / tổ chức)
-//    tc_tc_country: 231 (cố định: Viêt Nam [231])
-//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-//    cn_position: string (chức vụ người đại diện)
-//    cn_name: Họ và tên (string)
-//    cn_sex: number (1: nam | 0: nữ)
-//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-//    cn_cmnd: string / number (Số CMND / Passport)
-//    cn_phone: string / number (Số ĐT)
-//    cn_address: string (địa chỉ)
-//    cn_country: 231 (cố định: Viêt Nam [231])
-//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-//    cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
-//    cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
-
 #pragma mark - Webservice Delegate
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
@@ -806,4 +790,17 @@
     }
 }
 
+- (void)removePassportFrontPhoto {
+    imgFront = nil;
+    imgPassportFront.image = FRONT_EMPTY_IMG;
+}
+
+- (void)removePassportBehindPhoto {
+    imgBehind = nil;
+    imgPassportBehind.image = FRONT_EMPTY_IMG;
+}
+
+//  {"cn_name":"Thiền Nguyễn","cmnd_b":"","cn_cmnd":"212987654","cmnd_a":"","cn_country":"231","mod":"add_contact","cn_birthday":"08/04/1992","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"97046ec8a290c4ff214acddfcf1fa363","cn_city":"1","own_type":0,"username":"lehoangson@gmail.com","cn_sex":0,"cn_phone":"0984123456"}
+
+//  {"cn_name":"Thiền Nguyễn","cmnd_b":"uploads/127115_passport_behind_7mznjJHOND.PNG","cn_cmnd":"212987654","cmnd_a":"uploads/127115_passport_front_QNmqccprEz.PNG","cn_country":"231","mod":"add_contact","cn_birthday":"08/04/1992","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"97046ec8a290c4ff214acddfcf1fa363","cn_city":"1","own_type":0,"username":"lehoangson@gmail.com","cn_sex":1,"cn_phone":"0984123456"}
 @end

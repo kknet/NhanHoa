@@ -59,5 +59,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, assign) float hTextfield;
 @property (nonatomic, assign) float radius;
 
+@property (nonatomic, assign) BOOL needReloadListProfile;
+
 @end
 

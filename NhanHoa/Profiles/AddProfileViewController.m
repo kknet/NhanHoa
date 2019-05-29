@@ -11,7 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/PHAsset.h>
 
-@interface AddProfileViewController ()<NewProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface AddProfileViewController ()<NewProfileViewDelegate, NewBusinessProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     int type;
     
@@ -22,7 +22,7 @@
 @end
 
 @implementation AddProfileViewController
-@synthesize addNewProfile;
+@synthesize personalProfile, businessProfile;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +36,7 @@
     self.title = @"Tạo hồ sơ";
     type = 1;
     
-    [self addNewProfileViewIfNeed];
+    [self addPersonalProfileIfNeed];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
@@ -53,10 +53,16 @@
 //  Hiển thị bàn phím
 - (void)keyboardWillShow:(NSNotification *)notif {
     CGSize keyboardSize = [[[notif userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [addNewProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [personalProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-keyboardSize.height);
     }];
+    
+    [businessProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-keyboardSize.height);
+    }];
+    
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -64,37 +70,72 @@
 
 //  Ẩn bàn phím
 - (void)keyboardDidHide: (NSNotification *) notif{
-    [addNewProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [personalProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
+    
+    [businessProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
 
-- (void)addNewProfileViewIfNeed {
+- (void)addPersonalProfileIfNeed {
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if (addNewProfile == nil) {
+    if (personalProfile == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewProfileView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
             if ([currentObject isKindOfClass:[NewProfileView class]]) {
-                addNewProfile = (NewProfileView *) currentObject;
+                personalProfile = (NewProfileView *) currentObject;
                 break;
             }
         }
-        [self.view addSubview: addNewProfile];
+        [self.view addSubview: personalProfile];
     }
-    [addNewProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+    [personalProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
-    addNewProfile.delegate = self;
-    [addNewProfile setupForAddProfileUI];
-    [addNewProfile setupViewForAddNewProfileView];
+    personalProfile.delegate = self;
+    [personalProfile setupForAddProfileUI];
+    [personalProfile setupViewForAddNewProfileView];
 }
 
-#pragma NewProfileView delegate
+- (void)addBusinessProfileIfNeed {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (businessProfile == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewBusinessProfileView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[NewBusinessProfileView class]]) {
+                businessProfile = (NewBusinessProfileView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: businessProfile];
+    }
+    [businessProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    businessProfile.delegate = self;
+    [businessProfile setupUIForViewForAddProfile: TRUE];
+}
+
+#pragma NewProfileView delegate & buniness
+- (void)onSelectBusinessProfile {
+    if (businessProfile == nil) {
+        [self addBusinessProfileIfNeed];
+    }
+    personalProfile.hidden = TRUE;
+    businessProfile.hidden = FALSE;
+}
+
 - (void)profileWasCreated {
+    [AppDelegate sharedInstance].needReloadListProfile = TRUE;
+    
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
@@ -108,13 +149,9 @@
     type = 2;
     
     if (imgBehind == nil) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", nil];
-        actionSheet.tag = 1;
-        [actionSheet showInView: self.view];
+        [self showActionSheetChooseWithRemove: FALSE];
     }else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", @"Xóa ảnh", nil];
-        actionSheet.tag = 2;
-        [actionSheet showInView: self.view];
+       [self showActionSheetChooseWithRemove: TRUE];
     }
 }
 
@@ -122,14 +159,59 @@
     type = 1;
     
     if (imgFront == nil) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", nil];
-        actionSheet.tag = 1;
-        [actionSheet showInView: self.view];
+        [self showActionSheetChooseWithRemove: FALSE];
     }else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:@"Chụp ảnh", @"Thư viện ảnh", @"Xóa ảnh", nil];
+        [self showActionSheetChooseWithRemove: TRUE];
+    }
+}
+
+-(void)onBusinessPassportBehindPress {
+    type = 2;
+    
+    if (imgBehind == nil) {
+        [self showActionSheetChooseWithRemove: FALSE];
+    }else{
+        [self showActionSheetChooseWithRemove: TRUE];
+    }
+}
+
+-(void)onBusinessPassportFrontPress {
+    type = 1;
+    
+    if (imgFront == nil) {
+        [self showActionSheetChooseWithRemove: FALSE];
+    }else{
+        [self showActionSheetChooseWithRemove: TRUE];
+    }
+}
+
+- (void)businessProfileWasCreated {
+    [AppDelegate sharedInstance].needReloadListProfile = TRUE;
+    
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (void)showActionSheetChooseWithRemove: (BOOL)remove {
+    if (remove) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, text_remove, nil];
         actionSheet.tag = 2;
         [actionSheet showInView: self.view];
+        
+    }else{
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, nil];
+        actionSheet.tag = 1;
+        [actionSheet showInView: self.view];
     }
+}
+
+
+#pragma mark - BusinessProfileDelegate
+-(void)onSelectPersonalProfile {
+    if (personalProfile == nil) {
+        [self addPersonalProfileIfNeed];
+    }
+    personalProfile.hidden = FALSE;
+    businessProfile.hidden = TRUE;
 }
 
 #pragma mark - ActionSheet delegate
@@ -157,14 +239,22 @@
 }
 
 - (void)removeCurrentPhotos {
-    if (type == 1) {
-        imgFront = nil;
-        addNewProfile.imgFront = imgFront;
-        addNewProfile.imgPassportFront.image = FRONT_EMPTY_IMG;
+    if (personalProfile != nil && !personalProfile.hidden) {
+        if (type == 1) {
+            imgFront = nil;
+            [personalProfile removePassportFrontPhoto];
+        }else{
+            imgBehind = nil;
+            [personalProfile removePassportBehindPhoto];
+        }
     }else{
-        imgBehind = nil;
-        addNewProfile.imgBehind = imgBehind;
-        addNewProfile.imgPassportBehind.image = FRONT_EMPTY_IMG;
+        if (type == 1) {
+            imgFront = nil;
+            [businessProfile removePassportFrontPhoto];
+        }else{
+            imgBehind = nil;
+            [businessProfile removePassportBehindPhoto];
+        }
     }
 }
 
@@ -247,14 +337,26 @@
 {
     //You can retrieve the actual UIImage
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    if (type == 1) {
-        imgFront = image;
-        addNewProfile.imgFront = imgFront;
-        addNewProfile.imgPassportFront.image = image;
+    if (personalProfile != nil && !personalProfile.hidden) {
+        if (type == 1) {
+            imgFront = image;
+            personalProfile.imgFront = imgFront;
+            personalProfile.imgPassportFront.image = image;
+        }else{
+            imgBehind = image;
+            personalProfile.imgBehind = imgBehind;
+            personalProfile.imgPassportBehind.image = image;
+        }
     }else{
-        imgBehind = image;
-        addNewProfile.imgBehind = imgBehind;
-        addNewProfile.imgPassportBehind.image = image;
+        if (type == 1) {
+            imgFront = image;
+            businessProfile.imgFront = imgFront;
+            businessProfile.imgPassportFront.image = image;
+        }else{
+            imgBehind = image;
+            businessProfile.imgBehind = imgBehind;
+            businessProfile.imgPassportBehind.image = image;
+        }
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];

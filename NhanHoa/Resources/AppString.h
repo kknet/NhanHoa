@@ -88,6 +88,7 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
+#define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
 #define return_url              @"https://api.websudo.xyz/dr.php"
 #define link_api                @"https://nhanhoa.com/app-awk"
@@ -103,6 +104,7 @@
 #define get_profile_mod         @"contact_list"
 #define register_account_mod    @"register_account"
 #define add_contact_mod         @"add_contact"
+#define change_password_mod     @"change_password"
 
 
 #define logsFolderName      @"LogFiles"
@@ -144,7 +146,11 @@
 #define no_internet         @"Không có kết nối internet. Vui lòng kiểm tra lại!"
 
 #define text_close  @"Đóng"
+#define text_choose @"Chọn"
 
+#define text_capture    @"Chụp ảnh"
+#define text_gallery    @"Thư viện ảnh"
+#define text_remove     @"Xóa"
 
 
 #endif /* AppString_h */

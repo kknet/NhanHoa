@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfConfirm;
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UILabel *lbWarning;
 
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnSavePress:(UIButton *)sender;
