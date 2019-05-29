@@ -745,11 +745,10 @@
     [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
     
     if (imgFront != nil) {
-        __block NSData *uploadData = UIImagePNGRepresentation(imgFront);
-        if (uploadData == nil) {
-            uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
-        }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        imgFront = [AppUtils resizeImage: imgFront];
+        NSData *uploadData = UIImagePNGRepresentation(imgFront);
+        
+        NSString *imageName = [NSString stringWithFormat:@"%@_front_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -778,11 +777,10 @@
 
 - (void)startUploadPassportBehindPictures {
     if (imgBehind != nil) {
-        __block NSData *uploadData = UIImagePNGRepresentation(imgBehind);
-        if (uploadData == nil) {
-            uploadData = UIImageJPEGRepresentation(imgBehind, 1.0);
-        }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_behind_%@", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        imgBehind = [AppUtils resizeImage: imgBehind];
+        NSData *uploadData = UIImagePNGRepresentation(imgBehind);
+        
+        NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];

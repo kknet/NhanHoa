@@ -111,6 +111,8 @@
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [webService callWebServiceWithLink:login_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 //  Hiển thị bàn phím
@@ -167,6 +169,8 @@
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     RegisterAccountViewController *registerVC = [[RegisterAccountViewController alloc] initWithNibName:@"RegisterAccountViewController" bundle:nil];
     [self.navigationController pushViewController:registerVC animated:YES];
 }
@@ -356,6 +360,8 @@
 }
 
 - (void)processForLoginSuccessful {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState == nil || [loginState isEqualToString:@"NO"])
     {

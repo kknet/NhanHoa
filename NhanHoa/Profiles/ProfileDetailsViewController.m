@@ -7,6 +7,7 @@
 //
 
 #import "ProfileDetailsViewController.h"
+#import "EditProfileViewController.h"
 
 @interface ProfileDetailsViewController ()
 
@@ -35,6 +36,9 @@
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
+    EditProfileViewController *editVC = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
+    editVC.profileInfo = profileInfo;
+    [self.navigationController pushViewController:editVC animated:TRUE];
 }
 
 - (void)displayProfileInformation {
@@ -444,4 +448,162 @@
     }
 }
 
+/*
+{
+    "careers_id" = 0;
+    "cmnd_a" = "http://nhanhoa.com/uploads/declaration/ACC140431/1559105989.jpg";
+    "cmnd_b" = "http://nhanhoa.com/uploads/declaration/ACC140431/1559105989.jpg";
+    "cus_account_list" = "<null>";
+    "cus_activate" = 1;
+    "cus_address" = "1020 Ph\U1ea1m V\U0103n \U0110\U1ed3ng, P.Hi\U1ec7p B\U00ecnh Ch\U00e1nh";
+    "cus_adminnote" = "<null>";
+    "cus_aff" = "<null>";
+    "cus_aff_balance" = 0;
+    "cus_aff_id" = 0;
+    "cus_aff_method" = 0;
+    "cus_age" = "<null>";
+    "cus_algolia_object_id" = 0;
+    "cus_api_domain_api_key" = "<null>";
+    "cus_api_domain_auth_userid" = 0;
+    "cus_api_permission" = 0;
+    "cus_azcontest" = 0;
+    "cus_balance" = 0;
+    "cus_balance_alert_time" = 0;
+    "cus_bank_branch" = "<null>";
+    "cus_bankaccount" = "<null>";
+    "cus_bankname" = "<null>";
+    "cus_banknumber" = "<null>";
+    "cus_bday" = 2;
+    "cus_birthday" = "02/12/1991";
+    "cus_bmonth" = 12;
+    "cus_byear" = 1991;
+    "cus_card_code" = "<null>";
+    "cus_card_id" = "<null>";
+    "cus_card_reason" = "<null>";
+    "cus_card_time" = 0;
+    "cus_city" = "<null>";
+    "cus_code" = ACC140431;
+    "cus_company" = "<null>";
+    "cus_company_address" = "<null>";
+    "cus_company_delegate" = "<null>";
+    "cus_company_delegate_2_bday" = 0;
+    "cus_company_delegate_2_birthday" = "<null>";
+    "cus_company_delegate_2_bmonth" = 0;
+    "cus_company_delegate_2_byear" = 0;
+    "cus_company_delegate_2_email" = "<null>";
+    "cus_company_delegate_2_gender" = "<null>";
+    "cus_company_delegate_2_id_date" = 0;
+    "cus_company_delegate_2_id_number" = "<null>";
+    "cus_company_delegate_2_name" = "<null>";
+    "cus_company_delegate_bday" = 0;
+    "cus_company_delegate_birthday" = "<null>";
+    "cus_company_delegate_bmonth" = 0;
+    "cus_company_delegate_byear" = 0;
+    "cus_company_delegate_email" = "<null>";
+    "cus_company_delegate_gender" = "<null>";
+    "cus_company_delegate_id_date" = 0;
+    "cus_company_delegate_id_number" = "<null>";
+    "cus_company_phone" = "<null>";
+    "cus_contract_address" = "1020 Ph\U1ea1m V\U0103n \U0110\U1ed3ng, P.Hi\U1ec7p B\U00ecnh Ch\U00e1nh";
+    "cus_contract_name" = "Kh\U1ea3i L\U00ea";
+    "cus_contract_phone" = 0363430737;
+    "cus_country" = 0;
+    "cus_ctv_fixed" = 0;
+    "cus_customer_count" = 0;
+    "cus_debt_balance" = 0;
+    "cus_deleted" = 0;
+    "cus_disable_backorder_failed" = 1;
+    "cus_display_name" = NULL;
+    "cus_district" = 0;
+    "cus_dns_default" = "<null>";
+    "cus_dns_default_qt" = "<null>";
+    "cus_email" = "lekhai0212@gmail.com";
+    "cus_email_notification" = "<null>";
+    "cus_email_vat" = "<null>";
+    "cus_enable_api_domain" = 0;
+    "cus_enable_view_order_expired" = 0;
+    "cus_exist_info" = 0;
+    "cus_facebook_login" = 0;
+    "cus_fax" = "<null>";
+    "cus_firstname" = "<null>";
+    "cus_gender" = 1;
+    "cus_id" = 140431;
+    "cus_idcard_back_img" = "1559105989.jpg";
+    "cus_idcard_date" = 0;
+    "cus_idcard_front_img" = "1559105989.jpg";
+    "cus_idcard_msg" = "<null>";
+    "cus_idcard_name" = "<null>";
+    "cus_idcard_number" = 212987654;
+    "cus_idcard_status" = 0;
+    "cus_is_api" = 0;
+    "cus_is_api_domain" = 0;
+    "cus_jobtitle" = "<null>";
+    "cus_lastname" = "<null>";
+    "cus_location" = "";
+    "cus_own_type" = 0;
+    "cus_partner_service" = "<null>";
+    "cus_passport_name" = "<null>";
+    "cus_passport_number" = "<null>";
+    "cus_password" = 550e1bafe077ff0b0b67f4e32f29d751;
+    "cus_paypal_email" = "<null>";
+    "cus_phone" = 0363430737;
+    "cus_phonehome" = "<null>";
+    "cus_point" = 0;
+    "cus_point_used" = 0;
+    "cus_position" = "<null>";
+    "cus_profile_list" = "<null>";
+    "cus_profile_note" = "<null>";
+    "cus_realname" = "Kh\U1ea3i L\U00ea";
+    "cus_register_time" = 1559105989;
+    "cus_reseller_content" = "<null>";
+    "cus_reseller_customed" = 0;
+    "cus_reseller_domain" = "<null>";
+    "cus_reseller_email" = "lekhai0212@gmail.com";
+    "cus_reseller_fixed" = 0;
+    "cus_reseller_id" = 138665;
+    "cus_reseller_overdraft" = 0;
+    "cus_reseller_register" = 0;
+    "cus_reseller_security_level" = 0;
+    "cus_reseller_username" = "lekhai0212@gmail.com";
+    "cus_rl_email" = "";
+    "cus_security_answer" = "<null>";
+    "cus_security_custom_question" = "<null>";
+    "cus_security_method" = 0;
+    "cus_security_question" = "<null>";
+    "cus_seller" = 0;
+    "cus_seller_update" = 0;
+    "cus_send_email_to" = 0;
+    "cus_send_subemail" = 0;
+    "cus_social" = 0;
+    "cus_status" = 1;
+    "cus_subemail" = "<null>";
+    "cus_syn_algolia" = 0;
+    "cus_taxcode" = "<null>";
+    "cus_temp_email" = "<null>";
+    "cus_total_balance" = 0;
+    "cus_total_point" = 0;
+    "cus_town" = 0;
+    "cus_type" = 1;
+    "cus_username" = "lekhai0212@gmail.com";
+    "cus_web_domain" = "<null>";
+    "cus_website" = "<null>";
+    "cus_yahoo" = "<null>";
+    "cus_zonedns_domain" = "<null>";
+    "cus_zonedns_email_footer" = "";
+    "cus_zonedns_logo" = "<null>";
+    "cus_zonedns_value" = "<null>";
+    "dns_enable" = 0;
+    "dns_enable_qt" = 0;
+    "lv_content" = "<null>";
+    "lv_id" = 0;
+    "member_id" = 0;
+    "rel_id" = 0;
+    "reseller_content" = "<null>";
+    "reseller_id" = 0;
+    "reseller_type" = 0;
+    "reseller_upload_folder" = "<null>";
+    "user_id" = 0;
+    "zonedns_enable" = 0;
+}
+*/
 @end

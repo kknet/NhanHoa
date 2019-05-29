@@ -102,6 +102,8 @@
 		15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8C2228A76B4002F4F0F /* nhanhoa.sqlite */; };
 		15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */; };
 		15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */; };
+		15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE3451229E6737001D4238 /* EditProfileViewController.m */; };
+		15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15CE3452229E6737001D4238 /* EditProfileViewController.xib */; };
 		15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */; };
 		15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */; };
 		15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD792283CB89004C0452 /* ProfileManagerCell.m */; };
@@ -391,6 +393,9 @@
 		15C1A8CE228AB0DC002F4F0F /* PaymentResultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentResultView.h; sourceTree = "<group>"; };
 		15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentResultView.m; sourceTree = "<group>"; };
 		15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentResultView.xib; sourceTree = "<group>"; };
+		15CE3450229E6737001D4238 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		15CE3451229E6737001D4238 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		15CE3452229E6737001D4238 /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
 		15D1BD722283CA31004C0452 /* ProfileManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileManagerViewController.h; sourceTree = "<group>"; };
 		15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileManagerViewController.m; sourceTree = "<group>"; };
 		15D1BD742283CA31004C0452 /* ProfileManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileManagerViewController.xib; sourceTree = "<group>"; };
@@ -939,6 +944,9 @@
 				84555EF822863D2600FE77C1 /* AddProfileViewController.h */,
 				84555EF922863D2600FE77C1 /* AddProfileViewController.m */,
 				84555EFA22863D2600FE77C1 /* AddProfileViewController.xib */,
+				15CE3450229E6737001D4238 /* EditProfileViewController.h */,
+				15CE3451229E6737001D4238 /* EditProfileViewController.m */,
+				15CE3452229E6737001D4238 /* EditProfileViewController.xib */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -1347,6 +1355,7 @@
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
+				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
 				153035E5228675B0005E7DB2 /* list_city.txt in Resources */,
 				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
@@ -1617,6 +1626,7 @@
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
+				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
@@ -1791,7 +1801,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

@@ -13,11 +13,11 @@
 
 @implementation NewProfileView
 
-@synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport, viewSecure, lbSecure, tfSecure, imgSecure;
+@synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport;
 
 @synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService;
 
-- (void)setupForAddProfileUI {
+- (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate {
     //  setup for add profile
     padding = 15.0;
     mTop = 10.0;
@@ -35,19 +35,27 @@
     }];
     scvPersonal.delegate = self;
     
+    float hVision = 40.0;
+    float genderTop = self.mTop;
+    float hGender = self.hLabel;
+    
+    if (isUpdate) {
+        hVision = genderTop = hGender = 0;
+    }
+    
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.scvPersonal);
         make.left.equalTo(self.scvPersonal).offset(self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hVision);
     }];
     
     //  Choose type profile
     icPersonal.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbVision.mas_bottom).offset(self.mTop);
+        make.top.equalTo(self.lbVision.mas_bottom).offset(genderTop);
         make.left.equalTo(self.lbVision).offset(-4.0);
-        make.width.height.mas_equalTo(self.hLabel);
+        make.width.height.mas_equalTo(hGender);
     }];
     
     [lbPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -359,41 +367,12 @@
         make.height.equalTo(self.lbName.mas_height);
     }];
     
-    //  view secure
-    viewSecure.clipsToBounds = TRUE;
-    [viewSecure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvPersonal);
-        make.top.equalTo(self.viewPassport.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.mTop + self.hLabel + [AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    [lbSecure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewSecure).offset(self.mTop);
-        make.left.equalTo(self.viewSecure).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
-        make.height.mas_equalTo(self.hLabel);
-    }];
-    
-    [AppUtils setBorderForTextfield:tfSecure borderColor:ORANGE_COLOR];
-    [tfSecure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbSecure.mas_bottom);
-        make.left.equalTo(self.lbSecure);
-        make.right.equalTo(self.viewSecure.mas_centerX).offset(-self.padding/2);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    [imgSecure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.tfSecure);
-        make.left.equalTo(self.viewSecure.mas_centerX).offset(self.padding/2);
-        make.right.equalTo(self.viewSecure).offset(-self.padding);
-    }];
     
     btnCancel.layer.cornerRadius = 45.0/2;
     btnCancel.backgroundColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.imgPassportFront);
-        make.top.equalTo(self.viewSecure.mas_bottom).offset(2*self.padding);
+        make.top.equalTo(self.viewPassport.mas_bottom).offset(2*self.padding);
         make.height.mas_equalTo(45.0);
     }];
     
@@ -404,7 +383,7 @@
         make.top.bottom.equalTo(self.btnCancel);
     }];
     
-    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*[AppDelegate sharedInstance].hTextfield + (mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45 + 2*padding;
+    float hScrollView = 40 + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
     
     lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = [AppDelegate sharedInstance].fontMedium;
@@ -418,14 +397,12 @@
     //  Add datepicker
     [self addDatePickerForView];
     
-    //  40 + mTop + hLabel + (mTop + hLabel + hTextfield)(name) + (mTop + hLabel + hTextfield)(gender) + (mTop + hLabel + hTextfield)(passport) + (mTop + hLabel + hTextfield)(phone) + (mTop + hLabel + hTextfield)(email) + (mTop + hLabel + hTextfield)(address) + (mTop + hLabel + hTextfield)(country) + hViewPassport + (2*padding + 45.0 + 2*padding)
-    
-    tfName.text = @"Thiền Nguyễn";
+    tfName.text = @"Khải Lê";
     tfPassport.text = @"212987654";
-    tfPhone.text = @"0984123456";
-    tfEmail.text = @"thiengnguyen0804@gmail.com";
+    tfPhone.text = @"0363430737";
+    tfEmail.text = @"lekhai0212@gmail.com";
     tfAddress.text = @"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh";
-    tfBOD.text = @"08/04/1992";
+    tfBOD.text = @"02/12/1991";
 }
 
 - (void)addDatePickerForView {
@@ -481,16 +458,12 @@
 }
 
 - (void)setupViewForAddNewProfileView {
-    [viewSecure mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvPersonal);
-        make.top.equalTo(self.viewPassport.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(0);
-    }];
-    
     float wPassport = (SCREEN_WIDTH-3*padding)/2;
     float hPassport = wPassport * 2/3;
-    float hScrollView = 40 + 8*mTop + 8*hLabel + 7*[AppDelegate sharedInstance].hTextfield + (mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel) + 2*padding + 45 + 2*padding;
+    float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
+    
+    float hScrollView = 40 + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
+    
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
 
@@ -651,11 +624,12 @@
     [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
     
     if (imgFront != nil) {
-        __block NSData *uploadData = UIImagePNGRepresentation(imgFront);
+        imgFront = [AppUtils resizeImage: imgFront];
+        NSData *uploadData = UIImagePNGRepresentation(imgFront);
         if (uploadData == nil) {
             uploadData = UIImageJPEGRepresentation(imgFront, 1.0);
         }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_front_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        NSString *imageName = [NSString stringWithFormat:@"%@_front_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -669,7 +643,7 @@
                     }else{
                         [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture] toFilePath:[AppDelegate sharedInstance].logFilePath];
                         
-                        self.linkFrontPassport = uploadSession.namePicture;
+                        self.linkFrontPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
                     
                     [self startUploadPassportBehindPictures];
@@ -684,11 +658,10 @@
 
 - (void)startUploadPassportBehindPictures {
     if (imgBehind != nil) {
-        __block NSData *uploadData = UIImagePNGRepresentation(imgBehind);
-        if (uploadData == nil) {
-            uploadData = UIImageJPEGRepresentation(imgBehind, 1.0);
-        }
-        NSString *imageName = [NSString stringWithFormat:@"%@_passport_behind_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils randomStringWithLength: 10]];
+        imgBehind = [AppUtils resizeImage: imgBehind];
+        NSData *uploadData = UIImagePNGRepresentation(imgFront);
+        
+        NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -699,7 +672,7 @@
                         self.linkBehindPassport = @"";
                         
                     }else{
-                        self.linkBehindPassport = uploadSession.namePicture;
+                        self.linkBehindPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
                     [self startAddProfile];
                 });
@@ -800,7 +773,7 @@
     imgPassportBehind.image = FRONT_EMPTY_IMG;
 }
 
-//  {"cn_name":"Thiền Nguyễn","cmnd_b":"","cn_cmnd":"212987654","cmnd_a":"","cn_country":"231","mod":"add_contact","cn_birthday":"08/04/1992","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"97046ec8a290c4ff214acddfcf1fa363","cn_city":"1","own_type":0,"username":"lehoangson@gmail.com","cn_sex":0,"cn_phone":"0984123456"}
+//  {"cn_name":"Khải Lê","cmnd_b":"https://api.websudo.xyz/uploads/29-05-2019_12-06-10_behind_138665.PNG","cn_cmnd":"212987654","cmnd_a":"https://api.websudo.xyz/uploads/29-05-2019_12-06-10_front_138665.PNG","cn_country":"231","mod":"add_contact","cn_birthday":"02/12/1991","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"25d55ad283aa400af464c76d713c07ad","cn_city":"1","own_type":0,"username":"lekhai0212@gmail.com","cn_sex":1,"cn_phone":"0363430737"}
 
-//  {"cn_name":"Thiền Nguyễn","cmnd_b":"uploads/127115_passport_behind_7mznjJHOND.PNG","cn_cmnd":"212987654","cmnd_a":"uploads/127115_passport_front_QNmqccprEz.PNG","cn_country":"231","mod":"add_contact","cn_birthday":"08/04/1992","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"97046ec8a290c4ff214acddfcf1fa363","cn_city":"1","own_type":0,"username":"lehoangson@gmail.com","cn_sex":1,"cn_phone":"0984123456"}
+
 @end

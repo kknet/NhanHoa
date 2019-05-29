@@ -49,6 +49,8 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
+#define PASSWORD_MIN_CHARS  7
+
 #define type_men            1
 #define type_women          0
 
@@ -97,6 +99,8 @@
 #define get_profile_func        @"ListContact"
 #define register_account_func   @"RegisterAccount"
 #define add_contact_func        @"AddContact"
+#define edit_contact_func       @"EditContact"
+#define change_pass_func        @"ChangePassword"
 
 
 #define login_mod               @"login"
@@ -104,6 +108,7 @@
 #define get_profile_mod         @"contact_list"
 #define register_account_mod    @"register_account"
 #define add_contact_mod         @"add_contact"
+#define edit_contact_mod        @"edit_contact"
 #define change_password_mod     @"change_password"
 
 

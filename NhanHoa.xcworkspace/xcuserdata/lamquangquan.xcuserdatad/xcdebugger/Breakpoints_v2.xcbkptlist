@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Profiles/UI/NewProfileView.m"
-            timestampString = "580722369.5890599"
+            timestampString = "580817575.145594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "708"
+            endingLineNumber = "708"
             landmarkName = "-startAddProfile"
             landmarkType = "7">
          </BreakpointContent>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Web services/WebServices.m"
-            timestampString = "580722440.69742"
+            filePath = "NhanHoa/Profiles/ProfileDetailsViewController.m"
+            timestampString = "580817594.239965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "-callWebServiceWithLink:withParams:"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-displayProfileInformation"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

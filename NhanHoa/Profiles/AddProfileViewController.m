@@ -100,7 +100,7 @@
         make.top.left.bottom.right.equalTo(self.view);
     }];
     personalProfile.delegate = self;
-    [personalProfile setupForAddProfileUI];
+    [personalProfile setupForAddProfileUIForAddNew:TRUE isUpdate:FALSE];
     [personalProfile setupViewForAddNewProfileView];
 }
 

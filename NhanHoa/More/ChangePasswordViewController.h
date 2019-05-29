@@ -21,9 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
 @property (weak, nonatomic) IBOutlet UILabel *lbWarning;
+@property (weak, nonatomic) IBOutlet UIButton *icShowNewPass;
+@property (weak, nonatomic) IBOutlet UIButton *icShowConfirmPass;
 
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnSavePress:(UIButton *)sender;
+- (IBAction)icShowConfirmPassPress:(UIButton *)sender;
+- (IBAction)icShowNewPassPress:(UIButton *)sender;
 
 @end
 

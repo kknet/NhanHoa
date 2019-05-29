@@ -74,17 +74,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbPassportFront;
 @property (weak, nonatomic) IBOutlet UILabel *lbPassportBehind;
 
-@property (weak, nonatomic) IBOutlet UIView *viewSecure;
-@property (weak, nonatomic) IBOutlet UITextField *tfSecure;
-@property (weak, nonatomic) IBOutlet UILabel *lbSecure;
-@property (weak, nonatomic) IBOutlet UIImageView *imgSecure;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
 
 @property (nonatomic, strong) WebServices *webService;
 
-- (void)setupForAddProfileUI;
+- (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate;
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnBODPress:(UIButton *)sender;

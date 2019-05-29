@@ -109,7 +109,7 @@ status: (NOT YET)
     }
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: DONE
+status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
 
 5. ChangePassword (Đổi mật khẩu)
     *Send request (Post / Get) [Auto]
@@ -120,29 +120,31 @@ status: DONE
     re_new_password: MD5
     *Kết quả trả về: anh em send test để xem kết quả
 
+status: DONE
+
 6. ForgotPassword (Quên mật khẩu)
     Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
 
 status: DONE
 
 7. EditContact (Sửa hồ sơ)
-*Send request (Post / Get) [Auto]
-mod: edit_contact
-username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-password: MD5 (mật khẩu khách đăng nhập)
-Thông tin tạo hồ sơ
-own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-if (own_type: 0) { // cá nhân
-cn_name: Họ và tên (string)
-cn_sex: number (1: nam | 0: nữ)
-cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-cn_cmnd: string / number (Số CMND / Passport)
-cn_phone: string / number (Số ĐT)
-cn_address: string (địa chỉ)
-cn_country: 231 (cố định: Viêt Nam [231])
-cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-cmnd_a: URL (Link hình CMND mặt trước)
-cmnd_b: URL (Link hình CMND mặt sau)
+    *Send request (Post / Get) [Auto]
+    mod: edit_contact
+    username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
+    password: MD5 (mật khẩu khách đăng nhập)
+    Thông tin tạo hồ sơ
+    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
+    if (own_type: 0) { // cá nhân
+        cn_name: Họ và tên (string)
+        cn_sex: number (1: nam | 0: nữ)
+        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+        cn_cmnd: string / number (Số CMND / Passport)
+        cn_phone: string / number (Số ĐT)
+        cn_address: string (địa chỉ)
+        cn_country: 231 (cố định: Viêt Nam [231])
+        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+        cmnd_a: URL (Link hình CMND mặt trước)
+        cmnd_b: URL (Link hình CMND mặt sau)
 } elseif (own_type: 1) { // công ty / tổ chức
 tc_tc_name: string (tên cty / tổ chức)
 tc_tc_mst: string / number (mã số thuế)

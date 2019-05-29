@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -57,7 +57,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUR-BK-jpo">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUR-BK-jpo">
                             <rect key="frame" x="66" y="75" width="20" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -150,7 +150,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sga-WR-vuu">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sga-WR-vuu">
                             <rect key="frame" x="106" y="283" width="20" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -185,7 +185,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BQ-Tp-WkT">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9BQ-Tp-WkT">
                             <rect key="frame" x="71" y="406" width="20" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -281,44 +281,20 @@
                                 </label>
                             </subviews>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-51-9lL">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-51-9lL">
                             <rect key="frame" x="79" y="465" width="20" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH7-D9-Drl">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(*)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oH7-D9-Drl">
                             <rect key="frame" x="292" y="464" width="20" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.25657666620000003" blue="0.2547847084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hn0-5c-EKT">
-                            <rect key="frame" x="0.0" y="688" width="320" height="75"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã bảo mật" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1e-sk-gAt">
-                                    <rect key="frame" x="8" y="0.0" width="91" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mã bảo mật" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FaI-MB-0iS">
-                                    <rect key="frame" x="8" y="22" width="97" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9g2-OU-qkb">
-                                    <rect key="frame" x="181" y="17" width="120" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                            </subviews>
-                        </view>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMv-Ft-2xP">
                             <rect key="frame" x="37" y="788" width="97" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -361,7 +337,6 @@
                 <outlet property="imgPassport" destination="LGa-do-JQQ" id="34E-DQ-zwd"/>
                 <outlet property="imgPassportBehind" destination="f9Q-JD-8Uw" id="SHs-6k-xTS"/>
                 <outlet property="imgPassportFront" destination="Xc9-I9-VRq" id="fF4-3x-z16"/>
-                <outlet property="imgSecure" destination="9g2-OU-qkb" id="czZ-lw-ou8"/>
                 <outlet property="lbAddress" destination="cvD-Gu-me1" id="IRZ-Zp-tdX"/>
                 <outlet property="lbBOD" destination="wBY-0U-kmF" id="Ktn-QA-CrR"/>
                 <outlet property="lbBusiness" destination="Gg2-aD-tHM" id="aVf-F2-86V"/>
@@ -377,7 +352,6 @@
                 <outlet property="lbPassportFront" destination="JqB-gJ-M7k" id="SEe-1G-dFD"/>
                 <outlet property="lbPersonal" destination="8Eh-mO-dcK" id="ZvS-3J-hzz"/>
                 <outlet property="lbPhone" destination="Ks3-UF-37H" id="DbX-1t-NMs"/>
-                <outlet property="lbSecure" destination="G1e-sk-gAt" id="eCl-fP-DCb"/>
                 <outlet property="lbTitlePassport" destination="nxS-jI-rcN" id="LZl-u4-Y3y"/>
                 <outlet property="lbVision" destination="qsd-uB-Abb" id="UBk-lf-KPp"/>
                 <outlet property="lbWarningAddress" destination="9BQ-Tp-WkT" id="Ws4-li-Ad1"/>
@@ -394,19 +368,17 @@
                 <outlet property="tfName" destination="yAE-qz-LY2" id="xh0-PW-idD"/>
                 <outlet property="tfPassport" destination="Ti3-Rx-Tj1" id="w7S-ZL-4Eq"/>
                 <outlet property="tfPhone" destination="Vf6-7y-oid" id="3zc-pI-zIK"/>
-                <outlet property="tfSecure" destination="FaI-MB-0iS" id="pi3-8j-6gt"/>
                 <outlet property="viewPassport" destination="6UR-AC-xJS" id="GVP-pS-6h8"/>
-                <outlet property="viewSecure" destination="Hn0-5c-EKT" id="Y51-ao-IFn"/>
             </connections>
-            <point key="canvasLocation" x="-3011" y="-463"/>
+            <point key="canvasLocation" x="-3813" y="-485"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="80" height="80"/>
+        <image name="no_tick.png" width="100" height="100"/>
         <image name="passport_empty_behind.png" width="400" height="252"/>
         <image name="passport_empty_front.png" width="400" height="252"/>
-        <image name="picture.png" width="150" height="150"/>
-        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
+        <image name="picture.png" width="200" height="200"/>
+        <image name="tick_orange.png" width="100" height="100"/>
     </resources>
 </document>

@@ -20,6 +20,7 @@
 + (void)addDashedLineForView: (UIView *)view color: (UIColor *)color;
 +(BOOL)isNullOrEmpty:(NSString*)string;
 + (NSString *)getCurrentDate;
++ (NSString *)getCurrentDateTime;
 + (NSString *)getCurrentDateTimeToString;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
@@ -31,5 +32,6 @@
 + (NSString *)getModelsOfCurrentDevice;
 + (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor;
 + (NSString *)getMD5StringOfString: (NSString *)string;
++(UIImage *)resizeImage:(UIImage *)image;
 
 @end
