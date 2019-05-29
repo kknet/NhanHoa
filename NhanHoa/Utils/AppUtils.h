@@ -22,6 +22,8 @@
 + (NSString *)getCurrentDate;
 + (NSString *)getCurrentDateTime;
 + (NSString *)getCurrentDateTimeToString;
++ (NSString *)convertDateToString: (NSDate *)date;
++ (NSDate *)convertStringToDate: (NSString *)dateString;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
@@ -33,5 +35,7 @@
 + (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor;
 + (NSString *)getMD5StringOfString: (NSString *)string;
 +(UIImage *)resizeImage:(UIImage *)image;
++ (UIImage*) rotateImage:(UIImage* )originalImage;
++ (UIImage *)scaleAndRotateImage:(UIImage *)image;
 
 @end

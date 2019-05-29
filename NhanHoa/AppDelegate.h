@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Toast.h"
 #import "Reachability.h"
+#import "CityObject.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -60,6 +61,8 @@ typedef enum PaymentMethod{
 @property (nonatomic, assign) float radius;
 
 @property (nonatomic, assign) BOOL needReloadListProfile;
+
+- (NSString *)findCityObjectWithCityCode: (NSString *)code;
 
 @end
 

@@ -10,6 +10,11 @@
 #import "ChooseCityPopupView.h"
 #import "WebServices.h"
 
+typedef enum {
+    eAddNewBusinessProfile,
+    eEditBusinessProfile,
+}BusinessProfileMode;
+
 @protocol NewBusinessProfileViewDelegate
 - (void)onSelectPersonalProfile;
 - (void)onBusinessPassportFrontPress;
@@ -20,6 +25,8 @@
 @interface NewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ChooseCityPopupViewDelegate, UITextFieldDelegate, WebServicesDelegate>
 
 @property (nonatomic, strong) id<NewBusinessProfileViewDelegate, NSObject> delegate;
+
+@property (nonatomic, assign) BusinessProfileMode mode;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -92,7 +99,7 @@
 
 @property (nonatomic, strong) ChooseCityPopupView *popupChooseCity;
 
-- (void)setupUIForViewForAddProfile: (BOOL)isAddNew;
+- (void)setupUIForViewForAddProfile: (BOOL)isAddNew update: (BOOL)isUpdate;
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnPerCityPress:(UIButton *)sender;
@@ -116,5 +123,7 @@
 
 - (void)removePassportFrontPhoto;
 - (void)removePassportBehindPhoto;
+
+- (void)displayInfoForProfileWithInfo: (NSDictionary *)info;
 
 @end

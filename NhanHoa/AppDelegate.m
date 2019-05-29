@@ -10,7 +10,6 @@
 #import "AppTabbarViewController.h"
 #import "LaunchViewController.h"
 #import "SignInViewController.h"
-#import "CityObject.h"
 
 @interface AppDelegate ()
 
@@ -432,6 +431,16 @@
         
         hTextfield = 38.0;
     }
+}
+
+- (NSString *)findCityObjectWithCityCode: (NSString *)code {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code = %@", code];
+    NSArray *filter = [listCity filteredArrayUsingPredicate: predicate];
+    if (filter.count > 0) {
+        CityObject *result = [filter firstObject];
+        return result.code;
+    }
+    return @"";
 }
 
 

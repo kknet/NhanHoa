@@ -22,6 +22,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"EditProfileViewController"];
+    
+    self.title = @"Cập nhật hồ sơ";
     [self displayProfileInformation];
 }
 
@@ -30,18 +33,16 @@
     if (type != nil && [type isKindOfClass:[NSString class]]) {
         if ([type isEqualToString:@"0"]) {
             [self addUpdatePersonalProfileViewIfNeed];
-            [self displayInformationForPersonalProfile];
+            [personalProfileView displayInfoForPersonalProfileWithInfo: profileInfo];
             
         }else{
             [self addUpdateBusinessProfileViewIfNeed];
-            [self displayInformationForBusinessProfile];
+            [businessProfileView displayInfoForProfileWithInfo: profileInfo];
         }
     }
 }
 
 - (void)addUpdatePersonalProfileViewIfNeed {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if (personalProfileView == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewProfileView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
@@ -60,16 +61,22 @@
     //  [personalProfileView setupViewForAddNewProfileView];
 }
 
-- (void)displayInformationForPersonalProfile {
-    
-}
-
 - (void)addUpdateBusinessProfileViewIfNeed {
-    
-}
-
-- (void)displayInformationForBusinessProfile {
-    
+    if (businessProfileView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewBusinessProfileView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[NewBusinessProfileView class]]) {
+                businessProfileView = (NewBusinessProfileView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: businessProfileView];
+    }
+    [businessProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    businessProfileView.delegate = self;
+    [businessProfileView setupUIForViewForAddProfile:FALSE update:TRUE];
 }
 
 @end

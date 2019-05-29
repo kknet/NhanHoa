@@ -15,7 +15,7 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService, mode, cusId;
 
 - (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate {
     //  setup for add profile
@@ -40,7 +40,14 @@
     float hGender = self.hLabel;
     
     if (isUpdate) {
+        mode = eEditProfile;
         hVision = genderTop = hGender = 0;
+        
+        icPersonal.hidden = lbPersonal.hidden = icBusiness.hidden = lbBusiness.hidden = TRUE;
+    }else{
+        mode = eAddNewProfile;
+        
+        icPersonal.hidden = lbPersonal.hidden = icBusiness.hidden = lbBusiness.hidden = FALSE;
     }
     
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,15 +140,14 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    icMale.imageEdgeInsets = self.icPersonal.imageEdgeInsets;
+    icMale.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [icMale mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.icPersonal.mas_left);
+        make.left.equalTo(self.lbVision).offset(-4.0);
         make.centerY.equalTo(self.tfBOD.mas_centerY);
-        make.width.equalTo(self.icPersonal.mas_width);
-        make.height.equalTo(self.icPersonal.mas_height);
+        make.width.height.mas_equalTo(self.hLabel);
     }];
     
-    icFemale.imageEdgeInsets = self.icPersonal.imageEdgeInsets;
+    icFemale.imageEdgeInsets = self.icMale.imageEdgeInsets;
     [icFemale mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(SCREEN_WIDTH/4);
         make.top.bottom.equalTo(self.icMale);
@@ -383,7 +389,7 @@
         make.top.bottom.equalTo(self.btnCancel);
     }];
     
-    float hScrollView = 40 + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
+    float hScrollView = hVision + hGender + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
     
     lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = [AppDelegate sharedInstance].fontMedium;
@@ -396,13 +402,6 @@
     
     //  Add datepicker
     [self addDatePickerForView];
-    
-    tfName.text = @"Khải Lê";
-    tfPassport.text = @"212987654";
-    tfPhone.text = @"0363430737";
-    tfEmail.text = @"lekhai0212@gmail.com";
-    tfAddress.text = @"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh";
-    tfBOD.text = @"02/12/1991";
 }
 
 - (void)addDatePickerForView {
@@ -526,9 +525,7 @@
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];
     }else{
-        linkFrontPassport = @"";
-        linkBehindPassport = @"";
-        [self startAddProfile];
+        [self handlePersonalProfileProfile];
     }
 }
 
@@ -559,10 +556,17 @@
         make.height.mas_equalTo(hToolbar);
     }];
     
+    //  set date for picker
+    if (![AppUtils isNullOrEmpty: tfBOD.text]) {
+        NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
+        datePicker.date = bodDate;
+    }else{
+        datePicker.date = [NSDate date];
+    }
+    
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.datePicker.date = [NSDate date];
         self.datePicker.maximumDate = [NSDate date];
     }];
 }
@@ -639,7 +643,11 @@
                         [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Can not upload front passport", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
                         [self makeToast:@"Ảnh CMND mặt trước của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
                         
-                        self.linkFrontPassport = @"";
+                        //  Nếu update không thành công thì dùng ảnh cũ, còn thêm mới thì set giá trị rỗng
+                        if (self.mode == eAddNewProfile) {
+                            self.linkFrontPassport = @"";
+                        }
+                        
                     }else{
                         [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture] toFilePath:[AppDelegate sharedInstance].logFilePath];
                         
@@ -651,7 +659,6 @@
             }];
         });
     }else{
-        self.linkFrontPassport = @"";
         [self startUploadPassportBehindPictures];
     }
 }
@@ -669,23 +676,26 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
                         [self makeToast:@"Ảnh CMND mặt sau của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-                        self.linkBehindPassport = @"";
+                        
+                        //  Nếu update không thành công thì dùng ảnh cũ, còn thêm mới thì set giá trị rỗng
+                        if (self.mode == eAddNewProfile) {
+                            self.linkBehindPassport = @"";
+                        }
                         
                     }else{
                         self.linkBehindPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
-                    [self startAddProfile];
+                    [self handlePersonalProfileProfile];
                 });
             }];
         });
     }else{
-        [self startAddProfile];
+        [self handlePersonalProfileProfile];
     }
 }
 
-- (void)startAddProfile {
+- (void)handlePersonalProfileProfile {
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:add_contact_mod forKey:@"mod"];
     [info setObject:USERNAME forKey:@"username"];
     [info setObject:PASSWORD forKey:@"password"];
     [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
@@ -705,9 +715,17 @@
         webService.delegate = self;
     }
     
-    [webService callWebServiceWithLink:add_contact_func withParams:info];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    if (mode == eAddNewProfile) {
+        [info setObject:add_contact_mod forKey:@"mod"];
+        [webService callWebServiceWithLink:add_contact_func withParams:info];
+        
+        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+        
+    }else if (mode == eEditProfile){
+        [info setObject:cusId forKey:@"cus_id"];
+        [info setObject:edit_contact_mod forKey:@"mod"];
+        [webService callWebServiceWithLink:edit_contact_func withParams:info];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -729,13 +747,16 @@
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
-    if ([link isEqualToString:add_contact_func]) {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
     
-        if (![AppUtils checkNetworkAvailable]) {
-            [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        }else{
-            [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
+    if ([link isEqualToString:add_contact_func]) {
+        [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+    }else if ([link isEqualToString: edit_contact_func]) {
+        [self makeToast:@"Cập nhật thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
@@ -745,6 +766,9 @@
     [ProgressHUD dismiss];
     if ([link isEqualToString:add_contact_func]) {
         [self profileWasCreatedSuccessful];
+        
+    }else if ([link isEqualToString: edit_contact_func]) {
+        NSLog(@"%@", data);
     }
 }
 
@@ -773,7 +797,81 @@
     imgPassportBehind.image = FRONT_EMPTY_IMG;
 }
 
-//  {"cn_name":"Khải Lê","cmnd_b":"https://api.websudo.xyz/uploads/29-05-2019_12-06-10_behind_138665.PNG","cn_cmnd":"212987654","cmnd_a":"https://api.websudo.xyz/uploads/29-05-2019_12-06-10_front_138665.PNG","cn_country":"231","mod":"add_contact","cn_birthday":"02/12/1991","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"25d55ad283aa400af464c76d713c07ad","cn_city":"1","own_type":0,"username":"lekhai0212@gmail.com","cn_sex":1,"cn_phone":"0363430737"}
 
+- (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info {
+    NSString *fullname = [info objectForKey:@"cus_realname"];    //  cus_contract_name???
+    if (![AppUtils isNullOrEmpty: fullname]) {
+        tfName.text = fullname;
+    }else{
+        tfName.text = @"";
+    }
+    
+    NSString *gender = [info objectForKey:@"cus_gender"];
+    if ([gender isEqualToString:@"1"]) {
+        [self selectMale];
+    }else{
+        [self selectFemale];
+    }
+    
+    NSString *birthday = [info objectForKey:@"cus_birthday"];
+    if (![AppUtils isNullOrEmpty: birthday]) {
+        tfBOD.text = birthday;
+    }else{
+        tfBOD.text = @"";
+    }
+    
+    NSString *passport = [info objectForKey:@"cus_idcard_number"];
+    if (![AppUtils isNullOrEmpty: passport]) {
+        tfPassport.text = passport;
+    }else{
+        tfPassport.text = @"";
+    }
+    
+    NSString *phone = [info objectForKey:@"cus_phone"];
+    if (![AppUtils isNullOrEmpty: phone]) {
+        tfPhone.text = phone;
+    }else{
+        tfPhone.text = @"";
+    }
+    
+    NSString *email = [info objectForKey:@"cus_email"];
+    if (![AppUtils isNullOrEmpty: email]) {
+        tfEmail.text = email;
+    }else{
+        tfEmail.text = @"";
+    }
+    
+    NSString *address = [info objectForKey:@"cus_address"];
+    if (![AppUtils isNullOrEmpty: address]) {
+        tfAddress.text = address;
+    }else{
+        tfAddress.text = @"";
+    }
+    
+    NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
+    if (![AppUtils isNullOrEmpty: cmnd_a]) {
+        linkFrontPassport = cmnd_a;
+        [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
+    }else{
+        imgPassportFront.image = FRONT_EMPTY_IMG;
+    }
+    
+    NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
+    if (![AppUtils isNullOrEmpty: cmnd_b]) {
+        linkBehindPassport = cmnd_b;
+        [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
+    }else{
+        imgPassportBehind.image = BEHIND_EMPTY_IMG;
+    }
+    
+    NSString *city = [info objectForKey:@"cus_city"];
+    if (![AppUtils isNullOrEmpty: city]) {
+        cityCode = [[AppDelegate sharedInstance] findCityObjectWithCityCode: city];
+    }else{
+        cityCode = @"";
+    }
+    
+    cusId = [info objectForKey:@"cus_id"];
+}
 
 @end

@@ -10,6 +10,11 @@
 #import "ChooseCityPopupView.h"
 #import "WebServices.h"
 
+typedef enum {
+    eAddNewProfile,
+    eEditProfile,
+}PersonalProfileMode;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol NewProfileViewDelegate
@@ -23,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, WebServicesDelegate>
 
 @property (retain) id <NSObject, NewProfileViewDelegate > delegate;
+
+@property (nonatomic, assign) PersonalProfileMode mode;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvPersonal;
 @property (weak, nonatomic) IBOutlet UILabel *lbVision;
@@ -106,6 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupViewForAddNewProfileView;
 - (void)removePassportFrontPhoto;
 - (void)removePassportBehindPhoto;
+
+- (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info;
+@property (nonatomic, strong) NSString *cusId;
 @end
 
 NS_ASSUME_NONNULL_END

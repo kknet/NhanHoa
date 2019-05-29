@@ -104,12 +104,18 @@ status: (NOT YET)
         cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
         cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
+
+        Data gửi:
+        {"tc_tc_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","cn_birthday":"02/12/1991","cn_phone":"0363430737","tc_tc_name":"Thiền Nguyễn Company","tc_tc_city":"1","cmnd_b":"uploads/30-05-2019_05-59-59_behind_138665","own_type":1,"cn_name":"Khải Lê","cn_country":"231","mod":"add_contact","cn_address":"1020 Phạm Văn Đồng","cn_city":"46","cmnd_a":"uploads/30-05-2019_05-59-57_front_138665","tc_tc_country":"231","cn_sex":1,"cn_cmnd":"212456789","tc_tc_mst":"MST_0123456","tc_tc_phone":"0932205601","password":"25d55ad283aa400af464c76d713c07ad","cn_position":"Làm Thuê","username":"lekhai0212@gmail.com"}
+
     } else {
         api: error response
     }
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
+status: DONE:
+    -   Chưa lưu được country code và city code)
+    -   Không thấy giá trị city code của company
 
 5. ChangePassword (Đổi mật khẩu)
     *Send request (Post / Get) [Auto]
@@ -128,6 +134,9 @@ status: DONE
 status: DONE
 
 7. EditContact (Sửa hồ sơ)
+    errorCode = 007;
+    message = "invalid contact (contact id not in customer account)";
+
     *Send request (Post / Get) [Auto]
     mod: edit_contact
     username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
@@ -167,43 +176,43 @@ status: DONE
         api: error response
     }
 
-*Kết quả trả về: anh em send test để xem kết quả
+    *Kết quả trả về: anh em send test để xem kết quả
 
 
 8. EditProfile (Sửa profile [tải khoản chính])
-    *Send request (Post / Get) [Auto]
-    mod: edit_profile
-    usernamel: string (email)
-    password: MD5
-    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    } elseif (own_type: 1) { // công ty / tổ chức
-        tc_tc_name: string (tên cty / tổ chức)
-        tc_tc_mst: string / number (mã số thuế)
-        tc_tc_address: string (địa chỉ cty / tổ chức)
-        tc_tc_phone: string / number (số đt cty / tổ chức)
-        tc_tc_country: 231 (cố định: Viêt Nam [231])
-        tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cn_position: string (chức vụ người đại diện)
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    } else {
-        api: error response
-    }
+*Send request (Post / Get) [Auto]
+mod: edit_profile
+usernamel: string (email)
+password: MD5
+own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
+if (own_type: 0) { // cá nhân
+cn_name: Họ và tên (string)
+cn_sex: number (1: nam | 0: nữ)
+cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+cn_cmnd: string / number (Số CMND / Passport)
+cn_phone: string / number (Số ĐT)
+cn_address: string (địa chỉ)
+cn_country: 231 (cố định: Viêt Nam [231])
+cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+} elseif (own_type: 1) { // công ty / tổ chức
+tc_tc_name: string (tên cty / tổ chức)
+tc_tc_mst: string / number (mã số thuế)
+tc_tc_address: string (địa chỉ cty / tổ chức)
+tc_tc_phone: string / number (số đt cty / tổ chức)
+tc_tc_country: 231 (cố định: Viêt Nam [231])
+tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
+cn_position: string (chức vụ người đại diện)
+cn_name: Họ và tên (string)
+cn_sex: number (1: nam | 0: nữ)
+cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+cn_cmnd: string / number (Số CMND / Passport)
+cn_phone: string / number (Số ĐT)
+cn_address: string (địa chỉ)
+cn_country: 231 (cố định: Viêt Nam [231])
+cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+} else {
+api: error response
+}
 
 *Kết quả trả về: anh em send test để xem kết quả
 

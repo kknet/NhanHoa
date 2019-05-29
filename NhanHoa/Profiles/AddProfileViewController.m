@@ -121,7 +121,7 @@
         make.top.left.bottom.right.equalTo(self.view);
     }];
     businessProfile.delegate = self;
-    [businessProfile setupUIForViewForAddProfile: TRUE];
+    [businessProfile setupUIForViewForAddProfile:TRUE update:FALSE];
 }
 
 #pragma NewProfileView delegate & buniness
@@ -339,23 +339,32 @@
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (personalProfile != nil && !personalProfile.hidden) {
         if (type == 1) {
-            imgFront = image;
+            NSData *pngData = UIImagePNGRepresentation(image);
+            imgFront = [UIImage imageWithData:pngData];
+            
+            //  imgFront = image;
             personalProfile.imgFront = imgFront;
-            personalProfile.imgPassportFront.image = image;
+            personalProfile.imgPassportFront.image = imgFront;
         }else{
-            imgBehind = image;
+            NSData *pngData = UIImagePNGRepresentation(image);
+            imgBehind = [UIImage imageWithData:pngData];
+            
             personalProfile.imgBehind = imgBehind;
-            personalProfile.imgPassportBehind.image = image;
+            personalProfile.imgPassportBehind.image = imgBehind;
         }
     }else{
         if (type == 1) {
-            imgFront = image;
+            NSData *pngData = UIImagePNGRepresentation(image);
+            imgFront = [UIImage imageWithData:pngData];
+            
             businessProfile.imgFront = imgFront;
-            businessProfile.imgPassportFront.image = image;
+            businessProfile.imgPassportFront.image = imgFront;
         }else{
-            imgBehind = image;
+            NSData *pngData = UIImagePNGRepresentation(image);
+            imgBehind = [UIImage imageWithData:pngData];
+            
             businessProfile.imgBehind = imgBehind;
-            businessProfile.imgPassportBehind.image = image;
+            businessProfile.imgPassportBehind.image = imgBehind;
         }
     }
     

@@ -69,6 +69,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                      name:UIKeyboardWillHideNotification object:nil];
     }
+    
+    //  fill username
+    if (![AppUtils isNullOrEmpty: USERNAME]) {
+        tfAccount.text = USERNAME;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
