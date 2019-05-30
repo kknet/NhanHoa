@@ -72,12 +72,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *tfPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lbAddress;
 @property (weak, nonatomic) IBOutlet UITextField *tfAddress;
-@property (weak, nonatomic) IBOutlet UILabel *lbPerCountry;
-@property (weak, nonatomic) IBOutlet UITextField *tfPerCountry;
-@property (weak, nonatomic) IBOutlet UILabel *lbPerCity;
-@property (weak, nonatomic) IBOutlet UITextField *tfPerCity;
-@property (weak, nonatomic) IBOutlet UIImageView *imgPerCityArrow;
-@property (weak, nonatomic) IBOutlet UIButton *btnPerCity;
 
 @property (weak, nonatomic) IBOutlet UIView *viewPassport;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPassport;
@@ -103,13 +97,11 @@ typedef enum {
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnPerCityPress:(UIButton *)sender;
-- (IBAction)btnCityPress:(UIButton *)sender;
 - (IBAction)btnBODPress:(UIButton *)sender;
 - (IBAction)icMaleClick:(UIButton *)sender;
 - (IBAction)icFemaleClick:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *businessCity;
-@property (nonatomic, strong) NSString *personalCity;
 @property (nonatomic, assign) int gender;
 
 

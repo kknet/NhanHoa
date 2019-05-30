@@ -86,6 +86,7 @@ status: (NOT YET)
         cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         cmnd_a: URL (Link hình CMND mặt trước)
         cmnd_b: URL (Link hình CMND mặt sau)
+
     } elseif (own_type: 1) { // công ty / tổ chức
         tc_tc_name: string (tên cty / tổ chức)
         tc_tc_mst: string / number (mã số thuế)
@@ -100,10 +101,9 @@ status: (NOT YET)
         cn_cmnd: string / number (Số CMND / Passport)
         cn_phone: string / number (Số ĐT)
         cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
         cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
+
     } else {
         api: error response
     }
@@ -159,10 +159,9 @@ status: DONE
         cn_cmnd: string / number (Số CMND / Passport)
         cn_phone: string / number (Số ĐT)
         cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
         cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
+
     } else {
         api: error response
     }

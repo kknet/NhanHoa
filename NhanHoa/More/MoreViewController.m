@@ -39,8 +39,6 @@
     }else{
         tbContent.scrollEnabled = FALSE;
     }
-    
-    //  77
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -272,11 +270,8 @@
             [self presentViewController:signInVC animated:TRUE completion:nil];
         }
     }
-    
-    
-    
-
-    
 }
+
+//  80
 
 @end

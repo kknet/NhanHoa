@@ -47,7 +47,15 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    imagePickerController = nil;
+    if ([self isMovingFromParentViewController])
+    {
+        imagePickerController = nil;
+        [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
+    }
+    else
+    {
+        NSLog(@"New view controller was pushed");
+    }
 }
 
 //  Hiển thị bàn phím

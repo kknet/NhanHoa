@@ -12,9 +12,9 @@
 
 @implementation NewBusinessProfileView
 
-@synthesize scvContent, lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, tfAddress, lbAddress, lbPerCountry, tfPerCountry, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, viewPassport, lbPassportTitle, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, imgPassport, btnCancel, btnSave, btnBOD;
+@synthesize scvContent, lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, tfAddress, lbAddress, viewPassport, lbPassportTitle, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, imgPassport, btnCancel, btnSave, btnBOD;
 
-@synthesize padding, hLabel, mTop, delegate, businessCity, personalCity, gender, datePicker, toolBar, popupChooseCity, imgFront, linkFrontPassport, imgBehind, linkBehindPassport, webService, mode;
+@synthesize padding, hLabel, mTop, delegate, businessCity, gender, datePicker, toolBar, popupChooseCity, imgFront, linkFrontPassport, imgBehind, linkBehindPassport, webService, mode;
 
 - (void)setupUIForViewForAddProfile: (BOOL)isAddNew update: (BOOL)isUpdate{
     padding = 15.0;
@@ -27,11 +27,11 @@
     
     lbTitle.font = lbInfoBusiness.font = lbInfoRegister.font = [AppDelegate sharedInstance].fontBold;
     
-    lbVision.font = lbBusinessName.font = lbTaxCode.font = lbBusinessAddress.font = lbBusinessPhone.font = lbCountry.font = lbCity.font = lbRegisterName.font = lbGender.font = lbBOD.font = lbPosition.font = lbPassport.font = lbPhone.font = lbAddress.font = lbPerCountry.font = lbPerCity.font = [AppDelegate sharedInstance].fontMedium;
+    lbVision.font = lbBusinessName.font = lbTaxCode.font = lbBusinessAddress.font = lbBusinessPhone.font = lbCountry.font = lbCity.font = lbRegisterName.font = lbGender.font = lbBOD.font = lbPosition.font = lbPassport.font = lbPhone.font = lbAddress.font = [AppDelegate sharedInstance].fontMedium;
     
-    lbPersonal.font = lbBusiness.font = tfBusinessName.font = tfTaxCode.font = tfBusinessAddress.font = tfBusinessPhone.font = tfCountry.font = tfCity.font = tfRegisterName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPosition.font = tfPassport.font = tfPhone.font = tfAddress.font = tfPerCountry.font = tfPerCity.font = [AppDelegate sharedInstance].fontRegular;
+    lbPersonal.font = lbBusiness.font = tfBusinessName.font = tfTaxCode.font = tfBusinessAddress.font = tfBusinessPhone.font = tfCountry.font = tfCity.font = tfRegisterName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPosition.font = tfPassport.font = tfPhone.font = tfAddress.font = [AppDelegate sharedInstance].fontRegular;
     
-    lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbBusinessName.textColor = lbTaxCode.textColor = lbBusinessAddress.textColor = lbBusinessPhone.textColor = lbCountry.textColor = lbCity.textColor = lbRegisterName.textColor = lbPassport.textColor = lbPhone.textColor = lbAddress.textColor = lbPerCountry.textColor = lbPerCity.textColor = TITLE_COLOR;
+    lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbBusinessName.textColor = lbTaxCode.textColor = lbBusinessAddress.textColor = lbBusinessPhone.textColor = lbCountry.textColor = lbCity.textColor = lbRegisterName.textColor = lbPassport.textColor = lbPhone.textColor = lbAddress.textColor = TITLE_COLOR;
     
     lbInfoBusiness.textColor = lbInfoRegister.textColor = BLUE_COLOR;
     
@@ -41,7 +41,7 @@
     }];
     
     //  title
-    float hTitle = 40.0;
+    float hTitle = 0.0;
     float hVision = 40.0;
     float hGender = self.hLabel;
     if (isUpdate) {
@@ -368,49 +368,6 @@
     tfAddress.returnKeyType = UIReturnKeyDone;
     tfAddress.delegate = self;
     
-    //  country and city
-    [lbPerCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfAddress.mas_bottom).offset(self.mTop);
-        make.left.equalTo(self).offset(self.padding);
-        make.right.equalTo(self.mas_centerX).offset(-self.padding/2);
-        make.height.mas_equalTo(self.hLabel);
-    }];
-    
-    [AppUtils setBorderForTextfield:tfPerCountry borderColor:BORDER_COLOR];
-    tfPerCountry.backgroundColor = LIGHT_GRAY_COLOR;
-    tfPerCountry.enabled = FALSE;
-    tfPerCountry.text = @"Việt nam";
-    [tfPerCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPerCountry.mas_bottom);
-        make.left.right.equalTo(self.lbPerCountry);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    //  city
-    [lbPerCity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbPerCountry);
-        make.left.equalTo(self.mas_centerX).offset(self.padding/2);
-        make.right.equalTo(self).offset(-self.padding);
-    }];
-    
-    [AppUtils setBorderForTextfield:tfPerCity borderColor:BORDER_COLOR];
-    [tfPerCity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPerCity.mas_bottom);
-        make.left.right.equalTo(self.lbPerCity);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    [imgPerCityArrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfPerCity.mas_right).offset(-7.5);
-        make.centerY.equalTo(self.tfPerCity.mas_centerY);
-        make.width.height.mas_equalTo(14.0);
-    }];
-    
-    [btnPerCity setTitle:@"" forState:UIControlStateNormal];
-    [btnPerCity mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.tfPerCity);
-    }];
-    
     //  view passport
     float wPassport = (SCREEN_WIDTH-3*padding)/2;
     float hPassport = wPassport * 2/3;
@@ -418,7 +375,7 @@
     
     [viewPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.tfPerCountry.mas_bottom);
+        make.top.equalTo(self.tfAddress.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hViewPassport);
     }];
@@ -489,7 +446,7 @@
     //  Add datepicker
     [self addDatePickerForView];
     
-    float hScrollView = hTitle + hVision + hGender + (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45.0 + 2*padding;
+    float hScrollView = hTitle + hVision + hGender + (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45.0 + 2*padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
 
@@ -539,11 +496,6 @@
         return;
     }
     
-    if ([AppUtils isNullOrEmpty: tfAddress.text] || [AppUtils isNullOrEmpty: personalCity]) {
-        [self makeToast:@"Bạn chưa nhập Địa chỉ người đăng ký!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];
     }else{
@@ -556,23 +508,12 @@
 - (IBAction)btnCancelPress:(UIButton *)sender {
 }
 
-- (IBAction)btnPerCityPress:(UIButton *)sender {
-    float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
-    if (popupChooseCity == nil) {
-        popupChooseCity = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
-        popupChooseCity.delegate = self;
-    }
-    popupChooseCity.tag = 1;
-    [popupChooseCity showInView:self animated:TRUE];
-}
-
 - (IBAction)btnCityPress:(UIButton *)sender {
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (popupChooseCity == nil) {
         popupChooseCity = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
         popupChooseCity.delegate = self;
     }
-    popupChooseCity.tag = 2;
     [popupChooseCity showInView:self animated:TRUE];
 }
 
@@ -830,8 +771,6 @@
     [info setObject:tfPassport.text forKey:@"cn_cmnd"];
     [info setObject:tfPhone.text forKey:@"cn_phone"];
     [info setObject:tfAddress.text forKey:@"cn_address"];
-    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-    [info setObject:personalCity forKey:@"cn_city"];
     [info setObject:linkFrontPassport forKey:@"cmnd_a"];
     [info setObject:linkBehindPassport forKey:@"cmnd_b"];
     
@@ -847,13 +786,8 @@
 
 #pragma mark - ChooseCityPopupView
 - (void)choosedCity:(CityObject *)city {
-    if (popupChooseCity.tag == 1) {
-        personalCity = city.code;
-        tfPerCity.text = city.name;
-    }else{
-        businessCity = city.code;
-        tfCity.text = city.name;
-    }
+    businessCity = city.code;
+    tfCity.text = city.name;
 }
 
 #pragma mark - UIScrollview Delegate
@@ -1023,11 +957,18 @@
         tfAddress.text = @"";
     }
     
-    NSString *cus_city = [info objectForKey:@"cus_city"];
-    if (![AppUtils isNullOrEmpty: cus_city]) {
-        personalCity = cus_city;
+    NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
+    if (![AppUtils isNullOrEmpty: cmnd_a]) {
+        [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
     }else{
-        personalCity = @"";
+        imgPassportFront.image = FRONT_EMPTY_IMG;
+    }
+    
+    NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
+    if (![AppUtils isNullOrEmpty: cmnd_b]) {
+        [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:BEHIND_EMPTY_IMG];
+    }else{
+        imgPassportBehind.image = BEHIND_EMPTY_IMG;
     }
     
     
