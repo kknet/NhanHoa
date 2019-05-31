@@ -509,6 +509,9 @@
         return;
     }
     
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Hồ sơ đang được cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
+    
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];
     }else{
@@ -753,9 +756,6 @@
 }
 
 - (void)startUploadPassportPictures {
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
-    [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
-    
     if (imgFront != nil) {
         imgFront = [AppUtils resizeImage: imgFront];
         NSData *uploadData = UIImagePNGRepresentation(imgFront);
@@ -1127,7 +1127,7 @@
     [[AppDelegate sharedInstance].profileEdit setObject:tfPassport.text forKey:@"cus_idcard_number"];
     [[AppDelegate sharedInstance].profileEdit setObject:tfPhone.text forKey:@"cus_phone"];
     [[AppDelegate sharedInstance].profileEdit setObject:tfAddress.text forKey:@"cus_address"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfCity.text forKey:@"cus_city"];
+    [[AppDelegate sharedInstance].profileEdit setObject:businessCity forKey:@"cus_city"];
 }
 
 - (void)tryToGetCMND_a {

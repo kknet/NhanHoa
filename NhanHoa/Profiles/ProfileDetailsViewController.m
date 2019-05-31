@@ -25,6 +25,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    [WriteLogsUtils writeForGoToScreen: @"ProfileDetailsViewController"];
+    
     self.title = @"Chi tiết hồ sơ";
     
     NSString *type = [profileInfo objectForKey:@"cus_own_type"];
@@ -60,6 +63,7 @@
         }
         [self.view addSubview: personalProfileView];
     }
+    personalProfileView.delegate = self;
     [personalProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
@@ -86,6 +90,12 @@
 
 #pragma mark - ProfileView Delegate
 -(void)onButtonEditPressed {
+    EditProfileViewController *editVC = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
+    [AppDelegate sharedInstance].profileEdit = [[NSMutableDictionary alloc] initWithDictionary: profileInfo];
+    [self.navigationController pushViewController:editVC animated:TRUE];
+}
+
+-(void)onButtonEditPersonalProfilePressed {
     EditProfileViewController *editVC = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
     [AppDelegate sharedInstance].profileEdit = [[NSMutableDictionary alloc] initWithDictionary: profileInfo];
     [self.navigationController pushViewController:editVC animated:TRUE];

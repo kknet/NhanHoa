@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Profiles/ProfileDetailsViewController.m"
-            timestampString = "580875003.599614"
+            timestampString = "580982088.630602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "-goToUpdateScreen"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876644.534452"
+            timestampString = "580982088.6307009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
-            landmarkName = "-startUploadPassportPictures"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
+            landmarkName = "-whenTapOnFrontImage"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,43 +74,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876651.592221"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "702"
-            endingLineNumber = "702"
-            landmarkName = "-startUploadPassportPictures"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876661.406352"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "724"
-            endingLineNumber = "724"
-            landmarkName = "-startUploadPassportBehindPictures"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876681.1200531"
+            timestampString = "580982088.631259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "782"
             endingLineNumber = "782"
+            landmarkName = "-startUploadPassportPictures"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__53-[NewBusinessProfileView startUploadPassportPictures]_block_invoke_2"
+                  moduleName = "NhanHoa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Profiles/UI/NewBusinessProfileView.m"
+                  timestampString = "580982089.025478"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "782"
+                  endingLineNumber = "782"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.637"
+                  moduleName = "NhanHoa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Profiles/UI/NewBusinessProfileView.m"
+                  timestampString = "580982089.029891"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "767"
+                  endingLineNumber = "767"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
+            timestampString = "580982088.63166"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
             landmarkName = "-startAddProfileForBusiness"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876687.634649"
+            timestampString = "580982088.632043"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
-            landmarkName = "-failedToCallWebService:andError:"
+            startingLineNumber = "862"
+            endingLineNumber = "862"
+            landmarkName = "-startAddProfileForBusiness"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +153,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Profiles/UI/NewBusinessProfileView.m"
-            timestampString = "580876689.80039"
+            filePath = "NhanHoa/Profiles/UI/NewProfileView.m"
+            timestampString = "580982088.632723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "862"
-            endingLineNumber = "862"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
             landmarkName = "-successfulToCallWebService:withData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NhanHoa/Profiles/UI/NewProfileView.m"
+            timestampString = "580982088.633309"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "797"
+            endingLineNumber = "797"
+            landmarkName = "-handlePersonalProfileProfile"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

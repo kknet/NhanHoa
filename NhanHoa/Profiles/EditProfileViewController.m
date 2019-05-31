@@ -51,7 +51,7 @@
         [AppDelegate sharedInstance].editCMND_b = nil;
     }else {
         if (profileType == type_personal) {
-            
+            [personalProfileView saveAllValueBeforeChangeView];
         }else{
             [businessProfileView saveAllValueBeforeChangeView];
         }
@@ -118,15 +118,31 @@
 - (void)onPassportFrontPress {
     type = 1;
     
-    if (personalProfileView.linkFrontPassport == nil) {
-        //  [self showActionSheetChooseWithRemove: FALSE];
+    if ([AppDelegate sharedInstance].editCMND_a != nil || ![AppUtils isNullOrEmpty: personalProfileView.linkFrontPassport]) {
+        [self showActionSheetChooseWithRemove:TRUE];
     }else{
-        //  [self showActionSheetChooseWithRemove: TRUE];
+        [self showActionSheetChooseWithRemove: FALSE];
     }
 }
 
 -(void)onPassportBehindPress {
+    type = 2;
     
+    if ([AppDelegate sharedInstance].editCMND_b != nil || ![AppUtils isNullOrEmpty: personalProfileView.linkBehindPassport]) {
+        [self showActionSheetChooseWithRemove:TRUE];
+    }else{
+        [self showActionSheetChooseWithRemove: FALSE];
+    }
+}
+
+- (void)onBusinessPassportFrontPress {
+    type = 1;
+    
+    if ([AppDelegate sharedInstance].editCMND_a != nil || ![AppUtils isNullOrEmpty: businessProfileView.linkFrontPassport]) {
+        [self showActionSheetChooseWithRemove:TRUE];
+    }else{
+        [self showActionSheetChooseWithRemove: FALSE];
+    }
 }
 
 -(void)onBusinessPassportBehindPress {
@@ -139,9 +155,7 @@
     }
 }
 
-- (void)onBusinessPassportFrontPress {
-    
-}
+
 //  Business Profile was updated
 - (void)businessProfileWasUpdated {
     ProfileManagerViewController *listProfilesVC = [[ProfileManagerViewController alloc] init];

@@ -407,7 +407,7 @@
     
     lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfEmail.font = tfAddress.font = tfCountry.font = tfCity.font = lbPassportFront.font = lbPassportBehind.font = [AppDelegate sharedInstance].fontRegular;
     
-    btnCancel.titleLabel.font = btnSave.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnCancel.titleLabel.font = btnSave.titleLabel.font = btnEdit.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
     lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbName.textColor = tfName.textColor = lbMale.textColor = lbFemale.textColor = lbBOD.textColor = tfBOD.textColor = lbPassport.textColor = tfPassport.textColor = lbPhone.textColor = tfPhone.textColor = lbEmail.textColor = tfEmail.textColor = lbAddress.textColor = tfAddress.textColor = lbCountry.textColor = tfCountry.textColor = lbCity.textColor = tfCity.textColor = lbTitlePassport.textColor = lbPassportBehind.textColor = lbPassportFront.textColor = TITLE_COLOR;
     
@@ -425,8 +425,6 @@
         make.left.right.bottom.equalTo(self);
         make.height.mas_equalTo(0);
     }];
-    
-    dang cap nhat cho cai nay
     
     toolBar = [[UIView alloc] init];
     toolBar.clipsToBounds = TRUE;
@@ -535,6 +533,9 @@
         return;
     }
     
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Hồ sơ đang được cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
+    
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];
     }else{
@@ -614,6 +615,17 @@
 }
 
 - (IBAction)btnEditPress:(UIButton *)sender {
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    sender.backgroundColor = UIColor.whiteColor;
+    [self performSelector:@selector(goToEditBusinessProfile) withObject:nil afterDelay:0.01];
+}
+
+- (void)goToEditBusinessProfile {
+    [btnEdit setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    btnEdit.backgroundColor = BLUE_COLOR;
+    if ([delegate respondsToSelector:@selector(onButtonEditPersonalProfilePressed)]) {
+        [delegate onButtonEditPersonalProfilePressed];
+    }
 }
 
 - (void)choosedCity:(CityObject *)city {
@@ -752,14 +764,16 @@
     [info setObject:USERNAME forKey:@"username"];
     [info setObject:PASSWORD forKey:@"password"];
     [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+    
     [info setObject:tfName.text forKey:@"cn_name"];
-    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    //  [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cn_sex"];
     [info setObject:tfBOD.text forKey:@"cn_birthday"];
     [info setObject:tfPassport.text forKey:@"cn_cmnd"];
     [info setObject:tfPhone.text forKey:@"cn_phone"];
     [info setObject:tfAddress.text forKey:@"cn_address"];
     [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-    [info setObject:cityCode forKey:@"cn_city"];
+    [info setObject:[NSString stringWithFormat:@"%d", cityCode] forKey:@"cn_city"];
     [info setObject:linkFrontPassport forKey:@"cmnd_a"];
     [info setObject:linkBehindPassport forKey:@"cmnd_b"];
     
@@ -775,10 +789,18 @@
         [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
         
     }else if (mode == eEditProfile){
-        [info setObject:cusId forKey:@"cus_id"];
         [info setObject:edit_contact_mod forKey:@"mod"];
-        [webService callWebServiceWithLink:edit_contact_func withParams:info];
+        if ([AppDelegate sharedInstance].profileEdit != nil) {
+            NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
+            [info setObject:cus_id forKey:@"contact_id"];
+            
+            [webService callWebServiceWithLink:edit_contact_func withParams:info];
+        }else{
+            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Contact_id not exitst in profile info", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+        }
     }
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -946,8 +968,17 @@
     tfName.enabled = tfBOD.enabled = tfPassport.enabled = tfPhone.enabled = tfEmail.enabled = tfAddress.enabled = tfCountry.enabled = tfCity.enabled = FALSE;
     
     imgArrCity.hidden = btnCancel.hidden = btnSave.hidden = TRUE;
-    
-    
+}
+
+- (void)saveAllValueBeforeChangeView {
+    [[AppDelegate sharedInstance].profileEdit setObject:tfName.text forKey:@"cus_realname"];
+    [[AppDelegate sharedInstance].profileEdit setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cus_gender"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfBOD.text forKey:@"cus_birthday"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfPassport.text forKey:@"cus_idcard_number"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfPhone.text forKey:@"cus_phone"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfEmail.text forKey:@"cus_email"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfAddress.text forKey:@"cus_address"];
+    [[AppDelegate sharedInstance].profileEdit setObject:cityCode forKey:@"cus_city"];
 }
 
 @end

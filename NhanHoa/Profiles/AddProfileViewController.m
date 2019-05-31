@@ -31,7 +31,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [WriteLogsUtils writeForGoToScreen: @"SignInViewController"];
+    [WriteLogsUtils writeForGoToScreen: @"AddProfileViewController"];
     
     self.title = @"Tạo hồ sơ";
     type = 1;

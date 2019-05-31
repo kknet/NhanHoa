@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onPassportBehindPress;
 - (void)profileWasCreated;
 - (void)onSelectBusinessProfile;
+- (void)onButtonEditPersonalProfilePressed;
 @end
 
 @interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, WebServicesDelegate>
@@ -113,6 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImage *imgBehind;
 @property (nonatomic, strong) NSString *linkBehindPassport;
+@property (nonatomic, strong) NSString *cusId;
 
 - (void)setupViewForAddNewProfileView;
 - (void)removePassportFrontPhoto;
@@ -120,7 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUIForOnlyView;
 
 - (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info;
-@property (nonatomic, strong) NSString *cusId;
+- (void)saveAllValueBeforeChangeView;
+
 @end
 
 NS_ASSUME_NONNULL_END

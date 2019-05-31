@@ -10,7 +10,7 @@
 #import "NewProfileView.h"
 #import "NewBusinessProfileView.h"
 
-@interface ProfileDetailsViewController : UIViewController<NewBusinessProfileViewDelegate>
+@interface ProfileDetailsViewController : UIViewController<NewBusinessProfileViewDelegate, NewProfileViewDelegate>
 
 @property (nonatomic, strong) NSDictionary *profileInfo;
 @property (nonatomic, strong) NewProfileView *personalProfileView;
