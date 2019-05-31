@@ -101,6 +101,8 @@
 #define add_contact_func        @"AddContact"
 #define edit_contact_func       @"EditContact"
 #define change_pass_func        @"ChangePassword"
+#define list_domain_func        @"ListDomain"
+#define domain_pricing_func     @"DomainPricing"
 
 
 #define login_mod               @"login"
@@ -110,6 +112,8 @@
 #define add_contact_mod         @"add_contact"
 #define edit_contact_mod        @"edit_contact"
 #define change_password_mod     @"change_password"
+#define list_domain_mod         @"list_domain"
+#define domain_pricing_mod      @"domain_pricing"
 
 
 #define logsFolderName      @"LogFiles"
@@ -156,7 +160,7 @@
 #define text_capture    @"Chụp ảnh"
 #define text_gallery    @"Thư viện ảnh"
 #define text_remove     @"Xóa"
-
+#define text_no_data    @"Không có dữ liệu"
 
 #endif /* AppString_h */
 

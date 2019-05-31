@@ -9,36 +9,50 @@
 #import "RenewedDomainViewController.h"
 #import "RenewDomainDetailViewController.h"
 #import "ExpireDomainCell.h"
-#import "ExpireDomainObject.h"
+#import "WebServices.h"
+#import "AccountModel.h"
 
 typedef enum TypeSelectDomain{
     eAllDomain,
     eExpireDomain,
 }TypeSelectDomain;
 
-@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate>{
+@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate, WebServicesDelegate>{
     NSMutableArray *listAll;
     NSMutableArray *listExpire;
     TypeSelectDomain type;
+    WebServices *webService;
+    BOOL gettedAll;
+    BOOL gettedExpire;
 }
 
 @end
 
 @implementation RenewedDomainViewController
-@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList, priceView;
+@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList, priceView, lbNoData;
 @synthesize padding;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
-    [self createDemoDatas];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    [WriteLogsUtils writeForGoToScreen: @"RenewedDomainViewController"];
+    
     type = eAllDomain;
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    
     self.title = @"Tên miền đã đăng ký";
+    
+    lbNoData.hidden = TRUE;
+    [self getDomainsWasRegisteredWithType: 0];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -61,13 +75,26 @@ typedef enum TypeSelectDomain{
     }];
     
     type = eAllDomain;
-    [tbDomain reloadData];
     
     [btnAllDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = BLUE_COLOR;
     
     [btnExpireDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnExpireDomain.backgroundColor = UIColor.clearColor;
+    
+    if (gettedAll) {
+        if (listAll.count > 0) {
+            lbNoData.hidden = TRUE;
+            tbDomain.hidden = FALSE;
+        }else{
+            lbNoData.hidden = FALSE;
+            tbDomain.hidden = TRUE;
+        }
+        [tbDomain reloadData];
+    }else{
+        [tbDomain reloadData];
+        [self getDomainsWasRegisteredWithType: eAllDomain];
+    }
 }
 
 - (IBAction)btnExpirePress:(UIButton *)sender {
@@ -81,13 +108,25 @@ typedef enum TypeSelectDomain{
     }];
     
     type = eExpireDomain;
-    [tbDomain reloadData];
-    
     [btnExpireDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnExpireDomain.backgroundColor = BLUE_COLOR;
     
     [btnAllDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = UIColor.clearColor;
+    
+    if (gettedExpire) {
+        if (listExpire.count > 0) {
+            lbNoData.hidden = TRUE;
+            tbDomain.hidden = FALSE;
+        }else{
+            lbNoData.hidden = FALSE;
+            tbDomain.hidden = TRUE;
+        }
+        [tbDomain reloadData];
+    }else{
+        [tbDomain reloadData];
+        [self getDomainsWasRegisteredWithType: eExpireDomain];
+    }
 }
 
 - (IBAction)btnPriceListPress:(UIButton *)sender {
@@ -95,10 +134,11 @@ typedef enum TypeSelectDomain{
         [self addPriceListViewForMainView];
     }
     priceView.delegate = self;
-    self.navigationController.navigationBarHidden = TRUE;
-    [priceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
-    }];
+    [self reupdateFrameForViewPrice];
+    
+    if ([AppDelegate sharedInstance].domainsPrice == nil) {
+        [self getPriceListForDomains];
+    }
 }
 
 - (void)addPriceListViewForMainView {
@@ -109,7 +149,16 @@ typedef enum TypeSelectDomain{
             break;
         }
     }
-    [self.view addSubview: priceView];
+    priceView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    [priceView setupUIForView];
+    priceView.clipsToBounds = TRUE;
+    [[AppDelegate sharedInstance].window addSubview: priceView];
+}
+
+- (void)reupdateFrameForViewPrice {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.priceView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
 }
 
 - (void)setupUIForView {
@@ -123,8 +172,9 @@ typedef enum TypeSelectDomain{
         make.height.mas_equalTo(hMenu);
     }];
     
+    btnAllDomain.titleLabel.font = btnExpireDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
     [btnAllDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnAllDomain.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
     btnAllDomain.backgroundColor = BLUE_COLOR;
     btnAllDomain.layer.cornerRadius = hMenu/2;
     [btnAllDomain mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,7 +183,6 @@ typedef enum TypeSelectDomain{
     }];
     
     [btnExpireDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    btnExpireDomain.titleLabel.font = btnAllDomain.titleLabel.font;
     btnExpireDomain.backgroundColor = UIColor.clearColor;
     btnExpireDomain.layer.cornerRadius = hMenu/2;
     [btnExpireDomain mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,7 +190,7 @@ typedef enum TypeSelectDomain{
         make.right.top.bottom.equalTo(self.viewMenu);
     }];
     
-    NSAttributedString *titleAttrStr = [AppUtils generateTextWithContent:@"Bảng giá duy trì tên miền 2019" font:[UIFont fontWithName:RobotoMedium size:16.0] color:[UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:1.0] image:[UIImage imageNamed:@"list_price"] size:20.0 imageFirst:TRUE];
+    NSAttributedString *titleAttrStr = [AppUtils generateTextWithContent:@"Bảng giá duy trì tên miền 2019" font:[AppDelegate sharedInstance].fontMedium color:[UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:1.0] image:[UIImage imageNamed:@"list_price"] size:20.0 imageFirst:TRUE];
     [btnPriceList setAttributedTitle:titleAttrStr forState:UIControlStateNormal];
     
     btnPriceList.backgroundColor = [UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:0.3];
@@ -159,85 +208,121 @@ typedef enum TypeSelectDomain{
         make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
         make.bottom.equalTo(self.btnPriceList.mas_top);
     }];
+    
+    lbNoData.text = text_no_data;
+    lbNoData.font = [AppDelegate sharedInstance].fontBTN;
+    lbNoData.textAlignment = NSTextAlignmentCenter;
+    lbNoData.textColor = UIColor.grayColor;
+    [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.tbDomain);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.btnPriceList.mas_top);
+    }];
 }
 
-- (void)createDemoDatas {
-    listAll = [[NSMutableArray alloc] init];
+#pragma mark - Webservice delegate
+
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    ExpireDomainObject *domain1 = [[ExpireDomainObject alloc] init];
-    domain1.domainName = @"nhim.design";
-    domain1.registerDate = @"20/04/2018";
-    domain1.state = @"Đã kích hoạt";
-    [listAll addObject: domain1];
+    [ProgressHUD dismiss];
     
-    ExpireDomainObject *domain2 = [[ExpireDomainObject alloc] init];
-    domain2.domainName = @"nhim.vn";
-    domain2.registerDate = @"20/06/2014";
-    domain2.state = @"Hết hạn";
-    [listAll addObject: domain2];
+    if ([link isEqualToString:list_domain_func]) {
+        [self.view makeToast:@"Không thể lấy danh sách tên miền. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }else if ([link isEqualToString: domain_pricing_func]) {
+        
+    }
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    ExpireDomainObject *domain3 = [[ExpireDomainObject alloc] init];
-    domain3.domainName = @"nhim.com.vn";
-    domain3.registerDate = @"19/02/2017";
-    domain3.state = @"Đã kích hoạt";
-    [listAll addObject: domain3];
+    [ProgressHUD dismiss];
     
-    ExpireDomainObject *domain4 = [[ExpireDomainObject alloc] init];
-    domain4.domainName = @"nongquadi.com";
-    domain4.registerDate = @"08/04/2015";
-    domain4.state = @"Sắp hết hạn";
-    [listAll addObject: domain4];
+    if ([link isEqualToString:list_domain_func]) {
+        if (data != nil && [data isKindOfClass:[NSArray class]]) {
+            [self displayDomainsListWithData: (NSArray *)data];
+        }
+    }else if ([link isEqualToString: domain_pricing_func]) {
+        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+            [self saveDomainPricing: data];
+        }
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)getDomainsWasRegisteredWithType: (int)type
+{
+    //  type = 1: list domain sắp hết hạn
+    //  type = 0: default [all]
     
-    ExpireDomainObject *domain5 = [[ExpireDomainObject alloc] init];
-    domain5.domainName = @"lanhquadi.com.vn";
-    domain5.registerDate = @"18/04/2017";
-    domain5.state = @"Đã kích hoạt";
-    [listAll addObject: domain5];
+    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD show:@"Đang tải.." Interaction:NO];
     
-    ExpireDomainObject *domain6 = [[ExpireDomainObject alloc] init];
-    domain6.domainName = @"atadi.vn";
-    domain6.registerDate = @"28/03/2017";
-    domain6.state = @"Sắp hết hạn";
-    [listAll addObject: domain6];
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:list_domain_mod forKey:@"mod"];
+    [jsonDict setObject:[AccountModel getCusUsernameOfUser] forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
     
-    ExpireDomainObject *domain7 = [[ExpireDomainObject alloc] init];
-    domain7.domainName = @"caphesuadasaigon.com";
-    domain7.registerDate = @"31/07/2015";
-    domain7.state = @"Sắp hết hạn";
-    [listAll addObject: domain7];
+    [webService callWebServiceWithLink:list_domain_func withParams:jsonDict];
     
-    ExpireDomainObject *domain8 = [[ExpireDomainObject alloc] init];
-    domain8.domainName = @"travelcheap.com.vn";
-    domain8.registerDate = @"28/04/2016";
-    domain8.state = @"Đã kích hoạt";
-    [listAll addObject: domain8];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)displayDomainsListWithData: (NSArray *)domains {
+    if (type == eAllDomain) {
+        gettedAll = TRUE;
+        
+        if (listAll == nil) {
+            listAll = [[NSMutableArray alloc] init];
+        }else{
+            [listAll removeAllObjects];
+        }
+        
+        if (domains != nil && domains.count > 0) {
+            [listAll addObjectsFromArray: domains];
+            tbDomain.hidden = FALSE;
+            lbNoData.hidden = TRUE;
+        }else{
+            tbDomain.hidden = TRUE;
+            lbNoData.hidden = FALSE;
+        }
+        [tbDomain reloadData];
+    }else{
+        gettedExpire = TRUE;
+        
+        if (listExpire == nil) {
+            listExpire = [[NSMutableArray alloc] init];
+        }else{
+            [listExpire removeAllObjects];
+        }
+        
+        if (domains != nil && domains.count > 0) {
+            [listExpire addObjectsFromArray: domains];
+            tbDomain.hidden = FALSE;
+            lbNoData.hidden = TRUE;
+        }else{
+            tbDomain.hidden = TRUE;
+            lbNoData.hidden = FALSE;
+        }
+        [tbDomain reloadData];
+    }
+}
+
+- (void)getPriceListForDomains {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:domain_pricing_mod forKey:@"mod"];
+    [webService callWebServiceWithLink:domain_pricing_func withParams:jsonDict];
     
-    
-    listExpire = [[NSMutableArray alloc] init];
-    
-    ExpireDomainObject *domain9 = [[ExpireDomainObject alloc] init];
-    domain9.domainName = @"nongquadi.com";
-    domain9.registerDate = @"08/04/2015";
-    domain9.state = @"Sắp hết hạn";
-    [listExpire addObject: domain9];
-    
-    ExpireDomainObject *domain10 = [[ExpireDomainObject alloc] init];
-    domain10.domainName = @"atadi.vn";
-    domain10.registerDate = @"28/03/2017";
-    domain10.state = @"Sắp hết hạn";
-    [listExpire addObject: domain10];
-    
-    ExpireDomainObject *domain11 = [[ExpireDomainObject alloc] init];
-    domain11.domainName = @"caphesuadasaigon.com";
-    domain11.registerDate = @"31/07/2015";
-    domain11.state = @"Sắp hết hạn";
-    [listExpire addObject: domain11];
-    
-    ExpireDomainObject *domain12 = [[ExpireDomainObject alloc] init];
-    domain12.domainName = @"travelcheap.com.vn";
-    domain12.registerDate = @"28/04/2016";
-    domain12.state = @"Sắp hết hạn";
-    [listExpire addObject: domain12];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)saveDomainPricing: (NSDictionary *)data {
+    [AppDelegate sharedInstance].domainsPrice = [[NSDictionary alloc] initWithDictionary: data];
 }
 
 #pragma mark - UITableview
@@ -256,44 +341,34 @@ typedef enum TypeSelectDomain{
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ExpireDomainCell *cell = (ExpireDomainCell *)[tableView dequeueReusableCellWithIdentifier:@"ExpireDomainCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    ExpireDomainObject *domain;
+    
+    NSDictionary *domain;
     if (type == eAllDomain) {
         domain = [listAll objectAtIndex: indexPath.row];
+        [cell showContentWithDomainInfo:domain withExpire:FALSE];
     }else{
         domain = [listExpire objectAtIndex: indexPath.row];
+        [cell showContentWithDomainInfo:domain withExpire:TRUE];
     }
-    cell.lbName.text = domain.domainName;
     cell.lbNum.text = [NSString stringWithFormat:@"%d", (int)indexPath.row + 1];
-    cell.lbDate.text = [NSString stringWithFormat:@"Ngày đăng ký: %@", domain.registerDate];
-    cell.lbState.text = domain.state;
-    
-    if ([domain.state isEqualToString:@"Sắp hết hạn"]) {
-        cell.lbState.textColor = NEW_PRICE_COLOR;
-        
-    }else if ([domain.state isEqualToString:@"Hết hạn"]) {
-        cell.lbState.textColor = UIColor.grayColor;
-        
-    }else{
-        cell.lbState.textColor = [UIColor colorWithRed:(28/255.0) green:(289/255.0) blue:(91/255.0) alpha:1.0];
-    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ExpireDomainObject *domain;
-    if (type == eAllDomain) {
-        domain = [listAll objectAtIndex: indexPath.row];
-    }else{
-        domain = [listExpire objectAtIndex: indexPath.row];
-    }
-    
-    RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
-    domainDetailVC.domainObj = domain;
-    [self.navigationController pushViewController: domainDetailVC animated:YES];
+//    ExpireDomainObject *domain;
+//    if (type == eAllDomain) {
+//        domain = [listAll objectAtIndex: indexPath.row];
+//    }else{
+//        domain = [listExpire objectAtIndex: indexPath.row];
+//    }
+//
+//    RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
+//    domainDetailVC.domainObj = domain;
+//    [self.navigationController pushViewController: domainDetailVC animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0;
+    return 65.0;
 }
 
 #pragma mark - Price list view delegate
@@ -304,6 +379,7 @@ typedef enum TypeSelectDomain{
         make.height.mas_equalTo(0);
     }];
 }
+
 
 
 @end

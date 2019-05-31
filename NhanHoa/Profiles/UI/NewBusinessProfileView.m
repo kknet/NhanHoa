@@ -510,7 +510,7 @@
     }
     
     [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
-    [ProgressHUD show:@"Hồ sơ đang được cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
+    [ProgressHUD show:@"Hồ sơ đang được cập nhật.\nVui lòng chờ trong giây lát" Interaction:NO];
     
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];

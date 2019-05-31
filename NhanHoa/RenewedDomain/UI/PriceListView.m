@@ -21,7 +21,7 @@
         make.height.mas_equalTo(hHeader);
     }];
     
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontBTN;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
         make.centerX.equalTo(self.viewHeader.mas_centerX);
@@ -40,13 +40,14 @@
     float hMenu = 40.0;
     viewMenu.layer.cornerRadius = hMenu/2;
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self).offset(padding);
+        make.top.equalTo(self.viewHeader.mas_bottom).offset(padding);
+        make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
         make.height.mas_equalTo(hMenu);
     }];
-    
+    sssss
     [btnAllDomains setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnAllDomains.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    btnAllDomains.titleLabel.font = btnExpireDomains.titleLabel.font = [AppDelegate sharedInstance].fontDesc;
     btnAllDomains.backgroundColor = BLUE_COLOR;
     btnAllDomains.layer.cornerRadius = hMenu/2;
     [btnAllDomains mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,9 +56,8 @@
     }];
     
     [btnExpireDomains setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    btnExpireDomains.titleLabel.font = btnAllDomains.titleLabel.font;
     btnExpireDomains.backgroundColor = UIColor.clearColor;
-    btnExpireDomains.layer.cornerRadius = hMenu/2;
+    btnExpireDomains.layer.cornerRadius = btnAllDomains.layer.cornerRadius;
     [btnExpireDomains mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewMenu.mas_centerX);
         make.right.top.bottom.equalTo(self.viewMenu);

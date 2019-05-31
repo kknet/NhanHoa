@@ -7,7 +7,6 @@
 //
 
 #import "EditProfileViewController.h"
-#import "ProfileManagerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/PHAsset.h>
@@ -114,7 +113,8 @@
     [businessProfileView setupUIForViewForAddProfile:FALSE update:TRUE];
 }
 
-#pragma mark - ProfileView Delegate
+
+#pragma mark - Personal ProfileView Delegate
 - (void)onPassportFrontPress {
     type = 1;
     
@@ -135,6 +135,13 @@
     }
 }
 
+- (void)personalProfileWasUpdated {
+    if (self.navigationController.viewControllers.count >= 2) {
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    }
+}
+
+#pragma mark - Business ProfileView Delegate
 - (void)onBusinessPassportFrontPress {
     type = 1;
     
@@ -158,8 +165,9 @@
 
 //  Business Profile was updated
 - (void)businessProfileWasUpdated {
-    ProfileManagerViewController *listProfilesVC = [[ProfileManagerViewController alloc] init];
-    [self.navigationController popToViewController:listProfilesVC animated:TRUE];
+    if (self.navigationController.viewControllers.count >= 2) {
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    }
 }
 
 

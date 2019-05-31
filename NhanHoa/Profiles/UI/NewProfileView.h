@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)profileWasCreated;
 - (void)onSelectBusinessProfile;
 - (void)onButtonEditPersonalProfilePressed;
+- (void)personalProfileWasUpdated;
+
 @end
 
 @interface NewProfileView : UIView<ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, WebServicesDelegate>

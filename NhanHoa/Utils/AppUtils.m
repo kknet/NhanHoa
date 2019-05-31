@@ -174,9 +174,14 @@
 
 + (NSString *)convertDateToString: (NSDate *)date {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
     NSString *stringDate = [dateFormatter stringFromDate:date];
     return stringDate;
+}
+
++ (NSString *)getDateStringFromTimerInterval: (long)timeInterval {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970: timeInterval];
+    return [self convertDateToString: date];
 }
 
 + (BOOL)checkNetworkAvailable {

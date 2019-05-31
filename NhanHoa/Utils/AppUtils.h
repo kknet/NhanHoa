@@ -24,6 +24,7 @@
 + (NSString *)getCurrentDateTimeToString;
 + (NSString *)convertDateToString: (NSDate *)date;
 + (NSDate *)convertStringToDate: (NSString *)dateString;
++ (NSString *)getDateStringFromTimerInterval: (long)timeInterval;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 

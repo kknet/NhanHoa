@@ -61,9 +61,12 @@ typedef enum PaymentMethod{
 @property (nonatomic, assign) float radius;
 
 @property (nonatomic, assign) BOOL needReloadListProfile;
+@property (nonatomic, assign) BOOL needReloadListDomains;
+
 @property (nonatomic, strong) NSMutableDictionary *profileEdit;
 @property (nonatomic, strong) UIImage *editCMND_a;
 @property (nonatomic, strong) UIImage *editCMND_b;
+@property (nonatomic, strong) NSDictionary *domainsPrice;
 
 - (NSString *)findCityObjectWithCityCode: (NSString *)code;
 

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnExpireDomain;
 @property (weak, nonatomic) IBOutlet UITableView *tbDomain;
 @property (weak, nonatomic) IBOutlet UIButton *btnPriceList;
+@property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 - (IBAction)btnAllDomainPress:(UIButton *)sender;
 - (IBAction)btnExpirePress:(UIButton *)sender;

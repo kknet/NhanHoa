@@ -138,6 +138,7 @@ status: DONE
     if (own_type: 0) { // cá nhân
         cn_name: Họ và tên (string)
         cn_sex: number (1: nam | 0: nữ)
+        cn_email: string (email của hồ sơ)
         cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
         cn_cmnd: string / number (Số CMND / Passport)
         cn_phone: string / number (Số ĐT)
@@ -146,8 +147,6 @@ status: DONE
         cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         cmnd_a: URL (Link hình CMND mặt trước)
         cmnd_b: URL (Link hình CMND mặt sau)
-
-        {"cn_name":"Nguyễn Thị Thiền","cmnd_b":"http://nhanhoa.com/uploads/declaration/ACC140428/1559288408.jpg","cn_cmnd":"212987654","cmnd_a":"http://nhanhoa.com/uploads/declaration/ACC140428/1559288408.jpg","cn_country":"231","mod":"edit_contact","cn_birthday":"08/04/1992","cn_address":"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh","password":"25d55ad283aa400af464c76d713c07ad","own_type":0,"cn_phone":"0984123456","username":"lekhai0212@gmail.com","cn_sex":0,"cn_city":"1","contact_id":"140428"}
 
     } elseif (own_type: 1) { // công ty / tổ chức
         tc_tc_name: string (tên cty / tổ chức)
@@ -158,6 +157,7 @@ status: DONE
         tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
         cn_position: string (chức vụ người đại diện)
         cn_name: Họ và tên (string)
+        cn_email: string (email của hồ sơ)
         cn_sex: number (1: nam | 0: nữ)
         cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
         cn_cmnd: string / number (Số CMND / Passport)
@@ -166,13 +166,14 @@ status: DONE
         cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
         cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
 
+
     } else {
         api: error response
     }
 
 *Kết quả trả về: anh em send test để xem kết quả
 
-- STATUS: Chưa save được giá trị gender
+- STATUS: Chưa save được giá trị gender, email
 
 8. EditProfile (Sửa profile [tải khoản chính])
     *Send request (Post / Get) [Auto]
@@ -209,12 +210,14 @@ status: DONE
         api: error response
     }
 
+- STATUS: Chưa save được giá trị gender, email
+
 *Kết quả trả về: anh em send test để xem kết quả
 
 9. DomainPricing (Bảng giá tên miền)
-*Send request (Post / Get) [Auto]
-mod: domain_pricing
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: domain_pricing
+    *Kết quả trả về: anh em send test để xem kết quả
 
 
 10. SendQuestion (Gửi câu hỏi của bạn)
@@ -226,12 +229,14 @@ question: string
 *Kết quả trả về: anh em send test để xem kết quả
 
 11. ListDomain (Danh sách tên miền)
-*Send request (Post / Get) [Auto]
-mod: list_domain
-username: string
-password: MD5
-type: number (1: list domain sắp hết hạn | 0: default [all]
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: list_domain
+    username: string
+    password: MD5
+    type: number (1: list domain sắp hết hạn | 0: default [all]
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS:  DONE
 
 12. InfoDomain (Thông tin tên miền [đã đăng ký])
 *Send request (Post / Get) [Auto]
@@ -274,7 +279,5 @@ domain: string (tên miền)
 
 
 
-6h20
-giam chat luong anh
-xoay anh
 suggest các tài khoản đã đăng nhập thành công trước đó
+ExpireDomainObject

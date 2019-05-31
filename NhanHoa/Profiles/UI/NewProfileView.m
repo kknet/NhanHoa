@@ -518,13 +518,23 @@
         return;
     }
     
+    if ([AppUtils isNullOrEmpty: tfPassport.text]) {
+        [self makeToast:@"Bạn chưa nhập CMND!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     if ([AppUtils isNullOrEmpty: tfPhone.text]) {
         [self makeToast:@"Bạn chưa nhập địa chỉ!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
-    if ([AppUtils isNullOrEmpty: tfCountry.text]) {
-        [self makeToast:@"Bạn chưa chọn Quốc gia!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    if ([AppUtils isNullOrEmpty: tfEmail.text]) {
+        [self makeToast:@"Bạn chưa nhập địa chỉ email!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfAddress.text]) {
+        [self makeToast:@"Bạn chưa nhập địa chỉ!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -534,7 +544,7 @@
     }
     
     [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
-    [ProgressHUD show:@"Hồ sơ đang được cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
+    [ProgressHUD show:@"Hồ sơ đang được cập nhật.\nVui lòng chờ trong giây lát" Interaction:NO];
     
     if (imgFront != nil || imgBehind != nil) {
         [self startUploadPassportPictures];
@@ -766,14 +776,14 @@
     [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
     
     [info setObject:tfName.text forKey:@"cn_name"];
-    //  [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
-    [info setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cn_sex"];
+    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfEmail.text forKey:@"cn_email"];
     [info setObject:tfBOD.text forKey:@"cn_birthday"];
     [info setObject:tfPassport.text forKey:@"cn_cmnd"];
     [info setObject:tfPhone.text forKey:@"cn_phone"];
     [info setObject:tfAddress.text forKey:@"cn_address"];
     [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-    [info setObject:[NSString stringWithFormat:@"%d", cityCode] forKey:@"cn_city"];
+    [info setObject:cityCode forKey:@"cn_city"];
     [info setObject:linkFrontPassport forKey:@"cmnd_a"];
     [info setObject:linkBehindPassport forKey:@"cmnd_b"];
     
@@ -843,7 +853,7 @@
         [self profileWasCreatedSuccessful];
         
     }else if ([link isEqualToString: edit_contact_func]) {
-        NSLog(@"%@", data);
+        [self profileWasUpdatedSuccessful];
     }
 }
 
@@ -854,6 +864,18 @@
 - (void)profileWasCreatedSuccessful {
     [self makeToast:@"Hồ sơ đã được tạo thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+- (void)profileWasUpdatedSuccessful {
+    [self makeToast:@"Hồ sơ đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
+}
+
+- (void)gotoListProfiles {
+    [AppDelegate sharedInstance].needReloadListProfile = TRUE;
+    if ([delegate respondsToSelector:@selector(personalProfileWasUpdated)]) {
+        [delegate personalProfileWasUpdated];
+    }
 }
 
 - (void)dismissView {
@@ -909,7 +931,7 @@
         tfPhone.text = @"";
     }
     
-    NSString *email = [info objectForKey:@"cus_email"];
+    NSString *email = [info objectForKey:@"cus_rl_email"];
     if (![AppUtils isNullOrEmpty: email]) {
         tfEmail.text = email;
     }else{
@@ -951,8 +973,10 @@
     
     NSString *city = [info objectForKey:@"cus_city"];
     if (![AppUtils isNullOrEmpty: city]) {
-        cityCode = [[AppDelegate sharedInstance] findCityObjectWithCityCode: city];
+        tfCity.text = [[AppDelegate sharedInstance] findCityObjectWithCityCode: city];
+        cityCode = city;
     }else{
+        tfCity.text = @"";
         cityCode = @"";
     }
     
