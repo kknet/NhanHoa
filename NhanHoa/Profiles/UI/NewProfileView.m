@@ -15,7 +15,7 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, lbWarningName, lbWarningPhone, lbWarningCountry, lbWarningAddress, lbWarningCity, viewPassport;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService, mode, cusId;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, imgFront, imgBehind, linkFrontPassport, linkBehindPassport, webService, mode, cusId, btnEdit;
 
 - (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate {
     //  setup for add profile
@@ -100,7 +100,7 @@
         make.height.mas_equalTo(self.hLabel);
     }];
     
-    lbWarningName.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbWarningName.font = [AppDelegate sharedInstance].fontDesc;
     [lbWarningName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbName);
         make.left.equalTo(self.lbName.mas_right);
@@ -389,6 +389,17 @@
         make.top.bottom.equalTo(self.btnCancel);
     }];
     
+    btnEdit.hidden = TRUE;
+    btnEdit.layer.cornerRadius = btnCancel.layer.cornerRadius;
+    btnEdit.backgroundColor = BLUE_COLOR;
+    btnEdit.layer.borderWidth = 1.0;
+    btnEdit.layer.borderColor = BLUE_COLOR.CGColor;
+    [btnEdit mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.btnCancel);
+        make.right.equalTo(self.btnSave);
+        make.top.bottom.equalTo(self.btnCancel);
+    }];
+    
     float hScrollView = hVision + hGender + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
     
@@ -396,7 +407,7 @@
     
     lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfEmail.font = tfAddress.font = tfCountry.font = tfCity.font = lbPassportFront.font = lbPassportBehind.font = [AppDelegate sharedInstance].fontRegular;
     
-    btnCancel.titleLabel.font = btnSave.titleLabel.font = [UIFont fontWithName:RobotoMedium size:18.0];
+    btnCancel.titleLabel.font = btnSave.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
     lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbName.textColor = tfName.textColor = lbMale.textColor = lbFemale.textColor = lbBOD.textColor = tfBOD.textColor = lbPassport.textColor = tfPassport.textColor = lbPhone.textColor = tfPhone.textColor = lbEmail.textColor = tfEmail.textColor = lbAddress.textColor = tfAddress.textColor = lbCountry.textColor = tfCountry.textColor = lbCity.textColor = tfCity.textColor = lbTitlePassport.textColor = lbPassportBehind.textColor = lbPassportFront.textColor = TITLE_COLOR;
     
@@ -415,6 +426,8 @@
         make.height.mas_equalTo(0);
     }];
     
+    dang cap nhat cho cai nay
+    
     toolBar = [[UIView alloc] init];
     toolBar.clipsToBounds = TRUE;
     toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
@@ -427,7 +440,7 @@
     
     UIButton *btnClose = [[UIButton alloc] init];
     [btnClose setTitle:text_close forState:UIControlStateNormal];
-    btnClose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnClose.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [btnClose addTarget:self
@@ -442,7 +455,7 @@
     
     UIButton *btnChoose = [[UIButton alloc] init];
     [btnChoose setTitle:text_choose forState:UIControlStateNormal];
-    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnChoose.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btnChoose addTarget:self
@@ -536,6 +549,13 @@
 }
 
 - (IBAction)btnBODPress:(UIButton *)sender {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
+    [self endEditing: TRUE];
+    
     float hPickerView;
     float hToolbar;
     if (datePicker.frame.size.height > 0) {
@@ -573,6 +593,11 @@
 
 - (IBAction)btnCityPress:(UIButton *)sender
 {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
@@ -588,36 +613,64 @@
     [self selectFemale];
 }
 
+- (IBAction)btnEditPress:(UIButton *)sender {
+}
+
 - (void)choosedCity:(CityObject *)city {
     tfCity.text = city.name;
     cityCode = city.code;
 }
 
 - (void)selectMale {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
     gender = type_men;
 }
 
 - (void)selectFemale {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
     gender = type_women;
 }
 
 - (void)whenTapOnFrontImage {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     if ([delegate respondsToSelector:@selector(onPassportFrontPress)]) {
         [delegate onPassportFrontPress];
     }
 }
 
 - (void)whenTapOnBehindImage {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     if ([delegate respondsToSelector:@selector(onPassportBehindPress)]) {
         [delegate onPassportBehindPress];
     }
 }
 
 - (void)whenTapOnBusiness {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewProfile) {
+        return;
+    }
+    
     if ([delegate respondsToSelector:@selector(onSelectBusinessProfile)]) {
         [delegate onSelectBusinessProfile];
     }
@@ -847,22 +900,32 @@
     }else{
         tfAddress.text = @"";
     }
-    
-    NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
-    if (![AppUtils isNullOrEmpty: cmnd_a]) {
-        linkFrontPassport = cmnd_a;
-        [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
+    //  cmnd mat truoc
+    if ([AppDelegate sharedInstance].editCMND_a != nil) {
+        imgPassportFront.image = [AppDelegate sharedInstance].editCMND_a;
     }else{
-        imgPassportFront.image = FRONT_EMPTY_IMG;
+        NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
+        if (![AppUtils isNullOrEmpty: cmnd_a]) {
+            linkFrontPassport = cmnd_a;
+            [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
+        }else{
+            imgPassportFront.image = FRONT_EMPTY_IMG;
+        }
     }
     
-    NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
-    if (![AppUtils isNullOrEmpty: cmnd_b]) {
-        linkBehindPassport = cmnd_b;
-        [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
+    //  cmnd mat sau
+    if ([AppDelegate sharedInstance].editCMND_b != nil) {
+        imgPassportBehind.image = [AppDelegate sharedInstance].editCMND_b;
     }else{
-        imgPassportBehind.image = BEHIND_EMPTY_IMG;
+        NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
+        if (![AppUtils isNullOrEmpty: cmnd_b]) {
+            linkBehindPassport = cmnd_b;
+            [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
+        }else{
+            imgPassportBehind.image = BEHIND_EMPTY_IMG;
+        }
     }
+    
     
     NSString *city = [info objectForKey:@"cus_city"];
     if (![AppUtils isNullOrEmpty: city]) {
@@ -872,6 +935,19 @@
     }
     
     cusId = [info objectForKey:@"cus_id"];
+}
+
+- (void)setupUIForOnlyView {
+    btnEdit.hidden = FALSE;
+    mode = eViewProfile;
+    UIColor *disableColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
+    tfName.backgroundColor = tfBOD.backgroundColor = tfPassport.backgroundColor = tfPhone.backgroundColor = tfEmail.backgroundColor = tfAddress.backgroundColor = tfCountry.backgroundColor = tfCity.backgroundColor = disableColor;
+    
+    tfName.enabled = tfBOD.enabled = tfPassport.enabled = tfPhone.enabled = tfEmail.enabled = tfAddress.enabled = tfCountry.enabled = tfCity.enabled = FALSE;
+    
+    imgArrCity.hidden = btnCancel.hidden = btnSave.hidden = TRUE;
+    
+    
 }
 
 @end

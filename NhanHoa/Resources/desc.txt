@@ -132,6 +132,7 @@ status: DONE
     mod: edit_contact
     username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
     password: MD5 (mật khẩu khách đăng nhập)
+    contact_id: ID của profile hiện tại
     Thông tin tạo hồ sơ
     own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
     if (own_type: 0) { // cá nhân
@@ -168,6 +169,7 @@ status: DONE
 
 *Kết quả trả về: anh em send test để xem kết quả
 
+- STATUS: Chưa save được giá trị gender
 
 8. EditProfile (Sửa profile [tải khoản chính])
     *Send request (Post / Get) [Auto]

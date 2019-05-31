@@ -19,8 +19,7 @@
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
-@synthesize needReloadListProfile;
-
+@synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -65,6 +64,18 @@
     errorStyle.shadowColor = UIColor.blackColor;
     errorStyle.shadowOpacity = 1.0;
     errorStyle.shadowOffset = CGSizeMake(-5, -5);
+    
+    successStyle = [[CSToastStyle alloc] initWithDefaultStyle];
+    successStyle.backgroundColor = BLUE_COLOR;
+    successStyle.messageColor = UIColor.whiteColor;
+    successStyle.messageFont = [UIFont fontWithName:RobotoRegular size:18.0];
+    successStyle.cornerRadius = 20.0;
+    successStyle.messageAlignment = NSTextAlignmentCenter;
+    successStyle.messageNumberOfLines = 5;
+    successStyle.shadowColor = UIColor.blackColor;
+    successStyle.shadowOpacity = 1.0;
+    successStyle.shadowOffset = CGSizeMake(-5, -5);
+    
     
     [self createListCity];
     
@@ -438,7 +449,7 @@
     NSArray *filter = [listCity filteredArrayUsingPredicate: predicate];
     if (filter.count > 0) {
         CityObject *result = [filter firstObject];
-        return result.code;
+        return result.name;
     }
     return @"";
 }

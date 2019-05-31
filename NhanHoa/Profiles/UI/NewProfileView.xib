@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -317,6 +317,17 @@
                                 <action selector="btnSavePress:" destination="iN0-l3-epB" eventType="touchUpInside" id="t0d-c5-Z5d"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gm8-3X-D1U">
+                            <rect key="frame" x="109" y="750" width="104" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Cập nhật hồ sơ">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="btnEditPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="bwz-fX-LRv"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </scrollView>
@@ -328,6 +339,7 @@
                 <outlet property="btnCancel" destination="pMv-Ft-2xP" id="exS-fv-lof"/>
                 <outlet property="btnCity" destination="Clp-hT-c7I" id="IO2-cz-Chl"/>
                 <outlet property="btnCountry" destination="OAt-Du-dvt" id="ZNm-hd-mjc"/>
+                <outlet property="btnEdit" destination="gm8-3X-D1U" id="Bij-cp-luK"/>
                 <outlet property="btnSave" destination="sok-ir-o1R" id="156-pu-mb1"/>
                 <outlet property="icBusiness" destination="7P3-zv-egi" id="aLa-YQ-Qcz"/>
                 <outlet property="icFemale" destination="9HZ-DA-jkj" id="6A9-sY-g9b"/>
@@ -370,15 +382,15 @@
                 <outlet property="tfPhone" destination="Vf6-7y-oid" id="3zc-pI-zIK"/>
                 <outlet property="viewPassport" destination="6UR-AC-xJS" id="GVP-pS-6h8"/>
             </connections>
-            <point key="canvasLocation" x="-3813" y="-485"/>
+            <point key="canvasLocation" x="-3200" y="-520"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="100" height="100"/>
+        <image name="no_tick.png" width="80" height="80"/>
         <image name="passport_empty_behind.png" width="400" height="252"/>
         <image name="passport_empty_front.png" width="400" height="252"/>
-        <image name="picture.png" width="200" height="200"/>
-        <image name="tick_orange.png" width="100" height="100"/>
+        <image name="picture.png" width="150" height="150"/>
+        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
     </resources>
 </document>

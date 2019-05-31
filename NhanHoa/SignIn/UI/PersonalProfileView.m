@@ -488,10 +488,17 @@
         make.height.mas_equalTo(hToolbar);
     }];
     
+    //  set date for picker
+    if (![AppUtils isNullOrEmpty: tfBOD.text]) {
+        NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
+        datePicker.date = bodDate;
+    }else{
+        datePicker.date = [NSDate date];
+    }
+    
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.datePicker.date = [NSDate date];
         self.datePicker.maximumDate = [NSDate date];
     }];
 }

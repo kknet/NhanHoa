@@ -13,13 +13,17 @@
 typedef enum {
     eAddNewBusinessProfile,
     eEditBusinessProfile,
+    eViewBusinessProfile,
 }BusinessProfileMode;
 
 @protocol NewBusinessProfileViewDelegate
+@optional
 - (void)onSelectPersonalProfile;
 - (void)onBusinessPassportFrontPress;
 - (void)onBusinessPassportBehindPress;
 - (void)businessProfileWasCreated;
+- (void)businessProfileWasUpdated;
+- (void)onButtonEditPressed;
 @end
 
 @interface NewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ChooseCityPopupViewDelegate, UITextFieldDelegate, WebServicesDelegate>
@@ -86,6 +90,7 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIButton *btnEdit;
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float hLabel;
@@ -96,10 +101,10 @@ typedef enum {
 - (void)setupUIForViewForAddProfile: (BOOL)isAddNew update: (BOOL)isUpdate;
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
-- (IBAction)btnPerCityPress:(UIButton *)sender;
 - (IBAction)btnBODPress:(UIButton *)sender;
 - (IBAction)icMaleClick:(UIButton *)sender;
 - (IBAction)icFemaleClick:(UIButton *)sender;
+- (IBAction)btnEditPress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *businessCity;
 @property (nonatomic, assign) int gender;
@@ -115,7 +120,9 @@ typedef enum {
 
 - (void)removePassportFrontPhoto;
 - (void)removePassportBehindPhoto;
-
+- (void)setupUIForOnlyView;
 - (void)displayInfoForProfileWithInfo: (NSDictionary *)info;
+
+- (void)saveAllValueBeforeChangeView;
 
 @end

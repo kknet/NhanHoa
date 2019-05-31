@@ -14,10 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EditProfileViewController : UIViewController<NewProfileViewDelegate, NewBusinessProfileViewDelegate>
 
-@property (nonatomic, strong) NSDictionary *profileInfo;
-
 @property (nonatomic, strong) NewProfileView *personalProfileView;
 @property (nonatomic, strong) NewBusinessProfileView *businessProfileView;
+
+@property (nonatomic, assign) int type;
+@property (nonatomic, assign) int profileType;
 
 @end
 

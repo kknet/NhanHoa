@@ -12,7 +12,7 @@
 
 @implementation NewBusinessProfileView
 
-@synthesize scvContent, lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, tfAddress, lbAddress, viewPassport, lbPassportTitle, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, imgPassport, btnCancel, btnSave, btnBOD;
+@synthesize scvContent, lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, tfAddress, lbAddress, viewPassport, lbPassportTitle, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, imgPassport, btnCancel, btnSave, btnBOD, btnEdit;
 
 @synthesize padding, hLabel, mTop, delegate, businessCity, gender, datePicker, toolBar, popupChooseCity, imgFront, linkFrontPassport, imgBehind, linkBehindPassport, webService, mode;
 
@@ -443,6 +443,19 @@
         make.top.bottom.equalTo(self.btnCancel);
     }];
     
+    btnEdit.hidden = TRUE;
+    btnEdit.layer.cornerRadius = btnCancel.layer.cornerRadius;
+    btnEdit.backgroundColor = BLUE_COLOR;
+    btnEdit.layer.borderWidth = 1.0;
+    btnEdit.layer.borderColor = BLUE_COLOR.CGColor;
+    [btnEdit mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.btnCancel);
+        make.right.equalTo(self.btnSave);
+        make.top.bottom.equalTo(self.btnCancel);
+    }];
+    
+    btnCancel.titleLabel.font = btnSave.titleLabel.font = btnEdit.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
     //  Add datepicker
     [self addDatePickerForView];
     
@@ -501,6 +514,11 @@
     }else{
         linkFrontPassport = @"";
         linkBehindPassport = @"";
+        if (mode == eEditBusinessProfile) {
+            [self tryToGetCMND_a];
+            [self tryToGetCMND_b];
+        }
+        
         [self startAddProfileForBusiness];
     }
 }
@@ -509,6 +527,13 @@
 }
 
 - (IBAction)btnCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
+    }
+    
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (popupChooseCity == nil) {
         popupChooseCity = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
@@ -518,6 +543,13 @@
 }
 
 - (IBAction)btnBODPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
+    }
+    
     float hPickerView;
     float hToolbar;
     if (datePicker.frame.size.height > 0) {
@@ -549,7 +581,6 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.datePicker.date = [NSDate date];
         self.datePicker.maximumDate = [NSDate date];
     }];
     
@@ -563,19 +594,48 @@
     [self selectFemale];
 }
 
+- (IBAction)btnEditPress:(UIButton *)sender {
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    sender.backgroundColor = UIColor.whiteColor;
+    [self performSelector:@selector(goToEditBusinessProfile) withObject:nil afterDelay:0.01];
+}
+
+- (void)goToEditBusinessProfile {
+    [btnEdit setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    btnEdit.backgroundColor = BLUE_COLOR;
+    if ([delegate respondsToSelector:@selector(onButtonEditPressed)]) {
+        [delegate onButtonEditPressed];
+    }
+}
+
 - (void)selectMale {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
+    }
+    
     [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
     gender = type_men;
 }
 
 - (void)selectFemale {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
+    }
+    
     [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
     gender = type_women;
 }
 
 - (void)whenTapOnPersonal {
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
+    }
+    
     if ([delegate respondsToSelector:@selector(onSelectPersonalProfile)]) {
         [delegate onSelectPersonalProfile];
     }
@@ -604,7 +664,7 @@
     
     UIButton *btnClose = [[UIButton alloc] init];
     [btnClose setTitle:text_close forState:UIControlStateNormal];
-    btnClose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnClose.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
     btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [btnClose addTarget:self
@@ -619,7 +679,7 @@
     
     UIButton *btnChoose = [[UIButton alloc] init];
     [btnChoose setTitle:text_choose forState:UIControlStateNormal];
-    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnChoose.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [btnChoose addTarget:self
@@ -651,6 +711,7 @@
 }
 
 - (void)chooseDatePicker {
+    
     [self closePickerView];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -660,15 +721,21 @@
 }
 
 - (void)whenTapOnFrontImage {
-    if ([delegate respondsToSelector:@selector(onBusinessPassportFrontPress)]) {
-        [delegate onBusinessPassportFrontPress];
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
     }
+    
+    [delegate onBusinessPassportFrontPress];
 }
 
 - (void)whenTapOnBehindImage {
-    if ([delegate respondsToSelector:@selector(onBusinessPassportBehindPress)]) {
-        [delegate onBusinessPassportBehindPress];
+    //  Don't thing if screen is view profile info
+    if (mode == eViewBusinessProfile) {
+        return;
     }
+    
+    [delegate onBusinessPassportBehindPress];
 }
 
 - (void)closeKeyboard {
@@ -715,7 +782,10 @@
             }];
         });
     }else{
-        self.linkFrontPassport = @"";
+        linkFrontPassport = @"";
+        if (mode == eEditBusinessProfile) {
+            [self tryToGetCMND_a];
+        }
         [self startUploadPassportBehindPictures];
     }
 }
@@ -743,17 +813,20 @@
             }];
         });
     }else{
+        linkBehindPassport = @"";
+        if (mode == eEditBusinessProfile) {
+            [self tryToGetCMND_b];
+        }
         [self startAddProfileForBusiness];
     }
 }
 
 - (void)startAddProfileForBusiness {
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:add_contact_mod forKey:@"mod"];
     [info setObject:USERNAME forKey:@"username"];
     [info setObject:PASSWORD forKey:@"password"];
-    [info setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
     
+    [info setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
     //  business info
     [info setObject:tfBusinessName.text forKey:@"tc_tc_name"];
     [info setObject:tfTaxCode.text forKey:@"tc_tc_mst"];
@@ -779,8 +852,22 @@
         webService.delegate = self;
     }
     
-    [webService callWebServiceWithLink:add_contact_func withParams:info];
-    
+    if (mode == eAddNewBusinessProfile) {
+        [info setObject:add_contact_mod forKey:@"mod"];
+        [webService callWebServiceWithLink:add_contact_func withParams:info];
+        
+    }else if (mode == eEditBusinessProfile) {
+        [info setObject:edit_contact_mod forKey:@"mod"];
+        if ([AppDelegate sharedInstance].profileEdit != nil) {
+            NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
+            [info setObject:cus_id forKey:@"contact_id"];
+            
+        }else{
+            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Contact_id not exitst in profile info", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+        }
+        
+        [webService callWebServiceWithLink:edit_contact_func withParams:info];
+    }
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
@@ -845,13 +932,16 @@
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
+    if (![AppUtils checkNetworkAvailable]) {
+        [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     if ([link isEqualToString:add_contact_func]) {
+        [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         
-        if (![AppUtils checkNetworkAvailable]) {
-            [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        }else{
-            [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
+    }else if ([link isEqualToString: edit_contact_func]) {
+        [self makeToast:@"Cập nhật thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
@@ -861,6 +951,9 @@
     [ProgressHUD dismiss];
     if ([link isEqualToString:add_contact_func]) {
         [self profileWasCreatedSuccessful];
+        
+    }else if ([link isEqualToString:edit_contact_func]) {
+        [self profileWasUpdatedSuccessful];
     }
 }
 
@@ -871,6 +964,18 @@
 - (void)profileWasCreatedSuccessful {
     [self makeToast:@"Hồ sơ đã được tạo thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+- (void)profileWasUpdatedSuccessful {
+    [self makeToast:@"Hồ sơ đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
+}
+
+- (void)gotoListProfiles {
+    [AppDelegate sharedInstance].needReloadListProfile = TRUE;
+    if ([delegate respondsToSelector:@selector(businessProfileWasUpdated)]) {
+        [delegate businessProfileWasUpdated];
+    }
 }
 
 - (void)dismissView {
@@ -957,178 +1062,90 @@
         tfAddress.text = @"";
     }
     
-    NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
-    if (![AppUtils isNullOrEmpty: cmnd_a]) {
-        [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
+    NSString *cus_city = [info objectForKey:@"cus_city"];
+    if (![AppUtils isNullOrEmpty: cus_city]) {
+        businessCity = cus_city;
+        tfCity.text = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cus_city];
     }else{
-        imgPassportFront.image = FRONT_EMPTY_IMG;
+        businessCity = @"";
+        tfCity.text = @"";
     }
     
-    NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
-    if (![AppUtils isNullOrEmpty: cmnd_b]) {
-        [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:BEHIND_EMPTY_IMG];
+    //  cmnd mat truoc
+    if ([AppDelegate sharedInstance].editCMND_a != nil) {
+        imgPassportFront.image = [AppDelegate sharedInstance].editCMND_a;
     }else{
-        imgPassportBehind.image = BEHIND_EMPTY_IMG;
+        NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
+        if (![AppUtils isNullOrEmpty: cmnd_a]) {
+            [imgPassportFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
+            linkFrontPassport = cmnd_a;
+        }else{
+            imgPassportFront.image = FRONT_EMPTY_IMG;
+            linkFrontPassport = @"";
+        }
     }
     
+    //  cmnd mat sau
+    if ([AppDelegate sharedInstance].editCMND_b != nil) {
+        imgPassportBehind.image = [AppDelegate sharedInstance].editCMND_b;
+    }else{
+        NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
+        if (![AppUtils isNullOrEmpty: cmnd_b]) {
+            [imgPassportBehind sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
+            linkBehindPassport = cmnd_b;
+        }else{
+            imgPassportBehind.image = BEHIND_EMPTY_IMG;
+            linkBehindPassport = @"";
+        }
+    }
+}
+
+- (void)setupUIForOnlyView {
+    btnEdit.hidden = FALSE;
+    mode = eViewBusinessProfile;
+    UIColor *disableColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
+    tfBusinessName.backgroundColor = tfTaxCode.backgroundColor = tfBusinessAddress.backgroundColor = tfBusinessPhone.backgroundColor = tfCountry.backgroundColor = tfCity.backgroundColor = tfRegisterName.backgroundColor = tfBOD.backgroundColor = tfPosition.backgroundColor = tfPassport.backgroundColor = tfPhone.backgroundColor = tfAddress.backgroundColor = disableColor;
     
-    /*
-    {
-        "careers_id" = 0;
-        "cmnd_a" = "http://nhanhoa.com/uploads/declaration/ACC140478/1559105989.jpg";
-        "cmnd_b" = "http://nhanhoa.com/uploads/declaration/ACC140478/1559105989.jpg";
-        "cus_account_list" = "<null>";
-        "cus_activate" = 1;
-        "cus_address" = "1020 Ph\U1ea1m V\U0103n \U0110\U1ed3ng";
-        "cus_adminnote" = "<null>";
-        "cus_aff" = "<null>";
-        "cus_aff_balance" = 0;
-        "cus_aff_id" = 0;
-        "cus_aff_method" = 0;
-        "cus_age" = "<null>";
-        "cus_algolia_object_id" = 0;
-        "cus_api_domain_api_key" = "<null>";
-        "cus_api_domain_auth_userid" = 0;
-        "cus_api_permission" = 0;
-        "cus_azcontest" = 0;
-        "cus_balance" = 0;
-        "cus_balance_alert_time" = 0;
-        "cus_bank_branch" = "<null>";
-        "cus_bankaccount" = "<null>";
-        "cus_bankname" = "<null>";
-        "cus_banknumber" = "<null>";
-        "cus_bday" = 2;
-        "cus_birthday" = "02/12/1991";
-        "cus_bmonth" = 12;
-        "cus_byear" = 1991;
-        "cus_card_code" = "<null>";
-        "cus_card_id" = "<null>";
-        "cus_card_reason" = "<null>";
-        "cus_card_time" = 0;
-        "cus_city" = "<null>";
-        "cus_code" = ACC140478;
-        "cus_company" = "Thi\U1ec1n Nguy\U1ec5n Company";
-        "cus_company_address" = "1020 Ph\U1ea1m V\U0103n \U0110\U1ed3ng, P.Hi\U1ec7p B\U00ecnh Ch\U00e1nh";
-        "cus_company_delegate" = "Kh\U1ea3i L\U00ea";
-        "cus_company_delegate_2_bday" = 2;
-        "cus_company_delegate_2_birthday" = "02/12/1991";
-        "cus_company_delegate_2_bmonth" = 12;
-        "cus_company_delegate_2_byear" = 1991;
-        "cus_company_delegate_2_email" = "";
-        "cus_company_delegate_2_gender" = 1;
-        "cus_company_delegate_2_id_date" = 0;
-        "cus_company_delegate_2_id_number" = 212456789;
-        "cus_company_delegate_2_name" = "Kh\U1ea3i L\U00ea";
-        "cus_company_delegate_bday" = 2;
-        "cus_company_delegate_birthday" = "02/12/1991";
-        "cus_company_delegate_bmonth" = 12;
-        "cus_company_delegate_byear" = 1991;
-        "cus_company_delegate_email" = "";
-        "cus_company_delegate_gender" = 1;
-        "cus_company_delegate_id_date" = 0;
-        "cus_company_delegate_id_number" = 212456789;
-        "cus_company_phone" = 0932205601;
-        "cus_contract_address" = "1020 Ph\U1ea1m V\U0103n \U0110\U1ed3ng, P.Hi\U1ec7p B\U00ecnh Ch\U00e1nh";
-        "cus_contract_name" = "Thi\U1ec1n Nguy\U1ec5n Company";
-        "cus_contract_phone" = 0932205601;
-        "cus_country" = 0;
-        "cus_ctv_fixed" = 0;
-        "cus_customer_count" = 0;
-        "cus_debt_balance" = 0;
-        "cus_deleted" = 0;
-        "cus_disable_backorder_failed" = 1;
-        "cus_display_name" = NULL;
-        "cus_district" = 0;
-        "cus_dns_default" = "<null>";
-        "cus_dns_default_qt" = "<null>";
-        "cus_email" = "lekhai0212@gmail.com";
-        "cus_email_notification" = "<null>";
-        "cus_email_vat" = "<null>";
-        "cus_enable_api_domain" = 0;
-        "cus_enable_view_order_expired" = 0;
-        "cus_exist_info" = 0;
-        "cus_facebook_login" = 0;
-        "cus_fax" = "<null>";
-        "cus_firstname" = "<null>";
-        "cus_gender" = 1;
-        "cus_id" = 140478;
-        "cus_idcard_back_img" = "<null>";
-        "cus_idcard_date" = 0;
-        "cus_idcard_front_img" = "<null>";
-        "cus_idcard_msg" = "<null>";
-        "cus_idcard_name" = "<null>";
-        "cus_idcard_number" = 212456789;
-        "cus_idcard_status" = 0;
-        "cus_is_api" = 0;
-        "cus_is_api_domain" = 0;
-        "cus_jobtitle" = "L\U00e0m Thu\U00ea";
-        "cus_lastname" = "<null>";
-        "cus_location" = "";
-        "cus_own_type" = 1;
-        "cus_partner_service" = "<null>";
-        "cus_passport_name" = "<null>";
-        "cus_passport_number" = "<null>";
-        "cus_password" = 550e1bafe077ff0b0b67f4e32f29d751;
-        "cus_paypal_email" = "<null>";
-        "cus_phone" = 0363430737;
-        "cus_phonehome" = "<null>";
-        "cus_point" = 0;
-        "cus_point_used" = 0;
-        "cus_position" = "L\U00e0m Thu\U00ea";
-        "cus_profile_list" = "<null>";
-        "cus_profile_note" = "<null>";
-        "cus_realname" = "Kh\U1ea3i L\U00ea";
-        "cus_register_time" = 1559170420;
-        "cus_reseller_content" = "<null>";
-        "cus_reseller_customed" = 0;
-        "cus_reseller_domain" = "<null>";
-        "cus_reseller_email" = "lekhai0212@gmail.com";
-        "cus_reseller_fixed" = 0;
-        "cus_reseller_id" = 138665;
-        "cus_reseller_overdraft" = 0;
-        "cus_reseller_register" = 0;
-        "cus_reseller_security_level" = 0;
-        "cus_reseller_username" = "lekhai0212@gmail.com";
-        "cus_rl_email" = "";
-        "cus_security_answer" = "<null>";
-        "cus_security_custom_question" = "<null>";
-        "cus_security_method" = 0;
-        "cus_security_question" = "<null>";
-        "cus_seller" = 0;
-        "cus_seller_update" = 0;
-        "cus_send_email_to" = 0;
-        "cus_send_subemail" = 0;
-        "cus_social" = 0;
-        "cus_status" = 1;
-        "cus_subemail" = "<null>";
-        "cus_syn_algolia" = 0;
-        "cus_taxcode" = "MST_0123456";
-        "cus_temp_email" = "<null>";
-        "cus_total_balance" = 0;
-        "cus_total_point" = 0;
-        "cus_town" = 0;
-        "cus_type" = 1;
-        "cus_username" = "lekhai0212@gmail.com";
-        "cus_web_domain" = "<null>";
-        "cus_website" = "<null>";
-        "cus_yahoo" = "<null>";
-        "cus_zonedns_domain" = "<null>";
-        "cus_zonedns_email_footer" = "";
-        "cus_zonedns_logo" = "<null>";
-        "cus_zonedns_value" = "<null>";
-        "dns_enable" = 0;
-        "dns_enable_qt" = 0;
-        "lv_content" = "<null>";
-        "lv_id" = 0;
-        "member_id" = 0;
-        "rel_id" = 0;
-        "reseller_content" = "<null>";
-        "reseller_id" = 0;
-        "reseller_type" = 0;
-        "reseller_upload_folder" = "<null>";
-        "user_id" = 0;
-        "zonedns_enable" = 0;
-    } */
+    tfBusinessName.enabled = tfTaxCode.enabled = tfBusinessAddress.enabled = tfBusinessPhone.enabled = tfCountry.enabled = tfCity.enabled = tfRegisterName.enabled = tfBOD.enabled = tfPosition.enabled = tfPassport.enabled = tfPhone.enabled = tfAddress.enabled = FALSE;
+    
+    imgCity.hidden = btnCancel.hidden = btnSave.hidden = TRUE;
+    
+    
+}
+
+- (void)saveAllValueBeforeChangeView {
+    //  business info
+    
+    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessName.text forKey:@"cus_company"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfTaxCode.text forKey:@"cus_taxcode"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessAddress.text forKey:@"cus_company_address"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessPhone.text forKey:@"cus_company_phone"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfRegisterName.text forKey:@"cus_realname"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfBOD.text forKey:@"cus_birthday"];
+    [[AppDelegate sharedInstance].profileEdit setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cus_gender"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfPosition.text forKey:@"cus_position"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfPassport.text forKey:@"cus_idcard_number"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfPhone.text forKey:@"cus_phone"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfAddress.text forKey:@"cus_address"];
+    [[AppDelegate sharedInstance].profileEdit setObject:tfCity.text forKey:@"cus_city"];
+}
+
+- (void)tryToGetCMND_a {
+    if ([AppDelegate sharedInstance].profileEdit != nil) {
+        NSString *cmnd_a = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cmnd_a"];
+        if (![AppUtils isNullOrEmpty: cmnd_a]) {
+            linkFrontPassport = cmnd_a;
+        }
+    }
+}
+
+- (void)tryToGetCMND_b {
+    if ([AppDelegate sharedInstance].profileEdit != nil) {
+        NSString *cmnd_b = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cmnd_b"];
+        if (![AppUtils isNullOrEmpty: cmnd_b]) {
+            linkBehindPassport = cmnd_b;
+        }
+    }
 }
 
 @end

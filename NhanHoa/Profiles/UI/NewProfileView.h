@@ -13,11 +13,13 @@
 typedef enum {
     eAddNewProfile,
     eEditProfile,
+    eViewProfile,
 }PersonalProfileMode;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol NewProfileViewDelegate
+@optional
 - (void)onCancelButtonClicked;
 - (void)onPassportFrontPress;
 - (void)onPassportBehindPress;
@@ -83,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIButton *btnEdit;
 
 @property (nonatomic, strong) WebServices *webService;
 
@@ -93,6 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnCityPress:(UIButton *)sender;
 - (IBAction)icMaleClick:(UIButton *)sender;
 - (IBAction)icFemaleClick:(UIButton *)sender;
+- (IBAction)btnEditPress:(UIButton *)sender;
 
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIView *toolBar;
@@ -113,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupViewForAddNewProfileView;
 - (void)removePassportFrontPhoto;
 - (void)removePassportBehindPhoto;
+- (void)setupUIForOnlyView;
 
 - (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info;
 @property (nonatomic, strong) NSString *cusId;
