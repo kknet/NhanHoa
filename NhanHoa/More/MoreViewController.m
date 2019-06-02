@@ -7,10 +7,10 @@
 //
 
 #import "MoreViewController.h"
+#import "LaunchViewController.h"
 #import "AccountSettingViewController.h"
 #import "ContactInfoViewController.h"
 #import "RenewedDomainViewController.h"
-#import "SignInViewController.h"
 #import "SettingMenuCell.h"
 
 @interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
@@ -30,6 +30,10 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    
+    [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
+    
+    [accInfoView displayInformation];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -150,7 +154,6 @@
         make.height.mas_equalTo(self.hAccount);
     }];
     [accInfoView setupUIForView];
-    
     [AppUtils addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
 }
 
@@ -266,12 +269,14 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:key_password];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-            [self presentViewController:signInVC animated:TRUE completion:nil];
+            LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+            UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
+            [self presentViewController:launchNav animated:TRUE completion:nil];
         }
     }
 }
 
-//  83
+//  92h30
+//  6h24
 
 @end

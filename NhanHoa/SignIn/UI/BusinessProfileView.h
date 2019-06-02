@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol BusinessProfileViewDelegate
+- (void)selectPersonalProfile;
 - (void)readyToRegisterBusinessAccount: (NSDictionary *)info;
 @end
 
@@ -38,8 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfBusinessPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
-@property (weak, nonatomic) IBOutlet UIButton *btnCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbCity;
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCity;
@@ -67,26 +66,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfPerAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lbPerCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfPerCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgPerCountryArrow;
 @property (weak, nonatomic) IBOutlet UILabel *lbPerCity;
 @property (weak, nonatomic) IBOutlet UITextField *tfPerCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPerCityArrow;
 @property (weak, nonatomic) IBOutlet UIButton *btnPerCity;
 
-@property (weak, nonatomic) IBOutlet UILabel *lbCode;
-@property (weak, nonatomic) IBOutlet UITextField *tfCode;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCode;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
 - (void)setupUIForView;
 - (IBAction)chooseBusinessCityPress:(UIButton *)sender;
 - (IBAction)choosePersonalCityPress:(UIButton *)sender;
 - (IBAction)btnRegisterPress:(UIButton *)sender;
+- (IBAction)icPersonalClick:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *businessCityCode;
 @property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, assign) int typeCity;
+@property (nonatomic, assign) float contentSize;
 
 @end
 

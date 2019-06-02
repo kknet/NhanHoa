@@ -136,7 +136,7 @@
 }
 
 - (void)showUserWalletView {
-    NSString *totalBalance = [AccountModel getCusTotalBalance];
+    NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
         lbMoney.text = [NSString stringWithFormat:@"%@ VNĐ", totalBalance];
@@ -144,7 +144,7 @@
         lbMoney.text = @"0 VNĐ";
     }
     
-    NSString *points = [AccountModel getCusTotalPoint];
+    NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
         lbRewardsPoints.text = [NSString stringWithFormat:@"%@ điểm", points];
     }else{

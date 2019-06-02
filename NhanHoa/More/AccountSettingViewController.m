@@ -8,6 +8,7 @@
 
 #import "AccountSettingViewController.h"
 #import "ChangePasswordViewController.h"
+#import "AccountModel.h"
 
 @interface AccountSettingViewController ()
 
@@ -25,32 +26,16 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"AccountSettingViewController"];
+    
     self.title = @"Cài đặt tài khoản";
     [self displayInformationForAccount];
 }
 
 - (void)displayInformationForAccount {
-    NSString *name = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_realname"];
-    NSString *cusId = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_id"];
-    NSString *cusEmail = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_email"];
-    
-    if (![AppUtils isNullOrEmpty: name]) {
-        lbNameValue.text = name;
-    }else{
-        lbNameValue.text = @"";
-    }
-    
-    if (![AppUtils isNullOrEmpty: cusId]) {
-        lbIDValue.text = cusId;
-    }else{
-        lbIDValue.text = @"";
-    }
-    
-    if (![AppUtils isNullOrEmpty: cusEmail]) {
-        lbEmailValue.text = cusEmail;
-    }else{
-        lbEmailValue.text = @"";
-    }
+    lbNameValue.text = [AccountModel getCusRealName];
+    lbIDValue.text = [AccountModel getCusIdOfUser];
+    lbEmailValue.text = [AccountModel getCusEmail];
 }
 
 - (void)setupUIForView {

@@ -7,6 +7,7 @@
 //
 
 #import "AccountInfoView.h"
+#import "AccountModel.h"
 
 @implementation AccountInfoView
 @synthesize imgAvatar, lbName, lbEmail, imgSepa, viewWallet, imgWallet, lbMainAccount, lbMainMoney, viewReward, lbRewardMoney, lbRewardAccount, imgReward;
@@ -109,6 +110,38 @@
         make.top.equalTo(self.imgReward.mas_centerY).offset(1.0);
     }];
     
+}
+
+- (void)displayInformation
+{
+    NSString *realName = [AccountModel getCusRealName];
+    if (![AppUtils isNullOrEmpty: realName]) {
+        lbName.text = realName;
+    }else{
+        lbName.text = @"Chưa cập nhật";
+    }
+    
+    NSString *email = [AccountModel getCusEmail];
+    if (![AppUtils isNullOrEmpty: email]) {
+        lbEmail.text = email;
+    }else{
+        lbEmail.text = @"";
+    }
+    
+    NSString *balance = [AccountModel getCusBalance];
+    if (![AppUtils isNullOrEmpty: balance]) {
+        balance = [AppUtils convertStringToCurrencyFormat: balance];
+        lbMainMoney.text = [NSString stringWithFormat:@"%@ VNĐ", balance];
+    }else{
+        lbMainMoney.text = @"0 VNĐ";
+    }
+    
+    NSString *points = [AccountModel getCusPoint];
+    if (![AppUtils isNullOrEmpty: points]) {
+        lbRewardMoney.text = [NSString stringWithFormat:@"%@ điểm", points];
+    }else{
+        lbRewardMoney.text = @"0 điểm";
+    }
 }
 
 @end

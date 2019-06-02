@@ -108,7 +108,7 @@
 }
 
 - (void)autoSignInWithSavedInformation {
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
@@ -158,7 +158,7 @@
         return;
     }
     
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
     
     NSString *password = [[tfPassword.text MD5String] lowercaseString];

@@ -103,6 +103,10 @@
 #define change_pass_func        @"ChangePassword"
 #define list_domain_func        @"ListDomain"
 #define domain_pricing_func     @"DomainPricing"
+#define info_domain_func        @"InfoDomain"
+#define update_cmnd_func        @"UpdateCMND"
+#define change_dns_func         @"ChangeDNS"
+#define get_dns_func            @"GetDNS"
 
 
 #define login_mod               @"login"
@@ -114,6 +118,10 @@
 #define change_password_mod     @"change_password"
 #define list_domain_mod         @"list_domain"
 #define domain_pricing_mod      @"domain_pricing"
+#define info_domain_mod         @"info_domain"
+#define update_cmnd_mod         @"update_cmnd"
+#define change_dns_mod          @"change_dns"
+#define get_dns_mod             @"get_dns"
 
 
 #define logsFolderName      @"LogFiles"
@@ -141,6 +149,9 @@
 #define OLD_PRICE_COLOR [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(204/255.0) alpha:1.0]
 #define BORDER_COLOR [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0]
 #define LIGHT_GRAY_COLOR [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0]
+
+#define ProgressHUD_BG [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
+
 
 #define FRONT_EMPTY_IMG [UIImage imageNamed:@"passport_empty_front.png"]
 #define BEHIND_EMPTY_IMG [UIImage imageNamed:@"passport_empty_behind.png"]

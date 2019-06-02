@@ -33,6 +33,9 @@
                     <rect key="frame" x="15" y="86" width="26" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="no_tick.png"/>
+                    <connections>
+                        <action selector="icPersonalClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="d4N-x0-VpS"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cho cá nhân" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYi-dl-Yzm">
                     <rect key="frame" x="50" y="91" width="81" height="17"/>
@@ -130,15 +133,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="yu8-Ub-zws">
-                    <rect key="frame" x="87" y="417" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNc-1W-RIo">
-                    <rect key="frame" x="17" y="417" width="104" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/Thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZZ-ZK-xTd">
                     <rect key="frame" x="167" y="387" width="121" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -315,10 +309,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="4bF-2t-zAm">
-                    <rect key="frame" x="100" y="954" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOE-2n-RDU">
                     <rect key="frame" x="139" y="577" width="116" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -345,24 +335,6 @@
                         <action selector="choosePersonalCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="TGx-uc-hBj"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã bảo mật" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsD-a8-heC">
-                    <rect key="frame" x="17" y="1005" width="91" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập mã bảo mật" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cYr-zI-ZwG">
-                    <rect key="frame" x="18" y="1034" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ogw-ej-iE9">
-                    <rect key="frame" x="169" y="1034" width="145" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aD2-AY-YJ8">
                     <rect key="frame" x="15" y="1108" width="299" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -379,7 +351,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btnCity" destination="SYn-Qp-Ut5" id="r5I-TY-r4Z"/>
-                <outlet property="btnCountry" destination="SNc-1W-RIo" id="a1O-ES-FVc"/>
                 <outlet property="btnPerCity" destination="gEY-I8-GWf" id="epn-Th-fjo"/>
                 <outlet property="btnRegister" destination="aD2-AY-YJ8" id="Kh5-rI-v41"/>
                 <outlet property="icBusiness" destination="2vl-he-OHn" id="47W-oD-ItF"/>
@@ -387,17 +358,13 @@
                 <outlet property="icMale" destination="jhW-mG-QKE" id="QFg-GR-Yfb"/>
                 <outlet property="icPersonal" destination="zdt-K5-e3g" id="qMP-vy-VlX"/>
                 <outlet property="imgCity" destination="RRR-H8-ChA" id="kRq-eK-nXi"/>
-                <outlet property="imgCode" destination="Ogw-ej-iE9" id="62h-aw-bQz"/>
-                <outlet property="imgCountry" destination="yu8-Ub-zws" id="ZTA-dT-06X"/>
                 <outlet property="imgPerCityArrow" destination="VQV-Ec-e6o" id="13x-Bw-mRm"/>
-                <outlet property="imgPerCountryArrow" destination="4bF-2t-zAm" id="MdO-11-grp"/>
                 <outlet property="lbBOD" destination="jgd-Bf-k78" id="T7Q-T6-tVm"/>
                 <outlet property="lbBusiness" destination="bdt-To-7zd" id="2tH-aO-PY9"/>
                 <outlet property="lbBusinessAddress" destination="9mO-5V-bbt" id="IvH-as-7aB"/>
                 <outlet property="lbBusinessName" destination="d54-eS-Aud" id="vIy-hj-gR2"/>
                 <outlet property="lbBusinessPhone" destination="S9Y-bA-qAF" id="450-Fz-7kx"/>
                 <outlet property="lbCity" destination="kZZ-ZK-xTd" id="wOQ-6n-Bkd"/>
-                <outlet property="lbCode" destination="rsD-a8-heC" id="jCs-Ss-pW4"/>
                 <outlet property="lbCountry" destination="csR-nw-Zw8" id="rpR-9N-sAN"/>
                 <outlet property="lbEmail" destination="BzS-ZY-sfK" id="k9r-yf-Aab"/>
                 <outlet property="lbFemale" destination="0fM-2Q-Znk" id="IG7-mC-4w0"/>
@@ -421,7 +388,6 @@
                 <outlet property="tfBusinessName" destination="r4R-mL-xb0" id="V6b-dK-8yV"/>
                 <outlet property="tfBusinessPhone" destination="FSq-NG-IdT" id="Eov-hc-hH7"/>
                 <outlet property="tfCity" destination="9k8-fL-EPz" id="0bA-H1-0n4"/>
-                <outlet property="tfCode" destination="cYr-zI-ZwG" id="df5-up-tTG"/>
                 <outlet property="tfCountry" destination="JSD-O9-s9o" id="kIF-D8-MXC"/>
                 <outlet property="tfEmail" destination="9c1-PF-Z8s" id="9UR-ep-rFG"/>
                 <outlet property="tfPassport" destination="rYc-Kz-wba" id="hz8-Sb-Xb5"/>
@@ -433,7 +399,7 @@
                 <outlet property="tfRegisterName" destination="F3g-ID-IRu" id="4AN-wE-Cp7"/>
                 <outlet property="tfTaxCode" destination="m0Z-oi-Xxd" id="1la-sm-BeI"/>
             </connections>
-            <point key="canvasLocation" x="-322" y="200"/>
+            <point key="canvasLocation" x="83" y="197"/>
         </view>
     </objects>
     <resources>

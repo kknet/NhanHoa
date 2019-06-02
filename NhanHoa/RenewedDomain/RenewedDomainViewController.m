@@ -64,6 +64,13 @@ typedef enum TypeSelectDomain{
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    
+    [priceView removeFromSuperview];
+    priceView = nil;
+}
+
 - (IBAction)btnAllDomainPress:(UIButton *)sender {
     if (type == eAllDomain) {
         return;
@@ -138,6 +145,7 @@ typedef enum TypeSelectDomain{
     
     if ([AppDelegate sharedInstance].domainsPrice == nil) {
         [self getPriceListForDomains];
+        [priceView showWaitingView: TRUE];
     }
 }
 
@@ -229,8 +237,11 @@ typedef enum TypeSelectDomain{
     
     if ([link isEqualToString:list_domain_func]) {
         [self.view makeToast:@"Không thể lấy danh sách tên miền. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }else if ([link isEqualToString: domain_pricing_func]) {
         
+    }else if ([link isEqualToString: domain_pricing_func]) {
+        [self.view makeToast:@"Không thể lấy bảng giá tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+        [priceView showWaitingView: FALSE];
     }
 }
 
@@ -244,9 +255,7 @@ typedef enum TypeSelectDomain{
             [self displayDomainsListWithData: (NSArray *)data];
         }
     }else if ([link isEqualToString: domain_pricing_func]) {
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            [self saveDomainPricing: data];
-        }
+        [self saveDomainPricing: data];
     }
 }
 
@@ -259,7 +268,7 @@ typedef enum TypeSelectDomain{
     //  type = 1: list domain sắp hết hạn
     //  type = 0: default [all]
     
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang tải.." Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
@@ -322,7 +331,12 @@ typedef enum TypeSelectDomain{
 }
 
 - (void)saveDomainPricing: (NSDictionary *)data {
-    [AppDelegate sharedInstance].domainsPrice = [[NSDictionary alloc] initWithDictionary: data];
+    [priceView showWaitingView: FALSE];
+    
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        [AppDelegate sharedInstance].domainsPrice = [[NSDictionary alloc] initWithDictionary: data];
+        [priceView prepareToDisplayData];
+    }
 }
 
 #pragma mark - UITableview
@@ -350,21 +364,28 @@ typedef enum TypeSelectDomain{
         domain = [listExpire objectAtIndex: indexPath.row];
         [cell showContentWithDomainInfo:domain withExpire:TRUE];
     }
-    cell.lbNum.text = [NSString stringWithFormat:@"%d", (int)indexPath.row + 1];
+    cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ExpireDomainObject *domain;
-//    if (type == eAllDomain) {
-//        domain = [listAll objectAtIndex: indexPath.row];
-//    }else{
-//        domain = [listExpire objectAtIndex: indexPath.row];
-//    }
-//
-//    RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
-//    domainDetailVC.domainObj = domain;
-//    [self.navigationController pushViewController: domainDetailVC animated:YES];
+    NSDictionary *domain;
+    if (type == eAllDomain) {
+        domain = [listAll objectAtIndex: indexPath.row];
+    }else{
+        domain = [listExpire objectAtIndex: indexPath.row];
+    }
+    NSString *ord_id = [domain objectForKey:@"ord_id"];
+    NSString *cus_id = [domain objectForKey:@"cus_id"];
+    
+    if (![AppUtils isNullOrEmpty: ord_id] && ![AppUtils isNullOrEmpty: cus_id]) {
+        RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
+        domainDetailVC.ordId = ord_id;
+        domainDetailVC.cusId = cus_id;
+        [self.navigationController pushViewController: domainDetailVC animated:YES];
+    }else{
+        [self.view makeToast:[NSString stringWithFormat:@"ord_id không tồn tại"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -373,10 +394,8 @@ typedef enum TypeSelectDomain{
 
 #pragma mark - Price list view delegate
 -(void)onCloseViewDomainPrice {
-    self.navigationController.navigationBarHidden = FALSE;
-    [priceView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.height.mas_equalTo(0);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.priceView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
     }];
 }
 

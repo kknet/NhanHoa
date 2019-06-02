@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ExpireDomainObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,21 +19,26 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDomainValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbServiceName;
 @property (weak, nonatomic) IBOutlet UILabel *lbServiceNameValue;
-@property (weak, nonatomic) IBOutlet UILabel *lbPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbPriceValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbRegisterDate;
 @property (weak, nonatomic) IBOutlet UILabel *lbRegisterDateValue;
+@property (weak, nonatomic) IBOutlet UILabel *lbExpire;
+@property (weak, nonatomic) IBOutlet UILabel *lbExpireDate;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbState;
 @property (weak, nonatomic) IBOutlet UILabel *lbStateValue;
 @property (weak, nonatomic) IBOutlet UIButton *btnRenewDomain;
 @property (weak, nonatomic) IBOutlet UIButton *btnChangeDNS;
 @property (weak, nonatomic) IBOutlet UIButton *btnUpdatePassport;
+@property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender;
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender;
 - (IBAction)btnChangeDNSPress:(UIButton *)sender;
 
-@property (nonatomic, strong) ExpireDomainObject *domainObj;
+@property (nonatomic, strong) NSString *ordId;
+@property (nonatomic, strong) NSString *cusId;
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hItem;
 
 @end
 

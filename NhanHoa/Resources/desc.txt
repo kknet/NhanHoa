@@ -9,7 +9,7 @@ API URL: https://nhanhoa.com/app-awk/ (cố định)
     password: MD5
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: (DONE)
+---STATUS: DONE
 
 2. Whois (Kiểm tra tên miền)
     *Send request (Post / Get) [Auto]
@@ -19,7 +19,7 @@ status: (DONE)
     type: number (0 hoặc 1) [defaut: 0 | 1 là dạng whois để lấy thông tin như như nhà đăng ký, ngày đăng ký, ngày hết hạn, ns, ….
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: (DONE)
+---STATUS: DONE
 
 3. ListContact (Danh sách hồ sơ)
     *Send request (Post / Get) [Auto]
@@ -28,7 +28,7 @@ status: (DONE)
     password: MD5
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: (DONE)
+---STATUS: DONE
 
 4. RegisterAccount (Đăng ký tài khoản)
     *Send request (Post / Get) [Auto]
@@ -120,12 +120,12 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
     re_new_password: MD5
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: DONE
+---STATUS: DONE
 
 6. ForgotPassword (Quên mật khẩu)
     Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
 
-status: DONE
+---STATUS: DONE
 
 7. EditContact (Sửa hồ sơ)
     *Send request (Post / Get) [Auto]
@@ -173,7 +173,7 @@ status: DONE
 
 *Kết quả trả về: anh em send test để xem kết quả
 
-- STATUS: Chưa save được giá trị gender, email
+---STATUS: DONE
 
 8. EditProfile (Sửa profile [tải khoản chính])
     *Send request (Post / Get) [Auto]
@@ -219,6 +219,7 @@ status: DONE
     mod: domain_pricing
     *Kết quả trả về: anh em send test để xem kết quả
 
+--- STATUS: DONE
 
 10. SendQuestion (Gửi câu hỏi của bạn)
 *Send request (Post / Get) [Auto]
@@ -236,37 +237,43 @@ question: string
     type: number (1: list domain sắp hết hạn | 0: default [all]
     *Kết quả trả về: anh em send test để xem kết quả
 
----STATUS:  DONE
+---STATUS: DONE
 
 12. InfoDomain (Thông tin tên miền [đã đăng ký])
-*Send request (Post / Get) [Auto]
-mod: info_domain
-username: string
-password: MD5
-ord_id: number (ord_id lấy từ danh json data trả về ở danh sách domain)
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: info_domain
+    username: string
+    password: MD5
+    ord_id: number (ord_id lấy từ danh json data trả về ở danh sách domain)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE
 
 13. UpdateCMND (Cập nhật CMND)
-*Send request (Post / Get) [Auto]
-mod: update_cmnd
-username: string
-password: MD5
-cus_id: number (cus_id lấy từ info domain, cus_id này có thể là hồ sơ, không phải tài khoản đăng nhập [chính])
-cmnd_a: URL (Link hình CMND mặt trước)
-cmnd_b: URL (Link hình CMND mặt sau)
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: update_cmnd
+    username: string
+    password: MD5
+    cus_id: number (cus_id lấy từ info domain, cus_id này có thể là hồ sơ, không phải tài khoản đăng nhập [chính])
+    cmnd_a: URL (Link hình CMND mặt trước)
+    cmnd_b: URL (Link hình CMND mặt sau)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE (Nhưng không biết xem CMND chỗ nào)
 
 14. ChangeDNS (Cập nhật DNS)
-*Send request (Post / Get) [Auto]
-mod: change_dns
-username: string
-password: MD5
-domain: string (tên miền)
-ns1: string (ví dụ: ns1.zonedns.vn)
-ns2: string (ví dụ: ns2.zonedns.vn)
-ns3: string (ví dụ: ns3.zonedns.vn)
-ns4: string (ví dụ: ns4.zonedns.vn)
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: change_dns
+    username: string
+    password: MD5
+    domain: string (tên miền)
+    ns1: string (ví dụ: ns1.zonedns.vn)
+    ns2: string (ví dụ: ns2.zonedns.vn)
+    ns3: string (ví dụ: ns3.zonedns.vn)
+    ns4: string (ví dụ: ns4.zonedns.vn)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE
 
 15. RenewDomain (Lấy thông tin domain cần gia hạn)
 *Send request (Post / Get) [Auto]
@@ -276,8 +283,32 @@ password: MD5
 domain: string (tên miền)
 *Kết quả trả về: anh em send test để xem kết quả
 
+16. AddOrder (Add đơn hàng đăng ký domain)
+*Send request (Post / Get) [Auto]
+mod: add_order
+username: string
+password: MD5
+domain: string (tên miền)
+contact_id: number (cus_is ID của hồ sơ)
+year: number (số năm đăng ký)
+*Kết quả trả về: anh em send test để xem kết quả
+
+
+17. GetDNS (Lấy thông tin DNS của 1 domain)
+    *Send request (Post / Get) [Auto]
+    mod: get_dns
+    username: string
+    password: MD5
+    domain: string (tên miền)
+
+---STATUS: DONE
 
 
 
 suggest các tài khoản đã đăng nhập thành công trước đó
-ExpireDomainObject
+
+InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray
+Chưa có hàm get ảnh cmnd khi cập nhật cmnd
+chưa có hàm get DS DNS của 1 domain
+
+

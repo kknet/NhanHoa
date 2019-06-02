@@ -50,7 +50,7 @@
     }
     webService.delegate = self;
     
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
     
     tfSearch.text = strSearch;
@@ -85,7 +85,7 @@
         return;
     }
     
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
     
     strSearch = tfSearch.text;

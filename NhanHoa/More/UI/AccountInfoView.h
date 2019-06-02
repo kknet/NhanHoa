@@ -24,5 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbRewardMoney;
 
 - (void)setupUIForView;
+- (void)displayInformation;
 
 @end

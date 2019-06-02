@@ -509,7 +509,7 @@
         return;
     }
     
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Hồ sơ đang được cập nhật.\nVui lòng chờ trong giây lát" Interaction:NO];
     
     if (imgFront != nil || imgBehind != nil) {
@@ -566,7 +566,11 @@
     //  set date for picker
     if (![AppUtils isNullOrEmpty: tfBOD.text]) {
         NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
-        datePicker.date = bodDate;
+        if (bodDate != nil) {
+            datePicker.date = bodDate;
+        }else{
+            datePicker.date = [NSDate date];
+        }
     }else{
         datePicker.date = [NSDate date];
     }

@@ -188,29 +188,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="lr9-U2-mD8">
-                    <rect key="frame" x="87" y="539" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKF-en-afi">
-                    <rect key="frame" x="17" y="539" width="104" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mã bảo mật" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhq-1Q-tff">
-                    <rect key="frame" x="15" y="609" width="91" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập mã bảo mật" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHR-wO-3ks">
-                    <rect key="frame" x="16" y="638" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tỉnh/Thành phố" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnE-Sh-OKb">
                     <rect key="frame" x="167" y="509" width="121" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -227,10 +204,6 @@
                 </textField>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="TQX-zz-dOy">
                     <rect key="frame" x="267" y="539" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGc-cK-Lbf">
-                    <rect key="frame" x="167" y="638" width="145" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fb-Vt-yJJ">
@@ -258,15 +231,12 @@
             <connections>
                 <outlet property="btnBOD" destination="FI9-P6-TlW" id="P0B-mT-fmh"/>
                 <outlet property="btnCity" destination="UGv-o4-JyU" id="j4E-m7-Qdn"/>
-                <outlet property="btnCountry" destination="FKF-en-afi" id="dVH-DD-Pb4"/>
                 <outlet property="btnRegister" destination="7fb-Vt-yJJ" id="Eal-pP-mI4"/>
                 <outlet property="icBusiness" destination="l3z-Nf-Vd3" id="fig-dr-M4u"/>
                 <outlet property="icFemale" destination="pDm-tN-UUm" id="woe-w1-FzE"/>
                 <outlet property="icMale" destination="POb-aD-pIO" id="7O6-H7-O14"/>
                 <outlet property="icPersonal" destination="DDV-B0-aQZ" id="0pQ-W7-UpO"/>
                 <outlet property="imgArrowCity" destination="TQX-zz-dOy" id="lBg-QY-kY0"/>
-                <outlet property="imgArrowCountry" destination="lr9-U2-mD8" id="OB3-y2-B7X"/>
-                <outlet property="imgSecure" destination="HGc-cK-Lbf" id="esr-Yf-prA"/>
                 <outlet property="lbAddress" destination="KZv-oQ-Dg4" id="QZ9-nI-IuJ"/>
                 <outlet property="lbBOD" destination="QNg-Af-fcG" id="ZT1-ya-ptR"/>
                 <outlet property="lbBusiness" destination="5Zg-G5-qXn" id="S7f-pW-p8w"/>
@@ -278,7 +248,6 @@
                 <outlet property="lbPassport" destination="JBs-QS-IKC" id="e9V-t0-e2E"/>
                 <outlet property="lbPersonal" destination="P2U-7y-40q" id="ElS-bf-DPx"/>
                 <outlet property="lbPhone" destination="PdN-m3-jll" id="b6d-Qo-bWb"/>
-                <outlet property="lbSecureCode" destination="Jhq-1Q-tff" id="co6-uq-eco"/>
                 <outlet property="lbSex" destination="H4i-zX-MUz" id="sxi-FH-Iae"/>
                 <outlet property="lbTitle" destination="CMm-J4-fn7" id="igP-1p-ZwL"/>
                 <outlet property="lbVision" destination="Yhk-49-0yw" id="hdd-Eo-yLI"/>
@@ -289,9 +258,8 @@
                 <outlet property="tfName" destination="1xJ-8J-ue0" id="jYN-xc-pb8"/>
                 <outlet property="tfPassport" destination="bg0-mJ-nZT" id="BfY-yc-TtW"/>
                 <outlet property="tfPhone" destination="gxf-zC-qsA" id="lMr-89-x2p"/>
-                <outlet property="tfSecureCode" destination="RHR-wO-3ks" id="qRN-m6-152"/>
             </connections>
-            <point key="canvasLocation" x="173" y="93"/>
+            <point key="canvasLocation" x="-58" y="93"/>
         </view>
     </objects>
     <resources>

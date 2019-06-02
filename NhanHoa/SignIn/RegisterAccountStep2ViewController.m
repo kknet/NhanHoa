@@ -94,31 +94,14 @@
         }
     }
     personalProfile.delegate = self;
-    [personalProfile.icPersonal addTarget:self
-                                   action:@selector(selectPersonalProfile)
-                         forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *tapOnPersonal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPersonalProfile)];
-    personalProfile.lbPersonal.userInteractionEnabled = TRUE;
-    [personalProfile.lbPersonal addGestureRecognizer: tapOnPersonal];
-    
-    [personalProfile.icBusiness addTarget:self
-                                   action:@selector(selectBusinessProfile)
-                         forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *tapOnBusiness = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectBusinessProfile)];
-    personalProfile.lbBusiness.userInteractionEnabled = TRUE;
-    [personalProfile.lbBusiness addGestureRecognizer: tapOnBusiness];
-    
     [self.scvContent addSubview: personalProfile];
     
-    /*
-        10: is mTop (margin top)
-        30: is height of title label
-        38: is height of textfield
-        15: is padding for view
-    */
-    float hView = 110 + 7*10 + 7*30 + 7*[AppDelegate sharedInstance].hTextfield + 45.0 + 4*15.0;
+    float mTop = 10.0;
+    float hLabel = 30.0;
+    float padding = 15.0;
+    
+    float hView = 40 + 30 + 5.0 + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
+    personalProfile.contentSize = hView;
     
     [personalProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
@@ -138,31 +121,15 @@
         }
     }
     businessProfile.delegate = self;
-    [businessProfile.icPersonal addTarget:self
-                                   action:@selector(selectPersonalProfile)
-                         forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *tapOnPersonal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPersonalProfile)];
-    businessProfile.lbPersonal.userInteractionEnabled = TRUE;
-    [businessProfile.lbPersonal addGestureRecognizer: tapOnPersonal];
-    
-    [businessProfile.icBusiness addTarget:self
-                                   action:@selector(selectBusinessProfile)
-                         forControlEvents:UIControlEventTouchUpInside];
-    
-    UITapGestureRecognizer *tapOnBusiness = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectBusinessProfile)];
-    businessProfile.lbBusiness.userInteractionEnabled = TRUE;
-    [businessProfile.lbBusiness addGestureRecognizer: tapOnBusiness];
-    
     [self.scvContent addSubview: businessProfile];
     
-    /*
-     10: is mTop (margin top)
-     30: is height of title label
-     38: is height of textfield
-     15: is padding for view
-     */
-    float hView = 110 + 14*10 + 16*30 + 14*[AppDelegate sharedInstance].hTextfield + 7*15 + 45.0;
+    float mTop = 10.0;
+    float hLabel = 30.0;
+    float padding = 15.0;
+    
+    float hView = 40 + 30 + 5.0 + hLabel + padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
+    businessProfile.contentSize = hView;
+    
     [businessProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
@@ -170,61 +137,6 @@
     }];
     [businessProfile setupUIForView];
     self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
-}
-
-
-- (void)selectPersonalProfile {
-    [personalProfile.icPersonal setImage:[UIImage imageNamed:@"tick_orange"]
-                                forState:UIControlStateNormal];
-    [personalProfile.icBusiness setImage:[UIImage imageNamed:@"no_tick"]
-                                forState:UIControlStateNormal];
-    
-    [businessProfile.icPersonal setImage:[UIImage imageNamed:@"tick_orange"]
-                                forState:UIControlStateNormal];
-    [businessProfile.icBusiness setImage:[UIImage imageNamed:@"no_tick"]
-                                forState:UIControlStateNormal];
-    
-    if (personalProfile == nil) {
-        [self addPersonalProfileView];
-    }else{
-        float hView = 110 + 7*10 + 7*30 + 7*[AppDelegate sharedInstance].hTextfield + 45.0 + 4*15.0;
-//        [personalProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.left.equalTo(self.scvContent);
-//            make.width.mas_equalTo(SCREEN_WIDTH);
-//            make.height.mas_equalTo(hView);
-//        }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
-    }
-    personalProfile.hidden = FALSE;
-    businessProfile.hidden = TRUE;
-    
-    
-}
-
-- (void)selectBusinessProfile {
-    [personalProfile.icPersonal setImage:[UIImage imageNamed:@"no_tick"]
-                                forState:UIControlStateNormal];
-    [personalProfile.icBusiness setImage:[UIImage imageNamed:@"tick_orange"]
-                                forState:UIControlStateNormal];
-    
-    [businessProfile.icPersonal setImage:[UIImage imageNamed:@"no_tick"]
-                                forState:UIControlStateNormal];
-    [businessProfile.icBusiness setImage:[UIImage imageNamed:@"tick_orange"]
-                                forState:UIControlStateNormal];
-    
-    if (businessProfile == nil) {
-        [self addBusinessProfileView];
-    }else{
-        float hView = 110 + 14*10 + 16*30 + 14*[AppDelegate sharedInstance].hTextfield + 7*15 + 45.0;
-//        [businessProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.left.equalTo(self.scvContent);
-//            make.width.mas_equalTo(SCREEN_WIDTH);
-//            make.height.mas_equalTo(hView);
-//        }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
-    }
-    personalProfile.hidden = TRUE;
-    businessProfile.hidden = FALSE;
 }
 
 - (void)setupUIForView {
@@ -303,7 +215,7 @@
         [self.view makeToast:@"Thông tin không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
@@ -321,7 +233,7 @@
         [self.view makeToast:@"Thông tin không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
@@ -362,5 +274,29 @@
         
     }
 }
+
+#pragma mark - ProfileView Delegate
+- (void)selectBusinessProfile {
+    if (businessProfile == nil) {
+        [self addBusinessProfileView];
+    }else{
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, businessProfile.contentSize);
+    }
+    personalProfile.hidden = TRUE;
+    businessProfile.hidden = FALSE;
+}
+
+- (void)selectPersonalProfile {
+    if (personalProfile == nil) {
+        [self addPersonalProfileView];
+    }else{
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, personalProfile.contentSize);
+    }
+    personalProfile.hidden = FALSE;
+    businessProfile.hidden = TRUE;
+    
+    
+}
+
 
 @end

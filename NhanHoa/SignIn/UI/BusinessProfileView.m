@@ -10,8 +10,14 @@
 
 @implementation BusinessProfileView
 
-@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, btnCountry, imgCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbPerCountry, tfPerCountry, imgPerCountryArrow, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, lbCode, tfCode, imgCode, btnRegister, lbPerAddress, tfPerAddress;
-@synthesize delegate, businessCityCode, cityCode, gender, typeCity;
+@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbPerCountry, tfPerCountry, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, btnRegister, lbPerAddress, tfPerAddress;
+@synthesize delegate, businessCityCode, cityCode, gender, typeCity, contentSize;
+
+- (void)selectPersonalProfile {
+    if ([delegate respondsToSelector:@selector(selectPersonalProfile)]) {
+        [delegate selectPersonalProfile];
+    }
+}
 
 - (void)setupUIForView {
     float padding = 15.0;
@@ -47,7 +53,7 @@
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbVision.mas_bottom).offset(5.0);
         make.left.equalTo(self.lbVision).offset(-4.0);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(hLabel);
     }];
     
     lbPersonal.textColor = lbVision.textColor;
@@ -57,6 +63,10 @@
         make.left.equalTo(self.icPersonal.mas_right).offset(3.0);
         make.right.equalTo(self.mas_centerX);
     }];
+    
+    UITapGestureRecognizer *tapOnPersonal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPersonalProfile)];
+    lbPersonal.userInteractionEnabled = TRUE;
+    [lbPersonal addGestureRecognizer: tapOnPersonal];
     
     icBusiness.imageEdgeInsets = icPersonal.imageEdgeInsets;
     [icBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,17 +184,6 @@
         make.top.equalTo(self.lbCountry.mas_bottom);
         make.left.right.equalTo(self.lbCountry);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    [imgCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfCountry.mas_right).offset(-7.5);
-        make.centerY.equalTo(self.tfCountry.mas_centerY);
-        make.width.height.mas_equalTo(14.0);
-    }];
-    
-    [btnCountry setTitle:@"" forState:UIControlStateNormal];
-    [btnCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.tfCountry);
     }];
     
     //  city
@@ -415,12 +414,6 @@
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
-    [imgPerCountryArrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfPerCountry.mas_right).offset(-7.5);
-        make.centerY.equalTo(self.tfPerCountry.mas_centerY);
-        make.width.height.mas_equalTo(14.0);
-    }];
-    
     //  city
     lbPerCity.font = lbVision.font;
     lbPerCity.textColor = lbVision.textColor;
@@ -449,33 +442,6 @@
         make.top.left.bottom.right.equalTo(self.tfPerCity);
     }];
     
-    //  Secure code
-    lbCode.font = lbRegisterName.font;
-    lbCode.textColor = lbRegisterName.textColor;
-    [lbCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfPerCountry.mas_bottom).offset(mTop);
-        make.left.right.equalTo(self.tfEmail);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
-    [AppUtils setBorderForTextfield:tfCode borderColor:BORDER_COLOR];
-    tfCode.font = [AppDelegate sharedInstance].fontRegular;
-    [tfCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbCode.mas_bottom);
-        make.left.equalTo(self.lbCode);
-        make.right.equalTo(self.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    tfCode.returnKeyType = UIReturnKeyDone;
-    tfCode.delegate = self;
-    
-    [imgCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX).offset(padding/2);
-        make.centerY.equalTo(self.tfCode.mas_centerY);
-        make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
     //  register button
     btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnRegister.backgroundColor = BLUE_COLOR;
@@ -486,7 +452,7 @@
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(self.tfCode.mas_bottom).offset(2*padding);
+        make.top.equalTo(self.tfPerCity.mas_bottom).offset(2*padding);
         make.height.mas_equalTo(45.0);
     }];
 }
@@ -568,11 +534,6 @@
         return;
     }
     
-    if ([AppUtils isNullOrEmpty: tfCode.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Mã bảo mật" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     [info setObject:tfBusinessName.text forKey:@"tc_tc_name"];
     [info setObject:tfTaxCode.text forKey:@"tc_tc_mst"];
@@ -594,6 +555,10 @@
     if ([delegate respondsToSelector:@selector(readyToRegisterBusinessAccount:)]) {
         [delegate readyToRegisterBusinessAccount: info];
     }
+}
+
+- (IBAction)icPersonalClick:(UIButton *)sender {
+    [self selectPersonalProfile];
 }
 
 - (void)closeKyboard {
@@ -640,9 +605,6 @@
         [tfPerAddress becomeFirstResponder];
         
     }else if (textField == tfPerAddress) {
-        [tfCode becomeFirstResponder];
-        
-    }else if (textField == tfCode) {
         [self closeKyboard];
     }
     return TRUE;

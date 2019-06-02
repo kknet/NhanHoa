@@ -30,7 +30,7 @@
     [super viewWillAppear: animated];
     self.title = @"Nạp tiền vào tài khoản";
     
-    NSString *totalBalance = [AccountModel getCusTotalBalance];
+    NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
         lbMoney.text = [NSString stringWithFormat:@"%@ VNĐ", totalBalance];

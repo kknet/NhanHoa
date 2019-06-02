@@ -10,8 +10,8 @@
 
 
 @implementation PersonalProfileView
-@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, btnCountry, tfCountry, lbCity, btnCity, tfCity, lbSecureCode, tfSecureCode, imgSecure, btnRegister, imgArrowCity, imgArrowCountry;
-@synthesize datePicker, toolBar, transparentView, gender, cityCode, delegate, ownType;
+@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, tfCountry, lbCity, btnCity, tfCity, btnRegister, imgArrowCity;
+@synthesize datePicker, toolBar, transparentView, gender, cityCode, delegate, ownType, contentSize;
 
 - (void)setupUIForView {
     float padding = 15.0;
@@ -48,7 +48,7 @@
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbVision.mas_bottom).offset(5.0);
         make.left.equalTo(self.lbVision).offset(-4.0);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(hLabel);
     }];
     
     lbPersonal.textColor = lbVision.textColor;
@@ -73,6 +73,11 @@
         make.left.equalTo(self.icBusiness.mas_right).offset(3.0);
         make.right.equalTo(self).offset(-padding);
     }];
+    
+    UITapGestureRecognizer *tapOnBusiness = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnSelectBusinessProfile)];
+    lbBusiness.userInteractionEnabled = TRUE;
+    [lbBusiness addGestureRecognizer: tapOnBusiness];
+    
     
     //  name
     lbName.font = lbVision.font;
@@ -248,18 +253,6 @@
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
-    [imgArrowCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfCountry.mas_right).offset(-7.5);
-        make.centerY.equalTo(self.tfCountry.mas_centerY);
-        make.width.height.mas_equalTo(14.0);
-    }];
-    
-    [btnCountry setTitle:@"" forState:UIControlStateNormal];
-    [btnCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.tfCountry);
-    }];
-    
-    
     lbCity.font = lbVision.font;
     lbCity.textColor = lbVision.textColor;
     [lbCity mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -289,52 +282,28 @@
         make.top.left.bottom.right.equalTo(self.tfCity);
     }];
     
-    //  security code
-    lbSecureCode.font = lbVision.font;
-    lbSecureCode.textColor = lbVision.textColor;
-    [lbSecureCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfCountry.mas_bottom).offset(mTop);
-        make.left.equalTo(self).offset(padding);
-        make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
-    [AppUtils setBorderForTextfield:tfSecureCode borderColor:BORDER_COLOR];
-    tfSecureCode.font = tfName.font;
-    tfSecureCode.returnKeyType = UIReturnKeyDone;
-    tfSecureCode.delegate = self;
-    [tfSecureCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbSecureCode.mas_bottom);
-        make.left.right.equalTo(self.tfCountry);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    tfSecureCode.layer.borderColor = ORANGE_COLOR.CGColor;
-    tfSecureCode.layer.borderWidth = 1.0;
-    tfSecureCode.layer.cornerRadius = tfName.layer.cornerRadius;
-    
-    [imgSecure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.tfCity);
-        make.centerY.equalTo(self.tfSecureCode.mas_centerY);
-        make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
     //  register button
     btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnRegister.backgroundColor = BLUE_COLOR;
     [btnRegister setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnRegister.layer.borderColor = BLUE_COLOR.CGColor;
     btnRegister.layer.borderWidth = 1.0;
-    btnRegister.layer.cornerRadius = 40.0/2;
+    btnRegister.layer.cornerRadius = 45.0/2;
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(self.tfSecureCode.mas_bottom).offset(2*padding);
+        make.top.equalTo(self.tfCountry.mas_bottom).offset(2*padding);
         make.height.mas_equalTo(45.0);
     }];
     
     //  Add datepicker
     [self addDatePickerForView];
+}
+
+- (void)tapOnSelectBusinessProfile {
+    if ([delegate respondsToSelector:@selector(selectBusinessProfile)]) {
+        [delegate selectBusinessProfile];
+    }
 }
 
 - (void)closeKyboard {
@@ -345,6 +314,9 @@
 }
 
 - (IBAction)icBusinessClick:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(selectBusinessProfile)]) {
+        [delegate selectBusinessProfile];
+    }
 }
 
 - (IBAction)icMaleClick:(UIButton *)sender {
@@ -400,11 +372,6 @@
     
     if ([tfCity.text isEqualToString:@""]) {
         [self makeToast:@"Vui lòng chọn \'Tỉnh/Thành phố\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([tfSecureCode.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng nhập \'Mã bảo mật\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -521,12 +488,8 @@
         [tfAddress becomeFirstResponder];
         
     }else if (textField == tfAddress) {
-        [tfSecureCode becomeFirstResponder];
-        
-    }else if (textField == tfSecureCode) {
         [self endEditing: TRUE];
     }
-    
     return TRUE;
 }
 

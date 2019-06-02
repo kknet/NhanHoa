@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PersonalProfileViewDelegate <NSObject>
+- (void)selectBusinessProfile;
 - (void)readyToRegisterAccount: (NSDictionary *)info;
 @end
 
@@ -42,16 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgArrowCountry;
-@property (weak, nonatomic) IBOutlet UIButton *btnCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbCity;
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrowCity;
 @property (weak, nonatomic) IBOutlet UIButton *btnCity;
 
-@property (weak, nonatomic) IBOutlet UILabel *lbSecureCode;
-@property (weak, nonatomic) IBOutlet UITextField *tfSecureCode;
-@property (weak, nonatomic) IBOutlet UIImageView *imgSecure;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
 
@@ -72,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int ownType;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, strong) NSString *cityCode;
+@property (nonatomic, assign) float contentSize;
 
 @end
 

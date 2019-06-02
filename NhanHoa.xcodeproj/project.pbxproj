@@ -127,9 +127,16 @@
 		15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E92AFA2272BB88004AB658 /* SignInViewController.m */; };
 		15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AFB2272BB88004AB658 /* SignInViewController.xib */; };
 		15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E92AFE2272BC31004AB658 /* UIKit.framework */; };
+		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
+		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
 		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
 		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
+		56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */; };
+		56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */; };
+		56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761A22A2A9DE00F6ADAD /* tick_green.png */; };
+		56D5761F22A2C0A200F6ADAD /* UpdatePassportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D5761D22A2C0A200F6ADAD /* UpdatePassportViewController.m */; };
+		56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */; };
 		56F0958F229A7B7D00AF381B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0958E229A7B7D00AF381B /* Photos.framework */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
@@ -238,7 +245,6 @@
 		8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */; };
 		8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5A82279A74400B921B7 /* ExpireDomainCell.m */; };
 		8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */; };
-		8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */; };
 		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
 		849827832285D50C00201ED7 /* NewProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849827822285D50C00201ED7 /* NewProfileView.m */; };
@@ -429,10 +435,20 @@
 		15E92AFA2272BB88004AB658 /* SignInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		15E92AFB2272BB88004AB658 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		15E92AFE2272BC31004AB658 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateDNSViewController.h; sourceTree = "<group>"; };
+		5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateDNSViewController.m; sourceTree = "<group>"; };
+		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
 		5649C7902299A3D90015DB1D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
+		56D5761522A287EA00F6ADAD /* PriceDomainInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceDomainInfoCell.h; sourceTree = "<group>"; };
+		56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceDomainInfoCell.m; sourceTree = "<group>"; };
+		56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDomainInfoCell.xib; sourceTree = "<group>"; };
+		56D5761A22A2A9DE00F6ADAD /* tick_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_green.png; sourceTree = "<group>"; };
+		56D5761C22A2C0A200F6ADAD /* UpdatePassportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePassportViewController.h; sourceTree = "<group>"; };
+		56D5761D22A2C0A200F6ADAD /* UpdatePassportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePassportViewController.m; sourceTree = "<group>"; };
+		56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePassportViewController.xib; sourceTree = "<group>"; };
 		56F0958E229A7B7D00AF381B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -571,8 +587,6 @@
 		8490A5A72279A74400B921B7 /* ExpireDomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpireDomainCell.h; sourceTree = "<group>"; };
 		8490A5A82279A74400B921B7 /* ExpireDomainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpireDomainCell.m; sourceTree = "<group>"; };
 		8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpireDomainCell.xib; sourceTree = "<group>"; };
-		8490A5AC2279AA5100B921B7 /* ExpireDomainObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpireDomainObject.h; sourceTree = "<group>"; };
-		8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpireDomainObject.m; sourceTree = "<group>"; };
 		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
 		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
 		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
@@ -906,6 +920,7 @@
 				157E2E6D2285380700D1ACDA /* circle_full_blue.png */,
 				157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */,
 				843F5AC5228B8D5900DC179F /* list_price.png */,
+				56D5761A22A2A9DE00F6ADAD /* tick_green.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1056,8 +1071,6 @@
 				842F81C92275BD4600D6DE6D /* CustomTextAttachment.m */,
 				846EA9102276EF6D00F1D7DB /* DomainObject.h */,
 				846EA9112276EF6D00F1D7DB /* DomainObject.m */,
-				8490A5AC2279AA5100B921B7 /* ExpireDomainObject.h */,
-				8490A5AD2279AA5100B921B7 /* ExpireDomainObject.m */,
 				153035E622867773005E7DB2 /* CityObject.h */,
 				153035E722867773005E7DB2 /* CityObject.m */,
 			);
@@ -1231,6 +1244,12 @@
 				15D1BD7D2283D618004C0452 /* RenewDomainCartViewController.h */,
 				15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */,
 				15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */,
+				56D5761C22A2C0A200F6ADAD /* UpdatePassportViewController.h */,
+				56D5761D22A2C0A200F6ADAD /* UpdatePassportViewController.m */,
+				56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */,
+				5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */,
+				5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */,
+				5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */,
 			);
 			path = RenewedDomain;
 			sourceTree = "<group>";
@@ -1244,6 +1263,9 @@
 				843F5AC7228B8E0B00DC179F /* PriceListView.h */,
 				843F5AC8228B8E0B00DC179F /* PriceListView.m */,
 				843F5ACA228B8E1600DC179F /* PriceListView.xib */,
+				56D5761522A287EA00F6ADAD /* PriceDomainInfoCell.h */,
+				56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */,
+				56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1354,6 +1376,7 @@
 				84A1646E2284EA5C0001B833 /* visa.png in Resources */,
 				845D32BD22793DF50047B196 /* RegisterAccountStep2ViewController.xib in Resources */,
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
+				5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
@@ -1427,6 +1450,7 @@
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
+				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */,
@@ -1505,6 +1529,7 @@
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
+				56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */,
 				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
 				1517FBA922745D810044E878 /* tabbar_history_def.png in Resources */,
@@ -1520,6 +1545,7 @@
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
 				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
+				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 				56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */,
@@ -1604,6 +1630,7 @@
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
+				5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
@@ -1612,6 +1639,7 @@
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
+				56D5761F22A2C0A200F6ADAD /* UpdatePassportViewController.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				159F7D93227AC88E00A64586 /* PaymentViewController.m in Sources */,
 				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
@@ -1625,11 +1653,11 @@
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
 				849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
-				8490A5AE2279AA5100B921B7 /* ExpireDomainObject.m in Sources */,
 				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
+				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,

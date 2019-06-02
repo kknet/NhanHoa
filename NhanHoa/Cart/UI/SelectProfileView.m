@@ -445,7 +445,7 @@
 }
 
 - (void)getListProfilesForAccount {
-    [ProgressHUD backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];

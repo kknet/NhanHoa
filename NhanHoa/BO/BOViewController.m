@@ -7,9 +7,12 @@
 //
 
 #import "BOViewController.h"
+#import "WebServices.h"
+#import "AccountModel.h"
 
-@interface BOViewController ()
-
+@interface BOViewController ()<WebServicesDelegate>{
+    WebServices *webService;
+}
 @end
 
 @implementation BOViewController
@@ -17,6 +20,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    webService = [[WebServices alloc] init];
+    webService.delegate = self;
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:whois_mod forKey:@"mod"];
+    [jsonDict setObject:@"lehoangson.top" forKey:@"domain"];
+    [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
+    [jsonDict setObject:[NSNumber numberWithInt: 1] forKey:@"type"];
+    [webService callWebServiceWithLink:whois_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:@"" withParams:jsonDict];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,55 +39,21 @@
     
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Webservice delegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
 }
-*/
 
-- (IBAction)btnUploadPress:(UIButton *)sender {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        UIImage *image = [UIImage imageNamed:@"passport_front.png"];
-        NSData *data = UIImagePNGRepresentation(image);
-        
-        NSString *urlString = @"https://api.websudo.xyz/ios_upload_file.php";
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        [request setURL:[NSURL URLWithString:urlString]];
-        [request setHTTPMethod:@"POST"];
-        
-        NSString *boundary = @"---------------------------14737809831466499882746641449";
-        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-        [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-        
-        NSMutableData *body = [NSMutableData data];
-        if (data != nil) {
-            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"%@\"\r\n", @"anh_cmnd.png"] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:data];
-            [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-        
-        // we close the body with one last boundary
-        [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        // assigning the completed NSMutableData buffer as the body of the HTTP POST request
-        [request setHTTPBody:body];
-        
-        [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-            if (data){
-                //do something with data
-                NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"%@", value);
-            }else if (error){
-                NSLog(@"%@", [error localizedDescription]);
-            }
-        }];
-    });
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
 }
 
 @end
