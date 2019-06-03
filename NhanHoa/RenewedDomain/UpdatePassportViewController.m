@@ -36,11 +36,27 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
+    
+    [self showCurrentPassportForDomain];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     webService = nil;
+}
+
+- (void)showCurrentPassportForDomain {
+    if (![AppUtils isNullOrEmpty: curCMND_a]) {
+        [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal placeholderImage:FRONT_EMPTY_IMG];
+    }else{
+        [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+    }
+    
+    if (![AppUtils isNullOrEmpty: curCMND_b]) {
+        [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+    }else{
+        [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)btnCMND_a_Press:(UIButton *)sender {

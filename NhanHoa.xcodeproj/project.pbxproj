@@ -127,6 +127,7 @@
 		15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E92AFA2272BB88004AB658 /* SignInViewController.m */; };
 		15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AFB2272BB88004AB658 /* SignInViewController.xib */; };
 		15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E92AFE2272BC31004AB658 /* UIKit.framework */; };
+		15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FEFB3822A4CABF002A3AD3 /* round_close_white.png */; };
 		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
 		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
@@ -435,6 +436,7 @@
 		15E92AFA2272BB88004AB658 /* SignInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		15E92AFB2272BB88004AB658 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		15E92AFE2272BC31004AB658 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		15FEFB3822A4CABF002A3AD3 /* round_close_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_close_white.png; sourceTree = "<group>"; };
 		5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateDNSViewController.h; sourceTree = "<group>"; };
 		5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateDNSViewController.m; sourceTree = "<group>"; };
 		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 				8446F4B32277C55D008F4EE9 /* close.png */,
 				158174632281854600DD8EC9 /* close_blue.png */,
 				158174622281854500DD8EC9 /* close_gray.png */,
+				15FEFB3822A4CABF002A3AD3 /* round_close_white.png */,
 				845D32B222792C530047B196 /* hide_pass.png */,
 				845D32B122792C530047B196 /* show_pass.png */,
 				845D32B52279335C0047B196 /* hide_pass_white.png */,
@@ -1476,6 +1479,7 @@
 				84588A9F228093F000B59E0F /* ic_support.png in Resources */,
 				8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
+				15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
@@ -1833,7 +1837,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

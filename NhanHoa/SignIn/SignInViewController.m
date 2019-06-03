@@ -35,7 +35,7 @@
 @end
 
 @implementation SignInViewController
-@synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister, scvContent;
+@synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister, scvContent, icClearAcc;
 @synthesize hHeader, padding;
 
 - (void)viewDidLoad {
@@ -71,9 +71,19 @@
     }
     
     //  fill username
-    if (![AppUtils isNullOrEmpty: USERNAME]) {
-        tfAccount.text = USERNAME;
+    if ([AppDelegate sharedInstance].registerAccSuccess) {
+        if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].registerAccount]) {
+            tfAccount.text = [AppDelegate sharedInstance].registerAccount;
+        }
+        [AppDelegate sharedInstance].registerAccSuccess = FALSE;
+        [AppDelegate sharedInstance].registerAccount = @"";
+    }else{
+        if (![AppUtils isNullOrEmpty: USERNAME]) {
+            tfAccount.text = USERNAME;
+        }
     }
+    
+    icClearAcc.hidden = (tfAccount.text.length > 0)? FALSE : TRUE;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -85,6 +95,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)icClearAccClick:(UIButton *)sender {
+    tfAccount.text = @"";
+    sender.hidden = TRUE;
 }
 
 - (IBAction)icShowPassClicked:(UIButton *)sender {
@@ -316,6 +331,10 @@
     }];
     
     //  Account textfield
+    [tfAccount addTarget:self
+                  action:@selector(textfieldAccountChanged:)
+        forControlEvents:UIControlEventValueChanged];
+    
     tfAccount.textColor = BORDER_COLOR;
     tfAccount.layer.cornerRadius = hTextfield/2;
     tfAccount.backgroundColor = tfPassword.backgroundColor;
@@ -330,12 +349,18 @@
     tfAccount.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfAccount.leftViewMode = UITextFieldViewModeAlways;
     
-    tfAccount.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
+    tfAccount.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hTextfield, hTextfield)];
     tfAccount.rightViewMode = UITextFieldViewModeAlways;
     
     tfAccount.delegate = self;
     tfAccount.returnKeyType = UIReturnKeyNext;
     tfAccount.keyboardType = UIKeyboardTypeEmailAddress;
+    
+    icClearAcc.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
+    [icClearAcc mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.equalTo(self.tfAccount);
+        make.width.mas_equalTo(hTextfield);
+    }];
     
     //  footer
     CGSize sizeText = [AppUtils getSizeWithText:@"Bạn chưa có tài khoản?" withFont:[UIFont fontWithName:RobotoRegular size:17.0]];
@@ -380,6 +405,10 @@
         
     AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
     [self presentViewController:tabbarVC animated:YES completion:nil];
+}
+
+- (void)textfieldAccountChanged: (UITextField *)textfield {
+    icClearAcc.hidden = (textfield.text.length > 0)? FALSE : TRUE;
 }
 
 #pragma mark - Webservice delegate

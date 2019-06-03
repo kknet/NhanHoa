@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PersonalProfileViewDelegate <NSObject>
 - (void)selectBusinessProfile;
-- (void)readyToRegisterAccount: (NSDictionary *)info;
+- (void)readyToRegisterPersonalAccount: (NSDictionary *)info;
 @end
 
 @interface PersonalProfileView : UIView<UITextFieldDelegate, UIGestureRecognizerDelegate, ChooseCityPopupViewDelegate>
@@ -65,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIView *toolBar;
 
-@property (nonatomic, assign) int ownType;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, assign) float contentSize;

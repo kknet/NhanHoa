@@ -14,6 +14,8 @@
 
 @interface RenewDomainDetailViewController ()<WebServicesDelegate> {
     WebServices *webService;
+    NSString *CMND_a;
+    NSString *CMND_b;
 }
 
 @end
@@ -58,6 +60,8 @@
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
     UpdatePassportViewController *updateVC = [[UpdatePassportViewController alloc] initWithNibName:@"UpdatePassportViewController" bundle:nil];
     updateVC.cusId = cusId;
+    updateVC.curCMND_a = CMND_a;
+    updateVC.curCMND_b = CMND_b;
     [self.navigationController pushViewController:updateVC animated:TRUE];
 }
 
@@ -99,8 +103,6 @@
 }
 
 - (void)displayDomainInfoWithData: (NSDictionary *)info {
-    //  "cmnd_a" = "http://nhanhoa.com/uploads/declaration/ACC127115/1559470525.jpg";
-    //  "cmnd_b" = "http://nhanhoa.com/uploads/declaration/ACC127115/1559470527.jpg";
     NSString *domainName = [info objectForKey:@"domain_name"];
     lbTopDomain.text = (![AppUtils isNullOrEmpty: domainName]) ? domainName : @"";
     
@@ -171,17 +173,10 @@
         make.top.equalTo(self.lbServiceName.mas_centerY).offset(-10.0);
         make.height.mas_equalTo(hContent);
     }];
-    /*
-        "domain_id" = 156615;
-        "domain_name" = "lehoangson.top";
-        "domain_type" = domain;
-        "end_time" = 1587254400;
-        "ord_id" = 847101;
-        "ord_name" = ORD847101;
-        "service_id" = 1521;
-        "service_name" = "\U0110K t\U00ean mi\U1ec1n qu\U1ed1c t\U1ebf .TOP";
-        "start_time" = 1555632000;
-    */
+    
+    //  get CMND
+    CMND_a = [info objectForKey:@"cmnd_a"];
+    CMND_b = [info objectForKey:@"cmnd_b"];
 }
 
 

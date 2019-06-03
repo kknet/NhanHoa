@@ -66,7 +66,7 @@ API URL: https://nhanhoa.com/app-awk/ (cố định)
     }
     *Kết quả trả về: anh em send test để xem kết quả
 
-status: (NOT YET)
+---STATUS: DONE (Chưa có mã bảo mật)
 
 4. AddContact (Thêm hồ sơ)
     *Send request (Post / Get) [Auto]
@@ -312,3 +312,10 @@ Chưa có hàm get ảnh cmnd khi cập nhật cmnd
 chưa có hàm get DS DNS của 1 domain
 
 
+gub30316@cndps.com          |   11111111
+lekhai02121991@gmail.com    |   11111111
+roc24087@cndps.com          |   11111111
+sos50945@cndps.com          |   11111111
+
+
+sharefreeall.com

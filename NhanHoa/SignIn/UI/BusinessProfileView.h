@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfPerCity;
 @property (weak, nonatomic) IBOutlet UIImageView *imgPerCityArrow;
 @property (weak, nonatomic) IBOutlet UIButton *btnPerCity;
-
+@property (weak, nonatomic) IBOutlet UIButton *btnBOD;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
 - (void)setupUIForView;
@@ -78,12 +78,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)choosePersonalCityPress:(UIButton *)sender;
 - (IBAction)btnRegisterPress:(UIButton *)sender;
 - (IBAction)icPersonalClick:(UIButton *)sender;
+- (IBAction)icMaleClick:(UIButton *)sender;
+- (IBAction)icFemaleClick:(UIButton *)sender;
+- (IBAction)btnBODPress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *businessCityCode;
 @property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, assign) int typeCity;
 @property (nonatomic, assign) float contentSize;
+
+@property (nonatomic, strong) UIView *transparentView;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+
 
 @end
 

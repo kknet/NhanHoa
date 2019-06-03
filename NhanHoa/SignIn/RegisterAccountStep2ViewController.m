@@ -209,7 +209,7 @@
 }
 
 #pragma mark - PersonalViewDelegate
-- (void)readyToRegisterAccount:(NSDictionary *)info
+- (void)readyToRegisterPersonalAccount:(NSDictionary *)info
 {
     if ([AppUtils isNullOrEmpty: email] || [AppUtils isNullOrEmpty: password]) {
         [self.view makeToast:@"Thông tin không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -222,6 +222,7 @@
     [jsonDict setObject:register_account_mod forKey:@"mod"];
     [jsonDict setObject:email forKey:@"email"];
     [jsonDict setObject:[[password MD5String] lowercaseString] forKey:@"password"];
+    [jsonDict setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
     
@@ -240,8 +241,17 @@
     [jsonDict setObject:register_account_mod forKey:@"mod"];
     [jsonDict setObject:email forKey:@"email"];
     [jsonDict setObject:[[password MD5String] lowercaseString] forKey:@"password"];
+    [jsonDict setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)afterRegisterAccountSuccess {
+    [AppDelegate sharedInstance].registerAccSuccess = TRUE;
+    [AppDelegate sharedInstance].registerAccount = email;
+    [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 
 #pragma mark - Webservice delegate
@@ -260,9 +270,8 @@
     [ProgressHUD dismiss];
     
     if ([link isEqualToString:register_account_func]) {
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            
-        }
+        [self.view makeToast:@"Tài khoản của bạn đã được đăng ký thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        [self performSelector:@selector(afterRegisterAccountSuccess) withObject:nil afterDelay:2.0];
     }
 }
 

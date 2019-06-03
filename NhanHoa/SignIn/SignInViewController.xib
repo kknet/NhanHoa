@@ -14,6 +14,7 @@
                 <outlet property="btnForgotPass" destination="tBW-aJ-gh8" id="g6a-zF-cw9"/>
                 <outlet property="btnRegister" destination="LPN-aZ-xit" id="atg-lu-9kX"/>
                 <outlet property="btnSignIn" destination="nIh-iF-YmO" id="pnE-Qv-FbO"/>
+                <outlet property="icClearAcc" destination="I99-69-PBr" id="phh-tt-kcf"/>
                 <outlet property="icShowPass" destination="Wcc-f0-VCk" id="JUA-Fd-qIk"/>
                 <outlet property="imgLogo" destination="MqL-wV-f6A" id="fcx-nG-dSN"/>
                 <outlet property="lbCompany" destination="XoE-EE-6rI" id="C89-Tm-NVp"/>
@@ -71,6 +72,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I99-69-PBr">
+                            <rect key="frame" x="193" y="273" width="17" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="round_close_white.png"/>
+                            <connections>
+                                <action selector="icClearAccClick:" destination="-1" eventType="touchUpInside" id="4Hy-9E-rtc"/>
+                            </connections>
+                        </button>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mật khẩu" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZh-E7-VbD">
                             <rect key="frame" x="45" y="225" width="230" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,11 +136,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-915" y="-53"/>
+            <point key="canvasLocation" x="-262.39999999999998" y="-38.680659670164921"/>
         </view>
     </objects>
     <resources>
         <image name="app-icon.png" width="1024" height="1024"/>
+        <image name="round_close_white.png" width="100" height="100"/>
         <image name="show_pass_white.png" width="100" height="100"/>
     </resources>
 </document>

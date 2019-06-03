@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbCompany;
 @property (weak, nonatomic) IBOutlet UILabel *lbToBeTheBest;
 @property (weak, nonatomic) IBOutlet UITextField *tfAccount;
+@property (weak, nonatomic) IBOutlet UIButton *icClearAcc;
+
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 @property (weak, nonatomic) IBOutlet UIButton *icShowPass;
 @property (weak, nonatomic) IBOutlet UIButton *btnForgotPass;
@@ -23,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *viewBottom;
 @property (weak, nonatomic) IBOutlet UILabel *lbNotAccount;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+- (IBAction)icClearAccClick:(UIButton *)sender;
 
 
 - (IBAction)icShowPassClicked:(UIButton *)sender;

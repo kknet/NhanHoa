@@ -206,18 +206,4 @@
     return result;
 }
 
-/* Json of one domain item
-available = 1;
-domain = "anvatsaigon.org";
-flag = 0;
-"price_first_year" = 280000;
-"price_next_years" = 280000;
-"price_vat_first_year" = 28000;
-"price_vat_next_year" = 28000;
-"total_first_year" = 308000;
-"total_next_years" = 308000;
-vat = 10;
-"year_for_domain" = 1;
-*/
-
 @end

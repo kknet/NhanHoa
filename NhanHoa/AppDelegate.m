@@ -19,7 +19,7 @@
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
-@synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, domainsPrice;
+@synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, domainsPrice, registerAccSuccess, registerAccount;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title

@@ -10,8 +10,9 @@
 
 @implementation BusinessProfileView
 
-@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbPerCountry, tfPerCountry, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, btnRegister, lbPerAddress, tfPerAddress;
+@synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbPerCountry, tfPerCountry, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, btnRegister, lbPerAddress, tfPerAddress, btnBOD;
 @synthesize delegate, businessCityCode, cityCode, gender, typeCity, contentSize;
+@synthesize transparentView, datePicker, toolBar;
 
 - (void)selectPersonalProfile {
     if ([delegate respondsToSelector:@selector(selectPersonalProfile)]) {
@@ -260,6 +261,11 @@
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
+    [btnBOD setTitle:@"" forState:UIControlStateNormal];
+    [btnBOD mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.tfBOD);
+    }];
+    
     lbSex.font = lbRegisterName.font;
     lbSex.textColor = lbRegisterName.textColor;
     [lbSex mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -291,6 +297,9 @@
         make.left.equalTo(self.icMale.mas_right).offset(5.0);
         make.right.equalTo(self.icFemale.mas_left).offset(-5.0);
     }];
+    UITapGestureRecognizer *tapOnMale = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectMale)];
+    lbMale.userInteractionEnabled = TRUE;
+    [lbMale addGestureRecognizer: tapOnMale];
     
     lbFemale.font = lbMale.font;
     lbFemale.textColor = lbMale.textColor;
@@ -299,6 +308,10 @@
         make.left.equalTo(self.icFemale.mas_right).offset(5.0);
         make.right.equalTo(self.mas_centerX);
     }];
+    
+    UITapGestureRecognizer *tapOnFemale = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectFemale)];
+    lbFemale.userInteractionEnabled = TRUE;
+    [lbFemale addGestureRecognizer: tapOnFemale];
     
     //  position
     lbPosition.font = lbRegisterName.font;
@@ -455,9 +468,13 @@
         make.top.equalTo(self.tfPerCity.mas_bottom).offset(2*padding);
         make.height.mas_equalTo(45.0);
     }];
+    
+    //  Add datepicker
+    [self addDatePickerForView];
 }
 
 - (IBAction)chooseBusinessCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
     typeCity = 2;
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, SCREEN_HEIGHT-100)];
@@ -466,6 +483,8 @@
 }
 
 - (IBAction)choosePersonalCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     typeCity = 1;
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, SCREEN_HEIGHT-100)];
@@ -561,6 +580,34 @@
     [self selectPersonalProfile];
 }
 
+- (IBAction)icMaleClick:(UIButton *)sender {
+    gender = type_men;
+    
+    [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+}
+
+- (IBAction)icFemaleClick:(UIButton *)sender {
+    gender = type_women;
+    
+    [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+}
+
+- (void)selectMale {
+    gender = type_men;
+    
+    [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+}
+
+- (void)selectFemale {
+    gender = type_women;
+    
+    [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+}
+
 - (void)closeKyboard {
     [self endEditing: TRUE];
 }
@@ -619,6 +666,134 @@
         businessCityCode = city.code;
         tfCity.text = city.name;
     }
+}
+
+- (IBAction)btnBODPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    float hPickerView;
+    float hToolbar;
+    if (datePicker.frame.size.height > 0) {
+        hPickerView = 0;
+        hToolbar = 0;
+        transparentView.hidden = TRUE;
+    }else{
+        hPickerView = 200;
+        hToolbar = 44.0;
+        transparentView.hidden = FALSE;
+    }
+    
+    [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo([AppDelegate sharedInstance].window);
+        make.height.mas_equalTo(hPickerView);
+    }];
+    [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo([AppDelegate sharedInstance].window);
+        make.bottom.equalTo(self.datePicker.mas_top);
+        make.height.mas_equalTo(hToolbar);
+    }];
+    
+    //  set date for picker
+    NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
+    if (bodDate == nil) {
+        bodDate = [NSDate date];
+    }
+    datePicker.date = bodDate;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        self.datePicker.maximumDate = [NSDate date];
+    }];
+}
+
+- (void)addDatePickerForView {
+    transparentView = [[UIView alloc] init];
+    transparentView.hidden = TRUE;
+    transparentView.backgroundColor = UIColor.blackColor;
+    transparentView.alpha = 0.5;
+    [[AppDelegate sharedInstance].window addSubview: transparentView];
+    [transparentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo([AppDelegate sharedInstance].window);
+        make.height.mas_equalTo(SCREEN_HEIGHT);
+    }];
+    
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    datePicker.backgroundColor = UIColor.whiteColor;
+    [datePicker setValue:BLUE_COLOR forKey:@"textColor"];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [[AppDelegate sharedInstance].window addSubview: datePicker];
+    [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.transparentView);
+        make.height.mas_equalTo(0);
+    }];
+    
+    toolBar = [[UIView alloc] init];
+    toolBar.clipsToBounds = TRUE;
+    toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
+    [[AppDelegate sharedInstance].window addSubview: toolBar];
+    [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.transparentView);
+        make.bottom.equalTo(self.datePicker.mas_top);
+        make.height.mas_equalTo(0);
+    }];
+    
+    UIButton *btnClose = [[UIButton alloc] init];
+    [btnClose setTitle:text_close forState:UIControlStateNormal];
+    btnClose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btnClose addTarget:self
+                 action:@selector(closePickerView)
+       forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview: btnClose];
+    [btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.toolBar).offset(15.0);
+        make.bottom.top.equalTo(self.toolBar);
+        make.width.mas_equalTo(100);
+    }];
+    
+    UIButton *btnChoose = [[UIButton alloc] init];
+    [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btnChoose addTarget:self
+                  action:@selector(chooseDatePicker)
+        forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview: btnChoose];
+    [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.toolBar).offset(-15.0);
+        make.bottom.top.equalTo(self.toolBar);
+        make.width.mas_equalTo(100);
+    }];
+}
+
+- (void)closePickerView {
+    [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo([AppDelegate sharedInstance].window);
+        make.height.mas_equalTo(0);
+    }];
+    
+    [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo([AppDelegate sharedInstance].window);
+        make.bottom.equalTo(self.datePicker.mas_top);
+        make.height.mas_equalTo(0);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.transparentView.hidden = TRUE;
+        [self layoutIfNeeded];
+    }];
+}
+
+- (void)chooseDatePicker {
+    [self closePickerView];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/YYYY"];
+    
+    tfBOD.text = [dateFormatter stringFromDate:datePicker.date];
 }
 
 @end

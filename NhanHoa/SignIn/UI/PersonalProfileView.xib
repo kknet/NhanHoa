@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -259,12 +259,12 @@
                 <outlet property="tfPassport" destination="bg0-mJ-nZT" id="BfY-yc-TtW"/>
                 <outlet property="tfPhone" destination="gxf-zC-qsA" id="lMr-89-x2p"/>
             </connections>
-            <point key="canvasLocation" x="-58" y="93"/>
+            <point key="canvasLocation" x="-32" y="85"/>
         </view>
     </objects>
     <resources>
         <image name="arrow_down.png" width="100" height="100"/>
-        <image name="no_tick.png" width="80" height="80"/>
-        <image name="tick_orange.png" width="7.8091106414794922" height="7.8091106414794922"/>
+        <image name="no_tick.png" width="100" height="100"/>
+        <image name="tick_orange.png" width="100" height="100"/>
     </resources>
 </document>

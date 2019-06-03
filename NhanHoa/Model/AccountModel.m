@@ -95,7 +95,6 @@
     return @"";
     
 }
-
 /*
 {
     "careers_id" = 37;
@@ -191,7 +190,8 @@
     "cus_paypal_email" = "<null>";
     "cus_phone" = 0917264679;
     "cus_phonehome" = "";
-    "cus_point" = 0;
+    "cus_photo" = "http://nhanhoa.com/uploads/declaration/ACC127115/photo_1559511433.jpg";
+    "cus_point" = 500000;
     "cus_point_used" = 0;
     "cus_position" = "<null>";
     "cus_profile_list" = "-1,136070,136112,136113,139498,140398,140406,140407,140408,140409,140546,140548";
@@ -223,6 +223,7 @@
     "cus_syn_algolia" = 0;
     "cus_taxcode" = "<null>";
     "cus_temp_email" = "<null>";
+    "cus_token" = "";
     "cus_total_balance" = 4000000;
     "cus_total_point" = 0;
     "cus_town" = 10788;
@@ -230,6 +231,7 @@
     "cus_username" = "lehoangson@gmail.com";
     "cus_web_domain" = "<null>";
     "cus_website" = "";
+    "cus_withdraw" = 500000;
     "cus_yahoo" = "";
     "cus_zonedns_domain" = "domain.websudo.xyz";
     "cus_zonedns_email_footer" = "";
@@ -293,4 +295,5 @@
     "zonedns_enable" = 1;
 }
 */
+
 @end

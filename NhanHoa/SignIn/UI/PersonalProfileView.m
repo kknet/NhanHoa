@@ -11,7 +11,7 @@
 
 @implementation PersonalProfileView
 @synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, tfCountry, lbCity, btnCity, tfCity, btnRegister, imgArrowCity;
-@synthesize datePicker, toolBar, transparentView, gender, cityCode, delegate, ownType, contentSize;
+@synthesize datePicker, toolBar, transparentView, gender, cityCode, delegate, contentSize;
 
 - (void)setupUIForView {
     float padding = 15.0;
@@ -24,17 +24,14 @@
     [self addGestureRecognizer: tapOnScreen];
     
     //  title
-    lbTitle.font = [AppDelegate sharedInstance].fontBold;
-    lbTitle.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
         make.height.mas_equalTo(40.0);
     }];
+    
     //  vision
-    lbVision.font = [AppDelegate sharedInstance].fontMedium;
-    lbVision.textColor = lbTitle.textColor;
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitle.mas_bottom).offset(5.0);
         make.left.equalTo(self).offset(padding);
@@ -43,7 +40,6 @@
     }];
     
     //  Choose type profile
-    ownType = type_personal;
     icPersonal.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbVision.mas_bottom).offset(5.0);
@@ -296,6 +292,13 @@
         make.height.mas_equalTo(45.0);
     }];
     
+    lbTitle.font = [AppDelegate sharedInstance].fontBold;
+    lbVision.font = lbName.font = lbSex.font = lbBOD.font = lbPassport.font = lbPhone.font = lbAddress.font = lbCountry.font = lbCity.font = [AppDelegate sharedInstance].fontMedium;
+    lbPersonal.font = lbBusiness.font = tfName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPassport.font = tfPhone.font = tfAddress.font = tfCountry.font = tfCity.font = [AppDelegate sharedInstance].fontRegular;
+    btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
+    lbTitle.textColor = lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbName.textColor = tfName.textColor = lbSex.textColor = lbMale.textColor = lbFemale.textColor = lbBOD.textColor = tfBOD.textColor = lbPassport.textColor = tfPassport.textColor = lbPhone.textColor = tfPhone.textColor = lbAddress.textColor = tfAddress.textColor = lbCountry.textColor = tfCountry.textColor = lbCity.textColor = tfCity.textColor = TITLE_COLOR;
+    
     //  Add datepicker
     [self addDatePickerForView];
 }
@@ -320,11 +323,15 @@
 }
 
 - (IBAction)icMaleClick:(UIButton *)sender {
+    gender = type_men;
+    
     [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
 }
 
 - (IBAction)icFemaleClick:(UIButton *)sender {
+    gender = type_women;
+    
     [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
     [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
 }
@@ -346,54 +353,48 @@
 - (IBAction)btnRegisterPress:(UIButton *)sender
 {
     if ([tfName.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng nhập \'Họ tên\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng nhập Họ tên" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([tfBOD.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng chọn \'Ngày sinh\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng chọn Ngày sinh" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([tfPassport.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng nhập \'CMND\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng nhập CMND" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([tfPhone.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng nhập \'Số điện thoại\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng nhập Số điện thoại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([tfAddress.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng nhập \'Địa chỉ\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng nhập Địa chỉ" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([tfCity.text isEqualToString:@""]) {
-        [self makeToast:@"Vui lòng chọn \'Tỉnh/Thành phố\'" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:@"Vui lòng chọn Tỉnh/Thành phố" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     
-    if (ownType == type_personal) {
-        [info setObject:[NSNumber numberWithInt:ownType] forKey:@"own_type"];
-        [info setObject:tfName.text forKey:@"cn_name"];
-        [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
-        [info setObject:tfBOD.text forKey:@"cn_birthday"];
-        [info setObject:tfPassport.text forKey:@"cn_cmnd"];
-        [info setObject:tfPhone.text forKey:@"cn_phone"];
-        [info setObject:tfAddress.text forKey:@"cn_address"];
-        [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-        [info setObject:cityCode forKey:@"cn_city"];
-        
-    }else {
-        
-    }
+    [info setObject:tfName.text forKey:@"cn_name"];
+    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfBOD.text forKey:@"cn_birthday"];
+    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+    [info setObject:tfPhone.text forKey:@"cn_phone"];
+    [info setObject:tfAddress.text forKey:@"cn_address"];
+    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
+    [info setObject:cityCode forKey:@"cn_city"];
     
-    if ([delegate respondsToSelector:@selector(readyToRegisterAccount:)]) {
-        [delegate readyToRegisterAccount: info];
+    if ([delegate respondsToSelector:@selector(readyToRegisterPersonalAccount:)]) {
+        [delegate readyToRegisterPersonalAccount: info];
     }
     
 //  email: string (tạo mới tài khoản, email cũng chính là username)
@@ -456,12 +457,11 @@
     }];
     
     //  set date for picker
-    if (![AppUtils isNullOrEmpty: tfBOD.text]) {
-        NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
-        datePicker.date = bodDate;
-    }else{
-        datePicker.date = [NSDate date];
+    NSDate *bodDate = [AppUtils convertStringToDate: tfBOD.text];
+    if (bodDate == nil) {
+        bodDate = [NSDate date];
     }
+    datePicker.date = bodDate;
     
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
@@ -471,6 +471,8 @@
 }
 
 - (IBAction)btnCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, SCREEN_HEIGHT-100)];
     popupView.delegate = self;
     [popupView showInView:[AppDelegate sharedInstance].window animated:TRUE];
