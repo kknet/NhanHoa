@@ -90,6 +90,7 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
+#define link_support            @"https://nhanhoa.com/trang/cau-hoi-thuong-gap-onepay.html"
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
 #define return_url              @"https://api.websudo.xyz/dr.php"

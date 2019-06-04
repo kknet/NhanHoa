@@ -10,4 +10,12 @@
 
 @interface SupportViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnSendMsg;
+@property (weak, nonatomic) IBOutlet UIButton *btnCall;
+@property (weak, nonatomic) IBOutlet UIView *viewContent;
+
+- (IBAction)btnSendMsgPress:(UIButton *)sender;
+- (IBAction)btnCallPress:(UIButton *)sender;
+
 @end

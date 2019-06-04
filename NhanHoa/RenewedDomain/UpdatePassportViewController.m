@@ -42,20 +42,38 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    webService = nil;
+    if ([self isMovingFromParentViewController])
+    {
+        webService = nil;
+        imagePickerController = nil;
+        [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
+        [AppDelegate sharedInstance].profileEdit = nil;
+        [AppDelegate sharedInstance].editCMND_a = nil;
+        [AppDelegate sharedInstance].editCMND_b = nil;
+    }else {
+        NSLog(@"New view controller was pushed");
+    }
 }
 
 - (void)showCurrentPassportForDomain {
-    if (![AppUtils isNullOrEmpty: curCMND_a]) {
-        [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal placeholderImage:FRONT_EMPTY_IMG];
+    if ([AppDelegate sharedInstance].editCMND_a != nil) {
+        [btnCMND_a setImage:[AppDelegate sharedInstance].editCMND_a forState:UIControlStateNormal];
     }else{
-        [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+        if (![AppUtils isNullOrEmpty: curCMND_a]) {
+            [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal placeholderImage:FRONT_EMPTY_IMG];
+        }else{
+            [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+        }
     }
     
-    if (![AppUtils isNullOrEmpty: curCMND_b]) {
-        [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+    if ([AppDelegate sharedInstance].editCMND_b != nil) {
+        [btnCMND_b setImage:[AppDelegate sharedInstance].editCMND_b forState:UIControlStateNormal];
     }else{
-        [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        if (![AppUtils isNullOrEmpty: curCMND_b]) {
+            [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+        }else{
+            [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -80,6 +98,7 @@
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {

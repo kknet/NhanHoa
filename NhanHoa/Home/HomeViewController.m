@@ -15,6 +15,7 @@
 #import "BonusAccountViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
 #import "ProfileManagerViewController.h"
+#import "SupportViewController.h"
 #import "NotifyViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
@@ -226,6 +227,10 @@
             break;
         }
         case eSupport:{
+            SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
+            supportVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: supportVC animated:YES];
+            
             break;
         }
         default:

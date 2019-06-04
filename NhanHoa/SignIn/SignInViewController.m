@@ -333,7 +333,7 @@
     //  Account textfield
     [tfAccount addTarget:self
                   action:@selector(textfieldAccountChanged:)
-        forControlEvents:UIControlEventValueChanged];
+        forControlEvents:UIControlEventEditingChanged];
     
     tfAccount.textColor = BORDER_COLOR;
     tfAccount.layer.cornerRadius = hTextfield/2;
