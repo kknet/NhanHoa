@@ -597,7 +597,7 @@
 #pragma mark - City popup delegate
 -(void)choosedCity:(CityObject *)city {
     tfCity.text = city.name;
-    cityCode = city.name;
+    cityCode = city.code;
 }
 
 @end

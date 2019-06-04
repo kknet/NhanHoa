@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UpdatePersonalProfile.h"
+#import "UpdateBusinessProfile.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdateMyInfoViewController : UIViewController
 
-@property (nonatomic, strong) UpdatePersonalProfile *editPersonalView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 
+@property (nonatomic, strong) UpdatePersonalProfile *editPersonalView;
+@property (nonatomic, strong) UpdateBusinessProfile *editBusinessView;
 
 @end
 

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
+
+@protocol UpdatePersonalProfileDelegate
+- (void)savePersonalMyAccountInformation: (NSDictionary *)info;
+@end
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UpdatePersonalProfile : UIView<UITextFieldDelegate>
+@interface UpdatePersonalProfile : UIView<UITextFieldDelegate, ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) id<UpdatePersonalProfileDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
@@ -47,10 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnSavePress:(UIButton *)sender;
 - (IBAction)btnCityPress:(UIButton *)sender;
 
-- (void)setupUIForView;
-
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIView *toolBar;
+@property (nonatomic, strong) UIView *viewPicker;
+@property (nonatomic, strong) NSString *cityCode;
+
+- (void)setupUIForView;
+- (void)displayPersonalInformation;
 
 @end
 

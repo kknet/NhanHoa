@@ -141,6 +141,8 @@
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
 		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
 		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
+		56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */; };
+		56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */; };
 		56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */; };
 		56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */; };
 		56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761A22A2A9DE00F6ADAD /* tick_green.png */; };
@@ -463,6 +465,9 @@
 		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
+		56CB516C22A72E8700D6D68A /* UpdateBusinessProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateBusinessProfile.h; sourceTree = "<group>"; };
+		56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateBusinessProfile.m; sourceTree = "<group>"; };
+		56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateBusinessProfile.xib; sourceTree = "<group>"; };
 		56D5761522A287EA00F6ADAD /* PriceDomainInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceDomainInfoCell.h; sourceTree = "<group>"; };
 		56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceDomainInfoCell.m; sourceTree = "<group>"; };
 		56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDomainInfoCell.xib; sourceTree = "<group>"; };
@@ -967,6 +972,9 @@
 				15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */,
 				15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */,
 				15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */,
+				56CB516C22A72E8700D6D68A /* UpdateBusinessProfile.h */,
+				56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */,
+				56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1430,6 +1438,7 @@
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
 				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
 				842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */,
+				56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */,
 				157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */,
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
@@ -1713,6 +1722,7 @@
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
 				84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */,
+				56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */,
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
 				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
@@ -1883,7 +1893,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

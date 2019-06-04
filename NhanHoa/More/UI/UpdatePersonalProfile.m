@@ -7,15 +7,24 @@
 //
 
 #import "UpdatePersonalProfile.h"
+#import "AccountModel.h"
 
 @implementation UpdatePersonalProfile
 @synthesize lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, tfCountry, lbCity, tfCity, btnCity, btnSave, btnReset, imgArrCity;
-@synthesize gender, datePicker, toolBar;
+@synthesize gender, datePicker, toolBar, viewPicker, cityCode, delegate;
+
+- (void)closeKeyboard {
+    [self endEditing: TRUE];
+}
 
 - (void)setupUIForView {
     float padding = 15.0;
     float hLabel = 30.0;
     float mTop = 10.0;
+    
+    UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
+    tapOnView.delegate = self;
+    [self addGestureRecognizer: tapOnView];
     
     //  name
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -274,6 +283,16 @@
         make.bottom.top.equalTo(self.toolBar);
         make.width.mas_equalTo(100);
     }];
+    
+    viewPicker = [[UIView alloc] init];
+    viewPicker.backgroundColor = UIColor.blackColor;
+    viewPicker.alpha = 0.3;
+    viewPicker.hidden = TRUE;
+    [self addSubview: viewPicker];
+    [viewPicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        make.bottom.equalTo(self.toolBar.mas_top);
+    }];
 }
 
 - (void)closePickerView {
@@ -289,6 +308,7 @@
     }];
     
     [UIView animateWithDuration:0.2 animations:^{
+        self.viewPicker.hidden = TRUE;
         [self layoutIfNeeded];
     }];
 }
@@ -313,9 +333,11 @@ cn_country: 231 (cố định: Viêt Nam [231])
 cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
 */
 - (IBAction)icMaleClick:(UIButton *)sender {
+    [self selectMale];
 }
 
 - (IBAction)icFemaleClick:(UIButton *)sender {
+    [self selectFemale];
 }
 
 - (IBAction)btnBODPress:(UIButton *)sender {
@@ -324,9 +346,11 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
     float hPickerView;
     float hToolbar;
     if (datePicker.frame.size.height > 0) {
+        viewPicker.hidden = TRUE;
         hPickerView = 0;
         hToolbar = 0;
     }else{
+        viewPicker.hidden = FALSE;
         hPickerView = 200;
         hToolbar = 44.0;
     }
@@ -361,11 +385,114 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
 }
 
 - (IBAction)btnResetPress:(UIButton *)sender {
+    [self displayPersonalInformation];
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfName.text]) {
+        [self makeToast:@"Vui lòng nhập họ tên" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPassport.text]) {
+        [self makeToast:@"Vui lòng nhập CMND" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPhone.text]) {
+        [self makeToast:@"Vui lòng nhập điện thoại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfAddress.text]) {
+        [self makeToast:@"Vui lòng nhập địa chỉ" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBOD.text] || [AppUtils isNullOrEmpty: cityCode]) {
+        [self makeToast:@"Vui lòng nhập đầy đủ thông tin" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([delegate respondsToSelector:@selector(savePersonalMyAccountInformation:)]) {
+        NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+        [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+        [info setObject:tfName.text forKey:@"cn_name"];
+        [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+        [info setObject:tfBOD.text forKey:@"cn_birthday"];
+        [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+        [info setObject:tfPhone.text forKey:@"cn_phone"];
+        [info setObject:tfAddress.text forKey:@"cn_address"];
+        [info setObject:COUNTRY_CODE forKey:@"cn_country"];
+        [info setObject:cityCode forKey:@"cn_city"];
+        
+        [delegate savePersonalMyAccountInformation: info];
+    }
+//    tc_tc_name: string (tên cty / tổ chức)
+//    tc_tc_mst: string / number (mã số thuế)
+//    tc_tc_address: string (địa chỉ cty / tổ chức)
+//    tc_tc_phone: string / number (số đt cty / tổ chức)
+//    tc_tc_country: 231 (cố định: Viêt Nam [231])
+//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
+//    cn_position: string (chức vụ người đại diện)
+//    cn_name: Họ và tên (string)
+//    cn_sex: number (1: nam | 0: nữ)
+//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
+//    cn_cmnd: string / number (Số CMND / Passport)
+//    cn_phone: string / number (Số ĐT)
+//    cn_address: string (địa chỉ)
+//    cn_country: 231 (cố định: Viêt Nam [231])
+//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
 }
 
 - (IBAction)btnCityPress:(UIButton *)sender {
+    float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
+    
+    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
+    popupView.delegate = self;
+    [popupView showInView:self animated:TRUE];
 }
+
+- (void)displayPersonalInformation
+{
+    int gender = [AccountModel getCusGender];
+    if (gender == type_men) {
+        [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+        
+    }else {
+        [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    }
+    tfName.text = [AccountModel getCusRealName];
+    tfBOD.text = [AccountModel getCusBirthday];
+    tfPassport.text = [AccountModel getCusPassport];
+    tfPhone.text = [AccountModel getCusPhone];
+    tfAddress.text = [AccountModel getCusAddress];
+    
+    cityCode = [AccountModel getCusCityCode];
+    NSString *cityName = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cityCode];
+    if ([AppUtils isNullOrEmpty: cityName]) {
+        cityCode = @"1";
+    }else{
+        tfCity.text = cityName;
+    }
+}
+
+#pragma mark - Choose city delegate
+-(void)choosedCity:(CityObject *)city {
+    tfCity.text = city.name;
+    cityCode = city.code;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+-(BOOL)gestureRecognizer:(UIGestureRecognizer * __unused)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if([touch.view isKindOfClass:[UITableViewCell class]] || [touch.view isKindOfClass:NSClassFromString(@"UITableViewCellContentView")])
+    {
+        return NO;
+    }
+    return YES;
+}
+
 @end

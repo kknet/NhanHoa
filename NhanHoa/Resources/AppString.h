@@ -51,6 +51,7 @@
 
 #define PASSWORD_MIN_CHARS  7
 
+#define type_na             2
 #define type_men            1
 #define type_women          0
 
@@ -109,6 +110,7 @@
 #define change_dns_func         @"ChangeDNS"
 #define get_dns_func            @"GetDNS"
 #define send_question_func      @"SendQuestion"
+#define edit_profile_func       @"EditProfile"
 
 
 #define login_mod               @"login"
@@ -125,6 +127,7 @@
 #define change_dns_mod          @"change_dns"
 #define get_dns_mod             @"get_dns"
 #define question_mod            @"question"
+#define edit_profile_mod        @"edit_profile"
 
 
 #define logsFolderName      @"LogFiles"

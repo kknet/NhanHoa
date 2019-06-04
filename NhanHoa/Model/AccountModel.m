@@ -107,6 +107,68 @@
     return type_personal;
 }
 
++ (int)getCusGender {
+    NSString *gender = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_gender"];
+    if ([gender isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: gender]) {
+        if ([gender isEqualToString:@"0"]) {
+            return type_women;
+        }else{
+            return type_men;
+        }
+    }
+    return type_men;
+}
+
++ (NSString *)getCusBirthday {
+    NSString *birthday = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_birthday"];
+    if (![AppUtils isNullOrEmpty: birthday]) {
+        return birthday;
+    }
+    return @"";
+}
+
++ (NSString *)getCusPassport {
+    NSString *passport = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_idcard_number"];
+    if (![AppUtils isNullOrEmpty: passport]) {
+        return passport;
+    }
+    return @"";
+}
+
++ (NSString *)getCusPhone {
+    NSString *phone = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_phone"];
+    if (![AppUtils isNullOrEmpty: phone]) {
+        return phone;
+    }
+    return @"";
+}
+
++ (NSString *)getCusAddress {
+    NSString *address = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_address"];
+    if (![AppUtils isNullOrEmpty: address]) {
+        return address;
+    }
+    return @"";
+}
+
++ (NSString *)getCusCityCode {
+    NSString *city = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_city"];
+    if (![AppUtils isNullOrEmpty: city]) {
+        return city;
+    }
+    return @"";
+}
+
+//  bussiness
++ (NSString *)getCusCompanyName {
+    NSString *name = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_company"];
+    if (![AppUtils isNullOrEmpty: name]) {
+        return name;
+    }
+    return @"";
+    
+}
+
 /*
 {
     "careers_id" = 37;

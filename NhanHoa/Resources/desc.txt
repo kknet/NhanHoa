@@ -368,9 +368,7 @@ year: number (số năm duy tri)
 
 suggest các tài khoản đã đăng nhập thành công trước đó
 
-InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray
-Chưa có hàm get ảnh cmnd khi cập nhật cmnd
-chưa có hàm get DS DNS của 1 domain
+InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray\
 
 
 gub30316@cndps.com          |   11111111
