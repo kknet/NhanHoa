@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,6 +23,9 @@
                             <rect key="frame" x="8" y="4" width="36" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="close.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="2KN-mr-8BZ"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gửi câu hỏi của bạn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfQ-Tm-KxJ">
                             <rect key="frame" x="84" y="12" width="152" height="21"/>
@@ -41,7 +44,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-dI-YXj">
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nhập địa chỉ email của bạn" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-dI-YXj">
                     <rect key="frame" x="16" y="95" width="288" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <nil key="textColor"/>
@@ -67,16 +70,33 @@
                     <rect key="frame" x="11" y="439" width="144" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Nhập lại"/>
+                    <connections>
+                        <action selector="btnResetPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="P11-XD-Y1b"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7N-nw-iNY">
                     <rect key="frame" x="163" y="439" width="141" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Gửi câu hỏi"/>
+                    <connections>
+                        <action selector="btnSendPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="bU1-BV-Ksr"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="109" y="76"/>
+            <connections>
+                <outlet property="btnReset" destination="MQW-kf-eFL" id="Ygn-HN-S2K"/>
+                <outlet property="btnSend" destination="C7N-nw-iNY" id="388-Ne-qOH"/>
+                <outlet property="icClose" destination="VrV-fK-Td7" id="UCA-Nx-i2q"/>
+                <outlet property="lbContent" destination="Ad3-nz-NK9" id="Ron-Hx-AyJ"/>
+                <outlet property="lbEmail" destination="tpN-er-M7z" id="svx-7V-156"/>
+                <outlet property="lbHeader" destination="cfQ-Tm-KxJ" id="arl-EY-U9S"/>
+                <outlet property="tfEmail" destination="jYg-dI-YXj" id="F7S-TN-oCw"/>
+                <outlet property="tvContent" destination="SaV-cJ-2JE" id="x8e-S3-QfB"/>
+                <outlet property="viewHeader" destination="LYW-qW-P3g" id="ZAN-ZY-Zhp"/>
+            </connections>
+            <point key="canvasLocation" x="-194" y="26"/>
         </view>
     </objects>
     <resources>

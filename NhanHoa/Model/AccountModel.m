@@ -93,8 +93,20 @@
         return email;
     }
     return @"";
-    
 }
+
++ (int)getCusOwnType {
+    NSString *type = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_own_type"];
+    if ([type isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: type]) {
+        if ([type isEqualToString:@"0"]) {
+            return type_personal;
+        }else{
+            return type_business;
+        }
+    }
+    return type_personal;
+}
+
 /*
 {
     "careers_id" = 37;

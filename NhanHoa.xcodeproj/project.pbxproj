@@ -128,6 +128,10 @@
 		15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AFB2272BB88004AB658 /* SignInViewController.xib */; };
 		15E92AFF2272BC31004AB658 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E92AFE2272BC31004AB658 /* UIKit.framework */; };
 		15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FEFB3822A4CABF002A3AD3 /* round_close_white.png */; };
+		15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FF497922A659210056B078 /* UpdateMyInfoViewController.m */; };
+		15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */; };
+		15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */; };
+		15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
@@ -441,6 +445,12 @@
 		15E92AFB2272BB88004AB658 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		15E92AFE2272BC31004AB658 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15FEFB3822A4CABF002A3AD3 /* round_close_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_close_white.png; sourceTree = "<group>"; };
+		15FF497822A659210056B078 /* UpdateMyInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateMyInfoViewController.h; sourceTree = "<group>"; };
+		15FF497922A659210056B078 /* UpdateMyInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateMyInfoViewController.m; sourceTree = "<group>"; };
+		15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateMyInfoViewController.xib; sourceTree = "<group>"; };
+		15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePersonalProfile.h; sourceTree = "<group>"; };
+		15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePersonalProfile.m; sourceTree = "<group>"; };
+		15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePersonalProfile.xib; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
 		5600E8F422A5E9FC00F7DECE /* support_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_call.png; sourceTree = "<group>"; };
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
@@ -745,6 +755,9 @@
 				849E312222807393003A8813 /* ContactInfoViewController.h */,
 				849E312322807393003A8813 /* ContactInfoViewController.m */,
 				849E312422807393003A8813 /* ContactInfoViewController.xib */,
+				15FF497822A659210056B078 /* UpdateMyInfoViewController.h */,
+				15FF497922A659210056B078 /* UpdateMyInfoViewController.m */,
+				15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -951,6 +964,9 @@
 				849E3127228074C5003A8813 /* ContactInfoCell.h */,
 				849E3128228074C5003A8813 /* ContactInfoCell.m */,
 				849E3129228074C5003A8813 /* ContactInfoCell.xib */,
+				15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */,
+				15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */,
+				15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1430,6 +1446,7 @@
 				84588AA0228093F000B59E0F /* ic_setting_acc.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
+				15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */,
 				15D1BD7C2283CB8A004C0452 /* ProfileManagerCell.xib in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				84F1730622833310006AEE87 /* wallet_white.png in Resources */,
@@ -1498,6 +1515,7 @@
 				1517FB642274465B0044E878 /* menu_list_domain.png in Resources */,
 				1517FB9722745D810044E878 /* tabbar_history_act.png in Resources */,
 				845D32C6227943A20047B196 /* no_tick.png in Resources */,
+				15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
 				84588A9F228093F000B59E0F /* ic_support.png in Resources */,
@@ -1638,6 +1656,7 @@
 				1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */,
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
+				15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
 				84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */,
 				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
@@ -1645,6 +1664,7 @@
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
+				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
@@ -1863,7 +1883,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

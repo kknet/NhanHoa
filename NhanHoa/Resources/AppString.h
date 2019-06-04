@@ -90,7 +90,7 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
-#define link_support            @"https://nhanhoa.com/trang/cau-hoi-thuong-gap-onepay.html"
+#define link_support            @"https://tongdai.vfone.vn/callnew.php"
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
 #define return_url              @"https://api.websudo.xyz/dr.php"
@@ -108,6 +108,7 @@
 #define update_cmnd_func        @"UpdateCMND"
 #define change_dns_func         @"ChangeDNS"
 #define get_dns_func            @"GetDNS"
+#define send_question_func      @"SendQuestion"
 
 
 #define login_mod               @"login"
@@ -123,6 +124,7 @@
 #define update_cmnd_mod         @"update_cmnd"
 #define change_dns_mod          @"change_dns"
 #define get_dns_mod             @"get_dns"
+#define question_mod            @"question"
 
 
 #define logsFolderName      @"LogFiles"

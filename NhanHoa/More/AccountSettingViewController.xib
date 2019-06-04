@@ -14,6 +14,7 @@
                 <outlet property="btnAvatar" destination="2SP-On-uI7" id="U07-4Z-y3C"/>
                 <outlet property="btnChangePassword" destination="Xcy-nB-Xiv" id="1Hv-Zp-NMF"/>
                 <outlet property="btnChoosePhoto" destination="wi5-j5-apO" id="yeU-cm-nhH"/>
+                <outlet property="btnUpdateInfo" destination="WPI-o8-V4n" id="ldl-gR-X4b"/>
                 <outlet property="lbEmail" destination="va7-uh-sqT" id="XVa-0o-pzQ"/>
                 <outlet property="lbEmailValue" destination="uyt-eQ-u9Y" id="bmV-Xu-PkR"/>
                 <outlet property="lbID" destination="hdw-nF-Z70" id="3c8-1Q-ZsN"/>
@@ -135,7 +136,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcy-nB-Xiv">
-                    <rect key="frame" x="16" y="414" width="288" height="30"/>
+                    <rect key="frame" x="22" y="437" width="288" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.16900000000000001" green="0.53000000000000003" blue="0.94899999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Đổi mật khẩu">
@@ -145,10 +146,21 @@
                         <action selector="btnChangePasswordPress:" destination="-1" eventType="touchUpInside" id="3tw-n3-TyS"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPI-o8-V4n">
+                    <rect key="frame" x="22" y="399" width="288" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.16900000000000001" green="0.53000000000000003" blue="0.94899999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Cập nhật thông tin">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnUpdateInfoPress:" destination="-1" eventType="touchUpInside" id="bcM-In-PeO"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-136" y="95"/>
+            <point key="canvasLocation" x="109" y="137"/>
         </view>
     </objects>
     <resources>

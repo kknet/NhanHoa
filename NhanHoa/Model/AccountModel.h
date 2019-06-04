@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getCusPassword;
 + (NSString *)getCusRealName;
 + (NSString *)getCusEmail;
++ (int)getCusOwnType;
 
 @end
 

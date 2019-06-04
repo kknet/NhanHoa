@@ -28,10 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbPassword;
 @property (weak, nonatomic) IBOutlet UILabel *lbPasswordValue;
 @property (weak, nonatomic) IBOutlet UIButton *btnChangePassword;
+@property (weak, nonatomic) IBOutlet UIButton *btnUpdateInfo;
 
 - (IBAction)btnChangePasswordPress:(UIButton *)sender;
 - (IBAction)btnAvatarPress:(UIButton *)sender;
 - (IBAction)btnChoosePhotoPress:(UIButton *)sender;
+- (IBAction)btnUpdateInfoPress:(UIButton *)sender;
 
 @end
 

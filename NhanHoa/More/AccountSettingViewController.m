@@ -7,6 +7,7 @@
 //
 
 #import "AccountSettingViewController.h"
+#import "UpdateMyInfoViewController.h"
 #import "ChangePasswordViewController.h"
 #import "AccountModel.h"
 
@@ -16,7 +17,7 @@
 
 @implementation AccountSettingViewController
 
-@synthesize btnAvatar, btnChoosePhoto, viewInfo, lbInfo, lbName, lbNameValue, lbID, lbIDValue, lbEmail, lbEmailValue, viewPassword, lbPasswordInfo, lbPassword, btnChangePassword, lbPasswordValue;
+@synthesize btnAvatar, btnChoosePhoto, viewInfo, lbInfo, lbName, lbNameValue, lbID, lbIDValue, lbEmail, lbEmailValue, viewPassword, lbPasswordInfo, lbPassword, btnChangePassword, lbPasswordValue, btnUpdateInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -152,15 +153,21 @@
         make.left.right.equalTo(self.lbEmailValue);
     }];
     
-    btnChangePassword.layer.cornerRadius = 45.0/2;
-    btnChangePassword.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnChangePassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-2*padding);
+        make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(45.0);
     }];
     
+    [btnUpdateInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.btnChangePassword);
+        make.bottom.equalTo(self.btnChangePassword.mas_top).offset(-padding);
+        make.height.equalTo(self.btnChangePassword.mas_height);
+    }];
+    
+    btnChangePassword.layer.cornerRadius = btnUpdateInfo.layer.cornerRadius = 45.0/2;
+    btnChangePassword.titleLabel.font = btnUpdateInfo.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
 }
 
 - (IBAction)btnChangePasswordPress:(UIButton *)sender {
@@ -173,4 +180,10 @@
 
 - (IBAction)btnChoosePhotoPress:(UIButton *)sender {
 }
+
+- (IBAction)btnUpdateInfoPress:(UIButton *)sender {
+    UpdateMyInfoViewController *updateInfoVC = [[UpdateMyInfoViewController alloc] initWithNibName:@"UpdateMyInfoViewController" bundle:nil];
+    [self.navigationController pushViewController:updateInfoVC animated:TRUE];
+}
+
 @end

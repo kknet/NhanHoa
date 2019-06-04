@@ -219,15 +219,17 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
     mod: domain_pricing
     *Kết quả trả về: anh em send test để xem kết quả
 
---- STATUS: DONE
+---STATUS: DONE
 
 10. SendQuestion (Gửi câu hỏi của bạn)
-*Send request (Post / Get) [Auto]
-mod: question
-username: string
-email: string
-question: string
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: question
+    username: string
+    email: string
+    content: string
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE
 
 11. ListDomain (Danh sách tên miền)
     *Send request (Post / Get) [Auto]
@@ -302,6 +304,65 @@ year: number (số năm đăng ký)
     domain: string (tên miền)
 
 ---STATUS: DONE
+
+
+18. InfoBank (Cập nhật thông tin tài khoản ngân hàng)
+*Send request (Post / Get) [Auto]
+mod: info_bank
+username: string
+password: MD5
+bankname: string (tên ngân hàng)
+bankaccount: string (tên tài khoản)
+banknumber: string (số tài khoản)
+*Kết quả trả về: anh em send test để xem kết quả
+*Lưu ý: thông tin bank của acc trính lấy từ các thông số trả về của api login (gồm có: cus_bankname, cus_bankaccount, cus_banknumber).
+
+19. ProfilePhoto (Cập nhật profile photo)
+*Send request (Post / Get) [Auto]
+mod: profile_photo
+username: string
+password: MD5
+photo: URL (Link hình profile photo)
+*Kết quả trả về: anh em send test để xem kết quả
+*Lưu ý: profile photo là thông số cus_photo trả về của api login.
+
+20. UpdateToken (Cập nhật token)
+*Send request (Post / Get) [Auto]
+mod: update_token
+username: string
+password: MD5
+token: string
+*Kết quả trả về: anh em send test để xem kết quả
+*Lưu ý: token rỗng = xóa token
+
+21. History (Lịch sử giao dịch)
+*Send request (Post / Get) [Auto]
+mod: history
+username: string
+password: MD5
+*Kết quả trả về: anh em send test để xem kết quả
+*Lưu ý: kết quả trả về có time (unix time), content (nội dung), amount (số tiền in/out) và type, type có giá trị 0 hoặc 1, type (0: money in | 1 = money out), ví dụ: nạp tiền = money in, rút tiền hoặc mua domain = money out, cái in/out để biết là dấu cộng hay dấu trừ theo layout design.
+
+22. Withdraw (Rút tiền thưởng)
+*Send request (Post / Get) [Auto]
+mod: withdraw
+username: string
+password: MD5
+amount: number
+*Kết quả trả về: anh em send test để xem kết quả
+*Lưu ý: Kết quả trả về có đi kèm chỉ số cus_point mới, cần cập nhật lại thông số cus_point trên app.
+
+23. RenewOrder (duy trì đơn hàng & domain)
+*Send request (Post / Get) [Auto]
+mod: renew_order
+username: string
+password: MD5
+domain: string (tên miền)
+contact_id: number (cus_is trả về từ api info_domain)
+ord_id: number (ord_id trả về từ api info_domain)
+year: number (số năm duy tri)
+*Kết quả trả về: anh em send test để xem kết quả
+
 
 
 
