@@ -12,21 +12,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol OnepayPaymentViewDelegate
 - (void)paymentResultWithInfo: (NSDictionary *)info;
-- (void)onPaymentCancelButtonClick;
+- (void)userClickCancelPayment;
 @end
 
-@interface OnepayPaymentView : UIView<UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
+@interface OnepayPaymentView : UIView<UIWebViewDelegate>
 @property (nonatomic, strong) id<NSObject, OnepayPaymentViewDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UITableView *tbMethod;
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+
 @property (weak, nonatomic) IBOutlet UIWebView *wvPayment;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 
-- (void)setupUIForViewWithMenuHeight: (float)hMenu padding: (float)padding;
-@property (nonatomic, assign) PaymentMethod typePaymentMethod;
+- (IBAction)icBackClick:(UIButton *)sender;
+- (void)setupUIForView;
+- (void)showPaymentContentViewWithMoney: (long)money;
 
+@property (nonatomic, assign) PaymentMethod typePaymentMethod;
 @property (nonatomic, assign) NSString *typePayment;
 @property (nonatomic, assign) long topupMoney;
+
 
 @end
 

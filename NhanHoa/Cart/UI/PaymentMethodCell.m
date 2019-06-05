@@ -28,7 +28,7 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
     lbTitle.textColor = TITLE_COLOR;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgType.mas_right).offset(padding);

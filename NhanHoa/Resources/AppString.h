@@ -62,13 +62,14 @@
 #define TIME_FOR_SLIDER     6
 #define COUNTRY_CODE        @"231"
 
-#define MERCHANT_ID         @"ONEPAY"
-#define ACCESSCODE          @"D67342C2"
-#define HASHCODE            @"A3EFDFABA8653DF2342E8DAC29B51AF0"
+#define URL_Payment         @"https://onepay.vn/onecomm-pay/vpc.op"
+#define MERCHANT_ID         @"NHANHOA"
+#define ACCESSCODE          @"KCGTKP1O"
+#define HASHCODE            @"CD67F28EA5A64ED380D8388F686AE727"
 
-#define MERCHANT_ID_VISA    @"TESTONEPAY"
-#define ACCESSCODE_VISA     @"6BEB2546"
-#define HASHCODE_VISA       @"6D0870CDE5F24F34F3915FB0045120DB"
+#define MERCHANT_ID_VISA    @"NHANHOA"
+#define ACCESSCODE_VISA     @"2A5A6E8D"
+#define HASHCODE_VISA       @"DBDBB856693DF3086604FDB60277D4A5"
 
 #define register_domain     @"register_domain"
 #define renew_domain        @"renew_domain"

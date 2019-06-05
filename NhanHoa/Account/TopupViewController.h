@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OnepayPaymentView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TopupViewController : UIViewController<OnepayPaymentViewDelegate, UIGestureRecognizerDelegate>
+@interface TopupViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *viewInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *imgWallet;
@@ -31,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btn1000KPress:(UIButton *)sender;
 - (IBAction)btn1500kPress:(UIButton *)sender;
 - (IBAction)btnTopupPress:(UIButton *)sender;
-
-@property (nonatomic, strong) OnepayPaymentView *paymentView;
 
 @end
 

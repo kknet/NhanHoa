@@ -7,6 +7,7 @@
 //
 
 #import "TopupViewController.h"
+#import "PaymentViewController.h"
 #import "AccountModel.h"
 
 @interface TopupViewController (){
@@ -18,7 +19,7 @@
 
 @implementation TopupViewController
 
-@synthesize viewInfo, imgWallet, btnWallet, imgBackground, lbTitle, lbMoney, lbDesc, btn500K, btn1000K, btn1500K, btnTopup, tfMoney, paymentView;
+@synthesize viewInfo, imgWallet, btnWallet, imgBackground, lbTitle, lbMoney, lbDesc, btn500K, btn1000K, btn1500K, btnTopup, tfMoney;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,32 +94,10 @@
         [self.view makeToast:@"Vui lòng chọn hoặc nhập số tiền bạn muốn nạp!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
-    //  display UI
-    if (paymentView == nil) {
-        [self addPaymentViewForCurrentView];
-    }
-    paymentView.typePayment = topup_money;
-    paymentView.topupMoney = topupMoney;
     
-    [paymentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.bottom.equalTo(self.view);
-    }];
-    [paymentView setupUIForViewWithMenuHeight:0 padding:15.0];
-}
-
-- (void)addPaymentViewForCurrentView {
-    if (paymentView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OnepayPaymentView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[OnepayPaymentView class]]) {
-                paymentView = (OnepayPaymentView *) currentObject;
-                break;
-            }
-        }
-        paymentView.typePayment = renew_domain;
-        [self.view addSubview: paymentView];
-        paymentView.delegate = self;
-    }
+    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+    paymentVC.money = topupMoney;
+    [self.navigationController pushViewController:paymentVC animated:TRUE];
 }
 
 - (void)closeKeyboard {
@@ -167,7 +146,7 @@
         make.bottom.right.equalTo(self.viewInfo).offset(-padding);
     }];
     
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.imgBackground.mas_centerY);
         make.left.equalTo(self.viewInfo).offset(padding);
@@ -185,7 +164,7 @@
     //
     float hItem = 45.0;
     
-    lbDesc.font = [UIFont fontWithName:RobotoMedium size:18.0];
+    lbDesc.font = [AppDelegate sharedInstance].fontMedium;
     lbDesc.textColor = TITLE_COLOR;
     [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewInfo.mas_bottom).offset(padding);
@@ -234,7 +213,7 @@
     
     tfMoney.keyboardType = UIKeyboardTypeNumberPad;
     tfMoney.textColor = TITLE_COLOR;
-    tfMoney.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    tfMoney.font = [AppDelegate sharedInstance].fontRegular;
     [tfMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btn1000K.mas_bottom).offset(padding);
         make.left.equalTo(self.view).offset(padding);
@@ -260,7 +239,7 @@
     
     btnTopup.layer.cornerRadius = hItem/2;
     btnTopup.backgroundColor = BLUE_COLOR;;
-    btnTopup.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnTopup.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnTopup mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
@@ -286,18 +265,10 @@
     if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
         if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
             [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self performSelector:@selector(quitCartView) withObject:nil afterDelay:2.0];
             return;
         }
     }
     
-}
-
--(void)onPaymentCancelButtonClick {
-    [paymentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(0);
-    }];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

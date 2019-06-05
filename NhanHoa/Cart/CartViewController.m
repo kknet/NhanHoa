@@ -49,8 +49,8 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
-    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
-    [self.navigationController pushViewController:paymentVC animated:TRUE];
+//    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+//    [self.navigationController pushViewController:paymentVC animated:TRUE];
 }
 
 - (IBAction)btnGoShopPress:(UIButton *)sender {

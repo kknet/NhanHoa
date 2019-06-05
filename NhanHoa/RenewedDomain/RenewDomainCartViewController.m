@@ -45,7 +45,6 @@
             make.left.right.bottom.equalTo(self.view);
             make.height.mas_equalTo(0);
         }];
-        [paymentView setupUIForViewWithMenuHeight:0 padding:15.0];
     }
     
     [self updateAllPriceForView];
@@ -60,7 +59,6 @@
     [paymentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
-    [paymentView setupUIForViewWithMenuHeight:0 padding:15.0];
     
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];

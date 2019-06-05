@@ -11,17 +11,17 @@
 @interface AboutViewController (){
     NSString *linkToAppStore;
     NSString* appStoreVersion;
-    here
 }
 @end
 
 @implementation AboutViewController
-@synthesize imgApp, btnCheckUpdate, lbVersion, lbCompany;
+@synthesize btnLogo, btnCheckUpdate, lbVersion, lbCompany;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Thông tin ứng dụng";
+    [self setupUIForView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,18 +96,21 @@
 - (void)setupUIForView
 {
     //
-    imgApp.clipsToBounds = YES;
-    imgApp.layer.cornerRadius = 10.0;
-    [imgApp mas_makeConstraints:^(MASConstraintMaker *make) {
+    btnLogo.clipsToBounds = YES;
+    btnLogo.layer.cornerRadius = 10.0;
+    btnLogo.layer.borderColor = BORDER_COLOR.CGColor;
+    btnLogo.layer.borderWidth = 1.0;
+    btnLogo.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+    [btnLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view.mas_bottom).offset(60.0);
+        make.top.equalTo(self.view).offset(60.0);
         make.width.height.mas_equalTo(120.0);
     }];
     
     lbVersion.font = [AppDelegate sharedInstance].fontBTN;
     lbVersion.textColor = TITLE_COLOR;
     [lbVersion mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgApp.mas_bottom).offset(40.0);
+        make.top.equalTo(self.btnLogo.mas_bottom).offset(40.0);
         make.left.equalTo(self.view).offset(20.0);
         make.right.equalTo(self.view).offset(-20.0);
         make.height.mas_lessThanOrEqualTo(100.0);
@@ -123,6 +126,13 @@
         make.centerX.equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(200.0);
         make.height.mas_equalTo(45.0);
+    }];
+    
+    lbCompany.font = [AppDelegate sharedInstance].fontRegular;
+    lbCompany.textColor = BLUE_COLOR;
+    [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(60.0);
     }];
 }
 

@@ -7,59 +7,39 @@
 //
 
 #import "OnepayPaymentView.h"
-#import "PaymentMethodCell.h"
 #import "CartModel.h"
 
 @implementation OnepayPaymentView
-@synthesize tbMethod, wvPayment, typePaymentMethod, delegate, typePayment, icWaiting, topupMoney;
+@synthesize viewHeader, icBack, lbHeader, wvPayment, typePaymentMethod, delegate, typePayment, topupMoney, icWaiting;
 
-- (void)setupUIForViewWithMenuHeight: (float)hMenu padding: (float)padding
+- (IBAction)icBackClick:(UIButton *)sender {
+}
+
+- (void)setupUIForView
 {
     self.clipsToBounds = TRUE;
     typePaymentMethod = ePaymentWithATM;
     
-    [tbMethod registerNib:[UINib nibWithNibName:@"PaymentMethodCell" bundle:nil] forCellReuseIdentifier:@"PaymentMethodCell"];
-    tbMethod.delegate = self;
-    tbMethod.dataSource = self;
-    tbMethod.separatorStyle = UITableViewCellSelectionStyleNone;
-    [tbMethod mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self);
+    viewHeader.backgroundColor = BLUE_COLOR;
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     }];
     
-    float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu + 2*60.0);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
+        make.left.equalTo(self.viewHeader);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].hNav);
+    }];
     
-    //  15 + 45 + 10 + 45 + 15
+    lbHeader.font = [AppDelegate sharedInstance].fontBTN;
+    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.viewHeader.mas_centerX);
+        make.top.bottom.equalTo(self.icBack);
+        make.width.mas_equalTo(200);
+    }];
     
-    UIView *footerView;
-    if (hFooter < 130) {
-        hFooter = 130;
-    }
-    footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
-    footerView.backgroundColor = UIColor.whiteColor;
-    
-    UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectMake(padding, footerView.frame.size.height-padding-45.0, footerView.frame.size.width-2*padding, 45.0)];
-    [btnCancel setTitle:@"Hủy" forState:UIControlStateNormal];
-    btnCancel.backgroundColor = [UIColor colorWithRed:(202/255.0) green:(212/255.0) blue:(224/255.0) alpha:1.0];
-    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnCancel.layer.cornerRadius = 45.0/2;
-    btnCancel.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
-    [footerView addSubview: btnCancel];
-    [btnCancel addTarget:self
-                          action:@selector(btnCancelPress)
-                forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *btnConfirmPayment = [[UIButton alloc] initWithFrame:CGRectMake(btnCancel.frame.origin.x, btnCancel.frame.origin.y - 10.0 - btnCancel.frame.size.height, btnCancel.frame.size.width, btnCancel.frame.size.height)];
-    [btnConfirmPayment setTitle:@"Tiến hành thang toán" forState:UIControlStateNormal];
-    btnConfirmPayment.backgroundColor = BLUE_COLOR;
-    [btnConfirmPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnConfirmPayment.layer.cornerRadius = 45.0/2;
-    btnConfirmPayment.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
-    [footerView addSubview: btnConfirmPayment];
-    [btnConfirmPayment addTarget:self
-                          action:@selector(btnConfirmPaymentPress)
-                forControlEvents:UIControlEventTouchUpInside];
-    
-    tbMethod.tableFooterView = footerView;
     
     wvPayment.hidden = TRUE;
     wvPayment.opaque = NO;
@@ -67,20 +47,56 @@
     wvPayment.delegate = self;
     wvPayment.backgroundColor = UIColor.whiteColor;
     [wvPayment mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self);
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.bottom.right.equalTo(self);
     }];
     
     icWaiting.hidden = TRUE;
+    icWaiting.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     icWaiting.backgroundColor = UIColor.whiteColor;
     icWaiting.alpha = 0.5;
     [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self);
+        make.top.left.bottom.right.equalTo(self.wvPayment);
     }];
 }
 
-- (void)btnCancelPress {
-    [delegate onPaymentCancelButtonClick];
+- (void)showPaymentContentViewWithMoney: (long)money
+{
+    wvPayment.hidden = FALSE;
+    topupMoney = money;
+    
+    if (typePaymentMethod == ePaymentWithATM && topupMoney > 0) {
+        icWaiting.hidden = FALSE;
+        [icWaiting startAnimating];
+        
+        NSString *returnURL = return_url;
+        
+        //  Thêm 2 số 0 vào amount hiện tại
+        NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
+        if (![AppUtils isNullOrEmpty: amount]) {
+            NSString *transactionID = [AppUtils generateIDForTransaction];
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, transactionID, MERCHANT_ID, returnURL];
+            
+            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE];
+            
+            NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:get_hash_url]];
+            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //  074D8D27C3ED8409130B6C6029F026FB35F749405D19C16A6A055530803503DA
+            NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment, params, secureHash];
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+            
+        }else{
+            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+        
+    }else if (typePaymentMethod == ePaymentWithVisaMaster) {
+        
+    }
+    
+    
+    
 }
+
 
 - (void)btnConfirmPaymentPress {
     wvPayment.hidden = FALSE;
@@ -105,8 +121,6 @@
         }
         
         if (![AppUtils isNullOrEmpty: amount]) {
-            icWaiting.hidden = FALSE;
-            [icWaiting startAnimating];
             
             NSString *transactionID = [AppUtils generateIDForTransaction];
             //  20190514_1557803641.218678
@@ -145,8 +159,6 @@
         }
         
         if (![AppUtils isNullOrEmpty: amount]) {
-            icWaiting.hidden = FALSE;
-            [icWaiting startAnimating];
             
             NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
             
@@ -168,47 +180,6 @@
     }
 }
 
-#pragma mark - UITableview
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PaymentMethodCell *cell = (PaymentMethodCell *)[tableView dequeueReusableCellWithIdentifier:@"PaymentMethodCell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row == 0) {
-        cell.imgType.image = [UIImage imageNamed:@"atm.png"];
-        cell.lbTitle.text = @"Cổng thanh toán nội địa";
-        cell.lbSepa.hidden = FALSE;
-        
-    }else{
-        cell.imgType.image = [UIImage imageNamed:@"visa.png"];
-        cell.lbTitle.text = @"Cổng thanh toán quốc tế";
-        cell.lbSepa.hidden = TRUE;
-    }
-    
-    if (typePaymentMethod == (PaymentMethod)indexPath.row) {
-        cell.imgChoose.hidden = FALSE;
-    }else{
-        cell.imgChoose.hidden = TRUE;
-    }
-    
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    typePaymentMethod = (PaymentMethod)indexPath.row;
-    [tableView reloadData];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60.0;
-}
 #pragma mark - Webview delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
@@ -230,7 +201,6 @@
         {
             icWaiting.hidden = TRUE;
             [icWaiting stopAnimating];
-            NSLog(@"----Done");
         }
         
         NSDictionary *info = [self getResultInfoFromString: query];
@@ -257,9 +227,26 @@
                     NSLog(@"Dữ liệu không toàn vẹn");
                 }
             }
-            
         }else{
-            NSLog(@"Không có vpc_TxnResponseCode");
+            NSString *path = webView.request.URL.path;
+            if (![AppUtils isNullOrEmpty: path]) {
+                NSArray *contentArr = [path componentsSeparatedByString:@"/"];
+                if (contentArr != nil && [contentArr containsObject:@"cancel.op"]) {
+                    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"Received url with path %@", path] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                    [self userCancelPayment];
+                }
+            }
+//            NSLog(@"---------------------------------------------");
+//            NSLog(@"Load: %@", webView.request.URL.absoluteString);
+//            NSLog(@"host: %@", webView.request.URL.host);
+//            NSLog(@"port: %@", webView.request.URL.port);
+//            NSLog(@"user: %@", webView.request.URL.user);
+//            NSLog(@"password: %@", webView.request.URL.password);
+//            NSLog(@"Path: %@", );
+//            NSLog(@"fragment: %@", webView.request.URL.fragment);
+//            NSLog(@"parameter: %@", webView.request.URL.parameterString);
+//            NSLog(@"query: %@", webView.request.URL.query);
+//            NSLog(@"relativePath: %@", webView.request.URL.relativePath);
             /*
             AgainLink = "onepay.vn";
             Title = NhanHoaCompany;
@@ -274,6 +261,12 @@
             "vpc_TxnResponseCode" = 99;
             "vpc_Version" = 2;  */
         }
+    }
+}
+
+- (void)userCancelPayment {
+    if ([delegate respondsToSelector:@selector(userClickCancelPayment)]) {
+        [delegate userClickCancelPayment];
     }
 }
 
