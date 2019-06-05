@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnChoosePhotoPress:(UIButton *)sender;
 - (IBAction)btnUpdateInfoPress:(UIButton *)sender;
 
+@property (nonatomic, strong) NSString *avatarUploadURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

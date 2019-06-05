@@ -68,6 +68,14 @@
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
 		1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1579ABC72289522600B92E04 /* NewBusinessProfileView.m */; };
 		1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1579ABC92289524A00B92E04 /* NewBusinessProfileView.xib */; };
+		157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 157A01BD22A7733200A0B11F /* PEPhotoCropEditor.bundle */; };
+		157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01BF22A7733B00A0B11F /* PECropViewController.m */; };
+		157A01CA22A7733D00A0B11F /* PECropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C122A7733C00A0B11F /* PECropView.m */; };
+		157A01CB22A7733D00A0B11F /* PECropRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C422A7733C00A0B11F /* PECropRectView.m */; };
+		157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C522A7733C00A0B11F /* UIImage+PECrop.m */; };
+		157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C822A7733D00A0B11F /* PEResizeControl.m */; };
+		157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01D122A7D37000A0B11F /* AboutViewController.m */; };
+		157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157A01D222A7D37000A0B11F /* AboutViewController.xib */; };
 		157A5F99229CF1C30095AAEF /* desc.txt in Resources */ = {isa = PBXBuildFile; fileRef = 157A5F98229CF1C20095AAEF /* desc.txt */; };
 		157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E6922852BDE00D1ACDA /* BannerSliderView.m */; };
 		157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */; };
@@ -363,6 +371,20 @@
 		1579ABC62289522600B92E04 /* NewBusinessProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewBusinessProfileView.h; sourceTree = "<group>"; };
 		1579ABC72289522600B92E04 /* NewBusinessProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewBusinessProfileView.m; sourceTree = "<group>"; };
 		1579ABC92289524A00B92E04 /* NewBusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewBusinessProfileView.xib; sourceTree = "<group>"; };
+		157A01BD22A7733200A0B11F /* PEPhotoCropEditor.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PEPhotoCropEditor.bundle; sourceTree = "<group>"; };
+		157A01BF22A7733B00A0B11F /* PECropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropViewController.m; sourceTree = "<group>"; };
+		157A01C022A7733B00A0B11F /* UIImage+PECrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PECrop.h"; sourceTree = "<group>"; };
+		157A01C122A7733C00A0B11F /* PECropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropView.m; sourceTree = "<group>"; };
+		157A01C222A7733C00A0B11F /* PECropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropViewController.h; sourceTree = "<group>"; };
+		157A01C322A7733C00A0B11F /* PEResizeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEResizeControl.h; sourceTree = "<group>"; };
+		157A01C422A7733C00A0B11F /* PECropRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropRectView.m; sourceTree = "<group>"; };
+		157A01C522A7733C00A0B11F /* UIImage+PECrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PECrop.m"; sourceTree = "<group>"; };
+		157A01C622A7733C00A0B11F /* PECropRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropRectView.h; sourceTree = "<group>"; };
+		157A01C722A7733D00A0B11F /* PECropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropView.h; sourceTree = "<group>"; };
+		157A01C822A7733D00A0B11F /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEResizeControl.m; sourceTree = "<group>"; };
+		157A01D022A7D37000A0B11F /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		157A01D122A7D37000A0B11F /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		157A01D222A7D37000A0B11F /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		157A5F98229CF1C20095AAEF /* desc.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = desc.txt; sourceTree = "<group>"; };
 		157E2E6822852BDE00D1ACDA /* BannerSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerSliderView.h; sourceTree = "<group>"; };
 		157E2E6922852BDE00D1ACDA /* BannerSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerSliderView.m; sourceTree = "<group>"; };
@@ -763,6 +785,9 @@
 				15FF497822A659210056B078 /* UpdateMyInfoViewController.h */,
 				15FF497922A659210056B078 /* UpdateMyInfoViewController.m */,
 				15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */,
+				157A01D022A7D37000A0B11F /* AboutViewController.h */,
+				157A01D122A7D37000A0B11F /* AboutViewController.m */,
+				157A01D222A7D37000A0B11F /* AboutViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -955,6 +980,32 @@
 				5600E8F322A5E9FC00F7DECE /* support_message.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		157A01BB22A7730700A0B11F /* PEPhotoCropEditor */ = {
+			isa = PBXGroup;
+			children = (
+				157A01BD22A7733200A0B11F /* PEPhotoCropEditor.bundle */,
+				157A01BC22A7731300A0B11F /* Lib */,
+			);
+			path = PEPhotoCropEditor;
+			sourceTree = "<group>";
+		};
+		157A01BC22A7731300A0B11F /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				157A01C622A7733C00A0B11F /* PECropRectView.h */,
+				157A01C422A7733C00A0B11F /* PECropRectView.m */,
+				157A01C722A7733D00A0B11F /* PECropView.h */,
+				157A01C122A7733C00A0B11F /* PECropView.m */,
+				157A01C222A7733C00A0B11F /* PECropViewController.h */,
+				157A01BF22A7733B00A0B11F /* PECropViewController.m */,
+				157A01C322A7733C00A0B11F /* PEResizeControl.h */,
+				157A01C822A7733D00A0B11F /* PEResizeControl.m */,
+				157A01C022A7733B00A0B11F /* UIImage+PECrop.h */,
+				157A01C522A7733C00A0B11F /* UIImage+PECrop.m */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		15865BCD227FDF8D004A8575 /* UI */ = {
@@ -1185,6 +1236,7 @@
 		845D8130227EE54B005734CF /* Outsources */ = {
 			isa = PBXGroup;
 			children = (
+				157A01BB22A7730700A0B11F /* PEPhotoCropEditor */,
 				845D8131227EE553005734CF /* Reachability */,
 			);
 			path = Outsources;
@@ -1451,6 +1503,7 @@
 				159F7D94227AC88E00A64586 /* PaymentViewController.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
+				157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */,
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				84588AA0228093F000B59E0F /* ic_setting_acc.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
@@ -1510,6 +1563,7 @@
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
+				157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */,
 				1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */,
 				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
@@ -1675,6 +1729,7 @@
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
+				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
@@ -1694,6 +1749,7 @@
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
 				15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */,
 				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
+				157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
@@ -1705,8 +1761,10 @@
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,
+				157A01CB22A7733D00A0B11F /* PECropRectView.m in Sources */,
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
+				157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */,
 				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
 				849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */,
@@ -1718,6 +1776,7 @@
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
+				157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
@@ -1726,6 +1785,7 @@
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
 				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
+				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
@@ -1893,7 +1953,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

@@ -396,6 +396,7 @@
 
 #pragma mark - UIImagePickerViewDelegate
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

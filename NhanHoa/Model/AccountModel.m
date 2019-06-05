@@ -159,6 +159,14 @@
     return @"";
 }
 
++ (NSString *)getCusPhoto {
+    NSString *photo = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_photo"];
+    if (![AppUtils isNullOrEmpty: photo]) {
+        return photo;
+    }
+    return @"";
+}
+
 //  bussiness
 + (NSString *)getCusCompanyName {
     NSString *name = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_company"];
@@ -166,7 +174,38 @@
         return name;
     }
     return @"";
-    
+}
+
++ (NSString *)getCusCompanyTax {
+    NSString *tax = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_taxcode"];
+    if (![AppUtils isNullOrEmpty: tax]) {
+        return tax;
+    }
+    return @"";
+}
+
++ (NSString *)getCusCompanyAddress {
+    NSString *address = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_company_address"];
+    if (![AppUtils isNullOrEmpty: address]) {
+        return address;
+    }
+    return @"";
+}
+
++ (NSString *)getCusCompanyPhone {
+    NSString *phone = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_company_phone"];
+    if (![AppUtils isNullOrEmpty: phone]) {
+        return phone;
+    }
+    return @"";
+}
+
++ (NSString *)getCusCompanyPosition {
+    NSString *position = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_position"];
+    if (![AppUtils isNullOrEmpty: position]) {
+        return position;
+    }
+    return @"";
 }
 
 /*

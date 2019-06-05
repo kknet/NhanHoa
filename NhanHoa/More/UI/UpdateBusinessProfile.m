@@ -7,11 +7,12 @@
 //
 
 #import "UpdateBusinessProfile.h"
+#import "AccountModel.h"
 
 @implementation UpdateBusinessProfile
 
 @synthesize lbBusinessInfo, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgArrCity, lbRegistrationInfo, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPosition, tfPostition, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbEmail, tfEmail, btnReset, btnSave;
-@synthesize gender, hContent, datePicker, toolBar, viewPicker, cityCode;
+@synthesize gender, hContent, datePicker, toolBar, viewPicker, cityCode, delegate;
 
 - (void)closeKeyboard {
     [self endEditing: TRUE];
@@ -322,7 +323,7 @@
     btnReset.backgroundColor = OLD_PRICE_COLOR;
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.top.equalTo(self.tfAddress.mas_bottom).offset(2*padding);
+        make.top.equalTo(self.tfEmail.mas_bottom).offset(2*padding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(45.0);
     }];
@@ -349,18 +350,18 @@
     datePicker.backgroundColor = UIColor.whiteColor;
     [datePicker setValue:BLUE_COLOR forKey:@"textColor"];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [self addSubview: datePicker];
+    [[AppDelegate sharedInstance].window addSubview: datePicker];
     [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
+        make.left.right.bottom.equalTo([AppDelegate sharedInstance].window);
         make.height.mas_equalTo(0);
     }];
     
     toolBar = [[UIView alloc] init];
     toolBar.clipsToBounds = TRUE;
     toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
-    [self addSubview: toolBar];
+    [[AppDelegate sharedInstance].window addSubview: toolBar];
     [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo([AppDelegate sharedInstance].window);
         make.bottom.equalTo(self.datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
@@ -399,28 +400,28 @@
     viewPicker.backgroundColor = UIColor.blackColor;
     viewPicker.alpha = 0.3;
     viewPicker.hidden = TRUE;
-    [self addSubview: viewPicker];
+    [[AppDelegate sharedInstance].window addSubview: viewPicker];
     [viewPicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self);
+        make.left.right.top.equalTo([AppDelegate sharedInstance].window);
         make.bottom.equalTo(self.toolBar.mas_top);
     }];
 }
 
 - (void)closePickerView {
     [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
+        make.left.right.bottom.equalTo([AppDelegate sharedInstance].window);
         make.height.mas_equalTo(0);
     }];
     
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo([AppDelegate sharedInstance].window);
         make.bottom.equalTo(self.datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
     
     [UIView animateWithDuration:0.2 animations:^{
         self.viewPicker.hidden = TRUE;
-        [self layoutIfNeeded];
+        [[AppDelegate sharedInstance].window layoutIfNeeded];
     }];
 }
 
@@ -471,6 +472,8 @@
 }
 
 - (IBAction)btnCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
@@ -494,11 +497,11 @@
     }
     
     [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
+        make.left.right.bottom.equalTo([AppDelegate sharedInstance].window);
         make.height.mas_equalTo(hPickerView);
     }];
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo([AppDelegate sharedInstance].window);
         make.bottom.equalTo(self.datePicker.mas_top);
         make.height.mas_equalTo(hToolbar);
     }];
@@ -516,7 +519,7 @@
     }
     
     [UIView animateWithDuration:0.2 animations:^{
-        [self layoutIfNeeded];
+        [[AppDelegate sharedInstance].window layoutIfNeeded];
     }completion:^(BOOL finished) {
         self.datePicker.maximumDate = [NSDate date];
     }];
@@ -526,14 +529,122 @@
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
+        [self makeToast:@"Vui lòng nhập Tên doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfTaxCode.text]) {
+        [self makeToast:@"Vui lòng nhập Mã số thuế doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessAddress.text]) {
+        [self makeToast:@"Vui lòng nhập Địa chỉ doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessPhone.text]) {
+        [self makeToast:@"Vui lòng nhập Số điện thoại doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: cityCode]) {
+        [self makeToast:@"Vui lòng chọn Tỉnh/thành phố cho doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfRegisterName.text]) {
+        [self makeToast:@"Vui lòng nhập Tên người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBOD.text]) {
+        [self makeToast:@"Vui lòng nhập ngày sinh người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPostition.text]) {
+        [self makeToast:@"Vui lòng nhập Chức vụ người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPassport.text]) {
+        [self makeToast:@"Vui lòng nhập CMND người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPhone.text]) {
+        [self makeToast:@"Vui lòng nhập Số điện thoại người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfAddress.text]) {
+        [self makeToast:@"Vui lòng nhập Địa chỉ người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfEmail.text]) {
+        [self makeToast:@"Vui lòng nhập Email người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([delegate respondsToSelector:@selector(saveBusinessMyAccountInformation:)]) {
+        NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+        [info setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
+        [info setObject:tfBusinessName.text forKey:@"tc_tc_name"];
+        [info setObject:tfTaxCode.text forKey:@"tc_tc_mst"];
+        [info setObject:tfBusinessAddress.text forKey:@"tc_tc_address"];
+        [info setObject:tfBusinessPhone.text forKey:@"tc_tc_phone"];
+        [info setObject:COUNTRY_CODE forKey:@"tc_tc_country"];
+        [info setObject:cityCode forKey:@"tc_tc_city"];
+        
+        [info setObject:tfPostition.text forKey:@"cn_position"];
+        [info setObject:tfRegisterName.text forKey:@"cn_name"];
+        [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+        [info setObject:tfEmail.text forKey:@"cn_email"];
+        [info setObject:tfBOD.text forKey:@"cn_birthday"];
+        [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+        [info setObject:tfPhone.text forKey:@"cn_phone"];
+        [info setObject:tfAddress.text forKey:@"cn_address"];
+        
+        [delegate saveBusinessMyAccountInformation: info];
+    }
 }
 
 
 - (void)displayBusinessInformation
 {
+    tfBusinessName.text = [AccountModel getCusCompanyName];
+    tfTaxCode.text = [AccountModel getCusCompanyTax];
+    tfBusinessAddress.text = [AccountModel getCusCompanyAddress];
+    tfBusinessPhone.text = [AccountModel getCusCompanyPhone];
     
+    cityCode = [AccountModel getCusCityCode];
+    if (![AppUtils isNullOrEmpty: cityCode]) {
+        NSString *cityName = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cityCode];
+        tfCity.text = cityName;
+    }
     
+    tfRegisterName.text = [AccountModel getCusRealName];
     
+    gender = [AccountModel getCusGender];
+    if (gender == type_men) {
+        [icMale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+    }else{
+        [icMale setImage:[UIImage imageNamed:@"no_tick"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"tick_orange"] forState:UIControlStateNormal];
+    }
+    
+    tfBOD.text = [AccountModel getCusBirthday];
+    tfPostition.text = [AccountModel getCusCompanyPosition];
+    tfPassport.text = [AccountModel getCusPassport];
+    tfPhone.text = [AccountModel getCusPhone];
+    tfAddress.text = [AccountModel getCusAddress];
+    tfEmail.text = [AccountModel getCusEmail];
+    
+    /*
     {
         "careers_id" = 0;
         "cus_account_list" = "<null>";
@@ -734,7 +845,7 @@
         "reseller_upload_folder" = "<null>";
         "user_id" = 0;
         "zonedns_enable" = 0;
-    }
+    }   */
 }
 
 #pragma mark - Choose city delegate

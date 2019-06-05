@@ -431,6 +431,7 @@
     if ([link isEqualToString:login_func]) {
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
             [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
+            
             [self processForLoginSuccessful];
         }
     }

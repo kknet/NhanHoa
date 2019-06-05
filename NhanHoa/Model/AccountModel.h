@@ -28,9 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getCusPhone;
 + (NSString *)getCusAddress;
 + (NSString *)getCusCityCode;
++ (NSString *)getCusPhoto;
 
 //  bussiness
 + (NSString *)getCusCompanyName;
++ (NSString *)getCusCompanyTax;
++ (NSString *)getCusCompanyAddress;
++ (NSString *)getCusCompanyPhone;
++ (NSString *)getCusCompanyPosition;
 
 @end
 

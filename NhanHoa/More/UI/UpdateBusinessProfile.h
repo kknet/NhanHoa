@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ChooseCityPopupView.h"
 
+@protocol UpdateBusinessProfileDelegate
+- (void)saveBusinessMyAccountInformation: (NSDictionary *)info;
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdateBusinessProfile : UIView<UIGestureRecognizerDelegate, UITextFieldDelegate, ChooseCityPopupViewDelegate>
+
+@property (nonatomic, strong) id<UpdateBusinessProfileDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lbBusinessName;

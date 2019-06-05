@@ -10,7 +10,7 @@
 #import "AccountModel.h"
 #import "WebServices.h"
 
-@interface UpdateMyInfoViewController ()<UpdatePersonalProfileDelegate, WebServicesDelegate, UIScrollViewDelegate> {
+@interface UpdateMyInfoViewController ()<UpdatePersonalProfileDelegate, UpdateBusinessProfileDelegate, WebServicesDelegate, UIScrollViewDelegate> {
     WebServices *webService;
     int tryLoginCount;
 }
@@ -114,12 +114,13 @@
         }
         [scvContent addSubview: editBusinessView];
     }
-    //  editBusinessView.delegate = self;
+    editBusinessView.delegate = self;
+    
     float padding = 15.0;
     float mTop = 10.0;
     float hLabel = 30.0;
     
-    float hContent = (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
+    float hContent = (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;;
     
     [editBusinessView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
@@ -127,6 +128,25 @@
         make.height.mas_equalTo(hContent);
     }];
     [editBusinessView setupUIForView];
+}
+
+- (void)saveBusinessMyAccountInformation:(NSDictionary *)info {
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang cập nhật.." Interaction:NO];
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
+    [jsonDict setObject:edit_profile_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    
+    [webService callWebServiceWithLink:edit_profile_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 //  Hiển thị bàn phím

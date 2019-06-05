@@ -17,6 +17,7 @@
     self.layer.cornerRadius = 7.0;
     
     float padding = 15.0;
+    imgAvatar.clipsToBounds = TRUE;
     imgAvatar.layer.cornerRadius = 60.0/2;
     imgAvatar.layer.borderColor = BLUE_COLOR.CGColor;
     imgAvatar.layer.borderWidth = 1.0;
@@ -83,7 +84,7 @@
     //  reward wallet
     [viewReward mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewWallet);
-        make.bottom.equalTo(self);
+        make.right.equalTo(self);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
     }];
     
@@ -141,6 +142,13 @@
         lbRewardMoney.text = [NSString stringWithFormat:@"%@ điểm", points];
     }else{
         lbRewardMoney.text = @"0 điểm";
+    }
+    
+    NSString *avatarURL = [AccountModel getCusPhoto];
+    if (![AppUtils isNullOrEmpty: avatarURL]) {
+        [imgAvatar sd_setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:DEFAULT_AVATAR];
+    }else{
+        imgAvatar.image = DEFAULT_AVATAR;
     }
 }
 

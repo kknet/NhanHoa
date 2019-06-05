@@ -111,6 +111,8 @@
 #define get_dns_func            @"GetDNS"
 #define send_question_func      @"SendQuestion"
 #define edit_profile_func       @"EditProfile"
+#define profile_photo_func      @"ProfilePhoto"
+#define update_token_func       @"UpdateToken"
 
 
 #define login_mod               @"login"
@@ -128,7 +130,8 @@
 #define get_dns_mod             @"get_dns"
 #define question_mod            @"question"
 #define edit_profile_mod        @"edit_profile"
-
+#define profile_photo_mod       @"profile_photo"
+#define update_token_mod        @"update_token"
 
 #define logsFolderName      @"LogFiles"
 #define login_state         @"login_state"
@@ -159,8 +162,9 @@
 #define ProgressHUD_BG [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
 
 
-#define FRONT_EMPTY_IMG [UIImage imageNamed:@"passport_empty_front.png"]
-#define BEHIND_EMPTY_IMG [UIImage imageNamed:@"passport_empty_behind.png"]
+#define FRONT_EMPTY_IMG     [UIImage imageNamed:@"passport_empty_front.png"]
+#define BEHIND_EMPTY_IMG    [UIImage imageNamed:@"passport_empty_behind.png"]
+#define DEFAULT_AVATAR      [UIImage imageNamed:@"default_avatar.png"]
 
 #define N_A         @"Không giá trị"
 #define unknown     @"Chưa xác định"

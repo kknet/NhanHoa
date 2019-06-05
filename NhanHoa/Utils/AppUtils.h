@@ -38,5 +38,9 @@
 +(UIImage *)resizeImage:(UIImage *)image;
 + (UIImage*) rotateImage:(UIImage* )originalImage;
 + (UIImage *)scaleAndRotateImage:(UIImage *)image;
++ (UIImage*)cropImageWithSize:(CGSize)targetSize fromImage: (UIImage *)sourceImage;
++ (NSString *)getAppVersionWithBuildVersion: (BOOL)showBuildVersion;
++ (NSString *)stringDateFromInterval: (NSTimeInterval)interval;
++ (NSString *)getBuildDate;
 
 @end

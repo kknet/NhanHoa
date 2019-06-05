@@ -428,24 +428,11 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
         
         [delegate savePersonalMyAccountInformation: info];
     }
-//    tc_tc_name: string (tên cty / tổ chức)
-//    tc_tc_mst: string / number (mã số thuế)
-//    tc_tc_address: string (địa chỉ cty / tổ chức)
-//    tc_tc_phone: string / number (số đt cty / tổ chức)
-//    tc_tc_country: 231 (cố định: Viêt Nam [231])
-//    tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-//    cn_position: string (chức vụ người đại diện)
-//    cn_name: Họ và tên (string)
-//    cn_sex: number (1: nam | 0: nữ)
-//    cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-//    cn_cmnd: string / number (Số CMND / Passport)
-//    cn_phone: string / number (Số ĐT)
-//    cn_address: string (địa chỉ)
-//    cn_country: 231 (cố định: Viêt Nam [231])
-//    cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
 }
 
 - (IBAction)btnCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];

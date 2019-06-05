@@ -200,17 +200,17 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
         cn_position: string (chức vụ người đại diện)
         cn_name: Họ và tên (string)
         cn_sex: number (1: nam | 0: nữ)
+        cn_email: string (email của hồ sơ)
         cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
         cn_cmnd: string / number (Số CMND / Passport)
         cn_phone: string / number (Số ĐT)
         cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
+
     } else {
         api: error response
     }
 
-- STATUS: Chưa save được giá trị gender, email
+- STATUS: DONE
 
 *Kết quả trả về: anh em send test để xem kết quả
 
@@ -318,13 +318,15 @@ banknumber: string (số tài khoản)
 *Lưu ý: thông tin bank của acc trính lấy từ các thông số trả về của api login (gồm có: cus_bankname, cus_bankaccount, cus_banknumber).
 
 19. ProfilePhoto (Cập nhật profile photo)
-*Send request (Post / Get) [Auto]
-mod: profile_photo
-username: string
-password: MD5
-photo: URL (Link hình profile photo)
-*Kết quả trả về: anh em send test để xem kết quả
-*Lưu ý: profile photo là thông số cus_photo trả về của api login.
+    *Send request (Post / Get) [Auto]
+    mod: profile_photo
+    username: string
+    password: MD5
+    photo: URL (Link hình profile photo)
+    *Kết quả trả về: anh em send test để xem kết quả
+    *Lưu ý: profile photo là thông số cus_photo trả về của api login.
+
+---STATUS: DONE
 
 20. UpdateToken (Cập nhật token)
 *Send request (Post / Get) [Auto]

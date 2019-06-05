@@ -11,6 +11,8 @@
 #import "AccountSettingViewController.h"
 #import "ContactInfoViewController.h"
 #import "RenewedDomainViewController.h"
+#import "SupportViewController.h"
+#import "AboutViewController.h"
 #import "SettingMenuCell.h"
 
 @interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
@@ -237,6 +239,18 @@
             [self.navigationController pushViewController:renewedDomainVC animated:TRUE];
             break;
         }
+        case eCustomnerSupport:{
+            SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
+            supportVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: supportVC animated:YES];
+            break;
+        }
+        case eApplicationInfo:{
+            AboutViewController *aboutVC = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+            aboutVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: aboutVC animated:YES];
+            break;
+        }
         case eSignOut:{
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Bạn có muốn đăng xuất khỏi ứng dụng hay không?" delegate:self cancelButtonTitle:@"Đăng xuất" otherButtonTitles:@"Không", nil];
             alertView.tag = 1;
@@ -276,8 +290,8 @@
     }
 }
 
-//  94h30
-//  6h24
+//  95h30
+//  8h45
 
 
 
