@@ -69,6 +69,8 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
     [self.navigationController pushViewController: cartVC animated:YES];
 }
@@ -78,6 +80,8 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [self.view endEditing: TRUE];
     
     if ([AppUtils isNullOrEmpty: tfSearch.text]) {
@@ -467,7 +471,7 @@
 }
 
 -(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
 }

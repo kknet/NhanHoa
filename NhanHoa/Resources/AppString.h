@@ -67,6 +67,7 @@
 #define ACCESSCODE          @"KCGTKP1O"
 #define HASHCODE            @"CD67F28EA5A64ED380D8388F686AE727"
 
+#define URL_Payment_VISA    @"https://onepay.vn/vpcpay/vpcpay.op"
 #define MERCHANT_ID_VISA    @"NHANHOA"
 #define ACCESSCODE_VISA     @"2A5A6E8D"
 #define HASHCODE_VISA       @"DBDBB856693DF3086604FDB60277D4A5"

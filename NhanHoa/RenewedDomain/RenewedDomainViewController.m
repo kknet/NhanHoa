@@ -260,7 +260,7 @@ typedef enum TypeSelectDomain{
 }
 
 - (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> responeCode = %d for function: %@", __FUNCTION__, responeCode, link] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)getDomainsWasRegisteredWithType: (int)type

@@ -106,6 +106,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.paymentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }completion:^(BOOL finished) {
+        self.paymentView.typePaymentMethod = self.typePaymentMethod;
         [self.paymentView showPaymentContentViewWithMoney: self.money];
     }];
 }

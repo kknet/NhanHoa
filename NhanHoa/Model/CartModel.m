@@ -179,14 +179,14 @@
         
         NSString *years = [domainInfo objectForKey: year_for_domain];
         if ([years intValue] == 1) {
-            totalVAT = totalVAT + [priceVATFirstYear longValue];
-            domainPrice = domainPrice + [priceFirstYear longValue];
-            totalPrice = totalPrice + [totalFirstYear longValue];
+            totalVAT = totalVAT + [priceVATFirstYear longLongValue];
+            domainPrice = domainPrice + [priceFirstYear longLongValue];
+            totalPrice = totalPrice + [totalFirstYear longLongValue];
         }else{
             int nextYears = [years intValue] - 1;
-            totalVAT = totalVAT + [priceVATFirstYear longValue] + nextYears*[priceVATNextYears longValue];
-            domainPrice = domainPrice + [priceFirstYear longValue] + nextYears*[priceNextYears longValue];
-            totalPrice = totalPrice + [totalFirstYear longValue] + nextYears*[totalNextYears longValue];
+            totalVAT = totalVAT + [priceVATFirstYear longLongValue] + nextYears*[priceVATNextYears longLongValue];
+            domainPrice = domainPrice + [priceFirstYear longLongValue] + nextYears*[priceNextYears longLongValue];
+            totalPrice = totalPrice + [totalFirstYear longLongValue] + nextYears*[totalNextYears longLongValue];
         }
     }
     return [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithLong:totalVAT], @"VAT", [NSNumber numberWithLong:domainPrice], @"domain_price", [NSNumber numberWithLong:totalPrice], @"total_price", nil];

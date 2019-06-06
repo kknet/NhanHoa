@@ -42,5 +42,7 @@
 + (NSString *)getAppVersionWithBuildVersion: (BOOL)showBuildVersion;
 + (NSString *)stringDateFromInterval: (NSTimeInterval)interval;
 + (NSString *)getBuildDate;
++ (void) createDirectoryAndSubDirectory:(NSString *)directory;
++ (void) createDirectory:(NSString*)directory;
 
 @end
