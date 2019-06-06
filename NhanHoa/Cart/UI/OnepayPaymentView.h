@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol OnepayPaymentViewDelegate
 - (void)paymentResultWithInfo: (NSDictionary *)info;
 - (void)userClickCancelPayment;
+- (void)onBackIconClick;
 @end
 
 @interface OnepayPaymentView : UIView<UIWebViewDelegate>

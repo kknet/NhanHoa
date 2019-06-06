@@ -13,6 +13,9 @@
 @synthesize viewHeader, icBack, lbHeader, wvPayment, typePaymentMethod, delegate, typePayment, topupMoney, icWaiting;
 
 - (IBAction)icBackClick:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(onBackIconClick)]) {
+        [delegate onBackIconClick];
+    }
 }
 
 - (void)setupUIForView
@@ -75,7 +78,7 @@
         NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
         if (![AppUtils isNullOrEmpty: amount]) {
             NSString *transactionID = [AppUtils generateIDForTransaction];
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, transactionID, MERCHANT_ID, returnURL];
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=NAP_TIEN_VAO_VI&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, transactionID, MERCHANT_ID, returnURL];
             
             NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE];
             
@@ -160,7 +163,7 @@
         
         if (![AppUtils isNullOrEmpty: amount]) {
             
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=JSECURETEST01&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=NAP_TIEN_VAO_VI&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
             
             NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
             
@@ -169,7 +172,7 @@
             NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             //
             returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, @"JSECURETEST01", returnURL, secureHash];
+            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, @"NAP_TIEN_VAO_VI", returnURL, secureHash];
             
             NSString *url = [NSString stringWithFormat:@"https://mtf.onepay.vn/vpcpay/vpcpay.op?%@&vpc_SecureHash=%@", params, secureHash];
             [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
@@ -182,7 +185,6 @@
 
 #pragma mark - Webview delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
     return YES;
 }
 
@@ -191,6 +193,8 @@
     //url = @"https://mtf.onepay.vn/onecomm-pay/http?vpc_AdditionData=970425&vpc_Amount=1500000000&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=201904191555668012.153090&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_TransactionNo=1701694&vpc_TxnResponseCode=0&vpc_Version=2&vpc_SecureHash=898C1DA1E61A34BF0B66494E224D763D04376A52426CBC909E528D328E9704EE";
     
     if (webView.loading) {
+        icWaiting.hidden = FALSE;
+        [icWaiting startAnimating];
         return;
     }
     
@@ -199,6 +203,7 @@
     {
         if ([[webView stringByEvaluatingJavaScriptFromString:@"document.readyState"] isEqualToString:@"complete"])
         {
+            
             icWaiting.hidden = TRUE;
             [icWaiting stopAnimating];
         }
@@ -221,7 +226,7 @@
                 NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 if (secureHash != nil && ![secureHash isEqualToString:@""] && [secureHash isEqualToString: vpc_SecureHash]) {
                     //  vpc_SecureHash ==   secureHash: DỮ LIỆU ĐÃ ĐƯỢC TOÀN VẸN
-                    [delegate paymentResultWithInfo: info];
+                    [self processWithInfo: info];
                     
                 }else{
                     NSLog(@"Dữ liệu không toàn vẹn");
@@ -267,6 +272,7 @@
 - (void)userCancelPayment {
     if ([delegate respondsToSelector:@selector(userClickCancelPayment)]) {
         [delegate userClickCancelPayment];
+        [self makeToast:@"Bạn đã hủy giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
     }
 }
 
@@ -284,5 +290,38 @@
     }
     return queryStringDictionary;
 }
+
+- (void)processWithInfo: (NSDictionary *)info {
+    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
+    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
+        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Bạn đã hủy giao dịch!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            //  [self performSelector:@selector(backToPreviousView) withObject:nil afterDelay:2.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_number_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Số thẻ không đúng. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self showPaymentContentViewWithMoney: topupMoney];
+            
+            return;
+        }else if ([vpc_TxnResponseCode isEqualToString: Expired_card_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Thẻ hết hạn/Thẻ bị khóa. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_name_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Tên chủ thẻ không đúng. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Insufficient_fund_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Số tiền không đủ để thanh toán. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+        }
+    }
+}
+
+https://authentication.tpb.vn/PGAuthentication/?ID=10f0e1db420f100bcd2c0d22e535eacf3abb80f599406aab4f23af67270c45c445444907854#
+
 
 @end

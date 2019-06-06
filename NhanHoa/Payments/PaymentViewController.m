@@ -29,6 +29,11 @@
     typePaymentMethod = ePaymentWithATM;
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [self.paymentView removeFromSuperview];
+}
+
 - (void)setupUIForView {
     float padding = 15.0;
     
@@ -123,15 +128,44 @@
 
 
 #pragma mark - PaymentView Delegate
--(void)userClickCancelPayment {
-    [self.view makeToast:@"Bạn đã hủy giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.paymentView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
-    }completion:^(BOOL finished) {
-        [self.paymentView removeFromSuperview];
-        self.paymentView = nil;
-    }];
+-(void)onBackIconClick {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (void)userClickCancelPayment {
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+- (void)paymentResultWithInfo:(NSDictionary *)info {
+    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
+    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
+        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
+            [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            //  [self performSelector:@selector(backToPreviousView) withObject:nil afterDelay:2.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_number_Code]) {
+            [self.view makeToast:@"Số thẻ không chính xác. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            return;
+        }
+    }
+    /*
+    "vpc_AdditionData" = 999999;
+    "vpc_Amount" = 1000000000;
+    "vpc_Command" = pay;
+    "vpc_CurrencyCode" = VND;
+    "vpc_Locale" = vn;
+    "vpc_MerchTxnRef" = "20190606_1559792756.094725";
+    "vpc_Merchant" = NHANHOA;
+    "vpc_OrderInfo" = JSECURETEST01;
+    "vpc_SecureHash" = FC93E67787CAA133F30C2618195384A3E13FDCB9698EDBF73942C64CDB092123;
+    "vpc_TransactionNo" = 27115009;
+    "vpc_TxnResponseCode" = 8;
+    "vpc_Version" = 2;  */
+}
+
+- (void)dismissView {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 @end

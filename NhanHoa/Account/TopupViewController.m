@@ -38,6 +38,7 @@
     }else{
         lbMoney.text = @"0 VNĐ";
     }
+    tfMoney.text = @"";
 }
 
 - (IBAction)btn500KPress:(UIButton *)sender {
