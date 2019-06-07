@@ -10,6 +10,10 @@
 #import "AppTabbarViewController.h"
 #import "LaunchViewController.h"
 #import "SignInViewController.h"
+#import <UserNotifications/UserNotifications.h>
+#import <UserNotificationsUI/UserNotificationsUI.h>
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate ()
 
@@ -20,12 +24,38 @@
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, domainsPrice, registerAccSuccess, registerAccount;
-@synthesize cropAvatar, dataCrop;
+@synthesize cropAvatar, dataCrop, token;
+@synthesize cartWindow, cartViewController, cartNavViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
     
     [self setupFontForApp];
+    
+    //  Register remote notifications
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")){
+        UNUserNotificationCenter *notifiCenter = [UNUserNotificationCenter currentNotificationCenter];
+        notifiCenter.delegate = self;
+        [notifiCenter requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if( !error ){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                });
+            }
+        }];
+    }
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])
+    {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    } else {
+        UIRemoteNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    }
     
     //  setup logs folder
     [AppUtils createDirectoryAndSubDirectory:logsFolderName];
@@ -107,6 +137,23 @@
         [self.window makeKeyAndVisible];
     }
     // Override point for customization after application launch.
+    
+    if (self.cartWindow == nil) {
+        //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        self.cartWindow.backgroundColor = UIColor.redColor;
+        self.cartWindow.windowLevel = UIWindowLevelNormal;
+        self.cartWindow.tag = 2;
+    }
+    
+    if (self.cartViewController == nil) {
+        self.cartViewController = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
+        self.cartNavViewController = [[UINavigationController alloc] initWithRootViewController:self.cartViewController];
+        self.cartNavViewController.navigationBarHidden = YES;
+    }
+    cartWindow.rootViewController = cartNavViewController;
+    cartWindow.alpha = 0;
+    
     return YES;
 }
 
@@ -135,6 +182,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
+    token = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token] toFilePath:logFilePath];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@">>>>>ERROR<<<<< CAN NOT GET TOKEN FOR APP: %@", error.localizedDescription] toFilePath:logFilePath];
 }
 
 +(AppDelegate *)sharedInstance{
@@ -457,5 +515,53 @@
     return @"";
 }
 
+- (void)showCartScreenContent
+{
+    if (self.cartWindow == nil) {
+        //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        self.cartWindow.backgroundColor = UIColor.redColor;
+        self.cartWindow.windowLevel = UIWindowLevelNormal;
+        self.cartWindow.tag = 2;
+    }
+    if (self.cartViewController == nil) {
+        self.cartViewController = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
+        self.cartNavViewController = [[UINavigationController alloc] initWithRootViewController:self.cartViewController];
+        self.cartNavViewController.navigationBarHidden = YES;
+    }
+    
+    cartWindow.rootViewController = cartNavViewController;
+    cartWindow.alpha = 0;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.cartWindow.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.cartWindow.alpha = 1;
+        [self.cartWindow makeKeyAndVisible];
+    }completion:^(BOOL finished) {
+        
+    }];
+    
+    //  SF(@"iOS_%@_%@",bundleIdentifier,version)
+}
+
+- (void)hideCartView {
+    
+    if( [self.cartWindow isKeyWindow] ) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.cartWindow.alpha = 0;
+        } completion:^(BOOL finished) {
+            if (self.cartViewController != nil) {
+                [self.cartViewController.view removeFromSuperview];
+                self.cartViewController = nil;
+            }
+            
+            if (self.cartNavViewController != nil) {
+                [self.cartNavViewController.view removeFromSuperview];
+                self.cartNavViewController = nil;
+            }
+            [self.cartWindow removeFromSuperview];
+        }];
+    }
+}
 
 @end

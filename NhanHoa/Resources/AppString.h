@@ -9,6 +9,8 @@
 #ifndef AppString_h
 #define AppString_h
 
+#define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"

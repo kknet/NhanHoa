@@ -150,19 +150,6 @@
             return;
         }
     }
-    /*
-    "vpc_AdditionData" = 999999;
-    "vpc_Amount" = 1000000000;
-    "vpc_Command" = pay;
-    "vpc_CurrencyCode" = VND;
-    "vpc_Locale" = vn;
-    "vpc_MerchTxnRef" = "20190606_1559792756.094725";
-    "vpc_Merchant" = NHANHOA;
-    "vpc_OrderInfo" = JSECURETEST01;
-    "vpc_SecureHash" = FC93E67787CAA133F30C2618195384A3E13FDCB9698EDBF73942C64CDB092123;
-    "vpc_TransactionNo" = 27115009;
-    "vpc_TxnResponseCode" = 8;
-    "vpc_Version" = 2;  */
 }
 
 - (void)dismissView {

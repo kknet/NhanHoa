@@ -198,19 +198,6 @@
 //            NSLog(@"parameter: %@", webView.request.URL.parameterString);
 //            NSLog(@"query: %@", webView.request.URL.query);
 //            NSLog(@"relativePath: %@", webView.request.URL.relativePath);
-            /*
-            AgainLink = "onepay.vn";
-            Title = NhanHoaCompany;
-            "vpc_Amount" = 61600000;
-            "vpc_Command" = pay;
-            "vpc_Locale" = vn;
-            "vpc_MerchTxnRef" = "20190514_1557820445.363928";
-            "vpc_Merchant" = TESTONEPAY;
-            "vpc_Message" = Cancel;
-            "vpc_OrderInfo" = JSECURETEST01;
-            "vpc_SecureHash" = 88FF3B0BF251A35771990A378C9E5587E97DB6788DB2DC9C4736FA7AB5353631;
-            "vpc_TxnResponseCode" = 99;
-            "vpc_Version" = 2;  */
         }
     }
 }

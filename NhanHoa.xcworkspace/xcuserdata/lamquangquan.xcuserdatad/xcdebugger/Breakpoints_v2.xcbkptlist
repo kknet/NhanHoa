@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Register domain/SearchDomainViewController.m"
-            timestampString = "581507879.2891639"
+            timestampString = "581598944.2537349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "-failedToCallWebService:andError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581507879.28997"
+            timestampString = "581598944.25439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581507879.290514"
+            timestampString = "581598944.255035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581507879.290894"
+            timestampString = "581598944.255517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
@@ -201,29 +201,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Cart/CartViewController.m"
-            timestampString = "581505896.430475"
+            filePath = "NhanHoa/Register domain/SearchDomainViewController.m"
+            timestampString = "581598944.2559839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Model/CartModel.m"
-            timestampString = "581507879.291319"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "-getCartPriceInfo"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-viewWillDisappear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

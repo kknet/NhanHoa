@@ -10,6 +10,7 @@
 #import "UIView+Toast.h"
 #import "Reachability.h"
 #import "CityObject.h"
+#import "CartViewController.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -71,8 +72,14 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSDictionary *domainsPrice;
 @property (nonatomic, strong) UIImage *cropAvatar;
 @property (nonatomic, strong) NSData *dataCrop;
+@property (nonatomic, strong) NSString *token;
 
 - (NSString *)findCityObjectWithCityCode: (NSString *)code;
+@property(strong, nonatomic) UIWindow *cartWindow;
+@property(strong, nonatomic) CartViewController *cartViewController;
+@property(strong, nonatomic) UINavigationController *cartNavViewController;
+- (void)showCartScreenContent;
+- (void)hideCartView;
 
 @end
 

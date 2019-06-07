@@ -329,13 +329,15 @@ banknumber: string (số tài khoản)
 ---STATUS: DONE
 
 20. UpdateToken (Cập nhật token)
-*Send request (Post / Get) [Auto]
-mod: update_token
-username: string
-password: MD5
-token: string
-*Kết quả trả về: anh em send test để xem kết quả
-*Lưu ý: token rỗng = xóa token
+    *Send request (Post / Get) [Auto]
+    mod: update_token
+    username: string
+    password: MD5
+    token: string
+    *Kết quả trả về: anh em send test để xem kết quả
+    *Lưu ý: token rỗng = xóa token
+
+---STATUS: DONE
 
 21. History (Lịch sử giao dịch)
 *Send request (Post / Get) [Auto]

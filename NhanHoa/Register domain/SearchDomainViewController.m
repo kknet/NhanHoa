@@ -69,6 +69,9 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
+    return;
+    
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];

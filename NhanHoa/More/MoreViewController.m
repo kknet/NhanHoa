@@ -14,8 +14,11 @@
 #import "SupportViewController.h"
 #import "AboutViewController.h"
 #import "SettingMenuCell.h"
+#import "WebServices.h"
 
-@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServicesDelegate> {
+    WebServices *webService;
+}
 
 @end
 
@@ -159,6 +162,39 @@
     [AppUtils addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
 }
 
+- (void)clearTokenOfUser {
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:update_token_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:@"" forKey:@"token"];
+    
+    [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)logoutScreen {
+    [AppDelegate sharedInstance].userInfo = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:key_password];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+    UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
+    [self presentViewController:launchNav animated:TRUE completion:nil];
+}
+
 #pragma mark - UITableview
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -278,16 +314,32 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 1) {
         if (buttonIndex == 0) {
-            [AppDelegate sharedInstance].userInfo = nil;
-            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
-            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:key_password];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
-            UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
-            [self presentViewController:launchNav animated:TRUE completion:nil];
+            if (![AppUtils checkNetworkAvailable]) {
+                [self logoutScreen];
+            }else{
+                [self clearTokenOfUser];
+            }
         }
     }
+}
+
+#pragma mark - Web services
+
+- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+}
+
+- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if ([link isEqualToString:update_token_func]) {
+        [self logoutScreen];
+    }
+}
+
+- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 //  100

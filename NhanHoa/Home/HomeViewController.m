@@ -104,6 +104,9 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
+    return;
+    
     CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
     cartVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController: cartVC animated:YES];

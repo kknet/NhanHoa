@@ -389,6 +389,30 @@
     }];
 }
 
+- (void)updateTokenForCustomer {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
+        [self updateTokenValueForUser];
+    }else{
+        [self goToHomeScreen];
+    }
+}
+
+- (void)updateTokenValueForUser {
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:update_token_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:[AppDelegate sharedInstance].token forKey:@"token"];
+    
+    [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 - (void)processForLoginSuccessful {
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
     
@@ -402,7 +426,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:password forKey:key_password];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-        
+}
+
+- (void)goToHomeScreen {
     AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
     [self presentViewController:tabbarVC animated:YES completion:nil];
 }
@@ -415,10 +441,9 @@
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
     
     if ([link isEqualToString:login_func]) {
-        [ProgressHUD dismiss];
-        
         if (![AppUtils checkNetworkAvailable]) {
             [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
         }
@@ -431,9 +456,13 @@
     if ([link isEqualToString:login_func]) {
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
             [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
-            
             [self processForLoginSuccessful];
+            
+            [self updateTokenForCustomer];
         }
+    }else if ([link isEqualToString: update_token_func]) {
+        [ProgressHUD dismiss];
+        [self goToHomeScreen];
     }
 }
 

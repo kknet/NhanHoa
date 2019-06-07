@@ -87,10 +87,10 @@
     if (priceFirstYear != nil && priceNextYears != nil) {
         NSString *years = [info objectForKey: year_for_domain];
         if ([years intValue] == 1) {
-            return [priceFirstYear longValue];
+            return [priceFirstYear longLongValue];
         }else{
             int nextYears = [years intValue] - 1;
-            return [priceFirstYear longValue] + nextYears*[priceNextYears intValue];
+            return [priceFirstYear longLongValue] + nextYears*[priceNextYears longLongValue];
         }
     }
     return 0;
@@ -105,10 +105,10 @@
         
         NSString *years = [domainInfo objectForKey: year_for_domain];
         if ([years intValue] == 1) {
-            totalVAT = totalVAT + [priceVATFirstYear longValue];
+            totalVAT = totalVAT + [priceVATFirstYear longLongValue];
         }else{
             int nextYears = [years intValue] - 1;
-            totalVAT = totalVAT + [priceVATFirstYear longValue] + nextYears*[priceVATNextYears intValue];
+            totalVAT = totalVAT + [priceVATFirstYear longLongValue] + nextYears*[priceVATNextYears longLongValue];
         }
     }
     return totalVAT;
@@ -125,10 +125,10 @@
         
         NSString *years = [domainInfo objectForKey: year_for_domain];
         if ([years intValue] == 1) {
-            priceDomain = priceDomain + [priceFirstYear longValue];
+            priceDomain = priceDomain + [priceFirstYear longLongValue];
         }else{
             int nextYears = [years intValue] - 1;
-            priceDomain = priceDomain + [priceFirstYear longValue] + nextYears*[priceNextYears intValue];
+            priceDomain = priceDomain + [priceFirstYear longLongValue] + nextYears*[priceNextYears longLongValue];
         }
     }
     return priceDomain;
@@ -145,10 +145,10 @@
         
         NSString *years = [domainInfo objectForKey: year_for_domain];
         if ([years intValue] == 1) {
-            totalPrice = totalPrice + [totalFirstYear longValue];
+            totalPrice = totalPrice + [totalFirstYear longLongValue];
         }else{
             int nextYears = [years intValue] - 1;
-            totalPrice = totalPrice + [totalFirstYear longValue] + nextYears*[totalNextYears intValue];
+            totalPrice = totalPrice + [totalFirstYear longLongValue] + nextYears*[totalNextYears longLongValue];
         }
     }
     return totalPrice;

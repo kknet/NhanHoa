@@ -21,7 +21,7 @@
 
 @implementation CartViewController
 
-@synthesize scvContent, viewInfo, lbInfo, lbCount, tbDomains, promoView, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
+@synthesize viewHeader, icBack, lbHeader, scvContent, viewInfo, lbInfo, lbCount, tbDomains, promoView, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
 @synthesize hInfo, hPromoView;
 
 - (void)viewDidLoad {
@@ -48,6 +48,10 @@
     [self updateAllPriceForView];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+}
+
 - (IBAction)btnContinuePress:(UIButton *)sender {
 //    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
 //    [self.navigationController pushViewController:paymentVC animated:TRUE];
@@ -55,6 +59,10 @@
 
 - (IBAction)btnGoShopPress:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (IBAction)icBackClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] hideCartView];
 }
 
 - (void)updateAllPriceForView {
@@ -80,11 +88,33 @@
     hInfo = 40.0;
     hCell = 106.0;
     
+    //  header view
+    viewHeader.backgroundColor = BLUE_COLOR;
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
+    }];
+    
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.viewHeader);
+        make.top.equalTo(self.viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].hNav);
+    }];
+    
+    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.icBack);
+        make.centerX.equalTo(self.viewHeader.mas_centerX);
+        make.width.mas_equalTo(200.0);
+    }];
+    
     //  empty view
+    
     viewEmpty.hidden = TRUE;
     viewEmpty.clipsToBounds = TRUE;
     [viewEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.bottom.right.equalTo(self.view);
     }];
     [imgCartEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewEmpty.mas_centerX);
@@ -105,7 +135,8 @@
     
     //  scroll view content
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.view);
+        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
     
