@@ -35,8 +35,8 @@
     }else{
         [listDomain removeAllObjects];
     }
-    //  [listDomain addObject:@"nongquadi.vn"];
-    [listDomain addObject:@""];
+    
+    [listDomain addObject:@"giaohangnhanh.com"];
     [listDomain addObject:@""];
     [listDomain addObject:@""];
 }
@@ -55,7 +55,7 @@
     }
     
     [WriteLogsUtils writeLogContent:SFM(@"[%s] list search = %@", __FUNCTION__, @[result]) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    sssssss
+    
     WhoIsResultViewController *whoIsResultVC = [[WhoIsResultViewController alloc] init];
     whoIsResultVC.listSearch = result;
     [self.navigationController pushViewController:whoIsResultVC animated:YES];
@@ -81,14 +81,17 @@
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
+    [self.view addGestureRecognizer: tapOnScreen];
+    
     padding = 15.0;
-    btnSearch.layer.cornerRadius = 40.0/2;
+    btnSearch.layer.cornerRadius = 45.0/2;
     btnSearch.backgroundColor = BLUE_COLOR;
-    btnSearch.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnSearch.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(self.padding);
         make.bottom.right.equalTo(self.view).offset(-self.padding);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(45.0);
     }];
     
     [tbContent registerNib:[UINib nibWithNibName:@"WhoIsCell" bundle:nil] forCellReuseIdentifier:@"WhoIsCell"];
@@ -105,7 +108,7 @@
     UILabel *lbTbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, headerView.frame.size.width-2*padding, headerView.frame.size.height)];
     lbTbHeader.textAlignment = NSTextAlignmentCenter;
     lbTbHeader.text = @"Nhập một hay nhiều tên miền bạn muốn tra cứu";
-    lbTbHeader.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTbHeader.font = [AppDelegate sharedInstance].fontRegular;
     lbTbHeader.textColor = TITLE_COLOR;
     [headerView addSubview: lbTbHeader];
     tbContent.tableHeaderView = headerView;
@@ -115,7 +118,7 @@
     btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-40.0, footerView.frame.size.width-2*padding, 40.0);
     btnTbFooter.layer.cornerRadius = 5.0;
     btnTbFooter.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
-    NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[UIFont fontWithName:RobotoRegular size:16.0] color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:20.0 imageFirst:YES];
+    NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[AppDelegate sharedInstance].fontRegular color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:20.0 imageFirst:YES];
     [btnTbFooter setAttributedTitle:content forState:UIControlStateNormal];
     [btnTbFooter addTarget:self
                     action:@selector(addNewRowForDomain)
@@ -123,6 +126,10 @@
     [footerView addSubview: btnTbFooter];
     
     tbContent.tableFooterView = footerView;
+}
+
+- (void)closeKeyboard {
+    [self.view endEditing: TRUE];
 }
 
 - (void)addNewRowForDomain {

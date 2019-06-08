@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Register domain/SearchDomainViewController.m"
-            timestampString = "581598944.2537349"
+            timestampString = "581661055.86754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "459"
             endingLineNumber = "459"
-            landmarkName = "-failedToCallWebService:andError:"
-            landmarkType = "7">
+            landmarkName = "SearchDomainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581598944.25439"
+            timestampString = "581662441.40557"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581598944.255035"
+            timestampString = "581662441.406212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/Cart/UI/OnepayPaymentView.m"
-            timestampString = "581598944.255517"
+            timestampString = "581662441.406643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
@@ -201,13 +201,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Register domain/SearchDomainViewController.m"
-            timestampString = "581598944.2559839"
+            filePath = "NhanHoa/Utils/WebServiceUtils.m"
+            timestampString = "581662441.407073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-viewWillDisappear:"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "-failedToCallWebService:andError:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

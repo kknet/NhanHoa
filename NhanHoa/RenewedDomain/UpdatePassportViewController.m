@@ -12,18 +12,16 @@
 #import <Photos/PHAsset.h>
 #import "AccountModel.h"
 #import "UploadPicture.h"
-#import "WebServices.h"
 
-@interface UpdatePassportViewController ()<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebServicesDelegate>
+@interface UpdatePassportViewController ()<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebServiceUtilsDelegate>
 {
-    WebServices *webService;
     UIImagePickerController *imagePickerController;
     int type;
 }
 @end
 
 @implementation UpdatePassportViewController
-@synthesize btnCMND_a, lbCMND_a, btnCMND_b, lbCMND_b, btnSave, btnCancel;
+@synthesize btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b, btnSave, btnCancel;
 @synthesize linkCMND_a, linkCMND_b, cusId, curCMND_a, curCMND_b;
 
 - (void)viewDidLoad {
@@ -36,6 +34,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     [self showCurrentPassportForDomain];
 }
@@ -44,7 +43,6 @@
     [super viewWillDisappear: animated];
     if ([self isMovingFromParentViewController])
     {
-        webService = nil;
         imagePickerController = nil;
         [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
         [AppDelegate sharedInstance].profileEdit = nil;
@@ -59,8 +57,16 @@
     if ([AppDelegate sharedInstance].editCMND_a != nil) {
         [btnCMND_a setImage:[AppDelegate sharedInstance].editCMND_a forState:UIControlStateNormal];
     }else{
-        if (![AppUtils isNullOrEmpty: curCMND_a]) {
-            [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal placeholderImage:FRONT_EMPTY_IMG];
+        if (![AppUtils isNullOrEmpty: curCMND_a])
+        {
+            imgWaitCMND_a.hidden = FALSE;
+            [imgWaitCMND_a startAnimating];
+            
+            [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
+            {
+                self.imgWaitCMND_a.hidden = TRUE;
+                [self.imgWaitCMND_a stopAnimating];
+            }];
         }else{
             [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
         }
@@ -70,7 +76,14 @@
         [btnCMND_b setImage:[AppDelegate sharedInstance].editCMND_b forState:UIControlStateNormal];
     }else{
         if (![AppUtils isNullOrEmpty: curCMND_b]) {
-            [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+            imgWaitCMND_b.hidden = FALSE;
+            [imgWaitCMND_b startAnimating];
+            
+            [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
+             {
+                 self.imgWaitCMND_b.hidden = TRUE;
+                 [self.imgWaitCMND_b stopAnimating];
+             }];
         }else{
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
         }
@@ -125,7 +138,7 @@
         }
         
         if (uploadData == nil) {
-            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] ERROR: >>>>>>>>>> Can not get data from CMND_a image, continue get data for CMND_b", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from CMND_a image, continue get data for CMND_b", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
             
             [self startUploadPassportBehindPictures];
         }else{
@@ -136,12 +149,12 @@
                 [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] CMND_a was not uploaded successful", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
                             
                             self.linkCMND_a = @"";
                             
                         }else{
-                            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] CMND_a was uploaded successful", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
                             
                             self.linkCMND_a = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
@@ -152,6 +165,7 @@
             });
         }
     }else{
+        self.linkCMND_a = curCMND_a;
         [self startUploadPassportBehindPictures];
     }
 }
@@ -171,7 +185,7 @@
             [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] CMND_b was not uploaded successful", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_b was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
                         
                         self.linkCMND_b = @"";
                         
@@ -183,38 +197,19 @@
             }];
         });
     }else{
+        self.linkCMND_b = curCMND_b;
         [self updateCMNDPhotoForDomain];
     }
 }
 
 - (void)updateCMNDPhotoForDomain {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if ([AppUtils isNullOrEmpty: linkCMND_a] && [AppUtils isNullOrEmpty: linkCMND_b]) {
         [self.view makeToast:@"CMND của bạn chưa được tải thành công. Vui lòng thử lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
-    
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:update_cmnd_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:cusId forKey:@"cus_id"];
-    
-    if (![AppUtils isNullOrEmpty: linkCMND_a]) {
-        [jsonDict setObject:linkCMND_a forKey:@"cmnd_a"];
-    }
-    
-    if (![AppUtils isNullOrEmpty: linkCMND_b]) {
-        [jsonDict setObject:linkCMND_b forKey:@"cmnd_b"];
-    }
-
-    [webService callWebServiceWithLink:update_cmnd_func withParams:jsonDict];
-
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId];
 }
 
 - (void)showActionSheetChooseWithRemove: (BOOL)remove {
@@ -245,6 +240,13 @@
         make.height.mas_equalTo(hBTN);
     }];
     
+    imgWaitCMND_a.backgroundColor = UIColor.whiteColor;
+    imgWaitCMND_a.alpha = 0.5;
+    imgWaitCMND_a.hidden = TRUE;
+    [imgWaitCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.btnCMND_a);
+    }];
+    
     
     [lbCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnCMND_a.mas_bottom);
@@ -262,6 +264,13 @@
         make.left.right.equalTo(self.lbCMND_a);
         make.top.equalTo(self.lbCMND_a.mas_bottom).offset(10.0);
         make.height.mas_equalTo(hBTN);
+    }];
+    
+    imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
+    imgWaitCMND_b.alpha = 0.5;
+    imgWaitCMND_b.hidden = TRUE;
+    [imgWaitCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.btnCMND_b);
     }];
     
     [lbCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -295,7 +304,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -367,15 +376,23 @@
 - (void)removeCurrentPhotos {
     if (type == 1) {
         [AppDelegate sharedInstance].editCMND_a = nil;
-        [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+        if (![AppUtils isNullOrEmpty: curCMND_a]) {
+            [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal placeholderImage:FRONT_EMPTY_IMG];
+        }else{
+            [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+        }
     }else{
         [AppDelegate sharedInstance].editCMND_b = nil;
-        [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        if (![AppUtils isNullOrEmpty: curCMND_b]) {
+            [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+        }else{
+            [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        }
     }
 }
 
 - (void)popupToPreviousView {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
     [self.navigationController popViewControllerAnimated: TRUE];
@@ -383,13 +400,14 @@
 
 #pragma mark - ActionSheet Delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
+    NSString *title = [actionSheet buttonTitleAtIndex: buttonIndex];
+    if ([title isEqualToString: text_capture]) {
         [self requestToAccessYourCamera];
         
-    }else if (buttonIndex == 1){
+    }else if ([title isEqualToString: text_gallery]) {
         [self onSelectPhotosGallery];
         
-    }else if (buttonIndex == 2) {
+    }else if ([title isEqualToString: text_remove]) {
         [self removeCurrentPhotos];
     }
 }
@@ -402,6 +420,8 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
 {
+    [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
+    
     //You can retrieve the actual UIImage
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (type == 1) {
@@ -416,38 +436,23 @@
         [btnCMND_b setImage:[AppDelegate sharedInstance].editCMND_b forState:UIControlStateNormal];
     }
     
-    [picker dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Webservice Delegate
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedUpdatePassportForDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
-    if (![AppUtils checkNetworkAvailable]) {
-        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([link isEqualToString:update_cmnd_func]) {
-        [self.view makeToast:@"Cập nhật CMND không thành công. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    [self.view makeToast:@"Cập nhật CMND không thành công. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)updatePassportForDomainSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
-    if ([link isEqualToString:update_cmnd_func]) {
-        [self.view makeToast:@"CMND đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
-        [self performSelector:@selector(popupToPreviousView) withObject:nil afterDelay:2.0];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [self.view makeToast:@"CMND đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(popupToPreviousView) withObject:nil afterDelay:2.0];
 }
 
 @end

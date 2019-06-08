@@ -98,6 +98,58 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)getDomainInfoWithOrdId: (NSString *)ord_id {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] ord_id = %@", __FUNCTION__, ord_id) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:info_domain_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:ord_id forKey:@"ord_id"];
+    
+    [webService callWebServiceWithLink:info_domain_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] cmnd_a = %@, cmnd_b = %@", __FUNCTION__, cmnd_a, cmnd_b) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:update_cmnd_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:cusId forKey:@"cus_id"];
+    
+    if (![AppUtils isNullOrEmpty: cmnd_a]) {
+        [jsonDict setObject:cmnd_a forKey:@"cmnd_a"];
+    }
+    
+    if (![AppUtils isNullOrEmpty: cmnd_b]) {
+        [jsonDict setObject:cmnd_b forKey:@"cmnd_b"];
+    }
+    
+    [webService callWebServiceWithLink:update_cmnd_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)getDNSValueForDomain: (NSString *)domain
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:get_dns_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    
+    [webService callWebServiceWithLink:get_dns_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -123,6 +175,18 @@
     }else if ([link isEqualToString: domain_pricing_func]) {
         if ([delegate respondsToSelector:@selector(failedGetPricingListWithError:)]) {
             [delegate failedGetPricingListWithError: error];
+        }
+    }else if ([link isEqualToString: info_domain_func]) {
+        if ([delegate respondsToSelector:@selector(failedGetDomainInfoWithError:)]) {
+            [delegate failedGetDomainInfoWithError: error];
+        }
+    }else if ([link isEqualToString: update_cmnd_func]) {
+        if ([delegate respondsToSelector:@selector(failedUpdatePassportForDomainWithError:)]) {
+            [delegate failedUpdatePassportForDomainWithError: error];
+        }
+    }else if ([link isEqualToString: get_dns_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetDNSForDomainWithError:)]) {
+            [delegate failedToGetDNSForDomainWithError: error];
         }
     }
     
@@ -154,6 +218,18 @@
     }else if ([link isEqualToString: domain_pricing_func]) {
         if ([delegate respondsToSelector:@selector(getPricingListSuccessfulWithData:)]) {
             [delegate getPricingListSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: info_domain_func]) {
+        if ([delegate respondsToSelector:@selector(getDomainInfoSuccessfulWithData:)]) {
+            [delegate getDomainInfoSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: update_cmnd_func]) {
+        if ([delegate respondsToSelector:@selector(updatePassportForDomainSuccessful)]) {
+            [delegate updatePassportForDomainSuccessful];
+        }
+    }else if ([link isEqualToString: get_dns_func]) {
+        if ([delegate respondsToSelector:@selector(getDNSForDomainSuccessfulWithData:)]) {
+            [delegate getDNSForDomainSuccessfulWithData: data];
         }
     }
 }

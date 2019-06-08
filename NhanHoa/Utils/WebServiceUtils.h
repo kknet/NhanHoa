@@ -28,6 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedGetPricingListWithError: (NSString *)error;
 - (void)getPricingListSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedGetDomainInfoWithError: (NSString *)error;
+- (void)getDomainInfoSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedUpdatePassportForDomainWithError: (NSString *)error;
+- (void)updatePassportForDomainSuccessful;
+
+- (void)failedToGetDNSForDomainWithError: (NSString *)error;
+- (void)getDNSForDomainSuccessfulWithData: (NSString *)error;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -41,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchDomainWithName: (NSString *)domain type: (int)type;
 - (void)getDomainsWasRegisteredWithType: (int)type;
 - (void)getDomainsPricingList;
+- (void)getDomainInfoWithOrdId: (NSString *)ord_id;
+- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId;
+- (void)getDNSValueForDomain: (NSString *)domain;
 
 @end
 

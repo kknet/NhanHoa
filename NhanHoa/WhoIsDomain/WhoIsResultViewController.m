@@ -11,7 +11,8 @@
 #import "DomainObject.h"
 #import "AccountModel.h"
 
-@interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate> {
+@interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, WebServiceUtilsDelegate>
+{
     NSMutableArray *listResults;
     
     NSMutableArray *listTagView;
@@ -26,7 +27,6 @@
 
 @implementation WhoIsResultViewController
 @synthesize scvContent, listSearch, padding, whoisView, noResultView;
-@synthesize webService;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +41,7 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"WhoIsResultViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     [listSearch removeObject:@""];
     padding = 15.0;
@@ -49,13 +50,7 @@
     listTagView = [[NSMutableArray alloc] init];
     tag = 100;
     
-    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[UIFont fontWithName:RobotoRegular size:15.0]].width + 10.0;
-    
-    //  prepare webservice
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-    }
-    webService.delegate = self;
+    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[AppDelegate sharedInstance].fontRegular].width + 10.0;
     
     //  prepare result array
     if (listResults == nil) {
@@ -81,7 +76,7 @@
             {
                 WhoIsNoResult *view = [scvContent viewWithTag: tag];
                 
-                float textSize = [AppUtils getSizeWithText:view.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+                float textSize = [AppUtils getSizeWithText:view.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
                 float heightView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
                 
                 float originY = 0;
@@ -207,60 +202,6 @@
     return hCell;
 }
 
-- (void)createDemoData {
-    listData = [[NSMutableArray alloc] init];
-    
-    DomainObject *domain = [[DomainObject alloc] init];
-    domain.domain = @"lanhquadi.org";
-    domain.price = @"29000";
-    domain.oldPrice = @"180000";
-    domain.special = FALSE;
-    domain.warning = FALSE;
-    domain.warningContent = @"";
-    domain.isRegistered = TRUE;
-    [listData addObject: domain];
-    
-    DomainObject *domain1 = [[DomainObject alloc] init];
-    domain1.domain = @"lanhquadi.top";
-    domain1.price = @"100000";
-    domain1.oldPrice = @"150000";
-    domain1.special = TRUE;
-    domain1.warning = FALSE;
-    domain1.warningContent = @"";
-    domain1.isRegistered = TRUE;
-    [listData addObject: domain1];
-    
-    DomainObject *domain2 = [[DomainObject alloc] init];
-    domain2.domain = @"lanhquadi.org.vn";
-    domain2.price = @"350000";
-    domain2.oldPrice = @"";
-    domain2.special = NO;
-    domain2.warning = TRUE;
-    domain2.isRegistered = FALSE;
-    domain2.warningContent = @"Tên miền giành cho các tổ chức hoạt động trong lĩnh vực chính trị, văn hoá, xã hội. Cá nhân không thể đăng ký tên miền này!";
-    [listData addObject: domain2];
-    
-    DomainObject *domain3 = [[DomainObject alloc] init];
-    domain3.domain = @"lanhquadi.vn";
-    domain3.price = @"85000";
-    domain3.oldPrice = @"170000";
-    domain3.special = FALSE;
-    domain3.warning = FALSE;
-    domain3.warningContent = @"";
-    domain3.isRegistered = FALSE;
-    [listData addObject: domain3];
-    
-    DomainObject *domain4 = [[DomainObject alloc] init];
-    domain4.domain = @"lanhquadi.net.vn";
-    domain4.price = @"630000";
-    domain4.oldPrice = @"";
-    domain4.special = FALSE;
-    domain4.warning = FALSE;
-    domain4.warningContent = @"";
-    domain4.isRegistered = TRUE;
-    [listData addObject: domain4];
-}
-
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     CGPoint scrollViewOffset = scrollView.contentOffset;
     if (scrollViewOffset.y < 0) {
@@ -288,8 +229,6 @@
         }
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
     }else if (listResults.count == 1) {
-        [self createDemoData];
-        
         NSDictionary *info = [listResults firstObject];
         NSString *errorCode = [info objectForKey:@"errorCode"];
         
@@ -301,8 +240,6 @@
         }
         
     }else{
-        [self createDemoData];
-        
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
         for(id currentObject in toplevelObject){
             if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
@@ -315,13 +252,13 @@
         NSRange range = [content rangeOfString: @"lanhquadi.com"];
         if (range.location != NSNotFound) {
             NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
             noResultView.lbContent.attributedText = attr;
         }else{
             noResultView.lbContent.text = content;
         }
-        float textSize = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+        float textSize = [AppUtils getSizeWithText:content withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
         float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
         [scvContent addSubview: noResultView];
         [noResultView setupUIForView];
@@ -352,7 +289,7 @@
         
         UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
         lbHeader.text = @"Các tên miền liên quan";
-        lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+        lbHeader.font = [AppDelegate sharedInstance].fontMedium;
         lbHeader.textColor = TITLE_COLOR;
         [viewHeader addSubview: lbHeader];
         tbRelatedDomain.tableHeaderView = viewHeader;
@@ -404,7 +341,7 @@
     
     UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
     lbHeader.text = @"Các tên miền liên quan";
-    lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbHeader.font = [AppDelegate sharedInstance].fontMedium;
     lbHeader.textColor = TITLE_COLOR;
     [viewHeader addSubview: lbHeader];
     tbRelatedDomain.tableHeaderView = viewHeader;
@@ -429,7 +366,7 @@
     }
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
-    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[UIFont fontWithName:RobotoRegular size:14.0] heightItem:whoIsView.hLabel maxSize:maxSize];
+    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[AppDelegate sharedInstance].fontRegular heightItem:whoIsView.hLabel maxSize:maxSize];
     
     float originY;
     if (index == 0) {
@@ -469,7 +406,7 @@
     }
     [noResultView showContentOfDomainWithInfo: info];
     
-    float textSize = [AppUtils getSizeWithText:noResultView.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+    float textSize = [AppUtils getSizeWithText:noResultView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
     float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
     [scvContent addSubview: noResultView];
     [noResultView setupUIForView];
@@ -500,7 +437,7 @@
     
     UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
     lbHeader.text = @"Các tên miền liên quan";
-    lbHeader.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbHeader.font = [AppDelegate sharedInstance].fontMedium;
     lbHeader.textColor = TITLE_COLOR;
     [viewHeader addSubview: lbHeader];
     tbRelatedDomain.tableHeaderView = viewHeader;
@@ -520,7 +457,7 @@
     }
     [noView showContentOfDomainWithInfo: info];
     
-    float textSize = [AppUtils getSizeWithText:noView.lbContent.text withFont:[UIFont fontWithName:RobotoRegular size:16.0] andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+    float textSize = [AppUtils getSizeWithText:noView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
     
     float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
     float originY;
@@ -544,49 +481,36 @@
     [listTagView addObject:[NSNumber numberWithInt: tag]];
 }
 
-#pragma mark - Webserice
 - (void)checkWhoIsForListDomains {
     if (listSearch.count > 0) {
         NSString *domain = [listSearch firstObject];
         [listSearch removeObjectAtIndex: 0];
+        [[WebServiceUtils getInstance] searchDomainWithName:domain type:1];
         
-        NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-        [jsonDict setObject:whois_mod forKey:@"mod"];
-        [jsonDict setObject:domain forKey:@"domain"];
-        [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
-        [jsonDict setObject:[NSNumber numberWithInt: 1] forKey:@"type"];
-        [webService callWebServiceWithLink:whois_func withParams:jsonDict];
-        
-        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
     }else{
         [ProgressHUD dismiss];
         [self showDomainList];
     }
 }
 
--(void)failedToCallWebService:(NSString *)link andError:(id)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    if ([link isEqualToString: whois_func]) {
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            [listResults addObject: error];
-        }
-        [self checkWhoIsForListDomains];
+#pragma mark - Webserice
+
+- (void)failedToSearchDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        [listResults addObject: error];
     }
+    [self checkWhoIsForListDomains];
 }
 
--(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if ([link isEqualToString: whois_func]) {
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            [listResults addObject: data];
-        }
-        [self checkWhoIsForListDomains];
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        [listResults addObject: data];
     }
-}
-
--(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [self checkWhoIsForListDomains];
 }
 
 @end

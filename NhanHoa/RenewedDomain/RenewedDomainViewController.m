@@ -356,6 +356,8 @@ typedef enum TypeSelectDomain{
     NSString *cus_id = [domain objectForKey:@"cus_id"];
     
     if (![AppUtils isNullOrEmpty: ord_id] && ![AppUtils isNullOrEmpty: cus_id]) {
+        [WriteLogsUtils writeLogContent:SFM(@"View domain ưith ordId = %@, cusId = %@", ord_id, cus_id) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        
         RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
         domainDetailVC.ordId = ord_id;
         domainDetailVC.cusId = cus_id;

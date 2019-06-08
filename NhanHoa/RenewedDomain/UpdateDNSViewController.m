@@ -10,7 +10,7 @@
 #import "AccountModel.h"
 #import "WebServices.h"
 
-@interface UpdateDNSViewController ()<WebServicesDelegate>{
+@interface UpdateDNSViewController ()<WebServicesDelegate, WebServiceUtilsDelegate>{
     WebServices *webService;
     NSDictionary *dictDNS;
 }
@@ -29,12 +29,13 @@
     [self setupUIForView];
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
-    [self.view addGestureRecognizer: tapOnScreen];
+    [self.view addGestureRecosgnizer: tapOnScreen];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdateDNSViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     if (webService == nil) {
         webService = [[WebServices alloc] init];
@@ -46,7 +47,7 @@
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
-    
+    HERE
     [self getDNSValueForDomain: domain];
 }
 

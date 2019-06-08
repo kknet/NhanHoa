@@ -10,10 +10,8 @@
 #import "RenewDomainCartViewController.h"
 #import "UpdatePassportViewController.h"
 #import "UpdateDNSViewController.h"
-#import "WebServices.h"
 
-@interface RenewDomainDetailViewController ()<WebServicesDelegate> {
-    WebServices *webService;
+@interface RenewDomainDetailViewController ()<WebServiceUtilsDelegate> {
     NSString *CMND_a;
     NSString *CMND_b;
 }
@@ -34,11 +32,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen: @"RenewDomainDetailViewController"];
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
+    [WebServiceUtils getInstance].delegate = self;
     
     [self setEmptyValueForView];
     
@@ -48,16 +42,20 @@
         lbNoData.hidden = FALSE;
         [self.view makeToast:[NSString stringWithFormat:@"ord_id không tồn tại"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         
-        [WriteLogsUtils writeLogContent:@">>>>>>>>>>>> ord_id của tên miền không tồn tại <<<<<<<<<<<<<" toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"%@", @">>>>>>>>>>>> ord_id của tên miền không tồn tại <<<<<<<<<<<<<") toFilePath:[AppDelegate sharedInstance].logFilePath];
     }
 }
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
     [self.navigationController pushViewController:renewCartVC animated:TRUE];
 }
 
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     UpdatePassportViewController *updateVC = [[UpdatePassportViewController alloc] initWithNibName:@"UpdatePassportViewController" bundle:nil];
     updateVC.cusId = cusId;
     updateVC.curCMND_a = CMND_a;
@@ -66,6 +64,8 @@
 }
 
 - (IBAction)btnChangeDNSPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if (![AppUtils isNullOrEmpty: lbTopDomain.text]) {
         UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
         updateDNSVC.domain = lbTopDomain.text;
@@ -80,15 +80,7 @@
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:info_domain_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:ord_id forKey:@"ord_id"];
-    
-    [webService callWebServiceWithLink:info_domain_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, jsonDict] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] getDomainInfoWithOrdId: ord_id];
 }
 
 - (void)processDomainInfoWithData: (NSDictionary *)info {
@@ -117,6 +109,8 @@
     
     
     lbIDValue.text = ordId;
+    
+    lbDomainValue.text = domainName;
     
     NSString *serviceName = [info objectForKey:@"service_name"];
     lbServiceNameValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
@@ -325,22 +319,16 @@
 
 #pragma mark - Webservice delegate
 
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedGetDomainInfoWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)getDomainInfoSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
-    if ([link isEqualToString: info_domain_func]) {
-        [self processDomainInfoWithData: data];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    [ProgressHUD dismiss];
+    
+    [self processDomainInfoWithData: data];
 }
 
 @end
