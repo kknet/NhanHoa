@@ -27,6 +27,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"WhoIsViewController"];
+    
     if (listDomain == nil) {
         listDomain = [[NSMutableArray alloc] init];
     }else{
@@ -36,20 +39,13 @@
     [listDomain addObject:@""];
     [listDomain addObject:@""];
     [listDomain addObject:@""];
-    
-    /*
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification object:nil];
-    */
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
+
 - (IBAction)btnSearchPress:(UIButton *)sender {
     NSMutableArray *result = [[NSMutableArray alloc] initWithArray: listDomain];
     [result removeObject:@""];
@@ -58,6 +54,8 @@
         return;
     }
     
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] list search = %@", __FUNCTION__, @[result]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    sssssss
     WhoIsResultViewController *whoIsResultVC = [[WhoIsResultViewController alloc] init];
     whoIsResultVC.listSearch = result;
     [self.navigationController pushViewController:whoIsResultVC animated:YES];

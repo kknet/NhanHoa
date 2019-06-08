@@ -10,7 +10,6 @@
 #import "RegisterDomainViewController.h"
 #import "WhoIsViewController.h"
 #import "RenewedDomainViewController.h"
-#import "CartViewController.h"
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
@@ -63,7 +62,6 @@
     [self.navigationController setNavigationBarHidden: YES];
     
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
-    
     [self setupUIForView];
     
     //  Show cart item
@@ -104,12 +102,8 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [[AppDelegate sharedInstance] showCartScreenContent];
-    return;
-    
-    CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
-    cartVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController: cartVC animated:YES];
 }
 
 - (void)addBannerImageForView
@@ -140,6 +134,8 @@
 }
 
 - (void)showUserWalletView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
@@ -150,6 +146,7 @@
     
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
+        points = [AppUtils convertStringToCurrencyFormat: points];
         lbRewardsPoints.text = [NSString stringWithFormat:@"%@ điểm", points];
     }else{
         lbRewardsPoints.text = @"0 điểm";
@@ -181,7 +178,10 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     switch (indexPath.row) {
         case eRegisterDomain:{
             RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
@@ -327,7 +327,7 @@
     
     float hTextfield = 34.0;
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
-    tfSearch.font = [UIFont fontWithName:@"HelveticateNeue" size:15.0];
+    tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.layer.cornerRadius = hTextfield/2;
     tfSearch.textColor = BORDER_COLOR;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -398,7 +398,7 @@
         make.right.equalTo(self.viewMainWallet);
     }];
     
-    lbMoney.text = @"1.200.000 VND";
+    lbMoney.text = @"";
     lbMoney.textColor = ORANGE_COLOR;
     lbMoney.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -432,7 +432,7 @@
         make.right.equalTo(self.viewRewards);
     }];
     
-    lbRewardsPoints.text = @"76 điểm";
+    lbRewardsPoints.text = @"";
     lbRewardsPoints.textColor = ORANGE_COLOR;
     lbRewardsPoints.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -445,16 +445,19 @@
 }
 
 - (void)whenTapOnMainWallet {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
     topupVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController: topupVC animated:YES];
 }
 
 - (void)whenTapOnPoints {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
     bonusAccVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController: bonusAccVC animated:YES];
 }
-
 
 @end

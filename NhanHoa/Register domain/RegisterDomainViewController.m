@@ -29,6 +29,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"RegisterDomainViewController"];
+    
     self.title = @"Đăng ký tên miền";
     [self reUpdateLayoutForView];
 }
@@ -47,6 +49,8 @@
 }
 
 - (void)createListDomainPrice {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     listData = [[NSMutableArray alloc] init];
     id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
     if (listPrice != nil && [listPrice isKindOfClass:[NSArray class]]) {
@@ -311,6 +315,9 @@
         [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
+    
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
     searchDomainVC.strSearch = tfSearch.text;
     [self.navigationController pushViewController:searchDomainVC animated:YES];

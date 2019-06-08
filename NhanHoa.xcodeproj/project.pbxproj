@@ -145,6 +145,7 @@
 		5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8FC22A5EEEF00F7DECE /* SendMessageView.xib */; };
 		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
 		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
+		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
 		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
 		564619C622A812B400867B21 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564619C422A812B400867B21 /* PaymentViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
@@ -483,6 +484,8 @@
 		5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateDNSViewController.h; sourceTree = "<group>"; };
 		5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateDNSViewController.m; sourceTree = "<group>"; };
 		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
+		5602A91022AAC113003AE8D9 /* WebServiceUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServiceUtils.h; sourceTree = "<group>"; };
+		5602A91122AAC113003AE8D9 /* WebServiceUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebServiceUtils.m; sourceTree = "<group>"; };
 		564619C222A812B400867B21 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		564619C322A812B400867B21 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		564619C422A812B400867B21 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -841,6 +844,8 @@
 				8430B550227C886F00548480 /* WriteLogsUtils.m */,
 				569A0578229CA74100FD10D8 /* UploadPicture.h */,
 				569A0577229CA74100FD10D8 /* UploadPicture.m */,
+				5602A91022AAC113003AE8D9 /* WebServiceUtils.h */,
+				5602A91122AAC113003AE8D9 /* WebServiceUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1780,6 +1785,7 @@
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,
+				5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */,
 				157A01CB22A7733D00A0B11F /* PECropRectView.m in Sources */,
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
@@ -1973,7 +1979,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

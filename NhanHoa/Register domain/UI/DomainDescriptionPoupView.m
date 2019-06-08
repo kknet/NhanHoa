@@ -35,7 +35,7 @@
         
         lbContent = [[UILabel alloc] init];
         lbContent.numberOfLines = 30;
-        lbContent.font = [UIFont fontWithName:RobotoRegular size:20.0];
+        lbContent.font = [AppDelegate sharedInstance].fontRegular;
         lbContent.textColor = TITLE_COLOR;
         [self addSubview: lbContent];
         [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {

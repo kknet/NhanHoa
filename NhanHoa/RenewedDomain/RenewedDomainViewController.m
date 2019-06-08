@@ -9,7 +9,6 @@
 #import "RenewedDomainViewController.h"
 #import "RenewDomainDetailViewController.h"
 #import "ExpireDomainCell.h"
-#import "WebServices.h"
 #import "AccountModel.h"
 
 typedef enum TypeSelectDomain{
@@ -17,11 +16,11 @@ typedef enum TypeSelectDomain{
     eExpireDomain,
 }TypeSelectDomain;
 
-@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate, WebServicesDelegate>{
+@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate, WebServiceUtilsDelegate>
+{
     NSMutableArray *listAll;
     NSMutableArray *listExpire;
     TypeSelectDomain type;
-    WebServices *webService;
     BOOL gettedAll;
     BOOL gettedExpire;
 }
@@ -42,15 +41,10 @@ typedef enum TypeSelectDomain{
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"RenewedDomainViewController"];
-    
-    type = eAllDomain;
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
+    [WebServiceUtils getInstance].delegate = self;
     
     self.title = @"Tên miền đã đăng ký";
-    
+    type = eAllDomain;
     lbNoData.hidden = TRUE;
     [self getDomainsWasRegisteredWithType: 0];
 }
@@ -75,6 +69,9 @@ typedef enum TypeSelectDomain{
     if (type == eAllDomain) {
         return;
     }
+    
+    [WriteLogsUtils writeLogContent:SFM(@"Choose all domains tab") toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.viewMenu);
         make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
@@ -108,6 +105,9 @@ typedef enum TypeSelectDomain{
     if (type == eExpireDomain) {
         return;
     }
+    
+    [WriteLogsUtils writeLogContent:SFM(@"Choose expire domains tab") toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.viewMenu);
         make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
@@ -137,6 +137,8 @@ typedef enum TypeSelectDomain{
 }
 
 - (IBAction)btnPriceListPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if (priceView == nil) {
         [self addPriceListViewForMainView];
     }
@@ -144,7 +146,7 @@ typedef enum TypeSelectDomain{
     [self reupdateFrameForViewPrice];
     
     if ([AppDelegate sharedInstance].domainsPrice == nil) {
-        [self getPriceListForDomains];
+        [[WebServiceUtils getInstance] getDomainsPricingList];
         [priceView showWaitingView: TRUE];
     }
 }
@@ -228,58 +230,18 @@ typedef enum TypeSelectDomain{
     }];
 }
 
-#pragma mark - Webservice delegate
-
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [ProgressHUD dismiss];
-    
-    if ([link isEqualToString:list_domain_func]) {
-        [self.view makeToast:@"Không thể lấy danh sách tên miền. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        
-    }else if ([link isEqualToString: domain_pricing_func]) {
-        [self.view makeToast:@"Không thể lấy bảng giá tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        
-        [priceView showWaitingView: FALSE];
-    }
-}
-
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [ProgressHUD dismiss];
-    
-    if ([link isEqualToString:list_domain_func]) {
-        if (data != nil && [data isKindOfClass:[NSArray class]]) {
-            [self displayDomainsListWithData: (NSArray *)data];
-        }
-    }else if ([link isEqualToString: domain_pricing_func]) {
-        [self saveDomainPricing: data];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)getPricingListSuccessfulWithData:(NSDictionary *)data {
+    [self saveDomainPricing: data];
 }
 
 - (void)getDomainsWasRegisteredWithType: (int)type
 {
-    //  type = 1: list domain sắp hết hạn
-    //  type = 0: default [all]
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] type = %d", __FUNCTION__, type) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang tải.." Interaction:NO];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:list_domain_mod forKey:@"mod"];
-    [jsonDict setObject:[AccountModel getCusUsernameOfUser] forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
-    
-    [webService callWebServiceWithLink:list_domain_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] getDomainsWasRegisteredWithType: type];
 }
 
 - (void)displayDomainsListWithData: (NSArray *)domains {
@@ -322,14 +284,6 @@ typedef enum TypeSelectDomain{
     }
 }
 
-- (void)getPriceListForDomains {
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:domain_pricing_mod forKey:@"mod"];
-    [webService callWebServiceWithLink:domain_pricing_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-}
-
 - (void)saveDomainPricing: (NSDictionary *)data {
     [priceView showWaitingView: FALSE];
     
@@ -337,6 +291,29 @@ typedef enum TypeSelectDomain{
         [AppDelegate sharedInstance].domainsPrice = [[NSDictionary alloc] initWithDictionary: data];
         [priceView prepareToDisplayData];
     }
+}
+
+#pragma mark - WebServiceUtils delegate
+
+-(void)failedGetDomainsWasRegisteredWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Không thể lấy danh sách tên miền. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+- (void)getDomainsWasRegisteredSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    if (data != nil && [data isKindOfClass:[NSArray class]]) {
+        [self displayDomainsListWithData: (NSArray *)data];
+    }
+}
+
+-(void)failedGetPricingListWithError:(NSString *)error {
+    [self.view makeToast:@"Không thể lấy bảng giá tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [priceView showWaitingView: FALSE];
 }
 
 #pragma mark - UITableview

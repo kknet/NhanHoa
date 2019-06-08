@@ -15,7 +15,7 @@
 #import "WhoisDomainPopupView.h"
 #import "CartModel.h"
 
-@interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
+@interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, WebServiceUtilsDelegate>{
     NSDictionary *firstDomainInfo;
     float hCell;
     float hSmallCell;
@@ -28,7 +28,7 @@
 @synthesize viewHeader, icBack, icCart, lbTitle, lbCount;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
-@synthesize padding, strSearch, webService, listDomains, hTableView;
+@synthesize padding, strSearch, listDomains, hTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,22 +41,18 @@
     [self.navigationController setNavigationBarHidden: TRUE];
     
     [WriteLogsUtils writeForGoToScreen: @"SearchDomainViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     //  show cart
     [[CartModel getInstance] displayCartInfoWithView: lbCount];
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-    }
-    webService.delegate = self;
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
     
     tfSearch.text = strSearch;
     [self hideUIForSearch: TRUE];
-    [self checkCurrentDomain:strSearch type:0];
     
+    [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -69,13 +65,9 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [[AppDelegate sharedInstance] showCartScreenContent];
-    return;
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    CartViewController *cartVC = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
-    [self.navigationController pushViewController: cartVC animated:YES];
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -83,7 +75,7 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [self.view endEditing: TRUE];
     
@@ -97,7 +89,8 @@
     
     strSearch = tfSearch.text;
     [self hideUIForSearch: TRUE];
-    [self checkCurrentDomain:strSearch type:0];
+    
+    [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
 }
 
 - (IBAction)btnChoosePress:(UIButton *)sender {
@@ -169,7 +162,7 @@
         make.height.mas_equalTo(hHeader);
     }];
     
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewHeader.mas_centerX);
         make.top.equalTo(self.viewHeader).offset([UIApplication sharedApplication].statusBarFrame.size.height);
@@ -193,7 +186,7 @@
     
     lbCount.clipsToBounds = TRUE;
     lbCount.layer.cornerRadius = 20.0/2;
-    lbCount.font = [UIFont fontWithName:RobotoRegular size:13.5];
+    lbCount.font = [AppDelegate sharedInstance].fontDesc;
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.icCart.mas_right);
         make.top.equalTo(self.icCart.mas_top);
@@ -217,7 +210,7 @@
         make.height.mas_equalTo(hSearch/2);
     }];
     
-    tfSearch.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    tfSearch.font = [AppDelegate sharedInstance].fontMedium;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
@@ -250,7 +243,8 @@
     lbWWW.backgroundColor = UIColor.clearColor;
     lbWWW.text = @"WWW.";
     lbWWW.textColor = [UIColor colorWithRed:(41/255.0) green:(121/255.0) blue:(216/255.0) alpha:1.0];
-    lbWWW.font = [UIFont fontWithName:RobotoBold size:13.0];
+    float fontSize = [AppDelegate sharedInstance].fontMedium.pointSize;
+    lbWWW.font = [UIFont fontWithName:RobotoMedium size:fontSize-3];
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.tfSearch);
         make.width.mas_equalTo(50);
@@ -272,7 +266,7 @@
     }];
     
     lbSearchContent.numberOfLines = 10;
-    lbSearchContent.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbSearchContent.font = [AppDelegate sharedInstance].fontRegular;
     lbSearchContent.textColor = TITLE_COLOR;
     [lbSearchContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewResult).offset(self.padding);
@@ -290,7 +284,7 @@
         make.height.mas_equalTo(65.0);
     }];
     
-    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:15.0];
+    btnChoose.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     btnChoose.backgroundColor = BLUE_COLOR;
     btnChoose.layer.cornerRadius = 36.0/2;
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -300,8 +294,8 @@
         make.width.mas_equalTo(60.0);
     }];
     
-    lbDomainName.text = @"lanhquadi.com";
-    lbDomainName.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbDomainName.text = @"";
+    lbDomainName.font = [AppDelegate sharedInstance].fontBold;
     lbDomainName.textColor = BLUE_COLOR;
     [lbDomainName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewDomain).offset(self.padding);
@@ -310,7 +304,7 @@
     }];
     
     lbPrice.text = @"29,000đ";
-    lbPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbPrice.font = [AppDelegate sharedInstance].fontMedium;
     lbPrice.textColor = NEW_PRICE_COLOR;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbDomainName);
@@ -318,7 +312,7 @@
     }];
     
     lbOldPrice.text = @"180,000đ";
-    lbOldPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbOldPrice.font = [AppDelegate sharedInstance].fontMedium;
     lbOldPrice.textColor = OLD_PRICE_COLOR;
     [lbOldPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbPrice.mas_right).offset(5.0);
@@ -360,17 +354,6 @@
     }];
 }
 
-- (void)checkCurrentDomain: (NSString *)domain type: (int)type {
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:whois_mod forKey:@"mod"];
-    [jsonDict setObject:domain forKey:@"domain"];
-    [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
-    [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
-    [webService callWebServiceWithLink:whois_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-}
-
 - (void)prepareDataToDisplay {
     NSRange extRange = [strSearch rangeOfString:@"."];
     if (extRange.location == NSNotFound) {
@@ -406,8 +389,8 @@
             NSRange range = [content rangeOfString: firstDomain];
             if (range.location != NSNotFound) {
                 NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
                 lbSearchContent.attributedText = attr;
             }else{
                 lbSearchContent.text = content;
@@ -453,30 +436,20 @@
     return hTableView;
 }
 
-
-#pragma mark - Webservice
--(void)failedToCallWebService:(NSString *)link andError:(id)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+#pragma mark - WebServicesUtilDelegate
+-(void)failedToSearchDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
 }
 
--(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
     
-    if ([link isEqualToString: whois_func]) {
-        [ProgressHUD dismiss];
-
-        if (data != nil && [data isKindOfClass:[NSArray class]]) {
-            listDomains = [[NSMutableArray alloc] initWithArray: (NSArray *)data];
-            [self prepareDataToDisplay];
-        }
+    if (data != nil && [data isKindOfClass:[NSArray class]]) {
+        listDomains = [[NSMutableArray alloc] initWithArray: (NSArray *)data];
+        [self prepareDataToDisplay];
     }
-}
-
--(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [ProgressHUD dismiss];
 }
 
 #pragma mark - UITableview
@@ -507,9 +480,6 @@
             [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
             cell.btnChoose.backgroundColor = BLUE_COLOR;
         }
-        
-//        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
-//        cell.btnChoose.backgroundColor = BLUE_COLOR;
         
         NSString *price = [DomainModel getPriceFromDomainInfo: info];
         if (![AppUtils isNullOrEmpty: price]) {
@@ -579,7 +549,7 @@
 {
     NSString *content = @"Lưu ý: Trong một số trường hợp, các tên miền gắn liền với tên thương hiệu riêng đã bảo hộ hoặc thương hiệu nổi tiếng hoặc các tên miền đang đấu giá, chính sách giá sẽ được căn cứ theo giá thực tế trong hệ thống tại thời điểm đăng ký (không theo CTKM). Khi đó, bộ phận kinh doanh của chúng tôi sẽ thông báo lại Quý khách.";
     
-    float sizeContent = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:20.0] andMaxWidth:(280-30.0)].height;
+    float sizeContent = [AppUtils getSizeWithText:content withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(280-30.0)].height;
     float hPopup = 40.0 + sizeContent + 5.0 + 15.0;
     
     DomainDescriptionPoupView *popupView = [[DomainDescriptionPoupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, (SCREEN_HEIGHT - hPopup)/2, 300, hPopup)];
@@ -594,7 +564,7 @@
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
     
-    float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[UIFont fontWithName:RobotoRegular size:16.0] heightItem:28.0 maxSize:maxSize];
+    float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[AppDelegate sharedInstance].fontRegular heightItem:28.0 maxSize:maxSize];
     float wPopup = (SCREEN_WIDTH-10.0);
     WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(5.0, (SCREEN_HEIGHT - hPopup)/2, wPopup, hPopup)];
     popupView.domain = domain;

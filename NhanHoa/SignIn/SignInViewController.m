@@ -9,12 +9,10 @@
 #import "SignInViewController.h"
 #import "AppTabbarViewController.h"
 #import "RegisterAccountViewController.h"
-#import "WebServices.h"
 #import <CommonCrypto/CommonDigest.h>
 
-@interface SignInViewController ()<WebServicesDelegate, UITextFieldDelegate>{
+@interface SignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate>{
     UIColor *signInColor;
-    WebServices *webService;
 }
 @end
 
@@ -52,11 +50,7 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     [WriteLogsUtils writeForGoToScreen: @"SignInViewController"];
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-    }
-    webService.delegate = self;
+    [WebServiceUtils getInstance].delegate = self;
     
     NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState != nil && ![loginState isEqualToString:@"NO"] && ![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD])
@@ -88,7 +82,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    webService = nil;
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
@@ -120,19 +113,6 @@
     sender.backgroundColor = UIColor.whiteColor;
     [sender setTitleColor:signInColor forState:UIControlStateNormal];
     [self performSelector:@selector(startSignIn) withObject:nil afterDelay:0.1];
-}
-
-- (void)autoSignInWithSavedInformation {
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
-    
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:login_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [webService callWebServiceWithLink:login_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 //  Hiển thị bàn phím
@@ -173,19 +153,22 @@
         return;
     }
     
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
     
     NSString *password = [[tfPassword.text MD5String] lowercaseString];
+    [[WebServiceUtils getInstance] loginWithUsername:tfAccount.text password:password];
+}
+
+- (void)autoSignInWithSavedInformation {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:login_mod forKey:@"mod"];
-    [jsonDict setObject:tfAccount.text forKey:@"username"];
-    [jsonDict setObject:password forKey:@"password"];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
     
-    [webService callWebServiceWithLink:login_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
@@ -389,37 +372,13 @@
     }];
 }
 
-- (void)updateTokenForCustomer {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
-        [self updateTokenValueForUser];
-    }else{
-        [self goToHomeScreen];
-    }
-}
-
-- (void)updateTokenValueForUser {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:update_token_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:[AppDelegate sharedInstance].token forKey:@"token"];
-    
-    [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-}
-
 - (void)processForLoginSuccessful {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState == nil || [loginState isEqualToString:@"NO"])
     {
-        NSString *password = [[tfPassword.text MD5String] lowercaseString];
+        NSString *password = [AppUtils getMD5StringOfString:tfPassword.text];
         
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:login_state];
         [[NSUserDefaults standardUserDefaults] setObject:tfAccount.text forKey:key_login];
@@ -437,47 +396,6 @@
     icClearAcc.hidden = (textfield.text.length > 0)? FALSE : TRUE;
 }
 
-#pragma mark - Webservice delegate
-
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    [ProgressHUD dismiss];
-    
-    if ([link isEqualToString:login_func]) {
-        if (![AppUtils checkNetworkAvailable]) {
-            [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }
-}
-
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if ([link isEqualToString:login_func]) {
-        if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-            [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
-            [self processForLoginSuccessful];
-            
-            [self updateTokenForCustomer];
-        }
-    }else if ([link isEqualToString: update_token_func]) {
-        [ProgressHUD dismiss];
-        [self goToHomeScreen];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if ([link isEqualToString: login_func]) {
-        [ProgressHUD dismiss];
-        
-        if (responeCode != 200) {
-            [self.view makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }
-}
-
 #pragma mark - UITextfield Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == tfAccount) {
@@ -487,6 +405,38 @@
         [self.view endEditing: TRUE];
     }
     return TRUE;
+}
+
+#pragma mark - WebServiceUtilDelegate
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [self processForLoginSuccessful];
+    if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
+        [[WebServiceUtils getInstance] updateTokenWithValue: [AppDelegate sharedInstance].token];
+    }else{
+        [ProgressHUD dismiss];
+        [self goToHomeScreen];
+    }
+}
+
+-(void)failedToUpdateToken {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+-(void)updateTokenSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    [self goToHomeScreen];
 }
 
 @end

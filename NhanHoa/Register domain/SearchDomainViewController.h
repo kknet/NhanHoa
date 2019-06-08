@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WebServices.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SearchDomainViewController : UIViewController<WebServicesDelegate>
+@interface SearchDomainViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
@@ -42,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float padding;
 @property (nonatomic, strong) NSString *strSearch;
 
-@property (nonatomic, strong) WebServices *webService;
 @property (nonatomic, strong) NSMutableArray *listDomains;
 @property (nonatomic, assign) float hTableView;
 
