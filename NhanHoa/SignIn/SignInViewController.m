@@ -163,6 +163,11 @@
 }
 
 - (void)autoSignInWithSavedInformation {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
@@ -430,6 +435,8 @@
 
 -(void)failedToUpdateToken {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self goToHomeScreen];
 }
 
 -(void)updateTokenSuccessful {

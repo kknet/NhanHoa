@@ -11,7 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/PHAsset.h>
 
-@interface AddProfileViewController ()<NewProfileViewDelegate, NewBusinessProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface AddProfileViewController ()<NewProfileViewDelegate, NewBusinessProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebServiceUtilsDelegate>
 {
     int type;
     
@@ -27,13 +27,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Tạo hồ sơ";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen: @"AddProfileViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
-    self.title = @"Tạo hồ sơ";
     type = 1;
     
     [self addPersonalProfileIfNeed];
@@ -51,9 +52,7 @@
     {
         imagePickerController = nil;
         [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
-    }
-    else
-    {
+    }else {
         NSLog(@"New view controller was pushed");
     }
 }
@@ -92,8 +91,6 @@
 }
 
 - (void)addPersonalProfileIfNeed {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if (personalProfile == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewProfileView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
@@ -113,8 +110,6 @@
 }
 
 - (void)addBusinessProfileIfNeed {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if (businessProfile == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewBusinessProfileView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
@@ -134,6 +129,8 @@
 
 #pragma NewProfileView delegate & buniness
 - (void)onSelectBusinessProfile {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if (businessProfile == nil) {
         [self addBusinessProfileIfNeed];
     }
@@ -156,7 +153,7 @@
 - (void)onPassportBehindPress {
     type = 2;
     
-    if (imgBehind == nil) {
+    if ([AppDelegate sharedInstance].editCMND_b == nil) {
         [self showActionSheetChooseWithRemove: FALSE];
     }else{
        [self showActionSheetChooseWithRemove: TRUE];
@@ -166,7 +163,7 @@
 - (void)onPassportFrontPress {
     type = 1;
     
-    if (imgFront == nil) {
+    if ([AppDelegate sharedInstance].editCMND_a == nil) {
         [self showActionSheetChooseWithRemove: FALSE];
     }else{
         [self showActionSheetChooseWithRemove: TRUE];
@@ -176,7 +173,7 @@
 -(void)onBusinessPassportBehindPress {
     type = 2;
     
-    if (imgBehind == nil) {
+    if ([AppDelegate sharedInstance].editCMND_b == nil) {
         [self showActionSheetChooseWithRemove: FALSE];
     }else{
         [self showActionSheetChooseWithRemove: TRUE];
@@ -186,7 +183,7 @@
 -(void)onBusinessPassportFrontPress {
     type = 1;
     
-    if (imgFront == nil) {
+    if ([AppDelegate sharedInstance].editCMND_a == nil) {
         [self showActionSheetChooseWithRemove: FALSE];
     }else{
         [self showActionSheetChooseWithRemove: TRUE];
@@ -249,10 +246,8 @@
 - (void)removeCurrentPhotos {
     if (personalProfile != nil && !personalProfile.hidden) {
         if (type == 1) {
-            imgFront = nil;
             [personalProfile removePassportFrontPhoto];
         }else{
-            imgBehind = nil;
             [personalProfile removePassportBehindPhoto];
         }
     }else{
@@ -267,7 +262,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -292,6 +287,8 @@
 }
 
 - (void)goToCaptureImagePickerView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if (imagePickerController == nil) {
         imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
@@ -303,6 +300,8 @@
 }
 
 - (void)onSelectPhotosGallery {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
     if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -324,6 +323,8 @@
 }
 
 - (void)goToGalleryPhotosView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
     
     if (imagePickerController == nil) {
@@ -344,36 +345,31 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
 {
+    [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
+    
     //You can retrieve the actual UIImage
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     if (personalProfile != nil && !personalProfile.hidden) {
         if (type == 1) {
             NSData *pngData = UIImagePNGRepresentation(image);
-            imgFront = [UIImage imageWithData:pngData];
-            
-            //  imgFront = image;
-            personalProfile.imgFront = imgFront;
-            personalProfile.imgPassportFront.image = imgFront;
+            [AppDelegate sharedInstance].editCMND_a = [UIImage imageWithData:pngData];
+            personalProfile.imgPassportFront.image = [AppDelegate sharedInstance].editCMND_a;
         }else{
             NSData *pngData = UIImagePNGRepresentation(image);
-            imgBehind = [UIImage imageWithData:pngData];
-            
-            personalProfile.imgBehind = imgBehind;
-            personalProfile.imgPassportBehind.image = imgBehind;
+            [AppDelegate sharedInstance].editCMND_b = [UIImage imageWithData:pngData];
+            personalProfile.imgPassportBehind.image = [AppDelegate sharedInstance].editCMND_b;
         }
     }else{
         if (type == 1) {
             NSData *pngData = UIImagePNGRepresentation(image);
-            imgFront = [UIImage imageWithData:pngData];
+            [AppDelegate sharedInstance].editCMND_a = [UIImage imageWithData:pngData];
             
-            businessProfile.imgFront = imgFront;
-            businessProfile.imgPassportFront.image = imgFront;
+            businessProfile.imgPassportFront.image = [AppDelegate sharedInstance].editCMND_a;
         }else{
             NSData *pngData = UIImagePNGRepresentation(image);
-            imgBehind = [UIImage imageWithData:pngData];
+            [AppDelegate sharedInstance].editCMND_b = [UIImage imageWithData:pngData];
             
-            businessProfile.imgBehind = imgBehind;
-            businessProfile.imgPassportBehind.image = imgBehind;
+            businessProfile.imgPassportBehind.image = [AppDelegate sharedInstance].editCMND_b;
         }
     }
     

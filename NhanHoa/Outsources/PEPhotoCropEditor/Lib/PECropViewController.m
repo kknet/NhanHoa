@@ -239,7 +239,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)done:(id)sender
 {
-    UIImage *cropImage = [AppUtils cropImageWithSize:CGSizeMake(500, 500) fromImage:self.cropView.croppedImage];
+    UIImage *cropImage = [AppUtils cropImageWithSize:CGSizeMake(300, 300) fromImage:self.cropView.croppedImage];
     [AppDelegate sharedInstance].dataCrop = UIImageJPEGRepresentation(cropImage, 1);
     [self.navigationController popViewControllerAnimated: YES];
 }

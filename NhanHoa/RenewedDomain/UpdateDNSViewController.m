@@ -8,10 +8,8 @@
 
 #import "UpdateDNSViewController.h"
 #import "AccountModel.h"
-#import "WebServices.h"
 
-@interface UpdateDNSViewController ()<WebServicesDelegate, WebServiceUtilsDelegate>{
-    WebServices *webService;
+@interface UpdateDNSViewController ()<WebServiceUtilsDelegate>{
     NSDictionary *dictDNS;
 }
 
@@ -29,7 +27,7 @@
     [self setupUIForView];
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
-    [self.view addGestureRecosgnizer: tapOnScreen];
+    [self.view addGestureRecognizer: tapOnScreen];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,23 +35,18 @@
     [WriteLogsUtils writeForGoToScreen:@"UpdateDNSViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
     dictDNS = [[NSDictionary alloc] init];
     
     tfDNS1.text = tfDNS2.text = tfDNS3.text = tfDNS4.text = @"";
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
-    HERE
+    
     [self getDNSValueForDomain: domain];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    webService = nil;
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
@@ -78,44 +71,16 @@
     [self changeDNSValueForDomain];
 }
 
-- (void)getDNSValueForDomain: (NSString *)domainValue
+- (void)getDNSValueForDomain: (NSString *)domainName
 {
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:get_dns_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:domainValue forKey:@"domain"];
-    
-    [webService callWebServiceWithLink:get_dns_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domainName = %@", __FUNCTION__, domainName) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] getDNSValueForDomain: domainName];
 }
 
 - (void)changeDNSValueForDomain {
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:change_dns_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:domain forKey:@"domain"];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if (![AppUtils isNullOrEmpty: tfDNS1.text]) {
-        [jsonDict setObject:tfDNS1.text forKey:@"ns1"];
-    }
-    
-    if (![AppUtils isNullOrEmpty: tfDNS2.text]) {
-        [jsonDict setObject:tfDNS2.text forKey:@"ns2"];
-    }
-    
-    if (![AppUtils isNullOrEmpty: tfDNS3.text]) {
-        [jsonDict setObject:tfDNS3.text forKey:@"ns3"];
-    }
-    
-    if (![AppUtils isNullOrEmpty: tfDNS4.text]) {
-        [jsonDict setObject:tfDNS4.text forKey:@"ns4"];
-    }
-    [webService callWebServiceWithLink:change_dns_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] changeDNSForDomain:domain dns1:tfDNS1.text dns2:tfDNS2.text dns3:tfDNS3.text dns4:tfDNS4.text];
 }
 
 - (void)closeKeyboard {
@@ -234,39 +199,41 @@
 
 #pragma mark - Webservice delegate
 
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToGetDNSForDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD dismiss];
-    if ([link isEqualToString: get_dns_func]) {
-        [self.view makeToast:@"Không lấy được giá trị DNS của tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        
-    }else if ([link isEqualToString: change_dns_func]) {
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
-            if (errorCode != nil && [errorCode isEqualToString:@"008"]) {
-                [self.view makeToast:@"Tên miền không được tìm thấy. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-                return;
-            }
-        }
-        [self.view makeToast:@"Cập nhật thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    [self.view makeToast:@"Không lấy được giá trị DNS của tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)getDNSForDomainSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
-    if ([link isEqualToString: get_dns_func]) {
-        [self prepareDataToDisplay: data];
-        
-    }else if ([link isEqualToString: change_dns_func]) {
-        [self.view makeToast:@"Cập nhật DNS thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
-        [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
-    }
+    [self prepareDataToDisplay: data];
 }
 
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToChangeDNSForDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
+        if (errorCode != nil && [errorCode isEqualToString:@"008"]) {
+            [self.view makeToast:@"Tên miền không được tìm thấy. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            return;
+        }
+    }
+    [self.view makeToast:@"Cập nhật thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+-(void)changeDNSForDomainSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    [self.view makeToast:@"Cập nhật DNS thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
 @end

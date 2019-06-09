@@ -160,6 +160,10 @@
 		56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */; };
 		56F0958F229A7B7D00AF381B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0958E229A7B7D00AF381B /* Photos.framework */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
+		56FED7C322AD050F00FAD541 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C122AD050E00FAD541 /* ic_add.png */; };
+		56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C222AD050F00FAD541 /* ic_headset.png */; };
+		56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */; };
+		56FED7D122AD2DAA00FAD541 /* OTPConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7D022AD2DAA00FAD541 /* OTPConfirmView.xib */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
 		840F5DE822770848005BFC57 /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DE622770848005BFC57 /* DomainCell.m */; };
 		840F5DE922770848005BFC57 /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DE722770848005BFC57 /* DomainCell.xib */; };
@@ -505,6 +509,11 @@
 		56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePassportViewController.xib; sourceTree = "<group>"; };
 		56F0958E229A7B7D00AF381B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
+		56FED7C122AD050E00FAD541 /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add.png; sourceTree = "<group>"; };
+		56FED7C222AD050F00FAD541 /* ic_headset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_headset.png; sourceTree = "<group>"; };
+		56FED7CD22AD2D9B00FAD541 /* OTPConfirmView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTPConfirmView.h; sourceTree = "<group>"; };
+		56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTPConfirmView.m; sourceTree = "<group>"; };
+		56FED7D022AD2DAA00FAD541 /* OTPConfirmView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OTPConfirmView.xib; sourceTree = "<group>"; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		840F5DE522770848005BFC57 /* DomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainCell.h; sourceTree = "<group>"; };
 		840F5DE622770848005BFC57 /* DomainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainCell.m; sourceTree = "<group>"; };
@@ -989,6 +998,8 @@
 				56D5761A22A2A9DE00F6ADAD /* tick_green.png */,
 				5600E8F422A5E9FC00F7DECE /* support_call.png */,
 				5600E8F322A5E9FC00F7DECE /* support_message.png */,
+				56FED7C122AD050E00FAD541 /* ic_add.png */,
+				56FED7C222AD050F00FAD541 /* ic_headset.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1250,6 +1261,9 @@
 				845D32CC227967750047B196 /* BusinessProfileView.h */,
 				845D32CD227967750047B196 /* BusinessProfileView.m */,
 				845D32CF2279677E0047B196 /* BusinessProfileView.xib */,
+				56FED7CD22AD2D9B00FAD541 /* OTPConfirmView.h */,
+				56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */,
+				56FED7D022AD2DAA00FAD541 /* OTPConfirmView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1549,6 +1563,7 @@
 				84588AA2228093F000B59E0F /* ic_manager_domain.png in Resources */,
 				157F0C122282966600DCB7D4 /* back_medium.png in Resources */,
 				841966872276016400C14516 /* SuggestDomainCell.xib in Resources */,
+				56FED7C322AD050F00FAD541 /* ic_add.png in Resources */,
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
@@ -1582,6 +1597,7 @@
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
+				56FED7D122AD2DAA00FAD541 /* OTPConfirmView.xib in Resources */,
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */,
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
@@ -1653,6 +1669,7 @@
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */,
+				56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */,
 				849827852285D51900201ED7 /* NewProfileView.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
@@ -1756,6 +1773,7 @@
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
+				56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
@@ -1979,7 +1997,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

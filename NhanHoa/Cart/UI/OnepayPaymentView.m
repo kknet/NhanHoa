@@ -8,9 +8,10 @@
 
 #import "OnepayPaymentView.h"
 #import "CartModel.h"
+#import "AccountModel.h"
 
 @implementation OnepayPaymentView
-@synthesize viewHeader, icBack, lbHeader, wvPayment, typePaymentMethod, delegate, typePayment, topupMoney, icWaiting;
+@synthesize viewHeader, icBack, lbHeader, wvPayment, typePaymentMethod, delegate, typePayment, topupMoney, icWaiting, resultView;
 
 - (IBAction)icBackClick:(UIButton *)sender {
     if ([delegate respondsToSelector:@selector(onBackIconClick)]) {
@@ -60,6 +61,8 @@
     [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.wvPayment);
     }];
+    
+    [self addPaymentResultViewIfNeed];
 }
 
 - (void)showPaymentContentViewWithMoney: (long)money
@@ -72,17 +75,17 @@
     
     NSString *returnURL = return_url;
     
+    NSString *vpc_OrderInfo = [NSString stringWithFormat:@"App_Addfun_%@", [AccountModel getCusIdOfUser]];
+    
+    
     if (typePaymentMethod == ePaymentWithATM && topupMoney > 0) {
         
         //  Thêm 2 số 0 vào amount hiện tại
         NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
         if (![AppUtils isNullOrEmpty: amount]) {
-            NSString *transactionID = [AppUtils generateIDForTransaction];
+            NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
             
-            [[NSUserDefaults standardUserDefaults] setObject:transactionID forKey:@"vpc_MerchTxnRef"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=NAP_TIEN_VAO_VI&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, transactionID, MERCHANT_ID, returnURL];
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, vpc_MerchTxnRef, MERCHANT_ID, vpc_OrderInfo, returnURL];
             
             NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE];
             
@@ -98,7 +101,7 @@
         
     }else if (typePaymentMethod == ePaymentWithVisaMaster && topupMoney > 0) {
         
-        NSString *vpc_MerchTxnRef = [AppUtils generateIDForTransaction];
+        NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
         NSString *lang = @"vn";
         
         //  Thêm 2 số 0 vào amount hiện tại
@@ -106,7 +109,7 @@
         
         if (![AppUtils isNullOrEmpty: amount]) {
             
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=NAP_TIEN_VAO_VI&vpc_ReturnURL=https://api.websudo.xyz/dr.php&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA];
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL];
             
             NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
             
@@ -115,7 +118,7 @@
             NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             //
             returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, @"NAP_TIEN_VAO_VI", returnURL, secureHash];
+            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL, secureHash];
             
             NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment_VISA, params, secureHash];
             [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
@@ -135,12 +138,9 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-    //url = @"https://mtf.onepay.vn/onecomm-pay/http?vpc_AdditionData=970425&vpc_Amount=1500000000&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=201904191555668012.153090&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_TransactionNo=1701694&vpc_TxnResponseCode=0&vpc_Version=2&vpc_SecureHash=898C1DA1E61A34BF0B66494E224D763D04376A52426CBC909E528D328E9704EE";
-    
     if (webView.loading) {
-        icWaiting.hidden = FALSE;
-        [icWaiting startAnimating];
+//        icWaiting.hidden = FALSE;
+//        [icWaiting startAnimating];
         return;
     }
     
@@ -255,8 +255,57 @@
             [self makeToast:@"Giao dịch không thành công!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
             [self showPaymentContentViewWithMoney: topupMoney];
             return;
+        }else if ([vpc_TxnResponseCode isEqualToString: Approved_Code]){
+            [self regetMyAccountInformation];
+            
+            if (resultView != nil) {
+                resultView.hidden = FALSE;
+                [resultView showContentWithInfo: info];
+            }
+            [self makeToast:@"Giao dịch thành công!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
         }
     }
+}
+
+- (void)addPaymentResultViewIfNeed {
+    if (resultView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PaymentResultView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[PaymentResultView class]]) {
+                resultView = (PaymentResultView *) currentObject;
+                break;
+            }
+        }
+        [self addSubview: resultView];
+    }
+    [resultView.icBack addTarget:self
+                          action:@selector(backIconViewResultClick)
+                forControlEvents:UIControlEventTouchUpInside];
+    resultView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [resultView setupUIForView];
+    resultView.hidden = TRUE;
+}
+
+- (void)backIconViewResultClick {
+    if ([delegate respondsToSelector:@selector(onBackIconClick)]) {
+        [delegate onBackIconClick];
+    }
+}
+
+- (void)regetMyAccountInformation {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+#pragma mark - WebServiceUtil Delegate
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 @end

@@ -44,6 +44,11 @@
         return;
     }
     
+    if (![AppUtils validateEmailWithString: tfEmail.text]) {
+        [self.view makeToast:@"Email không đúng định dạng. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+
     if (![tfPassword.text isEqualToString:tfConfirmPass.text]) {
         [self.view makeToast:@"Xác nhận mật khẩu không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;

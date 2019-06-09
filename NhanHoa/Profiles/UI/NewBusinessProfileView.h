@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ChooseCityPopupView.h"
-#import "WebServices.h"
 
 typedef enum {
     eAddNewBusinessProfile,
@@ -26,7 +25,7 @@ typedef enum {
 - (void)onButtonEditPressed;
 @end
 
-@interface NewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ChooseCityPopupViewDelegate, UITextFieldDelegate, WebServicesDelegate>
+@interface NewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ChooseCityPopupViewDelegate, UITextFieldDelegate, WebServiceUtilsDelegate>
 
 @property (nonatomic, strong) id<NewBusinessProfileViewDelegate, NSObject> delegate;
 
@@ -109,14 +108,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *businessCity;
 @property (nonatomic, assign) int gender;
 
-
-@property (nonatomic, strong) UIImage *imgFront;
 @property (nonatomic, strong) NSString *linkFrontPassport;
-
-@property (nonatomic, strong) UIImage *imgBehind;
 @property (nonatomic, strong) NSString *linkBehindPassport;
-
-@property (nonatomic, strong) WebServices *webService;
 
 - (void)removePassportFrontPhoto;
 - (void)removePassportBehindPhoto;

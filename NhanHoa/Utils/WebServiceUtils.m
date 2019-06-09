@@ -150,6 +150,120 @@
     [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)changeDNSForDomain: (NSString *)domain dns1: (NSString *)dns1 dns2: (NSString *)dns2 dns3: (NSString *)dns3 dns4: (NSString *)dns4
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, dn1 = %@, dn2 = %@, dns3 = %@, dns4 = %@", __FUNCTION__, domain, dns1, dns2, dns3, dns4) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:change_dns_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    
+    if (![AppUtils isNullOrEmpty: dns1]) {
+        [jsonDict setObject:dns1 forKey:@"ns1"];
+    }
+    
+    if (![AppUtils isNullOrEmpty: dns2]) {
+        [jsonDict setObject:dns2 forKey:@"ns2"];
+    }
+    
+    if (![AppUtils isNullOrEmpty: dns3]) {
+        [jsonDict setObject:dns3 forKey:@"ns3"];
+    }
+    
+    if (![AppUtils isNullOrEmpty: dns4]) {
+        [jsonDict setObject:dns4 forKey:@"ns4"];
+    }
+    [webService callWebServiceWithLink:change_dns_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)getListProfilesForAccount: (NSString *)username {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@", __FUNCTION__, username) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:get_profile_mod forKey:@"mod"];
+    [jsonDict setObject:username forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)addProfileWithContent: (NSDictionary *)data
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [webService callWebServiceWithLink:add_contact_func withParams:data];
+}
+
+- (void)editProfileWithContent: (NSDictionary *)data
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [webService callWebServiceWithLink:edit_contact_func withParams:data];
+}
+
+-(void)sendMessageWithEmail:(NSString *)email content:(NSString *)content
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:question_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:email forKey:@"email"];
+    [jsonDict setObject:content forKey:@"content"];
+    [webService callWebServiceWithLink:send_question_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)updatePhotoForCustomerWithURL: (NSString *)url
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:profile_photo_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:url forKey:@"photo"];
+    
+    [webService callWebServiceWithLink:profile_photo_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] currentPass = %@, newPass = %@", __FUNCTION__, currentPass, newPass) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:change_password_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:currentPass forKey:@"old_password"];
+    [jsonDict setObject:newPass forKey:@"new_password"];
+    [jsonDict setObject:newPass forKey:@"re_new_password"];
+    [webService callWebServiceWithLink:change_pass_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)getHashKeyWithHash: (NSString *)hash {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] hash = %@", __FUNCTION__, hash) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:hash_key_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:hash forKey:@"hash"];
+    [webService callWebServiceWithLink:hash_key_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -187,6 +301,38 @@
     }else if ([link isEqualToString: get_dns_func]) {
         if ([delegate respondsToSelector:@selector(failedToGetDNSForDomainWithError:)]) {
             [delegate failedToGetDNSForDomainWithError: error];
+        }
+    }else if ([link isEqualToString: change_dns_func]) {
+        if ([delegate respondsToSelector:@selector(failedToChangeDNSForDomainWithError:)]) {
+            [delegate failedToChangeDNSForDomainWithError: error];
+        }
+    }else if ([link isEqualToString: get_profile_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetProfilesForAccount:)]) {
+            [delegate failedToGetProfilesForAccount: error];
+        }
+    }else if ([link isEqualToString: add_contact_func]) {
+        if ([delegate respondsToSelector:@selector(failedToAddProfileWithError:)]) {
+            [delegate failedToAddProfileWithError: error];
+        }
+    }else if ([link isEqualToString: edit_contact_func]) {
+        if ([delegate respondsToSelector:@selector(failedToEditProfileWithError:)]) {
+            [delegate failedToEditProfileWithError: error];
+        }
+    }else if ([link isEqualToString: send_question_func]) {
+        if ([delegate respondsToSelector:@selector(failedToSendMessage:)]) {
+            [delegate failedToSendMessage: error];
+        }
+    }else if ([link isEqualToString: profile_photo_func]) {
+        if ([delegate respondsToSelector:@selector(failedToUpdateAvatarWithError:)]) {
+            [delegate failedToUpdateAvatarWithError: error];
+        }
+    }else if ([link isEqualToString: change_pass_func]) {
+        if ([delegate respondsToSelector:@selector(failedToChangePasswordWithError:)]) {
+            [delegate failedToChangePasswordWithError: error];
+        }
+    }else if ([link isEqualToString: hash_key_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetHashKeyWithError:)]) {
+            [delegate failedToGetHashKeyWithError: error];
         }
     }
     
@@ -230,6 +376,38 @@
     }else if ([link isEqualToString: get_dns_func]) {
         if ([delegate respondsToSelector:@selector(getDNSForDomainSuccessfulWithData:)]) {
             [delegate getDNSForDomainSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: change_dns_func]) {
+        if ([delegate respondsToSelector:@selector(changeDNSForDomainSuccessful)]) {
+            [delegate changeDNSForDomainSuccessful];
+        }
+    }else if ([link isEqualToString: get_profile_func]) {
+        if ([delegate respondsToSelector:@selector(getProfilesForAccountSuccessfulWithData:)]) {
+            [delegate getProfilesForAccountSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: add_contact_func]) {
+        if ([delegate respondsToSelector:@selector(addProfileSuccessful)]) {
+            [delegate addProfileSuccessful];
+        }
+    }else if ([link isEqualToString: edit_contact_func]) {
+        if ([delegate respondsToSelector:@selector(editProfileSuccessful)]) {
+            [delegate editProfileSuccessful];
+        }
+    }else if ([link isEqualToString: send_question_func]) {
+        if ([delegate respondsToSelector:@selector(sendMessageToUserSuccessful)]) {
+            [delegate sendMessageToUserSuccessful];
+        }
+    }else if ([link isEqualToString: profile_photo_func]) {
+        if ([delegate respondsToSelector:@selector(updateAvatarForProfileSuccessful)]) {
+            [delegate updateAvatarForProfileSuccessful];
+        }
+    }else if ([link isEqualToString: change_pass_func]) {
+        if ([delegate respondsToSelector:@selector(changePasswordSuccessful)]) {
+            [delegate changePasswordSuccessful];
+        }
+    }else if ([link isEqualToString: hash_key_func]) {
+        if ([delegate respondsToSelector:@selector(getHashKeySuccessfulWithData:)]) {
+            [delegate getHashKeySuccessfulWithData: data];
         }
     }
 }

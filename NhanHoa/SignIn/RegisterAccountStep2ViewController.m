@@ -11,11 +11,14 @@
 #import "BusinessProfileView.h"
 #import "AccountModel.h"
 #import "WebServices.h"
+#import "OTPConfirmView.h"
 #import <CommonCrypto/CommonDigest.h>
 
-@interface RegisterAccountStep2ViewController ()<UIScrollViewDelegate, PersonalProfileViewDelegate, BusinessProfileViewDelegate, WebServicesDelegate>{
+@interface RegisterAccountStep2ViewController ()<UIScrollViewDelegate, PersonalProfileViewDelegate, BusinessProfileViewDelegate, WebServicesDelegate, OTPConfirmViewDelegate>
+{
     PersonalProfileView *personalProfile;
     BusinessProfileView *businessProfile;
+    OTPConfirmView *otpView;
     WebServices *webService;
 }
 @end
@@ -52,6 +55,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    [WriteLogsUtils writeForGoToScreen:@"RegisterAccountStep2ViewController"];
+    [self addOTPViewIfNeed];
     
     if (webService == nil) {
         webService = [[WebServices alloc] init];
@@ -226,7 +232,7 @@
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)readyToRegisterBusinessAccount:(NSDictionary *)info {
@@ -245,7 +251,7 @@
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)afterRegisterAccountSuccess {
@@ -257,31 +263,37 @@
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, error = %@", __FUNCTION__, link, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
     if ([link isEqualToString:register_account_func]) {
-        
+         NSString *errorCode = [AppUtils getErrorCodeFromData: error];
+        if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString:@"001"]) {
+            [self.view makeToast:@"Tài khoản email này đã được đăng ký" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }else{
+            [self.view makeToast:@"Thất bại. Đã có lỗi xảy ra." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+    }else if ([link isEqualToString: check_otp_func]) {
+        [self.view makeToast:@"Không thể kiếm tra mã xác nhận lúc này." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, data = %@", __FUNCTION__, link, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
     if ([link isEqualToString:register_account_func]) {
+        [self showConfirmOTPView];
+        
+    }else if ([link isEqualToString: check_otp_func]) {
         [self.view makeToast:@"Tài khoản của bạn đã được đăng ký thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
         [self performSelector:@selector(afterRegisterAccountSuccess) withObject:nil afterDelay:2.0];
     }
 }
 
 - (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, responeCode = %d", __FUNCTION__, link, responeCode) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
-    
-    if ([link isEqualToString: register_account_func]) {
-        
-    }
 }
 
 #pragma mark - ProfileView Delegate
@@ -303,9 +315,50 @@
     }
     personalProfile.hidden = FALSE;
     businessProfile.hidden = TRUE;
-    
+}
+
+- (void)addOTPViewIfNeed {
+    if (otpView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OTPConfirmView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OTPConfirmView class]]) {
+                otpView = (OTPConfirmView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: otpView];
+        otpView.backgroundColor = BORDER_COLOR;
+    }
+    [otpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    [otpView setupUIForView];
+    otpView.delegate = self;
+    otpView.hidden = FALSE;
+}
+
+- (void)showConfirmOTPView {
+    otpView.hidden = FALSE;
+    [self.navigationItem setHidesBackButton: TRUE];
+}
+
+-(void)onResendOTPPress {
     
 }
 
+-(void)confirmOTPWithCode:(NSString *)code
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] code = %@", __FUNCTION__, code) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:check_otp_mod forKey:@"mod"];
+    [jsonDict setObject:email forKey:@"username"];
+    [jsonDict setObject:[AppUtils getMD5StringOfString:password] forKey:@"password"];
+    [jsonDict setObject:code forKey:@"code"];
+    
+    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
 
 @end

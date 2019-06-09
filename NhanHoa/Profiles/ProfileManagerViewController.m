@@ -11,10 +11,8 @@
 #import "AddProfileViewController.h"
 #import "ProfileManagerCell.h"
 #import "AccountModel.h"
-#import "WebServices.h"
 
-@interface ProfileManagerViewController ()<UITableViewDelegate, UITableViewDataSource, WebServicesDelegate>{
-    WebServices *webService;
+@interface ProfileManagerViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
     NSMutableArray *listProfiles;
 }
 
@@ -29,11 +27,6 @@
     self.title = @"Danh sách hồ sơ";
     [self setupUIForView];
     
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
-    
     [AppDelegate sharedInstance].needReloadListProfile = FALSE;
     [self getListProfilesForAccount];
 }
@@ -42,6 +35,7 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"ProfileManagerViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     [self addRightBarButtonForNavigationBar];
     if ([AppDelegate sharedInstance].needReloadListProfile) {
@@ -76,6 +70,8 @@
 }
 
 - (void)addNewProfile {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     AddProfileViewController *addProfileVC = [[AddProfileViewController alloc] initWithNibName:@"AddProfileViewController" bundle:nil];
     [self.navigationController pushViewController:addProfileVC animated:TRUE];
 }
@@ -98,22 +94,15 @@
 }
 
 - (void)getListProfilesForAccount {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:get_profile_mod forKey:@"mod"];
-    [jsonDict setObject:[AccountModel getCusUsernameOfUser] forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    
-    [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] getListProfilesForAccount:[AccountModel getCusUsernameOfUser]];
 }
 
 - (void)displayInformationWithData: (id)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] data = %@", __FUNCTION__, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if (listProfiles == nil) {
         listProfiles = [[NSMutableArray alloc] init];
     }
@@ -136,9 +125,9 @@
 }
 
 #pragma mark - Webservice delegate
-
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToGetProfilesForAccount:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD dismiss];
     
     lbNoData.text = @"Đã có lỗi xảy ra. Vui lòng thử lại!";
@@ -146,25 +135,11 @@
     tbProfiles.hidden = TRUE;
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)getProfilesForAccountSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
-    if ([link isEqualToString:get_profile_func]) {
-        [self displayInformationWithData: data];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [ProgressHUD dismiss];
-    
-    if ([link isEqualToString: get_profile_func]) {
-        if (responeCode != 200) {
-            [self.view makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }
+    [self displayInformationWithData: data];
 }
 
 #pragma mark - UITableview

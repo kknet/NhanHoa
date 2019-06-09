@@ -10,7 +10,7 @@
 #import "PaymentViewController.h"
 #import "AccountModel.h"
 
-@interface TopupViewController (){
+@interface TopupViewController ()<WebServiceUtilsDelegate>{
     UIColor *unselectedColor;
     long topupMoney;
 }
@@ -24,12 +24,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Nạp tiền vào tài khoản";
     [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    self.title = @"Nạp tiền vào tài khoản";
+    [WriteLogsUtils writeForGoToScreen:@"TopupViewController"];
+    
+    topupMoney = 0;
     
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
@@ -39,6 +42,20 @@
         lbMoney.text = @"0 VNĐ";
     }
     tfMoney.text = @"";
+    
+    btn500K.backgroundColor = btn1000K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
+    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    if ([self isMovingFromParentViewController]) {
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] clear hash_key", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        
+        [AppDelegate sharedInstance].hashKey = @"";
+    }
 }
 
 - (IBAction)btn500KPress:(UIButton *)sender {
@@ -78,6 +95,11 @@
 }
 
 - (IBAction)btnTopupPress:(UIButton *)sender {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     //  check topup money
     NSString *strMoney = tfMoney.text;
     strMoney = [strMoney stringByReplacingOccurrencesOfString:@"." withString:@""];
@@ -87,6 +109,7 @@
         [self.view makeToast:@"Số tiền bạn muốn nạp không đúng định dạng. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
+    
     if (![AppUtils isNullOrEmpty: strMoney] && ![strMoney isEqualToString:@"0"]) {
         topupMoney = [strMoney longLongValue];
     }
@@ -96,9 +119,20 @@
         return;
     }
     
-    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
-    paymentVC.money = topupMoney;
-    [self.navigationController pushViewController:paymentVC animated:TRUE];
+    //  get hash_key
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+    
+    int curUnixTime = (int)[[NSDate date] timeIntervalSince1970];
+    NSString *total = [NSString stringWithFormat:@"%@%d", PASSWORD, curUnixTime];
+    [AppDelegate sharedInstance].hashKey = [AppUtils getMD5StringOfString: total];
+    
+    if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].hashKey]) {
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] getHashKeyWithHash: [AppDelegate sharedInstance].hashKey];
+    }else{
+        [self.view makeToast:@"Không thể lấy được chuỗi hash để giao dịch ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
 - (void)closeKeyboard {
@@ -280,6 +314,29 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark - WebServiceUtil Delegate
+-(void)failedToGetHashKeyWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    
+    [self.view makeToast:@"Không thể lấy hash_key. Vui lòng kiểm tra kết nối internet của bạn và thử lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [AppDelegate sharedInstance].hashKey = @"";
+}
+
+-(void)getHashKeySuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self goToPaymentView];
+}
+
+- (void)goToPaymentView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+    paymentVC.money = topupMoney;
+    [self.navigationController pushViewController:paymentVC animated:TRUE];
 }
 
 @end

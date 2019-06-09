@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PaymentResultView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onBackIconClick;
 @end
 
-@interface OnepayPaymentView : UIView<UIWebViewDelegate>
+@interface OnepayPaymentView : UIView<UIWebViewDelegate, WebServiceUtilsDelegate>
 @property (nonatomic, strong) id<NSObject, OnepayPaymentViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSString *typePayment;
 @property (nonatomic, assign) long topupMoney;
 
+@property (nonatomic, strong) PaymentResultView *resultView;
 
 @end
 

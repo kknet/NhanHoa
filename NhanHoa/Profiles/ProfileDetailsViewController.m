@@ -21,14 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Chi tiết hồ sơ";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"ProfileDetailsViewController"];
-    
-    self.title = @"Chi tiết hồ sơ";
     
     NSString *type = [profileInfo objectForKey:@"cus_own_type"];
     if (type != nil && [type isKindOfClass:[NSString class]]) {

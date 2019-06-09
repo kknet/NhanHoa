@@ -35,7 +35,31 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updatePassportForDomainSuccessful;
 
 - (void)failedToGetDNSForDomainWithError: (NSString *)error;
-- (void)getDNSForDomainSuccessfulWithData: (NSString *)error;
+- (void)getDNSForDomainSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToChangeDNSForDomainWithError: (NSString *)error;
+- (void)changeDNSForDomainSuccessful;
+
+- (void)failedToGetProfilesForAccount: (NSString *)error;
+- (void)getProfilesForAccountSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToAddProfileWithError: (NSString *)error;
+- (void)addProfileSuccessful;
+
+- (void)failedToEditProfileWithError: (NSString *)error;
+- (void)editProfileSuccessful;
+
+- (void)failedToSendMessage: (NSString *)error;
+- (void)sendMessageToUserSuccessful;
+
+- (void)failedToUpdateAvatarWithError: (NSString *)error;
+- (void)updateAvatarForProfileSuccessful;
+
+- (void)failedToChangePasswordWithError: (NSString *)error;
+- (void)changePasswordSuccessful;
+
+- (void)failedToGetHashKeyWithError: (NSString *)error;
+- (void)getHashKeySuccessfulWithData: (NSDictionary *)data;
 
 @end
 
@@ -53,6 +77,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id;
 - (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId;
 - (void)getDNSValueForDomain: (NSString *)domain;
+- (void)changeDNSForDomain: (NSString *)domain dns1: (NSString *)dns1 dns2: (NSString *)dns2 dns3: (NSString *)dns3 dns4: (NSString *)dns4;
+- (void)getListProfilesForAccount: (NSString *)username;
+- (void)addProfileWithContent: (NSDictionary *)data;
+- (void)editProfileWithContent: (NSDictionary *)data;
+- (void)sendMessageWithEmail:(NSString *)email content:(NSString *)content;
+- (void)updatePhotoForCustomerWithURL: (NSString *)url;
+- (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass;
+- (void)getHashKeyWithHash: (NSString *)hash;
 
 @end
 

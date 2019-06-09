@@ -14,7 +14,7 @@
 
 @synthesize scvContent, lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, tfAddress, lbAddress, viewPassport, lbPassportTitle, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, imgPassport, btnCancel, btnSave, btnBOD, btnEdit;
 
-@synthesize padding, hLabel, mTop, delegate, businessCity, gender, datePicker, toolBar, popupChooseCity, imgFront, linkFrontPassport, imgBehind, linkBehindPassport, webService, mode;
+@synthesize padding, hLabel, mTop, delegate, businessCity, gender, datePicker, toolBar, popupChooseCity, linkFrontPassport, linkBehindPassport, mode;
 
 - (void)setupUIForViewForAddProfile: (BOOL)isAddNew update: (BOOL)isUpdate{
     padding = 15.0;
@@ -512,7 +512,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Hồ sơ đang được cập nhật.\nVui lòng chờ trong giây lát" Interaction:NO];
     
-    if (imgFront != nil || imgBehind != nil) {
+    if ([AppDelegate sharedInstance].editCMND_a != nil || [AppDelegate sharedInstance].editCMND_b != nil) {
         [self startUploadPassportPictures];
     }else{
         linkFrontPassport = @"";
@@ -750,19 +750,19 @@
 }
 
 - (void)removePassportFrontPhoto {
-    imgFront = nil;
+    [AppDelegate sharedInstance].editCMND_a = nil;
     imgPassportFront.image = FRONT_EMPTY_IMG;
 }
 
 - (void)removePassportBehindPhoto {
-    imgBehind = nil;
+    [AppDelegate sharedInstance].editCMND_b = nil;
     imgPassportBehind.image = FRONT_EMPTY_IMG;
 }
 
 - (void)startUploadPassportPictures {
-    if (imgFront != nil) {
-        imgFront = [AppUtils resizeImage: imgFront];
-        NSData *uploadData = UIImagePNGRepresentation(imgFront);
+    if ([AppDelegate sharedInstance].editCMND_a != nil) {
+        [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];
+        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_a);
         
         NSString *imageName = [NSString stringWithFormat:@"%@_front_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
@@ -770,13 +770,13 @@
             UploadPicture *session = [[UploadPicture alloc] init];
             [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Can not upload front passport", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-                        [self makeToast:@"Ảnh CMND mặt trước của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
+                    {
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload front passport", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
                         
                         self.linkFrontPassport = @"";
                     }else{
-                        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture) toFilePath:[AppDelegate sharedInstance].logFilePath];
                         
                         self.linkFrontPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
@@ -795,9 +795,9 @@
 }
 
 - (void)startUploadPassportBehindPictures {
-    if (imgBehind != nil) {
-        imgBehind = [AppUtils resizeImage: imgBehind];
-        NSData *uploadData = UIImagePNGRepresentation(imgBehind);
+    if ([AppDelegate sharedInstance].editCMND_b != nil) {
+        [AppDelegate sharedInstance].editCMND_b = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_b];
+        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_b);
         
         NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
         
@@ -805,11 +805,15 @@
             UploadPicture *session = [[UploadPicture alloc] init];
             [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                        [self makeToast:@"Ảnh CMND mặt sau của bạn chưa được tải thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
+                    {
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload behind passport", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        
                         self.linkBehindPassport = @"";
                         
                     }else{
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload behind passport with link: %@", __FUNCTION__, uploadSession.namePicture) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        
                         self.linkBehindPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
                     [self startAddProfileForBusiness];
@@ -851,14 +855,10 @@
     [info setObject:linkFrontPassport forKey:@"cmnd_a"];
     [info setObject:linkBehindPassport forKey:@"cmnd_b"];
     
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
-    
     if (mode == eAddNewBusinessProfile) {
         [info setObject:add_contact_mod forKey:@"mod"];
-        [webService callWebServiceWithLink:add_contact_func withParams:info];
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] addProfileWithContent: info];
         
     }else if (mode == eEditBusinessProfile) {
         [info setObject:edit_contact_mod forKey:@"mod"];
@@ -866,13 +866,13 @@
             NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
             [info setObject:cus_id forKey:@"contact_id"];
             
+            [WebServiceUtils getInstance].delegate = self;
+            [[WebServiceUtils getInstance] editProfileWithContent: info];
+            
         }else{
-            [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] Contact_id not exitst in profile info", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
         }
-        
-        [webService callWebServiceWithLink:edit_contact_func withParams:info];
     }
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 #pragma mark - ChooseCityPopupView
@@ -932,37 +932,29 @@
 }
 
 #pragma mark - Webservice Delegate
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
+-(void)failedToAddProfileWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
-    if (![AppUtils checkNetworkAvailable]) {
-        [self makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([link isEqualToString:add_contact_func]) {
-        [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        
-    }else if ([link isEqualToString: edit_contact_func]) {
-        [self makeToast:@"Cập nhật thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
+-(void)addProfileSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
-    if ([link isEqualToString:add_contact_func]) {
-        [self profileWasCreatedSuccessful];
-        
-    }else if ([link isEqualToString:edit_contact_func]) {
-        [self profileWasUpdatedSuccessful];
-    }
+    [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
+    [self profileWasCreatedSuccessful];
 }
 
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToEditProfileWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self makeToast:@"Cập nhật thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+-(void)editProfileSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self profileWasUpdatedSuccessful];
 }
 
 - (void)profileWasCreatedSuccessful {

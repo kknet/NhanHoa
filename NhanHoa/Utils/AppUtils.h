@@ -44,5 +44,8 @@
 + (NSString *)getBuildDate;
 + (void) createDirectoryAndSubDirectory:(NSString *)directory;
 + (void) createDirectory:(NSString*)directory;
++ (NSString *)getCurrentDateTimeNotHaveSeconds;
++ (BOOL)validateEmailWithString:(NSString*)email;
++ (NSString *)getErrorCodeFromData: (id)data;
 
 @end

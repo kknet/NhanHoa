@@ -98,7 +98,7 @@
 #define link_support            @"https://tongdai.vfone.vn/callnew.php"
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
-#define return_url              @"https://api.websudo.xyz/dr.php"
+#define return_url              @"https://nhanhoa.com/app-awk/onepay.php"
 #define link_api                @"https://nhanhoa.com/app-awk"
 #define login_func              @"Login"
 #define whois_func              @"Whois"
@@ -117,6 +117,8 @@
 #define edit_profile_func       @"EditProfile"
 #define profile_photo_func      @"ProfilePhoto"
 #define update_token_func       @"UpdateToken"
+#define hash_key_func           @"HashKey"
+#define check_otp_func          @"CheckOTP"
 
 
 #define login_mod               @"login"
@@ -136,6 +138,9 @@
 #define edit_profile_mod        @"edit_profile"
 #define profile_photo_mod       @"profile_photo"
 #define update_token_mod        @"update_token"
+#define hash_key_mod            @"hash_key"
+#define check_otp_mod           @"check_otp"
+
 
 #define logsFolderName      @"LogFiles"
 #define login_state         @"login_state"

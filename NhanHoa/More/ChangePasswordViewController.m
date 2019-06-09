@@ -9,11 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "SignInViewController.h"
 
-#import "WebServices.h"
-
-@interface ChangePasswordViewController ()<WebServicesDelegate, UITextFieldDelegate> {
-    WebServices *webService;
-}
+@interface ChangePasswordViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate>
 @end
 
 @implementation ChangePasswordViewController
@@ -23,13 +19,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
+    self.title = @"Đổi mật khẩu";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [WriteLogsUtils writeForGoToScreen:@"ChangePasswordViewController"];
-    
     [super viewWillAppear: animated];
-    self.title = @"Đổi mật khẩu";
+    
+    [WriteLogsUtils writeForGoToScreen:@"ChangePasswordViewController"];
+    [WebServiceUtils getInstance].delegate = self;
 }
 
 - (void)setupUIForView {
@@ -179,25 +176,13 @@
         return;
     }
     
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
     
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
-    
     NSString *newPass = [AppUtils getMD5StringOfString: tfNewPass.text];
-    
-    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:change_password_mod forKey:@"mod"];
-    [info setObject:USERNAME forKey:@"username"];
-    [info setObject:PASSWORD forKey:@"old_password"];
-    [info setObject:newPass forKey:@"new_password"];
-    [info setObject:newPass forKey:@"re_new_password"];
-    [webService callWebServiceWithLink:change_pass_func withParams:info];
- 
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] info = %@", __FUNCTION__, @[info]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] changePasswordWithCurrentPass:PASSWORD newPass:newPass];
 }
 
 - (IBAction)icShowConfirmPassPress:(UIButton *)sender {
@@ -242,32 +227,19 @@
 
 #pragma mark - Webservice delegate
 
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToChangePasswordWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if ([link isEqualToString:change_pass_func]) {
-        [ProgressHUD dismiss];
-        
-        if (![AppUtils checkNetworkAvailable]) {
-            [self.view makeToast:no_internet duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].errorStyle];
-        }else{
-            [self.view makeToast:@"Cập nhật mật khẩu thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }
-}
-
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
-    
-    if ([link isEqualToString:change_pass_func]) {
-        [self.view makeToast:@"Mật khẩu đã được cập nhật thành công. Vui lòng đăng nhập lại với mật khẩu bạn vừa cập nhật." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
-        [self performSelector:@selector(startLogoutAfterUpdatePassword) withObject:nil afterDelay:3.0];
-    }
+    [self.view makeToast:@"Cập nhật mật khẩu thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)changePasswordSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Mật khẩu đã được cập nhật thành công. Vui lòng đăng nhập lại với mật khẩu bạn vừa cập nhật." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(startLogoutAfterUpdatePassword) withObject:nil afterDelay:3.0];
 }
 
 @end

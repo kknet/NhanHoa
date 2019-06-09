@@ -133,11 +133,18 @@
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
+-(void)onBackIconResultViewClick {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
 - (void)userClickCancelPayment {
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
 - (void)paymentResultWithInfo:(NSDictionary *)info {
+    //  reset hashkey
+    [AppDelegate sharedInstance].hashKey = @"";
+    
     NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
     if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
         if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {

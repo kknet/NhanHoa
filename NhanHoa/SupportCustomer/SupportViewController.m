@@ -7,10 +7,8 @@
 //
 
 #import "SupportViewController.h"
-#import "WebServices.h"
-@interface SupportViewController ()<WebServicesDelegate>{
-    WebServices *webService;
-}
+
+@interface SupportViewController ()<WebServiceUtilsDelegate>
 @end
 
 @implementation SupportViewController
@@ -27,17 +25,12 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen:@"SupportViewController"];
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
+    [WebServiceUtils getInstance].delegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     sendMsgView = nil;
-    webService = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,6 +39,8 @@
 }
 
 - (IBAction)btnSendMsgPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if (sendMsgView == nil) {
         [self addSendMessageViewForMainView];
     }
@@ -56,6 +51,8 @@
 }
 
 - (IBAction)btnCallPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
 
@@ -122,43 +119,29 @@
 }
 
 -(void)startToSendMessageWithEmail:(NSString *)email content:(NSString *)content {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang gửi tin nhắn..." Interaction:NO];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:question_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:email forKey:@"email"];
-    [jsonDict setObject:content forKey:@"content"];
-    
-    [webService callWebServiceWithLink:send_question_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] sendMessageWithEmail:email content:content];
 }
 
 #pragma mark - Webservice delegate
 
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToSendMessage:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
-    if ([link isEqualToString: send_question_func]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    [[AppDelegate sharedInstance].window makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)sendMessageToUserSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
     
-    if ([link isEqualToString: send_question_func]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Tin nhắn của bạn đã được gửi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        [self performSelector:@selector(closeSendMessageView) withObject:nil afterDelay:2.0];
-    }
-}
-
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[AppDelegate sharedInstance].window makeToast:@"Tin nhắn của bạn đã được gửi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self performSelector:@selector(closeSendMessageView) withObject:nil afterDelay:2.0];
 }
 
 @end

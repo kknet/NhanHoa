@@ -14,12 +14,8 @@
 #import "SupportViewController.h"
 #import "AboutViewController.h"
 #import "SettingMenuCell.h"
-#import "WebServices.h"
 
-@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServicesDelegate> {
-    WebServices *webService;
-}
-
+@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>
 @end
 
 @implementation MoreViewController
@@ -30,6 +26,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
+    [self downloadAvatarForCustomer];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,6 +35,7 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
     [accInfoView displayInformation];
 }
@@ -163,25 +162,12 @@
 }
 
 - (void)clearTokenOfUser {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
-    
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:update_token_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:@"" forKey:@"token"];
-    
-    [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] updateTokenWithValue:@""];
 }
 
 - (void)logoutScreen {
@@ -193,6 +179,39 @@
     LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
     UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
     [self presentViewController:launchNav animated:TRUE completion:nil];
+}
+
+- (void)downloadAvatarForCustomer
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (phone.length > 9 || [phone isEqualToString:hotline]) {
+        return;
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *pbxServer = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_SERVER];
+        NSString *avatarName = [NSString stringWithFormat:@"%@_%@.png", pbxServer, phone];
+        NSString *linkAvatar = [NSString stringWithFormat:@"%@/%@", link_picture_chat_group, avatarName];
+        NSData *data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: linkAvatar]];
+        
+        if (data != nil) {
+            NSString *folder = [NSString stringWithFormat:@"/avatars/%@", avatarName];
+            [AppUtils saveFileToFolder:data withName: folder];
+            
+            //  set avatar value for pbx contact list if exists
+            PBXContact *contact = [AppUtils getPBXContactFromListWithPhoneNumber: phoneNumber];
+            if (contact != nil) {
+                if ([data respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
+                    contact._avatar = [data base64EncodedStringWithOptions: 0];
+                } else {
+                    contact._avatar = [data base64Encoding];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                _avatarImage.image = [UIImage imageWithData: data];
+            });
+        }
+    });
 }
 
 #pragma mark - UITableview
@@ -255,7 +274,10 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     switch (indexPath.row) {
         case eSettingAccount:{
             AccountSettingViewController *accSettingVC = [[AccountSettingViewController alloc] initWithNibName:@"AccountSettingViewController" bundle:nil];
@@ -325,27 +347,17 @@
 
 #pragma mark - Web services
 
-- (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)failedToUpdateToken {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     [ProgressHUD dismiss];
 }
 
-- (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+-(void)updateTokenSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if ([link isEqualToString:update_token_func]) {
-        [self logoutScreen];
-    }
+    [self logoutScreen];
 }
 
-- (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
-}
-
-//  100
-//  8h45
-
-
-
+//  115
 
 @end

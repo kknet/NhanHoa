@@ -158,6 +158,14 @@
     return dateString;
 }
 
++ (NSString *)getCurrentDateTimeNotHaveSeconds {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    NSString *dateString = [dateFormat stringFromDate:date];
+    return dateString;
+}
+
 + (NSString *)getCurrentDateTimeToString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
@@ -603,6 +611,23 @@
             NSLog(@"Create directory error: %@", error);
         }
     }
+}
+
++ (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
+}
+
++ (NSString *)getErrorCodeFromData: (id)data {
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        NSString *errorCode = [data objectForKey:@"errorCode"];
+        if (errorCode != nil && [errorCode isKindOfClass:[NSString class]]) {
+            return errorCode;
+        }
+    }
+    return nil;
 }
 
 @end

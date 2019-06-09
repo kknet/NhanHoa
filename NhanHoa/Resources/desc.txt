@@ -367,6 +367,35 @@ ord_id: number (ord_id trả về từ api info_domain)
 year: number (số năm duy tri)
 *Kết quả trả về: anh em send test để xem kết quả
 
+24. HashKey (Gửi hash key trước khi chuyển qua thanh toán Onepay)
+    *Send request (Post / Get) [Auto]
+    mod: hash_key
+    username: string
+    password: MD5
+    hash: MD5 (password [MD5] + current unix time)
+    *Kết quả trả về: anh em send test để xem kết quả
+    *Lưu ý: giá tri của hash_key cần bảo mật, sẽ không trả về qua api login
+
+---STATUS: DONE
+
+25. CheckOTP (Check mã OTP để verify đăng ký và kích hoạt tài khoản)
+    *Send request (Post / Get) [Auto]
+    mod: check_otp
+    username: string
+    password: MD5
+    code: number (4 số)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS:
+
+26. Addfun (API độc lập)
+*Tham số truyền đi cần có:
+vpc_OrderInfo: App_Addfun_{cus_id}
+vpc_Amount: số tiền nạp
+vpc_MerchTxnRef: hash_key gửi lên từ api hash_key
+vpc_ReturnURL: https://nhanhoa.com/app-awk/onepay.php
+*Kết quả trả về: Anh tự xử lý trên api, chủ yếu làm sao để liền mạnh giữa lúc thanh toán chuyển qua onepay, rồi quay lại được app, khi quay lại app anh em sẽ phải gửi thông số qua api login để get lại data.
+
 
 
 
@@ -387,4 +416,13 @@ sharefreeall.com
 02520138201
 
 0104527161
+
+0902997139
+
+
+3.286.750
+
+
+
+
 

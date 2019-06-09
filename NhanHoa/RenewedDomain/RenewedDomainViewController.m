@@ -35,6 +35,12 @@ typedef enum TypeSelectDomain{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
+    self.title = @"Tên miền đã đăng ký";
+    type = eAllDomain;
+    lbNoData.hidden = TRUE;
+    [AppDelegate sharedInstance].needReloadListDomains = FALSE;
+    
+    [self getDomainsWasRegisteredWithType: eAllDomain];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -43,10 +49,11 @@ typedef enum TypeSelectDomain{
     [WriteLogsUtils writeForGoToScreen: @"RenewedDomainViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
-    self.title = @"Tên miền đã đăng ký";
-    type = eAllDomain;
-    lbNoData.hidden = TRUE;
-    [self getDomainsWasRegisteredWithType: 0];
+    if ([AppDelegate sharedInstance].needReloadListDomains) {
+        lbNoData.hidden = TRUE;
+        type = eAllDomain;
+        [self getDomainsWasRegisteredWithType: eAllDomain];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -60,6 +67,10 @@ typedef enum TypeSelectDomain{
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    
+    if (self.isMovingFromParentViewController) {
+        [AppDelegate sharedInstance].needReloadListDomains = TRUE;
+    }
     
     [priceView removeFromSuperview];
     priceView = nil;

@@ -73,6 +73,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) UIImage *cropAvatar;
 @property (nonatomic, strong) NSData *dataCrop;
 @property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) NSString *hashKey;
 
 - (NSString *)findCityObjectWithCityCode: (NSString *)code;
 @property(strong, nonatomic) UIWindow *cartWindow;
