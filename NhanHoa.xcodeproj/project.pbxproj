@@ -147,6 +147,9 @@
 		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
 		564619C622A812B400867B21 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564619C422A812B400867B21 /* PaymentViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
+		566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 566A159822AEBCB400604FE8 /* TransHistoryCell.m */; };
+		566A159B22AEBCB400604FE8 /* TransHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 566A159922AEBCB400604FE8 /* TransHistoryCell.xib */; };
+		566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */ = {isa = PBXBuildFile; fileRef = 566A159C22AEBDF800604FE8 /* ic_his_topup.png */; };
 		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
 		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
 		56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */; };
@@ -489,6 +492,10 @@
 		564619C322A812B400867B21 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		564619C422A812B400867B21 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
 		5649C7902299A3D90015DB1D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		566A159722AEBCB400604FE8 /* TransHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransHistoryCell.h; sourceTree = "<group>"; };
+		566A159822AEBCB400604FE8 /* TransHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransHistoryCell.m; sourceTree = "<group>"; };
+		566A159922AEBCB400604FE8 /* TransHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransHistoryCell.xib; sourceTree = "<group>"; };
+		566A159C22AEBDF800604FE8 /* ic_his_topup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_his_topup.png; sourceTree = "<group>"; };
 		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
@@ -829,6 +836,7 @@
 		1517FB7322744EBC0044E878 /* Transaction history */ = {
 			isa = PBXGroup;
 			children = (
+				566A159622AEBC9500604FE8 /* UI */,
 				1517FB7422744EE40044E878 /* TransHistoryViewController.h */,
 				1517FB7522744EE40044E878 /* TransHistoryViewController.m */,
 				1517FB7622744EE40044E878 /* TransHistoryViewController.xib */,
@@ -992,6 +1000,7 @@
 				5600E8F322A5E9FC00F7DECE /* support_message.png */,
 				56FED7C122AD050E00FAD541 /* ic_add.png */,
 				56FED7C222AD050F00FAD541 /* ic_headset.png */,
+				566A159C22AEBDF800604FE8 /* ic_his_topup.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1137,6 +1146,16 @@
 				564619C422A812B400867B21 /* PaymentViewController.xib */,
 			);
 			path = Payments;
+			sourceTree = "<group>";
+		};
+		566A159622AEBC9500604FE8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				566A159722AEBCB400604FE8 /* TransHistoryCell.h */,
+				566A159822AEBCB400604FE8 /* TransHistoryCell.m */,
+				566A159922AEBCB400604FE8 /* TransHistoryCell.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		840F5DF622773137005BFC57 /* WhoIsDomain */ = {
@@ -1648,9 +1667,11 @@
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */,
+				566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
 				15E7380222812A2200EFB017 /* dashline.png in Resources */,
 				1517FB9922745D810044E878 /* tabbar_home_act@2x.png in Resources */,
+				566A159B22AEBCB400604FE8 /* TransHistoryCell.xib in Resources */,
 				15E92AD22272A2F3004AB658 /* app-icon.png in Resources */,
 				1517FB9B22745D810044E878 /* tabbar_history_act@2x.png in Resources */,
 				841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */,
@@ -1832,6 +1853,7 @@
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
+				566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1987,7 +2009,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

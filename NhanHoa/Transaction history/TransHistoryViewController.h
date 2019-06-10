@@ -11,5 +11,6 @@
 @interface TransHistoryViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 @property (weak, nonatomic) IBOutlet UILabel *lbBottomSepa;
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
 @end

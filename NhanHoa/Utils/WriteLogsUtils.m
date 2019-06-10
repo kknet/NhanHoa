@@ -55,17 +55,19 @@
 
 + (void)writeLogContent: (NSString *)logContent toFilePath: (NSString *)pathFile
 {
-    if(![[NSFileManager defaultManager] fileExistsAtPath:pathFile]) {
-        [[NSFileManager defaultManager] createFileAtPath:pathFile contents:nil attributes:nil];
-    }
-    
-    NSString *content = [self getLogContentIfExistsFromFile: pathFile isFullPath: YES];
-    
-    content = [NSString stringWithFormat:@"%@\n%@: %@", content, [AppUtils getCurrentDateTimeToString], logContent];
-    NSData* data = [content dataUsingEncoding:NSUTF8StringEncoding];
-    if (data != nil) {
-        [data writeToFile:pathFile atomically:YES];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        if(![[NSFileManager defaultManager] fileExistsAtPath:pathFile]) {
+            [[NSFileManager defaultManager] createFileAtPath:pathFile contents:nil attributes:nil];
+        }
+        
+        NSString *content = [self getLogContentIfExistsFromFile: pathFile isFullPath: YES];
+        
+        content = [NSString stringWithFormat:@"%@\n%@: %@", content, [AppUtils getCurrentDateTimeToString], logContent];
+        NSData* data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        if (data != nil) {
+            [data writeToFile:pathFile atomically:YES];
+        }
+    });
 }
 
 //  [Khai le - 16/11/2018]: Clear logs file

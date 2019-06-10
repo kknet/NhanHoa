@@ -7,13 +7,15 @@
 //
 
 #import "TransHistoryViewController.h"
+#import "TransHistoryCell.h"
 
-@interface TransHistoryViewController ()<WebServiceUtilsDelegate>
-
+@interface TransHistoryViewController ()<WebServiceUtilsDelegate, UITableViewDelegate, UITableViewDataSource> {
+    NSMutableArray *historyList;
+}
 @end
 
 @implementation TransHistoryViewController
-@synthesize lbNoData, lbBottomSepa;
+@synthesize lbNoData, lbBottomSepa, tbContent;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +27,7 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"TransHistoryViewController"];
     
+    lbNoData.hidden = TRUE;
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getTransactionsHistory];
 }
@@ -35,6 +38,8 @@
 }
 
 - (void)setupUIForView {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     lbBottomSepa.backgroundColor = LIGHT_GRAY_COLOR;
     [lbBottomSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
@@ -46,6 +51,26 @@
         make.left.right.top.equalTo(self.view);
         make.bottom.equalTo(self.lbBottomSepa.mas_top);
     }];
+    
+    [tbContent registerNib:[UINib nibWithNibName:@"TransHistoryCell" bundle:nil] forCellReuseIdentifier:@"TransHistoryCell"];
+    tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tbContent.delegate = self;
+    tbContent.dataSource = self;
+    [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.lbNoData);
+    }];
+}
+
+- (void)prepareToDisplayWithData: (NSArray *)data {
+    if (historyList == nil) {
+        historyList = [[NSMutableArray alloc] init];
+    }else{
+        [historyList removeAllObjects];
+    }
+    [historyList addObjectsFromArray: data];
+    lbNoData.hidden = TRUE;
+    tbContent.hidden = FALSE;
+    [tbContent reloadData];
 }
 
 #pragma mark - WebServiceUtil Delegate
@@ -58,7 +83,30 @@
 
 -(void)getTransactionsHistorySuccessfulWithData:(NSDictionary *)data {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data =  %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    NSLog(@"%@", data);
+    if (data != nil && [data isKindOfClass:[NSArray class]] ) {
+        [self prepareToDisplayWithData: (NSArray *)data];
+    }
+}
+
+#pragma mark - UITableview delegate
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return historyList.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TransHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransHistoryCell"];
+    
+    NSDictionary *info = [historyList objectAtIndex: indexPath.row];
+    [cell displayDataWithInfo: info];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65.0;
 }
 
 @end

@@ -347,6 +347,9 @@ banknumber: string (số tài khoản)
     *Kết quả trả về: anh em send test để xem kết quả
     *Lưu ý: kết quả trả về có time (unix time), content (nội dung), amount (số tiền in/out) và type, type có giá trị 0 hoặc 1, type (0: money in | 1 = money out), ví dụ: nạp tiền = money in, rút tiền hoặc mua domain = money out, cái in/out để biết là dấu cộng hay dấu trừ theo layout design.
 
+
+---STATUS: DONE
+
 22. Withdraw (Rút tiền thưởng)
 *Send request (Post / Get) [Auto]
 mod: withdraw
@@ -412,13 +415,8 @@ suggest các tài khoản đã đăng nhập thành công trước đó
 InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray\
 
 
-gub30316@cndps.com          |   11111111
 lekhai02121991@gmail.com    |   11111111
-roc24087@cndps.com          |   11111111
-sos50945@cndps.com          |   11111111
 
-
-sharefreeall.com
 
 9704 2320 3328 0537
 02520138201
