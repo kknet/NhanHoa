@@ -25,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIView *viewBottom;
 @property (weak, nonatomic) IBOutlet UILabel *lbNotAccount;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+
+@property (nonatomic, strong) UIView *activeAccView;
+
 - (IBAction)icClearAccClick:(UIButton *)sender;
 
 

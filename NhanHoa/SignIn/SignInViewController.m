@@ -9,32 +9,16 @@
 #import "SignInViewController.h"
 #import "AppTabbarViewController.h"
 #import "RegisterAccountViewController.h"
-#import <CommonCrypto/CommonDigest.h>
+#import "OTPConfirmView.h"
 
-@interface SignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate>{
+@interface SignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, UIAlertViewDelegate, OTPConfirmViewDelegate>{
     UIColor *signInColor;
-}
-@end
-
-@implementation NSString (MD5)
-- (NSString *)MD5String {
-    const char *cstr = [self UTF8String];
-    unsigned char result[16];
-    CC_MD5(cstr, (int)strlen(cstr), result);
-    
-    return [NSString stringWithFormat:
-            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
 }
 @end
 
 @implementation SignInViewController
 @synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister, scvContent, icClearAcc;
-@synthesize hHeader, padding;
+@synthesize hHeader, padding, activeAccView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -158,7 +142,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
     
-    NSString *password = [[tfPassword.text MD5String] lowercaseString];
+    NSString *password = [AppUtils getMD5StringOfString:tfPassword.text];
     [[WebServiceUtils getInstance] loginWithUsername:tfAccount.text password:password];
 }
 
@@ -418,7 +402,13 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *errorCode = [AppUtils getErrorCodeFromData:error];
+    if ([errorCode isEqualToString:accountNotActive]) {
+        UIAlertView *alv = [[UIAlertView alloc] initWithTitle:nil message:@"Tài khoản của bạn chưa được kích hoạt?" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:@"Kích hoạt", nil];
+        [alv show];
+    }else{
+        [self.view makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
@@ -444,6 +434,138 @@
     
     [ProgressHUD dismiss];
     [self goToHomeScreen];
+}
+
+#pragma mark - Alertview delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self addViewActiveAccountIfNeed];
+    }
+}
+
+- (void)addViewActiveAccountIfNeed {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (activeAccView == nil) {
+        activeAccView = [[UIView alloc] init];
+        [self.view addSubview: activeAccView];
+        activeAccView.backgroundColor = UIColor.clearColor;
+        [activeAccView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.right.equalTo(self.view);
+        }];
+        
+        float hNav = self.navigationController.navigationBar.frame.size.height;
+        
+        UIView *headerView = [[UIView alloc] init];
+        headerView.backgroundColor = BLUE_COLOR;
+        [activeAccView addSubview: headerView];
+        [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(self.activeAccView);
+            make.height.mas_equalTo([AppDelegate sharedInstance].hStatusBar + hNav);
+        }];
+        
+        UIButton *icBack = [[UIButton alloc] init];
+        icBack.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
+        [icBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [headerView addSubview: icBack];
+        [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(headerView).offset([AppDelegate sharedInstance].hStatusBar);
+            make.left.equalTo(headerView).offset(-11.0);
+            make.bottom.equalTo(headerView);
+            make.width.mas_equalTo(hNav);
+        }];
+        
+        UILabel *lbHeader = [[UILabel alloc] init];
+        lbHeader.textAlignment = NSTextAlignmentCenter;
+        lbHeader.text = @"Kích hoạt tài khoản";
+        lbHeader.font = [AppDelegate sharedInstance].fontBTN;
+        lbHeader.textColor = UIColor.whiteColor;
+        [headerView addSubview: lbHeader];
+        [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(icBack);
+            make.centerX.equalTo(headerView.mas_centerX);
+            make.width.mas_equalTo(200.0);
+        }];
+        
+        //  OTP View
+        OTPConfirmView *otpView;
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OTPConfirmView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OTPConfirmView class]]) {
+                otpView = (OTPConfirmView *) currentObject;
+                break;
+            }
+        }
+        otpView.delegate = self;
+        [activeAccView addSubview: otpView];
+        
+        [otpView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(headerView.mas_bottom);
+            make.left.right.bottom.equalTo(self.activeAccView);
+        }];
+        [otpView setupUIForView];
+    }
+    
+    if (![AppUtils isNullOrEmpty: tfAccount.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [WriteLogsUtils writeLogContent:SFM(@"Resend OTP with username = %@, password = %@", tfAccount.text, [AppUtils getMD5StringOfString: tfPassword.text]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        
+        [[WebServiceUtils getInstance] resendOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
+    }
+}
+
+- (void)afterActivedAccount {
+    if (activeAccView != nil) {
+        [activeAccView removeFromSuperview];
+        activeAccView = nil;
+    }
+}
+
+#pragma mark - OTPConfirmViewDelegate
+-(void)onResendOTPPress {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (![AppUtils isNullOrEmpty: tfAccount.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] resendOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
+    }
+}
+
+-(void)confirmOTPWithCode:(NSString *)code {
+    if (![AppUtils isNullOrEmpty: tfAccount.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] checkOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text] andOTPCode:code];
+        
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:@"Tài khoản đang được kích hoạt..." Interaction:NO];
+    }
+}
+
+#pragma mark - WebServiceUtil Delegate
+
+-(void)failedToResendOTPWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [activeAccView makeToast:@"Chúng tôi không thể gửi mã OTP vào lúc này. Vui lòng thử lại sau." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+}
+
+-(void)resendOTPSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    if (activeAccView != nil) {
+        [activeAccView makeToast:@"Mã OTP đã được gửi đến số điện thoại của bạn" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }
+}
+
+-(void)failedToCheckOTPWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+}
+
+-(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Tài khoản của bạn đã được kích hoạt thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
 }
 
 @end

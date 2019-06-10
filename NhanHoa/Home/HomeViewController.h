@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewSearch;
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
-@property (weak, nonatomic) IBOutlet UIButton *icNotify;
 @property (weak, nonatomic) IBOutlet UIButton *icClear;
 @property (weak, nonatomic) IBOutlet UIButton *btnSearch;
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
@@ -32,7 +31,6 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *clvMenu;
 
-- (IBAction)icNotifyClick:(UIButton *)sender;
 - (IBAction)icClearClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;
 

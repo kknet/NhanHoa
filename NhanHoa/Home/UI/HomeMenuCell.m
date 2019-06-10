@@ -21,7 +21,7 @@
     }];
     
     lbName.numberOfLines = 10;
-    lbName.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+    lbName.font = [UIFont fontWithName:RobotoRegular size:14.0];
     lbName.textColor = TITLE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
@@ -30,7 +30,7 @@
     }];
     
     
-    lbSepaRight.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    lbSepaRight.backgroundColor = LIGHT_GRAY_COLOR;
     [lbSepaRight mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-1.0);
         make.top.bottom.equalTo(self);

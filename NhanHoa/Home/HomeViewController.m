@@ -15,38 +15,19 @@
 #import "WithdrawalBonusAccountViewController.h"
 #import "ProfileManagerViewController.h"
 #import "SupportViewController.h"
-#import "NotifyViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
 #import "AccountModel.h"
-#import <CommonCrypto/CommonDigest.h>
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSMutableArray *listMenu;
     float hBanner;
 }
-
-@end
-
-@implementation NSString (MD5)
-- (NSString *)MD5String {
-    const char *cstr = [self UTF8String];
-    unsigned char result[16];
-    CC_MD5(cstr, (int)strlen(cstr), result);
-    
-    return [NSString stringWithFormat:
-            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
-}
 @end
 
 @implementation HomeViewController
-@synthesize viewSearch, tfSearch, icNotify, icClear, btnSearch, icCart, lbCount;
+@synthesize viewSearch, tfSearch, icClear, btnSearch, icCart, lbCount;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
 @synthesize hMenu, viewBanner;
@@ -90,12 +71,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)icNotifyClick:(UIButton *)sender {
-    NotifyViewController *notifyVC = [[NotifyViewController alloc] initWithNibName:@"NotifyViewController" bundle:nil];
-    notifyVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:notifyVC animated:YES];
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {
@@ -318,13 +293,6 @@
         make.width.height.mas_equalTo(20.0);
     }];
     
-    icNotify.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
-    [icNotify mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.icCart);
-        make.right.equalTo(self.icCart.mas_left);
-        make.width.equalTo(self.icCart.mas_width);
-    }];
-    
     float hTextfield = 34.0;
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
@@ -332,8 +300,8 @@
     tfSearch.textColor = BORDER_COLOR;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewSearch).offset(padding);
-        make.right.equalTo(self.icNotify.mas_left);
-        make.centerY.equalTo(self.icNotify.mas_centerY);
+        make.right.equalTo(self.icCart.mas_left);
+        make.centerY.equalTo(self.icCart.mas_centerY);
         make.height.mas_equalTo(hTextfield);
     }];
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];

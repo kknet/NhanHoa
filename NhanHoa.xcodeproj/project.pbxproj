@@ -119,8 +119,6 @@
 		15D1BD812283D618004C0452 /* RenewDomainCartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */; };
 		15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD842283E5EB004C0452 /* SupportViewController.m */; };
 		15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD852283E5EB004C0452 /* SupportViewController.xib */; };
-		15D1BD8B2283E92C004C0452 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD892283E92C004C0452 /* NotifyViewController.m */; };
-		15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */; };
 		15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD8E2283E9D8004C0452 /* NotificationCell.m */; };
 		15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */; };
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
@@ -453,9 +451,6 @@
 		15D1BD832283E5EB004C0452 /* SupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
 		15D1BD842283E5EB004C0452 /* SupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
 		15D1BD852283E5EB004C0452 /* SupportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportViewController.xib; sourceTree = "<group>"; };
-		15D1BD882283E92C004C0452 /* NotifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyViewController.h; sourceTree = "<group>"; };
-		15D1BD892283E92C004C0452 /* NotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
-		15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotifyViewController.xib; sourceTree = "<group>"; };
 		15D1BD8D2283E9D8004C0452 /* NotificationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		15D1BD8E2283E9D8004C0452 /* NotificationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
@@ -817,9 +812,6 @@
 				1517FB68227446980044E878 /* HomeViewController.h */,
 				1517FB69227446980044E878 /* HomeViewController.m */,
 				1517FB6A227446980044E878 /* HomeViewController.xib */,
-				15D1BD882283E92C004C0452 /* NotifyViewController.h */,
-				15D1BD892283E92C004C0452 /* NotifyViewController.m */,
-				15D1BD8A2283E92C004C0452 /* NotifyViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1668,7 +1660,6 @@
 				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
-				15D1BD8C2283E92C004C0452 /* NotifyViewController.xib in Resources */,
 				56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */,
 				849827852285D51900201ED7 /* NewProfileView.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
@@ -1752,7 +1743,6 @@
 				841E7C602284E2E80074DDF5 /* PaymentMethodCell.m in Sources */,
 				840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */,
 				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
-				15D1BD8B2283E92C004C0452 /* NotifyViewController.m in Sources */,
 				845D32CE227967750047B196 /* BusinessProfileView.m in Sources */,
 				842F81CA2275BD4600D6DE6D /* CustomTextAttachment.m in Sources */,
 				845D32BC22793DF50047B196 /* RegisterAccountStep2ViewController.m in Sources */,
@@ -1997,7 +1987,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

@@ -14,6 +14,7 @@
 #import "SupportViewController.h"
 #import "AboutViewController.h"
 #import "SettingMenuCell.h"
+#import "AccountModel.h"
 
 @interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>
 @end
@@ -26,8 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
-    [self downloadAvatarForCustomer];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -181,39 +180,6 @@
     [self presentViewController:launchNav animated:TRUE completion:nil];
 }
 
-- (void)downloadAvatarForCustomer
-{
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if (phone.length > 9 || [phone isEqualToString:hotline]) {
-        return;
-    }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *pbxServer = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_SERVER];
-        NSString *avatarName = [NSString stringWithFormat:@"%@_%@.png", pbxServer, phone];
-        NSString *linkAvatar = [NSString stringWithFormat:@"%@/%@", link_picture_chat_group, avatarName];
-        NSData *data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: linkAvatar]];
-        
-        if (data != nil) {
-            NSString *folder = [NSString stringWithFormat:@"/avatars/%@", avatarName];
-            [AppUtils saveFileToFolder:data withName: folder];
-            
-            //  set avatar value for pbx contact list if exists
-            PBXContact *contact = [AppUtils getPBXContactFromListWithPhoneNumber: phoneNumber];
-            if (contact != nil) {
-                if ([data respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
-                    contact._avatar = [data base64EncodedStringWithOptions: 0];
-                } else {
-                    contact._avatar = [data base64Encoding];
-                }
-            }
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                _avatarImage.image = [UIImage imageWithData: data];
-            });
-        }
-    });
-}
-
 #pragma mark - UITableview
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -358,6 +324,7 @@
     [self logoutScreen];
 }
 
-//  115
+//  117
+//  9h44
 
 @end

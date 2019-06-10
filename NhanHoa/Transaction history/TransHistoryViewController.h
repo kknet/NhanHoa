@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TransHistoryViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *lbNoData;
+@property (weak, nonatomic) IBOutlet UILabel *lbBottomSepa;
 
 @end

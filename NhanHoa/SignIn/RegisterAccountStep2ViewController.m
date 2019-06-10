@@ -334,7 +334,7 @@
     }];
     [otpView setupUIForView];
     otpView.delegate = self;
-    otpView.hidden = FALSE;
+    otpView.hidden = TRUE;
 }
 
 - (void)showConfirmOTPView {
@@ -343,7 +343,11 @@
 }
 
 -(void)onResendOTPPress {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
+    if (![AppUtils isNullOrEmpty: email] && ![AppUtils isNullOrEmpty: password]) {
+        [[WebServiceUtils getInstance] resendOTPForUsername:email password:[AppUtils getMD5StringOfString: password]];
+    }
 }
 
 -(void)confirmOTPWithCode:(NSString *)code

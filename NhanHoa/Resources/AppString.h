@@ -11,6 +11,9 @@
 
 #define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
+#define accountNotActive    @"006"
+
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -119,6 +122,8 @@
 #define update_token_func       @"UpdateToken"
 #define hash_key_func           @"HashKey"
 #define check_otp_func          @"CheckOTP"
+#define resend_otp_func         @"ResendOTP"
+#define get_history_func        @"History"
 
 
 #define login_mod               @"login"
@@ -140,6 +145,8 @@
 #define update_token_mod        @"update_token"
 #define hash_key_mod            @"hash_key"
 #define check_otp_mod           @"check_otp"
+#define resend_otp_mod          @"resend_otp"
+#define get_history_mod         @"history"
 
 
 #define logsFolderName      @"LogFiles"

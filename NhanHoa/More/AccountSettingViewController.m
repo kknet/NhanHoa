@@ -31,6 +31,8 @@
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
     self.title = @"Cài đặt tài khoản";
+    
+    [self downloadAvatarForCustomer];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -38,6 +40,12 @@
     [WriteLogsUtils writeForGoToScreen:@"AccountSettingViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
+    NSString *avatarName = [NSString stringWithFormat:@"%@.PNG", [AccountModel getCusIdOfUser]];
+    NSString *localFile = [NSString stringWithFormat:@"/avatars/%@", avatarName];
+    NSData *avatarData = [AppUtils getFileDataFromDirectoryWithFileName:localFile];
+    if (avatarData != nil) {
+        [btnAvatar setImage:[UIImage imageWithData:avatarData] forState:UIControlStateNormal];
+    }
     [self displayInformationForAccount];
 }
 
@@ -48,6 +56,21 @@
         [AppDelegate sharedInstance].cropAvatar = nil;
         [AppDelegate sharedInstance].dataCrop = nil;
     }
+}
+
+- (void)downloadAvatarForCustomer
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *linkAvatar = [AccountModel getCusPhoto];
+        NSString *cusId = [AccountModel getCusIdOfUser];
+        NSData *data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: linkAvatar]];
+        if (data != nil) {
+            NSString *folder = [NSString stringWithFormat:@"/avatars/%@.PNG", cusId];
+            [AppUtils saveFileToFolder:data withName: folder];
+        }
+    });
 }
 
 - (void)displayInformationForAccount {

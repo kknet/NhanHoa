@@ -61,6 +61,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToGetHashKeyWithError: (NSString *)error;
 - (void)getHashKeySuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToCheckOTPWithError: (NSString *)error;
+- (void)checkOTPSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToResendOTPWithError: (NSString *)error;
+- (void)resendOTPSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToGetTransactionsHistoryWithError: (NSString *)error;
+- (void)getTransactionsHistorySuccessfulWithData: (NSDictionary *)data;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -85,6 +94,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updatePhotoForCustomerWithURL: (NSString *)url;
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass;
 - (void)getHashKeyWithHash: (NSString *)hash;
+- (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code;
+- (void)resendOTPForUsername: (NSString *)username password: (NSString *)password;
+- (void)getTransactionsHistory;
 
 @end
 

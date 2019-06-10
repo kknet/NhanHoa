@@ -47,5 +47,7 @@
 + (NSString *)getCurrentDateTimeNotHaveSeconds;
 + (BOOL)validateEmailWithString:(NSString*)email;
 + (NSString *)getErrorCodeFromData: (id)data;
++ (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName;
++ (NSData *)getFileDataFromDirectoryWithFileName: (NSString *)fileName;
 
 @end

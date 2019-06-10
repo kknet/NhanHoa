@@ -232,7 +232,7 @@
     
     [webService callWebServiceWithLink:profile_photo_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass
@@ -247,7 +247,7 @@
     [jsonDict setObject:newPass forKey:@"re_new_password"];
     [webService callWebServiceWithLink:change_pass_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
 - (void)getHashKeyWithHash: (NSString *)hash {
@@ -260,9 +260,45 @@
     [jsonDict setObject:hash forKey:@"hash"];
     [webService callWebServiceWithLink:hash_key_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@, otpCode = %@", __FUNCTION__, username, password, code) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:check_otp_mod forKey:@"mod"];
+    [jsonDict setObject:username forKey:@"username"];
+    [jsonDict setObject:password forKey:@"password"];
+    [jsonDict setObject:code forKey:@"code"];
+    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)resendOTPForUsername: (NSString *)username password: (NSString *)password {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@", __FUNCTION__, username, password) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:resend_otp_mod forKey:@"mod"];
+    [jsonDict setObject:username forKey:@"username"];
+    [jsonDict setObject:password forKey:@"password"];
+    [webService callWebServiceWithLink:resend_otp_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)getTransactionsHistory {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:get_history_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [webService callWebServiceWithLink:get_history_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
 
 #pragma mark - Webservice delegate
 
@@ -333,6 +369,18 @@
     }else if ([link isEqualToString: hash_key_func]) {
         if ([delegate respondsToSelector:@selector(failedToGetHashKeyWithError:)]) {
             [delegate failedToGetHashKeyWithError: error];
+        }
+    }else if ([link isEqualToString: resend_otp_func]) {
+        if ([delegate respondsToSelector:@selector(failedToResendOTPWithError:)]) {
+            [delegate failedToResendOTPWithError: error];
+        }
+    }else if ([link isEqualToString: check_otp_func]) {
+        if ([delegate respondsToSelector:@selector(failedToCheckOTPWithError:)]) {
+            [delegate failedToCheckOTPWithError: error];
+        }
+    }else if ([link isEqualToString: get_history_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetTransactionsHistoryWithError:)]) {
+            [delegate failedToGetTransactionsHistoryWithError: error];
         }
     }
     
@@ -408,6 +456,18 @@
     }else if ([link isEqualToString: hash_key_func]) {
         if ([delegate respondsToSelector:@selector(getHashKeySuccessfulWithData:)]) {
             [delegate getHashKeySuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: resend_otp_func]) {
+        if ([delegate respondsToSelector:@selector(resendOTPSuccessfulWithData:)]) {
+            [delegate resendOTPSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: check_otp_func]) {
+        if ([delegate respondsToSelector:@selector(checkOTPSuccessfulWithData:)]) {
+            [delegate checkOTPSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: get_history_func]) {
+        if ([delegate respondsToSelector:@selector(getTransactionsHistorySuccessfulWithData:)]) {
+            [delegate getTransactionsHistorySuccessfulWithData: data];
         }
     }
 }

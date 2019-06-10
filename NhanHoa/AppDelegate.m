@@ -59,6 +59,8 @@
     
     //  setup logs folder
     [AppUtils createDirectoryAndSubDirectory:logsFolderName];
+    [AppUtils createDirectoryAndSubDirectory:@"avatars"];
+    
     NSString *subDirectory = [NSString stringWithFormat:@"%@/%@.txt", logsFolderName, [AppUtils getCurrentDate]];
     logFilePath = [WriteLogsUtils makeFilePathWithFileName: subDirectory];
     
