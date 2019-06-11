@@ -80,10 +80,24 @@
         }
     }
     
-    amount = 10000;
-    content = "N\U1ea1p ti\U1ec1n v\U00e0o t\U00e0i kho\U1ea3n qua APP";
-    time = 1560182158;
-    type = 0;
+    NSString *content = [info objectForKey:@"content"];
+    lbTitle.text = (![AppUtils isNullOrEmpty: content])? content : @"";
+    
+    id time = [info objectForKey:@"time"];
+    if ([time isKindOfClass:[NSString class]]) {
+        [AppUtils getDateTimeStringNotHaveSecondsFromDate: ]
+        + (NSString *)getCurrentDateTimeNotHaveSecondsFromDate: (NSDate *)date
+        
+        [AppUtils get]
+        NSLog(@"string");
+    }else if ([time isKindOfClass:[NSNumber class]]) {
+        NSLog(@"number");
+    }
+    
+//    amount = 10000;
+//    content = "N\U1ea1p ti\U1ec1n v\U00e0o t\U00e0i kho\U1ea3n qua APP";
+//    time = 1560182158;
+//    type = 0;
 }
 
 @end

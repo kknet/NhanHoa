@@ -158,8 +158,7 @@
     return dateString;
 }
 
-+ (NSString *)getCurrentDateTimeNotHaveSeconds {
-    NSDate *date = [NSDate date];
++ (NSString *)getDateTimeStringNotHaveSecondsFromDate: (NSDate *)date {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
     [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
     NSString *dateString = [dateFormat stringFromDate:date];
@@ -190,6 +189,11 @@
 + (NSString *)getDateStringFromTimerInterval: (long)timeInterval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: timeInterval];
     return [self convertDateToString: date];
+}
+
++ (NSString *)getDateTimeStringFromTimerInterval: (long)timeInterval {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970: timeInterval];
+    return [self getDateTimeStringNotHaveSecondsFromDate: date];
 }
 
 + (BOOL)checkNetworkAvailable {

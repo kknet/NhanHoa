@@ -25,6 +25,7 @@
 + (NSString *)convertDateToString: (NSDate *)date;
 + (NSDate *)convertStringToDate: (NSString *)dateString;
 + (NSString *)getDateStringFromTimerInterval: (long)timeInterval;
++ (NSString *)getDateTimeStringFromTimerInterval: (long)timeInterval;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
@@ -44,7 +45,7 @@
 + (NSString *)getBuildDate;
 + (void) createDirectoryAndSubDirectory:(NSString *)directory;
 + (void) createDirectory:(NSString*)directory;
-+ (NSString *)getCurrentDateTimeNotHaveSeconds;
++ (NSString *)getDateTimeStringNotHaveSecondsFromDate: (NSDate *)date;
 + (BOOL)validateEmailWithString:(NSString*)email;
 + (NSString *)getErrorCodeFromData: (id)data;
 + (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName;
