@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Lịch sử giao dịch";
     [self setupUIForView];
 }
 
@@ -99,6 +100,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransHistoryCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSDictionary *info = [historyList objectAtIndex: indexPath.row];
     [cell displayDataWithInfo: info];

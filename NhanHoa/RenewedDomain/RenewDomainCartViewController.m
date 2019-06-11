@@ -11,13 +11,17 @@
 #import "SelectYearsCell.h"
 #import "PaymentMethodCell.h"
 
-@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, OnepayPaymentViewDelegate>
+@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate> {
+    NSDictionary *domainInfo;
+    int yearsForRenew;
+    long priceForRenew;
+}
 
 @end
 
 @implementation RenewDomainCartViewController
-@synthesize paymentView, tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotalPrice, lbTotalPriceValue, btnContinue, promoView, tbSelectYear;
-@synthesize hCell, hPromoView;
+@synthesize tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbTotalPrice, lbTotalPriceValue, btnContinue, tbSelectYear;
+@synthesize hCell, domain;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,27 +31,23 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    [WriteLogsUtils writeForGoToScreen:@"RenewDomainCartViewController"];
+    [WebServiceUtils getInstance].delegate = self;
+    
+    yearsForRenew = 1;
+    priceForRenew = 0;
+    
     [self setupUIForView];
     [self addTableViewForSelectYears];
     
-    if (paymentView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OnepayPaymentView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[OnepayPaymentView class]]) {
-                paymentView = (OnepayPaymentView *) currentObject;
-                break;
-            }
-        }
-        paymentView.typePayment = renew_domain;
-        [self.view addSubview: paymentView];
-        paymentView.delegate = self;
-        [paymentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
-            make.height.mas_equalTo(0);
-        }];
-    }
-    
     [self updateAllPriceForView];
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang lấy thông tin..." Interaction:NO];
+    [tbDomain reloadData];
+    
+    [[WebServiceUtils getInstance] getRenewInfoForDomain: domain];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,32 +56,7 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
-    [paymentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
-    }];
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
-}
-
-- (void)addPromotionView {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PromotionCodeView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[PromotionCodeView class]]) {
-            promoView = (PromotionCodeView *) currentObject;
-            break;
-        }
-    }
-    [self.view addSubview: promoView];
-    
-    hPromoView = 108.0;
-    [promoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.lbSepa.mas_bottom).offset(5.0);
-        make.height.mas_equalTo(self.hPromoView);
-    }];
-    [promoView setupUIForView];
 }
 
 - (void)confirmPaymentPress {
@@ -110,8 +85,6 @@
         make.height.mas_equalTo(1.0);
     }];
     
-    [self addPromotionView];
-    
     //  continue button
     btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
@@ -126,7 +99,7 @@
     float hFooter = padding + 4*30 + padding;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
-        make.top.equalTo(self.promoView.mas_bottom);
+        make.top.equalTo(self.lbSepa.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hFooter);
     }];
@@ -164,44 +137,35 @@
         make.top.bottom.equalTo(self.lbVAT);
     }];
     
-    //  Promotions
-    lbPromo.textColor = TITLE_COLOR;
-    lbPromo.font = [UIFont fontWithName:RobotoRegular size:16.0];
-    [lbPromo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbVAT.mas_bottom);
-        make.left.right.equalTo(self.lbVAT);
-        make.height.equalTo(self.lbVAT.mas_height);
-    }];
-    
-    lbPromoValue.textColor = lbDomainPrice.textColor;
-    lbPromoValue.font = lbDomainPrice.font;
-    [lbPromoValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbVATValue);
-        make.top.bottom.equalTo(self.lbPromo);
-    }];
     
     //  Total price
     lbTotalPrice.textColor = TITLE_COLOR;
     lbTotalPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotalPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPromo.mas_bottom);
-        make.left.right.equalTo(self.lbPromo);
-        make.height.equalTo(self.lbPromo.mas_height);
+        make.top.equalTo(self.lbVAT.mas_bottom);
+        make.left.right.equalTo(self.lbVAT);
+        make.height.equalTo(self.lbVAT.mas_height);
     }];
     
     lbTotalPriceValue.textColor = NEW_PRICE_COLOR;
     lbTotalPriceValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotalPriceValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbPromoValue);
+        make.left.right.equalTo(self.lbVATValue);
         make.top.bottom.equalTo(self.lbTotalPrice);
     }];
 }
 
 - (void)updateAllPriceForView {
-    //  show price for cart
-    lbVATValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:@"28000"]];
-    lbDomainPriceValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:@"280000"]];
-    lbTotalPriceValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:@"308000"]];
+    if (priceForRenew > 0 && yearsForRenew > 0) {
+        long total = priceForRenew * yearsForRenew;
+        NSString *strTotal = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", total]];
+        lbTotalPriceValue.text = [NSString stringWithFormat:@"%@ vnđ", strTotal];
+        
+        lbVATValue.text = @"0 vnđ";
+        
+    }else {
+        lbVATValue.text = lbDomainPriceValue.text = lbTotalPriceValue.text = @"N/A";
+    }
 }
 
 #pragma mark - UITableview
@@ -211,7 +175,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == tbSelectYear) {
-        return 10;
+        return MAX_YEAR_FOR_RENEW;
     }
     return 1;
 }
@@ -228,13 +192,14 @@
         CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        NSString *domainName = @"anvatsaigon.com";
-        NSString *years = @"1";
+        NSString *domainName = domain;
         
         cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
         cell.lbName.text = domainName;
-        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat: @"280000"]];
-        cell.tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
+        cell.tfYears.text = [NSString stringWithFormat:@"%d năm", yearsForRenew];
+        
+        [cell displayDataWithInfo: domainInfo forYear: yearsForRenew];
+        
         cell.lbSepa.hidden = TRUE;
         cell.lbDescription.hidden = TRUE;
         cell.btnYears.tag = indexPath.row;
@@ -242,10 +207,18 @@
                           action:@selector(selectYearsForDomain:)
                 forControlEvents:UIControlEventTouchUpInside];
         
-        //  total price
-        cell.lbTotalPrice.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat: @"280000"]];
-        
         return cell;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == tbSelectYear) {
+        yearsForRenew = (int)indexPath.row + 1;
+        [self updateAllPriceForView];
+        
+        [UIView animateWithDuration:0.15 animations:^{
+            self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
+        }];
     }
 }
 
@@ -301,19 +274,52 @@
     }
 }
 
-- (void)backToPreviousView {
+#pragma mark - WebserviceUtil Delegate
+-(void)failedToGetRenewInfoWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, error) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Lấy thông tin gia hạn thất bại. Vui lòng thử lại sau." duration:2.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.5];
+}
+
+-(void)getRenewInfoForDomainSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self prepareDataWithInfo: data];
+}
+
+- (void)prepareDataWithInfo: (id)data {
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        domainInfo = [[NSDictionary alloc] initWithDictionary: data];
+        [tbDomain reloadData];
+    }else if (data != nil && [data isKindOfClass:[NSArray class]]) {
+        if ([(NSArray *)data count] > 0) {
+            domainInfo = [[NSDictionary alloc] initWithDictionary: [(NSArray *)data firstObject]];
+        }
+        [tbDomain reloadData];
+    }else{
+        [self.view makeToast:@"Lấy thông tin gia hạn thất bại. Vui lòng thử lại sau." duration:2.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.5];
+    }
+    //  get price for renew domain
+    priceForRenew = [self getPriceForRenewDomainWithInfo: domainInfo];
+    [self updateAllPriceForView];
+}
+
+- (void)dismissView {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
--(void)paymentResultWithInfo:(NSDictionary *)info {
-    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
-    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
-        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
-            [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self performSelector:@selector(backToPreviousView) withObject:nil afterDelay:2.0];
-            return;
-        }
+- (long)getPriceForRenewDomainWithInfo: (NSDictionary *)info {
+    if (info == nil) {
+        return 0;
     }
+    id price = [info objectForKey:@"price"];
+    long priceValue = 0;
+    if (price != nil && ([price isKindOfClass:[NSString class]] || [price isKindOfClass:[NSNumber class]])) {
+        priceValue = (long)[price longLongValue];
+    }
+    return priceValue;
 }
 
 @end

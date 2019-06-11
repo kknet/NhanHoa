@@ -300,6 +300,19 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)getRenewInfoForDomain: (NSString *)domain {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:renew_domain_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [webService callWebServiceWithLink:renew_domain_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -382,8 +395,11 @@
         if ([delegate respondsToSelector:@selector(failedToGetTransactionsHistoryWithError:)]) {
             [delegate failedToGetTransactionsHistoryWithError: error];
         }
+    }else if ([link isEqualToString: renew_domain_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetRenewInfoWithError:)]) {
+            [delegate failedToGetRenewInfoWithError: error];
+        }
     }
-    
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
@@ -468,6 +484,10 @@
     }else if ([link isEqualToString: get_history_func]) {
         if ([delegate respondsToSelector:@selector(getTransactionsHistorySuccessfulWithData:)]) {
             [delegate getTransactionsHistorySuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: renew_domain_func]) {
+        if ([delegate respondsToSelector:@selector(getRenewInfoForDomainSuccessfulWithData:)]) {
+            [delegate getRenewInfoForDomainSuccessfulWithData: data];
         }
     }
 }

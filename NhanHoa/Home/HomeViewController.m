@@ -190,6 +190,9 @@
             break;
         }
         case eManagerDomain:{
+            RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+            renewedVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: renewedVC animated:YES];
             break;
         }
         case eWithdrawal:{

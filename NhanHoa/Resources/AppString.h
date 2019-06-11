@@ -55,6 +55,7 @@
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
 #define PASSWORD_MIN_CHARS  7
+#define MAX_YEAR_FOR_RENEW  15
 
 #define type_na             2
 #define type_men            1
@@ -124,6 +125,7 @@
 #define check_otp_func          @"CheckOTP"
 #define resend_otp_func         @"ResendOTP"
 #define get_history_func        @"History"
+#define renew_domain_func       @"RenewDomain"
 
 
 #define login_mod               @"login"
@@ -147,6 +149,7 @@
 #define check_otp_mod           @"check_otp"
 #define resend_otp_mod          @"resend_otp"
 #define get_history_mod         @"history"
+#define renew_domain_mod        @"renew_domain"
 
 
 #define logsFolderName      @"LogFiles"

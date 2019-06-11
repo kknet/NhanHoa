@@ -179,7 +179,7 @@
             lbIDValue.text = @"";
         }
         
-        lbTimeValue.text = [AppUtils getCurrentDateTimeNotHaveSeconds];
+        lbTimeValue.text = [AppUtils getDateTimeStringNotHaveSecondsFromDate:[NSDate date]];
         
         if ([vpc_TxnResponseCode isEqualToString: Approved_Code]) {
             lbStatus.textColor = GREEN_COLOR;

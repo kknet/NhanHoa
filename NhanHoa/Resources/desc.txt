@@ -278,12 +278,14 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
 ---STATUS: DONE
 
 15. RenewDomain (Lấy thông tin domain cần gia hạn)
-*Send request (Post / Get) [Auto]
-mod: renew_domain
-username: string
-password: MD5
-domain: string (tên miền)
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: renew_domain
+    username: string
+    password: MD5
+    domain: string (tên miền)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE
 
 16. AddOrder (Add đơn hàng đăng ký domain)
 *Send request (Post / Get) [Auto]

@@ -14,8 +14,6 @@
                 <outlet property="btnContinue" destination="qIm-tv-ZgC" id="gFI-E5-enR"/>
                 <outlet property="lbDomainPrice" destination="ss8-bd-T6B" id="LBO-6M-wnz"/>
                 <outlet property="lbDomainPriceValue" destination="WQW-Jx-1SK" id="MAO-7V-ZD4"/>
-                <outlet property="lbPromo" destination="8Wg-YR-qQi" id="t1F-OA-ACR"/>
-                <outlet property="lbPromoValue" destination="rM5-At-G2G" id="m1E-qW-mH5"/>
                 <outlet property="lbSepa" destination="5YT-Iz-69c" id="qUK-uA-wVp"/>
                 <outlet property="lbTotalPrice" destination="VQd-h9-6sC" id="Nu5-G6-PwY"/>
                 <outlet property="lbTotalPriceValue" destination="tD9-Xf-5Na" id="jOY-gW-M3E"/>
@@ -64,20 +62,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="50.000đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUQ-Oe-Sde">
                             <rect key="frame" x="172" y="37" width="140" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Khuyến mãi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wg-YR-qQi">
-                            <rect key="frame" x="8" y="66" width="150" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rM5-At-G2G">
-                            <rect key="frame" x="172" y="66" width="140" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>

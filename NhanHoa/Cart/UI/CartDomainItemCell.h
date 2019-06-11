@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTotalPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
+- (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew;
+
 @end
 
 NS_ASSUME_NONNULL_END

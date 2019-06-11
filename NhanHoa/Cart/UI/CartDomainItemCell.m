@@ -101,4 +101,37 @@
     // Configure the view for the selected state
 }
 
+- (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew {
+    if (info == nil) {
+        lbPrice.text = lbTotalPrice.text = @"N/A";
+    }else{
+        id price = [info objectForKey:@"price"];
+        long priceValue = 0;
+        if (price != nil && [price isKindOfClass:[NSString class]]) {
+            priceValue = (long)[price longLongValue];
+            
+            NSString *strPrice = [AppUtils convertStringToCurrencyFormat: price];
+            lbPrice.text = [NSString stringWithFormat:@"%@ vnđ", strPrice];
+            
+        }else if (price != nil && [price isKindOfClass:[NSNumber class]]) {
+            priceValue = [price longValue];
+            
+            NSString *strPrice = [NSString stringWithFormat:@"%ld", [price longValue]];
+            strPrice = [AppUtils convertStringToCurrencyFormat: strPrice];
+            lbPrice.text = [NSString stringWithFormat:@"%@ vnđ", strPrice];
+        }else{
+            lbPrice.text = @"N/A";
+        }
+        
+        if (priceValue > 0 && yearsForRenew > 0) {
+            long totalPrice = priceValue * yearsForRenew;
+            NSString *strTotal = [NSString stringWithFormat:@"%ld", totalPrice];
+            strTotal = [AppUtils convertStringToCurrencyFormat: strTotal];
+            lbTotalPrice.text = [NSString stringWithFormat:@"%@ vnđ", strTotal];
+        }else{
+            lbTotalPrice.text = @"N/A";
+        }
+    }
+}
+
 @end

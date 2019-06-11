@@ -14,6 +14,7 @@
 @interface RenewDomainDetailViewController ()<WebServiceUtilsDelegate> {
     NSString *CMND_a;
     NSString *CMND_b;
+    NSString *domain;
 }
 
 @end
@@ -49,8 +50,13 @@
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
-    [self.navigationController pushViewController:renewCartVC animated:TRUE];
+    if (![AppUtils isNullOrEmpty: domain]) {
+        RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
+        renewCartVC.domain = domain;
+        [self.navigationController pushViewController:renewCartVC animated:TRUE];
+    }else{
+        [self.view makeToast:@"Tên miền không tồn tại. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
@@ -95,11 +101,11 @@
 }
 
 - (void)displayDomainInfoWithData: (NSDictionary *)info {
-    NSString *domainName = [info objectForKey:@"domain_name"];
-    lbTopDomain.text = (![AppUtils isNullOrEmpty: domainName]) ? domainName : @"";
+    domain = [info objectForKey:@"domain_name"];
+    lbTopDomain.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
     
     //  reupdate frame for top label
-    float sizeText = [AppUtils getSizeWithText:domainName withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;
+    float sizeText = [AppUtils getSizeWithText:domain withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;
     [lbTopDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(self.padding);
         make.centerX.equalTo(self.view.mas_centerX);
@@ -110,14 +116,14 @@
     
     lbIDValue.text = ordId;
     
-    lbDomainValue.text = domainName;
+    lbDomainValue.text = domain;
     
     NSString *serviceName = [info objectForKey:@"service_name"];
     lbServiceNameValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
     
     NSString *startTime = [info objectForKey:@"start_time"];
     if ([startTime isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: startTime]) {
-        NSString *startDate = [AppUtils getDateStringFromTimerInterval:[startTime longLongValue]];
+        NSString *startDate = [AppUtils getDateStringFromTimerInterval:(long)[startTime longLongValue]];
         lbRegisterDateValue.text = startDate;
     }else{
         lbRegisterDateValue.text = @"";
@@ -125,7 +131,7 @@
     
     NSString *endTime = [info objectForKey:@"end_time"];
     if ([endTime isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: endTime]) {
-        NSString *endDate = [AppUtils getDateStringFromTimerInterval:[endTime longLongValue]];
+        NSString *endDate = [AppUtils getDateStringFromTimerInterval:(long)[endTime longLongValue]];
         lbExpireDate.text = endDate;
         
         //  check expire
