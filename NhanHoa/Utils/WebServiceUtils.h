@@ -73,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToGetRenewInfoWithError: (NSString *)error;
 - (void)getRenewInfoForDomainSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToReOrderDomainWithError: (NSString *)error;
+- (void)reOrderDomainSuccessfulWithData: (NSDictionary *)data;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -101,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resendOTPForUsername: (NSString *)username password: (NSString *)password;
 - (void)getTransactionsHistory;
 - (void)getRenewInfoForDomain: (NSString *)domain;
+- (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years;
 
 @end
 

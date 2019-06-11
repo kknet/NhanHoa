@@ -160,6 +160,11 @@
 		56D5761F22A2C0A200F6ADAD /* UpdatePassportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D5761D22A2C0A200F6ADAD /* UpdatePassportViewController.m */; };
 		56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */; };
 		56F0958F229A7B7D00AF381B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0958E229A7B7D00AF381B /* Photos.framework */; };
+		56FA23AD22B00AD9003F89CB /* BankInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23AB22B00AD9003F89CB /* BankInfoViewController.m */; };
+		56FA23AE22B00AD9003F89CB /* BankInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23AC22B00AD9003F89CB /* BankInfoViewController.xib */; };
+		56FA23B122B01524003F89CB /* BankObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B022B01524003F89CB /* BankObject.m */; };
+		56FA23B522B0191F003F89CB /* BankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B322B0191F003F89CB /* BankCell.m */; };
+		56FA23B622B0191F003F89CB /* BankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23B422B0191F003F89CB /* BankCell.xib */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
 		56FED7C322AD050F00FAD541 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C122AD050E00FAD541 /* ic_add.png */; };
 		56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C222AD050F00FAD541 /* ic_headset.png */; };
@@ -510,6 +515,14 @@
 		56D5761D22A2C0A200F6ADAD /* UpdatePassportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePassportViewController.m; sourceTree = "<group>"; };
 		56D5761E22A2C0A200F6ADAD /* UpdatePassportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePassportViewController.xib; sourceTree = "<group>"; };
 		56F0958E229A7B7D00AF381B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		56FA23AA22B00AD9003F89CB /* BankInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankInfoViewController.h; sourceTree = "<group>"; };
+		56FA23AB22B00AD9003F89CB /* BankInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankInfoViewController.m; sourceTree = "<group>"; };
+		56FA23AC22B00AD9003F89CB /* BankInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankInfoViewController.xib; sourceTree = "<group>"; };
+		56FA23AF22B01524003F89CB /* BankObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankObject.h; sourceTree = "<group>"; };
+		56FA23B022B01524003F89CB /* BankObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankObject.m; sourceTree = "<group>"; };
+		56FA23B222B0191F003F89CB /* BankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCell.h; sourceTree = "<group>"; };
+		56FA23B322B0191F003F89CB /* BankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCell.m; sourceTree = "<group>"; };
+		56FA23B422B0191F003F89CB /* BankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankCell.xib; sourceTree = "<group>"; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
 		56FED7C122AD050E00FAD541 /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add.png; sourceTree = "<group>"; };
 		56FED7C222AD050F00FAD541 /* ic_headset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_headset.png; sourceTree = "<group>"; };
@@ -808,6 +821,9 @@
 				157A01D022A7D37000A0B11F /* AboutViewController.h */,
 				157A01D122A7D37000A0B11F /* AboutViewController.m */,
 				157A01D222A7D37000A0B11F /* AboutViewController.xib */,
+				56FA23AA22B00AD9003F89CB /* BankInfoViewController.h */,
+				56FA23AB22B00AD9003F89CB /* BankInfoViewController.m */,
+				56FA23AC22B00AD9003F89CB /* BankInfoViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1049,6 +1065,9 @@
 				56CB516C22A72E8700D6D68A /* UpdateBusinessProfile.h */,
 				56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */,
 				56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */,
+				56FA23B222B0191F003F89CB /* BankCell.h */,
+				56FA23B322B0191F003F89CB /* BankCell.m */,
+				56FA23B422B0191F003F89CB /* BankCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1216,6 +1235,8 @@
 				846EA9112276EF6D00F1D7DB /* DomainObject.m */,
 				153035E622867773005E7DB2 /* CityObject.h */,
 				153035E722867773005E7DB2 /* CityObject.m */,
+				56FA23AF22B01524003F89CB /* BankObject.h */,
+				56FA23B022B01524003F89CB /* BankObject.m */,
 			);
 			path = AppObjects;
 			sourceTree = "<group>";
@@ -1640,6 +1661,7 @@
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
+				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
@@ -1667,6 +1689,7 @@
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */,
+				56FA23AE22B00AD9003F89CB /* BankInfoViewController.xib in Resources */,
 				566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
 				15E7380222812A2200EFB017 /* dashline.png in Resources */,
@@ -1807,6 +1830,7 @@
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
+				56FA23B522B0191F003F89CB /* BankCell.m in Sources */,
 				56D5761F22A2C0A200F6ADAD /* UpdatePassportViewController.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
@@ -1818,6 +1842,7 @@
 				157A01CB22A7733D00A0B11F /* PECropRectView.m in Sources */,
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
+				56FA23AD22B00AD9003F89CB /* BankInfoViewController.m in Sources */,
 				157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */,
 				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
@@ -1825,6 +1850,7 @@
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,
 				841966862276016400C14516 /* SuggestDomainCell.m in Sources */,
+				56FA23B122B01524003F89CB /* BankObject.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
@@ -2009,7 +2035,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

@@ -10,23 +10,26 @@
 #import "CartDomainItemCell.h"
 #import "SelectYearsCell.h"
 #import "PaymentMethodCell.h"
+#import "AccountModel.h"
 
-@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate> {
+@interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate> {
     NSDictionary *domainInfo;
     int yearsForRenew;
     long priceForRenew;
+    float vat;
 }
 
 @end
 
 @implementation RenewDomainCartViewController
 @synthesize tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbTotalPrice, lbTotalPriceValue, btnContinue, tbSelectYear;
-@synthesize hCell, domain;
+@synthesize hCell, domain, cus_id, ord_id;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Gia hạn tên miền";
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,8 +40,8 @@
     
     yearsForRenew = 1;
     priceForRenew = 0;
+    vat = 0;
     
-    [self setupUIForView];
     [self addTableViewForSelectYears];
     
     [self updateAllPriceForView];
@@ -56,11 +59,56 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    //  close table view
+    [UIView animateWithDuration:0.15 animations:^{
+        self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
+    }];
     
+    long totalPrice = [self getTotalPriceForPayment];
+    if (totalPrice > 0) {
+        NSString *strBalance = [AccountModel getCusBalance];
+        if ([strBalance longLongValue] >= totalPrice) {
+            if (![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: cus_id] && ![AppUtils isNullOrEmpty: ord_id])
+            {
+                [self confirmRenewOrderView];
+            }else{
+                [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            }
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?" delegate:self cancelButtonTitle:@"Để sau" otherButtonTitles:@"Nạp ngay", nil];
+            alert.tag = 2;
+            [alert show];
+        }
+    }else{
+        [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
-- (void)confirmPaymentPress {
+- (void)confirmRenewOrderView {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn gia hạn tên miền này?"];
+    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
+    [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+    
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         NSLog(@"Đóng");
+                                                     }];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:@"Gia hạn" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                         [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+                                                         
+                                                         [[WebServiceUtils getInstance] renewOrderForDomain:domain contactId:cus_id ord_id:ord_id years:yearsForRenew];
+                                                     }];
+    [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnClose];
+    [alertVC addAction:btnRenew];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 - (void)setupUIForView {
@@ -157,14 +205,31 @@
 
 - (void)updateAllPriceForView {
     if (priceForRenew > 0 && yearsForRenew > 0) {
-        long total = priceForRenew * yearsForRenew;
+        long domainPrice = priceForRenew * yearsForRenew;
+        NSString *strDomainPrice = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", domainPrice]];
+        lbDomainPriceValue.text = [NSString stringWithFormat:@"%@ vnđ", strDomainPrice];
+        
+        long vatValue = vat*domainPrice/100;
+        NSString *strVAT = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", vatValue]];
+        lbVATValue.text = [NSString stringWithFormat:@"%@ vnđ", strVAT];
+        
+        long total = domainPrice + vatValue;
         NSString *strTotal = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", total]];
         lbTotalPriceValue.text = [NSString stringWithFormat:@"%@ vnđ", strTotal];
         
-        lbVATValue.text = @"0 vnđ";
-        
     }else {
         lbVATValue.text = lbDomainPriceValue.text = lbTotalPriceValue.text = @"N/A";
+    }
+}
+
+- (long)getTotalPriceForPayment {
+    if (priceForRenew > 0 && yearsForRenew > 0) {
+        long domainPrice = priceForRenew * yearsForRenew;
+        long vatValue = vat*domainPrice/100;
+        
+        return domainPrice + vatValue;
+    }else {
+        return 0;
     }
 }
 
@@ -215,6 +280,7 @@
     if (tableView == tbSelectYear) {
         yearsForRenew = (int)indexPath.row + 1;
         [self updateAllPriceForView];
+        [tbDomain reloadData];
         
         [UIView animateWithDuration:0.15 animations:^{
             self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
@@ -288,6 +354,20 @@
     [self prepareDataWithInfo: data];
 }
 
+-(void)failedToReOrderDomainWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Gia hạn thất bại. Vui lòng thử lại sau." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+-(void)reOrderDomainSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
 - (void)prepareDataWithInfo: (id)data {
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         domainInfo = [[NSDictionary alloc] initWithDictionary: data];
@@ -303,7 +383,18 @@
     }
     //  get price for renew domain
     priceForRenew = [self getPriceForRenewDomainWithInfo: domainInfo];
+    vat = [self getVATForRenewDomainWithInfo: domainInfo];
+    
     [self updateAllPriceForView];
+    /*
+    "domain_id" = 144105;
+    "domain_name" = "nooplinux.com";
+    "domain_type" = domain;
+    "ord_id" = 867083;
+    price = 209000;
+    "price_vat" = 20900;
+    total = 229900;
+    vat = 10;   */
 }
 
 - (void)dismissView {
@@ -320,6 +411,25 @@
         priceValue = (long)[price longLongValue];
     }
     return priceValue;
+}
+
+- (float)getVATForRenewDomainWithInfo: (NSDictionary *)info {
+    if (info == nil) {
+        return 0;
+    }
+    id vat = [info objectForKey:@"vat"];
+    float vatValue = 0;
+    if (vat != nil && ([vat isKindOfClass:[NSString class]] || [vat isKindOfClass:[NSNumber class]])) {
+        vatValue = [vat floatValue];
+    }
+    return vatValue;
+}
+
+#pragma mark - Alerview Delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1) {
+    }
+    NSLog(@"buttonIndex = %d", buttonIndex);
 }
 
 @end

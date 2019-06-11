@@ -11,6 +11,10 @@
 
 #define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
+
+
+#define acc_registered      @"001"
+#define limited_register    @"099"
 #define accountNotActive    @"006"
 
 
@@ -126,6 +130,7 @@
 #define resend_otp_func         @"ResendOTP"
 #define get_history_func        @"History"
 #define renew_domain_func       @"RenewDomain"
+#define renew_order_func        @"RenewOrder"
 
 
 #define login_mod               @"login"
@@ -150,6 +155,7 @@
 #define resend_otp_mod          @"resend_otp"
 #define get_history_mod         @"history"
 #define renew_domain_mod        @"renew_domain"
+#define renew_order_mod         @"renew_order"
 
 
 #define logsFolderName      @"LogFiles"

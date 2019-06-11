@@ -267,9 +267,10 @@
     [ProgressHUD dismiss];
     
     if ([link isEqualToString:register_account_func]) {
-         NSString *errorCode = [AppUtils getErrorCodeFromData: error];
-        if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString:@"001"]) {
-            [self.view makeToast:@"Tài khoản email này đã được đăng ký" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        NSString *errorCode = [AppUtils getErrorCodeFromData: error];
+        NSString *content = [AppUtils getErrorContentWithErrorCode: errorCode];
+        if (![AppUtils isNullOrEmpty: content]) {
+            [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }else{
             [self.view makeToast:@"Thất bại. Đã có lỗi xảy ra." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }

@@ -12,6 +12,7 @@
 #import "ContactInfoViewController.h"
 #import "RenewedDomainViewController.h"
 #import "SupportViewController.h"
+#import "BankInfoViewController.h"
 #import "AboutViewController.h"
 #import "SettingMenuCell.h"
 #import "AccountModel.h"
@@ -214,6 +215,11 @@
             cell.lbName.text = @"Hỗ trợ khách hàng";
             break;
         }
+        case eBankInfo:{
+            cell.imgType.image = [UIImage imageNamed:@"ic_about"];
+            cell.lbName.text = @"Thông tin tài khoản";
+            break;
+        }
         case eApplicationInfo:{
             cell.imgType.image = [UIImage imageNamed:@"ic_about"];
             cell.lbName.text = @"Thông tin ứng dụng";
@@ -267,6 +273,12 @@
             SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
             supportVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: supportVC animated:YES];
+            break;
+        }
+        case eBankInfo:{
+            BankInfoViewController *bankInfoVC = [[BankInfoViewController alloc] initWithNibName:@"BankInfoViewController" bundle:nil];
+            bankInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: bankInfoVC animated:YES];
             break;
         }
         case eApplicationInfo:{

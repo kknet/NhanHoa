@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
 
 @property (nonatomic, strong) NSString *domain;
+@property (nonatomic, strong) NSString *cus_id;
+@property (nonatomic, strong) NSString *ord_id;
 
 @property (nonatomic, assign) float hCell;
 

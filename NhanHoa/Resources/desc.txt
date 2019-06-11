@@ -362,15 +362,17 @@ amount: number
 *Lưu ý: Kết quả trả về có đi kèm chỉ số cus_point mới, cần cập nhật lại thông số cus_point trên app.
 
 23. RenewOrder (duy trì đơn hàng & domain)
-*Send request (Post / Get) [Auto]
-mod: renew_order
-username: string
-password: MD5
-domain: string (tên miền)
-contact_id: number (cus_is trả về từ api info_domain)
-ord_id: number (ord_id trả về từ api info_domain)
-year: number (số năm duy tri)
-*Kết quả trả về: anh em send test để xem kết quả
+    *Send request (Post / Get) [Auto]
+    mod: renew_order
+    username: string
+    password: MD5
+    domain: string (tên miền)
+    contact_id: number (cus_id trả về từ api info_domain)
+    ord_id: number (ord_id trả về từ api info_domain)
+    year: number (số năm duy tri)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+---STATUS: DONE
 
 24. HashKey (Gửi hash key trước khi chuyển qua thanh toán Onepay)
     *Send request (Post / Get) [Auto]

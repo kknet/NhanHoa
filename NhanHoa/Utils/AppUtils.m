@@ -634,6 +634,21 @@
     return nil;
 }
 
++ (NSString *)getErrorContentWithErrorCode: (NSString *)errorCode {
+    if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: acc_registered]) {
+        return @"Tài khoản email này đã được đăng ký";
+        
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: limited_register]) {
+        return @"Không thể đăng ký tài khoản vào lúc này.";
+        
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: accountNotActive]) {
+        return @"Tài khoản của bạn chưa được kích hoạt";
+        
+    }else{
+        return @"";
+    }
+}
+
 + (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

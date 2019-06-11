@@ -15,6 +15,7 @@
     NSString *CMND_a;
     NSString *CMND_b;
     NSString *domain;
+    NSString *cus_id;
 }
 
 @end
@@ -50,9 +51,11 @@
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if (![AppUtils isNullOrEmpty: domain]) {
+    if (![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: cus_id] && ![AppUtils isNullOrEmpty: ordId]) {
         RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
         renewCartVC.domain = domain;
+        renewCartVC.cus_id = cus_id;
+        renewCartVC.ord_id = ordId;
         [self.navigationController pushViewController:renewCartVC animated:TRUE];
     }else{
         [self.view makeToast:@"Tên miền không tồn tại. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -103,6 +106,13 @@
 - (void)displayDomainInfoWithData: (NSDictionary *)info {
     domain = [info objectForKey:@"domain_name"];
     lbTopDomain.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
+    
+    id cusId = [info objectForKey:@"cus_id"];
+    if (cusId != nil && [cusId isKindOfClass:[NSString class]]) {
+        cus_id = cusId;
+    }else if (cusId != nil && [cusId isKindOfClass:[NSNumber class]]) {
+        cus_id = [NSString stringWithFormat:@"%ld", [cusId longValue]];
+    }
     
     //  reupdate frame for top label
     float sizeText = [AppUtils getSizeWithText:domain withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;

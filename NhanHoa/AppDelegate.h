@@ -79,6 +79,9 @@ typedef enum PaymentMethod{
 @property(strong, nonatomic) UIWindow *cartWindow;
 @property(strong, nonatomic) CartViewController *cartViewController;
 @property(strong, nonatomic) UINavigationController *cartNavViewController;
+
+@property(strong, nonatomic) NSMutableArray *listBank;
+
 - (void)showCartScreenContent;
 - (void)hideCartView;
 

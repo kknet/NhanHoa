@@ -313,6 +313,22 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:renew_order_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [jsonDict setObject:contact_id forKey:@"contact_id"];
+    [jsonDict setObject:ord_id forKey:@"ord_id"];
+    [jsonDict setObject:[NSNumber numberWithInt: years] forKey:@"year"];
+    [webService callWebServiceWithLink:renew_order_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -398,6 +414,10 @@
     }else if ([link isEqualToString: renew_domain_func]) {
         if ([delegate respondsToSelector:@selector(failedToGetRenewInfoWithError:)]) {
             [delegate failedToGetRenewInfoWithError: error];
+        }
+    }else if ([link isEqualToString: renew_order_func]) {
+        if ([delegate respondsToSelector:@selector(failedToReOrderDomainWithError:)]) {
+            [delegate failedToReOrderDomainWithError: error];
         }
     }
 }
@@ -488,6 +508,10 @@
     }else if ([link isEqualToString: renew_domain_func]) {
         if ([delegate respondsToSelector:@selector(getRenewInfoForDomainSuccessfulWithData:)]) {
             [delegate getRenewInfoForDomainSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: renew_order_func]) {
+        if ([delegate respondsToSelector:@selector(reOrderDomainSuccessfulWithData:)]) {
+            [delegate reOrderDomainSuccessfulWithData: data];
         }
     }
 }

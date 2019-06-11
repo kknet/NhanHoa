@@ -25,7 +25,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController;
+@synthesize cartWindow, cartViewController, cartNavViewController, listBank;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title

@@ -14,6 +14,7 @@ typedef enum{
     eContactInfo,
     eManagerDomainList,
     eCustomnerSupport,
+    eBankInfo,
     eApplicationInfo,
     eSignOut,
 }eSettingMenu;
