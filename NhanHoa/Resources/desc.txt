@@ -309,15 +309,17 @@ year: number (số năm đăng ký)
 
 
 18. InfoBank (Cập nhật thông tin tài khoản ngân hàng)
-*Send request (Post / Get) [Auto]
-mod: info_bank
-username: string
-password: MD5
-bankname: string (tên ngân hàng)
-bankaccount: string (tên tài khoản)
-banknumber: string (số tài khoản)
-*Kết quả trả về: anh em send test để xem kết quả
-*Lưu ý: thông tin bank của acc trính lấy từ các thông số trả về của api login (gồm có: cus_bankname, cus_bankaccount, cus_banknumber).
+    *Send request (Post / Get) [Auto]
+    mod: info_bank
+    username: string
+    password: MD5
+    bankname: string (tên ngân hàng)
+    bankaccount: string (tên tài khoản)
+    banknumber: string (số tài khoản)
+    *Kết quả trả về: anh em send test để xem kết quả
+    *Lưu ý: thông tin bank của acc trính lấy từ các thông số trả về của api login (gồm có: cus_bankname, cus_bankaccount, cus_banknumber).
+
+---STATUS: DONE
 
 19. ProfilePhoto (Cập nhật profile photo)
     *Send request (Post / Get) [Auto]

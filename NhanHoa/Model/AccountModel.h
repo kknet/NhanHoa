@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getCusCompanyAddress;
 + (NSString *)getCusCompanyPhone;
 + (NSString *)getCusCompanyPosition;
++ (NSString *)getCusBankAccount;
++ (NSString *)getCusBankName;
++ (NSString *)getCusBankNumber;
 
 @end
 

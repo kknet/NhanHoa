@@ -7,11 +7,15 @@
 //
 
 #import "BankInfoViewController.h"
+#import "AccountModel.h"
 #import "BankObject.h"
 #import "BankCell.h"
 
-@interface BankInfoViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface BankInfoViewController ()<UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UITextFieldDelegate, WebServiceUtilsDelegate>{
     UITableView *tbBank;
+    NSMutableArray *searchList;
+    NSTimer *searchTimer;
+    float hCell;
 }
 
 @end
@@ -28,9 +32,31 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"BankInfoViewController"];
+    [WebServiceUtils getInstance].delegate = self;
+    
     if ([AppDelegate sharedInstance].listBank == nil) {
         [self createListBank];
     }
+    
+    if (searchList == nil) {
+        searchList = [[NSMutableArray alloc] init];
+    }else{
+        [searchList removeAllObjects];
+    }
+    
+    [self displayBankInfo];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    searchList = nil;
+}
+
+- (void)displayBankInfo {
+    tfBankName.text = [AccountModel getCusBankName];
+    tfOwner.text = [AccountModel getCusBankAccount];
+    tfAccNo.text = [AccountModel getCusBankNumber];
 }
 
 - (void)closeKeyboard {
@@ -39,7 +65,10 @@
 
 - (void)setupUIForView {
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
+    tapOnScreen.delegate = self;
     [self.view addGestureRecognizer: tapOnScreen];
+    
+    hCell = 40.0;
     
     float padding = 15.0;
     [lbBankName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,6 +83,11 @@
         make.top.equalTo(self.lbBankName.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
+    tfBankName.delegate = self;
+    tfBankName.returnKeyType = UIReturnKeyNext;
+    [tfBankName addTarget:self
+                   action:@selector(tfBankDidChanged:)
+         forControlEvents:UIControlEventEditingChanged];
     
     [lbOwner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.tfBankName);
@@ -67,6 +101,8 @@
         make.top.equalTo(self.lbOwner.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
+    tfOwner.delegate = self;
+    tfOwner.returnKeyType = UIReturnKeyNext;
     
     [lbAccNo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.tfOwner);
@@ -80,6 +116,8 @@
         make.top.equalTo(self.lbAccNo.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
+    tfAccNo.delegate = self;
+    tfAccNo.returnKeyType = UIReturnKeyDone;
     
     btnUpdate.layer.cornerRadius = 45.0/2;
     btnUpdate.backgroundColor = BLUE_COLOR;
@@ -91,6 +129,10 @@
     }];
     
     tbBank = [[UITableView alloc] init];
+    tbBank.backgroundColor = UIColor.whiteColor;
+    tbBank.layer.cornerRadius = 5.0;
+    tbBank.layer.borderColor = BORDER_COLOR.CGColor;
+    tbBank.layer.borderWidth = 1.0;
     [tbBank registerNib:[UINib nibWithNibName:@"BankCell" bundle:nil] forCellReuseIdentifier:@"BankCell"];
     tbBank.delegate = self;
     tbBank.dataSource = self;
@@ -112,6 +154,53 @@
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfBankName.text] || [AppUtils isNullOrEmpty: tfOwner.text] || [AppUtils isNullOrEmpty: tfAccNo.text]) {
+        [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin của bạn" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
+    
+    [[WebServiceUtils getInstance] updateBankInfoWithBankName:tfBankName.text bankaccount:tfOwner.text banknumber:tfAccNo.text];
+}
+
+- (void)tfBankDidChanged: (UITextField *)textfield {
+    if (searchTimer) {
+        searchTimer = nil;
+        [searchTimer invalidate];
+    }
+    searchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(searchBankForUser:) userInfo:textfield.text repeats:FALSE];
+}
+
+- (void)searchBankForUser: (NSTimer *)timer {
+    NSString *search = timer.userInfo;
+    if ([search isKindOfClass:[NSString class]]) {
+        if (search.length > 0) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@ OR name CONTAINS[cd] %@", search, search];
+            NSArray *filter = [[AppDelegate sharedInstance].listBank filteredArrayUsingPredicate: predicate];
+            
+            [searchList removeAllObjects];
+            if (filter.count > 0) {
+                [searchList addObjectsFromArray: filter];
+            }
+        }else{
+            [searchList removeAllObjects];
+        }
+        
+        float hTbView = 5*hCell;
+        if (searchList.count == 0) {
+            hTbView = 0;
+        }
+        
+        [tbBank mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.tfBankName.mas_bottom).offset(2.0);
+            make.left.right.equalTo(self.tfBankName);
+            make.height.mas_equalTo(hTbView);
+        }];
+        [tbBank reloadData];
+    }
 }
 
 - (void)createListBank {
@@ -232,7 +321,90 @@
     [[AppDelegate sharedInstance].listBank addObject: Vietbank];
 }
 
+#pragma mark - UITableviw Controller
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return searchList.count;
+}
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BankCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BankCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    BankObject *bank = [searchList objectAtIndex: indexPath.row];
+    cell.lbSepa.hidden = TRUE;
+    cell.lbName.text = bank.name;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BankObject *bank = [searchList objectAtIndex: indexPath.row];
+    tfBankName.text = bank.name;
+    
+    [tbBank mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.tfBankName.mas_bottom).offset(2.0);
+        make.left.right.equalTo(self.tfBankName);
+        make.height.mas_equalTo(0);
+    }];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return hCell;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+-(BOOL)gestureRecognizer:(UIGestureRecognizer * __unused)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if([touch.view isKindOfClass:[UITableViewCell class]] || [touch.view isKindOfClass:NSClassFromString(@"UITableViewCellContentView")])
+    {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - WebServiceUtil Delegate
+-(void)failedToUpdateBankInfoWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Cập nhật không thành công. Vui lòng thử lại sau" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+-(void)updateBankInfoSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [self tryLoginToUpdateInformation];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Thông tin tài khoản ngân hàng đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+}
+
+- (void)tryLoginToUpdateInformation
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+#pragma mark - UITextfield Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfBankName) {
+        [tfOwner becomeFirstResponder];
+        
+    }else if (textField == tfOwner) {
+        [tfAccNo becomeFirstResponder];
+        
+    }else if (textField == tfAccNo) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
+}
 
 @end

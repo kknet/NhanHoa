@@ -166,6 +166,7 @@
 		56FA23B522B0191F003F89CB /* BankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B322B0191F003F89CB /* BankCell.m */; };
 		56FA23B622B0191F003F89CB /* BankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23B422B0191F003F89CB /* BankCell.xib */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
+		56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FD5AD922B064B800955964 /* ic_bank_info.png */; };
 		56FED7C322AD050F00FAD541 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C122AD050E00FAD541 /* ic_add.png */; };
 		56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C222AD050F00FAD541 /* ic_headset.png */; };
 		56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */; };
@@ -524,6 +525,7 @@
 		56FA23B322B0191F003F89CB /* BankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCell.m; sourceTree = "<group>"; };
 		56FA23B422B0191F003F89CB /* BankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankCell.xib; sourceTree = "<group>"; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
+		56FD5AD922B064B800955964 /* ic_bank_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bank_info.png; sourceTree = "<group>"; };
 		56FED7C122AD050E00FAD541 /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add.png; sourceTree = "<group>"; };
 		56FED7C222AD050F00FAD541 /* ic_headset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_headset.png; sourceTree = "<group>"; };
 		56FED7CD22AD2D9B00FAD541 /* OTPConfirmView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTPConfirmView.h; sourceTree = "<group>"; };
@@ -1017,6 +1019,7 @@
 				56FED7C122AD050E00FAD541 /* ic_add.png */,
 				56FED7C222AD050F00FAD541 /* ic_headset.png */,
 				566A159C22AEBDF800604FE8 /* ic_his_topup.png */,
+				56FD5AD922B064B800955964 /* ic_bank_info.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1583,6 +1586,7 @@
 				84F1730622833310006AEE87 /* wallet_white.png in Resources */,
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
+				56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,

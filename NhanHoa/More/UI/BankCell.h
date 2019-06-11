@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BankCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
-@property (weak, nonatomic) IBOutlet UILabel *lbCode;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 @end

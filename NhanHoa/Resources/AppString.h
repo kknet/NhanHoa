@@ -131,6 +131,7 @@
 #define get_history_func        @"History"
 #define renew_domain_func       @"RenewDomain"
 #define renew_order_func        @"RenewOrder"
+#define info_bank_func          @"InfoBank"
 
 
 #define login_mod               @"login"
@@ -156,6 +157,7 @@
 #define get_history_mod         @"history"
 #define renew_domain_mod        @"renew_domain"
 #define renew_order_mod         @"renew_order"
+#define info_bank_mod           @"info_bank"
 
 
 #define logsFolderName      @"LogFiles"

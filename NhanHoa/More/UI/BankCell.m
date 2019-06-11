@@ -9,24 +9,21 @@
 #import "BankCell.h"
 
 @implementation BankCell
-@synthesize lbCode, lbName, lbSepa;
+@synthesize lbName, lbSepa;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     
-    lbName.font = lbCode.font = [AppDelegate sharedInstance].fontDesc;
-    lbName.textColor = lbCode.textColor = TITLE_COLOR;
+    lbName.font = [AppDelegate sharedInstance].fontDesc;
+    lbName.textColor = TITLE_COLOR;
     
+    lbName.numberOfLines = 5;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(5.0);
         make.right.equalTo(self).offset(-5.0);
-        make.bottom.equalTo(self.mas_centerY).offset(-2.0);
-    }];
-    
-    [lbCode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbName);
-        make.top.equalTo(self.mas_centerY).offset(2.0);
+        make.top.equalTo(self);
+        make.bottom.equalTo(self).offset(1.0);
     }];
     
     lbSepa.backgroundColor = BORDER_COLOR;

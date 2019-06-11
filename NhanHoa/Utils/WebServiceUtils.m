@@ -329,6 +329,21 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)updateBankInfoWithBankName: (NSString *)bankname bankaccount: (NSString *)bankaccount banknumber:(NSString *)banknumber {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] bankname = %@, bankaccount = %@, banknumber = %@", __FUNCTION__, bankname, bankaccount, banknumber) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:info_bank_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:bankname forKey:@"bankname"];
+    [jsonDict setObject:bankaccount forKey:@"bankaccount"];
+    [jsonDict setObject:banknumber forKey:@"banknumber"];
+    [webService callWebServiceWithLink:info_bank_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -419,7 +434,12 @@
         if ([delegate respondsToSelector:@selector(failedToReOrderDomainWithError:)]) {
             [delegate failedToReOrderDomainWithError: error];
         }
+    }else if ([link isEqualToString: info_bank_func]) {
+        if ([delegate respondsToSelector:@selector(failedToUpdateBankInfoWithError:)]) {
+            [delegate failedToUpdateBankInfoWithError: error];
+        }
     }
+    
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
@@ -512,6 +532,10 @@
     }else if ([link isEqualToString: renew_order_func]) {
         if ([delegate respondsToSelector:@selector(reOrderDomainSuccessfulWithData:)]) {
             [delegate reOrderDomainSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: info_bank_func]) {
+        if ([delegate respondsToSelector:@selector(updateBankInfoSuccessfulWithData:)]) {
+            [delegate updateBankInfoSuccessfulWithData: data];
         }
     }
 }

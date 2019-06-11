@@ -208,6 +208,30 @@
     return @"";
 }
 
++ (NSString *)getCusBankAccount {
+    NSString *bankaccount = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_bankaccount"];
+    if (![AppUtils isNullOrEmpty: bankaccount]) {
+        return bankaccount;
+    }
+    return @"";
+}
+
++ (NSString *)getCusBankName {
+    NSString *bankname = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_bankname"];
+    if (![AppUtils isNullOrEmpty: bankname]) {
+        return bankname;
+    }
+    return @"";
+}
+
++ (NSString *)getCusBankNumber {
+    NSString *banknumber = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_banknumber"];
+    if (![AppUtils isNullOrEmpty: banknumber]) {
+        return banknumber;
+    }
+    return @"";
+}
+
 /*
 {
     "careers_id" = 37;

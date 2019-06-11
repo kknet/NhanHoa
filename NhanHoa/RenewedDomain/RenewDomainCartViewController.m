@@ -102,7 +102,7 @@
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
-                                                         [[WebServiceUtils getInstance] renewOrderForDomain:domain contactId:cus_id ord_id:ord_id years:yearsForRenew];
+                                                         [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:cus_id ord_id:ord_id years:yearsForRenew];
                                                      }];
     [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
     

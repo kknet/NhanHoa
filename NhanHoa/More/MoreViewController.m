@@ -21,7 +21,7 @@
 @end
 
 @implementation MoreViewController
-@synthesize viewHeader, tfSearch, icSearch, icNotify, icClose, tbContent, accInfoView;
+@synthesize viewHeader, tfSearch, icSearch, icClose, tbContent, accInfoView;
 @synthesize hAccount, padding;
 
 - (void)viewDidLoad {
@@ -42,11 +42,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
-    if (tbContent.contentSize.height > tbContent.frame.size.height) {
-        tbContent.scrollEnabled = TRUE;
-    }else{
-        tbContent.scrollEnabled = FALSE;
-    }
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -82,20 +78,12 @@
     float hSearch = 32.0;
     float mTop = [AppDelegate sharedInstance].hStatusBar + (hAccount/2 - [AppDelegate sharedInstance].hStatusBar - 32.0)/2;
     
-    icNotify.layer.cornerRadius = hSearch/2;
-    icNotify.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
-    [icNotify mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.viewHeader).offset(-self.padding+3.0);
-        make.top.equalTo(self.viewHeader).offset(mTop);
-        make.width.height.mas_equalTo(hSearch);
-    }];
-    
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
     tfSearch.layer.cornerRadius = 32.0/2;
     tfSearch.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewHeader).offset(self.padding);
-        make.right.equalTo(self.icNotify.mas_left).offset(-5.0);
+        make.right.equalTo(self.viewHeader).offset(-self.padding);
         make.top.equalTo(self.viewHeader).offset(mTop);
         make.height.mas_equalTo(32.0);
     }];
@@ -187,7 +175,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -216,7 +204,7 @@
             break;
         }
         case eBankInfo:{
-            cell.imgType.image = [UIImage imageNamed:@"ic_about"];
+            cell.imgType.image = [UIImage imageNamed:@"ic_bank_info"];
             cell.lbName.text = @"Thông tin tài khoản";
             break;
         }
