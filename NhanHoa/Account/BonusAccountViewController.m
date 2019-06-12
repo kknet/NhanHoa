@@ -23,6 +23,10 @@
     [self setupUIForView];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+}
+
 - (IBAction)btnWithdrawalPress:(UIButton *)sender {
 }
 

@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfMoney;
 @property (weak, nonatomic) IBOutlet UIButton *btnWithdrawal;
 
+@property (nonatomic, assign) long withdrawMoney;
+
 - (IBAction)btn500KPress:(UIButton *)sender;
 - (IBAction)btn1000KPress:(UIButton *)sender;
 - (IBAction)btn1500KPress:(UIButton *)sender;

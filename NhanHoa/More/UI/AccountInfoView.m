@@ -139,6 +139,7 @@
     
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
+        points = [AppUtils convertStringToCurrencyFormat: points];
         lbRewardMoney.text = [NSString stringWithFormat:@"%@ điểm", points];
     }else{
         lbRewardMoney.text = @"0 điểm";

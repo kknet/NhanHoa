@@ -14,7 +14,7 @@
 
 @interface RenewDomainCartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate> {
     NSDictionary *domainInfo;
-    int yearsForRenew;
+    
     long priceForRenew;
     float vat;
 }
@@ -23,7 +23,7 @@
 
 @implementation RenewDomainCartViewController
 @synthesize tbDomain, lbSepa, viewFooter, lbDomainPrice, lbDomainPriceValue, lbVAT, lbVATValue, lbTotalPrice, lbTotalPriceValue, btnContinue, tbSelectYear;
-@synthesize hCell, domain, cus_id, ord_id;
+@synthesize hCell, domain, cus_id, ord_id, yearsForRenew;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,7 +102,7 @@
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
-                                                         [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:cus_id ord_id:ord_id years:yearsForRenew];
+                                                         [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:self.cus_id ord_id:self.ord_id years:self.yearsForRenew];
                                                      }];
     [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
     

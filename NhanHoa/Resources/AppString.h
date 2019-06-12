@@ -14,8 +14,10 @@
 
 
 #define acc_registered      @"001"
-#define limited_register    @"099"
+#define name_not_vietnam    @"004"
 #define accountNotActive    @"006"
+#define miniumWithdraw      @"009"
+#define limited_register    @"099"
 
 
 #define simulator       @"x86_64"
@@ -132,6 +134,7 @@
 #define renew_domain_func       @"RenewDomain"
 #define renew_order_func        @"RenewOrder"
 #define info_bank_func          @"InfoBank"
+#define withdraw_func           @"Withdraw"
 
 
 #define login_mod               @"login"
@@ -158,6 +161,7 @@
 #define renew_domain_mod        @"renew_domain"
 #define renew_order_mod         @"renew_order"
 #define info_bank_mod           @"info_bank"
+#define withdraw_mod            @"withdraw"
 
 
 #define logsFolderName      @"LogFiles"

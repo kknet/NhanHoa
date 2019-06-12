@@ -344,6 +344,19 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
+- (void)withdrawWithAmout: (long)amount {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = ld", __FUNCTION__, amount) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:withdraw_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:[NSNumber numberWithLong: amount] forKey:@"amount"];
+    [webService callWebServiceWithLink:withdraw_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -437,6 +450,10 @@
     }else if ([link isEqualToString: info_bank_func]) {
         if ([delegate respondsToSelector:@selector(failedToUpdateBankInfoWithError:)]) {
             [delegate failedToUpdateBankInfoWithError: error];
+        }
+    }else if ([link isEqualToString: withdraw_func]) {
+        if ([delegate respondsToSelector:@selector(failedToWithdrawWithError:)]) {
+            [delegate failedToWithdrawWithError: error];
         }
     }
     
@@ -536,6 +553,10 @@
     }else if ([link isEqualToString: info_bank_func]) {
         if ([delegate respondsToSelector:@selector(updateBankInfoSuccessfulWithData:)]) {
             [delegate updateBankInfoSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: withdraw_func]) {
+        if ([delegate respondsToSelector:@selector(withdrawSuccessfulWithData:)]) {
+            [delegate withdrawSuccessfulWithData: data];
         }
     }
 }

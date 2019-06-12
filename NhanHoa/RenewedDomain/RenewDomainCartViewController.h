@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSString *domain;
 @property (nonatomic, strong) NSString *cus_id;
 @property (nonatomic, strong) NSString *ord_id;
-
+@property (nonatomic, assign) int yearsForRenew;
 @property (nonatomic, assign) float hCell;
 
 - (IBAction)btnContinuePress:(UIButton *)sender;

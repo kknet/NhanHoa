@@ -355,6 +355,9 @@
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] code = %@", __FUNCTION__, code) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Tài khoản đang được kích hoạt..." Interaction:NO];
+    
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:check_otp_mod forKey:@"mod"];
     [jsonDict setObject:email forKey:@"username"];

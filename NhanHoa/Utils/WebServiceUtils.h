@@ -79,6 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToUpdateBankInfoWithError: (NSString *)error;
 - (void)updateBankInfoSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToWithdrawWithError: (NSString *)error;
+- (void)withdrawSuccessfulWithData: (NSDictionary *)data;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -109,6 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getRenewInfoForDomain: (NSString *)domain;
 - (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years;
 - (void)updateBankInfoWithBankName: (NSString *)bankname bankaccount: (NSString *)bankaccount banknumber:(NSString *)banknumber;
+- (void)withdrawWithAmout: (long)amount;
 
 @end
 

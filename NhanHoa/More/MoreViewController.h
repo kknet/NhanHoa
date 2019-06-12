@@ -22,9 +22,6 @@ typedef enum{
 @interface MoreViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
-@property (weak, nonatomic) IBOutlet UITextField *tfSearch;
-@property (weak, nonatomic) IBOutlet UIButton *icSearch;
-@property (weak, nonatomic) IBOutlet UIButton *icClose;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 

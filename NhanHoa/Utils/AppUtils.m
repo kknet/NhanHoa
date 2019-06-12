@@ -644,6 +644,12 @@
     }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: accountNotActive]) {
         return @"Tài khoản của bạn chưa được kích hoạt";
         
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: miniumWithdraw]) {
+        return @"Số tiền cần rút tối thiểu là 500.000 điểm";
+        
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: name_not_vietnam]) {
+        return @"Tên không hợp lệ. Vui lòng nhập có dấu";
+
     }else{
         return @"";
     }

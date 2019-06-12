@@ -1,13 +1,7 @@
-API APP NHAN HOA
 
-API URL: https://nhanhoa.com/app-awk/ (cố định)
+TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 
 1. Login (Đăng nhập)
-    *Send request (Post / Get) [Auto]
-    mod: login
-    username: string
-    password: MD5
-    *Kết quả trả về: anh em send test để xem kết quả
 
 ---STATUS: DONE
 

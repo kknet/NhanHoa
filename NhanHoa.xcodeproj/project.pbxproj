@@ -63,6 +63,7 @@
 		153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EB22867C48005E7DB2 /* ChooseCityPopupView.m */; };
 		153035F022868056005E7DB2 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EE22868056005E7DB2 /* CityCell.m */; };
 		153035F122868056005E7DB2 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153035EF22868056005E7DB2 /* CityCell.xib */; };
+		1535EEE022B0D99B0034F298 /* report_app.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1535EEDF22B0D99B0034F298 /* report_app.txt */; };
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
@@ -377,6 +378,7 @@
 		153035ED22868056005E7DB2 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		153035EE22868056005E7DB2 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		153035EF22868056005E7DB2 /* CityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
+		1535EEDF22B0D99B0034F298 /* report_app.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = report_app.txt; sourceTree = "<group>"; };
 		15362863227C0686006827F9 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 				84FA12602272783D002E290D /* AppString.h */,
 				153035E4228675AF005E7DB2 /* list_city.txt */,
 				157A5F98229CF1C20095AAEF /* desc.txt */,
+				1535EEDF22B0D99B0034F298 /* report_app.txt */,
 				56FC1DBC229F45C70024CBB2 /* test_api.txt */,
 				56A58E60229C3B99003402C1 /* ios_upload_file.php */,
 			);
@@ -1602,6 +1605,7 @@
 				56FED7C322AD050F00FAD541 /* ic_add.png in Resources */,
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
+				1535EEE022B0D99B0034F298 /* report_app.txt in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
@@ -2039,7 +2043,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
