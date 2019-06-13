@@ -15,10 +15,10 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    tfDomain.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    tfDomain.font = [AppDelegate sharedInstance].fontRegular;
     tfDomain.textColor = TITLE_COLOR;
     tfDomain.placeholder = @"nhập tên miền";
-    tfDomain.layer.cornerRadius = 6.0;
+    tfDomain.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     tfDomain.layer.borderColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0].CGColor;
     tfDomain.layer.borderWidth = 1.0;
     [tfDomain mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -2,18 +2,10 @@
 TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 
 1. Login (Đăng nhập)
-
 ---Trạng thái: HOÀN TẤT
 
 2. Whois (Kiểm tra tên miền)
-    *Send request (Post / Get) [Auto]
-    mod: whois
-    domain: string
-    cus_id: number (lấy cus_id sau khi login).
-    type: number (0 hoặc 1) [defaut: 0 | 1 là dạng whois để lấy thông tin như như nhà đăng ký, ngày đăng ký, ngày hết hạn, ns, ….
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 3. ListContact (Danh sách hồ sơ)
     *Send request (Post / Get) [Auto]

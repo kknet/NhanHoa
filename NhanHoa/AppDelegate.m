@@ -12,6 +12,7 @@
 #import "SignInViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
+#import "CartModel.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -25,7 +26,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController, listBank;
+@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -79,7 +80,7 @@
     
     //  setup message style
     warningStyle = [[CSToastStyle alloc] initWithDefaultStyle];
-    warningStyle.backgroundColor = [UIColor colorWithRed:(254/255.0) green:(196/255.0) blue:(46/255.0) alpha:1.0];
+    warningStyle.backgroundColor = ORANGE_COLOR;
     warningStyle.messageColor = UIColor.whiteColor;
     warningStyle.messageFont = [UIFont fontWithName:RobotoRegular size:18.0];
     warningStyle.cornerRadius = 20.0;
@@ -515,6 +516,15 @@
         return result.name;
     }
     return @"";
+}
+
+- (void)updateShoppingCartCount {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        self.cartView.lbCount.hidden = TRUE;
+    }else{
+        self.cartView.lbCount.hidden = FALSE;
+        self.cartView.lbCount.text = [NSString stringWithFormat:@"%d", [[CartModel getInstance] countItemInCart]];
+    }
 }
 
 - (void)showCartScreenContent

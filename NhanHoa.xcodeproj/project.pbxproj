@@ -65,6 +65,8 @@
 		153035F122868056005E7DB2 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153035EF22868056005E7DB2 /* CityCell.xib */; };
 		1535EEE022B0D99B0034F298 /* report_app.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1535EEDF22B0D99B0034F298 /* report_app.txt */; };
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
+		15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15543EB222B1F759007E5966 /* ShoppingCartView.m */; };
+		15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15543EB422B1F764007E5966 /* ShoppingCartView.xib */; };
 		156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */; };
 		156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */; };
 		1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1579ABC72289522600B92E04 /* NewBusinessProfileView.m */; };
@@ -381,6 +383,9 @@
 		153035EF22868056005E7DB2 /* CityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
 		1535EEDF22B0D99B0034F298 /* report_app.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = report_app.txt; sourceTree = "<group>"; };
 		15362863227C0686006827F9 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
+		15543EB122B1F759007E5966 /* ShoppingCartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCartView.h; sourceTree = "<group>"; };
+		15543EB222B1F759007E5966 /* ShoppingCartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartView.m; sourceTree = "<group>"; };
+		15543EB422B1F764007E5966 /* ShoppingCartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingCartView.xib; sourceTree = "<group>"; };
 		156B8C15226ECB060020EDCB /* RegisteredDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredDomainViewController.h; sourceTree = "<group>"; };
 		156B8C16226ECB060020EDCB /* RegisteredDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredDomainViewController.m; sourceTree = "<group>"; };
 		156B8C17226ECB060020EDCB /* RegisteredDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredDomainViewController.xib; sourceTree = "<group>"; };
@@ -889,6 +894,9 @@
 				153035ED22868056005E7DB2 /* CityCell.h */,
 				153035EE22868056005E7DB2 /* CityCell.m */,
 				153035EF22868056005E7DB2 /* CityCell.xib */,
+				15543EB122B1F759007E5966 /* ShoppingCartView.h */,
+				15543EB222B1F759007E5966 /* ShoppingCartView.m */,
+				15543EB422B1F764007E5966 /* ShoppingCartView.xib */,
 			);
 			path = "App UI";
 			sourceTree = "<group>";
@@ -1610,6 +1618,7 @@
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
 				1535EEE022B0D99B0034F298 /* report_app.txt in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
+				15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
 				15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */,
@@ -1830,6 +1839,7 @@
 				157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
+				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
@@ -2047,7 +2057,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

@@ -20,14 +20,14 @@
 #import "CartModel.h"
 #import "AccountModel.h"
 
-@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
+@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>{
     NSMutableArray *listMenu;
     float hBanner;
 }
 @end
 
 @implementation HomeViewController
-@synthesize viewSearch, tfSearch, icClear, btnSearch, icCart, lbCount;
+@synthesize viewSearch, tfSearch, btnSearch;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
 @synthesize hMenu, viewBanner;
@@ -45,9 +45,8 @@
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
     [self setupUIForView];
     
-    //  Show cart item
-    [[CartModel getInstance] displayCartInfoWithView: lbCount];
     [self showUserWalletView];
+    [self createCartViewIfNeed];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -71,14 +70,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)icClearClick:(UIButton *)sender {
-}
-
-- (IBAction)icCartClick:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 - (void)addBannerImageForView
@@ -125,6 +116,28 @@
         lbRewardsPoints.text = [NSString stringWithFormat:@"%@ điểm", points];
     }else{
         lbRewardsPoints.text = @"0 điểm";
+    }
+}
+
+- (void)createCartViewIfNeed {
+    if ([AppDelegate sharedInstance].cartView == nil) {
+        float hNav = self.navigationController.navigationBar.frame.size.height;
+        
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ShoppingCartView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[ShoppingCartView class]]) {
+                [AppDelegate sharedInstance].cartView = (ShoppingCartView *) currentObject;
+                break;
+            }
+        }
+        [[AppDelegate sharedInstance].window addSubview: [AppDelegate sharedInstance].cartView];
+        [[AppDelegate sharedInstance].cartView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo([AppDelegate sharedInstance].window).offset([AppDelegate sharedInstance].hStatusBar);
+            make.right.equalTo([AppDelegate sharedInstance].window);
+            make.width.height.mas_equalTo(hNav);
+        }];
+        [[AppDelegate sharedInstance].cartView setupUIForView];
+        [[AppDelegate sharedInstance] updateShoppingCartCount];
     }
 }
 
@@ -278,33 +291,22 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hSearch);
     }];
-    float statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
-    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.right.equalTo(self.viewSearch);
-        make.top.equalTo(self.viewSearch).offset(statusBarHeight);
-        make.width.mas_equalTo(hSearch - statusBarHeight);
-    }];
-    
-    lbCount.clipsToBounds = TRUE;
-    lbCount.layer.cornerRadius = 20.0/2;
-    lbCount.font = [UIFont fontWithName:RobotoRegular size:14.0];
-    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.icCart).offset(3.0);
-        make.right.equalTo(self.icCart).offset(-3.0);
-        make.width.height.mas_equalTo(20.0);
-    }];
+    float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     
     float hTextfield = 34.0;
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.layer.cornerRadius = hTextfield/2;
-    tfSearch.textColor = BORDER_COLOR;
+    tfSearch.textColor = tfSearch.tintColor = BORDER_COLOR;
+    
+    float hNav = self.navigationController.navigationBar.frame.size.height;
+    
+    tfSearch.delegate = self;
+    tfSearch.returnKeyType = UIReturnKeyDone;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewSearch).offset(hStatusBar+(hNav - hTextfield)/2);
         make.left.equalTo(self.viewSearch).offset(padding);
-        make.right.equalTo(self.icCart.mas_left);
-        make.centerY.equalTo(self.icCart.mas_centerY);
+        make.right.equalTo(self.viewSearch.mas_right).offset(-hNav);
         make.height.mas_equalTo(hTextfield);
     }];
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
@@ -313,7 +315,7 @@
     tfSearch.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hTextfield, hTextfield)];
     tfSearch.rightViewMode = UITextFieldViewModeAlways;
     
-    [AppUtils setPlaceholder:@"Tìm kiếm" textfield:tfSearch color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
+    [AppUtils setPlaceholder:@"Tìm kiếm tên miền" textfield:tfSearch color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
     
     //  image search
     btnSearch.imageEdgeInsets = UIEdgeInsetsMake(7.5, 7.5, 7.5, 7.5);
@@ -429,6 +431,14 @@
     BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
     bonusAccVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController: bonusAccVC animated:YES];
+}
+
+#pragma mark - UITextfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfSearch) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
 }
 
 @end

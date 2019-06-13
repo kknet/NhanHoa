@@ -8,11 +8,13 @@
 
 #import "CartViewController.h"
 #import "PaymentViewController.h"
+#import "TopupViewController.h"
 #import "CartDomainItemCell.h"
 #import "SelectYearsCell.h"
 #import "CartModel.h"
+#import "AccountModel.h"
 
-@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>{
     float hCell;
     int selectedIndex;
 }
@@ -21,8 +23,8 @@
 
 @implementation CartViewController
 
-@synthesize viewHeader, icBack, lbHeader, scvContent, viewInfo, lbInfo, lbCount, tbDomains, promoView, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
-@synthesize hInfo, hPromoView;
+@synthesize viewHeader, icBack, lbHeader, scvContent, viewInfo, lbInfo, lbCount, tbDomains, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbPromo, lbPromoValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
+@synthesize hInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,8 +55,21 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
-//    PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
-//    [self.navigationController pushViewController:paymentVC animated:TRUE];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?" delegate:self cancelButtonTitle:@"Để sau" otherButtonTitles:topup_now, nil];
+    [alert show];
+    return;
+    
+    NSString *strBalance = [AccountModel getCusBalance];
+    long totalPrice = [[CartModel getInstance] getTotalDomainPriceForCart];
+    
+    if ([strBalance longLongValue] >= totalPrice) {
+        PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+        [self.navigationController pushViewController:paymentVC animated:TRUE];
+        
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?" delegate:self cancelButtonTitle:@"Để sau" otherButtonTitles:topup_now, nil];
+        [alert show];
+    }
 }
 
 - (IBAction)btnGoShopPress:(UIButton *)sender {
@@ -65,7 +80,30 @@
     [[AppDelegate sharedInstance] hideCartView];
 }
 
+- (void)rechangeLayoutForView {
+    float padding = 15.0;
+    
+    float hTableView = [[CartModel getInstance] countItemInCart] * hCell;
+    [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.viewInfo.mas_bottom);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hTableView);
+    }];
+    
+    //  footer view
+    float hFooter = padding + 4*30 + 2*padding + 50 + padding + 50.0 + padding;
+    [viewFooter mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.tbDomains.mas_bottom);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hFooter);
+    }];
+}
+
 - (void)updateAllPriceForView {
+    [self rechangeLayoutForView];
+    
     //  show price for cart
     NSDictionary *priceCartInfo = [[CartModel getInstance] getCartPriceInfo];
     NSNumber *VAT = [priceCartInfo objectForKey:@"VAT"];
@@ -97,7 +135,7 @@
     
     icBack.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewHeader);
+        make.left.equalTo(self.viewHeader).offset(-10.0);
         make.top.equalTo(self.viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
         make.width.height.mas_equalTo([AppDelegate sharedInstance].hNav);
     }];
@@ -174,13 +212,11 @@
         make.height.mas_equalTo(hTableView);
     }];
     
-    [self addPromotionView];
-    
     //  footer view
     float hFooter = padding + 4*30 + 2*padding + 50 + padding + 50.0 + padding;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.promoView.mas_bottom);
+        make.top.equalTo(self.tbDomains.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hFooter);
     }];
@@ -250,7 +286,7 @@
         make.top.bottom.equalTo(self.lbTotal);
     }];
     
-    btnContinue.layer.cornerRadius = 45.0/2;
+    btnContinue.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,27 +305,7 @@
         make.height.equalTo(self.btnContinue.mas_height);
     }];
     
-    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo+hTableView+hPromoView+hFooter);
-}
-
-- (void)addPromotionView {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PromotionCodeView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[PromotionCodeView class]]) {
-            promoView = (PromotionCodeView *) currentObject;
-            break;
-        }
-    }
-    [self.scvContent addSubview: promoView];
-    
-    hPromoView = 108.0;
-    [promoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.tbDomains.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hPromoView);
-    }];
-    [promoView setupUIForView];
+    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo+hTableView+hFooter);
 }
 
 - (void)removeDomainFromCart: (UIButton *)sender {
@@ -298,9 +314,9 @@
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: index];
         //  remove domain from cart
         [[CartModel getInstance] removeDomainFromCart: domainInfo];
+        [[AppDelegate sharedInstance] updateShoppingCartCount];
         
         [tbDomains reloadData];
-        
         [self updateAllPriceForView];
     }
 }
@@ -332,20 +348,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
-        NSString *domainName = [domainInfo objectForKey:@"domain"];
-        
-        NSString *price = @"";
-        id firstYearPrice = [domainInfo objectForKey:@"price_first_year"];
-        if (firstYearPrice != nil && [firstYearPrice isKindOfClass:[NSNumber class]]) {
-            price = [NSString stringWithFormat:@"%d", [firstYearPrice intValue]];
-            price = [AppUtils convertStringToCurrencyFormat: price];
-        }
-        NSString *years = [domainInfo objectForKey:year_for_domain];
-        
+        [cell displayDomainInfoForCart: domainInfo];
         cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
-        cell.lbName.text = domainName;
-        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
-        cell.tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
+        
         
         cell.lbDescription.hidden = TRUE;
         cell.btnYears.tag = indexPath.row;
@@ -357,12 +362,6 @@
         [cell.icRemove addTarget:self
                           action:@selector(removeDomainFromCart:)
                 forControlEvents:UIControlEventTouchUpInside];
-        
-        //  total price
-        long totalPrice = [[CartModel getInstance] getTotalPriceForDomain: domainInfo];
-        NSString *total = [NSString stringWithFormat:@"%ld", totalPrice];
-        total = [AppUtils convertStringToCurrencyFormat: total];
-        cell.lbTotalPrice.text = [NSString stringWithFormat:@"%@đ", total];
         
         return cell;
     }
@@ -435,6 +434,16 @@
         tbSelectYear.delegate = self;
         tbSelectYear.dataSource = self;
         [self.scvContent addSubview: tbSelectYear];
+    }
+}
+
+#pragma mark - Alertview Delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex: buttonIndex];
+    if ([title isEqualToString:topup_now]) {
+        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+        [self.navigationController pushViewController: topupVC animated:YES];
     }
 }
 

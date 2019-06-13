@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "CityObject.h"
 #import "CartViewController.h"
+#import "ShoppingCartView.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -83,8 +84,11 @@ typedef enum PaymentMethod{
 
 @property(strong, nonatomic) NSMutableArray *listBank;
 
+- (void)updateShoppingCartCount;
 - (void)showCartScreenContent;
 - (void)hideCartView;
+
+@property (nonatomic, strong) ShoppingCartView *cartView;
 
 @end
 

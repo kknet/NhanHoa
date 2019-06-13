@@ -18,12 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbOldPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
 
 - (void)setupUIForView;
 - (void)showContentOfDomainWithInfo: (NSDictionary *)info;
+- (IBAction)btnChoosePress:(UIButton *)sender;
+
+@property (nonatomic, strong) NSDictionary *domainInfo;
 
 @end
 

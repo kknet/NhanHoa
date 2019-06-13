@@ -25,7 +25,7 @@
 
 @implementation SearchDomainViewController
 
-@synthesize viewHeader, icBack, icCart, lbTitle, lbCount;
+@synthesize viewHeader, icBack, lbTitle;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
 @synthesize padding, strSearch, listDomains, hTableView;
@@ -42,9 +42,6 @@
     
     [WriteLogsUtils writeForGoToScreen: @"SearchDomainViewController"];
     [WebServiceUtils getInstance].delegate = self;
-    
-    //  show cart
-    [[CartModel getInstance] displayCartInfoWithView: lbCount];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
@@ -112,8 +109,7 @@
             [sender setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
             sender.backgroundColor = NEW_PRICE_COLOR;
         }
-        [[CartModel getInstance] displayCartInfoWithView: lbCount];
-        
+        [[AppDelegate sharedInstance] updateShoppingCartCount];
         [self updateLayoutForChooseMainDomain: sender];
     }
 }
@@ -162,7 +158,7 @@
         make.height.mas_equalTo(hHeader);
     }];
     
-    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
+    lbTitle.font = [AppDelegate sharedInstance].fontBTN;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewHeader.mas_centerX);
         make.top.equalTo(self.viewHeader).offset([UIApplication sharedApplication].statusBarFrame.size.height);
@@ -175,22 +171,6 @@
         make.left.equalTo(self.viewHeader).offset(-5.0);
         make.centerY.equalTo(self.lbTitle.mas_centerY);
         make.width.height.mas_equalTo(40.0);
-    }];
-    
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.viewHeader).offset(-10.0);
-        make.centerY.equalTo(self.lbTitle.mas_centerY);
-        make.width.height.mas_equalTo(40.0);
-    }];
-    
-    lbCount.clipsToBounds = TRUE;
-    lbCount.layer.cornerRadius = 20.0/2;
-    lbCount.font = [AppDelegate sharedInstance].fontDesc;
-    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.icCart.mas_right);
-        make.top.equalTo(self.icCart.mas_top);
-        make.width.height.mas_equalTo(20.0);
     }];
     
     scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
@@ -355,68 +335,62 @@
 }
 
 - (void)prepareDataToDisplay {
-    NSRange extRange = [strSearch rangeOfString:@"."];
-    if (extRange.location == NSNotFound) {
-        if (listDomains.count > 0) {
+    if (listDomains.count > 0) {
+        for (int index=0; index<listDomains.count; index++)
+        {
+            NSDictionary *info = [listDomains objectAtIndex: index];
+            id available = [info objectForKey:@"available"];
             
-            for (int index=0; index<listDomains.count; index++)
+            if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
             {
-                NSDictionary *info = [listDomains objectAtIndex: index];
-                id available = [info objectForKey:@"available"];
+                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
+                break;
                 
-                if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
-                {
-                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
-                    break;
-                    
-                }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
-                {
-                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
-                    break;
-                }
+            }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
+            {
+                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
+                break;
             }
-            
-            if (firstDomainInfo == nil) {
-                NSDictionary *first = [listDomains firstObject];
-                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: first];
-            }
-            [listDomains removeObject: firstDomainInfo];
-            
-            [self hideUIForSearch: FALSE];
-            
-            NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
-            NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
-            NSRange range = [content rangeOfString: firstDomain];
-            if (range.location != NSNotFound) {
-                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
-                lbSearchContent.attributedText = attr;
-            }else{
-                lbSearchContent.text = content;
-            }
-            
-            lbDomainName.text = firstDomain;
-            NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
-            if (![AppUtils isNullOrEmpty: price]) {
-                lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
-            }
-            lbOldPrice.hidden = lbSepa.hidden = TRUE;
-            
-            if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
-                btnChoose.backgroundColor = NEW_PRICE_COLOR;
-                [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
-                
-            }else{
-                btnChoose.backgroundColor = BLUE_COLOR;
-                [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
-            }
-            
-            [self reUpdateLayoutForView];
-            [tbDomains reloadData];
         }
-    }else{
         
+        if (firstDomainInfo == nil) {
+            NSDictionary *first = [listDomains firstObject];
+            firstDomainInfo = [[NSDictionary alloc] initWithDictionary: first];
+        }
+        [listDomains removeObject: firstDomainInfo];
+        
+        [self hideUIForSearch: FALSE];
+        
+        NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
+        NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
+        NSRange range = [content rangeOfString: firstDomain];
+        if (range.location != NSNotFound) {
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+            lbSearchContent.attributedText = attr;
+        }else{
+            lbSearchContent.text = content;
+        }
+        
+        lbDomainName.text = firstDomain;
+        NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
+        if (![AppUtils isNullOrEmpty: price]) {
+            lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
+        }
+        lbOldPrice.hidden = lbSepa.hidden = TRUE;
+        
+        if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
+            btnChoose.backgroundColor = NEW_PRICE_COLOR;
+            [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+            
+        }else{
+            btnChoose.backgroundColor = BLUE_COLOR;
+            [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        }
+        
+        [self reUpdateLayoutForView];
+        [tbDomains reloadData];
     }
 }
 
@@ -539,7 +513,7 @@
             }else{
                 [[CartModel getInstance] addDomainToCart: infoDomain];
             }
-            [[CartModel getInstance] displayCartInfoWithView: lbCount];
+            [[AppDelegate sharedInstance] updateShoppingCartCount];
             [tbDomains reloadData];
         }
     }

@@ -217,6 +217,7 @@
 #define text_gallery    @"Thư viện ảnh"
 #define text_remove     @"Xóa"
 #define text_no_data    @"Không có dữ liệu"
+#define topup_now       @"Nạp ngay"
 
 #endif /* AppString_h */
 

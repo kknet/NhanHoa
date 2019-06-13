@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 - (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew;
+- (void)displayDomainInfoForCart: (NSDictionary *)domainInfo;
 
 @end
 

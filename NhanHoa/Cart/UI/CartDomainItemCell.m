@@ -7,6 +7,7 @@
 //
 
 #import "CartDomainItemCell.h"
+#import "CartModel.h"
 
 @implementation CartDomainItemCell
 
@@ -132,6 +133,51 @@
             lbTotalPrice.text = @"N/A";
         }
     }
+}
+
+- (void)displayDomainInfoForCart: (NSDictionary *)domainInfo {
+    if (domainInfo == nil) {
+        return;
+    }
+    
+    NSString *domainName = [domainInfo objectForKey:@"domain"];
+    lbName.text = (![AppUtils isNullOrEmpty: domainName]) ? domainName : @"";
+    
+    NSString *price = @"";
+    id firstYearPrice = [domainInfo objectForKey:@"price_first_year"];
+    if (firstYearPrice != nil && [firstYearPrice isKindOfClass:[NSNumber class]]) {
+        price = [NSString stringWithFormat:@"%ld", [firstYearPrice longValue]];
+        price = [AppUtils convertStringToCurrencyFormat: price];
+        
+    }else if (firstYearPrice != nil && [firstYearPrice isKindOfClass:[NSString class]]) {
+        price = [NSString stringWithFormat:@"%ld", (long)[firstYearPrice longLongValue]];
+        price = [AppUtils convertStringToCurrencyFormat: price];
+    }
+    lbPrice.text = [NSString stringWithFormat:@"%@ vnđ", price];
+    
+    NSString *years = [domainInfo objectForKey:year_for_domain];
+    tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
+    
+    lbDescription.hidden = TRUE;
+
+    //  total price
+    long totalPrice = [[CartModel getInstance] getTotalPriceForDomain: domainInfo];
+    NSString *total = [NSString stringWithFormat:@"%ld", totalPrice];
+    total = [AppUtils convertStringToCurrencyFormat: total];
+    lbTotalPrice.text = [NSString stringWithFormat:@"%@ vnđ", total];
+    
+//    available = 1;
+//    domain = "dailyxanh.net";
+//    flag = 0;
+//    "price_first_year" = 219000;
+//    "price_next_years" = 219000;
+//    "price_vat_first_year" = 21900;
+//    "price_vat_next_year" = 21900;
+//    "total_first_year" = 240900;
+//    "total_next_years" = 240900;
+//    vat = 10;
+//    "year_for_domain" = 1;
+    
 }
 
 @end

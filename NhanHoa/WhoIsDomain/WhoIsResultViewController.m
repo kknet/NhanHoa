@@ -11,16 +11,8 @@
 #import "DomainObject.h"
 #import "AccountModel.h"
 
-@interface WhoIsResultViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, WebServiceUtilsDelegate>
-{
+@interface WhoIsResultViewController ()<UIScrollViewDelegate, WebServiceUtilsDelegate> {
     NSMutableArray *listResults;
-    
-    NSMutableArray *listTagView;
-    int tag;
-    
-    NSMutableArray *listData;
-    float hCell;
-    float sizeLargeText;
 }
 @end
 
@@ -44,12 +36,6 @@
     
     [listSearch removeObject:@""];
     padding = 15.0;
-    hCell = 90.0;
-    
-    listTagView = [[NSMutableArray alloc] init];
-    tag = 100;
-    
-    sizeLargeText = [AppUtils getSizeWithText:@"Xem thông tin" withFont:[AppDelegate sharedInstance].fontRegular].width + 10.0;
     
     //  prepare result array
     if (listResults == nil) {
@@ -58,87 +44,13 @@
     [listResults removeAllObjects];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang tìm kiếm..." Interaction:NO];
+    [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
     
     [self checkWhoIsForListDomains];
 }
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
-    if (listResults.count > 1) {
-        float contentSize = 0;
-        for (int i=0; i<listTagView.count; i++) {
-            int tag = [[listTagView objectAtIndex: i] intValue];
-            id view = [scvContent viewWithTag: tag];
-            if ([view isKindOfClass:[WhoIsNoResult class]])
-            {
-                WhoIsNoResult *view = [scvContent viewWithTag: tag];
-                
-                float textSize = [AppUtils getSizeWithText:view.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-                float heightView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
-                
-                float originY = 0;
-                if (i == 0) {
-                    view.frame = CGRectMake(0, 0, SCREEN_WIDTH, heightView);
-                    contentSize = heightView;
-                }else{
-                    originY = contentSize + 10.0;
-                    contentSize = contentSize + 10.0 + heightView;
-                }
-                
-                [view mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.scvContent);
-                    make.top.equalTo(self.scvContent).offset(originY);
-                    make.width.mas_equalTo(SCREEN_WIDTH);
-                    make.height.mas_equalTo(heightView);
-                }];
-                
-            }else if ([view isKindOfClass:[WhoIsDomainView class]])
-            {
-                WhoIsDomainView *view = [scvContent viewWithTag: tag];
-                float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
-                float heightView = [AppUtils getHeightOfWhoIsDomainViewWithContent:view.lbDNSValue.text font:[UIFont fontWithName:RobotoRegular size:14.0] heightItem:view.hLabel maxSize:maxSize];
-                
-                //float heightView = view.lbDNSSECValue.frame.origin.y + view.lbDNSSECValue.frame.size.height + 15.0 + view.lbTitle.frame.size.height/2 + view.lbTitle.frame.origin.y;
-                
-                float originY = 0;
-                if (i == 0) {
-                    view.frame = CGRectMake(0, 0, SCREEN_WIDTH, heightView);
-                    contentSize = heightView;
-                }else{
-                    originY = contentSize + 10.0;
-                    contentSize = contentSize + 10.0 + heightView;
-                }
-                
-                [view mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.scvContent);
-                    make.top.equalTo(self.scvContent).offset(originY);
-                    make.width.mas_equalTo(SCREEN_WIDTH);
-                    make.height.mas_equalTo(heightView);
-                }];
-                [view layoutIfNeeded];
-                
-            }
-        }
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-        
-    }else if (listResults.count == 1){
-        if (whoisView != nil) {
-            float heightView = whoisView.lbDNSSECValue.frame.origin.y + whoisView.lbDNSSECValue.frame.size
-            .height + 15.0 + whoisView.lbTitle.frame.size.height + whoisView.lbTitle.frame.origin.y;
-            [whoisView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.scvContent);
-                make.top.equalTo(self.scvContent);
-                make.width.mas_equalTo(SCREEN_WIDTH);
-                make.height.mas_equalTo(heightView);
-            }];
-            
-            float contentSize = heightView + 10 + padding;
-            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-        }
-    }
-    
 }
 
 - (void)setupUIForView {
@@ -150,49 +62,6 @@
     }];
 }
 
-#pragma mark - UITableview
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listData.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DomainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DomainCell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    DomainObject *domain = [listData objectAtIndex: indexPath.row];
-    cell.lbDomain.text = domain.domain;
-    
-    NSString *price = [AppUtils convertStringToCurrencyFormat:domain.price];
-    cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
-    
-    if (domain.warning) {
-        cell.btnWarning.hidden = FALSE;
-    }else{
-        cell.btnWarning.hidden = TRUE;
-    }
-    
-    if (domain.isRegistered) {
-        [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
-        cell.btnChoose.backgroundColor = ORANGE_COLOR;
-    }else{
-        [cell.btnChoose setTitle:text_choose forState:UIControlStateNormal];
-        cell.btnChoose.backgroundColor = BLUE_COLOR;
-    }
-    [cell updateSizeButtonWithContent:cell.btnChoose.currentTitle];
-    
-    [cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
-    
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return hCell;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     CGPoint scrollViewOffset = scrollView.contentOffset;
     if (scrollViewOffset.y < 0) {
@@ -200,70 +69,33 @@
     }
 }
 
-- (void)showDomainList {
-    float contentSize = 0;
-    if (listResults.count > 1) {
-        for (int index=0; index<listResults.count; index++) {
-            tag = tag + 5;
-            
-            NSDictionary *info = [listResults objectAtIndex: index];
-            NSString *errorCode = [info objectForKey:@"errorCode"];
-            
-            if ([AppUtils isNullOrEmpty: errorCode]) {
-                [self addWhoIsResultViewWithInfo:info index:index contentSize:contentSize];
-                
-            }else{
-                [self addWhoIsNoResultViewWithInfo:info index:index contentSize:contentSize];
-                
-                //[self addWhoIsNoResultViewForOneItem: info];
-            }
+- (void)addAvailableForViewWithInfo: (NSDictionary *)info {
+    WhoIsNoResult *whoisView;
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
+            whoisView = (WhoIsNoResult *) currentObject;
+            break;
         }
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-    }else if (listResults.count == 1) {
-        NSDictionary *info = [listResults firstObject];
-        NSString *errorCode = [info objectForKey:@"errorCode"];
-        
-        if ([AppUtils isNullOrEmpty: errorCode]) {
-            [self addWhoIsResultViewForOneItem: info];
-            
-        }else{
-            [self addWhoIsNoResultViewForOneItem: info];
-        }
-        
-    }else{
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
-                noResultView = (WhoIsNoResult *) currentObject;
-                break;
-            }
-        }
-        
-        NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", @"lanhquadi.com"];
-        NSRange range = [content rangeOfString: @"lanhquadi.com"];
-        if (range.location != NSNotFound) {
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
-            noResultView.lbContent.attributedText = attr;
-        }else{
-            noResultView.lbContent.text = content;
-        }
-        float textSize = [AppUtils getSizeWithText:content withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-        float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
-        [scvContent addSubview: noResultView];
-        [noResultView setupUIForView];
-        [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hView);
-        }];
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0);
     }
+    [whoisView showContentOfDomainWithInfo: info];
+    
+    float textSize = [AppUtils getSizeWithText:whoisView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
+    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
+    [scvContent addSubview: whoisView];
+    [whoisView setupUIForView];
+    [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height+10.0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hView);
+    }];
+    
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + 10.0);
 }
 
-- (void)addWhoIsResultViewForOneItem: (NSDictionary *)info {
+- (void)addWhoIsResultViewWithInfo: (NSDictionary *)info {
+    WhoIsDomainView *whoisView;
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
     for(id currentObject in toplevelObject){
         if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
@@ -274,31 +106,6 @@
     [whoisView resetAllValueForView];
     whoisView.hLabel = 25.0;
     
-    float hView = 340.0;
-    [scvContent addSubview: whoisView];
-    [whoisView setupUIForView];
-    [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hView);
-    }];
-    
-    [whoisView showContentOfDomainWithInfo: info];
-}
-
-- (void)addWhoIsResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
-    WhoIsDomainView *whoIsView;
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[WhoIsDomainView class]]) {
-            whoIsView = (WhoIsDomainView *) currentObject;
-            break;
-        }
-    }
-    [whoIsView resetAllValueForView];
-    whoIsView.hLabel = 25.0;
-    
     NSString *dns = [info objectForKey:@"dns"];
     if (![AppUtils isNullOrEmpty: dns]) {
         dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -306,94 +113,31 @@
     }
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
-    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[AppDelegate sharedInstance].fontRegular heightItem:whoIsView.hLabel maxSize:maxSize];
+    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[AppDelegate sharedInstance].fontRegular heightItem:whoisView.hLabel maxSize:maxSize];
+
+    [scvContent addSubview:whoisView];
     
-    float originY;
-    if (index == 0) {
-        originY = 0;
-        contentSize = hView;
-    }else{
-        originY = contentSize + 10.0;
-        contentSize = contentSize + 10.0 + hView;
-    }
-    [scvContent addSubview:whoIsView];
-    
-    [whoIsView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(originY);
+        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height + self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
-    [whoIsView setupUIForView];
-    
-    whoIsView.tag = tag;
-    [listTagView addObject:[NSNumber numberWithInt: tag]];
-    [whoIsView showContentOfDomainWithInfo: info];
+    [whoisView setupUIForView];
+    [whoisView showContentOfDomainWithInfo: info];
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + 10.0);
 }
 
-- (void)addWhoIsNoResultViewForOneItem: (NSDictionary *)info {
-    NSString *domain = [info objectForKey:@"domain"];
-    if ([AppUtils isNullOrEmpty: domain]) {
-        domain = @"Chưa xác định";
-    }
-    
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
-            noResultView = (WhoIsNoResult *) currentObject;
-            break;
+- (void)showDomainList {
+    for (int index=0; index<listResults.count; index++) {
+        NSDictionary *info = [listResults objectAtIndex: index];
+        id available = [info objectForKey:@"available"];
+        if (available != nil) {
+            [self addAvailableForViewWithInfo: info];
+        }else{
+            [self addWhoIsResultViewWithInfo: info];
         }
     }
-    [noResultView showContentOfDomainWithInfo: info];
-    
-    float textSize = [AppUtils getSizeWithText:noResultView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
-    [scvContent addSubview: noResultView];
-    [noResultView setupUIForView];
-    [noResultView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hView);
-    }];
-    
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0);
-}
-
-- (void)addWhoIsNoResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize
-{
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
-    WhoIsNoResult *noView;
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[WhoIsNoResult class]]) {
-            noView = (WhoIsNoResult *) currentObject;
-            break;
-        }
-    }
-    [noView showContentOfDomainWithInfo: info];
-    
-    float textSize = [AppUtils getSizeWithText:noView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-    
-    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
-    float originY;
-    if (index == 0) {
-        originY = 0;
-        contentSize = hView;
-    }else{
-        originY = contentSize + 10.0;
-        contentSize = contentSize + 10.0 + hView;
-    }
-    [scvContent addSubview: noView];
-    [noView setupUIForView];
-    
-    [noView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(originY);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hView);
-    }];
-    noView.tag = tag;
-    [listTagView addObject:[NSNumber numberWithInt: tag]];
 }
 
 - (void)checkWhoIsForListDomains {

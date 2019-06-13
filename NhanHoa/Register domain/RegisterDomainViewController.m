@@ -8,6 +8,8 @@
 
 #import "RegisterDomainViewController.h"
 #import "SearchDomainViewController.h"
+#import "RenewedDomainViewController.h"
+#import "WhoIsViewController.h"
 #import "SuggestDomainCell.h"
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
@@ -23,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Đăng ký tên miền";
+    
     [self createListDomainPrice];
     [self setupUIForView];
 }
@@ -31,7 +35,6 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"RegisterDomainViewController"];
     
-    self.title = @"Đăng ký tên miền";
     [self reUpdateLayoutForView];
 }
 
@@ -49,8 +52,6 @@
 }
 
 - (void)createListDomainPrice {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     listData = [[NSMutableArray alloc] init];
     id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
     if (listPrice != nil && [listPrice isKindOfClass:[NSArray class]]) {
@@ -75,6 +76,8 @@
 
 - (void)addBannerImageForView
 {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     if ([AppDelegate sharedInstance].userInfo != nil)
     {
         if (viewBanner == nil) {
@@ -129,7 +132,7 @@
     
     //  search UI
     float hSearch = 38.0;
-    tfSearch.text = @"anvatsaigon";
+    tfSearch.text = @"dailyxanh.name.vn";
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
@@ -178,7 +181,7 @@
         make.height.mas_equalTo(hInfo);
     }];
     
-    NSAttributedString *contentStr = [AppUtils generateTextWithContent:@"Nên đặt tên miền như thế nào?" font:[UIFont fontWithName:RobotoRegular size:15.0] color:[UIColor colorWithRed:(212/255.0) green:(53/255.0) blue:(91/255.0) alpha:1.0] image:[UIImage imageNamed:@"info_red"] size:16.0 imageFirst:YES];
+    NSAttributedString *contentStr = [AppUtils generateTextWithContent:@"Nên đặt tên miền như thế nào?" font:[AppDelegate sharedInstance].fontRegular color:NEW_PRICE_COLOR image:[UIImage imageNamed:@"info_red"] size:20.0 imageFirst:TRUE];
     lbTitle.attributedText = contentStr;
     lbTitle.textAlignment = NSTextAlignmentCenter;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -188,20 +191,23 @@
         make.height.mas_equalTo(40.0);
     }];
     
-    float sizeItem = (SCREEN_WIDTH - 4*padding)/3;
+    float sizeItem = (SCREEN_WIDTH - 2*padding - 2*5)/3;
     
     //  view re-order domain
     UIImage *itemImg = [UIImage imageNamed:@"search_multi_domain"];
     float wItemImg = 50.0;
     float hItemImg = wItemImg * itemImg.size.height / itemImg.size.width;
     float smallPadding = 4.0;
-    viewRenew.layer.cornerRadius = 5.0;
+    viewRenew.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewRenew mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitle.mas_bottom);
         make.centerX.equalTo(self.viewInfo.mas_centerX);
         make.width.mas_equalTo(sizeItem);
         make.height.mas_equalTo(hItemView);
     }];
+    UITapGestureRecognizer *tapRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnRenewDomain)];
+    viewRenew.userInteractionEnabled = TRUE;
+    [viewRenew addGestureRecognizer: tapRenew];
     
     lbRenew.textColor = UIColor.whiteColor;
     lbRenew.font = [UIFont fontWithName:RobotoRegular size:13];
@@ -222,12 +228,15 @@
     }];
     
     //  view check multi domain
-    viewSearch.layer.cornerRadius = 5.0;
+    viewSearch.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewRenew);
-        make.right.equalTo(self.viewRenew.mas_left).offset(-self.padding);
+        make.right.equalTo(self.viewRenew.mas_left).offset(-5.0);
         make.width.mas_equalTo(sizeItem);
     }];
+    UITapGestureRecognizer *tapSearchDomain = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnSearchDomain)];
+    viewSearch.userInteractionEnabled = TRUE;
+    [viewSearch addGestureRecognizer: tapSearchDomain];
     
     lbSearch.textColor = lbRenew.textColor;
     lbSearch.font = lbRenew.font;
@@ -248,10 +257,10 @@
     }];
     
     //  view transfer domain
-    viewTransferDomain.layer.cornerRadius = 5.0;
+    viewTransferDomain.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewRenew);
-        make.left.equalTo(self.viewRenew.mas_right).offset(self.padding);
+        make.left.equalTo(self.viewRenew.mas_right).offset(5.0);
         make.width.mas_equalTo(sizeItem);
     }];
     
@@ -309,6 +318,8 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     [self.view endEditing: TRUE];
     
     if ([AppUtils isNullOrEmpty: tfSearch.text]) {
@@ -316,11 +327,19 @@
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
     searchDomainVC.strSearch = tfSearch.text;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
+}
+
+- (void)whenTapOnRenewDomain {
+    RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+    [self.navigationController pushViewController: renewedVC animated:TRUE];
+}
+
+- (void)whenTapOnSearchDomain {
+    WhoIsViewController *whoisVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
+    [self.navigationController pushViewController: whoisVC animated:TRUE];
 }
 
 #pragma mark - UITableview

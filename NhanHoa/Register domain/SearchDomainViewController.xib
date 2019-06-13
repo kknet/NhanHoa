@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,10 +13,8 @@
             <connections>
                 <outlet property="btnChoose" destination="lOe-kW-1ke" id="TXt-mw-Luv"/>
                 <outlet property="icBack" destination="r3r-Hh-OAB" id="P7R-Mw-t7j"/>
-                <outlet property="icCart" destination="Bd5-0c-OHP" id="ZGv-Om-gbS"/>
                 <outlet property="icSearch" destination="Igl-rJ-9C5" id="sxQ-BG-lRE"/>
                 <outlet property="imgEmoji" destination="dD8-jf-Y98" id="5rb-9H-EqV"/>
-                <outlet property="lbCount" destination="cCM-yy-7f4" id="QqS-EU-2we"/>
                 <outlet property="lbDomainName" destination="zzR-CU-Y3b" id="ijU-4o-gjS"/>
                 <outlet property="lbOldPrice" destination="jub-Ck-nMG" id="J56-ol-kYK"/>
                 <outlet property="lbPrice" destination="h9f-bs-E9I" id="C9j-c4-phU"/>
@@ -53,25 +51,9 @@
                                 <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="iem-ok-KYN"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bd5-0c-OHP">
-                            <rect key="frame" x="277" y="8" width="35" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button" image="cart.png"/>
-                            <connections>
-                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="qQM-tR-fAt"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Kết quả tìm kiếm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pz5-yS-NGZ">
                             <rect key="frame" x="96" y="15" width="128" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCM-yy-7f4">
-                            <rect key="frame" x="295" y="8" width="21" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.97254901960784312" green="0.61568627450980395" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -209,7 +191,6 @@
     </objects>
     <resources>
         <image name="back_medium.png" width="128" height="128"/>
-        <image name="cart.png" width="100" height="100"/>
         <image name="ic_search_domain.png" width="100" height="100"/>
         <image name="search_smile.png" width="100" height="100"/>
     </resources>

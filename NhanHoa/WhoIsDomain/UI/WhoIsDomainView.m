@@ -57,7 +57,7 @@
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepa1.mas_bottom);
         make.left.equalTo(self.lbSepa1);
-        make.right.equalTo(self.viewContent.mas_centerX).offset(-35.0);
+        make.right.equalTo(self.viewContent.mas_centerX).offset(-45.0);
         make.height.mas_equalTo(self.hLabel);
     }];
     

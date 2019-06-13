@@ -10,7 +10,7 @@
 #import "WhoIsResultViewController.h"
 #import "WhoIsCell.h"
 
-@interface WhoIsViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface WhoIsViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
     NSMutableArray *listDomain;
 }
 
@@ -57,7 +57,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-- (IBAction)btnSearchPress:(UIButton *)sender {
+- (IBAction)btnSearchPress:(UIButton *)sender
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
     NSMutableArray *result = [[NSMutableArray alloc] initWithArray: listDomain];
     [result removeObject:@""];
     if (result.count == 0) {
@@ -96,7 +99,7 @@
     [self.view addGestureRecognizer: tapOnScreen];
     
     padding = 15.0;
-    btnSearch.layer.cornerRadius = 45.0/2;
+    btnSearch.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnSearch.backgroundColor = BLUE_COLOR;
     btnSearch.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,12 +127,12 @@
     [headerView addSubview: lbTbHeader];
     tbContent.tableHeaderView = headerView;
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 55.0)];
     UIButton *btnTbFooter = [UIButton buttonWithType: UIButtonTypeCustom];
-    btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-40.0, footerView.frame.size.width-2*padding, 40.0);
-    btnTbFooter.layer.cornerRadius = 5.0;
+    btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-45.0, footerView.frame.size.width-2*padding, 45.0);
+    btnTbFooter.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnTbFooter.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
-    NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[AppDelegate sharedInstance].fontRegular color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:20.0 imageFirst:YES];
+    NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[AppDelegate sharedInstance].fontBTN color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:22.0 imageFirst:YES];
     [btnTbFooter setAttributedTitle:content forState:UIControlStateNormal];
     [btnTbFooter addTarget:self
                     action:@selector(addNewRowForDomain)
@@ -180,6 +183,9 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WhoIsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WhoIsCell" forIndexPath:indexPath];
+    cell.tfDomain.delegate = self;
+    cell.tfDomain.returnKeyType = UIReturnKeyDone;
+    
     [cell.tfDomain addTarget:self
                       action:@selector(whenTextfieldDomainChanged:)
             forControlEvents:UIControlEventEditingChanged];
@@ -206,6 +212,12 @@
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
+}
+
+#pragma mark - UITextfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing: TRUE];
+    return TRUE;
 }
 
 @end

@@ -13,10 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewSearch;
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
-@property (weak, nonatomic) IBOutlet UIButton *icClear;
 @property (weak, nonatomic) IBOutlet UIButton *btnSearch;
-@property (weak, nonatomic) IBOutlet UIButton *icCart;
-@property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
 @property (weak, nonatomic) IBOutlet UIView *viewMainWallet;
@@ -30,9 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbRewardsPoints;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *clvMenu;
-
-- (IBAction)icClearClick:(UIButton *)sender;
-- (IBAction)icCartClick:(UIButton *)sender;
 
 @property (nonatomic, assign) float hMenu;
 

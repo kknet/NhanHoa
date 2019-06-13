@@ -7,10 +7,12 @@
 //
 
 #import "WhoIsNoResult.h"
+#import "CartModel.h"
 
 @implementation WhoIsNoResult
 
-@synthesize lbDomain, imgEmoji, lbContent, viewDomain, lbName, lbPrice, lbOldPrice, lbSepa, btnChoose;
+@synthesize lbDomain, imgEmoji, lbContent, viewDomain, lbName, lbPrice, btnChoose;
+@synthesize domainInfo;
 
 - (void)setupUIForView {
     float padding = 15.0;
@@ -65,30 +67,19 @@
         make.right.equalTo(self.btnChoose.mas_left).offset(-padding);
     }];
     
-    lbPrice.text = @"29,000đ";
     lbPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
     lbPrice.textColor = NEW_PRICE_COLOR;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbName);
+        make.left.right.equalTo(self.lbName);
         make.top.equalTo(self.viewDomain.mas_centerY).offset(2.0);
-    }];
-    
-    lbOldPrice.text = @"180,000đ";
-    lbOldPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    lbOldPrice.textColor = OLD_PRICE_COLOR;
-    [lbOldPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbPrice.mas_right).offset(5.0);
-        make.top.equalTo(self.lbPrice);
-    }];
-    
-    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbOldPrice);
-        make.centerY.equalTo(self.lbOldPrice.mas_centerY);
-        make.height.mas_equalTo(1.0);
     }];
 }
 
 - (void)showContentOfDomainWithInfo: (NSDictionary *)info {
+    if (info != nil) {
+        domainInfo = [[NSDictionary alloc] initWithDictionary: info];
+    }
+    
     NSString *domain = [info objectForKey:@"domain"];
     if ([AppUtils isNullOrEmpty: domain]) {
         domain = unknown;
@@ -105,6 +96,32 @@
         lbContent.attributedText = attr;
     }else{
         lbContent.text = content;
+    }
+    
+    id price_first_year = [info objectForKey:@"price_first_year"];
+    if ([price_first_year isKindOfClass:[NSString class]]) {
+        NSString *amount = [AppUtils convertStringToCurrencyFormat: price_first_year];
+        lbPrice.text = [NSString stringWithFormat:@"%@ vnđ/năm", amount];
+        
+    }else if ([price_first_year isKindOfClass:[NSNumber class]]) {
+        NSString *amount = [NSString stringWithFormat:@"%ld", [price_first_year longValue]];
+        NSString *strAmount = [AppUtils convertStringToCurrencyFormat: amount];
+        lbPrice.text = [NSString stringWithFormat:@"%@ vnđ/năm", strAmount];
+    }else{
+        lbPrice.text = @"Liên hệ";
+    }
+}
+
+- (IBAction)btnChoosePress:(UIButton *)sender {
+    if (domainInfo != nil) {
+        BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: domainInfo];
+        if (exists) {
+            [[CartModel getInstance] removeDomainFromCart: domainInfo];
+            
+        }else{
+            [[CartModel getInstance] addDomainToCart: domainInfo];
+        }
+        [[AppDelegate sharedInstance] updateShoppingCartCount];
     }
 }
 

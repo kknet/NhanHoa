@@ -41,6 +41,9 @@
     {
         [self autoSignInWithSavedInformation];
     }else{
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardDidShowNotification object:nil];
         
@@ -274,7 +277,7 @@
         make.height.mas_equalTo(hTextfield);
     }];
     
-    tfPassword.textColor = BORDER_COLOR;
+    tfPassword.textColor = tfPassword.tintColor = BORDER_COLOR;
     tfPassword.secureTextEntry = YES;
     tfPassword.layer.cornerRadius = hTextfield/2;
     tfPassword.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
@@ -307,7 +310,7 @@
                   action:@selector(textfieldAccountChanged:)
         forControlEvents:UIControlEventEditingChanged];
     
-    tfAccount.textColor = BORDER_COLOR;
+    tfAccount.textColor = tfAccount.tintColor = BORDER_COLOR;
     tfAccount.layer.cornerRadius = hTextfield/2;
     tfAccount.backgroundColor = tfPassword.backgroundColor;
     tfAccount.font = tfPassword.font;
