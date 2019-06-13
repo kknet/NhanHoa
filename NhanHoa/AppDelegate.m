@@ -23,7 +23,7 @@
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
-@synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, domainsPrice, registerAccSuccess, registerAccount;
+@synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank;
 

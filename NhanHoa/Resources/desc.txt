@@ -435,8 +435,10 @@ lekhai02121991@gmail.com    |   11111111
 
 
 
+{"cus_id":"127115","password":"97046ec8a290c4ff214acddfcf1fa363","domain":"webpro.vn","cmnd_a":"http://nhanhoa.com/uploads/declaration/ACC127115/1560358442_front.jpg","cmnd_b":"https://api.websudo.xyz/uploads/127115_behind_13-06-2019_06-18-53.PNG","username":"lehoangson@gmail.com","bankhai":"https://api.websudo.xyz/uploads/127115_bankhai_13-06-2019_06-18-52.PNG","domain_type":"domainvn","mod":"update_cmnd","domain_id":"105257"}
 
-
-
-
+{
+errorCode = 007;
+message = "domain name not valid";
+}
 

@@ -15,7 +15,10 @@
     NSString *CMND_a;
     NSString *CMND_b;
     NSString *domain;
+    NSString *domainId;
+    NSString *domainType;
     NSString *cus_id;
+    NSString *ban_khai;
 }
 
 @end
@@ -35,6 +38,8 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen: @"RenewDomainDetailViewController"];
     [WebServiceUtils getInstance].delegate = self;
+    
+    btnChangeDNS.hidden = btnUpdatePassport.hidden = btnRenewDomain.hidden = TRUE;
     
     [self setEmptyValueForView];
     
@@ -69,6 +74,10 @@
     updateVC.cusId = cusId;
     updateVC.curCMND_a = CMND_a;
     updateVC.curCMND_b = CMND_b;
+    updateVC.curBanKhai = ban_khai;
+    updateVC.domainId = domainId;
+    updateVC.domainType = domainType;
+    updateVC.domain = domain;
     [self.navigationController pushViewController:updateVC animated:TRUE];
 }
 
@@ -104,6 +113,11 @@
 }
 
 - (void)displayDomainInfoWithData: (NSDictionary *)info {
+    domainType = [info objectForKey:@"domain_type"];
+    [self updateFooterMenuWithDomainType: domainType];
+    
+    domainId = [info objectForKey:@"domain_id"];
+    
     domain = [info objectForKey:@"domain_name"];
     lbTopDomain.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
     
@@ -187,6 +201,39 @@
     //  get CMND
     CMND_a = [info objectForKey:@"cmnd_a"];
     CMND_b = [info objectForKey:@"cmnd_b"];
+    ban_khai = [info objectForKey:@"bankhai"];
+}
+
+- (void)updateFooterMenuWithDomainType: (NSString *)domainType {
+    float hBTN = 45.0;
+    
+    btnChangeDNS.hidden = btnRenewDomain.hidden = FALSE;
+    
+    if (![AppUtils isNullOrEmpty: domainType] && [domainType isEqualToString:domainvn_type]) {
+        btnUpdatePassport.hidden = FALSE;
+        
+        [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view).offset(self.padding);
+            make.right.equalTo(self.view).offset(-self.padding);
+            make.bottom.equalTo(self.view).offset(-2*self.padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+        
+        [btnUpdatePassport mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.btnChangeDNS);
+            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
+            make.height.equalTo(self.btnChangeDNS.mas_height);
+        }];
+        
+    }else{
+        btnUpdatePassport.hidden = TRUE;
+        
+        [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.btnChangeDNS);
+            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
+            make.height.equalTo(self.btnChangeDNS.mas_height);
+        }];
+    }
 }
 
 

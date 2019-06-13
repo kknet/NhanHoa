@@ -649,8 +649,11 @@
         
     }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: name_not_vietnam]) {
         return @"Tên không hợp lệ. Vui lòng nhập có dấu";
-
-    }else{
+        
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: domain_name_invalid]){
+        return @"Tên miền không hợp lệ";
+    }
+    else{
         return @"";
     }
 }

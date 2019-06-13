@@ -243,7 +243,7 @@
     HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:@"Gia hạn tên miền" icon:@"menu_reorder_domain" type:eRenewDomain];
     [listMenu addObject: renewDomain];
     
-    HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Tìm kiếm tên miền" icon:@"menu_search_domain" type:eSearchDomain];
+    HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Kiểm tra tên miền" icon:@"menu_search_domain" type:eSearchDomain];
     [listMenu addObject: searchDomain];
     
     HomeMenuObject *recharge = [[HomeMenuObject alloc] initWithName:@"Nạp tiền vào tài khoản" icon:@"menu_recharge" type:eRecharge];

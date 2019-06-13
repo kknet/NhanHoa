@@ -3,7 +3,7 @@ TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 
 1. Login (Đăng nhập)
 
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 2. Whois (Kiểm tra tên miền)
     *Send request (Post / Get) [Auto]
@@ -25,42 +25,7 @@ TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 ---STATUS: DONE
 
 4. RegisterAccount (Đăng ký tài khoản)
-    *Send request (Post / Get) [Auto]
-    mod: register_account
-    email: string (tạo mới tài khoản, email cũng chính là username)
-    password: MD5
-    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    } elseif (own_type: 1) { // công ty / tổ chức
-        tc_tc_name: string (tên cty / tổ chức)
-        tc_tc_mst: string / number (mã số thuế)
-        tc_tc_address: string (địa chỉ cty / tổ chức)
-        tc_tc_phone: string / number (số đt cty / tổ chức)
-        tc_tc_country: 231 (cố định: Viêt Nam [231])
-        tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cn_position: string (chức vụ người đại diện)
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    } else {
-        api: error response
-    }
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE (Chưa có mã bảo mật)
+---Trạng thái: HOÀN TẤT
 
 4. AddContact (Thêm hồ sơ)
     *Send request (Post / Get) [Auto]
@@ -119,7 +84,7 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
 6. ForgotPassword (Quên mật khẩu)
     Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
 
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 7. EditContact (Sửa hồ sơ)
     *Send request (Post / Get) [Auto]
@@ -226,14 +191,8 @@ status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
 ---STATUS: DONE
 
 11. ListDomain (Danh sách tên miền)
-    *Send request (Post / Get) [Auto]
-    mod: list_domain
-    username: string
-    password: MD5
-    type: number (1: list domain sắp hết hạn | 0: default [all]
-    *Kết quả trả về: anh em send test để xem kết quả
 
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 12. InfoDomain (Thông tin tên miền [đã đăng ký])
     *Send request (Post / Get) [Auto]

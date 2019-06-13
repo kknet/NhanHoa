@@ -36,9 +36,20 @@
         [listDomain removeAllObjects];
     }
     
-    [listDomain addObject:@"giaohangnhanh.com"];
-    [listDomain addObject:@""];
-    [listDomain addObject:@""];
+    NSArray *arr = [tbContent visibleCells];
+    for (int i=0; i<arr.count; i++) {
+        WhoIsCell *cell = [arr objectAtIndex: i];
+        NSString *domain = cell.tfDomain.text;
+        if ([domain isEqualToString:@""] || (![AppUtils isNullOrEmpty: domain] && ![listDomain containsObject: domain])) {
+            [listDomain addObject: domain];
+        }
+    }
+    
+    if (listDomain.count == 0) {
+        [listDomain addObject:@""];
+        [listDomain addObject:@""];
+        [listDomain addObject:@""];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

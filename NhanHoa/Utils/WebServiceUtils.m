@@ -112,15 +112,23 @@
     [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
 
-- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId
+- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId domainName: (NSString *)domainName domainType: (NSString *)domainType domainId: (NSString *)domainId banKhai: (NSString *)banKhai
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] cmnd_a = %@, cmnd_b = %@", __FUNCTION__, cmnd_a, cmnd_b) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:update_cmnd_mod forKey:@"mod"];
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:cusId forKey:@"cus_id"];
+    [jsonDict setObject:domainName forKey:@"domain_name"];
+    [jsonDict setObject:domainType forKey:@"domain_type"];
+    [jsonDict setObject:domainId forKey:@"domain_id"];
+    [jsonDict setObject:banKhai forKey:@"bankhai"];
+    
+    if (![AppUtils isNullOrEmpty: cmnd_a]) {
+        [jsonDict setObject:cmnd_a forKey:@"cmnd_a"];
+    }
     
     if (![AppUtils isNullOrEmpty: cmnd_a]) {
         [jsonDict setObject:cmnd_a forKey:@"cmnd_a"];

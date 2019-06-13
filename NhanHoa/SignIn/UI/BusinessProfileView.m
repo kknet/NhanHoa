@@ -166,6 +166,8 @@
         make.left.right.equalTo(self.lbBusinessPhone);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
+    tfBusinessPhone.returnKeyType = UIReturnKeyNext;
+    tfBusinessPhone.delegate = self;
     
     //  country and city
     lbCountry.font = lbVision.font;
@@ -234,7 +236,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfRegisterName borderColor:BORDER_COLOR];
-    tfRegisterName.font = [AppDelegate sharedInstance].fontMedium;
+    tfRegisterName.font = [AppDelegate sharedInstance].fontRegular;
     [tfRegisterName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbRegisterName.mas_bottom);
         make.left.right.equalTo(self.lbRegisterName);

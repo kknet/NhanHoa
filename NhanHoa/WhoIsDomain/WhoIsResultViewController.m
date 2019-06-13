@@ -18,7 +18,6 @@
     NSMutableArray *listTagView;
     int tag;
     
-    UITableView *tbRelatedDomain;
     NSMutableArray *listData;
     float hCell;
     float sizeLargeText;
@@ -135,15 +134,7 @@
                 make.height.mas_equalTo(heightView);
             }];
             
-            float hTableView = 50.0 + listData.count * hCell;
-            [tbRelatedDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.scvContent);
-                make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
-                make.width.mas_equalTo(SCREEN_WIDTH);
-                make.height.mas_equalTo(hTableView);
-            }];
-            
-            float contentSize = heightView + 10 + hTableView + padding;
+            float contentSize = heightView + 10 + padding;
             scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
         }
     }
@@ -268,33 +259,7 @@
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hView);
         }];
-        
-        float hTableView = listData.count * hCell + 40.0;
-        tbRelatedDomain = [[UITableView alloc] init];
-        tbRelatedDomain.backgroundColor = UIColor.clearColor;
-        [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
-        tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
-        tbRelatedDomain.delegate = self;
-        tbRelatedDomain.dataSource = self;
-        [self.scvContent addSubview: tbRelatedDomain];
-        
-        [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(hTableView);
-        }];
-        
-        UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
-        
-        UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
-        lbHeader.text = @"Các tên miền liên quan";
-        lbHeader.font = [AppDelegate sharedInstance].fontMedium;
-        lbHeader.textColor = TITLE_COLOR;
-        [viewHeader addSubview: lbHeader];
-        tbRelatedDomain.tableHeaderView = viewHeader;
-        
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0);
     }
 }
 
@@ -320,31 +285,6 @@
     }];
     
     [whoisView showContentOfDomainWithInfo: info];
-    
-    float hTableView = listData.count * hCell + 50.0;
-    tbRelatedDomain = [[UITableView alloc] init];
-    tbRelatedDomain.backgroundColor = UIColor.clearColor;
-    [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
-    tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbRelatedDomain.delegate = self;
-    tbRelatedDomain.dataSource = self;
-    [self.scvContent addSubview: tbRelatedDomain];
-    
-    [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.whoisView.mas_bottom).offset(10.0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTableView);
-    }];
-    
-    UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
-    
-    UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
-    lbHeader.text = @"Các tên miền liên quan";
-    lbHeader.font = [AppDelegate sharedInstance].fontMedium;
-    lbHeader.textColor = TITLE_COLOR;
-    [viewHeader addSubview: lbHeader];
-    tbRelatedDomain.tableHeaderView = viewHeader;
 }
 
 - (void)addWhoIsResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize {
@@ -417,32 +357,7 @@
         make.height.mas_equalTo(hView);
     }];
     
-    float hTableView = listData.count * hCell + 40.0;
-    tbRelatedDomain = [[UITableView alloc] init];
-    tbRelatedDomain.backgroundColor = UIColor.clearColor;
-    [tbRelatedDomain registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
-    tbRelatedDomain.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbRelatedDomain.delegate = self;
-    tbRelatedDomain.dataSource = self;
-    [self.scvContent addSubview: tbRelatedDomain];
-    
-    [tbRelatedDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.noResultView.mas_bottom).offset(10.0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTableView);
-    }];
-    
-    UIView *viewHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
-    
-    UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, viewHeader.frame.size.width-2*padding, viewHeader.frame.size.height)];
-    lbHeader.text = @"Các tên miền liên quan";
-    lbHeader.font = [AppDelegate sharedInstance].fontMedium;
-    lbHeader.textColor = TITLE_COLOR;
-    [viewHeader addSubview: lbHeader];
-    tbRelatedDomain.tableHeaderView = viewHeader;
-    
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0 + hTableView);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView + 10.0);
 }
 
 - (void)addWhoIsNoResultViewWithInfo: (NSDictionary *)info index: (int)index contentSize: (float)contentSize

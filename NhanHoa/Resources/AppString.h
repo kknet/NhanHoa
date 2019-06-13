@@ -16,6 +16,7 @@
 #define acc_registered      @"001"
 #define name_not_vietnam    @"004"
 #define accountNotActive    @"006"
+#define domain_name_invalid @"007"
 #define miniumWithdraw      @"009"
 #define limited_register    @"099"
 
@@ -168,8 +169,11 @@
 #define login_state         @"login_state"
 #define year_for_domain     @"year_for_domain"
 
-#define key_login               @"key_login"
-#define key_password            @"key_password"
+#define key_login           @"key_login"
+#define key_password        @"key_password"
+#define domainvn_type       @"domainvn"
+#define domain_type         @"domain"
+
 
 #define USERNAME ([[NSUserDefaults standardUserDefaults] objectForKey:key_login])
 #define PASSWORD ([[NSUserDefaults standardUserDefaults] objectForKey:key_password])

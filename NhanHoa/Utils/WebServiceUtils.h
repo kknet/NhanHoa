@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getDomainsWasRegisteredWithType: (int)type;
 - (void)getDomainsPricingList;
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id;
-- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId;
+- (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId domainName: (NSString *)domainName domainType: (NSString *)domainType domainId: (NSString *)domainId banKhai: (NSString *)banKhai;
 - (void)getDNSValueForDomain: (NSString *)domain;
 - (void)changeDNSForDomain: (NSString *)domain dns1: (NSString *)dns1 dns2: (NSString *)dns2 dns3: (NSString *)dns3 dns4: (NSString *)dns4;
 - (void)getListProfilesForAccount: (NSString *)username;

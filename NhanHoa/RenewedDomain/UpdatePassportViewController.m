@@ -21,14 +21,16 @@
 @end
 
 @implementation UpdatePassportViewController
-@synthesize btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b, btnSave, btnCancel;
-@synthesize linkCMND_a, linkCMND_b, cusId, curCMND_a, curCMND_b;
+@synthesize btnBanKhai, imgWaitBanKhai, lbBanKhai, btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b, btnSave, btnCancel;
+@synthesize linkCMND_a, linkCMND_b, cusId, curCMND_a, curCMND_b, linkBanKhai, curBanKhai, domain, domainId, domainType;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Cập nhật CMND";
     [self setupUIForView];
+    [self addRightBarButtonForNavigationBar];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -53,6 +55,39 @@
     }
 }
 
+- (void)addRightBarButtonForNavigationBar {
+    UIView *viewSave = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    viewSave.backgroundColor = UIColor.clearColor;
+    
+    UIButton *btnSave =  [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSave.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    btnSave.frame = CGRectMake(15, 0, 40, 40);
+    btnSave.backgroundColor = UIColor.clearColor;
+    [btnSave setImage:[UIImage imageNamed:@"tick_white"] forState:UIControlStateNormal];
+    [btnSave addTarget:self action:@selector(saveInfo) forControlEvents:UIControlEventTouchUpInside];
+    [viewSave addSubview: btnSave];
+    
+    UIBarButtonItem *btnSaveBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewSave];
+    self.navigationItem.rightBarButtonItem =  btnSaveBarButtonItem;
+}
+
+- (void)saveInfo {
+    if ([AppDelegate sharedInstance].editCMND_a == nil && [AppDelegate sharedInstance].editCMND_b == nil && [AppDelegate sharedInstance].editBanKhai == nil) {
+        [self.view makeToast:@"Vui lòng chọn hình ảnh để cập nhật!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: cusId]) {
+        [self.view makeToast:@"Không thể lấy được cusId. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
+    
+    [self uploadBanKhaiPicture];
+}
+
 - (void)showCurrentPassportForDomain {
     if ([AppDelegate sharedInstance].editCMND_a != nil) {
         [btnCMND_a setImage:[AppDelegate sharedInstance].editCMND_a forState:UIControlStateNormal];
@@ -64,6 +99,9 @@
             
             [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
             {
+                if (image == nil) {
+                    [self.btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+                }
                 self.imgWaitCMND_a.hidden = TRUE;
                 [self.imgWaitCMND_a stopAnimating];
             }];
@@ -81,11 +119,34 @@
             
             [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
              {
+                 if (image == nil) {
+                     [self.btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+                 }
                  self.imgWaitCMND_b.hidden = TRUE;
                  [self.imgWaitCMND_b stopAnimating];
              }];
         }else{
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        }
+    }
+    
+    if ([AppDelegate sharedInstance].editBanKhai != nil) {
+        [btnBanKhai setImage:[AppDelegate sharedInstance].editBanKhai forState:UIControlStateNormal];
+    }else{
+        if (![AppUtils isNullOrEmpty: curBanKhai]) {
+            imgWaitBanKhai.hidden = FALSE;
+            [imgWaitBanKhai startAnimating];
+            
+            [btnBanKhai sd_setImageWithURL:[NSURL URLWithString:curBanKhai] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
+             {
+                 if (image == nil) {
+                     [self.btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+                 }
+                 [self.imgWaitBanKhai stopAnimating];
+                 self.imgWaitBanKhai.hidden = TRUE;
+             }];
+        }else{
+            [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
         }
     }
 }
@@ -110,6 +171,16 @@
     }
 }
 
+- (IBAction)btnBanKhaiPress:(UIButton *)sender {
+    type = 3;
+    
+    if ([AppDelegate sharedInstance].editBanKhai == nil) {
+        [self showActionSheetChooseWithRemove: FALSE];
+    }else{
+        [self showActionSheetChooseWithRemove: TRUE];
+    }
+}
+
 - (IBAction)btnCancelPress:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
@@ -127,22 +198,58 @@
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
-    
+}
+
+- (void)uploadBanKhaiPicture {
+    if ([AppDelegate sharedInstance].editBanKhai != nil) {
+        //  resize image to reduce quality
+        [AppDelegate sharedInstance].editBanKhai = [AppUtils resizeImage: [AppDelegate sharedInstance].editBanKhai];
+        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editBanKhai);
+        
+        if (uploadData == nil) {
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from editBanKhai image, continue get data for CMND_a", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [self uploadPassportFrontPicture];
+            
+        }else{
+            NSString *imageName = [NSString stringWithFormat:@"%@_bankhai_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils getCurrentDateTime]];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                UploadPicture *session = [[UploadPicture alloc] init];
+                [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            
+                            self.linkBanKhai = @"";
+                            
+                        }else{
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            
+                            self.linkBanKhai = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                        }
+                        [self uploadPassportFrontPicture];
+                    });
+                }];
+            });
+        }
+    }else{
+        self.linkBanKhai = curBanKhai;
+        [self uploadPassportFrontPicture];
+    }
+}
+
+- (void)uploadPassportFrontPicture {
     if ([AppDelegate sharedInstance].editCMND_a != nil)
     {
         //  resize image to reduce quality
         [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_a);
         if (uploadData == nil) {
-            uploadData = UIImageJPEGRepresentation([AppDelegate sharedInstance].editCMND_a, 1.0);
-        }
-        
-        if (uploadData == nil) {
             [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from CMND_a image, continue get data for CMND_b", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
             
-            [self startUploadPassportBehindPictures];
+            [self uploadPassportBehindPicture];
         }else{
-            NSString *imageName = [NSString stringWithFormat:@"%@_front_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
+            NSString *imageName = [NSString stringWithFormat:@"%@_front_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils getCurrentDateTime]];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 UploadPicture *session = [[UploadPicture alloc] init];
@@ -159,26 +266,23 @@
                             self.linkCMND_a = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
                         
-                        [self startUploadPassportBehindPictures];
+                        [self uploadPassportBehindPicture];
                     });
                 }];
             });
         }
     }else{
         self.linkCMND_a = curCMND_a;
-        [self startUploadPassportBehindPictures];
+        [self uploadPassportBehindPicture];
     }
 }
 
-- (void)startUploadPassportBehindPictures {
+- (void)uploadPassportBehindPicture {
     if ([AppDelegate sharedInstance].editCMND_b != nil) {
         [AppDelegate sharedInstance].editCMND_b = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_b];
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_b);
-        if (uploadData == nil) {
-            uploadData = UIImageJPEGRepresentation([AppDelegate sharedInstance].editCMND_b, 1.0);
-        }
         
-        NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
+        NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils getCurrentDateTime]];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -205,11 +309,11 @@
 - (void)updateCMNDPhotoForDomain {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
-    if ([AppUtils isNullOrEmpty: linkCMND_a] && [AppUtils isNullOrEmpty: linkCMND_b]) {
+    if ([AppUtils isNullOrEmpty: linkCMND_a] && [AppUtils isNullOrEmpty: linkCMND_b] && [AppUtils isNullOrEmpty: linkBanKhai]) {
         [self.view makeToast:@"CMND của bạn chưa được tải thành công. Vui lòng thử lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId];
+    [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId domainName:domain domainType:domainType domainId:domainId banKhai:linkBanKhai];
 }
 
 - (void)showActionSheetChooseWithRemove: (BOOL)remove {
@@ -224,71 +328,90 @@
 }
 
 - (void)setupUIForView {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     float padding = 15.0;
     float hFooterBTN = 45.0;
-    float hLabel = 40.0;
+    float hLabel = 25.0;
     float hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hNav + 3*2*padding + 2*hLabel + hFooterBTN + 10.0))/2;
+    hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hNav + [AppDelegate sharedInstance].hStatusBar + 4*padding + 3*hLabel))/3;
     
-    //  CMND_a
-    btnCMND_a.layer.borderWidth = 1.0;
-    btnCMND_a.layer.borderColor = BORDER_COLOR.CGColor;
-    btnCMND_a.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
-    [btnCMND_a.imageView setContentMode: UIViewContentModeScaleAspectFit];
-    [btnCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.view).offset(2*padding);
+    imgWaitBanKhai.backgroundColor = imgWaitCMND_a.backgroundColor = imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
+    imgWaitBanKhai.alpha = imgWaitCMND_a.alpha = imgWaitCMND_b.alpha = 0.5;
+    imgWaitBanKhai.hidden = imgWaitCMND_a.hidden = imgWaitCMND_b.hidden = TRUE;
+    
+    //  Ban khai
+    btnBanKhai.layer.borderWidth = btnCMND_a.layer.borderWidth = btnCMND_b.layer.borderWidth = 1.0;
+    btnBanKhai.layer.borderColor = btnCMND_a.layer.borderColor = btnCMND_b.layer.borderColor = BORDER_COLOR.CGColor;
+    
+    btnBanKhai.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
+    [btnBanKhai.imageView setContentMode: UIViewContentModeScaleAspectFit];
+    [btnBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(padding);
+        make.left.equalTo(self.view).offset(2*padding);
         make.right.equalTo(self.view).offset(-2*padding);
         make.height.mas_equalTo(hBTN);
     }];
     
-    imgWaitCMND_a.backgroundColor = UIColor.whiteColor;
-    imgWaitCMND_a.alpha = 0.5;
-    imgWaitCMND_a.hidden = TRUE;
+    [imgWaitBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.btnBanKhai);
+    }];
+    
+    [lbBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.btnBanKhai.mas_bottom);
+        make.left.right.equalTo(self.btnBanKhai);
+        make.height.mas_equalTo(hLabel);
+    }];
+    
+    //  CMND_a
+    btnCMND_a.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
+    [btnCMND_a.imageView setContentMode: UIViewContentModeScaleAspectFit];
+    [btnCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbBanKhai.mas_bottom).offset(padding);
+        make.left.right.equalTo(self.btnBanKhai);
+        make.height.mas_equalTo(hBTN);
+    }];
+
     [imgWaitCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.btnCMND_a);
     }];
-    
     
     [lbCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnCMND_a.mas_bottom);
         make.left.right.equalTo(self.btnCMND_a);
         make.height.mas_equalTo(hLabel);
     }];
-    
+
     //  CMND_b
-    btnCMND_b.layer.borderWidth = 1.0;
-    btnCMND_b.layer.borderColor = btnCMND_a.layer.borderColor;
     btnCMND_b.imageEdgeInsets = btnCMND_a.imageEdgeInsets;
-    
+
     [btnCMND_b.imageView setContentMode: UIViewContentModeScaleAspectFit];
     [btnCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbCMND_a.mas_bottom).offset(padding);
         make.left.right.equalTo(self.lbCMND_a);
-        make.top.equalTo(self.lbCMND_a.mas_bottom).offset(10.0);
         make.height.mas_equalTo(hBTN);
     }];
-    
-    imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
-    imgWaitCMND_b.alpha = 0.5;
-    imgWaitCMND_b.hidden = TRUE;
+
     [imgWaitCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.btnCMND_b);
     }];
-    
+
     [lbCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnCMND_b.mas_bottom);
         make.left.right.equalTo(self.btnCMND_b);
         make.height.mas_equalTo(hLabel);
     }];
-    
+
     [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnCancel.backgroundColor = OLD_PRICE_COLOR;
     btnCancel.layer.cornerRadius = hFooterBTN/2;
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
-        make.bottom.equalTo(self.view).offset(-2*padding);
+        make.bottom.equalTo(self.view).offset(-padding);
         make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(hFooterBTN);
     }];
-    
+
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnSave.backgroundColor = BLUE_COLOR;
     btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
@@ -297,10 +420,10 @@
         make.left.equalTo(self.btnCancel.mas_right).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
     }];
-    
-    
+
+    btnCancel.hidden = btnSave.hidden = TRUE;
     btnCancel.titleLabel.font = btnSave.titleLabel.font = lbCMND_a.font = lbCMND_b.font = [AppDelegate sharedInstance].fontBTN;
-    lbCMND_a.textColor = lbCMND_b.textColor = TITLE_COLOR;
+    lbBanKhai.textColor = lbCMND_a.textColor = lbCMND_b.textColor = TITLE_COLOR;
 }
 
 - (void)requestToAccessYourCamera {
@@ -430,10 +553,15 @@
         
         [btnCMND_a setImage:[AppDelegate sharedInstance].editCMND_a forState:UIControlStateNormal];
         
-    }else{
+    }else if (type == 2){
         NSData *pngData = UIImagePNGRepresentation(image);
         [AppDelegate sharedInstance].editCMND_b = [UIImage imageWithData:pngData];
         [btnCMND_b setImage:[AppDelegate sharedInstance].editCMND_b forState:UIControlStateNormal];
+        
+    }else if (type == 3){
+        NSData *pngData = UIImagePNGRepresentation(image);
+        [AppDelegate sharedInstance].editBanKhai = [UIImage imageWithData:pngData];
+        [btnBanKhai setImage:[AppDelegate sharedInstance].editBanKhai forState:UIControlStateNormal];
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -444,7 +572,13 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] Error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Cập nhật CMND không thành công. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *code = [AppUtils getErrorCodeFromData: error];
+    NSString *content = [AppUtils getErrorContentWithErrorCode: code];
+    if (![AppUtils isNullOrEmpty: content]) {
+        [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }else{
+        [self.view makeToast:@"Cập nhật CMND không thành công. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
 }
 
 -(void)updatePassportForDomainSuccessful {

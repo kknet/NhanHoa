@@ -153,6 +153,7 @@
 		566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */ = {isa = PBXBuildFile; fileRef = 566A159C22AEBDF800604FE8 /* ic_his_topup.png */; };
 		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
 		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
+		56B5685022B153A300AB8F29 /* tick_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B5684F22B153A300AB8F29 /* tick_white.png */; };
 		56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */; };
 		56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */; };
 		56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */; };
@@ -507,6 +508,7 @@
 		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
+		56B5684F22B153A300AB8F29 /* tick_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_white.png; sourceTree = "<group>"; };
 		56CB516C22A72E8700D6D68A /* UpdateBusinessProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateBusinessProfile.h; sourceTree = "<group>"; };
 		56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateBusinessProfile.m; sourceTree = "<group>"; };
 		56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateBusinessProfile.xib; sourceTree = "<group>"; };
@@ -1023,6 +1025,7 @@
 				56FED7C222AD050F00FAD541 /* ic_headset.png */,
 				566A159C22AEBDF800604FE8 /* ic_his_topup.png */,
 				56FD5AD922B064B800955964 /* ic_bank_info.png */,
+				56B5684F22B153A300AB8F29 /* tick_white.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1720,6 +1723,7 @@
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
+				56B5685022B153A300AB8F29 /* tick_white.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
@@ -2043,7 +2047,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

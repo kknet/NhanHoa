@@ -69,6 +69,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableDictionary *profileEdit;
 @property (nonatomic, strong) UIImage *editCMND_a;
 @property (nonatomic, strong) UIImage *editCMND_b;
+@property (nonatomic, strong) UIImage *editBanKhai;
 @property (nonatomic, strong) NSDictionary *domainsPrice;
 @property (nonatomic, strong) UIImage *cropAvatar;
 @property (nonatomic, strong) NSData *dataCrop;
