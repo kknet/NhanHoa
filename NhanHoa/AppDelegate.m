@@ -541,7 +541,7 @@
         self.cartNavViewController = [[UINavigationController alloc] initWithRootViewController:self.cartViewController];
         self.cartNavViewController.navigationBarHidden = YES;
     }
-    
+    [ProgressHUD updateCurrentWindowWithNewWindow: self.cartWindow];
     cartWindow.rootViewController = cartNavViewController;
     cartWindow.alpha = 0;
     
@@ -557,7 +557,7 @@
 }
 
 - (void)hideCartView {
-    
+    [ProgressHUD updateCurrentWindowWithNewWindow: self.window];
     if( [self.cartWindow isKeyWindow] ) {
         [UIView animateWithDuration:0.2 animations:^{
             self.cartWindow.alpha = 0;

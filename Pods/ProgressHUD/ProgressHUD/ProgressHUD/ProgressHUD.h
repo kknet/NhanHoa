@@ -23,7 +23,7 @@
 + (void)show:(NSString *)status;
 + (void)show:(NSString *)status Interaction:(BOOL)interaction;
 //  [Khai Le - Custom]
-+ (void)show:(NSString *)status Interaction:(BOOL)interaction onWindow: (UIWindow *)newWindow;
++ (void)updateCurrentWindowWithNewWindow: (UIWindow *)newWindow;
 
 + (void)showSuccess;
 + (void)showSuccess:(NSString *)status;

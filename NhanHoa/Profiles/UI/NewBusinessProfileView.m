@@ -464,7 +464,6 @@
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
-    show waiting khi add profile trong cartWindow
     
     if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
         [self makeToast:@"Bạn chưa nhập Tên doanh nghiệp!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];

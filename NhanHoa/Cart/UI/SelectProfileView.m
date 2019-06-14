@@ -133,6 +133,7 @@
                 [listProfiles removeAllObjects];
                 [listProfiles addObjectsFromArray: data];
             }
+            [listProfiles insertObject:[AppDelegate sharedInstance].userInfo atIndex:0];
             
             lbNoData.hidden = TRUE;
             tbProfile.hidden = FALSE;

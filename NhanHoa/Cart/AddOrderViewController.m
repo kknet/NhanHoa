@@ -129,10 +129,6 @@
     tbConfirmProfile.delegate = self;
     tbConfirmProfile.dataSource = self;
     [tbConfirmProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        /*
-         make.left.right.equalTo(self.view);
-         make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
-         make.height.mas_equalTo(self.hTbConfirm);   */
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(0);
     }];
@@ -150,8 +146,8 @@
     [btnConfirm setTitle:@"Thông tin đúng, thanh toán ngay" forState:UIControlStateNormal];
     btnConfirm.backgroundColor = BLUE_COLOR;
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnConfirm.layer.cornerRadius = 45.0/2;
-    btnConfirm.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnConfirm.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnConfirm.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [footerView addSubview: btnConfirm];
     [btnConfirm addTarget:self
                    action:@selector(btnConfirmProfilePress)
@@ -169,8 +165,8 @@
 - (void)showPopupConfirmForPayment {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn gia hạn tên miền này?"];
-    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Số tiền thanh toán sẽ được trừ vào ví của bạn.\nBấm Xác nhận để tiến hành thoan toán."];
+    [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
     UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
@@ -179,17 +175,17 @@
                                                      }];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     
-    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:@"Thanh toán" style:UIAlertActionStyleDefault
+    UIAlertAction *btnAccept = [UIAlertAction actionWithTitle:@"Thanh toán" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
-                                                         [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:self.cus_id ord_id:self.ord_id years:self.yearsForRenew];
+                                                         
                                                      }];
-    [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    [btnAccept setValue:BLUE_COLOR forKey:@"titleTextColor"];
     
     [alertVC addAction:btnClose];
-    [alertVC addAction:btnRenew];
+    [alertVC addAction:btnAccept];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 

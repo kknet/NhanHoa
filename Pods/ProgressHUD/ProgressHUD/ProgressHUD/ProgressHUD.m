@@ -14,13 +14,14 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ProgressHUD()
 {
-	UIWindow *window;
+	//  UIWindow *window;
 	UIView *viewBackground;
 	UIToolbar *toolbarHUD;
 	UIActivityIndicatorView *spinner;
 	UIImageView *imageView;
 	UILabel *labelStatus;
 }
+@property (nonatomic, strong) UIWindow *window;
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -76,12 +77,9 @@
 	});
 }
 
-+ (void)show:(NSString *)status Interaction:(BOOL)interaction onWindow: (UIWindow *)newWindow
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[self shared] hudCreate:status image:nil spin:YES hide:NO interaction:interaction withWindow: newWindow];
-    });
+//  [Khai Le] Custom
++ (void)updateCurrentWindowWithNewWindow: (UIWindow *)newWindow {
+    [self shared].window = newWindow;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,8 +168,8 @@
 	id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([delegate respondsToSelector:@selector(window)])
-		window = [delegate performSelector:@selector(window)];
-	else window = [[UIApplication sharedApplication] keyWindow];
+		self.window = [delegate performSelector:@selector(window)];
+	else self.window = [[UIApplication sharedApplication] keyWindow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	viewBackground = nil; toolbarHUD = nil; spinner = nil; imageView = nil; labelStatus = nil;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -200,12 +198,12 @@
 	{
 		if (interaction == NO)
 		{
-			viewBackground = [[UIView alloc] initWithFrame:window.frame];
+			viewBackground = [[UIView alloc] initWithFrame:self.window.frame];
 			viewBackground.backgroundColor = self.backgroundColor;
-			[window addSubview:viewBackground];
+			[self.window addSubview:viewBackground];
 			[viewBackground addSubview:toolbarHUD];
 		}
-		else [window addSubview:toolbarHUD];
+		else [self.window addSubview:toolbarHUD];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (spinner == nil)
@@ -251,77 +249,6 @@
 	[self hudShow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (hide) [self timedHide];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudCreate:(NSString *)status image:(UIImage *)image spin:(BOOL)spin hide:(BOOL)hide interaction:(BOOL)interaction withWindow: (UIWindow *)newWindow
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-    if (toolbarHUD == nil)
-    {
-        toolbarHUD = [[UIToolbar alloc] initWithFrame:CGRectZero];
-        toolbarHUD.translucent = YES;
-        toolbarHUD.backgroundColor = self.hudColor;
-        toolbarHUD.layer.cornerRadius = 10;
-        toolbarHUD.layer.masksToBounds = YES;
-        [self registerNotifications];
-    }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (toolbarHUD.superview == nil)
-    {
-        if (interaction == NO)
-        {
-            viewBackground = [[UIView alloc] initWithFrame:newWindow.frame];
-            viewBackground.backgroundColor = self.backgroundColor;
-            [newWindow addSubview:viewBackground];
-            [viewBackground addSubview:toolbarHUD];
-        }
-        else [newWindow addSubview:toolbarHUD];
-    }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (spinner == nil)
-    {
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        spinner.color = self.spinnerColor;
-        spinner.hidesWhenStopped = YES;
-    }
-    if (spinner.superview == nil) [toolbarHUD addSubview:spinner];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (imageView == nil)
-    {
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-    }
-    if (imageView.superview == nil) [toolbarHUD addSubview:imageView];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (labelStatus == nil)
-    {
-        labelStatus = [[UILabel alloc] initWithFrame:CGRectZero];
-        labelStatus.font = self.statusFont;
-        labelStatus.textColor = self.statusColor;
-        labelStatus.backgroundColor = [UIColor clearColor];
-        labelStatus.textAlignment = NSTextAlignmentCenter;
-        labelStatus.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-        labelStatus.numberOfLines = 0;
-    }
-    if (labelStatus.superview == nil) [toolbarHUD addSubview:labelStatus];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    labelStatus.text = status;
-    labelStatus.hidden = (status == nil) ? YES : NO;
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    imageView.image = image;
-    imageView.hidden = (image == nil) ? YES : NO;
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (spin) [spinner startAnimating]; else [spinner stopAnimating];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    [self hudSize];
-    [self hudPosition:nil];
-    [self hudShow];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    if (hide) [self timedHide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -410,7 +337,7 @@
 		toolbarHUD.center = CGPointMake(center.x, center.y);
 	} completion:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (viewBackground != nil) viewBackground.frame = window.frame;
+	if (viewBackground != nil) viewBackground.frame = self.window.frame;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
