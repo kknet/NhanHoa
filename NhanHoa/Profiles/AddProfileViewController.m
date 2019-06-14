@@ -32,6 +32,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = FALSE;
+    
     [WriteLogsUtils writeForGoToScreen: @"AddProfileViewController"];
     [WebServiceUtils getInstance].delegate = self;
     

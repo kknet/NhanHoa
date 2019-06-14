@@ -11,9 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CartViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIView *viewHeader;
-@property (weak, nonatomic) IBOutlet UIButton *icBack;
-@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
 
 @property (weak, nonatomic) IBOutlet UIView *viewEmpty;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCartEmpty;
@@ -31,8 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbPriceValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbVAT;
 @property (weak, nonatomic) IBOutlet UILabel *lbVATValue;
-@property (weak, nonatomic) IBOutlet UILabel *lbPromo;
-@property (weak, nonatomic) IBOutlet UILabel *lbPromoValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbTotal;
 @property (weak, nonatomic) IBOutlet UILabel *lbTotalValue;
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
@@ -42,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITableView *tbSelectYear;
 - (IBAction)btnContinuePress:(UIButton *)sender;
 - (IBAction)btnGoShopPress:(UIButton *)sender;
-- (IBAction)icBackClick:(UIButton *)sender;
 
 @end
 

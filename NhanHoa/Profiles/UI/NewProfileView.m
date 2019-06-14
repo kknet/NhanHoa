@@ -905,6 +905,8 @@
 
 
 - (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info {
+    show waiting khi add profile trong cartWindow
+    
     NSString *fullname = [info objectForKey:@"cus_realname"];    //  cus_contract_name???
     if (![AppUtils isNullOrEmpty: fullname]) {
         tfName.text = fullname;

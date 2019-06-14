@@ -385,7 +385,7 @@
         lbBODValue.text = @"";
     }
     
-    NSString *cus_card_id = [info objectForKey:@"cus_card_id"];
+    NSString *cus_card_id = [info objectForKey:@"cus_idcard_number"];
     if (cus_card_id != nil && [cus_card_id isKindOfClass:[NSString class]]) {
         lbPassportValue.text = cus_card_id;
     }else{
@@ -407,7 +407,7 @@
         lbPhoneValue.text = @"";
     }
     
-    NSString *cus_email = [info objectForKey:@"cus_email"];
+    NSString *cus_email = [info objectForKey:@"cus_rl_email"];
     if (cus_email != nil && [cus_email isKindOfClass:[NSString class]])
     {
         lbEmailValue.text = cus_email;
@@ -415,20 +415,19 @@
         lbEmailValue.text = @"";
     }
     
-    NSString *frontImg = [info objectForKey:@"cus_idcard_front_img"];
-    if (![AppUtils isNullOrEmpty: frontImg]) {
-        
+    NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
+    if (![AppUtils isNullOrEmpty: cmnd_a]) {
+        [imgFrontPassport sd_setImageWithURL:[NSURL URLWithString: cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
     }else{
-        imgFrontPassport.image = [UIImage imageNamed:@"passport_empty_front"];
+        imgFrontPassport.image = FRONT_EMPTY_IMG;
     }
     
-    NSString *backImg = [info objectForKey:@"cus_idcard_back_img"];
-    if (![AppUtils isNullOrEmpty: backImg]) {
-        
+    NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
+    if (![AppUtils isNullOrEmpty: cmnd_b]) {
+        [imgBehindPassport sd_setImageWithURL:[NSURL URLWithString: cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
     }else{
-        imgBehindPassport.image = [UIImage imageNamed:@"passport_empty_behind"];
+        imgBehindPassport.image = BEHIND_EMPTY_IMG;
     }
 }
-
 
 @end

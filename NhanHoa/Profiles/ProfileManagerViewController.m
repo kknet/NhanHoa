@@ -65,8 +65,14 @@
     [btnAdd addTarget:self action:@selector(addNewProfile) forControlEvents:UIControlEventTouchUpInside];
     [viewAdd addSubview: btnAdd];
     
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = 35.0; // or whatever you want
+    
+    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
     UIBarButtonItem *btnAddBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewAdd];
-    self.navigationItem.rightBarButtonItem =  btnAddBarButtonItem;
+    //self.navigationItem.rightBarButtonItem =  btnAddBarButtonItem;
+    self.navigationItem.rightBarButtonItems = @[fixedItem, flexibleItem, btnAddBarButtonItem];
 }
 
 - (void)addNewProfile {

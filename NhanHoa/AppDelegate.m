@@ -144,7 +144,7 @@
     if (self.cartWindow == nil) {
         //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        self.cartWindow.backgroundColor = UIColor.redColor;
+        self.cartWindow.backgroundColor = UIColor.whiteColor;;
         self.cartWindow.windowLevel = UIWindowLevelNormal;
         self.cartWindow.tag = 2;
     }
@@ -446,7 +446,7 @@
 }
 
 - (void)setupFontForApp {
-    radius = 3.0;
+    radius = 5.0;
     
     NSString *deviceMode = [AppUtils getModelsOfCurrentDevice];
     if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])

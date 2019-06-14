@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "WebServices.h"
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SelectProfileViewDelegate
+@optional
 - (void)onIconCloseClicked;
 - (void)onSelectedProfileForDomain;
+- (void)onPassportFrontPress;
+- (void)onPassportBehindPress;
+- (void)onCreatNewProfileClicked;
 @end
 
 @interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource, WebServicesDelegate>
@@ -29,65 +34,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float hHeader;
 @property (nonatomic, assign) int selectedRow;
+@property (nonatomic, strong) NSString *cusIdSelected;
 
 - (void)setupUIForView;
 - (IBAction)icAddClick:(UIButton *)sender;
 - (IBAction)icCloseClick:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;
 
-//  Add profile
-@property (weak, nonatomic) IBOutlet UIScrollView *scvAddProfile;
-
-@property (weak, nonatomic) IBOutlet UILabel *lbVision;
-@property (weak, nonatomic) IBOutlet UIButton *icPersonal;
-@property (weak, nonatomic) IBOutlet UILabel *lbPersonal;
-@property (weak, nonatomic) IBOutlet UIButton *icBusiness;
-@property (weak, nonatomic) IBOutlet UILabel *lbBusiness;
-@property (weak, nonatomic) IBOutlet UILabel *lbName;
-@property (weak, nonatomic) IBOutlet UITextField *tfName;
-@property (weak, nonatomic) IBOutlet UILabel *lbSex;
-@property (weak, nonatomic) IBOutlet UIButton *icMale;
-@property (weak, nonatomic) IBOutlet UILabel *lbMale;
-@property (weak, nonatomic) IBOutlet UIButton *icFemale;
-@property (weak, nonatomic) IBOutlet UILabel *lbFemale;
-@property (weak, nonatomic) IBOutlet UILabel *lbBOD;
-@property (weak, nonatomic) IBOutlet UITextField *tfBOD;
-@property (weak, nonatomic) IBOutlet UILabel *lbPassport;
-@property (weak, nonatomic) IBOutlet UITextField *tfPassport;
-@property (weak, nonatomic) IBOutlet UILabel *lbPhone;
-@property (weak, nonatomic) IBOutlet UITextField *tfPhone;
-@property (weak, nonatomic) IBOutlet UILabel *lbEmail;
-@property (weak, nonatomic) IBOutlet UITextField *tfEmail;
-@property (weak, nonatomic) IBOutlet UILabel *lbAddress;
-@property (weak, nonatomic) IBOutlet UITextField *tfAddress;
-@property (weak, nonatomic) IBOutlet UILabel *lbCountry;
-@property (weak, nonatomic) IBOutlet UITextField *tfCountry;
-@property (weak, nonatomic) IBOutlet UIImageView *imgArrCountry;
-@property (weak, nonatomic) IBOutlet UIButton *btnCountry;
-@property (weak, nonatomic) IBOutlet UILabel *lbCity;
-@property (weak, nonatomic) IBOutlet UITextField *tfCity;
-@property (weak, nonatomic) IBOutlet UIImageView *imgArrCity;
-@property (weak, nonatomic) IBOutlet UIButton *btnCity;
-@property (weak, nonatomic) IBOutlet UIImageView *imgPassport;
-@property (weak, nonatomic) IBOutlet UILabel *lbTitlePassport;
-@property (weak, nonatomic) IBOutlet UIImageView *imgPassportFront;
-@property (weak, nonatomic) IBOutlet UIImageView *imgPassportBehind;
-@property (weak, nonatomic) IBOutlet UILabel *lbPassportFront;
-@property (weak, nonatomic) IBOutlet UILabel *lbPassportBehind;
-@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
-@property (weak, nonatomic) IBOutlet UIButton *btnSave;
-
-- (IBAction)icPersonalClick:(UIButton *)sender;
-- (IBAction)icBusinessClick:(UIButton *)sender;
-- (IBAction)icMaleClick:(UIButton *)sender;
-- (IBAction)icFemaleClick:(UIButton *)sender;
-- (IBAction)btnCountryPress:(UIButton *)sender;
-- (IBAction)btnCancelPress:(UIButton *)sender;
-- (IBAction)btnSavePress:(UIButton *)sender;
-
 @property (nonatomic, strong) WebServices *webService;
 @property (nonatomic, strong) NSMutableArray *listProfiles;
 @property (nonatomic, assign) int cartIndexItemSelect;
+
+- (void)getListProfilesForAccount;
 
 @end
 

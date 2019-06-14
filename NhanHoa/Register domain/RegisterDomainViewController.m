@@ -132,7 +132,7 @@
     
     //  search UI
     float hSearch = 38.0;
-    tfSearch.text = @"dailyxanh.name.vn";
+    tfSearch.text = @"taphoaxanh.name.vn";
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
