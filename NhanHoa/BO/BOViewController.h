@@ -10,4 +10,7 @@
 
 @interface BOViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *lbNotSupport;
+@property (weak, nonatomic) IBOutlet UILabel *lbBotSepa;
+
 @end

@@ -221,6 +221,8 @@
 #define text_no_data    @"Không có dữ liệu"
 #define topup_now       @"Nạp ngay"
 
+#define text_not_support    @"Tính năng đang được phát triển"
+
 #endif /* AppString_h */
 
 
