@@ -372,48 +372,37 @@
     
     //  Show profile name
     NSString *name = [info objectForKey:@"cus_realname"];
-    if (name != nil && [name isKindOfClass:[NSString class]]) {
-        lbProfileNameValue.text = lbNameValue.text = name;
-    }else{
-        lbProfileNameValue.text = lbNameValue.text = @"";
-    }
+    lbProfileNameValue.text = (![AppUtils isNullOrEmpty: name])? name : @"";
     
     NSString *cus_birthday = [info objectForKey:@"cus_birthday"];
-    if (cus_birthday != nil && [cus_birthday isKindOfClass:[NSString class]]) {
-        lbBODValue.text = cus_birthday;
-    }else{
-        lbBODValue.text = @"";
-    }
+    lbBODValue.text = (![AppUtils isNullOrEmpty: cus_birthday])? cus_birthday : @"";
     
     NSString *cus_card_id = [info objectForKey:@"cus_idcard_number"];
-    if (cus_card_id != nil && [cus_card_id isKindOfClass:[NSString class]]) {
-        lbPassportValue.text = cus_card_id;
-    }else{
-        lbPassportValue.text = @"";
-    }
+    lbPassportValue.text = (![AppUtils isNullOrEmpty: cus_card_id])? cus_card_id : @"";
     
     NSString *cus_contract_address = [info objectForKey:@"cus_contract_address"];
-    if (cus_contract_address != nil && [cus_contract_address isKindOfClass:[NSString class]]) {
+    if (![AppUtils isNullOrEmpty: cus_contract_address]) {
         lbAddressValue.text = cus_contract_address;
     }else{
-        lbAddressValue.text = @"";
+        cus_contract_address = [info objectForKey:@"cus_address"];
+        lbAddressValue.text = (![AppUtils isNullOrEmpty: cus_contract_address])? cus_contract_address : @"";
     }
     
     NSString *cus_contract_phone = [info objectForKey:@"cus_contract_phone"];
-    if (cus_contract_phone != nil && [cus_contract_phone isKindOfClass:[NSString class]])
-    {
+    if (![AppUtils isNullOrEmpty: cus_contract_phone]) {
         lbPhoneValue.text = cus_contract_phone;
     }else{
-        lbPhoneValue.text = @"";
+        cus_contract_phone = [info objectForKey:@"cus_phone"];
+        lbPhoneValue.text = (![AppUtils isNullOrEmpty: cus_contract_phone])? cus_contract_phone : @"";
     }
     
     NSString *cus_email = [info objectForKey:@"cus_rl_email"];
-    if (cus_email != nil && [cus_email isKindOfClass:[NSString class]])
+    if (![AppUtils isNullOrEmpty: cus_email])
     {
         lbEmailValue.text = cus_email;
     }else{
         cus_email = [info objectForKey:@"cus_email"];
-        lbEmailValue.text = ([AppUtils isNullOrEmpty: cus_email]) ? cus_email : @"";
+        lbEmailValue.text = (![AppUtils isNullOrEmpty: cus_email]) ? cus_email : @"";
     }
     
     NSString *cmnd_a = [info objectForKey:@"cmnd_a"];

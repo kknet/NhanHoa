@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PaymentStepView.h"
 #import "SelectProfileView.h"
-#import "PaymentResultView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) PaymentStepView *viewMenu;
 @property (nonatomic, strong) SelectProfileView *chooseProfileView;
-@property (nonatomic, strong) PaymentResultView *paymentResultView;
 
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
@@ -29,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tbConfirmProfile;
 
 - (IBAction)btnPaymentPress:(UIButton *)sender;
+@property (nonatomic, strong) NSMutableArray *listDomains;
+@property (nonatomic, strong) NSMutableDictionary *paymentResult; //  Trạng thái các tên miền được mua (thành công hay thất bại)
 
 @end
 

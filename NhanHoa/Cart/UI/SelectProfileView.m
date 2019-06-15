@@ -233,13 +233,13 @@
     {
         if ([sender.currentTitle isEqualToString:@"Bỏ chọn"]) {
             NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: cartIndexItemSelect];
-            [domainInfo removeObjectForKey:@"profile"];
+            [domainInfo removeObjectForKey:profile_cart];
             [delegate onSelectedProfileForDomain];
             
         }else{
             NSDictionary *profile = [listProfiles objectAtIndex: sender.tag];
             NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: cartIndexItemSelect];
-            [domainInfo setObject:profile forKey:@"profile"];
+            [domainInfo setObject:profile forKey:profile_cart];
             
             [delegate onSelectedProfileForDomain];
         }

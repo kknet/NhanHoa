@@ -15,11 +15,11 @@
 
 #define acc_registered      @"001"
 #define name_not_vietnam    @"004"
+#define wrong_password      @"005"
 #define accountNotActive    @"006"
 #define domain_name_invalid @"007"
 #define miniumWithdraw      @"009"
 #define limited_register    @"099"
-
 
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
@@ -136,6 +136,7 @@
 #define renew_order_func        @"RenewOrder"
 #define info_bank_func          @"InfoBank"
 #define withdraw_func           @"Withdraw"
+#define add_order_func          @"AddOrder"
 
 
 #define login_mod               @"login"
@@ -163,6 +164,7 @@
 #define renew_order_mod         @"renew_order"
 #define info_bank_mod           @"info_bank"
 #define withdraw_mod            @"withdraw"
+#define add_order_mod           @"add_order"
 
 
 #define logsFolderName      @"LogFiles"
@@ -173,7 +175,7 @@
 #define key_password        @"key_password"
 #define domainvn_type       @"domainvn"
 #define domain_type         @"domain"
-
+#define profile_cart        @"profile_cart"
 
 #define USERNAME ([[NSUserDefaults standardUserDefaults] objectForKey:key_login])
 #define PASSWORD ([[NSUserDefaults standardUserDefaults] objectForKey:key_password])

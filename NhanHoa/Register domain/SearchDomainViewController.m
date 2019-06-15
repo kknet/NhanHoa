@@ -49,11 +49,15 @@
     tfSearch.text = strSearch;
     [self hideUIForSearch: TRUE];
     
+    [self registerObservers];
+    
     [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
     [self.navigationController setNavigationBarHidden: NO];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 -(void)viewDidLayoutSubviews {
@@ -143,6 +147,16 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(self.hTableView);
     }];
+}
+
+- (void)registerObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
+                                                 name:@"afterAddOrderSuccessfully" object:nil];
+}
+
+- (void)popToRootView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 
 - (void)setupUIForView {

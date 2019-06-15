@@ -15,9 +15,10 @@
 - (void)clearAllListDomainFromCart;
 - (void)addDomainToCart: (NSDictionary *)info;
 - (void)removeDomainFromCart: (NSDictionary *)info;
+- (void)removeAllDomainFromCart;
 - (int)countItemInCart;
 - (void)displayCartInfoWithView: (UILabel *)lbCount;
-- (BOOL)checkCurrentDomainExistsInCart: (NSDictionary *)info;
+- (BOOL)checkCurrentDomainExistsInCart: (id)info;
 - (long)getTotalPriceForDomain: (NSDictionary *)info;
 - (long)getTotalVATForCart;
 - (long)getTotalDomainPriceForCart;

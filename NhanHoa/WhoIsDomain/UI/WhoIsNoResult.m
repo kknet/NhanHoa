@@ -56,7 +56,7 @@
         make.right.equalTo(self.viewDomain).offset(-padding);
         make.centerY.equalTo(self.viewDomain.mas_centerY);
         make.height.mas_equalTo(36.0);
-        make.width.mas_equalTo(60.0);
+        make.width.mas_equalTo(80.0);
     }];
     
     lbName.font = [UIFont fontWithName:RobotoBold size:16.0];
@@ -81,10 +81,15 @@
     }
     
     NSString *domain = [info objectForKey:@"domain"];
-    if ([AppUtils isNullOrEmpty: domain]) {
-        domain = unknown;
-    }
     lbDomain.text = lbName.text = domain;
+    BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: domain];
+    if (exists) {
+        [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+        btnChoose.backgroundColor = ORANGE_COLOR;
+    }else{
+        [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        btnChoose.backgroundColor = BLUE_COLOR;        
+    }
     
     NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain];
     NSRange range = [content rangeOfString: domain];
@@ -117,9 +122,14 @@
         BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: domainInfo];
         if (exists) {
             [[CartModel getInstance] removeDomainFromCart: domainInfo];
+            [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            btnChoose.backgroundColor = BLUE_COLOR;
             
         }else{
             [[CartModel getInstance] addDomainToCart: domainInfo];
+            [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+            btnChoose.backgroundColor = ORANGE_COLOR;
+            
         }
         [[AppDelegate sharedInstance] updateShoppingCartCount];
     }

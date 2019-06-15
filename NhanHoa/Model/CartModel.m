@@ -51,6 +51,10 @@
     }
 }
 
+- (void)removeAllDomainFromCart {
+    [listDomain removeAllObjects];
+}
+
 - (int)countItemInCart {
     return (int)listDomain.count;
 }
@@ -64,8 +68,15 @@
     }
 }
 
-- (BOOL)checkCurrentDomainExistsInCart: (NSDictionary *)info {
-    NSString *domain = [info objectForKey:@"domain"];
+- (BOOL)checkCurrentDomainExistsInCart: (id)info {
+    NSString *domain = @"";
+    if ([info isKindOfClass:[NSDictionary class]]) {
+        domain = [info objectForKey:@"domain"];
+        
+    }else if ([info isKindOfClass:[NSString class]]) {
+        domain = info;
+    }
+    
     if (![AppUtils isNullOrEmpty: domain]) {
         for (int index=0; index<listDomain.count; index++) {
             NSDictionary *curInfo = [listDomain objectAtIndex: index];
@@ -193,7 +204,7 @@
     for (int index=0; index<listDomain.count; index++)
     {
         NSDictionary *domainInfo = [listDomain objectAtIndex: index];
-        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         if (profile == nil) {
             result = FALSE;
             break;

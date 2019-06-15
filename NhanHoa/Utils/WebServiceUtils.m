@@ -353,7 +353,7 @@
 }
 
 - (void)withdrawWithAmout: (long)amount {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = ld", __FUNCTION__, amount) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = %ld", __FUNCTION__, amount) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:withdraw_mod forKey:@"mod"];
@@ -361,6 +361,21 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:[NSNumber numberWithLong: amount] forKey:@"amount"];
     [webService callWebServiceWithLink:withdraw_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+}
+
+- (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, contact_id = %@, year = %d", __FUNCTION__, domain, contact_id, year) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:add_order_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [jsonDict setObject:contact_id forKey:@"contact_id"];
+    [jsonDict setObject:[NSNumber numberWithInt: year] forKey:@"year"];
+    [webService callWebServiceWithLink:add_order_func withParams:jsonDict];
     
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
 }
@@ -462,6 +477,10 @@
     }else if ([link isEqualToString: withdraw_func]) {
         if ([delegate respondsToSelector:@selector(failedToWithdrawWithError:)]) {
             [delegate failedToWithdrawWithError: error];
+        }
+    }else if ([link isEqualToString: add_order_func]) {
+        if ([delegate respondsToSelector:@selector(failedToAddNewOrderWithError:)]) {
+            [delegate failedToAddNewOrderWithError: error];
         }
     }
     
@@ -565,6 +584,10 @@
     }else if ([link isEqualToString: withdraw_func]) {
         if ([delegate respondsToSelector:@selector(withdrawSuccessfulWithData:)]) {
             [delegate withdrawSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: add_order_func]) {
+        if ([delegate respondsToSelector:@selector(addNewOrderSuccessfulWithData:)]) {
+            [delegate addNewOrderSuccessfulWithData: data];
         }
     }
 }

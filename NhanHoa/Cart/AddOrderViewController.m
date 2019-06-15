@@ -15,22 +15,21 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/PHAsset.h>
 #import "AddProfileViewController.h"
+#import "OrderResultView.h"
 
-@interface AddOrderViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
+@interface AddOrderViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate, WebServiceUtilsDelegate>
+{
     float hCell;
     float hSmallCell;
-    PaymentMethod typePaymentMethod;
-    int type;
-    UIImage *imgFront;
-    UIImage *imgBehind;
-    UIImagePickerController *imagePickerController;
+    NSString *buyingDomain;             //  Tên miền đang được mua
+    OrderResultView *orderResultView;
 }
 
 @end
 
 @implementation AddOrderViewController
-@synthesize viewMenu, viewContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile, paymentResultView;
-@synthesize hMenu, hTbConfirm, padding;
+@synthesize viewMenu, viewContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile;
+@synthesize hMenu, hTbConfirm, padding, paymentResult;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,8 +40,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"AddOrderViewController"];
+    [WebServiceUtils getInstance].delegate = self;
     
-    type = 1;
     [self setupUIForView];
 }
 
@@ -54,9 +53,6 @@
     
     [chooseProfileView removeFromSuperview];
     chooseProfileView = nil;
-    
-    [paymentResultView removeFromSuperview];
-    paymentResultView = nil;
 }
 
 - (void)setupUIForView {
@@ -98,7 +94,6 @@
     hTbConfirm = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu);
     
     [self setupTableConfirmProfileForView];
-    [self setupChoosePaymentMethodView];
 }
 
 - (float)getHeightTableView {
@@ -156,6 +151,11 @@
 }
 
 - (void)btnConfirmProfilePress {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     [viewMenu updateUIForStep: ePaymentCharge];
     viewContent.hidden = tbConfirmProfile.hidden = TRUE;
     
@@ -165,7 +165,7 @@
 - (void)showPopupConfirmForPayment {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Số tiền thanh toán sẽ được trừ vào ví của bạn.\nBấm Xác nhận để tiến hành thoan toán."];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Số tiền thanh toán sẽ được trừ vào ví của bạn.\nBấm Xác nhận để tiến hành thanh toán."];
     [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
@@ -180,7 +180,9 @@
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
+                                                         self.paymentResult = [[NSMutableDictionary alloc] init];
                                                          
+                                                         [self startToAddAllDomainInYourCart];
                                                      }];
     [btnAccept setValue:BLUE_COLOR forKey:@"titleTextColor"];
     
@@ -189,8 +191,71 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-- (void)setupChoosePaymentMethodView {
+- (void)startToAddAllDomainInYourCart {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] cart count = %d", __FUNCTION__, [[CartModel getInstance] countItemInCart]) toFilePath:[AppDelegate sharedInstance].logFilePath];
     
+    if ([CartModel getInstance].listDomain.count > 0) {
+        NSDictionary *domainInfo = [[CartModel getInstance].listDomain firstObject];
+        [[CartModel getInstance].listDomain removeObjectAtIndex: 0];
+        
+        if (domainInfo != nil && [domainInfo isKindOfClass:[NSDictionary class]]) {
+            NSString *years = [domainInfo objectForKey:year_for_domain];
+            NSString *domainName = [domainInfo objectForKey:@"domain"];
+            NSDictionary *profile = [domainInfo objectForKey:profile_cart];
+            NSString *profileCusId = [profile objectForKey:@"cus_id"];
+            buyingDomain = domainName;
+            
+            if (![AppUtils isNullOrEmpty: profileCusId] && ![AppUtils isNullOrEmpty: domainName] && ![AppUtils isNullOrEmpty: years]) {
+                [[WebServiceUtils getInstance] addOrderForDomain:domainName contact_id:profileCusId year:[years intValue]];
+            }else{
+                [paymentResult setObject:@"failed" forKey:buyingDomain];
+                [self startToAddAllDomainInYourCart];
+            }
+        }else{
+            [paymentResult setObject:@"failed" forKey:buyingDomain];
+            [self startToAddAllDomainInYourCart];
+        }
+    }else{
+        [self finishAddOrderDomains];
+    }
+}
+
+- (void)finishAddOrderDomains {
+    [ProgressHUD dismiss];
+    [viewMenu updateUIForStep: ePaymentDone];
+    
+    if (orderResultView != nil) {
+        [orderResultView removeFromSuperview];
+        orderResultView = nil;
+    }
+    
+    if (orderResultView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OrderResultView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OrderResultView class]]) {
+                orderResultView = (OrderResultView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: orderResultView];
+        [orderResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.viewMenu.mas_bottom);
+            make.left.bottom.right.equalTo(self.view);
+        }];
+        [orderResultView setupUIForView];
+        [orderResultView.btnClose addTarget:self
+                                     action:@selector(afterPaymentSuccessfully)
+                           forControlEvents:UIControlEventTouchUpInside];
+    }
+    [orderResultView setContentViewWithInfo: paymentResult];
+}
+
+- (void)afterPaymentSuccessfully {
+    [[AppDelegate sharedInstance] hideCartView];
+    [[CartModel getInstance] removeAllDomainFromCart];
+    [[AppDelegate sharedInstance] updateShoppingCartCount];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"afterAddOrderSuccessfully" object:nil];
 }
 
 - (void)btnConfirmPaymentPress {
@@ -215,7 +280,7 @@
     
     if (show) {
         NSMutableDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: tag];
-        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         if (profile != nil) {
             NSString *cusId = [profile objectForKey:@"cus_id"];
             chooseProfileView.cusIdSelected = cusId;
@@ -307,7 +372,7 @@
         
         cell.lbDomain.text = domain;
         
-        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         if (profile == nil) {
             [cell.btnChooseProfile setTitle:@"Chọn hồ sơ" forState:UIControlStateNormal];
             cell.btnChooseProfile.backgroundColor = BLUE_COLOR;
@@ -342,7 +407,7 @@
         
         [cell showProfileDetailWithDomainView];
         
-        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         [cell displayProfileInfo: profile];
         
         return cell;
@@ -357,7 +422,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == tbContent) {
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
-        NSDictionary *profile = [domainInfo objectForKey:@"profile"];
+        NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         if (profile == nil) {
             return hSmallCell;
         }else{
@@ -381,7 +446,7 @@
 - (IBAction)btnPaymentPress:(UIButton *)sender {
     BOOL ready = [[CartModel getInstance] checkAllProfileForCart];
     if (!ready) {
-        [self.view makeToast:@"Vui lòng chọn đầy đủ hồ sơ cho tên miền!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:@"Vui lòng chọn đầy đủ hồ sơ cho tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -393,7 +458,6 @@
     [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
-        //  make.height.mas_equalTo(self.hTbConfirm);
     }];
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
@@ -404,164 +468,21 @@
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
-#pragma mark - Onepay View Delegate
--(void)paymentResultWithInfo:(NSDictionary *)info {
-    NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
-    if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
-        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
-            [self.view makeToast:@"Bạn đã hủy bỏ giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self performSelector:@selector(quitCartView) withObject:nil afterDelay:2.0];
-            return;
-        }
+#pragma mark - WebServiceUtil Delegate
+-(void)failedToAddNewOrderWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    if (![AppUtils isNullOrEmpty: buyingDomain]) {
+        [paymentResult setObject:@"failed" forKey:buyingDomain];
     }
-    
-    [viewMenu updateUIForStep: ePaymentDone];
-    if (paymentResultView == nil) {
-        [self addPaymentResultViewForMainView];
-    }
+    [self startToAddAllDomainInYourCart];
 }
 
-- (void)addPaymentResultViewForMainView {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PaymentResultView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[PaymentResultView class]]) {
-            paymentResultView = (PaymentResultView *) currentObject;
-            break;
-        }
+-(void)addNewOrderSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    if (![AppUtils isNullOrEmpty: buyingDomain]) {
+        [paymentResult setObject:@"success" forKey:buyingDomain];
     }
-    [self.view addSubview: paymentResultView];
-    [paymentResultView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
-    }];
-    [paymentResultView setupUIForView];
+    [self startToAddAllDomainInYourCart];
 }
 
-#pragma mark - SelectProfile Delegate
-- (void)onPassportBehindPress {
-    type = 2;
-    
-    if ([AppDelegate sharedInstance].editCMND_b == nil) {
-        [self showActionSheetChooseWithRemove: FALSE];
-    }else{
-        [self showActionSheetChooseWithRemove: TRUE];
-    }
-}
-
-- (void)onPassportFrontPress {
-    type = 1;
-    
-    if ([AppDelegate sharedInstance].editCMND_a == nil) {
-        [self showActionSheetChooseWithRemove: FALSE];
-    }else{
-        [self showActionSheetChooseWithRemove: TRUE];
-    }
-}
-
-- (void)showActionSheetChooseWithRemove: (BOOL)remove {
-    if (remove) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, text_remove, nil];
-        actionSheet.tag = 2;
-        [actionSheet showInView: self.view];
-        
-    }else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, nil];
-        actionSheet.tag = 1;
-        [actionSheet showInView: self.view];
-    }
-}
-
-#pragma mark - ActionSheet delegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [actionSheet buttonTitleAtIndex: buttonIndex];
-    if ([title isEqualToString: text_capture]) {
-        [self requestToAccessYourCamera];
-        
-    }else if ([title isEqualToString: text_gallery]) {
-        [self onSelectPhotosGallery];
-        
-    }else if ([title isEqualToString: text_remove]) {
-        [self removeCurrentPhotos];
-    }
-}
-
-- (void)removeCurrentPhotos {
-    
-}
-
-- (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
-    if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted){
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                if (granted) {
-                    [self goToCaptureImagePickerView];
-                }else{
-                    [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
-                }
-            });
-        }];
-    }else{
-        if (cameraAuthStatus == AVAuthorizationStatusAuthorized) {
-            [self goToCaptureImagePickerView];
-        }else{
-            if (cameraAuthStatus != AVAuthorizationStatusAuthorized && cameraAuthStatus != AVAuthorizationStatusNotDetermined) {
-                [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
-            }
-        }
-    }
-}
-
-- (void)goToCaptureImagePickerView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    if (imagePickerController == nil) {
-        imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = NO;
-    }
-    imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    [self presentViewController:imagePickerController animated:YES completion:nil];
-}
-
-- (void)onSelectPhotosGallery {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
-    if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            dispatch_async(dispatch_get_main_queue(), ^() {
-                if (status == PHAuthorizationStatusAuthorized) {
-                    [self goToGalleryPhotosView];
-                }else{
-                    [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
-                }
-            });
-        }];
-    }else{
-        if (photoAuthStatus == PHAuthorizationStatusAuthorized) {
-            [self goToGalleryPhotosView];
-        }else{
-            [self.view makeToast:not_access_camera duration:3.0 position:CSToastPositionCenter];
-        }
-    }
-}
-
-- (void)goToGalleryPhotosView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
-    
-    if (imagePickerController == nil) {
-        imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = FALSE;
-    }
-    imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:imagePickerController animated:YES completion:nil];
-}
 @end

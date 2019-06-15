@@ -1,4 +1,7 @@
 
+{"username":"lehoangson@gmail.com","password":"97046ec8a290c4ff214acddfcf1fa363","year":1,"domain":"nhanhoa-app.com.vn","contact_id":"127115","mod":"add_order"}
+
+
 TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 
 1. Login (Đăng nhập)

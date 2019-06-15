@@ -652,7 +652,10 @@
         
     }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: domain_name_invalid]){
         return @"Tên miền không hợp lệ";
+    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: wrong_password]){
+        return @"Mật khẩu không chính xác";
     }
+    
     else{
         return @"";
     }

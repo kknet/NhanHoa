@@ -43,14 +43,31 @@
     }
     [listResults removeAllObjects];
     
+    [self registerObservers];
+    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
     
     [self checkWhoIsForListDomains];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+}
+
+- (void)registerObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
+                                                 name:@"afterAddOrderSuccessfully" object:nil];
+}
+
+- (void)popToRootView {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 
 - (void)setupUIForView {
@@ -69,7 +86,9 @@
     }
 }
 
-- (void)addAvailableForViewWithInfo: (NSDictionary *)info {
+- (void)addAvailableForViewWithInfo: (NSDictionary *)info withIndex: (int)index {
+    float mTop = (index > 0)? 10.0 : 0.0;
+    
     WhoIsNoResult *whoisView;
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
     for(id currentObject in toplevelObject){
@@ -78,7 +97,6 @@
             break;
         }
     }
-    [whoisView showContentOfDomainWithInfo: info];
     
     float textSize = [AppUtils getSizeWithText:whoisView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
     float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
@@ -86,15 +104,18 @@
     [whoisView setupUIForView];
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height+10.0);
+        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height+mTop);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
+    [whoisView showContentOfDomainWithInfo: info];
     
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + 10.0);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
 
-- (void)addWhoIsResultViewWithInfo: (NSDictionary *)info {
+- (void)addWhoIsResultViewWithInfo: (NSDictionary *)info withIndex:(int)index {
+    float mTop = (index > 0)? 10.0 : 0.0;
+    
     WhoIsDomainView *whoisView;
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
     for(id currentObject in toplevelObject){
@@ -119,13 +140,13 @@
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height + self.padding);
+        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height + mTop);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
     [whoisView setupUIForView];
     [whoisView showContentOfDomainWithInfo: info];
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + 10.0);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
 
 - (void)showDomainList {
@@ -133,9 +154,9 @@
         NSDictionary *info = [listResults objectAtIndex: index];
         id available = [info objectForKey:@"available"];
         if (available != nil) {
-            [self addAvailableForViewWithInfo: info];
+            [self addAvailableForViewWithInfo: info withIndex: index];
         }else{
-            [self addWhoIsResultViewWithInfo: info];
+            [self addWhoIsResultViewWithInfo: info withIndex: index];
         }
     }
 }
