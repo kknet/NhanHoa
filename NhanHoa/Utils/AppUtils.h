@@ -20,6 +20,7 @@
 + (void)addDashedLineForView: (UIView *)view color: (UIColor *)color;
 +(BOOL)isNullOrEmpty:(NSString*)string;
 + (NSString *)getCurrentDate;
++ (NSString *)getCurrentDateForLogFolder;
 + (NSString *)getCurrentDateTime;
 + (NSString *)getCurrentDateTimeToString;
 + (NSString *)convertDateToString: (NSDate *)date;
@@ -47,9 +48,12 @@
 + (void) createDirectory:(NSString*)directory;
 + (NSString *)getDateTimeStringNotHaveSecondsFromDate: (NSDate *)date;
 + (BOOL)validateEmailWithString:(NSString*)email;
-+ (NSString *)getErrorCodeFromData: (id)data;
-+ (NSString *)getErrorContentWithErrorCode: (NSString *)errorCode;
 + (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName;
 + (NSData *)getFileDataFromDirectoryWithFileName: (NSString *)fileName;
++ (NSString *)getErrorContentFromData: (id)data;
+
++ (NSString *)checkTodayWithDateStr: (NSString *)dateStr;
++ (NSString *)checkYesterdayWithDateStr: (NSString *)dateStr;
++ (NSString *)getYesterdayDateString;
 
 @end

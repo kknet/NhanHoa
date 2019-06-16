@@ -131,7 +131,7 @@
 
 #pragma NewProfileView delegate & buniness
 - (void)onSelectBusinessProfile {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (businessProfile == nil) {
         [self addBusinessProfileIfNeed];
@@ -147,7 +147,7 @@
 }
 
 - (void)onCancelButtonClicked {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__]];
     
     [self.navigationController popViewControllerAnimated: TRUE];
 }
@@ -264,7 +264,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -289,7 +289,7 @@
 }
 
 - (void)goToCaptureImagePickerView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (imagePickerController == nil) {
         imagePickerController = [[UIImagePickerController alloc] init];
@@ -302,7 +302,7 @@
 }
 
 - (void)onSelectPhotosGallery {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
     if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {
@@ -325,7 +325,7 @@
 }
 
 - (void)goToGalleryPhotosView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
     

@@ -80,7 +80,6 @@
     
     [icWaiting startAnimating];
     icWaiting.hidden = FALSE;
-    whoisView.lbTitle.text = domain;
     
     [self getWhoisInfoOfDomain: domain];
 }
@@ -126,19 +125,19 @@
     [jsonDict setObject:[NSNumber numberWithInt: 1] forKey:@"type"];
     [webService callWebServiceWithLink:whois_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]]];
 }
 
 #pragma mark - Webservice
 -(void)failedToCallWebService:(NSString *)link andError:(id)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n error: %@", __FUNCTION__, link, error]];
     
     [icWaiting stopAnimating];
     icWaiting.hidden = TRUE;
 }
 
 -(void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Data: %@", __FUNCTION__, link, data]];
     
     if ([link isEqualToString: whois_func]) {
         [icWaiting stopAnimating];
@@ -163,7 +162,7 @@
 }
 
 -(void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode]];
     
     [icWaiting stopAnimating];
     icWaiting.hidden = TRUE;

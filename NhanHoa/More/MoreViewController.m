@@ -42,7 +42,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -77,7 +76,7 @@
         make.height.mas_equalTo(hHeader);
     }];
     
-    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hAccount/2 + 10)];
+    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hAccount/2 + 20 + 10)];
     tbHeaderView.backgroundColor = UIColor.whiteColor;
     tbContent.tableHeaderView = tbHeaderView;
     
@@ -113,7 +112,7 @@
     [self.view addSubview: accInfoView];
     
     [accInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewHeader.mas_bottom);
+        make.centerY.equalTo(self.viewHeader.mas_bottom).offset(20.0);
         make.left.equalTo(self.view).offset(self.padding);
         make.right.equalTo(self.view).offset(-self.padding);
         make.height.mas_equalTo(self.hAccount);
@@ -123,7 +122,7 @@
 }
 
 - (void)clearTokenOfUser {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
@@ -154,7 +153,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 6;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -165,11 +164,6 @@
         case eSettingAccount:{
             cell.lbName.text = @"Cài đặt tài khoản";
             cell.imgType.image = [UIImage imageNamed:@"ic_setting_acc.png"];
-            break;
-        }
-        case eContactInfo:{
-            cell.lbName.text = @"Thông tin liên lạc";
-            cell.imgType.image = [UIImage imageNamed:@"ic_contact_info"];
             break;
         }
         case eManagerDomainList:{
@@ -184,7 +178,7 @@
         }
         case eBankInfo:{
             cell.imgType.image = [UIImage imageNamed:@"ic_bank_info"];
-            cell.lbName.text = @"Thông tin tài khoản";
+            cell.lbName.text = @"Thông tin tài khoản ngân hàng";
             break;
         }
         case eApplicationInfo:{
@@ -215,19 +209,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
     switch (indexPath.row) {
         case eSettingAccount:{
             AccountSettingViewController *accSettingVC = [[AccountSettingViewController alloc] initWithNibName:@"AccountSettingViewController" bundle:nil];
             accSettingVC.hidesBottomBarWhenPushed = TRUE;
             [self.navigationController pushViewController:accSettingVC animated:TRUE];
-            break;
-        }
-        case eContactInfo:{
-            ContactInfoViewController *contactInfoVC = [[ContactInfoViewController alloc] initWithNibName:@"ContactInfoViewController" bundle:nil];
-            contactInfoVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController:contactInfoVC animated:TRUE];
             break;
         }
         case eManagerDomainList:{
@@ -293,12 +281,12 @@
 #pragma mark - Web services
 
 -(void)failedToUpdateToken {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
 }
 
 -(void)updateTokenSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     
     [self logoutScreen];

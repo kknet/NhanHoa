@@ -39,7 +39,7 @@
 }
 
 - (IBAction)btnSendMsgPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (sendMsgView == nil) {
         [self addSendMessageViewForMainView];
@@ -51,7 +51,7 @@
 }
 
 - (IBAction)btnCallPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
@@ -119,7 +119,7 @@
 }
 
 -(void)startToSendMessageWithEmail:(NSString *)email content:(NSString *)content {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang gửi tin nhắn..." Interaction:NO];
@@ -130,14 +130,15 @@
 #pragma mark - Webservice delegate
 
 -(void)failedToSendMessage:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
     
-    [[AppDelegate sharedInstance].window makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [[AppDelegate sharedInstance].window makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)sendMessageToUserSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     
     [[AppDelegate sharedInstance].window makeToast:@"Tin nhắn của bạn đã được gửi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];

@@ -11,16 +11,6 @@
 
 #define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
-
-
-#define acc_registered      @"001"
-#define name_not_vietnam    @"004"
-#define wrong_password      @"005"
-#define accountNotActive    @"006"
-#define domain_name_invalid @"007"
-#define miniumWithdraw      @"009"
-#define limited_register    @"099"
-
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -61,8 +51,9 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
-#define PASSWORD_MIN_CHARS  7
+#define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  15
+#define MIN_MONEY_TOPUP     200000
 
 #define type_na             2
 #define type_men            1
@@ -222,6 +213,9 @@
 #define topup_now       @"Nạp ngay"
 
 #define text_not_support    @"Tính năng đang được phát triển"
+
+#define text_today      @"Hôm nay"
+#define text_yesterday  @"Hôm qua"
 
 #endif /* AppString_h */
 

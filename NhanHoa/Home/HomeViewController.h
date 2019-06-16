@@ -31,5 +31,6 @@
 @property (nonatomic, assign) float hMenu;
 
 @property (nonatomic, strong) BannerSliderView *viewBanner;
+- (IBAction)btnSearchPress:(UIButton *)sender;
 
 @end

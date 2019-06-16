@@ -31,8 +31,7 @@
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
     self.title = @"Cài đặt tài khoản";
-    
-    [self downloadAvatarForCustomer];
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -58,21 +57,6 @@
     }
 }
 
-- (void)downloadAvatarForCustomer
-{
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *linkAvatar = [AccountModel getCusPhoto];
-        NSString *cusId = [AccountModel getCusIdOfUser];
-        NSData *data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: linkAvatar]];
-        if (data != nil) {
-            NSString *folder = [NSString stringWithFormat:@"/avatars/%@.PNG", cusId];
-            [AppUtils saveFileToFolder:data withName: folder];
-        }
-    });
-}
-
 - (void)displayInformationForAccount {
     lbNameValue.text = [AccountModel getCusRealName];
     lbIDValue.text = [AccountModel getCusIdOfUser];
@@ -96,7 +80,7 @@
 }
 
 - (void)startUpdateAvatarForUser {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSString *imageName = [NSString stringWithFormat:@"avatar_%@.png", [AccountModel getCusIdOfUser]];
     
@@ -246,11 +230,25 @@
         make.height.equalTo(self.btnChangePassword.mas_height);
     }];
     
+    btnChangePassword.layer.borderColor = btnUpdateInfo.layer.borderColor = BLUE_COLOR.CGColor;
+    btnChangePassword.layer.borderWidth = btnUpdateInfo.layer.borderWidth = 1.0;
+    btnChangePassword.backgroundColor = btnUpdateInfo.backgroundColor = BLUE_COLOR;
     btnChangePassword.layer.cornerRadius = btnUpdateInfo.layer.cornerRadius = 45.0/2;
     btnChangePassword.titleLabel.font = btnUpdateInfo.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
 }
 
 - (IBAction)btnChangePasswordPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(goToChnagePassVC) withObject:nil afterDelay:0.05];
+}
+
+- (void)goToChnagePassVC {
+    btnChangePassword.backgroundColor = BLUE_COLOR;
+    [btnChangePassword setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     ChangePasswordViewController *changePassVC = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
     [self.navigationController pushViewController:changePassVC animated:TRUE];
 }
@@ -266,6 +264,17 @@
 }
 
 - (IBAction)btnUpdateInfoPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(goToUpdateInfoVC) withObject:nil afterDelay:0.05];
+}
+
+- (void)goToUpdateInfoVC {
+    btnUpdateInfo.backgroundColor = BLUE_COLOR;
+    [btnUpdateInfo setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     UpdateMyInfoViewController *updateInfoVC = [[UpdateMyInfoViewController alloc] initWithNibName:@"UpdateMyInfoViewController" bundle:nil];
     [self.navigationController pushViewController:updateInfoVC animated:TRUE];
 }
@@ -324,7 +333,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -349,7 +358,7 @@
 }
 
 - (void)onSelectPhotosGallery {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
     if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {
@@ -372,7 +381,7 @@
 }
 
 - (void)goToCaptureImagePickerView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (imagePickerController == nil) {
         imagePickerController = [[UIImagePickerController alloc] init];
@@ -385,7 +394,7 @@
 }
 
 - (void)goToGalleryPhotosView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
     
@@ -400,32 +409,34 @@
 }
 
 - (void)updatePhotoForCustomerWithURL: (NSString *)url {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url)];
     
     [[WebServiceUtils getInstance] updatePhotoForCustomerWithURL: url];
 }
 
 #pragma mark - Webservice Delegate
 -(void)failedToUpdateAvatarWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Không thể cập nhật ảnh đại diện. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)updateAvatarForProfileSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [self tryLoginToUpdateInformation];
 }
 
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
-    [self.view makeToast:@"Không thể lấy lại được thông tin bạn vừa cập nhật." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
 }
 
 - (void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
     
@@ -438,7 +449,7 @@
 
 - (void)tryLoginToUpdateInformation
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }

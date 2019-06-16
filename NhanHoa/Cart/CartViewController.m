@@ -58,6 +58,15 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startContinuePress) withObject:nil afterDelay:0.05];
+}
+
+- (void)startContinuePress {
+    btnContinue.backgroundColor = BLUE_COLOR;
+    [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     NSString *strBalance = [AccountModel getCusBalance];
     long totalPrice = [[CartModel getInstance] getTotalPriceForCart];
     
@@ -71,8 +80,18 @@
     }
 }
 
+
 - (IBAction)btnGoShopPress:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated: TRUE];
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:[UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0] forState:UIControlStateNormal];
+    [self performSelector:@selector(startContinueShop) withObject:nil afterDelay:0.05];
+}
+
+- (void)startContinueShop {
+    btnGoShop.backgroundColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0];
+    [btnGoShop setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    [[AppDelegate sharedInstance] hideCartView];
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -91,7 +110,7 @@
     }];
     
     //  footer view
-    float hFooter = padding + 3*30 + 2*padding + 50 + padding + 50.0 + padding;
+    float hFooter = padding + 3*30 + 2*padding + 45.0 + padding + 45.0 + padding;
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,13 +141,13 @@
     NSNumber *totalPrice = [priceCartInfo objectForKey:@"total_price"];
     
     NSString *feeVAT = [NSString stringWithFormat:@"%ld", [VAT longValue]];
-    lbVATValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:feeVAT]];
+    lbVATValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:feeVAT]];
     
     NSString *strDomainPrice = [NSString stringWithFormat:@"%ld", [domainPrice longValue]];
-    lbPriceValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:strDomainPrice]];
+    lbPriceValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:strDomainPrice]];
     
     NSString *strTotalPrice = [NSString stringWithFormat:@"%ld", [totalPrice longValue]];
-    lbTotalValue.text = [NSString stringWithFormat:@"%@đ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]];
+    lbTotalValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]];
 }
 
 - (void)addBackBarButtonForNavigationBar {
@@ -137,13 +156,14 @@
     
     UIButton *btnBack =  [UIButton buttonWithType:UIButtonTypeCustom];
     btnBack.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    btnBack.frame = CGRectMake(0, 0, 40, 40);
+    btnBack.frame = CGRectMake(-20, 0, 40, 40);
     btnBack.backgroundColor = UIColor.clearColor;
     [btnBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [btnBack addTarget:self action:@selector(closeCartView) forControlEvents:UIControlEventTouchUpInside];
     [viewBack addSubview: btnBack];
     
     UIBarButtonItem *btnBackBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewBack];
+    
     self.navigationItem.leftBarButtonItem =  btnBackBarButtonItem;
 }
 
@@ -222,7 +242,7 @@
     }];
     
     //  footer view
-    float hFooter = padding + 3*30 + 2*padding + 50 + padding + 50.0 + padding;
+    float hFooter = padding + 3*30 + 2*padding + 45.0 + padding + 45.0 + padding;
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -283,9 +303,11 @@
         make.top.bottom.equalTo(self.lbTotal);
     }];
     
-    btnContinue.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
-    btnContinue.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnContinue.layer.borderColor = BLUE_COLOR.CGColor;
+    btnContinue.layer.borderWidth = 1.0;
+    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTotalValue.mas_bottom).offset(2*padding);
         make.left.equalTo(self.viewFooter).offset(padding);
@@ -294,6 +316,8 @@
     }];
     
     btnGoShop.backgroundColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0];
+    btnGoShop.layer.borderColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0].CGColor;
+    btnGoShop.layer.borderWidth = 1.0;
     btnGoShop.layer.cornerRadius = btnContinue.layer.cornerRadius;
     btnGoShop.titleLabel.font = btnContinue.titleLabel.font;
     [btnGoShop mas_makeConstraints:^(MASConstraintMaker *make) {

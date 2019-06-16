@@ -76,7 +76,7 @@
 }
 
 - (void)addNewProfile {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     AddProfileViewController *addProfileVC = [[AddProfileViewController alloc] initWithNibName:@"AddProfileViewController" bundle:nil];
     [self.navigationController pushViewController:addProfileVC animated:TRUE];
@@ -100,7 +100,7 @@
 }
 
 - (void)getListProfilesForAccount {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
@@ -132,7 +132,7 @@
 
 #pragma mark - Webservice delegate
 -(void)failedToGetProfilesForAccount:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
     
@@ -142,7 +142,7 @@
 }
 
 -(void)getProfilesForAccountSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     
     [self displayInformationWithData: data];

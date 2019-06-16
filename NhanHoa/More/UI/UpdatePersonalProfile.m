@@ -192,6 +192,8 @@
     }];
     
     btnReset.backgroundColor = OLD_PRICE_COLOR;
+    btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
+    btnReset.layer.borderWidth = 1.0;
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
@@ -201,6 +203,8 @@
     }];
     
     btnSave.backgroundColor = BLUE_COLOR;
+    btnSave.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSave.layer.borderWidth = 1.0;
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnReset.mas_right).offset(padding);
@@ -385,10 +389,30 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
 }
 
 - (IBAction)btnResetPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startResetValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startResetValue {
+    btnReset.backgroundColor = OLD_PRICE_COLOR;
+    [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     [self displayPersonalInformation];
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(startUpdateAllValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startUpdateAllValue {
+    btnSave.backgroundColor = BLUE_COLOR;
+    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if ([AppUtils isNullOrEmpty: tfName.text]) {
         [self makeToast:@"Vui lòng nhập họ tên" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;

@@ -81,7 +81,7 @@ typedef enum TypeSelectDomain{
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"Choose all domains tab") toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"Choose all domains tab")];
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.viewMenu);
@@ -117,7 +117,7 @@ typedef enum TypeSelectDomain{
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"Choose expire domains tab") toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"Choose expire domains tab")];
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.viewMenu);
@@ -148,7 +148,7 @@ typedef enum TypeSelectDomain{
 }
 
 - (IBAction)btnPriceListPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (priceView == nil) {
         [self addPriceListViewForMainView];
@@ -247,7 +247,7 @@ typedef enum TypeSelectDomain{
 
 - (void)getDomainsWasRegisteredWithType: (int)type
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] type = %d", __FUNCTION__, type) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] type = %d", __FUNCTION__, type)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang tải.." Interaction:NO];
@@ -307,14 +307,14 @@ typedef enum TypeSelectDomain{
 #pragma mark - WebServiceUtils delegate
 
 -(void)failedGetDomainsWasRegisteredWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"Không thể lấy danh sách tên miền. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 - (void)getDomainsWasRegisteredSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
     if (data != nil && [data isKindOfClass:[NSArray class]]) {
@@ -367,7 +367,7 @@ typedef enum TypeSelectDomain{
     NSString *cus_id = [domain objectForKey:@"cus_id"];
     
     if (![AppUtils isNullOrEmpty: ord_id] && ![AppUtils isNullOrEmpty: cus_id]) {
-        [WriteLogsUtils writeLogContent:SFM(@"View domain ưith ordId = %@, cusId = %@", ord_id, cus_id) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"View domain ưith ordId = %@, cusId = %@", ord_id, cus_id)];
         
         RenewDomainDetailViewController *domainDetailVC = [[RenewDomainDetailViewController alloc] initWithNibName:@"RenewDomainDetailViewController" bundle:nil];
         domainDetailVC.ordId = ord_id;

@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbBottomSepa;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
+@property (nonatomic, strong) NSMutableDictionary *dataDict;
+
 @end

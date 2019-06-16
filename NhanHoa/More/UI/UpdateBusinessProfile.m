@@ -321,6 +321,8 @@
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnReset.layer.cornerRadius = 45.0/2;
     btnReset.backgroundColor = OLD_PRICE_COLOR;
+    btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
+    btnReset.layer.borderWidth = 1.0;
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.top.equalTo(self.tfEmail.mas_bottom).offset(2*padding);
@@ -331,6 +333,8 @@
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnSave.layer.cornerRadius = btnReset.layer.cornerRadius;
     btnSave.backgroundColor = BLUE_COLOR;
+    btnSave.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSave.layer.borderWidth = 1.0;
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnReset.mas_right).offset(padding);
         make.top.bottom.equalTo(self.btnReset);
@@ -526,9 +530,30 @@
 }
 
 - (IBAction)btnResetPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(startResetAllChangeValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startResetAllChangeValue {
+    btnReset.backgroundColor = OLD_PRICE_COLOR;
+    [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    [self displayBusinessInformation];
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(startUpdateAllValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startUpdateAllValue {
+    btnSave.backgroundColor = BLUE_COLOR;
+    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
         [self makeToast:@"Vui lòng nhập Tên doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
@@ -611,7 +636,6 @@
         [delegate saveBusinessMyAccountInformation: info];
     }
 }
-
 
 - (void)displayBusinessInformation
 {

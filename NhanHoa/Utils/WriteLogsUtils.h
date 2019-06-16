@@ -13,10 +13,10 @@
 + (NSString *)makeFilePathWithFileName:(NSString *)fileName;
 + (BOOL)createLogFileWithName: (NSString *)filePathName;
 + (NSString *)getLogContentIfExistsFromFile: (NSString *)fileName isFullPath: (BOOL)isFullPath;
-+ (void)writeLogContent: (NSString *)logContent toFilePath: (NSString *)pathFile;
 + (void)clearLogFilesAfterExpireTime: (long)expireTime;
 + (void)removeFileWithPath: (NSString *)path;
 + (NSArray *)getAllFilesInDirectory: (NSString *)subPath;
 + (void)writeForGoToScreen: (NSString *)screen;
++ (void)writeLogContent: (NSString *)logContent;
 
 @end

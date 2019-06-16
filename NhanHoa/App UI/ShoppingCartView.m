@@ -32,7 +32,7 @@
 
 
 - (IBAction)btnCartPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [[AppDelegate sharedInstance] showCartScreenContent];
 }
 

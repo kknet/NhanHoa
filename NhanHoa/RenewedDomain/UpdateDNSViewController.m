@@ -51,6 +51,15 @@
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
     [self.view endEditing: TRUE];
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(onCancelButtonPress) withObject:nil afterDelay:0.05];
+}
+
+- (void)onCancelButtonPress {
+    btnCancel.backgroundColor = OLD_PRICE_COLOR;
+    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     [self showDNSContent];
 }
@@ -59,8 +68,17 @@
 {
     [self.view endEditing: TRUE];
     
-    if ([AppUtils isNullOrEmpty: tfDNS1.text] && [AppUtils isNullOrEmpty: tfDNS2.text] && [AppUtils isNullOrEmpty: tfDNS3.text] && [AppUtils isNullOrEmpty: tfDNS4.text])
-    {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(onSaveButtonPress) withObject:nil afterDelay:0.05];
+}
+
+- (void)onSaveButtonPress {
+    btnSave.backgroundColor = BLUE_COLOR;
+    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    if ([AppUtils isNullOrEmpty: tfDNS1.text] && [AppUtils isNullOrEmpty: tfDNS2.text] && [AppUtils isNullOrEmpty: tfDNS3.text] && [AppUtils isNullOrEmpty: tfDNS4.text]){
         [self.view makeToast:@"Vui lòng nhập giá trị để cập nhật!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
@@ -73,12 +91,12 @@
 
 - (void)getDNSValueForDomain: (NSString *)domainName
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domainName = %@", __FUNCTION__, domainName) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domainName = %@", __FUNCTION__, domainName)];
     [[WebServiceUtils getInstance] getDNSValueForDomain: domainName];
 }
 
 - (void)changeDNSValueForDomain {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[WebServiceUtils getInstance] changeDNSForDomain:domain dns1:tfDNS1.text dns2:tfDNS2.text dns3:tfDNS3.text dns4:tfDNS4.text];
 }
@@ -145,15 +163,19 @@
     }];
     
     btnCancel.backgroundColor = OLD_PRICE_COLOR;
+    btnCancel.layer.borderColor = OLD_PRICE_COLOR.CGColor;
+    btnCancel.layer.borderWidth = 1.0;
     [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
-        make.bottom.equalTo(self.view).offset(-2*padding);
+        make.bottom.equalTo(self.view).offset(-padding);
         make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(45.0);
     }];
     
     btnSave.backgroundColor = BLUE_COLOR;
+    btnSave.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSave.layer.borderWidth = 1.0;
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnCancel.mas_right).offset(padding);
@@ -200,21 +222,21 @@
 #pragma mark - Webservice delegate
 
 -(void)failedToGetDNSForDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"Không lấy được giá trị DNS của tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)getDNSForDomainSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     
     [self prepareDataToDisplay: data];
 }
 
 -(void)failedToChangeDNSForDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
     
@@ -229,7 +251,7 @@
 }
 
 -(void)changeDNSForDomainSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     
     [self.view makeToast:@"Cập nhật DNS thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

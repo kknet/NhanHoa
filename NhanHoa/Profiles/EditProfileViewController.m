@@ -31,7 +31,7 @@
     [WriteLogsUtils writeForGoToScreen:@"EditProfileViewController"];
     
     if ([AppDelegate sharedInstance].profileEdit == nil) {
-        [WriteLogsUtils writeLogContent:@"DON'T KNOW WHY profileEdit = nil" toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:@"DON'T KNOW WHY profileEdit = nil"];
         [self.navigationController popViewControllerAnimated: TRUE];
     }
     
@@ -199,7 +199,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -224,7 +224,7 @@
 }
 
 - (void)goToGalleryPhotosView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[AppDelegate sharedInstance] enableSizeForBarButtonItem: TRUE];
     
@@ -239,7 +239,7 @@
 }
 
 - (void)goToCaptureImagePickerView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (imagePickerController == nil) {
         imagePickerController = [[UIImagePickerController alloc] init];
@@ -252,7 +252,7 @@
 }
 
 - (void)onSelectPhotosGallery {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
     if (photoAuthStatus == PHAuthorizationStatusNotDetermined) {

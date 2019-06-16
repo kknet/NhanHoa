@@ -100,7 +100,7 @@
     
     [webService callWebServiceWithLink:edit_profile_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]]];
 }
 
 - (void)addUpdateBusinessProfileView {
@@ -146,7 +146,7 @@
     
     [webService callWebServiceWithLink:edit_profile_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] jsonDict = %@", __FUNCTION__, @[jsonDict]]];
 }
 
 //  Hiển thị bàn phím
@@ -176,11 +176,11 @@
     
     [webService callWebServiceWithLink:login_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] tryLoginCount = %d , jSonDict = %@", __FUNCTION__, tryLoginCount, @[jsonDict]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] tryLoginCount = %d , jSonDict = %@", __FUNCTION__, tryLoginCount, @[jsonDict]]];
 }
 
 - (void)dismissView {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__]];
     
     [self.navigationController popViewControllerAnimated: TRUE];
 }
@@ -188,15 +188,18 @@
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Error: %@", __FUNCTION__, link, error]];
     
     [ProgressHUD dismiss];
     if ([link isEqualToString:edit_profile_func]) {
-        [self.view makeToast:@"Đã có lỗi xảy ra trong quá trình cập nhật thông tin. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        NSString *content = [AppUtils getErrorContentFromData: error];
+        [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         
     }else if ([link isEqualToString: login_func]) {
         if (tryLoginCount > 3) {
-            [self.view makeToast:@"Không thể lấy lại được thông tin bạn vừa cập nhật." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+            NSString *content = [AppUtils getErrorContentFromData: error];
+            [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            
             tryLoginCount = 0;
         }else{
             tryLoginCount++;
@@ -206,7 +209,7 @@
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] link: %@.\n Response data: %@", __FUNCTION__, link, @[data]]];
     
     if ([link isEqualToString:edit_profile_func]) {
         //  If your info has been updated success, login again to refresh data was saved before
@@ -225,7 +228,7 @@
 }
 
 - (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s] -----> function = %@ & responeCode = %d", __FUNCTION__, link, responeCode]];
 }
 
 @end

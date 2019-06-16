@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Đấu giá";
     [self setupUIForView];
 }
 
@@ -27,6 +28,7 @@
 }
 
 - (void)setupUIForView {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     lbBotSepa.backgroundColor = LIGHT_GRAY_COLOR;
     [lbBotSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);

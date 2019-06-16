@@ -121,6 +121,8 @@
     
     btnUpdate.layer.cornerRadius = 45.0/2;
     btnUpdate.backgroundColor = BLUE_COLOR;
+    btnUpdate.layer.borderColor = BLUE_COLOR.CGColor;
+    btnUpdate.layer.borderWidth = 1.0;
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
@@ -154,11 +156,22 @@
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startUpdateBankInfo) withObject:nil afterDelay:0.05];
+}
+
+- (void)startUpdateBankInfo {
+    btnUpdate.backgroundColor = BLUE_COLOR;
+    [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if ([AppUtils isNullOrEmpty: tfBankName.text] || [AppUtils isNullOrEmpty: tfOwner.text] || [AppUtils isNullOrEmpty: tfAccNo.text]) {
         [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin của bạn" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
@@ -366,30 +379,32 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToUpdateBankInfoWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Cập nhật không thành công. Vui lòng thử lại sau" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)updateBankInfoSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [self tryLoginToUpdateInformation];
 }
 
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     [self.view makeToast:@"Thông tin tài khoản ngân hàng đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
 }
 
 - (void)tryLoginToUpdateInformation
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 

@@ -17,7 +17,7 @@
 #import "AddProfileViewController.h"
 #import "OrderResultView.h"
 
-@interface AddOrderViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate, WebServiceUtilsDelegate>
+@interface AddOrderViewController ()<UITableViewDelegate, UITableViewDataSource, SelectProfileViewDelegate, WebServiceUtilsDelegate, PaymentStepViewDelegate>
 {
     float hCell;
     float hSmallCell;
@@ -70,7 +70,9 @@
     
     float hBTN = 45.0;
     [btnPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnPayment.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnPayment.layer.cornerRadius = hBTN/2;
+    btnPayment.layer.borderWidth = 1.0;
+    btnPayment.layer.borderColor = BLUE_COLOR.CGColor;
     btnPayment.backgroundColor = BLUE_COLOR;
     btnPayment.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -108,6 +110,7 @@
             break;
         }
     }
+    viewMenu.delegate = self;
     [self.view addSubview: viewMenu];
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.view);
@@ -124,8 +127,8 @@
     tbConfirmProfile.delegate = self;
     tbConfirmProfile.dataSource = self;
     [tbConfirmProfile mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(0);
     }];
     
     float hFooter = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + hMenu + hTbConfirm);
@@ -141,7 +144,7 @@
     [btnConfirm setTitle:@"Thông tin đúng, thanh toán ngay" forState:UIControlStateNormal];
     btnConfirm.backgroundColor = BLUE_COLOR;
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnConfirm.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnConfirm.layer.cornerRadius = 45.0/2;
     btnConfirm.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [footerView addSubview: btnConfirm];
     [btnConfirm addTarget:self
@@ -171,11 +174,11 @@
     
     UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
-                                                         NSLog(@"Đóng");
+                                                         [self startPaymentDomains];
                                                      }];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     
-    UIAlertAction *btnAccept = [UIAlertAction actionWithTitle:@"Thanh toán" style:UIAlertActionStyleDefault
+    UIAlertAction *btnAccept = [UIAlertAction actionWithTitle:@"Xác nhận" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
@@ -192,7 +195,7 @@
 }
 
 - (void)startToAddAllDomainInYourCart {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] cart count = %d", __FUNCTION__, [[CartModel getInstance] countItemInCart]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] cart count = %d", __FUNCTION__, [[CartModel getInstance] countItemInCart])];
     
     if ([CartModel getInstance].listDomain.count > 0) {
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain firstObject];
@@ -444,24 +447,24 @@
 }
 
 - (IBAction)btnPaymentPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startPaymentDomains) withObject:nil afterDelay:0.05];
+}
+
+- (void)startPaymentDomains {
+    btnPayment.backgroundColor = BLUE_COLOR;
+    [btnPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     BOOL ready = [[CartModel getInstance] checkAllProfileForCart];
     if (!ready) {
         [self.view makeToast:@"Vui lòng chọn đầy đủ hồ sơ cho tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
-    
     [viewMenu updateUIForStep: ePaymentConfirm];
-    
     viewContent.hidden = TRUE;
     tbConfirmProfile.hidden = FALSE;
-    
-    [tbConfirmProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
-    }];
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    [tbConfirmProfile reloadData];
 }
 
 - (void)quitCartView {
@@ -470,7 +473,7 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToAddNewOrderWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"failed" forKey:buyingDomain];
     }
@@ -478,11 +481,41 @@
 }
 
 -(void)addNewOrderSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"success" forKey:buyingDomain];
     }
     [self startToAddAllDomainInYourCart];
+}
+
+#pragma mark - PaymentStepView Delegate
+-(void)pressOnMenuButton:(PaymentStep)menu {
+    if (menu == ePaymentProfile) {
+        [viewMenu updateUIForStep: ePaymentProfile];
+        viewContent.hidden = FALSE;
+        tbConfirmProfile.hidden = TRUE;
+        
+    }else if (menu == ePaymentConfirm) {
+        //  check all domains had profile in cart
+        BOOL ready = [[CartModel getInstance] checkAllProfileForCart];
+        if (!ready) {
+            [self.view makeToast:@"Vui lòng chọn đầy đủ hồ sơ cho tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }else{
+            [viewMenu updateUIForStep: ePaymentConfirm];
+            viewContent.hidden = TRUE;
+            tbConfirmProfile.hidden = FALSE;
+            [tbConfirmProfile reloadData];
+        }
+    }else if (menu == ePaymentCharge) {
+        if (!tbConfirmProfile.hidden) {
+            [self btnConfirmProfilePress];
+        }
+    }
+    
+//    ePaymentProfile,
+//    ePaymentConfirm,
+//    ePaymentCharge,
+//    ePaymentDone,
 }
 
 @end

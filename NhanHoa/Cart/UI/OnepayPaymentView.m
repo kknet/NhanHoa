@@ -183,7 +183,7 @@
             if (![AppUtils isNullOrEmpty: path]) {
                 NSArray *contentArr = [path componentsSeparatedByString:@"/"];
                 if (contentArr != nil && [contentArr containsObject:@"cancel.op"]) {
-                    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"Received url with path %@", path] toFilePath:[AppDelegate sharedInstance].logFilePath];
+                    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"Received url with path %@", path]];
                     [self userCancelPayment];
                 }
             }
@@ -293,7 +293,7 @@
 }
 
 - (void)regetMyAccountInformation {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
@@ -301,11 +301,11 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
 }
 
 @end

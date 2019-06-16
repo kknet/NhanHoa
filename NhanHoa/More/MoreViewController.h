@@ -11,7 +11,6 @@
 
 typedef enum{
     eSettingAccount,
-    eContactInfo,
     eManagerDomainList,
     eCustomnerSupport,
     eBankInfo,

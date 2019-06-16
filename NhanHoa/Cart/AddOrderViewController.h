@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddOrderViewController : UIViewController
+@interface AddOrderViewController : UIViewController<PaymentStepViewDelegate>
 
 @property (nonatomic, strong) PaymentStepView *viewMenu;
 @property (nonatomic, strong) SelectProfileView *chooseProfileView;

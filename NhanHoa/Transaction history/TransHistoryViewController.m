@@ -10,12 +10,12 @@
 #import "TransHistoryCell.h"
 
 @interface TransHistoryViewController ()<WebServiceUtilsDelegate, UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *historyList;
+    
 }
 @end
 
 @implementation TransHistoryViewController
-@synthesize lbNoData, lbBottomSepa, tbContent;
+@synthesize lbNoData, lbBottomSepa, tbContent, dataDict;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,6 +29,16 @@
     [WriteLogsUtils writeForGoToScreen:@"TransHistoryViewController"];
     
     lbNoData.hidden = TRUE;
+    
+    if (dataDict == nil) {
+        dataDict = [[NSMutableDictionary alloc] init];
+    }else{
+        [dataDict removeAllObjects];
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang tải..." Interaction:NO];
+    
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getTransactionsHistory];
 }
@@ -48,6 +58,7 @@
     }];
     
     lbNoData.textColor = TITLE_COLOR;
+    lbNoData.font = [AppDelegate sharedInstance].fontBTN;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
         make.bottom.equalTo(self.lbBottomSepa.mas_top);
@@ -63,52 +74,120 @@
 }
 
 - (void)prepareToDisplayWithData: (NSArray *)data {
-    if (historyList == nil) {
-        historyList = [[NSMutableArray alloc] init];
-    }else{
-        [historyList removeAllObjects];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self prepareDataWithInfo: data];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.lbNoData.hidden = TRUE;
+            self.tbContent.hidden = FALSE;
+            [self.tbContent reloadData];
+        });
+    });
+}
+
+- (void)prepareDataWithInfo: (NSArray *)array {
+    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"time"
+                                                                ascending: FALSE];
+    array = [array sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+    for (int index=0; index<array.count; index++) {
+        NSDictionary *info = [array objectAtIndex: index];
+        NSString *time = [info objectForKey:@"time"];
+        
+        NSString *date = [AppUtils getDateStringFromTimerInterval:[time longLongValue]];
+        if (![AppUtils isNullOrEmpty: date]) {
+            if (![[dataDict allKeys] containsObject: date]) {
+                NSMutableArray *data = [[NSMutableArray alloc] init];
+                [data addObject: info];
+                [dataDict setObject:data forKey:date];
+            }else{
+                NSMutableArray *data = [dataDict objectForKey: date];
+                if (data != nil && [data isKindOfClass:[NSMutableArray class]] && ![data containsObject: info]) {
+                    [data addObject: info];
+                    [dataDict setObject:data forKey:date];
+                }
+            }
+        }
     }
-    [historyList addObjectsFromArray: data];
-    lbNoData.hidden = TRUE;
-    tbContent.hidden = FALSE;
-    [tbContent reloadData];
+    NSLog(@"%@", dataDict);
 }
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToGetTransactionsHistoryWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error =  %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error =  %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
     
-    [self.view makeToast:@"Không thể lấy được lịch sử giao dịch" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)getTransactionsHistorySuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data =  %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data =  %@", __FUNCTION__, @[data])];
+    [ProgressHUD dismiss];
+    
     if (data != nil && [data isKindOfClass:[NSArray class]] ) {
         [self prepareToDisplayWithData: (NSArray *)data];
+    }else{
+        lbNoData.hidden = FALSE;
+        tbContent.hidden = TRUE;
     }
 }
 
 #pragma mark - UITableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [dataDict allKeys].count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return historyList.count;
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
+    NSString *key = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: section];
+    
+    return [(NSArray *)[dataDict objectForKey: key] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransHistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSDictionary *info = [historyList objectAtIndex: indexPath.row];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
+    NSString *key = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: indexPath.section];
+    
+    NSDictionary *info = [[dataDict objectForKey: key] objectAtIndex: indexPath.row];
     [cell displayDataWithInfo: info];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65.0;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30.0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
+    NSString *curDate = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: section];
+    
+    UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30.0)];
+    viewHeader.backgroundColor = LIGHT_GRAY_COLOR;
+    
+    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, viewHeader.frame.size.width-30.0, viewHeader.frame.size.height)];
+    lbTitle.font = [AppDelegate sharedInstance].fontMedium;
+    lbTitle.textColor = TITLE_COLOR;
+    [viewHeader addSubview: lbTitle];
+    
+    if ([curDate isEqualToString:[AppUtils getCurrentDate]]) {
+        lbTitle.text = text_today;
+        
+    }else if ([curDate isEqualToString:[AppUtils getYesterdayDateString]]) {
+        lbTitle.text = text_yesterday;
+        
+    }else{
+        lbTitle.text = curDate;
+    }
+    
+    return viewHeader;
 }
 
 @end

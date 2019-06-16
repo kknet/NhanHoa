@@ -10,5 +10,6 @@ target 'NhanHoa' do
   	pod 'Toast'
     pod 'ProgressHUD'
     pod 'SDWebImage'
+    pod 'CocoaLumberjack'
 #    pod 'MBProgressHUD', '~> 1.1.0'
 end

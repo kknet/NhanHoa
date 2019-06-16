@@ -8,6 +8,8 @@
 
 #import "BonusAccountViewController.h"
 #import "BonusHistoryCell.h"
+#import "AccountModel.h"
+#import "WithdrawalBonusAccountViewController.h"
 
 @interface BonusAccountViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -25,9 +27,31 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [self showBonusAccountInfo];
 }
 
 - (IBAction)btnWithdrawalPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startWithDraw) withObject:nil afterDelay:0.05];
+}
+
+- (void)startWithDraw {
+    btnWithdrawal.backgroundColor = BLUE_COLOR;
+    [btnWithdrawal setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
+    [self.navigationController pushViewController:withdrawVC animated:TRUE];
+}
+
+- (void)showBonusAccountInfo {
+    NSString *cusPoint = [AccountModel getCusPoint];
+    if (![AppUtils isNullOrEmpty: cusPoint]) {
+        cusPoint = [AppUtils convertStringToCurrencyFormat: cusPoint];
+        lbMoney.text = [NSString stringWithFormat:@"%@ điểm", cusPoint];
+    }else{
+        lbMoney.text = @"0 điểm";
+    }
 }
 
 - (void)setupUIForView {
@@ -68,7 +92,7 @@
         make.bottom.right.equalTo(self.viewInfo).offset(-padding);
     }];
     
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.imgBackground.mas_centerY);
         make.left.equalTo(self.viewInfo).offset(padding);
@@ -83,14 +107,16 @@
         make.right.equalTo(self.viewInfo).offset(-padding);
     }];
     
-    btnWithdrawal.layer.cornerRadius = 50.0/2;
-    btnWithdrawal.backgroundColor = BLUE_COLOR;;
-    btnWithdrawal.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnWithdrawal.layer.cornerRadius = 45.0/2;
+    btnWithdrawal.backgroundColor = BLUE_COLOR;
+    btnWithdrawal.layer.borderColor = BLUE_COLOR.CGColor;
+    btnWithdrawal.layer.borderWidth = 1.0;
+    btnWithdrawal.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnWithdrawal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(45.0);
     }];
     
     
@@ -116,6 +142,7 @@
         make.bottom.equalTo(self.btnWithdrawal.mas_top).offset(-10.0);
         make.left.right.equalTo(self.view);
     }];
+    tbHistory.hidden = TRUE;
 }
 
 #pragma mark - UITableview

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -96,10 +96,46 @@
                     <color key="textColor" red="0.043137254899999998" green="0.3803921569" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uae-si-GHC">
+                    <rect key="frame" x="0.0" y="7" width="74" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnStepOnePress:" destination="iN0-l3-epB" eventType="touchUpInside" id="A1q-Qo-fea"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWl-hH-u75">
+                    <rect key="frame" x="71" y="7" width="74" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnStepTwoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="vVj-x6-hmC"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htP-Nw-b0D">
+                    <rect key="frame" x="147" y="7" width="74" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnStepThreePress:" destination="iN0-l3-epB" eventType="touchUpInside" id="UOh-or-n04"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5W-rR-rfy">
+                    <rect key="frame" x="225" y="7" width="74" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="btnStepFourPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="7kf-wm-3Ut"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnStepFour" destination="o5W-rR-rfy" id="jL6-Aa-xSJ"/>
+                <outlet property="btnStepOne" destination="Uae-si-GHC" id="7sk-Um-XBf"/>
+                <outlet property="btnStepThree" destination="htP-Nw-b0D" id="s5b-gw-EWo"/>
+                <outlet property="btnStepTwo" destination="BWl-hH-u75" id="jgb-f4-Vqp"/>
                 <outlet property="lbConfirm" destination="BSZ-8p-lIw" id="3Fd-py-zjf"/>
                 <outlet property="lbDone" destination="evH-Wp-wl7" id="cai-ES-LCA"/>
                 <outlet property="lbFour" destination="c0U-kq-wIR" id="PDa-Dm-wQA"/>
@@ -112,7 +148,7 @@
                 <outlet property="lbThree" destination="yyI-vC-XKi" id="EEv-22-xtR"/>
                 <outlet property="lbTwo" destination="mWg-QS-yoS" id="gh6-cm-JJj"/>
             </connections>
-            <point key="canvasLocation" x="222" y="29"/>
+            <point key="canvasLocation" x="-171" y="-6"/>
         </view>
     </objects>
 </document>

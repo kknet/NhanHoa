@@ -69,6 +69,7 @@
     }];
     
     lbWarning.font = [AppDelegate sharedInstance].fontItalic;
+    lbWarning.text = SFM(@"Tối thiểu %d ký tự", PASSWORD_MIN_CHARS);
     lbWarning.textColor = NEW_PRICE_COLOR;
     [lbWarning mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbNewPass);
@@ -120,6 +121,9 @@
     btnCancel.titleLabel.font = btnSave.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnCancel.layer.cornerRadius = btnSave.layer.cornerRadius = hBTN/2;
     
+    btnCancel.backgroundColor = OLD_PRICE_COLOR;
+    btnCancel.layer.borderColor = OLD_PRICE_COLOR.CGColor;
+    btnCancel.layer.borderWidth = 1.0;
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.bottom.equalTo(self.view).offset(-2*padding);
@@ -128,6 +132,8 @@
     }];
     
     btnSave.backgroundColor = BLUE_COLOR;
+    btnSave.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSave.layer.borderWidth = 1.0;
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.btnCancel);
         make.left.equalTo(self.btnCancel.mas_right).offset(padding);
@@ -140,10 +146,22 @@
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startResetAllValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startResetAllValue {
+    btnCancel.backgroundColor = OLD_PRICE_COLOR;
+    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     tfOldPass.text = tfNewPass.text = tfConfirm.text = @"";
 }
 
-- (IBAction)btnSavePress:(UIButton *)sender {
+- (void)startUpdatePassword {
+    btnSave.backgroundColor = BLUE_COLOR;
+    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if ([AppUtils isNullOrEmpty: tfOldPass.text]) {
         [self.view makeToast:@"Bạn chưa nhập mật khẩu hiện tại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
@@ -176,7 +194,7 @@
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
@@ -185,19 +203,29 @@
     [[WebServiceUtils getInstance] changePasswordWithCurrentPass:PASSWORD newPass:newPass];
 }
 
+- (IBAction)btnSavePress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startUpdatePassword) withObject:nil afterDelay:0.05];
+}
+
 - (IBAction)icShowConfirmPassPress:(UIButton *)sender {
     if (tfConfirm.secureTextEntry) {
         tfConfirm.secureTextEntry = FALSE;
+        [sender setImage:[UIImage imageNamed:@"hide_pass"] forState:UIControlStateNormal];
     }else{
         tfConfirm.secureTextEntry = TRUE;
+        [sender setImage:[UIImage imageNamed:@"show_pass"] forState:UIControlStateNormal];
     }
 }
 
 - (IBAction)icShowNewPassPress:(UIButton *)sender {
     if (tfNewPass.secureTextEntry) {
         tfNewPass.secureTextEntry = FALSE;
+        [sender setImage:[UIImage imageNamed:@"hide_pass"] forState:UIControlStateNormal];
     }else{
         tfNewPass.secureTextEntry = TRUE;
+        [sender setImage:[UIImage imageNamed:@"show_pass"] forState:UIControlStateNormal];
     }
 }
 
@@ -228,14 +256,15 @@
 #pragma mark - Webservice delegate
 
 -(void)failedToChangePasswordWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Cập nhật mật khẩu thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)changePasswordSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"Mật khẩu đã được cập nhật thành công. Vui lòng đăng nhập lại với mật khẩu bạn vừa cập nhật." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

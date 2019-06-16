@@ -232,7 +232,7 @@
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict])];
 }
 
 - (void)readyToRegisterBusinessAccount:(NSDictionary *)info {
@@ -251,7 +251,7 @@
     
     [webService callWebServiceWithLink:register_account_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] jSonDict = %@", __FUNCTION__, @[jsonDict])];
 }
 
 - (void)afterRegisterAccountSuccess {
@@ -263,24 +263,15 @@
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, error = %@", __FUNCTION__, link, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, error = %@", __FUNCTION__, link, @[error])];
     [ProgressHUD dismiss];
     
-    if ([link isEqualToString:register_account_func]) {
-        NSString *errorCode = [AppUtils getErrorCodeFromData: error];
-        NSString *content = [AppUtils getErrorContentWithErrorCode: errorCode];
-        if (![AppUtils isNullOrEmpty: content]) {
-            [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }else{
-            [self.view makeToast:@"Thất bại. Đã có lỗi xảy ra." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }else if ([link isEqualToString: check_otp_func]) {
-        [self.view makeToast:@"Không thể kiếm tra mã xác nhận lúc này." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, data = %@", __FUNCTION__, link, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, data = %@", __FUNCTION__, link, @[data])];
     [ProgressHUD dismiss];
     
     if ([link isEqualToString:register_account_func]) {
@@ -293,7 +284,7 @@
 }
 
 - (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, responeCode = %d", __FUNCTION__, link, responeCode) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@, responeCode = %d", __FUNCTION__, link, responeCode)];
     [ProgressHUD dismiss];
 }
 
@@ -344,7 +335,7 @@
 }
 
 -(void)onResendOTPPress {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (![AppUtils isNullOrEmpty: email] && ![AppUtils isNullOrEmpty: password]) {
         [[WebServiceUtils getInstance] resendOTPForUsername:email password:[AppUtils getMD5StringOfString: password]];
@@ -353,7 +344,7 @@
 
 -(void)confirmOTPWithCode:(NSString *)code
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] code = %@", __FUNCTION__, code) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] code = %@", __FUNCTION__, code)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Tài khoản đang được kích hoạt..." Interaction:NO];
@@ -366,7 +357,7 @@
     
     [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 @end

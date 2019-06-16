@@ -149,6 +149,7 @@
 		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
 		560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */; };
 		560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */; };
+		5610492122B4FE9000463378 /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5610492022B4FE9000463378 /* Constant.m */; };
 		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
 		564619C622A812B400867B21 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564619C422A812B400867B21 /* PaymentViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
@@ -179,6 +180,9 @@
 		56FA23B622B0191F003F89CB /* BankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23B422B0191F003F89CB /* BankCell.xib */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
 		56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FD5AD922B064B800955964 /* ic_bank_info.png */; };
+		56FDEB5C22B66486001A14AE /* launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB5B22B66486001A14AE /* launch.jpg */; };
+		56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */; };
+		56FDEB6422B684C5001A14AE /* PricingDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */; };
 		56FED7C322AD050F00FAD541 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C122AD050E00FAD541 /* ic_add.png */; };
 		56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7C222AD050F00FAD541 /* ic_headset.png */; };
 		56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */; };
@@ -513,6 +517,8 @@
 		560B16E722B2AAFE0004DD29 /* AddOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderViewController.h; sourceTree = "<group>"; };
 		560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderViewController.m; sourceTree = "<group>"; };
 		560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOrderViewController.xib; sourceTree = "<group>"; };
+		5610491F22B4FE8F00463378 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		5610492022B4FE9000463378 /* Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
 		564619C222A812B400867B21 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		564619C322A812B400867B21 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		564619C422A812B400867B21 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -554,6 +560,10 @@
 		56FA23B422B0191F003F89CB /* BankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankCell.xib; sourceTree = "<group>"; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
 		56FD5AD922B064B800955964 /* ic_bank_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bank_info.png; sourceTree = "<group>"; };
+		56FDEB5B22B66486001A14AE /* launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpg; sourceTree = "<group>"; };
+		56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PricingDomainViewController.h; sourceTree = "<group>"; };
+		56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PricingDomainViewController.m; sourceTree = "<group>"; };
+		56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PricingDomainViewController.xib; sourceTree = "<group>"; };
 		56FED7C122AD050E00FAD541 /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add.png; sourceTree = "<group>"; };
 		56FED7C222AD050F00FAD541 /* ic_headset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_headset.png; sourceTree = "<group>"; };
 		56FED7CD22AD2D9B00FAD541 /* OTPConfirmView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTPConfirmView.h; sourceTree = "<group>"; };
@@ -901,6 +911,8 @@
 				569A0577229CA74100FD10D8 /* UploadPicture.m */,
 				5602A91022AAC113003AE8D9 /* WebServiceUtils.h */,
 				5602A91122AAC113003AE8D9 /* WebServiceUtils.m */,
+				5610491F22B4FE8F00463378 /* Constant.h */,
+				5610492022B4FE9000463378 /* Constant.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1055,6 +1067,7 @@
 				56B5684F22B153A300AB8F29 /* tick_white.png */,
 				56D0294E22B3F88D00280127 /* order_completed.png */,
 				56D0294D22B3F88D00280127 /* order_failed.png */,
+				56FDEB5B22B66486001A14AE /* launch.jpg */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1225,6 +1238,9 @@
 				841485FC2277EB0600CC58AF /* WhoIsResultViewController.h */,
 				841485FD2277EB0600CC58AF /* WhoIsResultViewController.m */,
 				841485FE2277EB0600CC58AF /* WhoIsResultViewController.xib */,
+				56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */,
+				56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */,
+				56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */,
 			);
 			path = WhoIsDomain;
 			sourceTree = "<group>";
@@ -1596,6 +1612,7 @@
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
 				5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
+				56FDEB5C22B66486001A14AE /* launch.jpg in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */,
@@ -1687,6 +1704,7 @@
 				846AACB92276CAC1005BC87E /* back.png in Resources */,
 				15D1BD872283E5EB004C0452 /* SupportViewController.xib in Resources */,
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
+				56FDEB6422B684C5001A14AE /* PricingDomainViewController.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
 				157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */,
@@ -1866,6 +1884,7 @@
 				56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
+				56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
 				15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */,
 				841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */,
@@ -1939,6 +1958,7 @@
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
+				5610492122B4FE9000463378 /* Constant.m in Sources */,
 				566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 			);
@@ -2095,7 +2115,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2107,8 +2127,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NhanHoa/NhanHoa.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4LY8SQLV6P;
 				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2118,7 +2139,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Release;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

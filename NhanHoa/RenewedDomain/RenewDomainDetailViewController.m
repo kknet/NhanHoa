@@ -44,17 +44,29 @@
     [self setEmptyValueForView];
     
     if (![AppUtils isNullOrEmpty: ordId]) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:@"Đang tải.." Interaction:NO];
+        
         [self getDomainInfoWithOrdId: ordId];
     }else{
         lbNoData.hidden = FALSE;
         [self.view makeToast:[NSString stringWithFormat:@"ord_id không tồn tại"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         
-        [WriteLogsUtils writeLogContent:SFM(@"%@", @">>>>>>>>>>>> ord_id của tên miền không tồn tại <<<<<<<<<<<<<") toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"%@", @">>>>>>>>>>>> ord_id của tên miền không tồn tại <<<<<<<<<<<<<")];
     }
 }
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(reNewDomain) withObject:nil afterDelay:0.05];
+}
+
+- (void)reNewDomain {
+    btnRenewDomain.backgroundColor = BLUE_COLOR;
+    [btnRenewDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if (![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: cus_id] && ![AppUtils isNullOrEmpty: ordId]) {
         RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
@@ -68,7 +80,16 @@
 }
 
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(updatePassport) withObject:nil afterDelay:0.05];
+}
+
+- (void)updatePassport {
+    btnUpdatePassport.backgroundColor = BLUE_COLOR;
+    [btnUpdatePassport setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     UpdatePassportViewController *updateVC = [[UpdatePassportViewController alloc] initWithNibName:@"UpdatePassportViewController" bundle:nil];
     updateVC.cusId = cusId;
@@ -82,7 +103,15 @@
 }
 
 - (IBAction)btnChangeDNSPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(changeNDS) withObject:nil afterDelay:0.05];
+}
+- (void)changeNDS {
+    btnChangeDNS.backgroundColor = BLUE_COLOR;
+    [btnChangeDNS setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if (![AppUtils isNullOrEmpty: lbTopDomain.text]) {
         UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
@@ -92,6 +121,7 @@
         [self.view makeToast:@"Tên miền không tồn tại. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
+
 
 - (void)setEmptyValueForView {
     lbIDValue.text = lbDomainValue.text = lbServiceNameValue.text = lbRegisterDateValue.text = lbExpireDate.text = lbStateValue.text = @"";
@@ -215,7 +245,7 @@
         [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(self.padding);
             make.right.equalTo(self.view).offset(-self.padding);
-            make.bottom.equalTo(self.view).offset(-2*self.padding);
+            make.bottom.equalTo(self.view).offset(-self.padding);
             make.height.mas_equalTo(hBTN);
         }];
         
@@ -351,10 +381,13 @@
     btnChangeDNS.backgroundColor = btnUpdatePassport.backgroundColor = btnRenewDomain.backgroundColor = BLUE_COLOR;
     btnChangeDNS.layer.cornerRadius = btnUpdatePassport.layer.cornerRadius = btnRenewDomain.layer.cornerRadius = hBTN/2;
     
+    btnChangeDNS.layer.borderColor = btnUpdatePassport.layer.borderColor = btnRenewDomain.layer.borderColor = BLUE_COLOR.CGColor;
+    btnChangeDNS.layer.borderWidth = btnUpdatePassport.layer.borderWidth = btnRenewDomain.layer.borderWidth = 1.0;
+    
     [btnChangeDNS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(self.padding);
         make.right.equalTo(self.view).offset(-self.padding);
-        make.bottom.equalTo(self.view).offset(-2*self.padding);
+        make.bottom.equalTo(self.view).offset(-self.padding);
         make.height.mas_equalTo(hBTN);
     }];
     
@@ -383,12 +416,12 @@
 #pragma mark - Webservice delegate
 
 -(void)failedGetDomainInfoWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
 }
 
 -(void)getDomainInfoSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     
     [self processDomainInfoWithData: data];

@@ -773,11 +773,11 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
                     {
-                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload front passport", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload front passport", __FUNCTION__)];
                         
                         self.linkFrontPassport = @"";
                     }else{
-                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture)];
                         
                         self.linkFrontPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
@@ -808,12 +808,12 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
                     {
-                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload behind passport", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Can not upload behind passport", __FUNCTION__)];
                         
                         self.linkBehindPassport = @"";
                         
                     }else{
-                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload behind passport with link: %@", __FUNCTION__, uploadSession.namePicture) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload behind passport with link: %@", __FUNCTION__, uploadSession.namePicture)];
                         
                         self.linkBehindPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
@@ -871,7 +871,7 @@
             [[WebServiceUtils getInstance] editProfileWithContent: info];
             
         }else{
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__)];
         }
     }
 }
@@ -934,26 +934,30 @@
 
 #pragma mark - Webservice Delegate
 -(void)failedToAddProfileWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
-    [self makeToast:@"Tạo hồ sơ thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)addProfileSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
     [self profileWasCreatedSuccessful];
 }
 
 -(void)failedToEditProfileWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
-    [self makeToast:@"Cập nhật thất bại. Vui lòng thử lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)editProfileSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     [self profileWasUpdatedSuccessful];
 }

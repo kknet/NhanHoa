@@ -145,6 +145,14 @@
 + (NSString *)getCurrentDate{
     NSDate *date = [NSDate date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    NSString *dateString = [dateFormat stringFromDate:date];
+    return dateString;
+}
+
++ (NSString *)getCurrentDateForLogFolder{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
     [dateFormat setDateFormat:@"dd-MM-yyyy"];
     NSString *dateString = [dateFormat stringFromDate:date];
     return dateString;
@@ -624,43 +632,6 @@
     return [emailTest evaluateWithObject:email];
 }
 
-+ (NSString *)getErrorCodeFromData: (id)data {
-    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-        NSString *errorCode = [data objectForKey:@"errorCode"];
-        if (errorCode != nil && [errorCode isKindOfClass:[NSString class]]) {
-            return errorCode;
-        }
-    }
-    return nil;
-}
-
-+ (NSString *)getErrorContentWithErrorCode: (NSString *)errorCode {
-    if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: acc_registered]) {
-        return @"Tài khoản email này đã được đăng ký";
-        
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: limited_register]) {
-        return @"Không thể đăng ký tài khoản vào lúc này.";
-        
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: accountNotActive]) {
-        return @"Tài khoản của bạn chưa được kích hoạt";
-        
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: miniumWithdraw]) {
-        return @"Số tiền cần rút tối thiểu là 500.000 điểm";
-        
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: name_not_vietnam]) {
-        return @"Tên không hợp lệ. Vui lòng nhập có dấu";
-        
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: domain_name_invalid]){
-        return @"Tên miền không hợp lệ";
-    }else if (![AppUtils isNullOrEmpty: errorCode] && [errorCode isEqualToString: wrong_password]){
-        return @"Mật khẩu không chính xác";
-    }
-    
-    else{
-        return @"";
-    }
-}
-
 + (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -685,5 +656,52 @@
         return fileData;
     }
 }
+
++ (NSString *)getErrorContentFromData: (id)data {
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSString *message = [data objectForKey:@"message"];
+        if (![AppUtils isNullOrEmpty: message]) {
+            return message;
+        }
+        
+        NSString *errorCode = [data objectForKey:@"errorCode"];
+        if (![AppUtils isNullOrEmpty: errorCode]) {
+            message = [[AppDelegate sharedInstance].errorMsgDict objectForKey:errorCode];
+            if (![AppUtils isNullOrEmpty: message]) {
+                return message;
+            }
+        }
+    }
+    return @"Đã có lỗi xảy ra. Vui lòng kiểm tra lại!";
+}
+
++ (NSString *)checkTodayWithDateStr: (NSString *)dateStr {
+    NSDate *today = [NSDate dateWithTimeIntervalSinceNow: 0];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Bangkok"]];
+    
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    [formatter2 setDateFormat:@"yyyy-MM-dd"];
+    [formatter2 setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Bangkok"]];
+    
+    NSString *currentTime = [formatter stringFromDate: today];
+    NSString *currentTime2 = [formatter2 stringFromDate: today];
+    
+    if ([currentTime isEqualToString: dateStr] || [currentTime2 isEqualToString: dateStr]) {
+        return @"Hôm nay";
+    }else{
+        return currentTime;
+    }
+}
+
++ (NSString *)getYesterdayDateString {
+    NSDate *yesterday = [NSDate dateWithTimeIntervalSinceNow: -(60.0f*60.0f*24.0f)];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd/MM/yyyy"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Bangkok"]];
+    return [formatter stringFromDate: yesterday];
+}
+
 
 @end

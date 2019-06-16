@@ -143,15 +143,15 @@
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
 }
 
 - (IBAction)btnTopupMorePress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
 }
 
 - (IBAction)btnSupportPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
 

@@ -25,7 +25,7 @@
 //  login function
 - (void)loginWithUsername: (NSString *)username password: (NSString *)password
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@", __FUNCTION__, username, password) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@", __FUNCTION__, username, password)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:login_mod forKey:@"mod"];
@@ -33,15 +33,15 @@
     [jsonDict setObject:password forKey:@"password"];
     [webService callWebServiceWithLink:login_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 //  update token function
 - (void)updateTokenWithValue:(NSString *)token {
     if (![AppUtils isNullOrEmpty: token]) {
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] token = %@", __FUNCTION__, token) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] token = %@", __FUNCTION__, token)];
     }else{
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] token = EMPTYYYYYYYYY", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] token = EMPTYYYYYYYYY", __FUNCTION__)];
     }
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
@@ -52,13 +52,13 @@
     
     [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 //  search whois domain
 - (void)searchDomainWithName: (NSString *)domain type: (int)type
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, type = %d", __FUNCTION__, domain, type) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, type = %d", __FUNCTION__, domain, type)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:whois_mod forKey:@"mod"];
@@ -67,7 +67,7 @@
     [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
     [webService callWebServiceWithLink:whois_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 //  get domain list which was registerd
@@ -75,7 +75,7 @@
 {
     //  type = 1: list domain sắp hết hạn
     //  type = 0: default [all]
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] type = %d", __FUNCTION__, type) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] type = %d", __FUNCTION__, type)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:list_domain_mod forKey:@"mod"];
@@ -85,21 +85,21 @@
     
     [webService callWebServiceWithLink:list_domain_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)getDomainsPricingList {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:domain_pricing_mod forKey:@"mod"];
     [webService callWebServiceWithLink:domain_pricing_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] ord_id = %@", __FUNCTION__, ord_id) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] ord_id = %@", __FUNCTION__, ord_id)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:info_domain_mod forKey:@"mod"];
@@ -109,12 +109,12 @@
     
     [webService callWebServiceWithLink:info_domain_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId domainName: (NSString *)domainName domainType: (NSString *)domainType domainId: (NSString *)domainId banKhai: (NSString *)banKhai
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:update_cmnd_mod forKey:@"mod"];
@@ -140,12 +140,12 @@
     
     [webService callWebServiceWithLink:update_cmnd_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)getDNSValueForDomain: (NSString *)domain
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:get_dns_mod forKey:@"mod"];
@@ -155,12 +155,12 @@
     
     [webService callWebServiceWithLink:get_dns_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)changeDNSForDomain: (NSString *)domain dns1: (NSString *)dns1 dns2: (NSString *)dns2 dns3: (NSString *)dns3 dns4: (NSString *)dns4
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, dn1 = %@, dn2 = %@, dns3 = %@, dns4 = %@", __FUNCTION__, domain, dns1, dns2, dns3, dns4) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, dn1 = %@, dn2 = %@, dns3 = %@, dns4 = %@", __FUNCTION__, domain, dns1, dns2, dns3, dns4)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:change_dns_mod forKey:@"mod"];
@@ -185,11 +185,11 @@
     }
     [webService callWebServiceWithLink:change_dns_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)getListProfilesForAccount: (NSString *)username {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@", __FUNCTION__, username) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@", __FUNCTION__, username)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:get_profile_mod forKey:@"mod"];
@@ -197,26 +197,26 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)addProfileWithContent: (NSDictionary *)data
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [webService callWebServiceWithLink:add_contact_func withParams:data];
 }
 
 - (void)editProfileWithContent: (NSDictionary *)data
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [webService callWebServiceWithLink:edit_contact_func withParams:data];
 }
 
 -(void)sendMessageWithEmail:(NSString *)email content:(NSString *)content
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:question_mod forKey:@"mod"];
@@ -225,12 +225,12 @@
     [jsonDict setObject:content forKey:@"content"];
     [webService callWebServiceWithLink:send_question_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jsonDict = %@", @[jsonDict])];
 }
 
 - (void)updatePhotoForCustomerWithURL: (NSString *)url
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:profile_photo_mod forKey:@"mod"];
@@ -240,12 +240,12 @@
     
     [webService callWebServiceWithLink:profile_photo_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] currentPass = %@, newPass = %@", __FUNCTION__, currentPass, newPass) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] currentPass = %@, newPass = %@", __FUNCTION__, currentPass, newPass)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:change_password_mod forKey:@"mod"];
@@ -255,11 +255,11 @@
     [jsonDict setObject:newPass forKey:@"re_new_password"];
     [webService callWebServiceWithLink:change_pass_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)getHashKeyWithHash: (NSString *)hash {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] hash = %@", __FUNCTION__, hash) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] hash = %@", __FUNCTION__, hash)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:hash_key_mod forKey:@"mod"];
@@ -268,11 +268,11 @@
     [jsonDict setObject:hash forKey:@"hash"];
     [webService callWebServiceWithLink:hash_key_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@, otpCode = %@", __FUNCTION__, username, password, code) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@, otpCode = %@", __FUNCTION__, username, password, code)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:check_otp_mod forKey:@"mod"];
@@ -281,11 +281,11 @@
     [jsonDict setObject:code forKey:@"code"];
     [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)resendOTPForUsername: (NSString *)username password: (NSString *)password {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@", __FUNCTION__, username, password) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] username = %@, password = %@", __FUNCTION__, username, password)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:resend_otp_mod forKey:@"mod"];
@@ -293,11 +293,11 @@
     [jsonDict setObject:password forKey:@"password"];
     [webService callWebServiceWithLink:resend_otp_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)getTransactionsHistory {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:get_history_mod forKey:@"mod"];
@@ -305,11 +305,11 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [webService callWebServiceWithLink:get_history_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)getRenewInfoForDomain: (NSString *)domain {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:renew_domain_mod forKey:@"mod"];
@@ -318,11 +318,11 @@
     [jsonDict setObject:domain forKey:@"domain"];
     [webService callWebServiceWithLink:renew_domain_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:renew_order_mod forKey:@"mod"];
@@ -334,11 +334,11 @@
     [jsonDict setObject:[NSNumber numberWithInt: years] forKey:@"year"];
     [webService callWebServiceWithLink:renew_order_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)updateBankInfoWithBankName: (NSString *)bankname bankaccount: (NSString *)bankaccount banknumber:(NSString *)banknumber {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] bankname = %@, bankaccount = %@, banknumber = %@", __FUNCTION__, bankname, bankaccount, banknumber) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] bankname = %@, bankaccount = %@, banknumber = %@", __FUNCTION__, bankname, bankaccount, banknumber)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:info_bank_mod forKey:@"mod"];
@@ -349,11 +349,11 @@
     [jsonDict setObject:banknumber forKey:@"banknumber"];
     [webService callWebServiceWithLink:info_bank_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)withdrawWithAmout: (long)amount {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = %ld", __FUNCTION__, amount) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = %ld", __FUNCTION__, amount)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:withdraw_mod forKey:@"mod"];
@@ -362,11 +362,11 @@
     [jsonDict setObject:[NSNumber numberWithLong: amount] forKey:@"amount"];
     [webService callWebServiceWithLink:withdraw_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 - (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, contact_id = %@, year = %d", __FUNCTION__, domain, contact_id, year) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, contact_id = %@, year = %d", __FUNCTION__, domain, contact_id, year)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:add_order_mod forKey:@"mod"];
@@ -377,14 +377,12 @@
     [jsonDict setObject:[NSNumber numberWithInt: year] forKey:@"year"];
     [webService callWebServiceWithLink:add_order_func withParams:jsonDict];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] -----> Function: %@.\n Error: %@", __FUNCTION__, link, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if ([link isEqualToString:login_func]) {
         if ([delegate respondsToSelector:@selector(failedToLoginWithError:)]) {
             [delegate failedToLoginWithError: error];
@@ -487,8 +485,6 @@
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] -----> Function = %@.\n Response data: %@", __FUNCTION__, link, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
     if ([link isEqualToString:login_func]) {
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
             [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
@@ -593,7 +589,7 @@
 }
 
 - (void)receivedResponeCode:(NSString *)link withCode:(int)responeCode {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] -----> Function = %@ & responeCode = %d", __FUNCTION__, link, responeCode) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] -----> Function = %@ & responeCode = %d", __FUNCTION__, link, responeCode)];
 }
 
 

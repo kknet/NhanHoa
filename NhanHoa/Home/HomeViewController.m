@@ -15,6 +15,8 @@
 #import "WithdrawalBonusAccountViewController.h"
 #import "ProfileManagerViewController.h"
 #import "SupportViewController.h"
+#import "SearchDomainViewController.h"
+#import "PricingDomainViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
@@ -92,7 +94,7 @@
             make.top.equalTo(self.viewSearch.mas_bottom);
             make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
         }];
-        
+        viewBanner.clipsToBounds = TRUE;
         viewBanner.hBanner = hBanner;
         [viewBanner setupUIForView];
         [viewBanner showBannersForSliderView];
@@ -100,7 +102,7 @@
 }
 
 - (void)showUserWalletView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
@@ -138,6 +140,8 @@
         }];
         [[AppDelegate sharedInstance].cartView setupUIForView];
         [[AppDelegate sharedInstance] updateShoppingCartCount];
+    }else{
+        [[AppDelegate sharedInstance].window bringSubviewToFront:[AppDelegate sharedInstance].cartView];
     }
 }
 
@@ -168,7 +172,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
     switch (indexPath.row) {
         case eRegisterDomain:{
@@ -178,10 +182,10 @@
             
             break;
         }
-        case eRenewDomain:{
-            RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-            renewedVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: renewedVC animated:YES];
+        case ePricingDomain:{
+            PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
+            pricingVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: pricingVC animated:YES];
             break;
         }
         case eSearchDomain:{
@@ -253,7 +257,7 @@
     HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:@"Đăng ký tên miền" icon:@"menu_domain" type:eRegisterDomain];
     [listMenu addObject: regDomain];
     
-    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:@"Gia hạn tên miền" icon:@"menu_reorder_domain" type:eRenewDomain];
+    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:@"Bảng giá tên miền" icon:@"menu_reorder_domain" type:ePricingDomain];
     [listMenu addObject: renewDomain];
     
     HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Kiểm tra tên miền" icon:@"menu_search_domain" type:eSearchDomain];
@@ -271,7 +275,7 @@
     HomeMenuObject *withdrawal = [[HomeMenuObject alloc] initWithName:@"Rút tiền thưởng" icon:@"menu_withdrawal" type:eWithdrawal];
     [listMenu addObject: withdrawal];
     
-    HomeMenuObject *profile = [[HomeMenuObject alloc] initWithName:@"Hồ sơ cá nhân" icon:@"menu_profile" type:eProfile];
+    HomeMenuObject *profile = [[HomeMenuObject alloc] initWithName:@"Danh sách hồ sơ" icon:@"menu_profile" type:eProfile];
     [listMenu addObject: profile];
     
     HomeMenuObject *support = [[HomeMenuObject alloc] initWithName:@"Hỗ trợ khách hàng" icon:@"menu_support" type:eSupport];
@@ -281,30 +285,29 @@
 
 - (void)setupUIForView {
     self.view.backgroundColor = [UIColor colorWithRed:(242/255.0) green:(242/255.0) blue:(242/255.0) alpha:1.0];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //  self.edgesForExtendedLayout = UIRectEdgeNone;
     float paddingY = 10.0;
     float padding = 20.0;
     float hWallet = 70.0;
-    float hSearch = 70.0;
+    float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
+    float hTextfield = 34.0;
+    float hNav = self.navigationController.navigationBar.frame.size.height;
+    float hSearch = hStatusBar + hNav;
     
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hSearch);
     }];
-    float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     
-    float hTextfield = 34.0;
     tfSearch.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
-    tfSearch.font = [AppDelegate sharedInstance].fontRegular;
+    tfSearch.font = [AppDelegate sharedInstance].fontDesc;
     tfSearch.layer.cornerRadius = hTextfield/2;
     tfSearch.textColor = tfSearch.tintColor = BORDER_COLOR;
-    
-    float hNav = self.navigationController.navigationBar.frame.size.height;
     
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeyDone;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewSearch).offset(hStatusBar+(hNav - hTextfield)/2);
+        make.top.equalTo(self.viewSearch).offset(hStatusBar+(hSearch - hStatusBar - hTextfield)/2);
         make.left.equalTo(self.viewSearch).offset(padding);
         make.right.equalTo(self.viewSearch.mas_right).offset(-hNav);
         make.height.mas_equalTo(hTextfield);
@@ -336,7 +339,8 @@
     [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuCell"];
     
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
         make.height.mas_equalTo(3*self.hMenu);
     }];
     
@@ -418,7 +422,7 @@
 }
 
 - (void)whenTapOnMainWallet {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
     topupVC.hidesBottomBarWhenPushed = YES;
@@ -426,7 +430,7 @@
 }
 
 - (void)whenTapOnPoints {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
     bonusAccVC.hidesBottomBarWhenPushed = YES;
@@ -439,6 +443,21 @@
         [self.view endEditing: TRUE];
     }
     return TRUE;
+}
+
+- (IBAction)btnSearchPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text)];
+    
+    [self.view endEditing: TRUE];
+    
+    if ([AppUtils isNullOrEmpty: tfSearch.text]) {
+        return;
+    }
+    
+    SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
+    searchDomainVC.strSearch = tfSearch.text;
+    [self.navigationController pushViewController:searchDomainVC animated:YES];
+    
 }
 
 @end

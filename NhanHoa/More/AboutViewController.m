@@ -45,25 +45,36 @@
 */
 
 - (IBAction)btnCheckUpdatePress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(startCheckForInfo) withObject:nil afterDelay:0.05];
+}
+
+- (void)startCheckForInfo {
+    btnCheckUpdate.backgroundColor = BLUE_COLOR;
+    [btnCheckUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if (![AppUtils checkNetworkAvailable]) {
         [self.view makeToast:no_internet duration:1.5 position:CSToastPositionBottom style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     //  Add new by Khai Le on 23/03/2018
-//    linkToAppStore = [self checkNewVersionOnAppStore];
-//    if (![AppUtils isNullOrEmpty: linkToAppStore] && ![AppUtils isNullOrEmpty: appStoreVersion]) {
-//        NSString *content = [NSString stringWithFormat:[[LanguageUtil sharedInstance] getContent:@"Current version on App Store is %@. Do you want to update right now?"], appStoreVersion];
-//
-//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:content delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:[[LanguageUtil sharedInstance] getContent:@"Update"], nil];
-//        alert.tag = 2;
-//        [alert show];
-//    }else{
-//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:[[LanguageUtil sharedInstance] getContent:@"You are the newest version!"] delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:nil, nil];
-//        [alert show];
-//    }
-//    return;
+    //    linkToAppStore = [self checkNewVersionOnAppStore];
+    //    if (![AppUtils isNullOrEmpty: linkToAppStore] && ![AppUtils isNullOrEmpty: appStoreVersion]) {
+    //        NSString *content = [NSString stringWithFormat:[[LanguageUtil sharedInstance] getContent:@"Current version on App Store is %@. Do you want to update right now?"], appStoreVersion];
+    //
+    //        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:content delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:[[LanguageUtil sharedInstance] getContent:@"Update"], nil];
+    //        alert.tag = 2;
+    //        [alert show];
+    //    }else{
+    //        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:[[LanguageUtil sharedInstance] getContent:@"You are the newest version!"] delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:nil, nil];
+    //        [alert show];
+    //    }
+    //    return;
 }
+    
 
 - (NSString *)checkNewVersionOnAppStore {
     return @"";
@@ -119,6 +130,8 @@
     btnCheckUpdate.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnCheckUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnCheckUpdate.backgroundColor = BLUE_COLOR;
+    btnCheckUpdate.layer.borderColor = BLUE_COLOR.CGColor;
+    btnCheckUpdate.layer.borderWidth = 1.0;
     btnCheckUpdate.clipsToBounds = YES;
     btnCheckUpdate.layer.cornerRadius = 45.0/2;
     [btnCheckUpdate mas_makeConstraints:^(MASConstraintMaker *make) {

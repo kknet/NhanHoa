@@ -19,5 +19,6 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "WebServiceUtils.h"
+#import "Constant.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */

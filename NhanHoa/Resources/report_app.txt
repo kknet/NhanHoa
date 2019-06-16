@@ -1,7 +1,4 @@
 
-{"username":"lehoangson@gmail.com","password":"97046ec8a290c4ff214acddfcf1fa363","year":1,"domain":"nhanhoa-app.com.vn","contact_id":"127115","mod":"add_order"}
-
-
 TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 
 1. Login (Đăng nhập)
@@ -11,364 +8,84 @@ TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
 ---Trạng thái: HOÀN TẤT
 
 3. ListContact (Danh sách hồ sơ)
-    *Send request (Post / Get) [Auto]
-    mod: contact_list
-    username: string
-    password: MD5
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 4. RegisterAccount (Đăng ký tài khoản)
 ---Trạng thái: HOÀN TẤT
 
-4. AddContact (Thêm hồ sơ)
-    *Send request (Post / Get) [Auto]
-    mod: add_contact
-    username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-    password: MD5 (mật khẩu khách đăng nhập)
-    Thông tin tạo hồ sơ
-    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cmnd_a: URL (Link hình CMND mặt trước)
-        cmnd_b: URL (Link hình CMND mặt sau)
+5. AddContact (Thêm hồ sơ)
+---Trạng thái: HOÀN TẤT
 
-    } elseif (own_type: 1) { // công ty / tổ chức
-        tc_tc_name: string (tên cty / tổ chức)
-        tc_tc_mst: string / number (mã số thuế)
-        tc_tc_address: string (địa chỉ cty / tổ chức)
-        tc_tc_phone: string / number (số đt cty / tổ chức)
-        tc_tc_country: 231 (cố định: Viêt Nam [231])
-        tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cn_position: string (chức vụ người đại diện)
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
-        cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
-
-    } else {
-        api: error response
-    }
-    *Kết quả trả về: anh em send test để xem kết quả
-
-status: DONE (Chưa lưu được cmnd và link ảnh bị sai)
-
-5. ChangePassword (Đổi mật khẩu)
-    *Send request (Post / Get) [Auto]
-    mod: change_password
-    username: string
-    old_password: MD5
-    new_password: MD5 (min 7 ký tự)
-    re_new_password: MD5
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+6. ChangePassword (Đổi mật khẩu)
+---Trạng thái: HOÀN TẤT
 
 6. ForgotPassword (Quên mật khẩu)
-    Khi click đẩy link tới URL trên web: https://id.nhanhoa.com/login/forgot.html
-
 ---Trạng thái: HOÀN TẤT
 
 7. EditContact (Sửa hồ sơ)
-    *Send request (Post / Get) [Auto]
-    mod: edit_contact
-    username: string (email mà khách đã đăng nhập, hồ sơ cần tạo sẽ trực thuộc tài khoản này).
-    password: MD5 (mật khẩu khách đăng nhập)
-    contact_id: ID của profile hiện tại
-    Thông tin tạo hồ sơ
-    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_email: string (email của hồ sơ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cmnd_a: URL (Link hình CMND mặt trước)
-        cmnd_b: URL (Link hình CMND mặt sau)
-
-    } elseif (own_type: 1) { // công ty / tổ chức
-        tc_tc_name: string (tên cty / tổ chức)
-        tc_tc_mst: string / number (mã số thuế)
-        tc_tc_address: string (địa chỉ cty / tổ chức)
-        tc_tc_phone: string / number (số đt cty / tổ chức)
-        tc_tc_country: 231 (cố định: Viêt Nam [231])
-        tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cn_position: string (chức vụ người đại diện)
-        cn_name: Họ và tên (string)
-        cn_email: string (email của hồ sơ)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cmnd_a: URL (Link hình CMND mặt trước của người đại diện)
-        cmnd_b: URL (Link hình CMND mặt sau của người đại diện)
-
-
-    } else {
-        api: error response
-    }
-
-*Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 8. EditProfile (Sửa profile [tải khoản chính])
-    *Send request (Post / Get) [Auto]
-    mod: edit_profile
-    usernamel: string (email)
-    password: MD5
-    own_type: number (cá nhân: 0 | công ty / tổ chức: 1)
-    if (own_type: 0) { // cá nhân
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-        cn_country: 231 (cố định: Viêt Nam [231])
-        cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-    } elseif (own_type: 1) { // công ty / tổ chức
-        tc_tc_name: string (tên cty / tổ chức)
-        tc_tc_mst: string / number (mã số thuế)
-        tc_tc_address: string (địa chỉ cty / tổ chức)
-        tc_tc_phone: string / number (số đt cty / tổ chức)
-        tc_tc_country: 231 (cố định: Viêt Nam [231])
-        tc_tc_city:  number (mã tỉnh / thành theo danh sách anh đã gửi).
-        cn_position: string (chức vụ người đại diện)
-        cn_name: Họ và tên (string)
-        cn_sex: number (1: nam | 0: nữ)
-        cn_email: string (email của hồ sơ)
-        cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-        cn_cmnd: string / number (Số CMND / Passport)
-        cn_phone: string / number (Số ĐT)
-        cn_address: string (địa chỉ)
-
-    } else {
-        api: error response
-    }
-
-- STATUS: DONE
-
-*Kết quả trả về: anh em send test để xem kết quả
+---Trạng thái: HOÀN TẤT
 
 9. DomainPricing (Bảng giá tên miền)
-    *Send request (Post / Get) [Auto]
-    mod: domain_pricing
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 10. SendQuestion (Gửi câu hỏi của bạn)
-    *Send request (Post / Get) [Auto]
-    mod: question
-    username: string
-    email: string
-    content: string
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 11. ListDomain (Danh sách tên miền)
-
 ---Trạng thái: HOÀN TẤT
 
 12. InfoDomain (Thông tin tên miền [đã đăng ký])
-    *Send request (Post / Get) [Auto]
-    mod: info_domain
-    username: string
-    password: MD5
-    ord_id: number (ord_id lấy từ danh json data trả về ở danh sách domain)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 13. UpdateCMND (Cập nhật CMND)
-    *Send request (Post / Get) [Auto]
-    mod: update_cmnd
-    username: string
-    password: MD5
-    cus_id: number (cus_id lấy từ info domain, cus_id này có thể là hồ sơ, không phải tài khoản đăng nhập [chính])
-    cmnd_a: URL (Link hình CMND mặt trước)
-    cmnd_b: URL (Link hình CMND mặt sau)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE (Nhưng không biết xem CMND chỗ nào)
+---Trạng thái: HOÀN TẤT
 
 14. ChangeDNS (Cập nhật DNS)
-    *Send request (Post / Get) [Auto]
-    mod: change_dns
-    username: string
-    password: MD5
-    domain: string (tên miền)
-    ns1: string (ví dụ: ns1.zonedns.vn)
-    ns2: string (ví dụ: ns2.zonedns.vn)
-    ns3: string (ví dụ: ns3.zonedns.vn)
-    ns4: string (ví dụ: ns4.zonedns.vn)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 15. RenewDomain (Lấy thông tin domain cần gia hạn)
-    *Send request (Post / Get) [Auto]
-    mod: renew_domain
-    username: string
-    password: MD5
-    domain: string (tên miền)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 16. AddOrder (Add đơn hàng đăng ký domain)
-*Send request (Post / Get) [Auto]
-mod: add_order
-username: string
-password: MD5
-domain: string (tên miền)
-contact_id: number (cus_is ID của hồ sơ)
-year: number (số năm đăng ký)
-*Kết quả trả về: anh em send test để xem kết quả
+---Trạng thái: HOÀN TẤT
 
 
 17. GetDNS (Lấy thông tin DNS của 1 domain)
-    *Send request (Post / Get) [Auto]
-    mod: get_dns
-    username: string
-    password: MD5
-    domain: string (tên miền)
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 
 18. InfoBank (Cập nhật thông tin tài khoản ngân hàng)
-    *Send request (Post / Get) [Auto]
-    mod: info_bank
-    username: string
-    password: MD5
-    bankname: string (tên ngân hàng)
-    bankaccount: string (tên tài khoản)
-    banknumber: string (số tài khoản)
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: thông tin bank của acc trính lấy từ các thông số trả về của api login (gồm có: cus_bankname, cus_bankaccount, cus_banknumber).
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 19. ProfilePhoto (Cập nhật profile photo)
-    *Send request (Post / Get) [Auto]
-    mod: profile_photo
-    username: string
-    password: MD5
-    photo: URL (Link hình profile photo)
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: profile photo là thông số cus_photo trả về của api login.
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 20. UpdateToken (Cập nhật token)
-    *Send request (Post / Get) [Auto]
-    mod: update_token
-    username: string
-    password: MD5
-    token: string
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: token rỗng = xóa token
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 21. History (Lịch sử giao dịch)
-    *Send request (Post / Get) [Auto]
-    mod: history
-    username: string
-    password: MD5
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: kết quả trả về có time (unix time), content (nội dung), amount (số tiền in/out) và type, type có giá trị 0 hoặc 1, type (0: money in | 1 = money out), ví dụ: nạp tiền = money in, rút tiền hoặc mua domain = money out, cái in/out để biết là dấu cộng hay dấu trừ theo layout design.
-
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 22. Withdraw (Rút tiền thưởng)
-    *Send request (Post / Get) [Auto]
-    mod: withdraw
-    username: string
-    password: MD5
-    amount: number
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: Kết quả trả về có đi kèm chỉ số cus_point mới, cần cập nhật lại thông số cus_point trên app.
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 23. RenewOrder (duy trì đơn hàng & domain)
-    *Send request (Post / Get) [Auto]
-    mod: renew_order
-    username: string
-    password: MD5
-    domain: string (tên miền)
-    contact_id: number (cus_id trả về từ api info_domain)
-    ord_id: number (ord_id trả về từ api info_domain)
-    year: number (số năm duy tri)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 24. HashKey (Gửi hash key trước khi chuyển qua thanh toán Onepay)
-    *Send request (Post / Get) [Auto]
-    mod: hash_key
-    username: string
-    password: MD5
-    hash: MD5 (password [MD5] + current unix time)
-    *Kết quả trả về: anh em send test để xem kết quả
-    *Lưu ý: giá tri của hash_key cần bảo mật, sẽ không trả về qua api login
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 25. CheckOTP (Check mã OTP để verify đăng ký và kích hoạt tài khoản)
-    *Send request (Post / Get) [Auto]
-    mod: check_otp
-    username: string
-    password: MD5
-    code: number (4 số)
-    *Kết quả trả về: anh em send test để xem kết quả
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 26. Addfun (API độc lập)
-    *Tham số truyền đi cần có:
-    vpc_OrderInfo: App_Addfun_{cus_id}
-    vpc_Amount: số tiền nạp
-    vpc_MerchTxnRef: hash_key gửi lên từ api hash_key
-    vpc_ReturnURL: https://nhanhoa.com/app-awk/onepay.php
-    *Kết quả trả về: Anh tự xử lý trên api, chủ yếu làm sao để liền mạnh giữa lúc thanh toán chuyển qua onepay, rồi quay lại được app, khi quay lại app anh em sẽ phải gửi thông số qua api login để get lại data.
-
----STATUS: DONE
+---Trạng thái: HOÀN TẤT
 
 27. ResendOTP (Gửi lại mã OTP để verify đăng ký và kích hoạt tài khoản)
-    *Send request (Post / Get) [Auto]
-    mod: resend_otp
-    username: string
-    password: MD5
-    *Kết quả trả về: anh em send test để xem kết quả
----STATUS: DONE
-
-
-suggest các tài khoản đã đăng nhập thành công trước đó
-
-InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray\
+---Trạng thái: HOÀN TẤT
 
 
 lekhai02121991@gmail.com    |   11111111

@@ -21,13 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Rút tiền thưởng";
+    self.title = @"Rút điểm thưởng";
     [self setupUIForView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [WriteLogsUtils writeLogContent:@"WithdrawalBonusAccountViewController" toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:@"WithdrawalBonusAccountViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
      [self displayCusPoints];
@@ -70,6 +70,15 @@
 }
 
 - (IBAction)btnWithdrawalPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startWithdraw) withObject:nil afterDelay:0.05];
+}
+
+- (void)startWithdraw {
+    btnWithdrawal.backgroundColor = BLUE_COLOR;
+    [btnWithdrawal setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if (![AppUtils checkNetworkAvailable]) {
         [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
@@ -211,11 +220,11 @@
     
     lbNoti.textColor = UIColor.grayColor;
     lbNoti.numberOfLines = 3;
-    lbNoti.font = [AppDelegate sharedInstance].fontRegular;
+    lbNoti.font = [AppDelegate sharedInstance].fontDesc;
     [lbNoti mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDesc.mas_bottom);
         make.left.right.equalTo(self.lbDesc);
-        make.height.mas_equalTo(30.0);
+        make.height.mas_equalTo(50.0);
     }];
     
     unselectedColor = [UIColor colorWithRed:(236/255.0) green:(239/255.0) blue:(244/255.0) alpha:1.0];
@@ -266,9 +275,11 @@
                 action:@selector(textfieldMoneyChanged:)
       forControlEvents:UIControlEventEditingChanged];
     
-    btnWithdrawal.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnWithdrawal.layer.cornerRadius = hItem/2;
     btnWithdrawal.backgroundColor = BLUE_COLOR;;
-    btnWithdrawal.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnWithdrawal.layer.borderColor = BLUE_COLOR.CGColor;
+    btnWithdrawal.layer.borderWidth = 1.0;
+    btnWithdrawal.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnWithdrawal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
@@ -289,37 +300,33 @@
 }
 
 - (void)tryToLoginToUpdateInfo {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 
 #pragma mark - WebServiceUtils Delegate
 -(void)failedToWithdrawWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
     
-    NSString *code = [AppUtils getErrorCodeFromData: error];
-    NSString *content = [AppUtils getErrorContentWithErrorCode: code];
-    if (![AppUtils isNullOrEmpty: content]) {
-        [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }else{
-        [self.view makeToast:@"Rút điểm thưởng không thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)withdrawSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [self tryToLoginToUpdateInfo];
 }
 
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
-    [self.view makeToast:@"Rút điểm thưởng không thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"Điểm thưởng đã được rút thành công.\nChúng tôi sẽ liên hệ lại với bạn sớm." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

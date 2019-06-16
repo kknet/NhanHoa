@@ -51,6 +51,7 @@
     }];
     
     //  main wallet
+    viewWallet.backgroundColor = UIColor.clearColor;
     [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imgSepa.mas_bottom).offset(10.0);
         make.left.equalTo(self);
@@ -82,6 +83,7 @@
     }];
     
     //  reward wallet
+    viewReward.backgroundColor = UIColor.clearColor;
     [viewReward mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.viewWallet);
         make.right.equalTo(self);

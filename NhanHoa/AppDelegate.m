@@ -22,11 +22,11 @@
 
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
-@synthesize hStatusBar, hNav, logFilePath, userInfo, internetReachable, internetActive, listCity, listNumber;
+@synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView;
+@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -58,16 +58,15 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     }
     
-    //  setup logs folder
-    [AppUtils createDirectoryAndSubDirectory:logsFolderName];
-    [AppUtils createDirectoryAndSubDirectory:@"avatars"];
+    dontNeedLogin = TRUE;
     
-    NSString *subDirectory = [NSString stringWithFormat:@"%@/%@.txt", logsFolderName, [AppUtils getCurrentDate]];
-    logFilePath = [WriteLogsUtils makeFilePathWithFileName: subDirectory];
+    //  setup logs folder
+    [self setupForWriteLogFileForApp];
+    [AppUtils createDirectoryAndSubDirectory:@"avatars"];
+    [self createErrorMessagesInfo];
     
     //  custom tabbar & navigation bar
     hStatusBar = application.statusBarFrame.size.height;
-    
     [self enableSizeForBarButtonItem: FALSE];
     
     UINavigationBar.appearance.barTintColor = NAV_COLOR;
@@ -191,11 +190,11 @@
     NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
     token = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
     
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token] toFilePath:logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token]];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@">>>>>ERROR<<<<< CAN NOT GET TOKEN FOR APP: %@", error.localizedDescription] toFilePath:logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@">>>>>ERROR<<<<< CAN NOT GET TOKEN FOR APP: %@", error.localizedDescription]];
 }
 
 +(AppDelegate *)sharedInstance{
@@ -214,7 +213,7 @@
 {
     // called after network status changes
     NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"\n[%s] Network status is %d", __FUNCTION__, internetStatus] toFilePath: logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"\n[%s] Network status is %d", __FUNCTION__, internetStatus]];
     
     switch (internetStatus){
         case NotReachable: {
@@ -461,7 +460,7 @@
         
         hTextfield = 38.0;
         
-    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2] || [deviceMode isEqualToString: simulator])
+    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
     {
         //  Screen width: 375.000000 - Screen height: 667.000000
         fontBold = [UIFont fontWithName:RobotoBold size:16.0];
@@ -485,7 +484,7 @@
         
         hTextfield = 40.0;
         
-    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2]){
+    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
         //  Screen width: 375.000000 - Screen height: 812.000000
         fontBold = [UIFont fontWithName:RobotoBold size:18.0];
         fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
@@ -574,6 +573,82 @@
             [self.cartWindow removeFromSuperview];
         }];
     }
+}
+
+- (void)setupForWriteLogFileForApp
+{
+    //  create folder each day
+    NSString *directory = [NSString stringWithFormat:@"%@/%@", logsFolderName, [AppUtils getCurrentDateForLogFolder]];
+    [AppUtils createDirectoryAndSubDirectory:directory];
+    
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    //  set logs file path
+    NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDir = [documentPaths objectAtIndex:0];
+    
+    NSString *logFilePath = [documentsDir stringByAppendingPathComponent:directory];
+    
+    DDLogFileManagerDefault *documentsFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logFilePath];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:documentsFileManager];
+    
+    [fileLogger setMaximumFileSize:(1024 * 2 * 1024)];  //  2MB for each log file
+    [fileLogger setRollingFrequency:(3600.0 * 24.0)];  // roll everyday
+    [[fileLogger logFileManager] setMaximumNumberOfLogFiles:5];
+    [fileLogger setLogFormatter:[[DDLogFileFormatterDefault alloc]init]];
+    
+    [DDLog addLogger:fileLogger];
+}
+
+- (void)createErrorMessagesInfo {
+    errorMsgDict = [[NSMutableDictionary alloc] init];
+    
+    [errorMsgDict setObject:@"Truy vấn không hợp lệ" forKey:@"001"];
+    [errorMsgDict setObject:@"Thiếu tên truy cập hoặc mật khẩu" forKey:@"002"];
+    [errorMsgDict setObject:@"Tên truy cập không tồn tại trên hệ thống" forKey:@"003"];
+    [errorMsgDict setObject:@"Mật khẩu không chính xác" forKey:@"004"];
+    [errorMsgDict setObject:@"Tài khoản chưa được kích hoạt" forKey:@"005"];
+    [errorMsgDict setObject:@"Tài khoản đang bị khóa" forKey:@"006"];
+    [errorMsgDict setObject:@"Tài khoản thiếu thông tin cá nhân hay chủ thể" forKey:@"007"];
+    [errorMsgDict setObject:@"Hồ sơ cần thêm nhập thiếu tên hoặc CMND hoặc số điện thoại" forKey:@"008"];
+    [errorMsgDict setObject:@"Tên chủ thể phải là tiếng Việt có dấu" forKey:@"009"];
+    [errorMsgDict setObject:@"Số điện thoại không hợp lệ" forKey:@"010"];
+    [errorMsgDict setObject:@"Hồ sơ tổ chức bị thiếu một trong các thông tin sau: Tên tổ chức, Mã số thuế, địa chỉ, số điện thoại" forKey:@"011"];
+    [errorMsgDict setObject:@"Mã hồ sơ không tồn tại trên hệ thống" forKey:@"012"];
+    [errorMsgDict setObject:@"Số năng đăng ký hoặc duy trì không hợp lệ" forKey:@"013"];
+    [errorMsgDict setObject:@"Mã hồ sơ không phải là hồ sơ của tài khoản đăng nhập" forKey:@"014"];
+    [errorMsgDict setObject:@"Tên miền không ở trạng thái tự do để đăng ký" forKey:@"015"];
+    [errorMsgDict setObject:@"Số tiền trong tài khoản không đủ để đăng ký / duy trì tên miền" forKey:@"016"];
+    [errorMsgDict setObject:@"Tên miền không hợp lệ hoặc không tồn tại trên hệ thống" forKey:@"017"];
+    [errorMsgDict setObject:@"Tên miền đang ở chế độ được bảo vệ, vui lòng liên nhà cung cấp tên miền để được hỗ trợ." forKey:@"018"];
+    [errorMsgDict setObject:@"Thiếu thông tin NS1" forKey:@"019"];
+    [errorMsgDict setObject:@"Không thể phân giải NS1" forKey:@"020"];
+    [errorMsgDict setObject:@"Thiếu thông tin NS2" forKey:@"021"];
+    [errorMsgDict setObject:@"Không thể phân giải NS2" forKey:@"022"];
+    [errorMsgDict setObject:@"Không thể phân giải NS3" forKey:@"023"];
+    [errorMsgDict setObject:@"Không thể phân giải NS4" forKey:@"024"];
+    [errorMsgDict setObject:@"DNS đang được cập nhật. Vui lòng cập nhật DNS sau." forKey:@"025"];
+    [errorMsgDict setObject:@"Tên miền không tồn tại trên hệ thống" forKey:@"026"];
+    [errorMsgDict setObject:@"Mật khẩu phải nhiều hơn 6 ký tự" forKey:@"027"];
+    [errorMsgDict setObject:@"Mật khẩu mới không giống nhau" forKey:@"028"];
+    [errorMsgDict setObject:@"Thiếu mã OTP" forKey:@"029"];
+    [errorMsgDict setObject:@"Mã OTP nhập vào không chính xác" forKey:@"030"];
+    [errorMsgDict setObject:@"Số điện thoại không hợp lệ" forKey:@"031"];
+    [errorMsgDict setObject:@"Mã hồ sơ không phải là hồ sơ của tài khoản đăng nhập" forKey:@"032"];
+    [errorMsgDict setObject:@"Thông tin tài khoản ngân hàng nhập vào chưa đầy đủ" forKey:@"033"];
+    [errorMsgDict setObject:@"Mã đơn hàng không tồn tại trên hệ thống" forKey:@"034"];
+    [errorMsgDict setObject:@"Thiếu hình đại đại diện (profile photo)" forKey:@"035"];
+    [errorMsgDict setObject:@"Có lỗi xảy ra trong quá trình cập nhật hình đại diện" forKey:@"036"];
+    [errorMsgDict setObject:@"URL hình đại diện không hợp lệ" forKey:@"037"];
+    [errorMsgDict setObject:@"Thông tin câu hỏi nhập vào chưa đầy đủ" forKey:@"038"];
+    [errorMsgDict setObject:@"Tên truy cập đã tồn tại trên hệ thống" forKey:@"039"];
+    [errorMsgDict setObject:@"Tên truy cập phải là địa chỉ email" forKey:@"040"];
+    [errorMsgDict setObject:@"Quá trình đăng ký đang bị giới hạn, tối đa 3 lần đăng ký trong 60 phút" forKey:@"041"];
+    [errorMsgDict setObject:@"Thiếu CMND mặt trước" forKey:@"042"];
+    [errorMsgDict setObject:@"Tên miền cần tra cứu không hợp lệ" forKey:@"043"];
+    [errorMsgDict setObject:@"Số điểm cần rút lớn hơn số điểm tài khoản đang có" forKey:@"044"];
+    [errorMsgDict setObject:@"Số điểm cần rút nhỏ hơn số điểm tối thiểu có thể rút" forKey:@"045"];
 }
 
 @end

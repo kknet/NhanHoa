@@ -140,7 +140,7 @@
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
@@ -155,7 +155,7 @@
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
@@ -164,7 +164,7 @@
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__] toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__]];
     
     RegisterAccountViewController *registerVC = [[RegisterAccountViewController alloc] initWithNibName:@"RegisterAccountViewController" bundle:nil];
     [self.navigationController pushViewController:registerVC animated:YES];
@@ -365,7 +365,7 @@
 }
 
 - (void)processForLoginSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState == nil || [loginState isEqualToString:@"NO"])
@@ -402,20 +402,23 @@
 #pragma mark - WebServiceUtilDelegate
 
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    NSString *errorCode = [AppUtils getErrorCodeFromData:error];
-    if ([errorCode isEqualToString:accountNotActive]) {
-        UIAlertView *alv = [[UIAlertView alloc] initWithTitle:nil message:@"Tài khoản của bạn chưa được kích hoạt?" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:@"Kích hoạt", nil];
-        [alv show];
-    }else{
-        [self.view makeToast:@"Thông tin đăng nhập không chính xác!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
+        if ([errorCode isEqualToString:@"005"]) {
+            UIAlertView *alv = [[UIAlertView alloc] initWithTitle:nil message:@"Tài khoản của bạn chưa được kích hoạt?" delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:@"Kích hoạt", nil];
+            [alv show];
+        }else{
+            NSString *message = [AppUtils getErrorContentFromData: error];
+            [self.view makeToast:message duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
     }
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data)];
     
     [self processForLoginSuccessful];
     if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
@@ -427,13 +430,13 @@
 }
 
 -(void)failedToUpdateToken {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     [self goToHomeScreen];
 }
 
 -(void)updateTokenSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD dismiss];
     [self goToHomeScreen];
@@ -447,7 +450,7 @@
 }
 
 - (void)addViewActiveAccountIfNeed {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (activeAccView == nil) {
         activeAccView = [[UIView alloc] init];
@@ -510,7 +513,7 @@
     }
     
     if (![AppUtils isNullOrEmpty: tfAccount.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
-        [WriteLogsUtils writeLogContent:SFM(@"Resend OTP with username = %@, password = %@", tfAccount.text, [AppUtils getMD5StringOfString: tfPassword.text]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"Resend OTP with username = %@, password = %@", tfAccount.text, [AppUtils getMD5StringOfString: tfPassword.text])];
         
         [[WebServiceUtils getInstance] resendOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
     }
@@ -525,7 +528,7 @@
 
 #pragma mark - OTPConfirmViewDelegate
 -(void)onResendOTPPress {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if (![AppUtils isNullOrEmpty: tfAccount.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
         [[WebServiceUtils getInstance] resendOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
@@ -544,13 +547,13 @@
 #pragma mark - WebServiceUtil Delegate
 
 -(void)failedToResendOTPWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
-    
-    [activeAccView makeToast:@"Chúng tôi không thể gửi mã OTP vào lúc này. Vui lòng thử lại sau." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [activeAccView makeToast:content duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)resendOTPSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     if (activeAccView != nil) {
         [activeAccView makeToast:@"Mã OTP đã được gửi đến số điện thoại của bạn" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
@@ -558,13 +561,15 @@
 }
 
 -(void)failedToCheckOTPWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [activeAccView makeToast:content duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"Tài khoản của bạn đã được kích hoạt thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Nạp tiền vào tài khoản";
+    self.title = @"Nạp tiền vào ví";
     [self setupUIForView];
 }
 
@@ -52,7 +52,7 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     if ([self isMovingFromParentViewController]) {
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] clear hash_key", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] clear hash_key", __FUNCTION__)];
         
         [AppDelegate sharedInstance].hashKey = @"";
     }
@@ -95,6 +95,15 @@
 }
 
 - (IBAction)btnTopupPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startTopupMoney) withObject:nil afterDelay:0.05];
+}
+
+- (void)startTopupMoney{
+    btnTopup.backgroundColor = BLUE_COLOR;
+    [btnTopup setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if (![AppUtils checkNetworkAvailable]) {
         [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
@@ -116,6 +125,11 @@
     
     if (topupMoney == 0) {
         [self.view makeToast:@"Vui lòng chọn hoặc nhập số tiền bạn muốn nạp!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    if (topupMoney < MIN_MONEY_TOPUP) {
+        NSString *strMinTopup = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%d", MIN_MONEY_TOPUP]];
+        [self.view makeToast:[NSString stringWithFormat:@"Số tiền tối thiểu để nạp là %@ VNĐ", strMinTopup] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     
@@ -273,6 +287,8 @@
     
     
     btnTopup.layer.cornerRadius = hItem/2;
+    btnTopup.layer.borderWidth = 1.0;
+    btnTopup.layer.borderColor = BLUE_COLOR.CGColor;
     btnTopup.backgroundColor = BLUE_COLOR;;
     btnTopup.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnTopup mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -318,7 +334,7 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToGetHashKeyWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
     
     [self.view makeToast:@"Không thể lấy hash_key. Vui lòng kiểm tra kết nối internet của bạn và thử lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -326,13 +342,13 @@
 }
 
 -(void)getHashKeySuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     [self goToPaymentView];
 }
 
 - (void)goToPaymentView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
     paymentVC.money = topupMoney;

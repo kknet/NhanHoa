@@ -9,7 +9,8 @@
 #import "PaymentStepView.h"
 
 @implementation PaymentStepView
-@synthesize lbOne, lbSepa1, lbTwo, lbSepa2, lbThree, lbSepa3, lbFour, lbProfile, lbConfirm, lbPayment, lbDone;
+@synthesize lbOne, lbSepa1, lbTwo, lbSepa2, lbThree, lbSepa3, lbFour, lbProfile, lbConfirm, lbPayment, lbDone, btnStepOne, btnStepTwo, btnStepThree, btnStepFour;
+@synthesize delegate;
 
 - (void)setupUIForView {
     float padding = 3.0;
@@ -108,6 +109,54 @@
         make.centerX.equalTo(self.lbFour.mas_centerX);
         make.width.equalTo(self.lbProfile.mas_width);
     }];
+    
+    [btnStepOne setTitle:@"" forState:UIControlStateNormal];
+    [btnStepOne mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbOne);
+        make.left.right.bottom.equalTo(self.lbProfile);
+    }];
+    
+    [btnStepTwo setTitle:@"" forState:UIControlStateNormal];
+    [btnStepTwo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbTwo);
+        make.left.right.bottom.equalTo(self.lbConfirm);
+    }];
+    
+    [btnStepThree setTitle:@"" forState:UIControlStateNormal];
+    [btnStepThree mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbThree);
+        make.left.right.bottom.equalTo(self.lbPayment);
+    }];
+    
+    [btnStepFour setTitle:@"" forState:UIControlStateNormal];
+    [btnStepFour mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbFour);
+        make.left.right.bottom.equalTo(self.lbDone);
+    }];
+}
+
+- (IBAction)btnStepOnePress:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(pressOnMenuButton:)]) {
+        [delegate pressOnMenuButton: ePaymentProfile];
+    }
+}
+
+- (IBAction)btnStepTwoPress:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(pressOnMenuButton:)]) {
+        [delegate pressOnMenuButton: ePaymentConfirm];
+    }
+}
+
+- (IBAction)btnStepThreePress:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(pressOnMenuButton:)]) {
+        [delegate pressOnMenuButton: ePaymentCharge];
+    }
+}
+
+- (IBAction)btnStepFourPress:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(pressOnMenuButton:)]) {
+        [delegate pressOnMenuButton: ePaymentDone];
+    }
 }
 
 - (void)updateUIForStep: (PaymentStep)step {

@@ -69,6 +69,13 @@
     
     UIBarButtonItem *btnSaveBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewSave];
     self.navigationItem.rightBarButtonItem =  btnSaveBarButtonItem;
+    
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = 35.0; // or whatever you want
+    
+    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    self.navigationItem.rightBarButtonItems = @[fixedItem, flexibleItem, btnSaveBarButtonItem];
 }
 
 - (void)saveInfo {
@@ -207,7 +214,7 @@
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editBanKhai);
         
         if (uploadData == nil) {
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from editBanKhai image, continue get data for CMND_a", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from editBanKhai image, continue get data for CMND_a", __FUNCTION__)];
             [self uploadPassportFrontPicture];
             
         }else{
@@ -218,12 +225,12 @@
                 [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was not uploaded successful", __FUNCTION__)];
                             
                             self.linkBanKhai = @"";
                             
                         }else{
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was uploaded successful", __FUNCTION__)];
                             
                             self.linkBanKhai = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
@@ -245,7 +252,7 @@
         [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_a);
         if (uploadData == nil) {
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from CMND_a image, continue get data for CMND_b", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from CMND_a image, continue get data for CMND_b", __FUNCTION__)];
             
             [self uploadPassportBehindPicture];
         }else{
@@ -256,12 +263,12 @@
                 [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was not uploaded successful", __FUNCTION__)];
                             
                             self.linkCMND_a = @"";
                             
                         }else{
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                            [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was uploaded successful", __FUNCTION__)];
                             
                             self.linkCMND_a = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
@@ -289,7 +296,7 @@
             [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                        [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_b was not uploaded successful", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+                        [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_b was not uploaded successful", __FUNCTION__)];
                         
                         self.linkCMND_b = @"";
                         
@@ -307,7 +314,7 @@
 }
 
 - (void)updateCMNDPhotoForDomain {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if ([AppUtils isNullOrEmpty: linkCMND_a] && [AppUtils isNullOrEmpty: linkCMND_b] && [AppUtils isNullOrEmpty: linkBanKhai]) {
         [self.view makeToast:@"CMND của bạn chưa được tải thành công. Vui lòng thử lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -427,7 +434,7 @@
 }
 
 - (void)requestToAccessYourCamera {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     AVAuthorizationStatus cameraAuthStatus = [AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo];
     if (cameraAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -515,7 +522,7 @@
 }
 
 - (void)popupToPreviousView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
     [self.navigationController popViewControllerAnimated: TRUE];
@@ -569,20 +576,16 @@
 
 #pragma mark - Webservice Delegate
 -(void)failedUpdatePassportForDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    NSString *code = [AppUtils getErrorCodeFromData: error];
-    NSString *content = [AppUtils getErrorContentWithErrorCode: code];
-    if (![AppUtils isNullOrEmpty: content]) {
-        [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }else{
-        [self.view makeToast:@"Cập nhật CMND không thành công. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)updatePassportForDomainSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD dismiss];
     [self.view makeToast:@"CMND đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

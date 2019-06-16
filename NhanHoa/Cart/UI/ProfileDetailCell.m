@@ -372,7 +372,7 @@
     
     //  Show profile name
     NSString *name = [info objectForKey:@"cus_realname"];
-    lbProfileNameValue.text = (![AppUtils isNullOrEmpty: name])? name : @"";
+    lbProfileNameValue.text = lbNameValue.text = (![AppUtils isNullOrEmpty: name])? name : @"";
     
     NSString *cus_birthday = [info objectForKey:@"cus_birthday"];
     lbBODValue.text = (![AppUtils isNullOrEmpty: cus_birthday])? cus_birthday : @"";

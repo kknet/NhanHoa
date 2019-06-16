@@ -19,6 +19,7 @@
 - (void)setupUIForView {
     float padding = 15.0;
     
+    self.clipsToBounds = TRUE;
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     self.userInteractionEnabled = TRUE;
     [self addGestureRecognizer: tapOnScreen];
@@ -81,9 +82,11 @@
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnReset.layer.cornerRadius = 45.0/2;
     btnReset.backgroundColor = OLD_PRICE_COLOR;
+    btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
+    btnReset.layer.borderWidth = 1.0;
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.bottom.equalTo(self).offset(-2*padding);
+        make.bottom.equalTo(self).offset(-padding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(45.0);
     }];
@@ -91,6 +94,8 @@
     [btnSend setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnSend.layer.cornerRadius = btnReset.layer.cornerRadius;
     btnSend.backgroundColor = BLUE_COLOR;
+    btnSend.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSend.layer.borderWidth = 1.0;
     [btnSend mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnReset.mas_right).offset(padding);
         make.top.bottom.equalTo(self.btnReset);
@@ -102,10 +107,29 @@
 }
 
 - (IBAction)btnResetPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startResetAllValue) withObject:nil afterDelay:0.05];
+}
+
+- (void)startResetAllValue {
+    btnReset.backgroundColor = OLD_PRICE_COLOR;
+    [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     tfEmail.text = tvContent.text = @"";
 }
 
 - (IBAction)btnSendPress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(startSendMessage) withObject:nil afterDelay:0.05];
+}
+
+- (void)startSendMessage {
+    btnSend.backgroundColor = BLUE_COLOR;
+    [btnSend setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     if ([AppUtils isNullOrEmpty: tfEmail.text]) {
         [self makeToast:@"Vui lòng nhập email của bạn" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;

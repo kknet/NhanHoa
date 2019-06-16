@@ -46,7 +46,7 @@
     }
     
     if (listDomain.count == 0) {
-        [listDomain addObject:@""];
+        [listDomain addObject:@"nhanhoa.com.vn"];
         [listDomain addObject:@""];
         [listDomain addObject:@""];
     }
@@ -59,7 +59,16 @@
 
 - (IBAction)btnSearchPress:(UIButton *)sender
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startSearchDomain) withObject:nil afterDelay:0.05];
+}
+
+- (void)startSearchDomain {
+    btnSearch.backgroundColor = BLUE_COLOR;
+    [btnSearch setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     NSMutableArray *result = [[NSMutableArray alloc] initWithArray: listDomain];
     [result removeObject:@""];
@@ -68,7 +77,7 @@
         return;
     }
     
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] list search = %@", __FUNCTION__, @[result]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] list search = %@", __FUNCTION__, @[result])];
     
     WhoIsResultViewController *whoIsResultVC = [[WhoIsResultViewController alloc] init];
     whoIsResultVC.listSearch = result;
@@ -98,14 +107,18 @@
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     [self.view addGestureRecognizer: tapOnScreen];
     
+    float hBTN = 45.0;
+    
     padding = 15.0;
-    btnSearch.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnSearch.layer.cornerRadius = hBTN/2;
     btnSearch.backgroundColor = BLUE_COLOR;
+    btnSearch.layer.borderColor = BLUE_COLOR.CGColor;
+    btnSearch.layer.borderWidth = 1.0;
     btnSearch.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(self.padding);
         make.bottom.right.equalTo(self.view).offset(-self.padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [tbContent registerNib:[UINib nibWithNibName:@"WhoIsCell" bundle:nil] forCellReuseIdentifier:@"WhoIsCell"];
@@ -129,7 +142,7 @@
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 55.0)];
     UIButton *btnTbFooter = [UIButton buttonWithType: UIButtonTypeCustom];
-    btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-45.0, footerView.frame.size.width-2*padding, 45.0);
+    btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-45.0, footerView.frame.size.width-2*padding, hBTN);
     btnTbFooter.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnTbFooter.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
     NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[AppDelegate sharedInstance].fontBTN color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:22.0 imageFirst:YES];

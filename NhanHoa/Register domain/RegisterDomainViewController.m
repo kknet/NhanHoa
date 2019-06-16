@@ -12,7 +12,7 @@
 #import "WhoIsViewController.h"
 #import "SuggestDomainCell.h"
 
-@interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
+@interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate>{
     NSMutableArray *listData;
 }
 
@@ -76,7 +76,7 @@
 
 - (void)addBannerImageForView
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if ([AppDelegate sharedInstance].userInfo != nil)
     {
@@ -132,13 +132,15 @@
     
     //  search UI
     float hSearch = 38.0;
-    tfSearch.text = @"taphoaxanh.name.vn";
+    tfSearch.text = @"";
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
     tfSearch.layer.borderWidth = 2;
     tfSearch.font = [UIFont fontWithName:RobotoMedium size:16.0];
     tfSearch.textColor = TITLE_COLOR;
+    tfSearch.returnKeyType = UIReturnKeyDone;
+    tfSearch.delegate = self;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent).offset(self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
@@ -205,7 +207,7 @@
         make.width.mas_equalTo(sizeItem);
         make.height.mas_equalTo(hItemView);
     }];
-    UITapGestureRecognizer *tapRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnRenewDomain)];
+    UITapGestureRecognizer *tapRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSearchDomains)];
     viewRenew.userInteractionEnabled = TRUE;
     [viewRenew addGestureRecognizer: tapRenew];
     
@@ -234,7 +236,7 @@
         make.right.equalTo(self.viewRenew.mas_left).offset(-5.0);
         make.width.mas_equalTo(sizeItem);
     }];
-    UITapGestureRecognizer *tapSearchDomain = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnSearchDomain)];
+    UITapGestureRecognizer *tapSearchDomain = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToRenewDomains)];
     viewSearch.userInteractionEnabled = TRUE;
     [viewSearch addGestureRecognizer: tapSearchDomain];
     
@@ -318,7 +320,7 @@
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text)];
     
     [self.view endEditing: TRUE];
     
@@ -332,14 +334,14 @@
     [self.navigationController pushViewController:searchDomainVC animated:YES];
 }
 
-- (void)whenTapOnRenewDomain {
-    RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-    [self.navigationController pushViewController: renewedVC animated:TRUE];
-}
-
-- (void)whenTapOnSearchDomain {
+- (void)tapToSearchDomains {
     WhoIsViewController *whoisVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
     [self.navigationController pushViewController: whoisVC animated:TRUE];
+}
+
+- (void)tapToRenewDomains {
+    RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+    [self.navigationController pushViewController: renewedVC animated:TRUE];
 }
 
 #pragma mark - UITableview
@@ -394,6 +396,14 @@
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
+}
+
+#pragma mark - UITextfield Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfSearch) {
+        [tfSearch resignFirstResponder];
+    }
+    return TRUE;
 }
 
 @end

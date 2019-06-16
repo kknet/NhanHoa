@@ -15,7 +15,7 @@
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
-    eRenewDomain,
+    ePricingDomain,
     eSearchDomain,
     eRecharge,
     eRewardsPoints,
@@ -39,7 +39,6 @@ typedef enum PaymentMethod{
 @property (strong, nonatomic) CSToastStyle *successStyle;
 
 +(AppDelegate *) sharedInstance;
-@property (nonatomic, strong) NSString *logFilePath;
 @property (nonatomic, assign) float hStatusBar;
 @property (nonatomic, assign) float hNav;
 
@@ -89,6 +88,12 @@ typedef enum PaymentMethod{
 - (void)hideCartView;
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
+
+@property (nonatomic, strong) NSMutableDictionary *errorMsgDict;
+@property (nonatomic, strong) NSMutableArray *listPricingVN;
+@property (nonatomic, strong) NSMutableArray *listPricingQT;
+
+@property (nonatomic, assign) BOOL dontNeedLogin;
 
 @end
 

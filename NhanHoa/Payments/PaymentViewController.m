@@ -101,6 +101,15 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    sender.backgroundColor = UIColor.whiteColor;
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    [self performSelector:@selector(startContinuePayment) withObject:nil afterDelay:0.05];
+}
+
+- (void)startContinuePayment {
+    btnContinue.backgroundColor = BLUE_COLOR;
+    [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
     [self addOnepayPaymentViewIfNeed];
     
     [UIView animateWithDuration:0.3 animations:^{

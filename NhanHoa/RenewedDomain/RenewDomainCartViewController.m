@@ -136,7 +136,7 @@
     //  continue button
     btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
-    btnContinue.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
@@ -342,27 +342,33 @@
 
 #pragma mark - WebserviceUtil Delegate
 -(void)failedToGetRenewInfoWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, error) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, error)];
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Lấy thông tin gia hạn thất bại. Vui lòng thử lại sau." duration:2.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.5];
 }
 
 -(void)getRenewInfoForDomainSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data)];
     [ProgressHUD dismiss];
     [self prepareDataWithInfo: data];
 }
 
 -(void)failedToReOrderDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Gia hạn thất bại. Vui lòng thử lại sau." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
 -(void)reOrderDomainSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];

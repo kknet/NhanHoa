@@ -15,7 +15,14 @@ typedef enum{
     ePaymentDone,
 }PaymentStep;
 
+@protocol PaymentStepViewDelegate <NSObject>
+@optional
+- (void)pressOnMenuButton: (PaymentStep)menu;
+@end
+
 @interface PaymentStepView : UIView
+
+@property (weak, nonatomic) id<PaymentStepViewDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbOne;
 @property (weak, nonatomic) IBOutlet UILabel *lbTwo;
@@ -29,7 +36,16 @@ typedef enum{
 @property (weak, nonatomic) IBOutlet UILabel *lbPayment;
 @property (weak, nonatomic) IBOutlet UILabel *lbDone;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnStepOne;
+@property (weak, nonatomic) IBOutlet UIButton *btnStepTwo;
+@property (weak, nonatomic) IBOutlet UIButton *btnStepThree;
+@property (weak, nonatomic) IBOutlet UIButton *btnStepFour;
+
 - (void)updateUIForStep: (PaymentStep)step;
 - (void)setupUIForView;
+- (IBAction)btnStepOnePress:(UIButton *)sender;
+- (IBAction)btnStepTwoPress:(UIButton *)sender;
+- (IBAction)btnStepThreePress:(UIButton *)sender;
+- (IBAction)btnStepFourPress:(UIButton *)sender;
 
 @end

@@ -66,7 +66,7 @@
 }
 
 - (void)popToRootView {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 
@@ -125,7 +125,7 @@
         }
     }
     [whoisView resetAllValueForView];
-    whoisView.hLabel = 25.0;
+    whoisView.hLabel = 35.0;
     
     NSString *dns = [info objectForKey:@"dns"];
     if (![AppUtils isNullOrEmpty: dns]) {
@@ -167,7 +167,7 @@
         [listSearch removeObjectAtIndex: 0];
         [[WebServiceUtils getInstance] searchDomainWithName:domain type:1];
         
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain) toFilePath:[AppDelegate sharedInstance].logFilePath];
+        [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];
     }else{
         [ProgressHUD dismiss];
         [self showDomainList];
@@ -177,7 +177,8 @@
 #pragma mark - Webserice
 
 - (void)failedToSearchDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[error]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[error])];
+    
     if ([error isKindOfClass:[NSDictionary class]]) {
         [listResults addObject: error];
     }
@@ -185,7 +186,7 @@
 }
 
 -(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[data]) toFilePath:[AppDelegate sharedInstance].logFilePath];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] Function = %@", __FUNCTION__, @[data])];
     
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [listResults addObject: data];
