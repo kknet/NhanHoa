@@ -128,6 +128,7 @@
 #define info_bank_func          @"InfoBank"
 #define withdraw_func           @"Withdraw"
 #define add_order_func          @"AddOrder"
+#define addfun_func             @"Addfun"
 
 
 #define login_mod               @"login"
@@ -156,6 +157,7 @@
 #define info_bank_mod           @"info_bank"
 #define withdraw_mod            @"withdraw"
 #define add_order_mod           @"add_order"
+#define addfun_mod              @"addfun"
 
 
 #define logsFolderName      @"LogFiles"

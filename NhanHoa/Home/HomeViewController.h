@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSearch;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
+@property (weak, nonatomic) IBOutlet UILabel *lbHaveNotSigned;
+
 @property (weak, nonatomic) IBOutlet UIView *viewMainWallet;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMainWallet;
 @property (weak, nonatomic) IBOutlet UILabel *lbMainWallet;

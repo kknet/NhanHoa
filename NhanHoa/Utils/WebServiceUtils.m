@@ -380,6 +380,20 @@
     [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
 }
 
+- (void)getAddfunWithAmout: (NSString *)amount type: (int)type {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] amount = %@, type = %d", __FUNCTION__, amount, type)];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:addfun_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:amount forKey:@"amount"];
+    [jsonDict setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    [webService callWebServiceWithLink:addfun_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -479,6 +493,10 @@
     }else if ([link isEqualToString: add_order_func]) {
         if ([delegate respondsToSelector:@selector(failedToAddNewOrderWithError:)]) {
             [delegate failedToAddNewOrderWithError: error];
+        }
+    }else if ([link isEqualToString: addfun_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetAmoutWithError:)]) {
+            [delegate failedToGetAmoutWithError: error];
         }
     }
     
@@ -584,6 +602,10 @@
     }else if ([link isEqualToString: add_order_func]) {
         if ([delegate respondsToSelector:@selector(addNewOrderSuccessfulWithData:)]) {
             [delegate addNewOrderSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: addfun_func]) {
+        if ([delegate respondsToSelector:@selector(getAmoutSuccessfulWithData:)]) {
+            [delegate getAmoutSuccessfulWithData: data];
         }
     }
 }

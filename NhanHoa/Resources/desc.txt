@@ -399,16 +399,6 @@ year: number (số năm đăng ký)
 
 ---STATUS: DONE
 
-26. Addfun (API độc lập)
-    *Tham số truyền đi cần có:
-    vpc_OrderInfo: App_Addfun_{cus_id}
-    vpc_Amount: số tiền nạp
-    vpc_MerchTxnRef: hash_key gửi lên từ api hash_key
-    vpc_ReturnURL: https://nhanhoa.com/app-awk/onepay.php
-    *Kết quả trả về: Anh tự xử lý trên api, chủ yếu làm sao để liền mạnh giữa lúc thanh toán chuyển qua onepay, rồi quay lại được app, khi quay lại app anh em sẽ phải gửi thông số qua api login để get lại data.
-
----STATUS: DONE
-
 27. ResendOTP (Gửi lại mã OTP để verify đăng ký và kích hoạt tài khoản)
     *Send request (Post / Get) [Auto]
     mod: resend_otp
@@ -417,10 +407,14 @@ year: number (số năm đăng ký)
     *Kết quả trả về: anh em send test để xem kết quả
 ---STATUS: DONE
 
+28. Addfun (Gửi thông số để tạo đơn hàng trước khi chuyển qua Onepay)
+    *Send request (Post / Get) [Auto]
+    mod: addfun
+    username: string
+    password: MD5
+    amount: number (số tiền nạp, không thêm 2 số 0)
+    type: number (0: nội địa | 1: quốc tế)
 
-suggest các tài khoản đã đăng nhập thành công trước đó
-
-InfoDomain: Nên trả về NSDictionary, hiện tại đang trả về NSArray\
 
 
 lekhai02121991@gmail.com    |   11111111

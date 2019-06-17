@@ -21,8 +21,8 @@
 @end
 
 @implementation MoreViewController
-@synthesize viewHeader, tbContent, accInfoView;
-@synthesize hAccount, padding;
+@synthesize viewHeader, tbContent, accInfoView, notSignedView;
+@synthesize hAccount, padding, hNotSigned;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,9 +35,15 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
-    [accInfoView displayInformation];
+    if ([AccountModel isSignedAccount]) {
+        [WebServiceUtils getInstance].delegate = self;
+        
+        [self addAccountInfoView];
+        [accInfoView displayInformation];
+    }else{
+        [self addHaveNotSignedYetView];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -66,6 +72,8 @@
 - (void)setupUIForView {
     hAccount = 135; //  10 + 30 + 30 + 10 + 10 + 40.0 + 10;
     padding = 15.0;
+    hNotSigned = 70.0;
+    
     self.view.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
     
     float hHeader = self.hAccount/2 + 2*[AppDelegate sharedInstance].hStatusBar;
@@ -75,10 +83,6 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hHeader);
     }];
-    
-    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hAccount/2 + 20 + 10)];
-    tbHeaderView.backgroundColor = UIColor.whiteColor;
-    tbContent.tableHeaderView = tbHeaderView;
     
     [tbContent registerNib:[UINib nibWithNibName:@"SettingMenuCell" bundle:nil] forCellReuseIdentifier:@"SettingMenuCell"];
     tbContent.backgroundColor = UIColor.clearColor;
@@ -90,8 +94,6 @@
         make.top.equalTo(self.viewHeader.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
-    
-    [self addAccountInfoView];
     
     CAGradientLayer *bottomGradientLayer = [CAGradientLayer layer];
     bottomGradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, hHeader);
@@ -119,6 +121,10 @@
     }];
     [accInfoView setupUIForView];
     [AppUtils addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
+    
+    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hAccount/2 + 20 + 10)];
+    tbHeaderView.backgroundColor = UIColor.whiteColor;
+    tbContent.tableHeaderView = tbHeaderView;
 }
 
 - (void)clearTokenOfUser {
@@ -128,6 +134,34 @@
     [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
     
     [[WebServiceUtils getInstance] updateTokenWithValue:@""];
+}
+
+- (void)addHaveNotSignedYetView {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HaveNotSignedView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[HaveNotSignedView class]]) {
+            notSignedView = (HaveNotSignedView *) currentObject;
+            break;
+        }
+    }
+    [self.view addSubview: notSignedView];
+    
+    [notSignedView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.viewHeader.mas_bottom);
+        make.left.equalTo(self.view).offset(self.padding);
+        make.right.equalTo(self.view).offset(-self.padding);
+        make.height.mas_equalTo(self.hNotSigned);
+    }];
+    [notSignedView setupUIForView];
+    [AppUtils addBoxShadowForView:notSignedView withColor:UIColor.blackColor];
+    
+    UITapGestureRecognizer *tapOnNotAccount = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToShowLoginView)];
+    notSignedView.userInteractionEnabled = TRUE;
+    [notSignedView addGestureRecognizer: tapOnNotAccount];
+    
+    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hNotSigned/2 + 10)];
+    tbHeaderView.backgroundColor = UIColor.whiteColor;
+    tbContent.tableHeaderView = tbHeaderView;
 }
 
 - (void)logoutScreen {
@@ -292,7 +326,8 @@
     [self logoutScreen];
 }
 
-//  117
-//  9h44
+- (void)tapToShowLoginView {
+    [[AppDelegate sharedInstance] showLoginView];
+}
 
 @end

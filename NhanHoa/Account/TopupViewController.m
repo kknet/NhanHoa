@@ -120,7 +120,7 @@
     }
     
     if (![AppUtils isNullOrEmpty: strMoney] && ![strMoney isEqualToString:@"0"]) {
-        topupMoney = [strMoney longLongValue];
+        topupMoney = (long)[strMoney longLongValue];
     }
     
     if (topupMoney == 0) {
@@ -133,20 +133,21 @@
         return;
     }
     
-    //  get hash_key
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
-    
     int curUnixTime = (int)[[NSDate date] timeIntervalSince1970];
     NSString *total = [NSString stringWithFormat:@"%@%d", PASSWORD, curUnixTime];
     [AppDelegate sharedInstance].hashKey = [AppUtils getMD5StringOfString: total];
     
+    [self goToPaymentView];
+    /*
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+     
     if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].hashKey]) {
         [WebServiceUtils getInstance].delegate = self;
         [[WebServiceUtils getInstance] getHashKeyWithHash: [AppDelegate sharedInstance].hashKey];
     }else{
         [self.view makeToast:@"Không thể lấy được chuỗi hash để giao dịch ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }
+    }   */
 }
 
 - (void)closeKeyboard {
@@ -224,7 +225,7 @@
     
     unselectedColor = [UIColor colorWithRed:(236/255.0) green:(239/255.0) blue:(244/255.0) alpha:1.0];
     
-    float wButton = (SCREEN_WIDTH - 3*padding)/3;
+    float wButton = (SCREEN_WIDTH - padding - 2*5.0)/3;
     btn1000K.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
     btn1000K.backgroundColor = unselectedColor;
     [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
@@ -243,7 +244,7 @@
     [btn500K mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.btn1000K);
         make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.btn1000K.mas_left).offset(-padding);
+        make.right.equalTo(self.btn1000K.mas_left).offset(-5.0);
     }];
     
     btn1500K.titleLabel.font = btn1000K.titleLabel.font;
@@ -252,7 +253,7 @@
     [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
     [btn1500K mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.btn1000K);
-        make.left.equalTo(self.btn1000K.mas_right).offset(padding);
+        make.left.equalTo(self.btn1000K.mas_right).offset(5.0);
         make.right.equalTo(self.view).offset(-padding);
     }];
     

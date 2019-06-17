@@ -15,7 +15,7 @@
 #import "WhoisDomainPopupView.h"
 #import "CartModel.h"
 
-@interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, WebServiceUtilsDelegate>{
+@interface SearchDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, WebServiceUtilsDelegate, UITextFieldDelegate>{
     NSDictionary *firstDomainInfo;
     float hCell;
     float hSmallCell;
@@ -28,7 +28,7 @@
 @synthesize viewHeader, icBack, lbTitle;
 @synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
-@synthesize padding, strSearch, listDomains, hTableView;
+@synthesize padding, strSearch, listDomains, hTableView, hSearch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,11 +58,7 @@
     [super viewWillDisappear: animated];
     [self.navigationController setNavigationBarHidden: NO];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-}
-
--(void)viewDidLayoutSubviews {
-    float contentSize = tbDomains.frame.origin.y + self.hTableView + self.padding;
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
+    firstDomainInfo = nil;
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
@@ -84,6 +80,8 @@
         [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
+    
+    firstDomainInfo = nil;
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
@@ -136,6 +134,20 @@
 }
 
 - (void)reUpdateLayoutForView {
+    float hResult;
+    if (firstDomainInfo == nil) {
+        hResult = 100.0;
+    }else{
+        hResult = 200.0;
+    }
+    
+    [viewResult mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.scvContent);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(30.0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(hResult);
+    }];
+    
     //  layout for choose button
     [self updateLayoutForChooseMainDomain: btnChoose];
     
@@ -147,6 +159,9 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(self.hTableView);
     }];
+    
+    float contentHeight = hSearch + 30.0 + hResult + padding + 1.0 + padding + hTableView + padding;
+    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hSearch + contentHeight);
 }
 
 - (void)registerObservers {
@@ -195,27 +210,29 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
     
-    float hSearch = 38.0;
+    hSearch = 38.0;
     
     lbTop.backgroundColor = viewHeader.backgroundColor;
     [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hSearch/2);
+        make.height.mas_equalTo(self.hSearch/2);
     }];
     
     tfSearch.font = [AppDelegate sharedInstance].fontMedium;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.backgroundColor = UIColor.whiteColor;
-    tfSearch.layer.cornerRadius = hSearch/2;
+    tfSearch.layer.cornerRadius = self.hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
     tfSearch.layer.borderWidth = 1.5;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent).offset(self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
         make.top.equalTo(self.scvContent);
-        make.height.mas_equalTo(hSearch);
+        make.height.mas_equalTo(self.hSearch);
     }];
+    tfSearch.returnKeyType = UIReturnKeyDone;
+    tfSearch.delegate = self;
     
     tfSearch.leftView = lbWWW;
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
@@ -350,6 +367,9 @@
 
 - (void)prepareDataToDisplay {
     if (listDomains.count > 0) {
+        //  Lưu domain available khác nếu không tìm thấy domain hiện tại
+        NSDictionary *tmpAvailable;
+        
         for (int index=0; index<listDomains.count; index++)
         {
             NSDictionary *info = [listDomains objectAtIndex: index];
@@ -357,50 +377,80 @@
             
             if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
             {
-                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
-                break;
-                
+                NSString *domain = [info objectForKey:@"domain"];
+                if ([strSearch isEqualToString: domain]) {
+                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
+                    break;
+                }
+                if (tmpAvailable == nil) {
+                    tmpAvailable = info;
+                }
             }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
             {
-                firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
+                NSString *domain = [info objectForKey:@"domain"];
+                if ([strSearch isEqualToString: domain]) {
+                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
+                    break;
+                }
+                if (tmpAvailable == nil) {
+                    tmpAvailable = info;
+                }
                 break;
             }
         }
         
-        if (firstDomainInfo == nil) {
-            NSDictionary *first = [listDomains firstObject];
-            firstDomainInfo = [[NSDictionary alloc] initWithDictionary: first];
-        }
-        [listDomains removeObject: firstDomainInfo];
-        
         [self hideUIForSearch: FALSE];
         
-        NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
-        NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
-        NSRange range = [content rangeOfString: firstDomain];
-        if (range.location != NSNotFound) {
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-            [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
-            lbSearchContent.attributedText = attr;
-        }else{
-            lbSearchContent.text = content;
+        if (firstDomainInfo == nil && tmpAvailable != nil) {
+            firstDomainInfo = [[NSDictionary alloc] initWithDictionary: tmpAvailable];
         }
         
-        lbDomainName.text = firstDomain;
-        NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
-        if (![AppUtils isNullOrEmpty: price]) {
-            lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
-        }
-        lbOldPrice.hidden = lbSepa.hidden = TRUE;
-        
-        if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
-            btnChoose.backgroundColor = NEW_PRICE_COLOR;
-            [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+        if (firstDomainInfo != nil) {
+            [listDomains removeObject: firstDomainInfo];
+            
+            NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
+            NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
+            NSRange range = [content rangeOfString: firstDomain];
+            if (range.location != NSNotFound) {
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+                lbSearchContent.attributedText = attr;
+            }else{
+                lbSearchContent.text = content;
+            }
+            
+            lbDomainName.text = firstDomain;
+            NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
+            if (![AppUtils isNullOrEmpty: price]) {
+                lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
+            }
+            lbOldPrice.hidden = lbSepa.hidden = TRUE;
+            
+            if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
+                btnChoose.backgroundColor = NEW_PRICE_COLOR;
+                [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+                
+            }else{
+                btnChoose.backgroundColor = BLUE_COLOR;
+                [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            }
+            viewDomain.hidden = FALSE;
+            imgEmoji.image = [UIImage imageNamed:@"search_smile"];
             
         }else{
-            btnChoose.backgroundColor = BLUE_COLOR;
-            [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            NSString *content = [NSString stringWithFormat:@"Xin lỗi!\nBạn không thể sử dụng tên miền\n%@", strSearch];
+            NSRange range = [content rangeOfString: strSearch];
+            if (range.location != NSNotFound) {
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+                [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontMedium, NSFontAttributeName, NEW_PRICE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+                lbSearchContent.attributedText = attr;
+            }else{
+                lbSearchContent.text = content;
+            }
+            viewDomain.hidden = TRUE;
+            imgEmoji.image = [UIImage imageNamed:@"search_sad"];
         }
         
         [self reUpdateLayoutForView];
@@ -576,6 +626,14 @@
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
     }
+}
+
+#pragma mark - UITextfield Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfSearch) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
 }
 
 @end

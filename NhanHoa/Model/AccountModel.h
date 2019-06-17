@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AccountModel : NSObject
 
++ (BOOL)isSignedAccount;
 + (NSString *)getCusIdOfUser;
 + (NSString *)getCusUsernameOfUser;
 + (NSString *)getCusTotalBalance;

@@ -46,7 +46,7 @@
     }
     
     if (listDomain.count == 0) {
-        [listDomain addObject:@"nhanhoa.com.vn"];
+        [listDomain addObject:@""];
         [listDomain addObject:@""];
         [listDomain addObject:@""];
     }

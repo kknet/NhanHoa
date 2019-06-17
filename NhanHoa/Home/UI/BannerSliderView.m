@@ -29,34 +29,48 @@
 }
 
 - (void)showBannersForSliderView {
-    NSArray *banners = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
-    if (banners != nil && [banners isKindOfClass:[NSArray class]]) {
-        listBanners = [[NSArray alloc] initWithArray: banners];
+    if ([AppDelegate sharedInstance].userInfo != nil) {
+        pageControl.hidden = FALSE;
         
-        for (int index=0; index<listBanners.count; index++) {
-            NSDictionary *banner = [listBanners objectAtIndex: index];
+        NSArray *banners = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+        if (banners != nil && [banners isKindOfClass:[NSArray class]]) {
+            listBanners = [[NSArray alloc] initWithArray: banners];
             
-            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(index*SCREEN_WIDTH, 0, SCREEN_WIDTH, hBanner)];
-            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
-            imgBanner.clipsToBounds = TRUE;
-            imgBanner.tag = index;
-            [scvBanner addSubview: imgBanner];
+            for (int index=0; index<listBanners.count; index++) {
+                NSDictionary *banner = [listBanners objectAtIndex: index];
+                
+                UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(index*SCREEN_WIDTH, 0, SCREEN_WIDTH, hBanner)];
+                imgBanner.contentMode = UIViewContentModeScaleAspectFill;
+                imgBanner.clipsToBounds = TRUE;
+                imgBanner.tag = index;
+                [scvBanner addSubview: imgBanner];
+                
+                //  Add target
+                imgBanner.userInteractionEnabled = TRUE;
+                UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage:)];
+                [imgBanner addGestureRecognizer: tapOnBanner];
+                
+                NSString *image = [banner objectForKey:@"image"];
+                [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"banner.jpg"]];
+            }
+            //  for page control
+            pageControl.numberOfPages = listBanners.count;
+            pageControl.currentPage = 0;
             
-            //  Add target
-            imgBanner.userInteractionEnabled = TRUE;
-            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage:)];
-            [imgBanner addGestureRecognizer: tapOnBanner];
+            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH*listBanners.count, hBanner);
             
-            NSString *image = [banner objectForKey:@"image"];
-            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"banner.jpg"]];
+            slideTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_FOR_SLIDER target:self selector:@selector(nextSlider) userInfo:nil repeats:TRUE];
         }
-        //  for page control
-        pageControl.numberOfPages = listBanners.count;
-        pageControl.currentPage = 0;
         
-        scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH*listBanners.count, hBanner);
+    }else{
+        pageControl.hidden = TRUE;
         
-        slideTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_FOR_SLIDER target:self selector:@selector(nextSlider) userInfo:nil repeats:TRUE];
+        UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
+        imgBanner.image = [UIImage imageNamed:@"banner.jpg"];
+        imgBanner.contentMode = UIViewContentModeScaleAspectFill;
+        imgBanner.clipsToBounds = TRUE;
+        [scvBanner addSubview: imgBanner];
+        scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
     }
 }
 

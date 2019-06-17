@@ -51,9 +51,6 @@
 + (BOOL)saveFileToFolder: (NSData *)fileData withName: (NSString *)fileName;
 + (NSData *)getFileDataFromDirectoryWithFileName: (NSString *)fileName;
 + (NSString *)getErrorContentFromData: (id)data;
-
-+ (NSString *)checkTodayWithDateStr: (NSString *)dateStr;
-+ (NSString *)checkYesterdayWithDateStr: (NSString *)dateStr;
 + (NSString *)getYesterdayDateString;
 
 @end

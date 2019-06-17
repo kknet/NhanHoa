@@ -67,69 +67,13 @@
 
 - (void)showPaymentContentViewWithMoney: (long)money
 {
-    wvPayment.hidden = FALSE;
     topupMoney = money;
     
-    icWaiting.hidden = FALSE;
-    [icWaiting startAnimating];
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
     
-    NSString *returnURL = return_url;
-    
-    NSString *vpc_OrderInfo = [NSString stringWithFormat:@"App_Addfun_%@", [AccountModel getCusIdOfUser]];
-    
-    
-    if (typePaymentMethod == ePaymentWithATM && topupMoney > 0) {
-        
-        //  Thêm 2 số 0 vào amount hiện tại
-        NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
-        if (![AppUtils isNullOrEmpty: amount]) {
-            NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
-            
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, vpc_MerchTxnRef, MERCHANT_ID, vpc_OrderInfo, returnURL];
-            
-            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE];
-            
-            NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:get_hash_url]];
-            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //  074D8D27C3ED8409130B6C6029F026FB35F749405D19C16A6A055530803503DA
-            NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment, params, secureHash];
-            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
-            
-        }else{
-            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-        
-    }else if (typePaymentMethod == ePaymentWithVisaMaster && topupMoney > 0) {
-        
-        NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
-        NSString *lang = @"vn";
-        
-        //  Thêm 2 số 0 vào amount hiện tại
-        NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
-        
-        if (![AppUtils isNullOrEmpty: amount]) {
-            
-            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL];
-            
-            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
-            
-            NSURL *urlLink = [NSURL URLWithString:get_hash_url];
-            NSData *data = [NSData dataWithContentsOfURL: urlLink];
-            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //
-            returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL, secureHash];
-            
-            NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment_VISA, params, secureHash];
-            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
-            
-        }else{
-            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        }
-    }
-    
-    
-    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] getAddfunWithAmout:[NSString stringWithFormat:@"%ld", topupMoney] type:typePaymentMethod];
 }
 
 #pragma mark - Webview delegate
@@ -305,7 +249,100 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+}
+
+-(void)failedToGetAmoutWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
+    [self makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+-(void)getAmoutSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
+    [self showPaymentContentViewWithData: data];
+}
+
+- (void)dismissView {
+    if ([delegate respondsToSelector:@selector(onBackIconClick)]) {
+        [delegate onBackIconClick];
+    }
+}
+
+- (void)showPaymentContentViewWithData: (NSDictionary *)data {
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        wvPayment.hidden = FALSE;
+        icWaiting.hidden = FALSE;
+        [icWaiting startAnimating];
+        
+        NSString *url = [data objectForKey:@"url"];
+        if (![AppUtils isNullOrEmpty: url]) {
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+        }else{
+            [self dismissView];
+        }
+    }else{
+        [self dismissView];
+    }
+    
+    return;
+    NSString *returnURL = return_url;
+    
+    NSString *vpc_OrderInfo = [NSString stringWithFormat:@"App_Addfun_%@", [AccountModel getCusIdOfUser]];
+    
+    if (typePaymentMethod == ePaymentWithATM && topupMoney > 0) {
+        
+        //  Thêm 2 số 0 vào amount hiện tại
+        NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
+        if (![AppUtils isNullOrEmpty: amount]) {
+            NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
+            
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Currency=VND&vpc_Locale=vn&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE, amount, vpc_MerchTxnRef, MERCHANT_ID, vpc_OrderInfo, returnURL];
+            
+            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE];
+            
+            NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:get_hash_url]];
+            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //  074D8D27C3ED8409130B6C6029F026FB35F749405D19C16A6A055530803503DA
+            NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment, params, secureHash];
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+            
+        }else{
+            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+        
+    }else if (typePaymentMethod == ePaymentWithVisaMaster && topupMoney > 0) {
+        
+        NSString *vpc_MerchTxnRef = [AppDelegate sharedInstance].hashKey;
+        NSString *lang = @"vn";
+        
+        //  Thêm 2 số 0 vào amount hiện tại
+        NSString *amount = [NSString stringWithFormat:@"%ld00", topupMoney];
+        
+        if (![AppUtils isNullOrEmpty: amount]) {
+            
+            NSString *params = [NSString stringWithFormat:@"vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL];
+            
+            NSString *get_hash_url = [NSString stringWithFormat:@"https://api.websudo.xyz/test.php?function=parseAndGet&%@&scret=%@", params, HASHCODE_VISA];
+            
+            NSURL *urlLink = [NSURL URLWithString:get_hash_url];
+            NSData *data = [NSData dataWithContentsOfURL: urlLink];
+            NSString *secureHash = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //
+            returnURL = [returnURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            params = [NSString stringWithFormat:@"AgainLink=onepay.vn&Title=NhanHoaCompany&vpc_AccessCode=%@&vpc_Amount=%@&vpc_Command=pay&vpc_Locale=%@&vpc_MerchTxnRef=%@&vpc_Merchant=%@&vpc_OrderInfo=%@&vpc_ReturnURL=%@&vpc_Version=2&vpc_SecureHash=%@", ACCESSCODE_VISA, amount, lang, vpc_MerchTxnRef, MERCHANT_ID_VISA, vpc_OrderInfo, returnURL, secureHash];
+            
+            NSString *url = [NSString stringWithFormat:@"%@?%@&vpc_SecureHash=%@", URL_Payment_VISA, params, secureHash];
+            [wvPayment loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: url]]];
+            
+        }else{
+            [self makeToast:@"Số tiền thanh toán không hợp lệ. Vui lòng kiểm tra lại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        }
+    }
 }
 
 @end

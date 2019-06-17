@@ -78,6 +78,7 @@ typedef enum PaymentMethod{
 
 - (NSString *)findCityObjectWithCityCode: (NSString *)code;
 @property(strong, nonatomic) UIWindow *cartWindow;
+
 @property(strong, nonatomic) CartViewController *cartViewController;
 @property(strong, nonatomic) UINavigationController *cartNavViewController;
 
@@ -86,6 +87,7 @@ typedef enum PaymentMethod{
 - (void)updateShoppingCartCount;
 - (void)showCartScreenContent;
 - (void)hideCartView;
+- (void)showLoginView;
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
 

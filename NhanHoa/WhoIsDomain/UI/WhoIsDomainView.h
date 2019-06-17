@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float hLabel;
 @property (nonatomic, assign) float sizeLeft;
 @property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float mTop;
 
 - (void)resetAllValueForView;
 

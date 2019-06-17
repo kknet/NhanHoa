@@ -102,6 +102,8 @@
 		15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD522803AE9004A8575 /* SettingMenuCell.xib */; };
 		15865BD922803D36004A8575 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD822803D35004A8575 /* right-arrow.png */; };
 		15865BDB228047FF004A8575 /* default_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BDA228047FF004A8575 /* default_avatar.png */; };
+		1596AE7922B7A07C00857640 /* HaveNotSignedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1596AE7822B7A07C00857640 /* HaveNotSignedView.m */; };
+		1596AE7B22B7A08800857640 /* HaveNotSignedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */; };
 		159F7D8F227AAC4800A64586 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8D227AAC4700A64586 /* trash.png */; };
 		159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7D96227AC92B00A64586 /* PaymentStepView.m */; };
 		159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D98227AC93800A64586 /* PaymentStepView.xib */; };
@@ -450,6 +452,9 @@
 		15865BD522803AE9004A8575 /* SettingMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCell.xib; sourceTree = "<group>"; };
 		15865BD822803D35004A8575 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
 		15865BDA228047FF004A8575 /* default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_avatar.png; sourceTree = "<group>"; };
+		1596AE7722B7A07C00857640 /* HaveNotSignedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HaveNotSignedView.h; sourceTree = "<group>"; };
+		1596AE7822B7A07C00857640 /* HaveNotSignedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HaveNotSignedView.m; sourceTree = "<group>"; };
+		1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HaveNotSignedView.xib; sourceTree = "<group>"; };
 		159F7D8D227AAC4700A64586 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		159F7D95227AC92B00A64586 /* PaymentStepView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentStepView.h; sourceTree = "<group>"; };
 		159F7D96227AC92B00A64586 /* PaymentStepView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentStepView.m; sourceTree = "<group>"; };
@@ -1104,6 +1109,9 @@
 				15865BCE227FDFA5004A8575 /* AccountInfoView.h */,
 				15865BCF227FDFA5004A8575 /* AccountInfoView.m */,
 				15865BD1227FDFB7004A8575 /* AccountInfoView.xib */,
+				1596AE7722B7A07C00857640 /* HaveNotSignedView.h */,
+				1596AE7822B7A07C00857640 /* HaveNotSignedView.m */,
+				1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */,
 				15865BD322803AE9004A8575 /* SettingMenuCell.h */,
 				15865BD422803AE9004A8575 /* SettingMenuCell.m */,
 				15865BD522803AE9004A8575 /* SettingMenuCell.xib */,
@@ -1650,6 +1658,7 @@
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
+				1596AE7B22B7A08800857640 /* HaveNotSignedView.xib in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
@@ -1949,6 +1958,7 @@
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
+				1596AE7922B7A07C00857640 /* HaveNotSignedView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
@@ -2115,7 +2125,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Development";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2139,7 +2149,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Release;
+				PROVISIONING_PROFILE_SPECIFIER = "NhanHoaApp Adhoc";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

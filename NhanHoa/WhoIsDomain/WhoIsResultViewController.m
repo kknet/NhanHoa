@@ -56,10 +56,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
--(void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-}
-
 - (void)registerObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
                                                  name:@"afterAddOrderSuccessfully" object:nil];
@@ -72,6 +68,7 @@
 
 - (void)setupUIForView {
     scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
+    scvContent.backgroundColor = LIGHT_GRAY_COLOR;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.view);
@@ -102,13 +99,15 @@
     float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
     [scvContent addSubview: whoisView];
     [whoisView setupUIForView];
+    [whoisView showContentOfDomainWithInfo: info];
+    
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
         make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height+mTop);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
-    [whoisView showContentOfDomainWithInfo: info];
+    
     
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
@@ -125,18 +124,9 @@
         }
     }
     [whoisView resetAllValueForView];
-    whoisView.hLabel = 35.0;
-    
-    NSString *dns = [info objectForKey:@"dns"];
-    if (![AppUtils isNullOrEmpty: dns]) {
-        dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
-        dns = [dns stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
-    }
-    
-    float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
-    float hView = [AppUtils getHeightOfWhoIsDomainViewWithContent:dns font:[AppDelegate sharedInstance].fontRegular heightItem:whoisView.hLabel maxSize:maxSize];
-
     [scvContent addSubview:whoisView];
+    [whoisView setupUIForView];
+    float hView = [whoisView showContentOfDomainWithInfo: info];
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
@@ -144,8 +134,8 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
-    [whoisView setupUIForView];
-    [whoisView showContentOfDomainWithInfo: info];
+    whoisView.backgroundColor = UIColor.orangeColor;
+    
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
 

@@ -78,32 +78,29 @@
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
-    if ([AppDelegate sharedInstance].userInfo != nil)
-    {
-        if (viewBanner == nil) {
-            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
-            for(id currentObject in toplevelObject){
-                if ([currentObject isKindOfClass:[BannerSliderView class]]) {
-                    viewBanner = (BannerSliderView *) currentObject;
-                    break;
-                }
+    if (viewBanner == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[BannerSliderView class]]) {
+                viewBanner = (BannerSliderView *) currentObject;
+                break;
             }
-            [self.scvContent addSubview: viewBanner];
         }
-        [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.scvContent);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-            make.height.mas_equalTo(self.hBanner);
-        }];
-        
-        viewBanner.hBanner = hBanner;
-        [viewBanner setupUIForView];
-        [viewBanner showBannersForSliderView];
-        
-        [self.scvContent bringSubviewToFront: tfSearch];
-        [self.scvContent bringSubviewToFront: lbWWW];
-        [self.scvContent bringSubviewToFront: icSearch];
+        [self.scvContent addSubview: viewBanner];
     }
+    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(self.scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(self.hBanner);
+    }];
+    
+    viewBanner.hBanner = hBanner;
+    [viewBanner setupUIForView];
+    [viewBanner showBannersForSliderView];
+    
+    [self.scvContent bringSubviewToFront: tfSearch];
+    [self.scvContent bringSubviewToFront: lbWWW];
+    [self.scvContent bringSubviewToFront: icSearch];
 }
 
 - (void)setupUIForView {

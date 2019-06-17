@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray *listDomains;
 @property (nonatomic, assign) float hTableView;
+@property (nonatomic, assign) float hSearch;
 
 - (IBAction)icCartClick:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;

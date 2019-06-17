@@ -675,26 +675,6 @@
     return @"Đã có lỗi xảy ra. Vui lòng kiểm tra lại!";
 }
 
-+ (NSString *)checkTodayWithDateStr: (NSString *)dateStr {
-    NSDate *today = [NSDate dateWithTimeIntervalSinceNow: 0];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MM-yyyy"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Bangkok"]];
-    
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-    [formatter2 setDateFormat:@"yyyy-MM-dd"];
-    [formatter2 setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Bangkok"]];
-    
-    NSString *currentTime = [formatter stringFromDate: today];
-    NSString *currentTime2 = [formatter2 stringFromDate: today];
-    
-    if ([currentTime isEqualToString: dateStr] || [currentTime2 isEqualToString: dateStr]) {
-        return @"Hôm nay";
-    }else{
-        return currentTime;
-    }
-}
-
 + (NSString *)getYesterdayDateString {
     NSDate *yesterday = [NSDate dateWithTimeIntervalSinceNow: -(60.0f*60.0f*24.0f)];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

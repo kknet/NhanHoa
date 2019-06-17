@@ -127,16 +127,23 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:)
                                                  name:kReachabilityChangedNotification object:nil];
     
-    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
-    if (loginState == nil || [loginState isEqualToString:@"NO"]) {
-        [self showStartLoginView];
+    if (dontNeedLogin) {
+        AppTabbarViewController *appTabarVC = [[AppTabbarViewController alloc] init];
+        [self.window setRootViewController:appTabarVC];
+        [self.window makeKeyAndVisible];
         
     }else{
-        SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-        UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
-        
-        [self.window setRootViewController:signInNav];
-        [self.window makeKeyAndVisible];
+        NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+        if (loginState == nil || [loginState isEqualToString:@"NO"]) {
+            [self showStartLoginView];
+            
+        }else{
+            SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+            UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
+            
+            [self.window setRootViewController:signInNav];
+            [self.window makeKeyAndVisible];
+        }
     }
     // Override point for customization after application launch.
     
@@ -573,6 +580,17 @@
             [self.cartWindow removeFromSuperview];
         }];
     }
+}
+
+- (void)showLoginView {
+    add icon close
+    SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+    signInVC.view.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    [self.window addSubview: signInVC.view];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        signInVC.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
 }
 
 - (void)setupForWriteLogFileForApp

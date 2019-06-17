@@ -20,5 +20,6 @@
 #import "UIButton+WebCache.h"
 #import "WebServiceUtils.h"
 #import "Constant.h"
+#import "AccountModel.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */
