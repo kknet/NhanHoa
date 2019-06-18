@@ -12,6 +12,7 @@
 #import "CityObject.h"
 #import "CartViewController.h"
 #import "ShoppingCartView.h"
+#import "LaunchViewController.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -96,6 +97,9 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableArray *listPricingQT;
 
 @property (nonatomic, assign) BOOL dontNeedLogin;
+
+@property(strong, nonatomic) UIWindow *loginWindow;
+@property(strong, nonatomic) LaunchViewController *launchVC;
 
 @end
 

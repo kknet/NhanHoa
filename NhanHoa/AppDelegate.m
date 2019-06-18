@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "AppTabbarViewController.h"
-#import "LaunchViewController.h"
 #import "SignInViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
@@ -26,7 +25,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, needReloadListDomains, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN;
+@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -162,6 +161,21 @@
     }
     cartWindow.rootViewController = cartNavViewController;
     cartWindow.alpha = 0;
+    
+    
+    //  create login window if need
+    if (dontNeedLogin) {
+        loginWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        loginWindow.backgroundColor = UIColor.whiteColor;;
+        loginWindow.windowLevel = UIWindowLevelNormal;
+        loginWindow.tag = 3;
+        
+        self.launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+        UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:self.launchVC];
+        
+        loginWindow.rootViewController = launchNav;
+        loginWindow.alpha = 0;
+    }
     
     return YES;
 }
@@ -583,12 +597,13 @@
 }
 
 - (void)showLoginView {
-    SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    signInVC.view.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
-    [self.window addSubview: signInVC.view];
-    
+    loginWindow.alpha = 0;
     [UIView animateWithDuration:0.2 animations:^{
-        signInVC.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.loginWindow.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.loginWindow.alpha = 1;
+        [self.loginWindow makeKeyAndVisible];
+    }completion:^(BOOL finished) {
+        
     }];
 }
 
