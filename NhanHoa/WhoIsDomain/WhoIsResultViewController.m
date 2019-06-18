@@ -10,6 +10,7 @@
 #import "DomainCell.h"
 #import "DomainObject.h"
 #import "AccountModel.h"
+#import "CartModel.h"
 
 @interface WhoIsResultViewController ()<UIScrollViewDelegate, WebServiceUtilsDelegate> {
     NSMutableArray *listResults;
@@ -17,11 +18,13 @@
 @end
 
 @implementation WhoIsResultViewController
-@synthesize scvContent, listSearch, padding, whoisView, noResultView;
+@synthesize scvContent, listSearch, padding, whoisView, noResultView, btnContinue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    padding = 15.0;
+    
     [self setupUIForView];
     self.title = @"Kết quả tra cứu";
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -35,7 +38,7 @@
     [WebServiceUtils getInstance].delegate = self;
     
     [listSearch removeObject:@""];
-    padding = 15.0;
+    
     
     //  prepare result array
     if (listResults == nil) {
@@ -49,6 +52,9 @@
     [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
     
     [self checkWhoIsForListDomains];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUIWhenSelectOrRemoveDomainFormCart)
+                                                 name:@"selectedOrRemoveDomainFromCart" object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -67,13 +73,36 @@
 }
 
 - (void)setupUIForView {
+    
+    [self checkToEnableContinueButton];
+    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnContinue.layer.cornerRadius = 45.0/2;
+    [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(self.padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
+        make.bottom.equalTo(self.view).offset(-self.padding);
+        make.height.mas_equalTo(45.0);
+    }];
+    
     scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     scvContent.backgroundColor = LIGHT_GRAY_COLOR;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.view);
+        make.top.left.equalTo(self.view);
+        make.bottom.equalTo(self.btnContinue.mas_top).offset(-self.padding);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
+}
+
+- (void)checkToEnableContinueButton {
+    if ([[CartModel getInstance] countItemInCart] > 0) {
+        btnContinue.enabled = TRUE;
+        btnContinue.backgroundColor = BLUE_COLOR;
+    }else{
+        btnContinue.enabled = FALSE;
+        btnContinue.backgroundColor = OLD_PRICE_COLOR;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
@@ -164,6 +193,10 @@
     }
 }
 
+- (void)changeUIWhenSelectOrRemoveDomainFormCart {
+    [self checkToEnableContinueButton];
+}
+
 #pragma mark - Webserice
 
 - (void)failedToSearchDomainWithError:(NSString *)error {
@@ -184,4 +217,7 @@
     [self checkWhoIsForListDomains];
 }
 
+- (IBAction)btnContinuePress:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
+}
 @end

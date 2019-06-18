@@ -26,7 +26,7 @@
 @implementation SearchDomainViewController
 
 @synthesize viewHeader, icBack, lbTitle;
-@synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose;
+@synthesize scvContent, lbTop, lbWWW, tfSearch, icSearch, viewResult, imgEmoji, lbSearchContent, viewDomain, lbDomainName, lbPrice, lbOldPrice, lbSepa, btnChoose, btnContinue;
 @synthesize lbSepaView, lbRelationDomain, tbDomains;
 @synthesize padding, strSearch, listDomains, hTableView, hSearch;
 
@@ -114,6 +114,12 @@
         [[AppDelegate sharedInstance] updateShoppingCartCount];
         [self updateLayoutForChooseMainDomain: sender];
     }
+    
+    [self checkToEnableContinueButton];
+}
+
+- (IBAction)btnContinuePress:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 - (void)updateLayoutForChooseMainDomain: (UIButton *)sender {
@@ -202,10 +208,21 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
+    [self checkToEnableContinueButton];
+    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnContinue.layer.cornerRadius = 45.0/2;
+    [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(self.padding);
+        make.right.bottom.equalTo(self.view).offset(-self.padding);
+        make.height.mas_equalTo(45.0);
+    }];
+    
     scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.bottom.equalTo(self.btnContinue.mas_top).offset(-self.padding);
         make.top.equalTo(self.viewHeader.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
@@ -580,6 +597,18 @@
             [[AppDelegate sharedInstance] updateShoppingCartCount];
             [tbDomains reloadData];
         }
+    }
+    
+    [self checkToEnableContinueButton];
+}
+
+- (void)checkToEnableContinueButton {
+    if ([[CartModel getInstance] countItemInCart] > 0) {
+        btnContinue.enabled = TRUE;
+        btnContinue.backgroundColor = BLUE_COLOR;
+    }else{
+        btnContinue.enabled = FALSE;
+        btnContinue.backgroundColor = OLD_PRICE_COLOR;
     }
 }
 

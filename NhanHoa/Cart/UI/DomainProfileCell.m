@@ -19,9 +19,9 @@
     hBTN = 34.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width+5;
+    sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+5;
     sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width+5;
-    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+5;
+    sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont:textFont].width+5;
     
     lbType.font = lbTypeValue.font = lbProfile.font = lbProfileValue.font = lbCompany.font = lbCompanyValue.font = textFont;
     lbDomain.textColor = lbType.textColor = lbTypeValue.textColor = lbCompany.textColor = lbCompanyValue.textColor = lbProfile.textColor = lbProfileValue.textColor = TITLE_COLOR;

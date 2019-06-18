@@ -54,9 +54,14 @@
                 [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"banner.jpg"]];
             }
             //  for page control
+            if (listBanners.count > 1) {
+                pageControl.hidden = FALSE;
+            }else{
+                pageControl.hidden = TRUE;
+            }
+            
             pageControl.numberOfPages = listBanners.count;
             pageControl.currentPage = 0;
-            
             scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH*listBanners.count, hBanner);
             
             slideTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_FOR_SLIDER target:self selector:@selector(nextSlider) userInfo:nil repeats:TRUE];
@@ -79,7 +84,9 @@
     if (index < listBanners.count) {
         NSDictionary *info = [listBanners objectAtIndex: index];
         NSString *url = [info objectForKey:@"url"];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+        if (![AppUtils isNullOrEmpty: url]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+        }
     }
 }
 

@@ -16,19 +16,19 @@ typedef enum TypeSelectDomain{
     eExpireDomain,
 }TypeSelectDomain;
 
-@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, PriceListViewDelegate, WebServiceUtilsDelegate>
+@interface RenewedDomainViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, UITextFieldDelegate>
 {
-    NSMutableArray *listAll;
-    NSMutableArray *listExpire;
     TypeSelectDomain type;
-    BOOL gettedAll;
-    BOOL gettedExpire;
+    
+    NSMutableArray *listSearch;
+    BOOL searching;
+    NSTimer *searchTimer;
 }
 
 @end
 
 @implementation RenewedDomainViewController
-@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, btnPriceList, priceView, lbNoData;
+@synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, lbNoData, tfSearch, icSearch;
 @synthesize padding;
 
 - (void)viewDidLoad {
@@ -38,9 +38,6 @@ typedef enum TypeSelectDomain{
     self.title = @"Tên miền đã đăng ký";
     type = eAllDomain;
     lbNoData.hidden = TRUE;
-    [AppDelegate sharedInstance].needReloadListDomains = FALSE;
-    
-    [self getDomainsWasRegisteredWithType: eAllDomain];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -49,7 +46,19 @@ typedef enum TypeSelectDomain{
     [WriteLogsUtils writeForGoToScreen: @"RenewedDomainViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
-    if ([AppDelegate sharedInstance].needReloadListDomains) {
+    if (listSearch == nil) {
+        listSearch = [[NSMutableArray alloc] init];
+    }else{
+        [listSearch removeAllObjects];
+    }
+    
+    if (tfSearch.text.length > 0) {
+        [self searchTextfieldChanged: tfSearch];
+    }
+    
+    if ([AppDelegate sharedInstance].listAllDomains == nil || [AppDelegate sharedInstance].needReloadDomainsList) {
+        [AppDelegate sharedInstance].needReloadDomainsList = FALSE;
+        
         lbNoData.hidden = TRUE;
         type = eAllDomain;
         [self getDomainsWasRegisteredWithType: eAllDomain];
@@ -58,22 +67,10 @@ typedef enum TypeSelectDomain{
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
-    if (tbDomain.frame.size.height >= tbDomain.contentSize.height) {
-        tbDomain.scrollEnabled = FALSE;
-    }else{
-        tbDomain.scrollEnabled = TRUE;
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    
-    if (self.isMovingFromParentViewController) {
-        [AppDelegate sharedInstance].needReloadListDomains = TRUE;
-    }
-    
-    [priceView removeFromSuperview];
-    priceView = nil;
 }
 
 - (IBAction)btnAllDomainPress:(UIButton *)sender {
@@ -81,12 +78,14 @@ typedef enum TypeSelectDomain{
         return;
     }
     
+    tfSearch.text = @"";
+    searching = FALSE;
+    
     [WriteLogsUtils writeLogContent:SFM(@"Choose all domains tab")];
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.viewMenu);
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
-        make.bottom.equalTo(self.btnPriceList.mas_top);
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
     }];
     
     type = eAllDomain;
@@ -97,8 +96,8 @@ typedef enum TypeSelectDomain{
     [btnExpireDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnExpireDomain.backgroundColor = UIColor.clearColor;
     
-    if (gettedAll) {
-        if (listAll.count > 0) {
+    if ([AppDelegate sharedInstance].listAllDomains != nil) {
+        if ([AppDelegate sharedInstance].listAllDomains.count > 0) {
             lbNoData.hidden = TRUE;
             tbDomain.hidden = FALSE;
         }else{
@@ -117,11 +116,14 @@ typedef enum TypeSelectDomain{
         return;
     }
     
+    tfSearch.text = @"";
+    searching = FALSE;
+    
     [WriteLogsUtils writeLogContent:SFM(@"Choose expire domains tab")];
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.viewMenu);
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
         make.bottom.equalTo(self.view);
     }];
     
@@ -132,8 +134,8 @@ typedef enum TypeSelectDomain{
     [btnAllDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = UIColor.clearColor;
     
-    if (gettedExpire) {
-        if (listExpire.count > 0) {
+    if ([AppDelegate sharedInstance].listExpireDomains != nil) {
+        if ([AppDelegate sharedInstance].listExpireDomains.count > 0) {
             lbNoData.hidden = TRUE;
             tbDomain.hidden = FALSE;
         }else{
@@ -147,39 +149,15 @@ typedef enum TypeSelectDomain{
     }
 }
 
-- (IBAction)btnPriceListPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+- (IBAction)icSearchClick:(UIButton *)sender {
+    tfSearch.text = @"";
+    sender.hidden = TRUE;
+    searching = FALSE;
+    [listSearch removeAllObjects];
     
-    if (priceView == nil) {
-        [self addPriceListViewForMainView];
-    }
-    priceView.delegate = self;
-    [self reupdateFrameForViewPrice];
-    
-    if ([AppDelegate sharedInstance].domainsPrice == nil) {
-        [[WebServiceUtils getInstance] getDomainsPricingList];
-        [priceView showWaitingView: TRUE];
-    }
-}
-
-- (void)addPriceListViewForMainView {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PriceListView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[PriceListView class]]) {
-            priceView = (PriceListView *) currentObject;
-            break;
-        }
-    }
-    priceView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
-    [priceView setupUIForView];
-    priceView.clipsToBounds = TRUE;
-    [[AppDelegate sharedInstance].window addSubview: priceView];
-}
-
-- (void)reupdateFrameForViewPrice {
-    [UIView animateWithDuration:0.25 animations:^{
-        self.priceView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    }];
+    lbNoData.hidden = TRUE;
+    tbDomain.hidden = FALSE;
+    [tbDomain reloadData];
 }
 
 - (void)setupUIForView {
@@ -211,23 +189,52 @@ typedef enum TypeSelectDomain{
         make.right.top.bottom.equalTo(self.viewMenu);
     }];
     
-    NSAttributedString *titleAttrStr = [AppUtils generateTextWithContent:@"Bảng giá duy trì tên miền 2019" font:[AppDelegate sharedInstance].fontMedium color:[UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:1.0] image:[UIImage imageNamed:@"list_price"] size:20.0 imageFirst:TRUE];
-    [btnPriceList setAttributedTitle:titleAttrStr forState:UIControlStateNormal];
-    
-    btnPriceList.backgroundColor = [UIColor colorWithRed:(223/255.0) green:(126/255.0) blue:(35/255.0) alpha:0.3];
-    [btnPriceList mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(50.0);
+    tfSearch.returnKeyType = UIReturnKeyDone;
+    tfSearch.delegate = self;
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, [AppDelegate sharedInstance].hTextfield)];
+    tfSearch.leftViewMode = UITextFieldViewModeAlways;
+    tfSearch.placeholder = @"Nhập để tìm kiếm...";
+    tfSearch.font = [AppDelegate sharedInstance].fontRegular;
+    tfSearch.textColor = TITLE_COLOR;
+    tfSearch.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
+    tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
+    tfSearch.layer.borderWidth = 1.0;
+    [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
+        make.left.right.equalTo(self.viewMenu);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
+    [tfSearch addTarget:self
+                 action:@selector(searchTextfieldChanged:)
+       forControlEvents:UIControlEventEditingChanged];
+    
+    if (tfSearch.text.length == 0) {
+        icSearch.hidden = TRUE;
+    }else{
+        icSearch.hidden = FALSE;
+    }
+    
+    icSearch.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    icSearch.backgroundColor = BORDER_COLOR;
+    icSearch.layer.cornerRadius = ([AppDelegate sharedInstance].hTextfield-6.0)/2;
+    [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.tfSearch).offset(-3.0);
+        make.top.equalTo(self.tfSearch).offset(3.0);
+        make.bottom.equalTo(self.tfSearch).offset(-3.0);
+        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield-6.0);
+    }];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshDomainsList:) forControlEvents:UIControlEventValueChanged];
+    [tbDomain addSubview:refreshControl];
     
     tbDomain.separatorStyle = UITableViewCellSelectionStyleNone;
     tbDomain.delegate = self;
     tbDomain.dataSource = self;
     [tbDomain registerNib:[UINib nibWithNibName:@"ExpireDomainCell" bundle:nil] forCellReuseIdentifier:@"ExpireDomainCell"];
     [tbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.viewMenu);
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
-        make.bottom.equalTo(self.btnPriceList.mas_top);
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
     }];
     
     lbNoData.text = text_no_data;
@@ -235,14 +242,54 @@ typedef enum TypeSelectDomain{
     lbNoData.textAlignment = NSTextAlignmentCenter;
     lbNoData.textColor = UIColor.grayColor;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tbDomain);
+        make.top.bottom.equalTo(self.tbDomain);
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.btnPriceList.mas_top);
     }];
 }
 
--(void)getPricingListSuccessfulWithData:(NSDictionary *)data {
-    [self saveDomainPricing: data];
+- (void)refreshDomainsList:(UIRefreshControl *)refreshControl
+{
+    [[WebServiceUtils getInstance] getDomainsWasRegisteredWithType: type];
+    [refreshControl endRefreshing];
+}
+
+- (void)searchTextfieldChanged: (UITextField *)textfield {
+    if (textfield.text.length > 0) {
+        icSearch.hidden = FALSE;
+        searching = TRUE;
+        
+        if (searchTimer) {
+            [searchTimer invalidate];
+            searchTimer = nil;
+        }
+        searchTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(searchOnRegisteredDomains:) userInfo:textfield.text repeats:FALSE];
+        
+    }else{
+        icSearch.hidden = TRUE;
+        searching = FALSE;
+        lbNoData.hidden = TRUE;
+        tbDomain.hidden = FALSE;
+        [tbDomain reloadData];
+    }
+}
+
+- (void)searchOnRegisteredDomains: (NSTimer *)timer {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"domain CONTAINS[cd] %@", timer.userInfo];
+    if (type == eAllDomain) {
+        NSArray *filter = [[AppDelegate sharedInstance].listAllDomains filteredArrayUsingPredicate: predicate];
+        if (filter.count > 0) {
+            [listSearch removeAllObjects];
+            [listSearch addObjectsFromArray: filter];
+            
+            [tbDomain reloadData];
+            lbNoData.hidden = TRUE;
+            tbDomain.hidden = FALSE;
+        }else{
+            [listSearch removeAllObjects];
+            lbNoData.hidden = FALSE;
+            tbDomain.hidden = TRUE;
+        }
+    }
 }
 
 - (void)getDomainsWasRegisteredWithType: (int)type
@@ -257,50 +304,32 @@ typedef enum TypeSelectDomain{
 
 - (void)displayDomainsListWithData: (NSArray *)domains {
     if (type == eAllDomain) {
-        gettedAll = TRUE;
-        
-        if (listAll == nil) {
-            listAll = [[NSMutableArray alloc] init];
-        }else{
-            [listAll removeAllObjects];
-        }
         
         if (domains != nil && domains.count > 0) {
-            [listAll addObjectsFromArray: domains];
+            [AppDelegate sharedInstance].listAllDomains = [[NSMutableArray alloc] initWithArray: domains];
+            
             tbDomain.hidden = FALSE;
             lbNoData.hidden = TRUE;
         }else{
+            [AppDelegate sharedInstance].listAllDomains = [[NSMutableArray alloc] init];
+            
             tbDomain.hidden = TRUE;
             lbNoData.hidden = FALSE;
         }
         [tbDomain reloadData];
     }else{
-        gettedExpire = TRUE;
-        
-        if (listExpire == nil) {
-            listExpire = [[NSMutableArray alloc] init];
-        }else{
-            [listExpire removeAllObjects];
-        }
-        
         if (domains != nil && domains.count > 0) {
-            [listExpire addObjectsFromArray: domains];
+            [AppDelegate sharedInstance].listExpireDomains = [[NSMutableArray alloc] initWithArray: domains];
             tbDomain.hidden = FALSE;
             lbNoData.hidden = TRUE;
+            
         }else{
+            [AppDelegate sharedInstance].listExpireDomains = [[NSMutableArray alloc] init];
+            
             tbDomain.hidden = TRUE;
             lbNoData.hidden = FALSE;
         }
         [tbDomain reloadData];
-    }
-}
-
-- (void)saveDomainPricing: (NSDictionary *)data {
-    [priceView showWaitingView: FALSE];
-    
-    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-        [AppDelegate sharedInstance].domainsPrice = [[NSDictionary alloc] initWithDictionary: data];
-        [priceView prepareToDisplayData];
     }
 }
 
@@ -322,11 +351,6 @@ typedef enum TypeSelectDomain{
     }
 }
 
--(void)failedGetPricingListWithError:(NSString *)error {
-    [self.view makeToast:@"Không thể lấy bảng giá tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    [priceView showWaitingView: FALSE];
-}
-
 #pragma mark - UITableview
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -334,9 +358,17 @@ typedef enum TypeSelectDomain{
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (type == eAllDomain) {
-        return listAll.count;
+        if (searching) {
+            return listSearch.count;
+        }else{
+            return [AppDelegate sharedInstance].listAllDomains.count;
+        }
     }else{
-        return listExpire.count;
+        if (searching) {
+            return listSearch.count;
+        }else{
+            return [AppDelegate sharedInstance].listExpireDomains.count;
+        }
     }
 }
 
@@ -346,10 +378,20 @@ typedef enum TypeSelectDomain{
     
     NSDictionary *domain;
     if (type == eAllDomain) {
-        domain = [listAll objectAtIndex: indexPath.row];
+        if (searching) {
+            domain = [listSearch objectAtIndex: indexPath.row];
+        }else{
+            domain = [[AppDelegate sharedInstance].listAllDomains objectAtIndex: indexPath.row];
+        }
+        
         [cell showContentWithDomainInfo:domain withExpire:FALSE];
     }else{
-        domain = [listExpire objectAtIndex: indexPath.row];
+        if (searching) {
+            domain = [listSearch objectAtIndex: indexPath.row];
+        }else{
+            domain = [[AppDelegate sharedInstance].listExpireDomains objectAtIndex: indexPath.row];
+        }
+        
         [cell showContentWithDomainInfo:domain withExpire:TRUE];
     }
     cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
@@ -359,9 +401,17 @@ typedef enum TypeSelectDomain{
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *domain;
     if (type == eAllDomain) {
-        domain = [listAll objectAtIndex: indexPath.row];
+        if (searching) {
+            domain = [listSearch objectAtIndex: indexPath.row];
+        }else{
+            domain = [[AppDelegate sharedInstance].listAllDomains objectAtIndex: indexPath.row];
+        }
     }else{
-        domain = [listExpire objectAtIndex: indexPath.row];
+        if (searching) {
+            domain = [listSearch objectAtIndex: indexPath.row];
+        }else{
+            domain = [[AppDelegate sharedInstance].listExpireDomains objectAtIndex: indexPath.row];
+        }
     }
     NSString *ord_id = [domain objectForKey:@"ord_id"];
     NSString *cus_id = [domain objectForKey:@"cus_id"];
@@ -382,13 +432,12 @@ typedef enum TypeSelectDomain{
     return 65.0;
 }
 
-#pragma mark - Price list view delegate
--(void)onCloseViewDomainPrice {
-    [UIView animateWithDuration:0.25 animations:^{
-        self.priceView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
-    }];
+#pragma mark - UITextfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfSearch) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
 }
-
-
 
 @end

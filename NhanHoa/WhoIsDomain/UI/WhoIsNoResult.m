@@ -132,6 +132,8 @@
             
         }
         [[AppDelegate sharedInstance] updateShoppingCartCount];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"selectedOrRemoveDomainFromCart" object:nil];
     }
 }
 

@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float padding;
 @property (nonatomic, strong) WhoIsDomainView *whoisView;
 @property (nonatomic, strong) WhoIsNoResult *noResultView;
+@property (weak, nonatomic) IBOutlet UIButton *btnContinue;
+- (IBAction)btnContinuePress:(UIButton *)sender;
 
 @end
 

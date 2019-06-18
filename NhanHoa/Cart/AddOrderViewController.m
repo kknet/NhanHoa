@@ -473,6 +473,8 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToAddNewOrderWithError:(NSString *)error {
+    [AppDelegate sharedInstance].needReloadDomainsList = TRUE;
+    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"failed" forKey:buyingDomain];
@@ -481,6 +483,8 @@
 }
 
 -(void)addNewOrderSuccessfulWithData:(NSDictionary *)data {
+    [AppDelegate sharedInstance].needReloadDomainsList = TRUE;
+    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"success" forKey:buyingDomain];

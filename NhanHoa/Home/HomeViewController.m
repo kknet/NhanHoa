@@ -23,7 +23,7 @@
 #import "AccountModel.h"
 #import "HaveNotSignedView.h"
 
-@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, HaveNotSignedViewDelegate>{
+@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, HaveNotSignedViewDelegate, WebServiceUtilsDelegate>{
     NSMutableArray *listMenu;
     float hBanner;
     HaveNotSignedView *notSignedView;
@@ -53,6 +53,13 @@
     [self createCartViewIfNeed];
     
     [self checkSignedToAccount];
+    
+    if ([AppDelegate sharedInstance].needReloadInfo) {
+        [AppDelegate sharedInstance].needReloadInfo = FALSE;
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {

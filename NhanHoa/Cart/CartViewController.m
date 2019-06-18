@@ -14,7 +14,7 @@
 #import "CartModel.h"
 #import "AccountModel.h"
 
-@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>{
+@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>{
     float hCell;
     int selectedIndex;
 }
@@ -37,6 +37,13 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
+    if ([AppDelegate sharedInstance].needReloadInfo) {
+        [AppDelegate sharedInstance].needReloadInfo = FALSE;
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+    }
     
     [self setupUIForView];
     [self addTableViewForSelectYears];

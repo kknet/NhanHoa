@@ -56,9 +56,9 @@
     
     //  get size
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-    sizeType = [AppUtils getSizeWithText:@"Loại tên miền:" withFont:textFont].width + 10;
+    sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width + 10;
     sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont: textFont].width + 10;
-    sizeProfile = [AppUtils getSizeWithText:@"Hồ sơ:" withFont: textFont].width + 10;
+    sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont: textFont].width + 10;
     
     //  set font and color
     lbTypeName.font = lbCompany.font = lbProfileName.font = textFont;

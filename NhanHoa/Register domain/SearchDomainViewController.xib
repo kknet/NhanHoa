@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchDomainViewController">
             <connections>
                 <outlet property="btnChoose" destination="lOe-kW-1ke" id="TXt-mw-Luv"/>
+                <outlet property="btnContinue" destination="Sih-zM-anR" id="2Ts-E3-Qes"/>
                 <outlet property="icBack" destination="r3r-Hh-OAB" id="P7R-Mw-t7j"/>
                 <outlet property="icSearch" destination="Igl-rJ-9C5" id="sxQ-BG-lRE"/>
                 <outlet property="imgEmoji" destination="dD8-jf-Y98" id="5rb-9H-EqV"/>
@@ -183,14 +184,22 @@
                         </tableView>
                     </subviews>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sih-zM-anR">
+                    <rect key="frame" x="132" y="225" width="56" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Tiếp tục"/>
+                    <connections>
+                        <action selector="btnContinuePress:" destination="-1" eventType="touchUpInside" id="ABx-Gn-FOS"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-340" y="-40"/>
+            <point key="canvasLocation" x="-130" y="-131"/>
         </view>
     </objects>
     <resources>
-        <image name="back_medium.png" width="128" height="128"/>
+        <image name="back_medium.png" width="400.69564819335938" height="400.69564819335938"/>
         <image name="ic_search_domain.png" width="100" height="100"/>
         <image name="search_smile.png" width="100" height="100"/>
     </resources>

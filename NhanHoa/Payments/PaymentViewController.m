@@ -129,11 +129,13 @@
                 break;
             }
         }
-        [[AppDelegate sharedInstance].window addSubview: paymentView];
+        UIWindow *curWindow = [[UIApplication sharedApplication] keyWindow];
+        [curWindow addSubview: paymentView];
     }
-    paymentView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    paymentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [paymentView setupUIForView];
     paymentView.delegate = self;
+    paymentView.backgroundColor = UIColor.whiteColor;
 }
 
 

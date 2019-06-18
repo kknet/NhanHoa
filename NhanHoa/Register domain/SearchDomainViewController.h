@@ -42,11 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *listDomains;
 @property (nonatomic, assign) float hTableView;
 @property (nonatomic, assign) float hSearch;
+@property (weak, nonatomic) IBOutlet UIButton *btnContinue;
 
 - (IBAction)icCartClick:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icSearchClick:(UIButton *)sender;
 - (IBAction)btnChoosePress:(UIButton *)sender;
+- (IBAction)btnContinuePress:(UIButton *)sender;
 
 @end
 

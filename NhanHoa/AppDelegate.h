@@ -65,7 +65,6 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSString *registerAccount;
 
 @property (nonatomic, assign) BOOL needReloadListProfile;
-@property (nonatomic, assign) BOOL needReloadListDomains;
 
 @property (nonatomic, strong) NSMutableDictionary *profileEdit;
 @property (nonatomic, strong) UIImage *editCMND_a;
@@ -84,6 +83,9 @@ typedef enum PaymentMethod{
 @property(strong, nonatomic) UINavigationController *cartNavViewController;
 
 @property(strong, nonatomic) NSMutableArray *listBank;
+@property(strong, nonatomic) NSMutableArray *listAllDomains;
+@property(strong, nonatomic) NSMutableArray *listExpireDomains;
+@property (nonatomic, assign) BOOL needReloadDomainsList;
 
 - (void)updateShoppingCartCount;
 - (void)showCartScreenContent;
@@ -97,6 +99,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableArray *listPricingQT;
 
 @property (nonatomic, assign) BOOL dontNeedLogin;
+@property (nonatomic, assign) BOOL needReloadInfo;
 
 @property(strong, nonatomic) UIWindow *loginWindow;
 @property(strong, nonatomic) LaunchViewController *launchVC;

@@ -14,6 +14,7 @@
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate>{
     NSMutableArray *listData;
+
 }
 
 @end

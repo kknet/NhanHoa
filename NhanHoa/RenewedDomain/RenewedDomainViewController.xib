@@ -13,9 +13,10 @@
             <connections>
                 <outlet property="btnAllDomain" destination="PPO-Vz-mcA" id="fU2-mx-ekP"/>
                 <outlet property="btnExpireDomain" destination="3Je-oN-kSR" id="YiM-qz-d39"/>
-                <outlet property="btnPriceList" destination="JPD-JS-bex" id="9KI-Th-J6f"/>
+                <outlet property="icSearch" destination="GCY-oJ-KsU" id="k4o-hj-wu7"/>
                 <outlet property="lbNoData" destination="H6k-Ay-cpV" id="xuH-8p-4v2"/>
                 <outlet property="tbDomain" destination="phk-uT-VEc" id="k3j-n3-f3K"/>
+                <outlet property="tfSearch" destination="baE-Es-HZy" id="5Jz-3Y-iji"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewMenu" destination="dsX-VI-ER8" id="666-jN-ziH"/>
             </connections>
@@ -54,18 +55,10 @@
                     <color key="backgroundColor" red="0.88627450980392153" green="0.91764705882352937" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="phk-uT-VEc">
-                    <rect key="frame" x="16" y="65" width="288" height="395"/>
+                    <rect key="frame" x="16" y="106" width="288" height="354"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPD-JS-bex">
-                    <rect key="frame" x="0.0" y="420" width="320" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Bảng giá duy trì tên miền"/>
-                    <connections>
-                        <action selector="btnPriceListPress:" destination="-1" eventType="touchUpInside" id="hmr-5g-123"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6k-Ay-cpV">
                     <rect key="frame" x="139" y="229" width="61" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,10 +66,28 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="baE-Es-HZy">
+                    <rect key="frame" x="16" y="61" width="288" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCY-oJ-KsU">
+                    <rect key="frame" x="274" y="63" width="26" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="close_blue.png"/>
+                    <connections>
+                        <action selector="icSearchClick:" destination="-1" eventType="touchUpInside" id="fNd-o7-VGQ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="70" y="-53"/>
+            <point key="canvasLocation" x="-242" y="-108"/>
         </view>
     </objects>
+    <resources>
+        <image name="close_blue.png" width="75" height="75"/>
+    </resources>
 </document>

@@ -32,6 +32,15 @@
     [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
+//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
+//    {
+//        if (data.length > 0 && connectionError == nil)
+//        {
+//            NSLog(@"%@", data);
+//            //The data for the response is in "data" Do whatever is required
+//        }
+//    }];
+    
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if(connection) {
         NSLog(@"Connection Successful");
