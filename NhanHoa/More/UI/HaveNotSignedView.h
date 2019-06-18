@@ -10,8 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol HaveNotSignedViewDelegate <NSObject>
+@optional
+- (void)tapOnViewSignToAccount;
+@end
+
 @interface HaveNotSignedView : UIView
 
+@property (weak, nonatomic) id<HaveNotSignedViewDelegate, NSObject> delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (weak, nonatomic) IBOutlet UILabel *lbNotSigned;
 

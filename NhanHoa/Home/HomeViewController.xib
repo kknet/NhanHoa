@@ -15,7 +15,6 @@
                 <outlet property="clvMenu" destination="FF1-FZ-bCd" id="Q9t-Dy-s7t"/>
                 <outlet property="imgMainWallet" destination="BpW-Tf-lSt" id="Cfu-Cg-Cx6"/>
                 <outlet property="imgRewards" destination="yUa-Et-zx8" id="Jb1-92-siX"/>
-                <outlet property="lbHaveNotSigned" destination="ddF-Uz-swT" id="NXG-Ms-Dmd"/>
                 <outlet property="lbMainWallet" destination="A8W-hB-5mF" id="ZmO-lH-6X1"/>
                 <outlet property="lbMoney" destination="abS-qp-7CZ" id="vIM-dZ-6d1"/>
                 <outlet property="lbRewards" destination="pl6-rO-SNI" id="7TB-sy-1of"/>
@@ -111,13 +110,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chưa đăng nhập" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddF-Uz-swT">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>

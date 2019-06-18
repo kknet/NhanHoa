@@ -583,7 +583,6 @@
 }
 
 - (void)showLoginView {
-    add icon close
     SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
     signInVC.view.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
     [self.window addSubview: signInVC.view];

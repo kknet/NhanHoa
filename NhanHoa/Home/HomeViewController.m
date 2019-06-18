@@ -21,16 +21,18 @@
 #import "HomeMenuObject.h"
 #import "CartModel.h"
 #import "AccountModel.h"
+#import "HaveNotSignedView.h"
 
-@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>{
+@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, HaveNotSignedViewDelegate>{
     NSMutableArray *listMenu;
     float hBanner;
+    HaveNotSignedView *notSignedView;
 }
 @end
 
 @implementation HomeViewController
 @synthesize viewSearch, tfSearch, btnSearch;
-@synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney, lbHaveNotSigned;
+@synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
 @synthesize hMenu, viewBanner;
 
@@ -50,15 +52,7 @@
     [self showUserWalletView];
     [self createCartViewIfNeed];
     
-    if ([AppDelegate sharedInstance].dontNeedLogin) {
-        if ([AppDelegate sharedInstance].userInfo != nil) {
-            lbHaveNotSigned.hidden = TRUE;
-        }else{
-            lbHaveNotSigned.hidden = FALSE;
-        }
-    }else{
-        lbHaveNotSigned.hidden = TRUE;
-    }
+    [self checkSignedToAccount];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -378,13 +372,6 @@
         make.height.mas_equalTo(hWallet);
     }];
     
-    lbHaveNotSigned.textColor = TITLE_COLOR;
-    lbHaveNotSigned.font = [AppDelegate sharedInstance].fontBTN;
-    lbHaveNotSigned.backgroundColor = UIColor.whiteColor;
-    [lbHaveNotSigned mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.viewWallet);
-    }];
-    
     UITapGestureRecognizer *tapOnMainWallet = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnMainWallet)];
     viewMainWallet.userInteractionEnabled = TRUE;
     [viewMainWallet addGestureRecognizer: tapOnMainWallet];
@@ -499,7 +486,44 @@
     SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
     searchDomainVC.strSearch = tfSearch.text;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
+}
+
+- (void)checkSignedToAccount {
+    if ([AppDelegate sharedInstance].dontNeedLogin) {
+        if ([AppDelegate sharedInstance].userInfo != nil) {
+            viewWallet.hidden = FALSE;
+            notSignedView.hidden = TRUE;
+        }else{
+            [self addHaveNotSignedYetViewIfNeed];
+            notSignedView.hidden = FALSE;
+            viewWallet.hidden = TRUE;
+        }
+    }else{
+        viewWallet.hidden = FALSE;
+    }
+}
+
+- (void)addHaveNotSignedYetViewIfNeed {
+    if (notSignedView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HaveNotSignedView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[HaveNotSignedView class]]) {
+                notSignedView = (HaveNotSignedView *) currentObject;
+                break;
+            }
+        }
+        notSignedView.delegate = self;
+        [self.view addSubview: notSignedView];
+    }
     
+    [notSignedView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.viewWallet);
+    }];
+    [notSignedView setupUIForView];
+}
+
+-(void)tapOnViewSignToAccount {
+    [[AppDelegate sharedInstance] showLoginView];
 }
 
 @end

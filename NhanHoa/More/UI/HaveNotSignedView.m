@@ -9,7 +9,7 @@
 #import "HaveNotSignedView.h"
 
 @implementation HaveNotSignedView
-@synthesize imgAvatar, lbNotSigned;
+@synthesize imgAvatar, lbNotSigned, delegate;
 
 - (void)setupUIForView {
     self.backgroundColor = UIColor.whiteColor;
@@ -31,6 +31,16 @@
         make.top.bottom.equalTo(self.imgAvatar);
         make.right.equalTo(self).offset(-padding);
     }];
+    
+    UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSignAccountView)];
+    self.userInteractionEnabled = TRUE;
+    [self addGestureRecognizer: tapOnView];
+}
+
+- (void)tapToSignAccountView {
+    if ([delegate respondsToSelector:@selector(tapOnViewSignToAccount)]) {
+        [delegate tapOnViewSignToAccount];
+    }
 }
 
 @end

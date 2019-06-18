@@ -225,6 +225,11 @@
     [resultView.icBack addTarget:self
                           action:@selector(backIconViewResultClick)
                 forControlEvents:UIControlEventTouchUpInside];
+    
+    [resultView.btnTopupMore addTarget:self
+                                action:@selector(backIconViewResultClick)
+                forControlEvents:UIControlEventTouchUpInside];
+    
     resultView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [resultView setupUIForView];
     resultView.hidden = TRUE;

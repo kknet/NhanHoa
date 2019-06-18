@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -29,8 +29,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Để cập nhật ảnh đại diện và chứng minh nhân dân của bạn</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Để cập nhật ảnh đại diện và chứng minh nhân dân của bạn</string>
 	<key>UIAppFonts</key>
