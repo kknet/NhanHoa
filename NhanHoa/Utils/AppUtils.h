@@ -52,5 +52,6 @@
 + (NSData *)getFileDataFromDirectoryWithFileName: (NSString *)fileName;
 + (NSString *)getErrorContentFromData: (id)data;
 + (NSString *)getYesterdayDateString;
++ (NSString *)getStatusValueWithCode: (NSString *)status;
 
 @end

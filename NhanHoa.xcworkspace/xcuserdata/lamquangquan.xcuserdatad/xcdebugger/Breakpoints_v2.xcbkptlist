@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NhanHoa/RenewedDomain/RenewDomainCartViewController.m"
-            timestampString = "582018192.833634"
+            timestampString = "582627416.478115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
@@ -201,13 +201,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Home/HomeViewController.m"
-            timestampString = "582538748.106311"
+            filePath = "NhanHoa/Account/WithdrawalBonusAccountViewController.m"
+            timestampString = "582627416.478723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "446"
-            endingLineNumber = "446"
-            landmarkName = "-whenTapOnMainWallet"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "-startWithdraw"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,13 +217,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/Home/HomeViewController.m"
-            timestampString = "582538748.106649"
+            filePath = "NhanHoa/Account/WithdrawalBonusAccountViewController.m"
+            timestampString = "582627416.478937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
-            landmarkName = "-whenTapOnPoints"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "-startWithdraw"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +233,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/SignIn/LaunchViewController.m"
-            timestampString = "582544518.5570329"
+            filePath = "NhanHoa/Account/WithdrawalBonusAccountViewController.m"
+            timestampString = "582627416.479094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "-btnSignInPress:"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-startWithdraw"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -249,14 +249,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/SignIn/LaunchViewController.m"
-            timestampString = "582544519.556788"
+            filePath = "NhanHoa/Cart/UI/SelectProfileView.m"
+            timestampString = "582627416.4793299"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "-goToSignInView"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-icBackClick:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SelectProfileView icBackClick:]"
+                  moduleName = "NhanHoa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
+                  timestampString = "582627417.521451"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[SelectProfileView icBackClick:]_block_invoke"
+                  moduleName = "NhanHoa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
+                  timestampString = "582627417.527009"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.190"
+                  moduleName = "NhanHoa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
+                  timestampString = "582627417.5332839"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

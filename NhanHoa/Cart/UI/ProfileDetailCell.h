@@ -10,7 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ProfileDetailCellDelegate <NSObject>
+@optional
+- (void)selectedProfile: (NSDictionary *)profileInfo;
+@end
+
 @interface ProfileDetailCell : UITableViewCell
+
+@property (weak, nonatomic) id<ProfileDetailCellDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *viewDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
@@ -57,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float sizeType;
 @property (nonatomic, assign) float sizeCompany;
 @property (nonatomic, assign) float sizeProfile;
+
+@property (nonatomic, strong) NSDictionary *profile;
+- (IBAction)btnChoosePress:(UIButton *)sender;
 
 @end
 

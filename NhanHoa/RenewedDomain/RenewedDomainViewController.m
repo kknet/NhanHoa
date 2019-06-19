@@ -56,13 +56,9 @@ typedef enum TypeSelectDomain{
         [self searchTextfieldChanged: tfSearch];
     }
     
-    if ([AppDelegate sharedInstance].listAllDomains == nil || [AppDelegate sharedInstance].needReloadDomainsList) {
-        [AppDelegate sharedInstance].needReloadDomainsList = FALSE;
-        
-        lbNoData.hidden = TRUE;
-        type = eAllDomain;
-        [self getDomainsWasRegisteredWithType: eAllDomain];
-    }
+    lbNoData.hidden = TRUE;
+    type = eAllDomain;
+    [self getDomainsWasRegisteredWithType: eAllDomain];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

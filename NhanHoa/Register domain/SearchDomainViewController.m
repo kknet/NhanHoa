@@ -331,7 +331,7 @@
         make.right.equalTo(self.btnChoose.mas_left).offset(-self.padding);
     }];
     
-    lbPrice.text = @"29,000đ";
+    lbPrice.text = @"";
     lbPrice.font = [AppDelegate sharedInstance].fontMedium;
     lbPrice.textColor = NEW_PRICE_COLOR;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -339,7 +339,7 @@
         make.top.equalTo(self.viewDomain.mas_centerY).offset(2.0);
     }];
     
-    lbOldPrice.text = @"180,000đ";
+    lbOldPrice.text = @"";
     lbOldPrice.font = [AppDelegate sharedInstance].fontMedium;
     lbOldPrice.textColor = OLD_PRICE_COLOR;
     [lbOldPrice mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -440,7 +440,8 @@
             lbDomainName.text = firstDomain;
             NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
             if (![AppUtils isNullOrEmpty: price]) {
-                lbPrice.text = [AppUtils convertStringToCurrencyFormat: price];
+                NSString *strPrice = [AppUtils convertStringToCurrencyFormat: price];
+                lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", strPrice];
             }
             lbOldPrice.hidden = lbSepa.hidden = TRUE;
             
@@ -539,7 +540,7 @@
         NSString *price = [DomainModel getPriceFromDomainInfo: info];
         if (![AppUtils isNullOrEmpty: price]) {
             price = [AppUtils convertStringToCurrencyFormat: price];
-            cell.lbPrice.text = [NSString stringWithFormat:@"%@đ", price];
+            cell.lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", price];
         }else{
             cell.lbPrice.text = @"Liên hệ";
         }

@@ -54,6 +54,7 @@
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  15
 #define MIN_MONEY_TOPUP     10000
+#define phone_support       @"19006680"
 
 #define type_na             2
 #define type_men            1

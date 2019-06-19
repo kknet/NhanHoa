@@ -12,14 +12,17 @@
 #import "ProfileManagerCell.h"
 #import "AccountModel.h"
 
-@interface ProfileManagerViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
+@interface ProfileManagerViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, UITextFieldDelegate>{
     NSMutableArray *listProfiles;
+    NSMutableArray *listSearch;
+    BOOL searching;
+    NSTimer *searchTimer;
 }
 
 @end
 
 @implementation ProfileManagerViewController
-@synthesize tbProfiles, lbNoData;
+@synthesize tbProfiles, lbNoData, tfSearch, icClear;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,10 +40,26 @@
     [WriteLogsUtils writeForGoToScreen: @"ProfileManagerViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
+    if (listSearch == nil) {
+        listSearch = [[NSMutableArray alloc] init];
+    }else{
+        [listSearch removeAllObjects];
+    }
+    
     [self addRightBarButtonForNavigationBar];
     if ([AppDelegate sharedInstance].needReloadListProfile) {
         [AppDelegate sharedInstance].needReloadListProfile = FALSE;
         [self getListProfilesForAccount];
+        
+        tfSearch.text = @"";
+        icClear.hidden = TRUE;
+    }else{
+        if (tfSearch.text.length > 0) {
+            [self searchTextfieldChanged: tfSearch];
+            icClear.hidden = TRUE;
+        }else{
+            icClear.hidden = FALSE;
+        }
     }
 }
 
@@ -83,19 +102,52 @@
 }
 
 - (void)setupUIForView {
+    float padding = 15.0;
+    
+    tfSearch.returnKeyType = UIReturnKeyDone;
+    tfSearch.delegate = self;
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, [AppDelegate sharedInstance].hTextfield)];
+    tfSearch.leftViewMode = UITextFieldViewModeAlways;
+    tfSearch.placeholder = @"Nhập để tìm kiếm...";
+    tfSearch.textColor = TITLE_COLOR;
+    tfSearch.font = [AppDelegate sharedInstance].fontRegular;
+    tfSearch.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
+    tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
+    tfSearch.layer.borderWidth = 1.0;
+    [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
+        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+    }];
+    [tfSearch addTarget:self
+                 action:@selector(searchTextfieldChanged:)
+       forControlEvents:UIControlEventEditingChanged];
+    
+    icClear.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    icClear.backgroundColor = BORDER_COLOR;
+    icClear.layer.cornerRadius = ([AppDelegate sharedInstance].hTextfield-6.0)/2;
+    [icClear mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.tfSearch).offset(-3.0);
+        make.top.equalTo(self.tfSearch).offset(3.0);
+        make.bottom.equalTo(self.tfSearch).offset(-3.0);
+        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield-6.0);
+    }];
+    
+    
     [tbProfiles registerNib:[UINib nibWithNibName:@"ProfileManagerCell" bundle:nil] forCellReuseIdentifier:@"ProfileManagerCell"];
     tbProfiles.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbProfiles.delegate = self;
     tbProfiles.dataSource = self;
     [tbProfiles mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
+        make.left.bottom.right.equalTo(self.view);
     }];
     
     lbNoData.hidden = TRUE;
     lbNoData.textColor = [UIColor colorWithRed:(100/255.0) green:(100/255.0) blue:(100/255.0) alpha:1.0];
     lbNoData.font = [UIFont fontWithName:RobotoRegular size:20.0];
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
+        make.top.left.bottom.right.equalTo(self.tbProfiles);
     }];
 }
 
@@ -106,6 +158,43 @@
     [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
     
     [[WebServiceUtils getInstance] getListProfilesForAccount:[AccountModel getCusUsernameOfUser]];
+}
+
+- (void)searchTextfieldChanged: (UITextField *)textfield {
+    if (textfield.text.length > 0) {
+        icClear.hidden = FALSE;
+        searching = TRUE;
+        
+        if (searchTimer) {
+            [searchTimer invalidate];
+            searchTimer = nil;
+        }
+        searchTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(searchOnRegisteredDomains:) userInfo:textfield.text repeats:FALSE];
+        
+    }else{
+        icClear.hidden = TRUE;
+        searching = FALSE;
+        lbNoData.hidden = TRUE;
+        tbProfiles.hidden = FALSE;
+        [tbProfiles reloadData];
+    }
+}
+
+- (void)searchOnRegisteredDomains: (NSTimer *)timer {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cus_company CONTAINS[cd] %@ OR cus_realname CONTAINS[cd] %@", timer.userInfo, timer.userInfo];
+    NSArray *filter = [listProfiles filteredArrayUsingPredicate: predicate];
+    if (filter.count > 0) {
+        [listSearch removeAllObjects];
+        [listSearch addObjectsFromArray: filter];
+        
+        [tbProfiles reloadData];
+        lbNoData.hidden = TRUE;
+        tbProfiles.hidden = FALSE;
+    }else{
+        [listSearch removeAllObjects];
+        lbNoData.hidden = FALSE;
+        tbProfiles.hidden = TRUE;
+    }
 }
 
 - (void)displayInformationWithData: (id)data {
@@ -154,7 +243,11 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listProfiles.count;
+    if (searching) {
+        return listSearch.count;
+    }else{
+        return listProfiles.count;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,7 +255,12 @@
     ProfileManagerCell *cell = (ProfileManagerCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileManagerCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSDictionary *profileInfo = [listProfiles objectAtIndex: indexPath.row];
+    NSDictionary *profileInfo;
+    if (searching) {
+        profileInfo = [listSearch objectAtIndex: indexPath.row];
+    }else{
+        profileInfo = [listProfiles objectAtIndex: indexPath.row];
+    }
     
     //  Show profile type
     NSString *type = [profileInfo objectForKey:@"cus_own_type"];
@@ -192,7 +290,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileDetailsViewController *detailVC = [[ProfileDetailsViewController alloc] initWithNibName:@"ProfileDetailsViewController" bundle:nil];
-    detailVC.profileInfo = [listProfiles objectAtIndex: indexPath.row];
+    if (searching) {
+        detailVC.profileInfo = [listSearch objectAtIndex: indexPath.row];
+    }else{
+        detailVC.profileInfo = [listProfiles objectAtIndex: indexPath.row];
+    }
     [self.navigationController pushViewController:detailVC animated:TRUE];
 }
 
@@ -206,6 +308,25 @@
         }
     }
     return 95.0;
+}
+
+- (IBAction)icClearClick:(UIButton *)sender {
+    tfSearch.text = @"";
+    sender.hidden = TRUE;
+    searching = FALSE;
+    [listSearch removeAllObjects];
+    
+    lbNoData.hidden = TRUE;
+    tbProfiles.hidden = FALSE;
+    [tbProfiles reloadData];
+}
+
+#pragma mark - UITextfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfSearch) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
 }
 
 @end

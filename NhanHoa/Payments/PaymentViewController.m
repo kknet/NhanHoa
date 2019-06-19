@@ -76,8 +76,8 @@
         cell.lbSepa.hidden = FALSE;
         
     }else{
-        cell.imgType.image = [UIImage imageNamed:@"visa.png"];
-        cell.lbTitle.text = @"Thẻ ghi nợ";
+        cell.imgType.image = [UIImage imageNamed:@"master-card.png"];
+        cell.lbTitle.text = @"Thẻ Visa / Master";
         cell.lbSepa.hidden = TRUE;
     }
     

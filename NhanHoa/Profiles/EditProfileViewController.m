@@ -87,6 +87,9 @@
         }
         [self.view addSubview: personalProfileView];
     }
+    personalProfileView.tfName.enabled = FALSE;
+    personalProfileView.tfName.backgroundColor = LIGHT_GRAY_COLOR;
+    
     [personalProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
@@ -106,6 +109,9 @@
         }
         [self.view addSubview: businessProfileView];
     }
+    businessProfileView.tfBusinessName.enabled = FALSE;
+    businessProfileView.tfBusinessName.backgroundColor = LIGHT_GRAY_COLOR;
+    
     [businessProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];

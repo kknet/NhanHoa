@@ -148,13 +148,13 @@
     NSNumber *totalPrice = [priceCartInfo objectForKey:@"total_price"];
     
     NSString *feeVAT = [NSString stringWithFormat:@"%ld", [VAT longValue]];
-    lbVATValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:feeVAT]];
+    lbVATValue.text = [NSString stringWithFormat:@"%@VNĐ", [AppUtils convertStringToCurrencyFormat:feeVAT]];
     
     NSString *strDomainPrice = [NSString stringWithFormat:@"%ld", [domainPrice longValue]];
-    lbPriceValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:strDomainPrice]];
+    lbPriceValue.text = [NSString stringWithFormat:@"%@VNĐ", [AppUtils convertStringToCurrencyFormat:strDomainPrice]];
     
     NSString *strTotalPrice = [NSString stringWithFormat:@"%ld", [totalPrice longValue]];
-    lbTotalValue.text = [NSString stringWithFormat:@"%@vnđ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]];
+    lbTotalValue.text = [NSString stringWithFormat:@"%@VNĐ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]];
 }
 
 - (void)addBackBarButtonForNavigationBar {

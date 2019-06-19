@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Rút điểm thưởng";
+    self.title = @"Rút tiền thưởng";
     [self setupUIForView];
 }
 
@@ -90,16 +90,16 @@
     strMoney = [strMoney stringByReplacingOccurrencesOfString:@"," withString:@""];
     
     if (![AppUtils checkValidCurrency: strMoney]) {
-        [self.view makeToast:@"Số điểm bạn muốn nạp không đúng định dạng. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:@"Số tiền bạn muốn rút không đúng định dạng. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     
     if (![AppUtils isNullOrEmpty: strMoney] && ![strMoney isEqualToString:@"0"]) {
-        withdrawMoney = [strMoney longLongValue];
+        withdrawMoney = (long)[strMoney longLongValue];
     }
     
     if (withdrawMoney == 0) {
-        [self.view makeToast:@"Vui lòng chọn hoặc nhập số điểm bạn muốn rút!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:@"Vui lòng chọn hoặc nhập số tiền bạn muốn rút!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     
@@ -111,16 +111,16 @@
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
         points = [AppUtils convertStringToCurrencyFormat: points];
-        lbMoney.text = [NSString stringWithFormat:@"%@ điểm", points];
+        lbMoney.text = [NSString stringWithFormat:@"%@VNĐ", points];
     }else{
-        lbMoney.text = @"0 điểm";
+        lbMoney.text = @"0VNĐ";
     }
 }
 
 - (void)showAlertConfirmToWithDraw {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn gia hạn tên miền này?"];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn rút tiền thưởng?"];
     [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
@@ -209,6 +209,7 @@
     //
     float hItem = 45.0;
     
+    lbDesc.text = @"Nhập số tiền muốn rút";
     lbDesc.textColor = TITLE_COLOR;
     lbDesc.font = [AppDelegate sharedInstance].fontMedium;
     [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -329,7 +330,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Điểm thưởng đã được rút thành công.\nChúng tôi sẽ liên hệ lại với bạn sớm." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:@"Tiền thưởng đã được rút thành công.\nChúng tôi sẽ liên hệ lại với bạn sớm." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
 }
 
 @end

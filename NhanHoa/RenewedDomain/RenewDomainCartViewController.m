@@ -208,15 +208,15 @@
     if (priceForRenew > 0 && yearsForRenew > 0) {
         long domainPrice = priceForRenew * yearsForRenew;
         NSString *strDomainPrice = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", domainPrice]];
-        lbDomainPriceValue.text = [NSString stringWithFormat:@"%@ vnđ", strDomainPrice];
+        lbDomainPriceValue.text = [NSString stringWithFormat:@"%@ VNĐ", strDomainPrice];
         
         long vatValue = vat*domainPrice/100;
         NSString *strVAT = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", vatValue]];
-        lbVATValue.text = [NSString stringWithFormat:@"%@ vnđ", strVAT];
+        lbVATValue.text = [NSString stringWithFormat:@"%@ VNĐ", strVAT];
         
         long total = domainPrice + vatValue;
         NSString *strTotal = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", total]];
-        lbTotalPriceValue.text = [NSString stringWithFormat:@"%@ vnđ", strTotal];
+        lbTotalPriceValue.text = [NSString stringWithFormat:@"%@ VNĐ", strTotal];
         
     }else {
         lbVATValue.text = lbDomainPriceValue.text = lbTotalPriceValue.text = @"N/A";
@@ -370,6 +370,27 @@
 
 -(void)reOrderDomainSuccessfulWithData:(NSDictionary *)data {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
+    [self tryToReloginAgainToUpdateBalance];
+}
+
+- (void)tryToReloginAgainToUpdateBalance {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
     [ProgressHUD dismiss];
     [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
@@ -393,15 +414,6 @@
     vat = [self getVATForRenewDomainWithInfo: domainInfo];
     
     [self updateAllPriceForView];
-    /*
-    "domain_id" = 144105;
-    "domain_name" = "nooplinux.com";
-    "domain_type" = domain;
-    "ord_id" = 867083;
-    price = 209000;
-    "price_vat" = 20900;
-    total = 229900;
-    vat = 10;   */
 }
 
 - (void)dismissView {

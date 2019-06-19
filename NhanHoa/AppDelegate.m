@@ -25,7 +25,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN, needReloadInfo, needReloadDomainsList;
+@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN, needReloadInfo;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -199,7 +199,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
 }
 
 
@@ -687,8 +687,8 @@
     [errorMsgDict setObject:@"Quá trình đăng ký đang bị giới hạn, tối đa 3 lần đăng ký trong 60 phút" forKey:@"041"];
     [errorMsgDict setObject:@"Thiếu CMND mặt trước" forKey:@"042"];
     [errorMsgDict setObject:@"Tên miền cần tra cứu không hợp lệ" forKey:@"043"];
-    [errorMsgDict setObject:@"Số điểm cần rút lớn hơn số điểm tài khoản đang có" forKey:@"044"];
-    [errorMsgDict setObject:@"Số điểm cần rút nhỏ hơn số điểm tối thiểu có thể rút" forKey:@"045"];
+    [errorMsgDict setObject:@"Số tiền cần rút lớn hơn số tiền thưởng tài khoản đang có" forKey:@"044"];
+    [errorMsgDict setObject:@"Số tiền cần rút nhỏ hơn số tiền tối thiểu có thể rút" forKey:@"045"];
 }
 
 @end

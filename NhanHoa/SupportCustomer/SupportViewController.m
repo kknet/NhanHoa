@@ -52,8 +52,9 @@
 
 - (IBAction)btnCallPress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phone_support]]];
+    //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", phone_support]]];
+    //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
 
 - (void)addSendMessageViewForMainView {

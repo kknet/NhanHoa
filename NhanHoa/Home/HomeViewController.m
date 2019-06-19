@@ -123,9 +123,9 @@
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
         points = [AppUtils convertStringToCurrencyFormat: points];
-        lbRewardsPoints.text = [NSString stringWithFormat:@"%@ điểm", points];
+        lbRewardsPoints.text = [NSString stringWithFormat:@"%@VNĐ", points];
     }else{
-        lbRewardsPoints.text = @"0 điểm";
+        lbRewardsPoints.text = @"0VNĐ";
     }
 }
 
@@ -428,7 +428,7 @@
         make.height.equalTo(self.imgMainWallet.mas_height);
     }];
     
-    lbRewards.text = @"Điểm thưởng";
+    lbRewards.text = @"Tiền thưởng";
     lbRewards.textColor = TITLE_COLOR;
     lbRewards.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {

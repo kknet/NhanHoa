@@ -48,7 +48,7 @@
     [jsonDict setObject:update_token_mod forKey:@"mod"];
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:token forKey:@"token"];
+    [jsonDict setObject:[NSString stringWithFormat:@"ios-%@", token] forKey:@"token"];
     
     [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
     

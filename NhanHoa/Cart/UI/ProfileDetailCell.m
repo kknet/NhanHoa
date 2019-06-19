@@ -11,7 +11,7 @@
 @implementation ProfileDetailCell
 @synthesize viewDomain, lbDomain, viewHeader, imgProfile, lbTypeName, lbTypeNameValue, lbProfileName, lbProfileNameValue, lbCompany, lbCompanyValue, btnChoose, viewDetail, lbDomainType, lbDomainTypeValue, lbName, lbNameValue, lbBOD, lbBODValue, lbPassport, lbPassportValue, lbAddress, lbAddressValue, lbPhone, lbPhoneValue, lbEmail, lbEmailValue, iconPassport, lbTitlePassport, imgFrontPassport, imgBehindPassport, lbSepa, lbFront, lbBehind;
 
-@synthesize sizeType, sizeCompany, sizeProfile;
+@synthesize sizeType, sizeCompany, sizeProfile, profile, delegate;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -356,6 +356,8 @@
 
 - (void)displayProfileInfo: (NSDictionary *)info
 {
+    profile = [[NSDictionary alloc] initWithDictionary: info];
+    
     NSString *type = [info objectForKey:@"cus_own_type"];
     if ([type isEqualToString:@"0"]) {
         lbTypeNameValue.text = lbDomainTypeValue.text = text_personal;
@@ -430,4 +432,9 @@
     }
 }
 
+- (IBAction)btnChoosePress:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(selectedProfile:)]) {
+        [delegate selectedProfile: profile];
+    }
+}
 @end

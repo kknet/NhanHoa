@@ -48,9 +48,9 @@
     NSString *cusPoint = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: cusPoint]) {
         cusPoint = [AppUtils convertStringToCurrencyFormat: cusPoint];
-        lbMoney.text = [NSString stringWithFormat:@"%@ điểm", cusPoint];
+        lbMoney.text = [NSString stringWithFormat:@"%@VNĐ", cusPoint];
     }else{
-        lbMoney.text = @"0 điểm";
+        lbMoney.text = @"0VNĐ";
     }
 }
 

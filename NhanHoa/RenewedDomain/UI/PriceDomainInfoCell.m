@@ -67,11 +67,11 @@
     id renew = [info objectForKey:@"renew"];
     if (renew != nil && [renew isKindOfClass:[NSNumber class]]) {
         NSString *renewValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [renew longValue]]];
-        lbRenew.text = [NSString stringWithFormat:@"%@đ", renewValue];
+        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
         
     }else if (renew != nil && [renew isKindOfClass:[NSString class]]) {
         NSString *renewValue = [AppUtils convertStringToCurrencyFormat:renew];
-        lbRenew.text = [NSString stringWithFormat:@"%@đ", renewValue];
+        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
     }else{
         lbRenew.text = @"";
     }
@@ -79,7 +79,7 @@
     id setup = [info objectForKey:@"setup"];
     if (setup != nil && [setup isKindOfClass:[NSNumber class]]) {
         NSString *setupValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [setup longValue]]];
-        lbSetup.text = [NSString stringWithFormat:@"%@đ", setupValue];
+        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", setupValue];
         
     }else if (setup != nil && [setup isKindOfClass:[NSString class]]) {
         lbSetup.text = setup;
@@ -90,7 +90,7 @@
     id transfer = [info objectForKey:@"transfer"];
     if (transfer != nil && [transfer isKindOfClass:[NSNumber class]]) {
         NSString *transferValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [transfer longValue]]];
-        lbTransfer.text = [NSString stringWithFormat:@"%@đ", transferValue];
+        lbTransfer.text = [NSString stringWithFormat:@"%@VNĐ", transferValue];
         
     }else if (transfer != nil && [transfer isKindOfClass:[NSString class]]) {
         lbTransfer.text = transfer;

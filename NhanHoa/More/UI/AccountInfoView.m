@@ -142,9 +142,9 @@
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
         points = [AppUtils convertStringToCurrencyFormat: points];
-        lbRewardMoney.text = [NSString stringWithFormat:@"%@ điểm", points];
+        lbRewardMoney.text = [NSString stringWithFormat:@"%@VNĐ", points];
     }else{
-        lbRewardMoney.text = @"0 điểm";
+        lbRewardMoney.text = @"0VNĐ";
     }
     
     NSString *avatarURL = [AccountModel getCusPhoto];

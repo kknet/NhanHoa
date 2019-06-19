@@ -67,30 +67,32 @@
     NSString *domain = [info objectForKey:@"domain"];
     lbName.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
     
+    NSString *status = [info objectForKey:@"status"];
+    if (status != nil && [status isKindOfClass:[NSString class]]) {
+        NSString *content = [AppUtils getStatusValueWithCode: status];
+        lbState.text = content;
+        
+        if ([status isEqualToString:@"2"]) {
+            lbState.textColor = GREEN_COLOR;
+            
+        }else if ([status isEqualToString:@"3"]){
+            lbState.textColor = NEW_PRICE_COLOR;
+            
+        }else{
+            lbState.textColor = UIColor.orangeColor;
+        }
+    }else{
+        lbState.text = @"Chưa xác định";
+        lbState.textColor = NEW_PRICE_COLOR;
+    }
+    
     NSString *endTime = [info objectForKey:@"ord_end_time"];
     if (endTime != nil && [endTime isKindOfClass:[NSString class]]) {
         NSString *expireDate = [AppUtils getDateStringFromTimerInterval:[endTime longLongValue]];
         lbDate.text = [NSString stringWithFormat:@"Hết hạn ngày %@", expireDate];
     }else{
-        lbDate.text = @"Hết hạn ngày: -.-";
+        lbDate.text = @"Hết hạn ngày: Đang cập nhật";
     }
-    
-    if (expire) {
-        lbState.text = @"Sắp hết hạn";
-        lbState.textColor = NEW_PRICE_COLOR;
-    }else{
-        lbState.text = @"Đã kích hoạt";
-        lbState.textColor = GREEN_COLOR;
-    }
-    
-//    "cus_id" = 127115;
-//    domain = "nooplinux.com";
-//    "ord_code" = ORD746763;
-//    "ord_end_time" = 1567641600;
-//    "ord_id" = 746763;
-//    "ord_start_time" = 1536105600;
-//    "service_id" = 2;
-//    status = 2;
 }
 
 @end

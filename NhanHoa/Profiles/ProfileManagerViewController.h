@@ -12,5 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 @property (weak, nonatomic) IBOutlet UITableView *tbProfiles;
+@property (weak, nonatomic) IBOutlet UITextField *tfSearch;
+@property (weak, nonatomic) IBOutlet UIButton *icClear;
+
+- (IBAction)icClearClick:(UIButton *)sender;
 
 @end

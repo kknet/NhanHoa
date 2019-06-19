@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WebServices.h"
 #import "ChooseCityPopupView.h"
+#import "ProfileDetailCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onCreatNewProfileClicked;
 @end
 
-@interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource, WebServicesDelegate>
+@interface SelectProfileView : UIView<UITableViewDelegate, UITableViewDataSource, WebServicesDelegate, UITextFieldDelegate, ProfileDetailCellDelegate>
 
 @property (nonatomic,strong) id<NSObject, SelectProfileViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
@@ -31,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icClose;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
+@property (weak, nonatomic) IBOutlet UITextField *tfSearch;
+@property (weak, nonatomic) IBOutlet UIButton *icClear;
 
 @property (nonatomic, assign) float hHeader;
 @property (nonatomic, assign) int selectedRow;
@@ -40,10 +43,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)icAddClick:(UIButton *)sender;
 - (IBAction)icCloseClick:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icClearClick:(UIButton *)sender;
 
 @property (nonatomic, strong) WebServices *webService;
 @property (nonatomic, strong) NSMutableArray *listProfiles;
 @property (nonatomic, assign) int cartIndexItemSelect;
+
+@property (nonatomic, assign) BOOL searching;
+@property (nonatomic, strong) NSTimer *searchTimer;
+@property (nonatomic, strong) NSMutableArray *listSearch;
 
 - (void)getListProfilesForAccount;
 

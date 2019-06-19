@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SelectProfileView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="842"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="615"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LW3-xV-tug">
@@ -53,36 +53,54 @@
                     </subviews>
                     <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9a-nu-wTc">
-                    <rect key="frame" x="0.0" y="53" width="320" height="427"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chưa có hồ sơ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zc-li-910">
-                    <rect key="frame" x="0.0" y="53" width="320" height="427"/>
+                    <rect key="frame" x="0.0" y="117" width="320" height="498"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ilr-Zu-A44">
+                    <rect key="frame" x="16" y="68" width="288" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ME-gH-kJN">
+                    <rect key="frame" x="273" y="68" width="31" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="close_blue.png"/>
+                    <connections>
+                        <action selector="icClearClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="7KL-8K-767"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9a-nu-wTc">
+                    <rect key="frame" x="0.0" y="188" width="320" height="427"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="icAdd" destination="bmC-WS-p9t" id="3i9-6K-A6l"/>
                 <outlet property="icBack" destination="EIJ-OS-8n2" id="fvJ-Oj-7fk"/>
+                <outlet property="icClear" destination="9ME-gH-kJN" id="mzd-gw-PKj"/>
                 <outlet property="icClose" destination="vGB-GM-dy1" id="smq-r6-XLN"/>
                 <outlet property="lbNoData" destination="1zc-li-910" id="l7y-RX-Ibj"/>
                 <outlet property="lbTitle" destination="SuV-E6-4x8" id="2Fx-m7-25z"/>
                 <outlet property="tbProfile" destination="G9a-nu-wTc" id="ZVb-Cx-CJ6"/>
+                <outlet property="tfSearch" destination="Ilr-Zu-A44" id="OBc-V9-2kg"/>
                 <outlet property="viewHeader" destination="LW3-xV-tug" id="gKK-rP-0vo"/>
             </connections>
-            <point key="canvasLocation" x="-661" y="-316"/>
+            <point key="canvasLocation" x="-552" y="-785"/>
         </view>
     </objects>
     <resources>
         <image name="add.png" width="100" height="100"/>
         <image name="back.png" width="100" height="100"/>
         <image name="close.png" width="100" height="100"/>
+        <image name="close_blue.png" width="100" height="100"/>
     </resources>
 </document>

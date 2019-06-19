@@ -683,5 +683,41 @@
     return [formatter stringFromDate: yesterday];
 }
 
++ (NSString *)getStatusValueWithCode: (NSString *)status {
+    if ([status isEqualToString:@"0"]) {
+        return @"Đang chờ";
+        
+    }else if ([status isEqualToString:@"1"]) {
+        return @"Đang xử lý";
+        
+    }else if ([status isEqualToString:@"2"]) {
+        return @"Đã kích hoạt";
+        
+    }else if ([status isEqualToString:@"3"]) {
+        return @"Đã hủy";
+        
+    }else if ([status isEqualToString:@"4"]) {
+        return @"Đang gia hạn";
+        
+    }else if ([status isEqualToString:@"5"]) {
+        return @"Đang chờ gia hạn";
+        
+    }else if ([status isEqualToString:@"6"]) {
+        return @"Đã hết hạn";
+        
+    }else if ([status isEqualToString:@"7"]) {
+        return @"Đã thanh lý";
+        
+    }else if ([status isEqualToString:@"8"]) {
+        return @"Đang suspend";
+        
+    }else if ([status isEqualToString:@"9"]) {
+        return @"Đã suspend";
+        
+    }else{
+        return @"Chưa xác định";
+    }
+}
+
 
 @end

@@ -114,6 +114,9 @@
 		15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8C2228A76B4002F4F0F /* nhanhoa.sqlite */; };
 		15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */; };
 		15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */; };
+		15CD147722B9E17B009CBE86 /* releaseck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147622B9E17A009CBE86 /* releaseck.pem */; };
+		15CD147922B9E2E9009CBE86 /* push.php in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147822B9E2E9009CBE86 /* push.php */; };
+		15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147A22B9E3F6009CBE86 /* master-card.png */; };
 		15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE3451229E6737001D4238 /* EditProfileViewController.m */; };
 		15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15CE3452229E6737001D4238 /* EditProfileViewController.xib */; };
 		15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD732283CA31004C0452 /* ProfileManagerViewController.m */; };
@@ -153,8 +156,6 @@
 		560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */; };
 		5610492122B4FE9000463378 /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5610492022B4FE9000463378 /* Constant.m */; };
 		563B8DC622B9B6D6004A037D /* ck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 563B8DC522B9B6D6004A037D /* ck.pem */; };
-		563B8DCA22B9B97F004A037D /* push.zip in Resources */ = {isa = PBXBuildFile; fileRef = 563B8DC922B9B97F004A037D /* push.zip */; };
-		563B8DCC22B9BA3E004A037D /* release_ck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 563B8DCB22B9BA3D004A037D /* release_ck.pem */; };
 		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
 		564619C622A812B400867B21 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564619C422A812B400867B21 /* PaymentViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
@@ -473,6 +474,9 @@
 		15C1A8CE228AB0DC002F4F0F /* PaymentResultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentResultView.h; sourceTree = "<group>"; };
 		15C1A8CF228AB0DC002F4F0F /* PaymentResultView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentResultView.m; sourceTree = "<group>"; };
 		15C1A8D1228AB0F0002F4F0F /* PaymentResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentResultView.xib; sourceTree = "<group>"; };
+		15CD147622B9E17A009CBE86 /* releaseck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = releaseck.pem; sourceTree = "<group>"; };
+		15CD147822B9E2E9009CBE86 /* push.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = push.php; sourceTree = "<group>"; };
+		15CD147A22B9E3F6009CBE86 /* master-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master-card.png"; sourceTree = "<group>"; };
 		15CE3450229E6737001D4238 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		15CE3451229E6737001D4238 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		15CE3452229E6737001D4238 /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
@@ -528,8 +532,6 @@
 		5610491F22B4FE8F00463378 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		5610492022B4FE9000463378 /* Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
 		563B8DC522B9B6D6004A037D /* ck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ck.pem; sourceTree = "<group>"; };
-		563B8DC922B9B97F004A037D /* push.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = push.zip; sourceTree = "<group>"; };
-		563B8DCB22B9BA3D004A037D /* release_ck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_ck.pem; sourceTree = "<group>"; };
 		564619C222A812B400867B21 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		564619C322A812B400867B21 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		564619C422A812B400867B21 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -1065,6 +1067,7 @@
 				84F1730522833310006AEE87 /* wallet_white.png */,
 				84A63C472283A91500C52B8A /* gift-box.png */,
 				84A1646B2284EA5C0001B833 /* atm.png */,
+				15CD147A22B9E3F6009CBE86 /* master-card.png */,
 				84A1646C2284EA5C0001B833 /* visa.png */,
 				157E2E6D2285380700D1ACDA /* circle_full_blue.png */,
 				157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */,
@@ -1226,9 +1229,9 @@
 		563B8DC422B9B6B6004A037D /* PemFiles */ = {
 			isa = PBXGroup;
 			children = (
-				563B8DC922B9B97F004A037D /* push.zip */,
 				563B8DC522B9B6D6004A037D /* ck.pem */,
-				563B8DCB22B9BA3D004A037D /* release_ck.pem */,
+				15CD147622B9E17A009CBE86 /* releaseck.pem */,
+				15CD147822B9E2E9009CBE86 /* push.php */,
 			);
 			path = PemFiles;
 			sourceTree = "<group>";
@@ -1674,7 +1677,6 @@
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */,
-				563B8DCC22B9BA3E004A037D /* release_ck.pem in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
 				1596AE7B22B7A08800857640 /* HaveNotSignedView.xib in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
@@ -1696,7 +1698,6 @@
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
-				563B8DCA22B9B97F004A037D /* push.zip in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
 				15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */,
 				15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */,
@@ -1724,6 +1725,7 @@
 				1517FBA622745D810044E878 /* tabbar_BO_def@3x.png in Resources */,
 				841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */,
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
+				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
@@ -1734,6 +1736,7 @@
 				8464D735227BB7C900381DE5 /* ProfileDetailCell.xib in Resources */,
 				56FDEB6422B684C5001A14AE /* PricingDomainViewController.xib in Resources */,
 				15362864227C0688006827F9 /* picture.png in Resources */,
+				15CD147722B9E17B009CBE86 /* releaseck.pem in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
 				157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */,
 				1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */,
@@ -1741,6 +1744,7 @@
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
+				15CD147922B9E2E9009CBE86 /* push.php in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,

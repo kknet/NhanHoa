@@ -106,12 +106,12 @@
     id price_first_year = [info objectForKey:@"price_first_year"];
     if ([price_first_year isKindOfClass:[NSString class]]) {
         NSString *amount = [AppUtils convertStringToCurrencyFormat: price_first_year];
-        lbPrice.text = [NSString stringWithFormat:@"%@ vnđ/năm", amount];
+        lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ/năm", amount];
         
     }else if ([price_first_year isKindOfClass:[NSNumber class]]) {
         NSString *amount = [NSString stringWithFormat:@"%ld", [price_first_year longValue]];
         NSString *strAmount = [AppUtils convertStringToCurrencyFormat: amount];
-        lbPrice.text = [NSString stringWithFormat:@"%@ vnđ/năm", strAmount];
+        lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ/năm", strAmount];
     }else{
         lbPrice.text = @"Liên hệ";
     }

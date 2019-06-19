@@ -85,7 +85,6 @@ typedef enum PaymentMethod{
 @property(strong, nonatomic) NSMutableArray *listBank;
 @property(strong, nonatomic) NSMutableArray *listAllDomains;
 @property(strong, nonatomic) NSMutableArray *listExpireDomains;
-@property (nonatomic, assign) BOOL needReloadDomainsList;
 
 - (void)updateShoppingCartCount;
 - (void)showCartScreenContent;

@@ -251,7 +251,16 @@
                            forControlEvents:UIControlEventTouchUpInside];
     }
     [orderResultView setContentViewWithInfo: paymentResult];
+    
+    //  reglogin again
+    [self tryToLoginAfterRegisteredDomains];
 }
+
+- (void)tryToLoginAfterRegisteredDomains {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
 
 - (void)afterPaymentSuccessfully {
     [[AppDelegate sharedInstance] hideCartView];
@@ -473,8 +482,6 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToAddNewOrderWithError:(NSString *)error {
-    [AppDelegate sharedInstance].needReloadDomainsList = TRUE;
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"failed" forKey:buyingDomain];
@@ -483,13 +490,19 @@
 }
 
 -(void)addNewOrderSuccessfulWithData:(NSDictionary *)data {
-    [AppDelegate sharedInstance].needReloadDomainsList = TRUE;
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"success" forKey:buyingDomain];
     }
     [self startToAddAllDomainInYourCart];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
 }
 
 #pragma mark - PaymentStepView Delegate
@@ -515,11 +528,6 @@
             [self btnConfirmProfilePress];
         }
     }
-    
-//    ePaymentProfile,
-//    ePaymentConfirm,
-//    ePaymentCharge,
-//    ePaymentDone,
 }
 
 @end
