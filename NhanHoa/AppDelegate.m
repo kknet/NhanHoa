@@ -218,6 +218,14 @@
     [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@">>>>>ERROR<<<<< CAN NOT GET TOKEN FOR APP: %@", error.localizedDescription]];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"%@", @[userInfo]);
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"%@", @[userInfo]);
+}
+
 +(AppDelegate *)sharedInstance{
     return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);
 }
