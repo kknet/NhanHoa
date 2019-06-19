@@ -15,33 +15,34 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    float sizeItem = (SCREEN_WIDTH - 5*padding)/4;
+    float smallPadding = 7.5;
+    float sizeItem = (SCREEN_WIDTH - 2*padding - 3*smallPadding)/4;
     
     float fontSize = [AppDelegate sharedInstance].fontRegular.pointSize;
-    lbName.font = lbRenew.font = lbSetup.font = lbTransfer.font = [UIFont fontWithName:RobotoRegular size:fontSize-1];
+    lbName.font = lbRenew.font = lbSetup.font = lbTransfer.font = [UIFont fontWithName:RobotoRegular size:fontSize-3];
     lbName.textColor = lbRenew.textColor = lbSetup.textColor = TITLE_COLOR;
     lbTransfer.textColor = NEW_PRICE_COLOR;
     
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.top.bottom.equalTo(self);
-        make.width.mas_equalTo(sizeItem);
+        make.width.mas_equalTo(sizeItem-10.0);
     }];
     
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbName.mas_right).offset(padding);
+        make.left.equalTo(self.lbName.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
-        make.right.equalTo(self.mas_centerX).offset(-padding/2);
+        make.width.mas_equalTo(sizeItem+5);
     }];
     
     [lbSetup mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX).offset(padding/2);
+        make.left.equalTo(self.lbRenew.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
-        make.width.mas_equalTo(sizeItem);
+        make.width.mas_equalTo(sizeItem+5);
     }];
     
     [lbTransfer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbSetup.mas_right).offset(padding);
+        make.left.equalTo(self.lbSetup.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
         make.right.equalTo(self).offset(-padding);
     }];
@@ -67,24 +68,24 @@
     id renew = [info objectForKey:@"renew"];
     if (renew != nil && [renew isKindOfClass:[NSNumber class]]) {
         NSString *renewValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [renew longValue]]];
-        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
+        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
         
     }else if (renew != nil && [renew isKindOfClass:[NSString class]]) {
         NSString *renewValue = [AppUtils convertStringToCurrencyFormat:renew];
-        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
+        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
     }else{
-        lbRenew.text = @"";
+        lbSetup.text = @"";
     }
     
     id setup = [info objectForKey:@"setup"];
     if (setup != nil && [setup isKindOfClass:[NSNumber class]]) {
         NSString *setupValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [setup longValue]]];
-        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", setupValue];
+        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", setupValue];
         
     }else if (setup != nil && [setup isKindOfClass:[NSString class]]) {
-        lbSetup.text = setup;
+        lbRenew.text = setup;
     }else{
-        lbSetup.text = @"";
+        lbRenew.text = @"";
     }
     
     id transfer = [info objectForKey:@"transfer"];

@@ -37,9 +37,9 @@
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
-        lbMoney.text = [NSString stringWithFormat:@"%@ VNĐ", totalBalance];
+        lbMoney.text = [NSString stringWithFormat:@"%@VNĐ", totalBalance];
     }else{
-        lbMoney.text = @"0 VNĐ";
+        lbMoney.text = @"0VNĐ";
     }
     tfMoney.text = @"";
     
@@ -129,7 +129,7 @@
     }
     if (topupMoney < MIN_MONEY_TOPUP) {
         NSString *strMinTopup = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%d", MIN_MONEY_TOPUP]];
-        [self.view makeToast:[NSString stringWithFormat:@"Số tiền tối thiểu để nạp là %@ VNĐ", strMinTopup] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:[NSString stringWithFormat:@"Số tiền tối thiểu để nạp là %@VNĐ", strMinTopup] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     

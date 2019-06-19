@@ -112,14 +112,14 @@
             priceValue = (long)[price longLongValue];
             
             NSString *strPrice = [AppUtils convertStringToCurrencyFormat: price];
-            lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ", strPrice];
+            lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", strPrice];
             
         }else if (price != nil && [price isKindOfClass:[NSNumber class]]) {
             priceValue = [price longValue];
             
             NSString *strPrice = [NSString stringWithFormat:@"%ld", [price longValue]];
             strPrice = [AppUtils convertStringToCurrencyFormat: strPrice];
-            lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ", strPrice];
+            lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", strPrice];
         }else{
             lbPrice.text = @"N/A";
         }
@@ -128,7 +128,7 @@
             long totalPrice = priceValue * yearsForRenew;
             NSString *strTotal = [NSString stringWithFormat:@"%ld", totalPrice];
             strTotal = [AppUtils convertStringToCurrencyFormat: strTotal];
-            lbTotalPrice.text = [NSString stringWithFormat:@"%@ VNĐ", strTotal];
+            lbTotalPrice.text = [NSString stringWithFormat:@"%@VNĐ", strTotal];
         }else{
             lbTotalPrice.text = @"N/A";
         }
@@ -153,7 +153,7 @@
         price = [NSString stringWithFormat:@"%ld", (long)[firstYearPrice longLongValue]];
         price = [AppUtils convertStringToCurrencyFormat: price];
     }
-    lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ", price];
+    lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", price];
     
     NSString *years = [domainInfo objectForKey:year_for_domain];
     tfYears.text = [NSString stringWithFormat:@"%@ năm", years];
@@ -164,7 +164,7 @@
     long totalPrice = [[CartModel getInstance] getTotalPriceForDomain: domainInfo];
     NSString *total = [NSString stringWithFormat:@"%ld", totalPrice];
     total = [AppUtils convertStringToCurrencyFormat: total];
-    lbTotalPrice.text = [NSString stringWithFormat:@"%@ VNĐ", total];
+    lbTotalPrice.text = [NSString stringWithFormat:@"%@VNĐ", total];
     
 //    available = 1;
 //    domain = "dailyxanh.net";

@@ -86,7 +86,7 @@
 
 - (void)createHeaderViewForTableView {
     float padding = 15.0;
-    float sizeItem = (SCREEN_WIDTH - 5*padding)/4;
+    float sizeItem = (SCREEN_WIDTH - 2*padding - 3*10.0)/4;
     
     UIView *tbHeader = [[UIView alloc] init];
     tbHeader.frame = CGRectMake(0, 0, SCREEN_WIDTH, 40.0);
@@ -98,7 +98,7 @@
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(tbHeader).offset(padding);
         make.top.bottom.equalTo(tbHeader);
-        make.width.mas_equalTo(sizeItem);
+        make.width.mas_equalTo(sizeItem-10.0);
     }];
     
     UILabel *lbRenew = [[UILabel alloc] init];
@@ -106,9 +106,9 @@
     lbRenew.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbRenew];
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(lbName.mas_right).offset(padding);
+        make.left.equalTo(lbName.mas_right).offset(10.0);
         make.top.bottom.equalTo(tbHeader);
-        make.right.equalTo(tbHeader.mas_centerX).offset(-padding/2);
+        make.width.mas_equalTo(sizeItem+5);
     }];
     
     UILabel *lbSetup = [[UILabel alloc] init];
@@ -116,9 +116,9 @@
     lbSetup.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbSetup];
     [lbSetup mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(tbHeader.mas_centerX).offset(padding/2);
+        make.left.equalTo(lbRenew.mas_right).offset(10.0);
         make.top.bottom.equalTo(tbHeader);
-        make.width.mas_equalTo(sizeItem);
+        make.width.mas_equalTo(sizeItem+5);
     }];
     
     UILabel *lbTransfer = [[UILabel alloc] init];
@@ -126,7 +126,7 @@
     lbTransfer.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbTransfer];
     [lbTransfer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(lbSetup.mas_right).offset(padding);
+        make.left.equalTo(lbSetup.mas_right).offset(10.0);
         make.top.bottom.equalTo(tbHeader);
         make.right.equalTo(tbHeader).offset(-padding);
     }];

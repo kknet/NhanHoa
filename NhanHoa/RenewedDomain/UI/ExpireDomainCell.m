@@ -26,7 +26,7 @@
     }];
     
     lbName.textColor = TITLE_COLOR;
-    lbName.font = [AppDelegate sharedInstance].fontRegular;
+    lbName.font = [AppDelegate sharedInstance].fontMedium;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbNum.mas_right).offset(5.0);
         make.bottom.equalTo(self.mas_centerY).offset(-2.0);
@@ -87,7 +87,7 @@
     }
     
     NSString *endTime = [info objectForKey:@"ord_end_time"];
-    if (endTime != nil && [endTime isKindOfClass:[NSString class]]) {
+    if (endTime != nil && ![endTime isEqualToString:@""] && [endTime isKindOfClass:[NSString class]]) {
         NSString *expireDate = [AppUtils getDateStringFromTimerInterval:[endTime longLongValue]];
         lbDate.text = [NSString stringWithFormat:@"Hết hạn ngày %@", expireDate];
     }else{

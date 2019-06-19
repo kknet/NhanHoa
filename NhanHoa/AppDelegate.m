@@ -12,6 +12,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
 #import "CartModel.h"
+#import <AVFoundation/AVAudioPlayer.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -25,7 +26,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN, needReloadInfo;
+@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN, needReloadInfo, notiAudio;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -219,12 +220,24 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"%@", @[userInfo]);
+    
 }
 
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"%@", @[userInfo]);
+
+- (void) userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionAlert);
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        if (notiAudio == nil) {
+            notiAudio = [[AudioSessionUtils alloc] init];
+        }
+        [notiAudio playNotificationTone];
+    }
 }
+
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+//    NSLog(@"456");
+//}
 
 +(AppDelegate *)sharedInstance{
     return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);

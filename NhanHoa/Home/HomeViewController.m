@@ -22,6 +22,7 @@
 #import "CartModel.h"
 #import "AccountModel.h"
 #import "HaveNotSignedView.h"
+#import "AudioSessionUtils.h"
 
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, HaveNotSignedViewDelegate, WebServiceUtilsDelegate>{
     NSMutableArray *listMenu;
@@ -115,9 +116,9 @@
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
-        lbMoney.text = [NSString stringWithFormat:@"%@ VNĐ", totalBalance];
+        lbMoney.text = [NSString stringWithFormat:@"%@VNĐ", totalBalance];
     }else{
-        lbMoney.text = @"0 VNĐ";
+        lbMoney.text = @"0VNĐ";
     }
     
     NSString *points = [AccountModel getCusPoint];
@@ -492,6 +493,7 @@
     
     SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
     searchDomainVC.strSearch = tfSearch.text;
+    searchDomainVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
 }
 

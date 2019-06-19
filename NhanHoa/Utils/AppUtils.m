@@ -706,7 +706,7 @@
         return @"Đã hết hạn";
         
     }else if ([status isEqualToString:@"7"]) {
-        return @"Đã thanh lý";
+        return @"Đang xử lý";
         
     }else if ([status isEqualToString:@"8"]) {
         return @"Đang suspend";

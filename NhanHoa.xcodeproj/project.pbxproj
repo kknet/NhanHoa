@@ -154,6 +154,8 @@
 		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
 		560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */; };
 		560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */; };
+		560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 560F82E922BA865B004BF3FE /* iphone_text.mp3 */; };
+		560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5610492122B4FE9000463378 /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5610492022B4FE9000463378 /* Constant.m */; };
 		563B8DC622B9B6D6004A037D /* ck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 563B8DC522B9B6D6004A037D /* ck.pem */; };
 		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
@@ -529,6 +531,9 @@
 		560B16E722B2AAFE0004DD29 /* AddOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderViewController.h; sourceTree = "<group>"; };
 		560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderViewController.m; sourceTree = "<group>"; };
 		560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOrderViewController.xib; sourceTree = "<group>"; };
+		560F82E922BA865B004BF3FE /* iphone_text.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = iphone_text.mp3; sourceTree = "<group>"; };
+		560F82ED22BA8962004BF3FE /* AudioSessionUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioSessionUtils.h; sourceTree = "<group>"; };
+		560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioSessionUtils.m; sourceTree = "<group>"; };
 		5610491F22B4FE8F00463378 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		5610492022B4FE9000463378 /* Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
 		563B8DC522B9B6D6004A037D /* ck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ck.pem; sourceTree = "<group>"; };
@@ -544,6 +549,10 @@
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
 		56B5684F22B153A300AB8F29 /* tick_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_white.png; sourceTree = "<group>"; };
+		56C5AFC022BAA3A9005704A5 /* CertPushRelease.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPushRelease.p12; sourceTree = "<group>"; };
+		56C5AFC122BAA3AF005704A5 /* CertPush.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPush.p12; sourceTree = "<group>"; };
+		56C5AFC222BAB08A005704A5 /* DevelopmentCertificates.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DevelopmentCertificates.p12; sourceTree = "<group>"; };
+		56C5AFC322BAB091005704A5 /* ReleaseCertificates.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReleaseCertificates.p12; sourceTree = "<group>"; };
 		56CB516C22A72E8700D6D68A /* UpdateBusinessProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateBusinessProfile.h; sourceTree = "<group>"; };
 		56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateBusinessProfile.m; sourceTree = "<group>"; };
 		56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateBusinessProfile.xib; sourceTree = "<group>"; };
@@ -926,6 +935,8 @@
 				5602A91122AAC113003AE8D9 /* WebServiceUtils.m */,
 				5610491F22B4FE8F00463378 /* Constant.h */,
 				5610492022B4FE9000463378 /* Constant.m */,
+				560F82ED22BA8962004BF3FE /* AudioSessionUtils.h */,
+				560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -958,6 +969,7 @@
 		156B8C20226ECF6D0020EDCB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				560F82E822BA864F004BF3FE /* sounds */,
 				563B8DC422B9B6B6004A037D /* PemFiles */,
 				15C1A894228A6B38002F4F0F /* database */,
 				842F81A022755C7200D6DE6D /* fonts */,
@@ -968,6 +980,10 @@
 				157A5F98229CF1C20095AAEF /* desc.txt */,
 				1535EEDF22B0D99B0034F298 /* report_app.txt */,
 				56FC1DBC229F45C70024CBB2 /* test_api.txt */,
+				56C5AFC022BAA3A9005704A5 /* CertPushRelease.p12 */,
+				56C5AFC122BAA3AF005704A5 /* CertPush.p12 */,
+				56C5AFC222BAB08A005704A5 /* DevelopmentCertificates.p12 */,
+				56C5AFC322BAB091005704A5 /* ReleaseCertificates.p12 */,
 				56A58E60229C3B99003402C1 /* ios_upload_file.php */,
 			);
 			path = Resources;
@@ -1224,6 +1240,14 @@
 				5600E8FC22A5EEEF00F7DECE /* SendMessageView.xib */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		560F82E822BA864F004BF3FE /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				560F82E922BA865B004BF3FE /* iphone_text.mp3 */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 		563B8DC422B9B6B6004A037D /* PemFiles */ = {
@@ -1765,6 +1789,7 @@
 				15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
+				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
 				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
@@ -1965,6 +1990,7 @@
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
+				560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */,
@@ -2146,10 +2172,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoaapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Debug;
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_NewDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2171,9 +2197,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoaapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_Release;
+				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_NewRelease;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

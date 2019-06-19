@@ -183,24 +183,29 @@
         lbRegisterDateValue.text = @"";
     }
     
+    NSString *statusCode = [info objectForKey:@"status"];
+    if (![AppUtils isNullOrEmpty: statusCode]) {
+        lbStateValue.text = [AppUtils getStatusValueWithCode: statusCode];
+        if ([statusCode isEqualToString:@"2"]) {
+            lbStateValue.textColor = GREEN_COLOR;
+            
+        }else if ([statusCode isEqualToString:@"3"] || [statusCode isEqualToString:@"6"]){
+            lbStateValue.textColor = NEW_PRICE_COLOR;
+            
+        }else{
+            lbStateValue.textColor = UIColor.orangeColor;
+        }
+    }else{
+        lbStateValue.text = @"Chưa xác định";
+        lbStateValue.textColor = NEW_PRICE_COLOR;
+    }
+    
     NSString *endTime = [info objectForKey:@"end_time"];
     if ([endTime isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: endTime]) {
         NSString *endDate = [AppUtils getDateStringFromTimerInterval:(long)[endTime longLongValue]];
         lbExpireDate.text = endDate;
-        
-        //  check expire
-        long curTime = (long)[[NSDate date] timeIntervalSince1970];
-        if (curTime >= [endTime longLongValue]) {
-            lbStateValue.attributedText = [AppUtils generateTextWithContent:@"Hết hạn" font:[AppDelegate sharedInstance].fontMedium color:[UIColor darkGrayColor] image:[UIImage imageNamed:@"info_red"] size:20.0 imageFirst:TRUE];
-            
-        }else if ([endTime longLongValue] - curTime < 30*24*60*60){
-            lbStateValue.attributedText = [AppUtils generateTextWithContent:@"Sắp hết hạn" font:[AppDelegate sharedInstance].fontMedium color:NEW_PRICE_COLOR image:[UIImage imageNamed:@"info_red"] size:20.0 imageFirst:TRUE];
-        }else{
-            lbStateValue.attributedText = [AppUtils generateTextWithContent:@"Đã kích hoạt" font:[AppDelegate sharedInstance].fontMedium color:GREEN_COLOR image:[UIImage imageNamed:@"tick_green"] size:20.0 imageFirst:TRUE];
-        }
     }else{
-        lbExpireDate.text = @"";
-        lbStateValue.text = @"N/A";
+        lbExpireDate.text = @"Đang cập nhật";
     }
     
     //  get size of content
@@ -222,11 +227,11 @@
     }];
     
     //  service name
-    [lbServiceNameValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDomainValue);
-        make.top.equalTo(self.lbServiceName.mas_centerY).offset(-10.0);
-        make.height.mas_equalTo(hContent);
-    }];
+//    [lbServiceNameValue mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self.lbDomainValue);
+//        make.top.equalTo(self.lbServiceName.mas_centerY).offset(-10.0);
+//        make.height.mas_equalTo(hContent);
+//    }];
     
     //  get CMND
     CMND_a = [info objectForKey:@"cmnd_a"];
@@ -333,7 +338,8 @@
     [lbServiceNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbDomainValue);
         make.top.equalTo(self.lbServiceName);
-        make.height.mas_equalTo(2*self.hItem);
+        //  make.height.mas_equalTo(2*self.hItem);
+        make.height.mas_greaterThanOrEqualTo(self.hItem);
     }];
     
     //  registered date

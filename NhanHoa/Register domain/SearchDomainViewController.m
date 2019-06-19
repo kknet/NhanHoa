@@ -258,14 +258,14 @@
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.tfSearch);
-        make.width.mas_equalTo(hSearch);
+        make.width.mas_equalTo(self.hSearch);
     }];
     
     icSearch.layer.cornerRadius = hSearch/2;
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(self.tfSearch);
-        make.width.mas_equalTo(hSearch);
+        make.width.mas_equalTo(self.hSearch);
     }];
     
     lbWWW.backgroundColor = UIColor.clearColor;
@@ -563,6 +563,14 @@
         [cell.btnChoose addTarget:self
                            action:@selector(chooseThisDomain:)
                  forControlEvents:UIControlEventTouchUpInside];
+        
+    }else if (available != nil && [available isKindOfClass:[NSString class]] && [available isEqualToString:@"not support"]){
+        cell.btnWarning.hidden = TRUE;
+        [cell.btnChoose setTitle:not_support_yet forState:UIControlStateNormal];
+        cell.btnChoose.backgroundColor = OLD_PRICE_COLOR;
+        cell.btnChoose.enabled = FALSE;
+        
+        [cell showPriceForDomainCell: FALSE];
     }else{
         [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;

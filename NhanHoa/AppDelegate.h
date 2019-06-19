@@ -13,6 +13,7 @@
 #import "CartViewController.h"
 #import "ShoppingCartView.h"
 #import "LaunchViewController.h"
+#import "AudioSessionUtils.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -102,6 +103,8 @@ typedef enum PaymentMethod{
 
 @property(strong, nonatomic) UIWindow *loginWindow;
 @property(strong, nonatomic) LaunchViewController *launchVC;
+
+@property(strong, nonatomic) AudioSessionUtils *notiAudio;
 
 @end
 

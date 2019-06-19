@@ -59,7 +59,7 @@
                 <outlet property="lbSetup" destination="qES-Uv-W0B" id="gJV-Az-8ze"/>
                 <outlet property="lbTransfer" destination="Ra0-Db-88y" id="GnJ-jw-YkJ"/>
             </connections>
-            <point key="canvasLocation" x="-304" y="27"/>
+            <point key="canvasLocation" x="-441" y="31"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -53,7 +53,7 @@
 
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  15
-#define MIN_MONEY_TOPUP     10000
+#define MIN_MONEY_TOPUP     200000
 #define phone_support       @"19006680"
 
 #define type_na             2
@@ -197,8 +197,9 @@
 #define BEHIND_EMPTY_IMG    [UIImage imageNamed:@"passport_empty_behind.png"]
 #define DEFAULT_AVATAR      [UIImage imageNamed:@"default_avatar.png"]
 
-#define N_A         @"Không giá trị"
-#define unknown     @"Chưa xác định"
+#define N_A             @"Không giá trị"
+#define unknown         @"Chưa xác định"
+#define not_support_yet @"Chưa hỗ trợ"
 
 #define text_personal @"Cá nhân"
 #define text_business @"Doanh nghiệp"

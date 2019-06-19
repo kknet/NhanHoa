@@ -134,9 +134,9 @@
     NSString *balance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: balance]) {
         balance = [AppUtils convertStringToCurrencyFormat: balance];
-        lbMainMoney.text = [NSString stringWithFormat:@"%@ VNĐ", balance];
+        lbMainMoney.text = [NSString stringWithFormat:@"%@VNĐ", balance];
     }else{
-        lbMainMoney.text = @"0 VNĐ";
+        lbMainMoney.text = @"0VNĐ";
     }
     
     NSString *points = [AccountModel getCusPoint];

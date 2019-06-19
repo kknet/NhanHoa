@@ -208,15 +208,15 @@
     if (priceForRenew > 0 && yearsForRenew > 0) {
         long domainPrice = priceForRenew * yearsForRenew;
         NSString *strDomainPrice = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", domainPrice]];
-        lbDomainPriceValue.text = [NSString stringWithFormat:@"%@ VNĐ", strDomainPrice];
+        lbDomainPriceValue.text = [NSString stringWithFormat:@"%@VNĐ", strDomainPrice];
         
         long vatValue = vat*domainPrice/100;
         NSString *strVAT = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", vatValue]];
-        lbVATValue.text = [NSString stringWithFormat:@"%@ VNĐ", strVAT];
+        lbVATValue.text = [NSString stringWithFormat:@"%@VNĐ", strVAT];
         
         long total = domainPrice + vatValue;
         NSString *strTotal = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", total]];
-        lbTotalPriceValue.text = [NSString stringWithFormat:@"%@ VNĐ", strTotal];
+        lbTotalPriceValue.text = [NSString stringWithFormat:@"%@VNĐ", strTotal];
         
     }else {
         lbVATValue.text = lbDomainPriceValue.text = lbTotalPriceValue.text = @"N/A";
