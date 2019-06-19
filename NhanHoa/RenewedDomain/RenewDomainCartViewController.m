@@ -7,6 +7,7 @@
 //
 
 #import "RenewDomainCartViewController.h"
+#import "TopupViewController.h"
 #import "CartDomainItemCell.h"
 #import "SelectYearsCell.h"
 #import "PaymentMethodCell.h"
@@ -433,9 +434,11 @@
 
 #pragma mark - Alerview Delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1) {
+    NSString *title = [alertView buttonTitleAtIndex: buttonIndex];
+    if ([title isEqualToString:topup_now]) {
+        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+        [self.navigationController pushViewController: topupVC animated:YES];
     }
-    NSLog(@"buttonIndex = %d", buttonIndex);
 }
 
 @end
