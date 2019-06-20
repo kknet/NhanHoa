@@ -137,22 +137,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NhanHoa/RenewedDomain/RenewDomainCartViewController.m"
-            timestampString = "582627416.478115"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NhanHoa/SignIn/SignInViewController.m"
             timestampString = "582457855.459076"
             startingColumnNumber = "9223372036854775807"
@@ -266,7 +250,7 @@
                   moduleName = "NhanHoa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
-                  timestampString = "582692716.865458"
+                  timestampString = "582707963.178344"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -281,7 +265,7 @@
                   moduleName = "NhanHoa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
-                  timestampString = "582692716.870003"
+                  timestampString = "582707963.181519"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -296,7 +280,7 @@
                   moduleName = "NhanHoa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lamquangquan/Desktop/KhaiLe/Nhan_Hoa_Apps/NhanHoa/NhanHoa/Cart/UI/SelectProfileView.m"
-                  timestampString = "582692716.875348"
+                  timestampString = "582707963.184545"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"

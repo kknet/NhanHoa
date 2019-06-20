@@ -17,7 +17,7 @@
     NSDictionary *domainInfo;
     
     long priceForRenew;
-    float vat;
+    long vatPrice;
 }
 
 @end
@@ -41,7 +41,6 @@
     
     yearsForRenew = 1;
     priceForRenew = 0;
-    vat = 0;
     
     [self addTableViewForSelectYears];
     
@@ -210,11 +209,11 @@
         NSString *strDomainPrice = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", domainPrice]];
         lbDomainPriceValue.text = [NSString stringWithFormat:@"%@VNĐ", strDomainPrice];
         
-        long vatValue = vat*domainPrice/100;
-        NSString *strVAT = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", vatValue]];
+        long totalVAT = vatPrice * yearsForRenew;
+        NSString *strVAT = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", totalVAT]];
         lbVATValue.text = [NSString stringWithFormat:@"%@VNĐ", strVAT];
         
-        long total = domainPrice + vatValue;
+        long total = domainPrice + totalVAT;
         NSString *strTotal = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", total]];
         lbTotalPriceValue.text = [NSString stringWithFormat:@"%@VNĐ", strTotal];
         
@@ -226,7 +225,7 @@
 - (long)getTotalPriceForPayment {
     if (priceForRenew > 0 && yearsForRenew > 0) {
         long domainPrice = priceForRenew * yearsForRenew;
-        long vatValue = vat*domainPrice/100;
+        long vatValue = vatPrice*yearsForRenew;
         
         return domainPrice + vatValue;
     }else {
@@ -411,7 +410,7 @@
     }
     //  get price for renew domain
     priceForRenew = [self getPriceForRenewDomainWithInfo: domainInfo];
-    vat = [self getVATForRenewDomainWithInfo: domainInfo];
+    vatPrice = [self getVATForRenewDomainWithInfo: domainInfo];
     
     [self updateAllPriceForView];
 }
@@ -436,7 +435,7 @@
     if (info == nil) {
         return 0;
     }
-    id vat = [info objectForKey:@"vat"];
+    id vat = [info objectForKey:@"price_vat"];
     float vatValue = 0;
     if (vat != nil && ([vat isKindOfClass:[NSString class]] || [vat isKindOfClass:[NSNumber class]])) {
         vatValue = [vat floatValue];
