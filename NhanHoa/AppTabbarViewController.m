@@ -51,19 +51,19 @@
     homeNav.tabBarItem = homeItem;
     
     //  Tabbar BO
-    BOViewController *boVC = [[BOViewController alloc] initWithNibName:@"BOViewController" bundle:nil];
-    UINavigationController *boNav = [[UINavigationController alloc] initWithRootViewController: boVC];
-    
-    UIImage *imgBO = [UIImage imageNamed:@"tabbar_BO_def"];
-    imgBO = [imgBO imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    UIImage *imgBOAct = [UIImage imageNamed:@"tabbar_BO_act"];
-    imgBOAct = [imgBOAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    UITabBarItem *boItem = [[UITabBarItem alloc] initWithTitle:@"Đấu giá" image:imgBO selectedImage:imgBOAct];
-    [boItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
-    
-    boNav.tabBarItem = boItem;
+//    BOViewController *boVC = [[BOViewController alloc] initWithNibName:@"BOViewController" bundle:nil];
+//    UINavigationController *boNav = [[UINavigationController alloc] initWithRootViewController: boVC];
+//    
+//    UIImage *imgBO = [UIImage imageNamed:@"tabbar_BO_def"];
+//    imgBO = [imgBO imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    
+//    UIImage *imgBOAct = [UIImage imageNamed:@"tabbar_BO_act"];
+//    imgBOAct = [imgBOAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    
+//    UITabBarItem *boItem = [[UITabBarItem alloc] initWithTitle:@"Đấu giá" image:imgBO selectedImage:imgBOAct];
+//    [boItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+//    
+//    boNav.tabBarItem = boItem;
     
     //  Tabbar transaction history
     TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
@@ -95,7 +95,8 @@
     
     moreNav.tabBarItem = accItem;
     
-    tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
+    //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
+    tabBarController.viewControllers = @[homeNav, transHisNav, moreNav];
     [self.view addSubview: tabBarController.view];
 }
 
