@@ -46,6 +46,9 @@
     [self.navigationController setNavigationBarHidden: YES];
     
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
+    
+    [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
+    
     [self setupUIForView];
     
     [self showUserWalletView];

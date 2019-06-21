@@ -11,5 +11,11 @@ target 'NhanHoa' do
     pod 'ProgressHUD'
     pod 'SDWebImage'
     pod 'CocoaLumberjack'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+    pod 'Firebase'
+    pod 'FirebaseMessaging'
+    pod 'FirebaseInstanceID'
+    
 #    pod 'MBProgressHUD', '~> 1.1.0'
 end

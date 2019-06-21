@@ -13,6 +13,7 @@
 #import <UserNotificationsUI/UserNotificationsUI.h>
 #import "CartModel.h"
 #import <AVFoundation/AVAudioPlayer.h>
+@import Firebase;
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -30,6 +31,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
+    
+    [FIRApp configure];
+    [FIRMessaging messaging].delegate = self;
+    
+    if ([UNUserNotificationCenter class] != nil) {
+        // iOS 10 or later
+        // For iOS 10 display notification (sent via APNS)
+        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
+        UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:authOptions
+         completionHandler:^(BOOL granted, NSError * _Nullable error) {
+             // ...
+         }];
+    } else {
+        // iOS 10 notifications aren't available; fall back to iOS 8-9 notifications.
+        UIUserNotificationType allNotificationTypes =
+        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    [application registerForRemoteNotifications];
     
     [self setupFontForApp];
     
@@ -185,10 +210,9 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
-    token = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
-    
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token]];
+//    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
+//    token = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
+//    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token]];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -668,5 +692,12 @@
     [errorMsgDict setObject:@"Số tiền cần rút lớn hơn số tiền thưởng tài khoản đang có" forKey:@"044"];
     [errorMsgDict setObject:@"Số tiền cần rút nhỏ hơn số tiền tối thiểu có thể rút" forKey:@"045"];
 }
+
+#pragma mark - Firebase
+- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] fcmToken = %@", __FUNCTION__, fcmToken)];
+    token = fcmToken;
+}
+
 
 @end

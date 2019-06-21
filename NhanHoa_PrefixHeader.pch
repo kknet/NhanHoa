@@ -21,5 +21,7 @@
 #import "WebServiceUtils.h"
 #import "Constant.h"
 #import "AccountModel.h"
+#import "FirebaseInstanceID.h"
+#import "FIRMessaging.h"
 
 #endif /* NhanHoa_PrefixHeader_pch */
