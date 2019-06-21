@@ -60,45 +60,41 @@
         return;
     }
     
-    //  Add new by Khai Le on 23/03/2018
-    //    linkToAppStore = [self checkNewVersionOnAppStore];
-    //    if (![AppUtils isNullOrEmpty: linkToAppStore] && ![AppUtils isNullOrEmpty: appStoreVersion]) {
-    //        NSString *content = [NSString stringWithFormat:[[LanguageUtil sharedInstance] getContent:@"Current version on App Store is %@. Do you want to update right now?"], appStoreVersion];
-    //
-    //        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:content delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:[[LanguageUtil sharedInstance] getContent:@"Update"], nil];
-    //        alert.tag = 2;
-    //        [alert show];
-    //    }else{
-    //        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"] message:[[LanguageUtil sharedInstance] getContent:@"You are the newest version!"] delegate:self cancelButtonTitle:[[LanguageUtil sharedInstance] getContent:@"Close"] otherButtonTitles:nil, nil];
-    //        [alert show];
-    //    }
-    //    return;
+    linkToAppStore = [self checkNewVersionOnAppStore];
+    if (![AppUtils isNullOrEmpty: linkToAppStore] && ![AppUtils isNullOrEmpty: appStoreVersion]) {
+        NSString *content = [NSString stringWithFormat:@"Phiên bản hiện tại trên AppStore là %@. Bạn có muốn cập nhật ngay không?", appStoreVersion];
+        
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:content delegate:self cancelButtonTitle:@"Đóng" otherButtonTitles:@"Cập nhật", nil];
+        alert.tag = 2;
+        [alert show];
+    }else{
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"Bạn đang sử dụng phiên bản mới nhất" delegate:nil cancelButtonTitle:@"Đóng" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    return;
 }
     
 
 - (NSString *)checkNewVersionOnAppStore {
-    return @"";
-    
-//    NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//    NSString* appID = infoDictionary[@"CFBundleIdentifier"];
-//    if (appID.length > 0) {
-//        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", appID]];
-//        NSData* data = [NSData dataWithContentsOfURL:url];
-//
-//        if (data) {
-//            NSDictionary* lookup = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//
-//            if ([lookup[@"resultCount"] integerValue] == 1){
-//                appStoreVersion = lookup[@"results"][0][@"version"];
-//                NSString* currentVersion = infoDictionary[@"CFBundleShortVersionString"];
-//
-//                if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
-//                    // app needs to be updated
-//                    return lookup[@"results"][0][@"trackViewUrl"] ? lookup[@"results"][0][@"trackViewUrl"] : @"";
-//                }
-//            }
-//        }
-//    }
+    NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString* appID = infoDictionary[@"CFBundleIdentifier"];
+    if (appID.length > 0) {
+        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", appID]];
+        NSData* data = [NSData dataWithContentsOfURL:url];
+
+        if (data) {
+            NSDictionary* lookup = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+            if ([lookup[@"resultCount"] integerValue] == 1){
+                appStoreVersion = lookup[@"results"][0][@"version"];
+                NSString* currentVersion = infoDictionary[@"CFBundleShortVersionString"];
+                if ([appStoreVersion compare:currentVersion options:NSNumericSearch] == NSOrderedDescending) {
+                    // app needs to be updated
+                    return lookup[@"results"][0][@"trackViewUrl"] ? lookup[@"results"][0][@"trackViewUrl"] : @"";
+                }
+            }
+        }
+    }
     
     return @"";
 }
@@ -147,6 +143,13 @@
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(60.0);
     }];
+}
+
+#pragma mark - UIAlertview Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 2 && buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+    }
 }
 
 @end

@@ -360,6 +360,12 @@
     NSString *name = [info objectForKey:@"name"];
     id price = [info objectForKey:@"price"];
     
+    if ([name hasSuffix:@".vn"]) {
+        cell.lbDomain.text = [NSString stringWithFormat:@"Đăng ký tên miền quốc gia %@", name];
+    }else{
+        cell.lbDomain.text = [NSString stringWithFormat:@"Đăng ký tên miền quốc tế %@", name];
+    }
+    
     if ([price isKindOfClass:[NSNumber class]]) {
         NSString *strPrice = [NSString stringWithFormat:@"%d", [price intValue]];
         cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: strPrice]];
@@ -374,7 +380,6 @@
     }
     cell.imgType.image = [UIImage imageNamed: image];
     
-    cell.lbDomain.text = @"Không yêu cầu điều kiện đi kèm";
     
     cell.padding = padding;
     cell.hItem = hCell;

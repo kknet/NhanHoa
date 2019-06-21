@@ -27,30 +27,30 @@
     }];
     
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewParent).offset(10.0);
+        make.left.equalTo(self.viewParent).offset(5.0);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(70.0);
+        make.width.height.mas_equalTo(60.0);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgType.mas_right).offset(10.0);
+        make.left.equalTo(self.imgType.mas_right).offset(5.0);
         make.top.equalTo(self.viewParent).offset(5.0);
         make.bottom.equalTo(self.viewParent).offset(-5.0);
         make.width.mas_equalTo(1.0);
     }];
     
     lbPrice.textColor = [UIColor colorWithRed:(213/255.0) green:(52/255.0) blue:(93/255.0) alpha:1.0];
-    lbPrice.font = [UIFont fontWithName:RobotoMedium size:15.0];
+    lbPrice.font = [AppDelegate sharedInstance].fontRegular;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.viewParent.mas_centerY);
-        make.left.equalTo(self.lbSepa.mas_right).offset(10.0);
+        make.left.equalTo(self.lbSepa.mas_right).offset(5.0);
         make.right.equalTo(self.viewParent).offset(-5.0);
         make.height.mas_equalTo(25.0);
     }];
     
     lbDomain.textColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0];
-    lbDomain.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbDomain.font = [AppDelegate sharedInstance].fontMedium;
     
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbPrice);
