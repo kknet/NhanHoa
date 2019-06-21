@@ -10,13 +10,6 @@
 
 @implementation AccountModel
 
-+ (BOOL)isSignedAccount {
-    if ([AppDelegate sharedInstance].userInfo != nil) {
-        return TRUE;
-    }
-    return FALSE;
-}
-
 + (NSString *)getCusIdOfUser {
     NSString *cusId = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_id"];
     if (![AppUtils isNullOrEmpty: cusId]) {

@@ -21,13 +21,11 @@
 #import "HomeMenuObject.h"
 #import "CartModel.h"
 #import "AccountModel.h"
-#import "HaveNotSignedView.h"
 #import "AudioSessionUtils.h"
 
-@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, HaveNotSignedViewDelegate, WebServiceUtilsDelegate>{
+@interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WebServiceUtilsDelegate>{
     NSMutableArray *listMenu;
     float hBanner;
-    HaveNotSignedView *notSignedView;
 }
 @end
 
@@ -52,8 +50,6 @@
     
     [self showUserWalletView];
     [self createCartViewIfNeed];
-    
-    [self checkSignedToAccount];
     
     if ([AppDelegate sharedInstance].needReloadInfo) {
         [AppDelegate sharedInstance].needReloadInfo = FALSE;
@@ -204,50 +200,30 @@
             break;
         }
         case eRecharge:{
-            if (![AccountModel isSignedAccount]) {
-                [self.view makeToast:@"Bạn chưa đăng nhập." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-                break;
-            }
             TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
             topupVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: topupVC animated:YES];
             break;
         }
         case eRewardsPoints:{
-            if (![AccountModel isSignedAccount]) {
-                [self.view makeToast:@"Bạn chưa đăng nhập." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-                break;
-            }
             BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
             bonusAccVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: bonusAccVC animated:YES];
             break;
         }
         case eManagerDomain:{
-            if (![AccountModel isSignedAccount]) {
-                [self.view makeToast:@"Bạn chưa đăng nhập." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-                break;
-            }
             RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
             renewedVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: renewedVC animated:YES];
             break;
         }
         case eWithdrawal:{
-            if (![AccountModel isSignedAccount]) {
-                [self.view makeToast:@"Bạn chưa đăng nhập." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-                break;
-            }
             WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
             withdrawVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: withdrawVC animated:YES];
             break;
         }
         case eProfile:{
-            if (![AccountModel isSignedAccount]) {
-                [self.view makeToast:@"Bạn chưa đăng nhập." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-                break;
-            }
             ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
             profileVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController: profileVC animated:YES];
@@ -451,10 +427,6 @@
 }
 
 - (void)whenTapOnMainWallet {
-    if (![AccountModel isSignedAccount]) {
-        return;
-    }
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
@@ -463,10 +435,6 @@
 }
 
 - (void)whenTapOnPoints {
-    if (![AccountModel isSignedAccount]) {
-        return;
-    }
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
@@ -495,44 +463,6 @@
     searchDomainVC.strSearch = tfSearch.text;
     searchDomainVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
-}
-
-- (void)checkSignedToAccount {
-    if ([AppDelegate sharedInstance].dontNeedLogin) {
-        if ([AppDelegate sharedInstance].userInfo != nil) {
-            viewWallet.hidden = FALSE;
-            notSignedView.hidden = TRUE;
-        }else{
-            [self addHaveNotSignedYetViewIfNeed];
-            notSignedView.hidden = FALSE;
-            viewWallet.hidden = TRUE;
-        }
-    }else{
-        viewWallet.hidden = FALSE;
-    }
-}
-
-- (void)addHaveNotSignedYetViewIfNeed {
-    if (notSignedView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HaveNotSignedView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[HaveNotSignedView class]]) {
-                notSignedView = (HaveNotSignedView *) currentObject;
-                break;
-            }
-        }
-        notSignedView.delegate = self;
-        [self.view addSubview: notSignedView];
-    }
-    
-    [notSignedView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.viewWallet);
-    }];
-    [notSignedView setupUIForView];
-}
-
--(void)tapOnViewSignToAccount {
-    [[AppDelegate sharedInstance] showLoginView];
 }
 
 @end

@@ -90,7 +90,6 @@ typedef enum PaymentMethod{
 - (void)updateShoppingCartCount;
 - (void)showCartScreenContent;
 - (void)hideCartView;
-- (void)showLoginView;
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
 
@@ -98,10 +97,8 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableArray *listPricingVN;
 @property (nonatomic, strong) NSMutableArray *listPricingQT;
 
-@property (nonatomic, assign) BOOL dontNeedLogin;
 @property (nonatomic, assign) BOOL needReloadInfo;
 
-@property(strong, nonatomic) UIWindow *loginWindow;
 @property(strong, nonatomic) LaunchViewController *launchVC;
 
 @property(strong, nonatomic) AudioSessionUtils *notiAudio;

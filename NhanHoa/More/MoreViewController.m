@@ -21,8 +21,8 @@
 @end
 
 @implementation MoreViewController
-@synthesize viewHeader, tbContent, accInfoView, notSignedView;
-@synthesize hAccount, padding, hNotSigned;
+@synthesize viewHeader, tbContent, accInfoView;
+@synthesize hAccount, padding;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,14 +36,10 @@
     
     [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
     
-    if ([AccountModel isSignedAccount]) {
-        [WebServiceUtils getInstance].delegate = self;
-        
-        [self addAccountInfoView];
-        [accInfoView displayInformation];
-    }else{
-        [self addHaveNotSignedYetView];
-    }
+    [WebServiceUtils getInstance].delegate = self;
+    
+    [self addAccountInfoView];
+    [accInfoView displayInformation];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -72,7 +68,6 @@
 - (void)setupUIForView {
     hAccount = 135; //  10 + 30 + 30 + 10 + 10 + 40.0 + 10;
     padding = 15.0;
-    hNotSigned = 70.0;
     
     self.view.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
     
@@ -134,34 +129,6 @@
     [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
     
     [[WebServiceUtils getInstance] updateTokenWithValue:@""];
-}
-
-- (void)addHaveNotSignedYetView {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HaveNotSignedView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[HaveNotSignedView class]]) {
-            notSignedView = (HaveNotSignedView *) currentObject;
-            break;
-        }
-    }
-    [self.view addSubview: notSignedView];
-    
-    [notSignedView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewHeader.mas_bottom);
-        make.left.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
-        make.height.mas_equalTo(self.hNotSigned);
-    }];
-    [notSignedView setupUIForView];
-    [AppUtils addBoxShadowForView:notSignedView withColor:UIColor.blackColor];
-    
-    UITapGestureRecognizer *tapOnNotAccount = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToShowLoginView)];
-    notSignedView.userInteractionEnabled = TRUE;
-    [notSignedView addGestureRecognizer: tapOnNotAccount];
-    
-    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hNotSigned/2 + 10)];
-    tbHeaderView.backgroundColor = UIColor.whiteColor;
-    tbContent.tableHeaderView = tbHeaderView;
 }
 
 - (void)logoutScreen {
@@ -324,10 +291,6 @@
     [ProgressHUD dismiss];
     
     [self logoutScreen];
-}
-
-- (void)tapToShowLoginView {
-    [[AppDelegate sharedInstance] showLoginView];
 }
 
 @end

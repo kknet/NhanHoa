@@ -26,7 +26,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, loginWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, dontNeedLogin, listPricingQT, listPricingVN, needReloadInfo, notiAudio;
+@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, needReloadInfo, notiAudio;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -57,8 +57,6 @@
         UIRemoteNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     }
-    
-    dontNeedLogin = FALSE;
     
     //  setup logs folder
     [self setupForWriteLogFileForApp];
@@ -127,23 +125,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:)
                                                  name:kReachabilityChangedNotification object:nil];
     
-    if (dontNeedLogin) {
-        AppTabbarViewController *appTabarVC = [[AppTabbarViewController alloc] init];
-        [self.window setRootViewController:appTabarVC];
-        [self.window makeKeyAndVisible];
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+    if (loginState == nil || [loginState isEqualToString:@"NO"]) {
+        [self showStartLoginView];
         
     }else{
-        NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
-        if (loginState == nil || [loginState isEqualToString:@"NO"]) {
-            [self showStartLoginView];
-            
-        }else{
-            SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-            UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
-            
-            [self.window setRootViewController:signInNav];
-            [self.window makeKeyAndVisible];
-        }
+        SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+        UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
+        
+        [self.window setRootViewController:signInNav];
+        [self.window makeKeyAndVisible];
     }
     // Override point for customization after application launch.
     
@@ -162,21 +153,6 @@
     }
     cartWindow.rootViewController = cartNavViewController;
     cartWindow.alpha = 0;
-    
-    
-    //  create login window if need
-    if (dontNeedLogin) {
-        loginWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        loginWindow.backgroundColor = UIColor.whiteColor;;
-        loginWindow.windowLevel = UIWindowLevelNormal;
-        loginWindow.tag = 3;
-        
-        self.launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
-        UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:self.launchVC];
-        
-        loginWindow.rootViewController = launchNav;
-        loginWindow.alpha = 0;
-    }
     
     return YES;
 }
@@ -615,17 +591,6 @@
             [self.cartWindow removeFromSuperview];
         }];
     }
-}
-
-- (void)showLoginView {
-    loginWindow.alpha = 0;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.loginWindow.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        self.loginWindow.alpha = 1;
-        [self.loginWindow makeKeyAndVisible];
-    }completion:^(BOOL finished) {
-        
-    }];
 }
 
 - (void)setupForWriteLogFileForApp

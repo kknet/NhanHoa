@@ -26,10 +26,8 @@ typedef enum{
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
 @property (nonatomic, strong) AccountInfoView *accInfoView;
-@property (nonatomic, strong) HaveNotSignedView *notSignedView;
 
 @property (nonatomic, assign) float hAccount;
-@property (nonatomic, assign) float hNotSigned;
 @property (nonatomic, assign) float padding;
 
 - (IBAction)icCloseClick:(UIButton *)sender;

@@ -36,17 +36,11 @@
         [dataDict removeAllObjects];
     }
     
-    if (![AccountModel isSignedAccount]) {
-        lbNoData.text = @"Bạn chưa đăng nhập";
-        lbNoData.hidden = FALSE;
-        tbContent.hidden = TRUE;
-    }else{
-        [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:@"Đang tải..." Interaction:NO];
-        
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] getTransactionsHistory];
-    }
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang tải..." Interaction:NO];
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] getTransactionsHistory];
 }
 
 - (void)didReceiveMemoryWarning {
