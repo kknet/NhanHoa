@@ -545,6 +545,7 @@
             cell.lbPrice.text = @"Liên hệ";
         }
         [cell showPriceForDomainCell: TRUE];
+        cell.btnChoose.enabled = TRUE;
         
         //  check flag
         id flag = [info objectForKey:@"flag"];
@@ -560,6 +561,11 @@
         }
         
         cell.btnChoose.tag = indexPath.row;
+        
+        [cell.btnChoose removeTarget:self
+                           action:@selector(viewInfoOfDomain:)
+                 forControlEvents:UIControlEventTouchUpInside];
+        
         [cell.btnChoose addTarget:self
                            action:@selector(chooseThisDomain:)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -572,6 +578,7 @@
         
         [cell showPriceForDomainCell: FALSE];
     }else{
+        cell.btnChoose.enabled = TRUE;
         [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
         cell.lbPrice.text = @"";
@@ -582,11 +589,18 @@
         cell.btnWarning.hidden = TRUE;
         
         cell.btnChoose.tag = indexPath.row;
+        
+        [cell.btnChoose removeTarget:self
+                              action:@selector(chooseThisDomain:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        
         [cell.btnChoose addTarget:self
                            action:@selector(viewInfoOfDomain:)
                  forControlEvents:UIControlEventTouchUpInside];
+        
+        
     }
-    [cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
+    //[cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
     return cell;
 }
@@ -596,6 +610,12 @@
     if (index < listDomains.count) {
         NSDictionary *infoDomain = [listDomains objectAtIndex: index];
         if (infoDomain != nil) {
+            id available = [infoDomain objectForKey:@"available"];
+            if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 0) || [available boolValue] == 0)
+            {
+                return;
+            }
+            
             BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: infoDomain];
             if (exists) {
                 [[CartModel getInstance] removeDomainFromCart: infoDomain];

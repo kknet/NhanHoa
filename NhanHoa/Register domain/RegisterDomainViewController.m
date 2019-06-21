@@ -20,7 +20,7 @@
 @end
 
 @implementation RegisterDomainViewController
-@synthesize scvContent, tfSearch, lbWWW, icSearch, viewInfo, lbTitle, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
+@synthesize scvContent, tfSearch, lbWWW, icSearch, viewInfo, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
 @synthesize hCell, padding, hBanner, viewBanner;
 
 - (void)viewDidLoad {
@@ -172,23 +172,13 @@
     
     //  info view
     float hItemView = 80.0;
-    float hInfo = hSearch/2 + 10.0 + 40.0 + hItemView + 20.0;
+    float hInfo = hSearch/2 + 10.0 + hItemView + 20.0;
     viewInfo.backgroundColor = UIColor.clearColor;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
         make.top.equalTo(self.viewBanner.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hInfo);
-    }];
-    
-    NSAttributedString *contentStr = [AppUtils generateTextWithContent:@"Nên đặt tên miền như thế nào?" font:[AppDelegate sharedInstance].fontRegular color:NEW_PRICE_COLOR image:[UIImage imageNamed:@"info_red"] size:20.0 imageFirst:TRUE];
-    lbTitle.attributedText = contentStr;
-    lbTitle.textAlignment = NSTextAlignmentCenter;
-    [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo).offset(hSearch/2 + 10.0);
-        make.left.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(40.0);
     }];
     
     float sizeItem = (SCREEN_WIDTH - 2*padding - 2*5)/3;
@@ -200,7 +190,7 @@
     float smallPadding = 4.0;
     viewRenew.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitle.mas_bottom);
+        make.top.equalTo(self.viewInfo).offset(hSearch/2 + 10.0);
         make.centerX.equalTo(self.viewInfo.mas_centerX);
         make.width.mas_equalTo(sizeItem);
         make.height.mas_equalTo(hItemView);
@@ -360,11 +350,16 @@
     NSString *name = [info objectForKey:@"name"];
     id price = [info objectForKey:@"price"];
     
+    NSString *content;
     if ([name hasSuffix:@".vn"]) {
-        cell.lbDomain.text = [NSString stringWithFormat:@"Đăng ký tên miền quốc gia %@", name];
+        content = [NSString stringWithFormat:@"Đăng ký tên miền quốc gia %@", name];
     }else{
-        cell.lbDomain.text = [NSString stringWithFormat:@"Đăng ký tên miền quốc tế %@", name];
+        content = [NSString stringWithFormat:@"Đăng ký tên miền quốc tế %@", name];
     }
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
+    NSRange range = [content rangeOfString: name];
+    [attr addAttribute:NSForegroundColorAttributeName value:ORANGE_COLOR range:range];
+    cell.lbDomain.attributedText = attr;
     
     if ([price isKindOfClass:[NSNumber class]]) {
         NSString *strPrice = [NSString stringWithFormat:@"%d", [price intValue]];
