@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeNameValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileName;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileNameValue;
-@property (weak, nonatomic) IBOutlet UILabel *lbCompany;
 @property (weak, nonatomic) IBOutlet UILabel *lbCompanyValue;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
@@ -62,7 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)displayProfileInfo: (NSDictionary *)info;
 
 @property (nonatomic, assign) float sizeType;
-@property (nonatomic, assign) float sizeCompany;
 @property (nonatomic, assign) float sizeProfile;
 
 @property (nonatomic, strong) NSDictionary *profile;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,15 +36,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p9-Pz-PGW">
-                        <rect key="frame" x="54" y="24" width="113" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xa9-xZ-nxw">
-                        <rect key="frame" x="207" y="24" width="113" height="21"/>
+                        <rect key="frame" x="54" y="24" width="266" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -75,7 +68,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="imgProfile" destination="m0l-TZ-dWq" id="gjm-U4-85C"/>
-                <outlet property="lbCompany" destination="4p9-Pz-PGW" id="MHf-sv-dV1"/>
                 <outlet property="lbCompanyValue" destination="Xa9-xZ-nxw" id="VL9-Ll-Ylj"/>
                 <outlet property="lbProfile" destination="Teg-AY-7uE" id="Rx7-6H-5tX"/>
                 <outlet property="lbProfileValue" destination="RqS-vb-kYM" id="fuB-Wd-FxF"/>
@@ -83,7 +75,7 @@
                 <outlet property="lbType" destination="24s-e2-BKc" id="PNm-QB-Mev"/>
                 <outlet property="lbTypeValue" destination="pTS-rH-3st" id="4V4-qt-OY0"/>
             </connections>
-            <point key="canvasLocation" x="-101" y="-115"/>
+            <point key="canvasLocation" x="100.8" y="-129.53523238380811"/>
         </tableViewCell>
     </objects>
     <resources>

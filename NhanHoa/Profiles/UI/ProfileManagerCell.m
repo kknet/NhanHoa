@@ -10,8 +10,8 @@
 
 @implementation ProfileManagerCell
 
-@synthesize imgProfile, lbType, lbTypeValue, lbCompany, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
-@synthesize sizeType, sizeCompany, sizeProfile;
+@synthesize imgProfile, lbType, lbTypeValue, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
+@synthesize sizeType, sizeProfile;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -22,17 +22,14 @@
     // Configure the view for the selected state
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     
-    lbType.font = lbCompany.font = lbProfile.font = textFont;
-    lbType.textColor = lbCompany.textColor = lbProfile.textColor = TITLE_COLOR;
+    lbType.font = lbProfile.font = textFont;
+    lbType.textColor = lbProfile.textColor = TITLE_COLOR;
     
     lbTypeValue.font = lbCompanyValue.font = lbProfileValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
     lbTypeValue.textColor = lbCompanyValue.textColor = lbProfileValue.textColor = TITLE_COLOR;
     
     lbType.text = @"Hồ sơ:";
     sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width + 5;
-    
-    lbCompany.text = @"Tên công ty:";
-    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width + 5;
     
     lbProfile.text = @"Người đại diện:";
     sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont:textFont].width + 5;
@@ -58,25 +55,20 @@
     }];
     
     if (business) {
-        lbCompany.hidden = lbCompanyValue.hidden = FALSE;
-        [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
+        lbCompanyValue.hidden = FALSE;
+        
+        [lbCompanyValue mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
+            make.right.equalTo(self).offset(-padding);
             make.centerY.equalTo(self.imgProfile.mas_centerY);
-            make.width.mas_equalTo(self.sizeCompany);
             make.height.mas_equalTo(25.0);
         }];
         
-        [lbCompanyValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbCompany.mas_right);
-            make.right.equalTo(self).offset(-padding);
-            make.top.bottom.equalTo(self.lbCompany);
-        }];
-        
         [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbCompany);
-            make.bottom.equalTo(self.lbCompany.mas_top);
+            make.left.equalTo(self.lbCompanyValue);
+            make.bottom.equalTo(self.lbCompanyValue.mas_top);
             make.width.mas_equalTo(self.sizeType);
-            make.height.equalTo(self.lbCompany.mas_height);
+            make.height.equalTo(self.lbCompanyValue.mas_height);
         }];
         
         [lbTypeValue mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -86,10 +78,10 @@
         }];
         
         [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lbCompany);
-            make.top.equalTo(self.lbCompany.mas_bottom);
+            make.left.equalTo(self.lbCompanyValue);
+            make.top.equalTo(self.lbCompanyValue.mas_bottom);
             make.width.mas_equalTo(self.sizeProfile);
-            make.height.equalTo(self.lbCompany.mas_height);
+            make.height.equalTo(self.lbCompanyValue.mas_height);
         }];
         
         [lbProfileValue mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -98,8 +90,7 @@
             make.top.bottom.equalTo(self.lbProfile);
         }];
     }else{
-        lbCompany.hidden = lbCompanyValue.hidden = TRUE;
-        
+        lbCompanyValue.hidden = TRUE;
         [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgProfile.mas_right).offset(5.0);
             make.bottom.equalTo(self.imgProfile.mas_centerY);

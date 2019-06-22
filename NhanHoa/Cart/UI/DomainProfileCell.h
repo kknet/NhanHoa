@@ -19,7 +19,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeValue;
-@property (weak, nonatomic) IBOutlet UILabel *lbCompany;
 @property (weak, nonatomic) IBOutlet UILabel *lbCompanyValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileValue;
@@ -27,7 +26,6 @@
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float hBTN;
 @property (nonatomic, assign) float sizeType;
-@property (nonatomic, assign) float sizeCompany;
 @property (nonatomic, assign) float sizeProfile;
 
 - (void)showProfileView: (BOOL)show withBusiness: (BOOL)business;

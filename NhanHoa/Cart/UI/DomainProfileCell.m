@@ -9,8 +9,8 @@
 #import "DomainProfileCell.h"
 
 @implementation DomainProfileCell
-@synthesize lbDomain, btnChooseProfile, viewProfileInfo, imgType, lbType, lbTypeValue, lbCompany, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
-@synthesize padding, hBTN, sizeType, sizeCompany, sizeProfile;
+@synthesize lbDomain, btnChooseProfile, viewProfileInfo, imgType, lbType, lbTypeValue, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
+@synthesize padding, hBTN, sizeType, sizeProfile;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,11 +20,10 @@
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+5;
-    sizeCompany = [AppUtils getSizeWithText:@"Tên công ty:" withFont:textFont].width+5;
     sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont:textFont].width+5;
     
-    lbType.font = lbTypeValue.font = lbProfile.font = lbProfileValue.font = lbCompany.font = lbCompanyValue.font = textFont;
-    lbDomain.textColor = lbType.textColor = lbTypeValue.textColor = lbCompany.textColor = lbCompanyValue.textColor = lbProfile.textColor = lbProfileValue.textColor = TITLE_COLOR;
+    lbType.font = lbTypeValue.font = lbProfile.font = lbProfileValue.font = lbCompanyValue.font = textFont;
+    lbDomain.textColor = lbType.textColor = lbTypeValue.textColor = lbCompanyValue.textColor = lbProfile.textColor = lbProfileValue.textColor = TITLE_COLOR;
     
     btnChooseProfile.layer.cornerRadius = hBTN/2;
     btnChooseProfile.titleLabel.font = textFont;
@@ -58,23 +57,17 @@
     }];
     
     //  company
-    [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.left.equalTo(self.imgType.mas_right).offset(5.0);
-        make.height.mas_equalTo(20.0);
-        make.width.mas_equalTo(self.sizeCompany);
-    }];
-    
     [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbCompany);
-        make.left.equalTo(self.lbCompany.mas_right);
+        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
+        make.height.mas_equalTo(20.0);
+        make.left.equalTo(self.imgType.mas_right).offset(5.0);
         make.right.equalTo(self.viewProfileInfo).offset(-self.padding);
     }];
     
     //  type
     [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbCompany.mas_top);
-        make.left.equalTo(self.lbCompany);
+        make.bottom.equalTo(self.lbCompanyValue.mas_top);
+        make.left.equalTo(self.lbCompanyValue);
         make.height.mas_equalTo(20.0);
         make.width.mas_equalTo(self.sizeType);
     }];
@@ -87,8 +80,8 @@
     
     //  profile
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbCompany.mas_bottom);
-        make.left.equalTo(self.lbCompany);
+        make.top.equalTo(self.lbCompanyValue.mas_bottom);
+        make.left.equalTo(self.lbCompanyValue);
         make.height.mas_equalTo(20.0);
         make.width.mas_equalTo(self.sizeProfile);
     }];
@@ -133,34 +126,26 @@
         }];
         
         if (business) {
-            lbCompany.textColor = lbCompanyValue.textColor = TITLE_COLOR;
-            
-            [lbCompany mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-                make.left.equalTo(self.imgType.mas_right).offset(5.0);
-                make.height.mas_equalTo(20.0);
-                make.width.mas_equalTo(self.sizeCompany);
-            }];
+            lbCompanyValue.textColor = TITLE_COLOR;
             
             //  type
             [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(self.lbCompany.mas_top);
-                make.left.equalTo(self.lbCompany);
+                make.bottom.equalTo(self.lbCompanyValue.mas_top);
+                make.left.equalTo(self.lbCompanyValue);
                 make.height.mas_equalTo(20.0);
                 make.width.mas_equalTo(self.sizeType);
             }];
             
             //  profile
             [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.lbCompany.mas_bottom);
-                make.left.equalTo(self.lbCompany);
+                make.top.equalTo(self.lbCompanyValue.mas_bottom);
+                make.left.equalTo(self.lbCompanyValue);
                 make.height.mas_equalTo(20.0);
                 make.width.mas_equalTo(self.sizeProfile);
             }];
             
         }else{
-            lbCompany.textColor = lbCompanyValue.textColor = UIColor.clearColor;
-            
+            lbCompanyValue.textColor = UIColor.clearColor;
             //  type
             [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.imgType.mas_right).offset(5.0);

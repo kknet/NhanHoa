@@ -63,15 +63,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tên công ty:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y69-q1-mYI">
-                                <rect key="frame" x="43" y="25" width="80" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cơm trưa Anzi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLm-E0-tf4">
-                                <rect key="frame" x="131" y="26" width="155" height="17"/>
+                                <rect key="frame" x="43" y="26" width="243" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -99,7 +92,6 @@
             <connections>
                 <outlet property="btnChooseProfile" destination="ea4-Oh-7j1" id="akP-hR-ckv"/>
                 <outlet property="imgType" destination="N7p-uD-CJU" id="Pv0-AJ-l1C"/>
-                <outlet property="lbCompany" destination="y69-q1-mYI" id="mVt-hi-8tW"/>
                 <outlet property="lbCompanyValue" destination="CLm-E0-tf4" id="Xon-2z-lXP"/>
                 <outlet property="lbDomain" destination="wJw-0c-3lr" id="713-kl-6tx"/>
                 <outlet property="lbProfile" destination="rM2-sJ-hYX" id="xVE-6Z-CGx"/>
@@ -109,7 +101,7 @@
                 <outlet property="lbTypeValue" destination="CXL-Z6-NLa" id="UKg-4f-zq4"/>
                 <outlet property="viewProfileInfo" destination="GZL-gA-jYp" id="rwm-ht-TRL"/>
             </connections>
-            <point key="canvasLocation" x="-800" y="-217"/>
+            <point key="canvasLocation" x="-800" y="-217.69115442278863"/>
         </tableViewCell>
     </objects>
     <resources>
