@@ -24,7 +24,7 @@
         [listSearch removeAllObjects];
     }
     
-    selectedRow = 0;
+    selectedRow = -1;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
         make.height.mas_equalTo(self.hHeader);
@@ -196,7 +196,7 @@
 }
 
 - (void)searchTextfieldChanged: (UITextField *)textfield {
-    selectedRow = 0;
+    selectedRow = -1;
     if (textfield.text.length > 0) {
         icClear.hidden = FALSE;
         searching = TRUE;
@@ -376,6 +376,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row != selectedRow) {
         selectedRow = (int)indexPath.row;
+        [tableView beginUpdates];
+        [tableView endUpdates];
+    }else{
+        selectedRow = -1;
         [tableView beginUpdates];
         [tableView endUpdates];
     }

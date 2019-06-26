@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *icSearch;
 
 @property (weak, nonatomic) IBOutlet UIView *viewInfo;
-@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIView *viewSearch;
 @property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
 @property (weak, nonatomic) IBOutlet UILabel *lbSearch;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,6 @@
                 <outlet property="lbRenew" destination="Nbo-uD-MkH" id="dgJ-w8-n5z"/>
                 <outlet property="lbSearch" destination="Hzw-Q2-vUb" id="kkZ-ig-7n4"/>
                 <outlet property="lbSepa" destination="Dmp-eP-6V8" id="xsC-SL-QRt"/>
-                <outlet property="lbTitle" destination="02O-BP-AxM" id="hWv-47-i1V"/>
                 <outlet property="lbTransferDomain" destination="78r-uH-rsx" id="gop-gW-Oxr"/>
                 <outlet property="lbWWW" destination="1na-3a-uiK" id="IM7-7u-eZ4"/>
                 <outlet property="scvContent" destination="K7c-Tc-W0c" id="1kn-bd-wgh"/>
@@ -45,13 +44,6 @@
                             <rect key="frame" x="0.0" y="167" width="320" height="121"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nên đặt tên miền như thế nào" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02O-BP-AxM">
-                                    <rect key="frame" x="38" y="8" width="245" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nAk-BY-D8W">
                                     <rect key="frame" x="8" y="38" width="103" height="75"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -157,7 +149,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-1777" y="-502"/>
+            <point key="canvasLocation" x="-2000" y="-537"/>
         </view>
     </objects>
     <resources>

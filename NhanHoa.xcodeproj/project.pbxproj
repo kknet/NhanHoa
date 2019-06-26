@@ -149,6 +149,7 @@
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
 		5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8FC22A5EEEF00F7DECE /* SendMessageView.xib */; };
+		5601BE0222BD40830011E73D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5601BE0122BD40820011E73D /* GoogleService-Info.plist */; };
 		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
 		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
 		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
@@ -523,6 +524,7 @@
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
 		5600E8FA22A5EEC700F7DECE /* SendMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendMessageView.m; sourceTree = "<group>"; };
 		5600E8FC22A5EEEF00F7DECE /* SendMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendMessageView.xib; sourceTree = "<group>"; };
+		5601BE0122BD40820011E73D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateDNSViewController.h; sourceTree = "<group>"; };
 		5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateDNSViewController.m; sourceTree = "<group>"; };
 		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				150845FB226EBF2900428514 /* Assets.xcassets */,
 				150845FD226EBF2900428514 /* LaunchScreen.storyboard */,
 				15084600226EBF2900428514 /* Info.plist */,
+				5601BE0122BD40820011E73D /* GoogleService-Info.plist */,
 				15084601226EBF2900428514 /* main.m */,
 			);
 			path = NhanHoa;
@@ -1686,6 +1689,7 @@
 				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				842F81B6227561ED00D6DE6D /* Roboto-Bold.ttf in Resources */,
+				5601BE0222BD40830011E73D /* GoogleService-Info.plist in Resources */,
 				846AACBC2276CAFE005BC87E /* cart.png in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
