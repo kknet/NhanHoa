@@ -97,8 +97,6 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableArray *listPricingVN;
 @property (nonatomic, strong) NSMutableArray *listPricingQT;
 
-@property (nonatomic, assign) BOOL needReloadInfo;
-
 @property(strong, nonatomic) LaunchViewController *launchVC;
 
 @property(strong, nonatomic) AudioSessionUtils *notiAudio;

@@ -200,8 +200,6 @@
             [self showPaymentContentViewWithMoney: topupMoney];
             return;
         }else if ([vpc_TxnResponseCode isEqualToString: Approved_Code]){
-            [AppDelegate sharedInstance].needReloadInfo = TRUE;
-            
             [self regetMyAccountInformation];
             
             if (resultView != nil) {

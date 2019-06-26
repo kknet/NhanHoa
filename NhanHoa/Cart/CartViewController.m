@@ -38,12 +38,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
-    if ([AppDelegate sharedInstance].needReloadInfo) {
-        [AppDelegate sharedInstance].needReloadInfo = FALSE;
-        
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
-    }
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
     
     [self setupUIForView];
     [self addTableViewForSelectYears];
