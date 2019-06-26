@@ -498,7 +498,7 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
 }
 
 -(void)failedToLoginWithError:(NSString *)error {

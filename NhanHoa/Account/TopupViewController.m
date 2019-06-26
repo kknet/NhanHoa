@@ -32,8 +32,22 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"TopupViewController"];
     
+    [self showUserWalletView];
     topupMoney = 0;
     
+    
+    tfMoney.text = @"";
+    
+    btn500K.backgroundColor = btn1000K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
+    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserWalletView)
+                                                 name:@"reloadBalanceInfo" object:nil];
+}
+
+- (void)showUserWalletView {
     NSString *totalBalance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: totalBalance]) {
         totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
@@ -41,16 +55,12 @@
     }else{
         lbMoney.text = @"0VNĐ";
     }
-    tfMoney.text = @"";
-    
-    btn500K.backgroundColor = btn1000K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
-    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
     if ([self isMovingFromParentViewController]) {
         [WriteLogsUtils writeLogContent:SFM(@"[%s] clear hash_key", __FUNCTION__)];
         

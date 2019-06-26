@@ -436,8 +436,6 @@
 }
 
 - (void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
-    
     [ProgressHUD dismiss];
     
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {

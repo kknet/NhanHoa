@@ -14,6 +14,7 @@
 #import "ShoppingCartView.h"
 #import "LaunchViewController.h"
 #import "AudioSessionUtils.h"
+#import "WebServiceUtils.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -32,7 +33,7 @@ typedef enum PaymentMethod{
     ePaymentWithVisaMaster,
 }PaymentMethod;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -100,6 +101,11 @@ typedef enum PaymentMethod{
 @property(strong, nonatomic) LaunchViewController *launchVC;
 
 @property(strong, nonatomic) AudioSessionUtils *notiAudio;
+
+@property (nonatomic, strong) NSTimer *getInfoTimer;
+@property (nonatomic, assign) int countLogin;
+- (void)startTimerToReloadInfoAfterTopupSuccessful;
+
 
 @end
 

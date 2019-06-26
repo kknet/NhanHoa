@@ -27,7 +27,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio;
+@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -87,6 +87,9 @@
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
     [self createErrorMessagesInfo];
+    
+    NSString *version = [AppUtils getAppVersionWithBuildVersion: TRUE];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"==================================================\n==               START APPLICATION VERSION (%@)             ==\n==================================================", version]];
     
     //  custom tabbar & navigation bar
     hStatusBar = application.statusBarFrame.size.height;
@@ -699,5 +702,44 @@
     token = fcmToken;
 }
 
+- (void)startTimerToReloadInfoAfterTopupSuccessful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    [self performSelector:@selector(regetLoginInformation) withObject:nil afterDelay:10];
+}
+
+- (void)regetLoginInformation {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+    if (getInfoTimer != nil) {
+        [getInfoTimer invalidate];
+        getInfoTimer = nil;
+    }
+    countLogin = 1;
+    
+    NSLog(@"regetLoginInformation after 15s");
+    getInfoTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(tryToRegetLoginInformation) userInfo:nil repeats:TRUE];
+}
+
+- (void)tryToRegetLoginInformation {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    if (countLogin >= 6) {
+        if (getInfoTimer != nil) {
+            [getInfoTimer invalidate];
+            getInfoTimer = nil;
+        }
+        countLogin = 0;
+        NSLog(@"countLogin = 6, cancel timer");
+        return;
+    }
+    countLogin++;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadBalanceInfo" object:nil];
+}
 
 @end

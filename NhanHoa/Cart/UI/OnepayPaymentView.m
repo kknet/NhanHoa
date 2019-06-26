@@ -200,6 +200,8 @@
             [self showPaymentContentViewWithMoney: topupMoney];
             return;
         }else if ([vpc_TxnResponseCode isEqualToString: Approved_Code]){
+            [[AppDelegate sharedInstance] startTimerToReloadInfoAfterTopupSuccessful];
+            
             [self regetMyAccountInformation];
             
             if (resultView != nil) {
@@ -254,7 +256,7 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
 }
 
 -(void)failedToGetAmoutWithError:(NSString *)error {

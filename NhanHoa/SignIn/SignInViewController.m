@@ -418,8 +418,6 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, data)];
-    
     [self processForLoginSuccessful];
     if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
         [[WebServiceUtils getInstance] updateTokenWithValue: [AppDelegate sharedInstance].token];

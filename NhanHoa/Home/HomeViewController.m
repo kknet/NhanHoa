@@ -56,6 +56,9 @@
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserWalletView)
+                                                 name:@"reloadBalanceInfo" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -69,6 +72,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
     [self.navigationController setNavigationBarHidden: NO];
     [viewBanner.slideTimer invalidate];
     viewBanner.slideTimer = nil;
