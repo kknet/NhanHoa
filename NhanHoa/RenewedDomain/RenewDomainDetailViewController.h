@@ -29,11 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnRenewDomain;
 @property (weak, nonatomic) IBOutlet UIButton *btnChangeDNS;
 @property (weak, nonatomic) IBOutlet UIButton *btnUpdatePassport;
+@property (weak, nonatomic) IBOutlet UIButton *btnSigning;
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender;
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender;
 - (IBAction)btnChangeDNSPress:(UIButton *)sender;
+- (IBAction)btnSigningPress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *ordId;
 @property (nonatomic, strong) NSString *cusId;

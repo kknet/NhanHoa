@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="btnChangeDNS" destination="11k-PI-Qv8" id="4Nu-bl-OO5"/>
                 <outlet property="btnRenewDomain" destination="kLf-69-SgQ" id="Ucf-S8-Xrd"/>
+                <outlet property="btnSigning" destination="McI-sM-Ew8" id="MCx-dW-CXz"/>
                 <outlet property="btnUpdatePassport" destination="2k1-TM-Lm8" id="Kxi-cb-903"/>
                 <outlet property="lbDomain" destination="aeO-Ot-lQO" id="u5v-td-win"/>
                 <outlet property="lbDomainValue" destination="NO2-Da-Jtr" id="ehg-DA-XYz"/>
@@ -128,22 +129,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLf-69-SgQ">
-                    <rect key="frame" x="16" y="347" width="288" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Gia hạn tên miền">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="btnRenewDomainPress:" destination="-1" eventType="touchUpInside" id="Vbe-uB-I2P"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2k1-TM-Lm8">
-                    <rect key="frame" x="16" y="385" width="288" height="30"/>
+                    <rect key="frame" x="16" y="383" width="288" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Update CMND">
+                    <state key="normal" title="Cập nhật CMND">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -175,10 +165,30 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLf-69-SgQ">
+                    <rect key="frame" x="16" y="309" width="288" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Gia hạn tên miền">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnRenewDomainPress:" destination="-1" eventType="touchUpInside" id="Vbe-uB-I2P"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McI-sM-Ew8">
+                    <rect key="frame" x="16" y="345" width="288" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.41568627450000001" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <state key="normal" title="Ký tên"/>
+                    <connections>
+                        <action selector="btnSigningPress:" destination="-1" eventType="touchUpInside" id="Sb4-Pf-Adw"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-763" y="-53"/>
+            <point key="canvasLocation" x="-1181" y="-23"/>
         </view>
     </objects>
 </document>

@@ -221,6 +221,9 @@
 #define text_today      @"Hôm nay"
 #define text_yesterday  @"Hôm qua"
 
+#define text_signed_contract    @"Hợp đồng đã ký tên"
+#define text_signing_contract   @"Ký tên lên hợp đồng"
+
 #endif /* AppString_h */
 
 

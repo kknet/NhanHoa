@@ -10,6 +10,7 @@
 #import "RenewDomainCartViewController.h"
 #import "UpdatePassportViewController.h"
 #import "UpdateDNSViewController.h"
+#import "SigningDomainViewController.h"
 
 @interface RenewDomainDetailViewController ()<WebServiceUtilsDelegate> {
     NSString *CMND_a;
@@ -19,12 +20,15 @@
     NSString *domainType;
     NSString *cus_id;
     NSString *ban_khai;
+    
+    NSString *domain_signed_url;
+    NSString *domain_signing_url;
 }
 
 @end
 
 @implementation RenewDomainDetailViewController
-@synthesize lbTopDomain, viewDetail, lbID, lbIDValue, lbDomain, lbDomainValue, lbServiceName, lbServiceNameValue, lbRegisterDate, lbRegisterDateValue, lbExpire, lbExpireDate, lbState, lbStateValue, btnRenewDomain, btnChangeDNS, btnUpdatePassport, lbNoData;
+@synthesize lbTopDomain, viewDetail, lbID, lbIDValue, lbDomain, lbDomainValue, lbServiceName, lbServiceNameValue, lbRegisterDate, lbRegisterDateValue, lbExpire, lbExpireDate, lbState, lbStateValue, btnRenewDomain, btnChangeDNS, btnUpdatePassport, lbNoData, btnSigning;
 @synthesize ordId, cusId, padding, hItem;
 
 - (void)viewDidLoad {
@@ -39,7 +43,8 @@
     [WriteLogsUtils writeForGoToScreen: @"RenewDomainDetailViewController"];
     [WebServiceUtils getInstance].delegate = self;
     
-    btnChangeDNS.hidden = btnUpdatePassport.hidden = btnRenewDomain.hidden = TRUE;
+    btnChangeDNS.hidden = btnUpdatePassport.hidden = btnSigning.hidden = btnRenewDomain.hidden = TRUE;
+    domain_signed_url = domain_signing_url = @"";
     
     [self setEmptyValueForView];
     
@@ -109,6 +114,20 @@
     [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     [self performSelector:@selector(changeNDS) withObject:nil afterDelay:0.05];
 }
+
+- (IBAction)btnSigningPress:(UIButton *)sender {
+    SigningDomainViewController *signingVC = [[SigningDomainViewController alloc] initWithNibName:@"SigningDomainViewController" bundle:nil];
+    signingVC.domain_signing_url = signingVC.domain_signed_url = @"";
+    
+    if (![AppUtils isNullOrEmpty: domain_signed_url]) {
+        signingVC.domain_signed_url = domain_signed_url;
+        
+    }else if (![AppUtils isNullOrEmpty: domain_signing_url]) {
+        signingVC.domain_signing_url = domain_signing_url;
+        
+    }
+    [self.navigationController pushViewController:signingVC animated:TRUE];
+}
 - (void)changeNDS {
     btnChangeDNS.backgroundColor = BLUE_COLOR;
     [btnChangeDNS setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -124,7 +143,7 @@
 
 
 - (void)setEmptyValueForView {
-    lbIDValue.text = lbDomainValue.text = lbServiceNameValue.text = lbRegisterDateValue.text = lbExpireDate.text = lbStateValue.text = @"";
+    lbTopDomain.text = lbIDValue.text = lbDomainValue.text = lbServiceNameValue.text = lbRegisterDateValue.text = lbExpireDate.text = lbStateValue.text = @"";
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
@@ -237,6 +256,17 @@
     CMND_a = [info objectForKey:@"cmnd_a"];
     CMND_b = [info objectForKey:@"cmnd_b"];
     ban_khai = [info objectForKey:@"bankhai"];
+    
+    //  get domain_signed_url
+    domain_signed_url = [info objectForKey:@"domain_signed_url"];
+    domain_signing_url = [info objectForKey:@"domain_signing_url"];
+    
+    if (![AppUtils isNullOrEmpty: domain_signed_url]) {
+        [btnSigning setTitle:text_signed_contract forState:UIControlStateNormal];
+        
+    }else if (![AppUtils isNullOrEmpty: domain_signing_url]){
+        [btnSigning setTitle:text_signing_contract forState:UIControlStateNormal];
+    }
 }
 
 - (void)updateFooterMenuWithDomainType: (NSString *)domainType {
@@ -245,7 +275,7 @@
     btnChangeDNS.hidden = btnRenewDomain.hidden = FALSE;
     
     if (![AppUtils isNullOrEmpty: domainType] && [domainType isEqualToString:domainvn_type]) {
-        btnUpdatePassport.hidden = FALSE;
+        btnUpdatePassport.hidden = btnSigning.hidden = FALSE;
         
         [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(self.padding);
@@ -254,14 +284,14 @@
             make.height.mas_equalTo(hBTN);
         }];
         
-        [btnUpdatePassport mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.btnChangeDNS);
-            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
-            make.height.equalTo(self.btnChangeDNS.mas_height);
-        }];
+//        [btnUpdatePassport mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.equalTo(self.btnChangeDNS);
+//            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
+//            make.height.equalTo(self.btnChangeDNS.mas_height);
+//        }];
         
     }else{
-        btnUpdatePassport.hidden = TRUE;
+        btnUpdatePassport.hidden = btnSigning.hidden = TRUE;
         
         [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.btnChangeDNS);
@@ -382,13 +412,13 @@
     
     float hBTN = 45.0;
     
-    btnChangeDNS.titleLabel.font = btnUpdatePassport.titleLabel.font = btnRenewDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnChangeDNS.titleLabel.font = btnUpdatePassport.titleLabel.font = btnSigning.titleLabel.font = btnRenewDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
-    btnChangeDNS.backgroundColor = btnUpdatePassport.backgroundColor = btnRenewDomain.backgroundColor = BLUE_COLOR;
-    btnChangeDNS.layer.cornerRadius = btnUpdatePassport.layer.cornerRadius = btnRenewDomain.layer.cornerRadius = hBTN/2;
+    btnChangeDNS.backgroundColor = btnUpdatePassport.backgroundColor = btnSigning.backgroundColor = btnRenewDomain.backgroundColor = BLUE_COLOR;
+    btnChangeDNS.layer.cornerRadius = btnUpdatePassport.layer.cornerRadius = btnSigning.layer.cornerRadius = btnRenewDomain.layer.cornerRadius = hBTN/2;
     
-    btnChangeDNS.layer.borderColor = btnUpdatePassport.layer.borderColor = btnRenewDomain.layer.borderColor = BLUE_COLOR.CGColor;
-    btnChangeDNS.layer.borderWidth = btnUpdatePassport.layer.borderWidth = btnRenewDomain.layer.borderWidth = 1.0;
+    btnChangeDNS.layer.borderColor = btnUpdatePassport.layer.borderColor = btnSigning.layer.borderColor = btnRenewDomain.layer.borderColor = BLUE_COLOR.CGColor;
+    btnChangeDNS.layer.borderWidth = btnUpdatePassport.layer.borderWidth = btnSigning.layer.borderWidth = btnRenewDomain.layer.borderWidth = 1.0;
     
     [btnChangeDNS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(self.padding);
@@ -403,10 +433,16 @@
         make.height.equalTo(self.btnChangeDNS.mas_height);
     }];
     
-    [btnRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+    [btnSigning mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.btnUpdatePassport);
         make.bottom.equalTo(self.btnUpdatePassport.mas_top).offset(-self.padding);
         make.height.equalTo(self.btnUpdatePassport.mas_height);
+    }];
+    
+    [btnRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.btnSigning);
+        make.bottom.equalTo(self.btnSigning.mas_top).offset(-self.padding);
+        make.height.equalTo(self.btnSigning.mas_height);
     }];
     
     lbNoData.hidden = TRUE;

@@ -153,6 +153,10 @@
 		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
 		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
 		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
+		56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56064F3222C7696B003D8859 /* SigningDomainViewController.m */; };
+		56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56064F3322C7696B003D8859 /* SigningDomainViewController.xib */; };
+		56064F3822C78C69003D8859 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56064F3722C78C69003D8859 /* WebKit.framework */; };
+		56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */ = {isa = PBXBuildFile; fileRef = 56064F3A22C796C7003D8859 /* UIWebView+GUIFixes.m */; };
 		560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */; };
 		560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */; };
 		560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 560F82E922BA865B004BF3FE /* iphone_text.mp3 */; };
@@ -530,6 +534,12 @@
 		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
 		5602A91022AAC113003AE8D9 /* WebServiceUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServiceUtils.h; sourceTree = "<group>"; };
 		5602A91122AAC113003AE8D9 /* WebServiceUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebServiceUtils.m; sourceTree = "<group>"; };
+		56064F3122C7696B003D8859 /* SigningDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SigningDomainViewController.h; sourceTree = "<group>"; };
+		56064F3222C7696B003D8859 /* SigningDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SigningDomainViewController.m; sourceTree = "<group>"; };
+		56064F3322C7696B003D8859 /* SigningDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningDomainViewController.xib; sourceTree = "<group>"; };
+		56064F3722C78C69003D8859 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		56064F3922C796C7003D8859 /* UIWebView+GUIFixes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWebView+GUIFixes.h"; sourceTree = "<group>"; };
+		56064F3A22C796C7003D8859 /* UIWebView+GUIFixes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+GUIFixes.m"; sourceTree = "<group>"; };
 		560B16E722B2AAFE0004DD29 /* AddOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderViewController.h; sourceTree = "<group>"; };
 		560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderViewController.m; sourceTree = "<group>"; };
 		560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOrderViewController.xib; sourceTree = "<group>"; };
@@ -779,6 +789,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56064F3822C78C69003D8859 /* WebKit.framework in Frameworks */,
 				15A496E122AA0737007609E8 /* UserNotifications.framework in Frameworks */,
 				56F0958F229A7B7D00AF381B /* Photos.framework in Frameworks */,
 				5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */,
@@ -940,6 +951,8 @@
 				5610492022B4FE9000463378 /* Constant.m */,
 				560F82ED22BA8962004BF3FE /* AudioSessionUtils.h */,
 				560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */,
+				56064F3922C796C7003D8859 /* UIWebView+GUIFixes.h */,
+				56064F3A22C796C7003D8859 /* UIWebView+GUIFixes.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1533,6 +1546,9 @@
 				5602034A22A3E8150038D6BA /* UpdateDNSViewController.h */,
 				5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */,
 				5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */,
+				56064F3122C7696B003D8859 /* SigningDomainViewController.h */,
+				56064F3222C7696B003D8859 /* SigningDomainViewController.m */,
+				56064F3322C7696B003D8859 /* SigningDomainViewController.xib */,
 			);
 			path = RenewedDomain;
 			sourceTree = "<group>";
@@ -1577,6 +1593,7 @@
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56064F3722C78C69003D8859 /* WebKit.framework */,
 				15A496E022AA0736007609E8 /* UserNotifications.framework */,
 				56F0958E229A7B7D00AF381B /* Photos.framework */,
 				5649C7902299A3D90015DB1D /* MobileCoreServices.framework */,
@@ -1846,6 +1863,7 @@
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
+				56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				56B5685022B153A300AB8F29 /* tick_white.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
@@ -1938,6 +1956,7 @@
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
+				56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */,
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
@@ -2019,6 +2038,7 @@
 				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
+				56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
@@ -2169,6 +2189,7 @@
 				CODE_SIGN_ENTITLEMENTS = NhanHoa/NhanHoa.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2176,6 +2197,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoaapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "90e49281-7d3c-4017-b2f5-dd2508962544";
@@ -2194,6 +2216,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = NhanHoa_PrefixHeader.pch;
 				INFOPLIST_FILE = NhanHoa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2201,6 +2224,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nhanhoa.nhanhoaapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NhanHoa_NewRelease;
