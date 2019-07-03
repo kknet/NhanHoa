@@ -148,16 +148,6 @@
     [AppDelegate sharedInstance].hashKey = [AppUtils getMD5StringOfString: total];
     
     [self goToPaymentView];
-    /*
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
-     
-    if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].hashKey]) {
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] getHashKeyWithHash: [AppDelegate sharedInstance].hashKey];
-    }else{
-        [self.view makeToast:@"Không thể lấy được chuỗi hash để giao dịch ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-    }   */
 }
 
 - (void)closeKeyboard {

@@ -38,7 +38,6 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"ProfileManagerViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     if (listSearch == nil) {
         listSearch = [[NSMutableArray alloc] init];
@@ -56,9 +55,9 @@
     }else{
         if (tfSearch.text.length > 0) {
             [self searchTextfieldChanged: tfSearch];
-            icClear.hidden = TRUE;
-        }else{
             icClear.hidden = FALSE;
+        }else{
+            icClear.hidden = TRUE;
         }
     }
 }
@@ -157,6 +156,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getListProfilesForAccount:[AccountModel getCusUsernameOfUser]];
 }
 

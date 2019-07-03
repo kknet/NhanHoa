@@ -61,8 +61,6 @@
     [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.wvPayment);
     }];
-    
-    [self addPaymentResultViewIfNeed];
 }
 
 - (void)showPaymentContentViewWithMoney: (long)money
@@ -119,7 +117,7 @@
                     [self processWithInfo: info];
                     
                 }else{
-                    NSLog(@"Dữ liệu không toàn vẹn");
+                    [WriteLogsUtils writeLogContent:SFM(@"[%s] >>>>>>>>>>>>>>>>>>>> Dữ liệu không toàn vẹn", __FUNCTION__)];
                 }
             }
         }else{
@@ -131,17 +129,6 @@
                     [self userCancelPayment];
                 }
             }
-//            NSLog(@"---------------------------------------------");
-//            NSLog(@"Load: %@", webView.request.URL.absoluteString);
-//            NSLog(@"host: %@", webView.request.URL.host);
-//            NSLog(@"port: %@", webView.request.URL.port);
-//            NSLog(@"user: %@", webView.request.URL.user);
-//            NSLog(@"password: %@", webView.request.URL.password);
-//            NSLog(@"Path: %@", );
-//            NSLog(@"fragment: %@", webView.request.URL.fragment);
-//            NSLog(@"parameter: %@", webView.request.URL.parameterString);
-//            NSLog(@"query: %@", webView.request.URL.query);
-//            NSLog(@"relativePath: %@", webView.request.URL.relativePath);
         }
     }
 }
@@ -169,72 +156,105 @@
 }
 
 - (void)processWithInfo: (NSDictionary *)info {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] >>>>>>>>>>>>>>> info = %@", __FUNCTION__, @[info])];
+    
     NSString *vpc_TxnResponseCode = [info objectForKey:@"vpc_TxnResponseCode"];
     if (![AppUtils isNullOrEmpty: vpc_TxnResponseCode]) {
-        if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
-            [self makeToast:@"Giao dịch không thành công. Bạn đã hủy giao dịch!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            //  [self performSelector:@selector(backToPreviousView) withObject:nil afterDelay:2.0];
+        if ([vpc_TxnResponseCode isEqualToString: Bank_Declined_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Ngân hàng phát hành thẻ từ chối cấp phép cho giao dịch. Vui lòng liên hệ ngân hàng theo số điện thoại sau mặt thẻ để biết chính xác nguyên nhân Ngân hàng từ chối." duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            return;
+           
+        }else if ([vpc_TxnResponseCode isEqualToString: Merchant_not_exist_Code]) {
+            [self makeToast:@"Giao dịch không thành công, có lỗi trong quá trình cài đặt cổng thanh toán. Vui lòng liên hệ với OnePAY để được hỗ trợ (Hotline 1900 633 927)" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_access_Code]) {
+            [self makeToast:@"Giao dịch không thành công, có lỗi trong quá trình cài đặt cổng thanh toán. Vui lòng liên hệ với OnePAY để được hỗ trợ (Hotline 1900 633 927)" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_amount_Code]) {
+            [self makeToast:@"Giao dịch không thành công, số tiền không hợp lệ. Vui lòng liên hệ với OnePAY để được hỗ trợ (Hotline 1900 633 927)" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_currency_Code]) {
+            [self makeToast:@"Giao dịch không thành công, loại tiền tệ không hợp lệ. Vui lòng liên hệ với OnePAY để được hỗ trợ (Hotline 1900 633 927)" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Unspecified_failure_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Ngân hàng phát hành thẻ từ chối cấp phép cho giao dịch. Vui lòng liên hệ ngân hàng theo số điện thoại sau mặt thẻ để biết chính xác nguyên nhân Ngân hàng từ chối." duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
             return;
             
         }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_number_Code]) {
             [self makeToast:@"Giao dịch không thành công. Số thẻ không đúng. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self showPaymentContentViewWithMoney: topupMoney];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
             
-            return;
-        }else if ([vpc_TxnResponseCode isEqualToString: Expired_card_Code]) {
-            [self makeToast:@"Giao dịch không thành công. Thẻ hết hạn/Thẻ bị khóa. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self showPaymentContentViewWithMoney: topupMoney];
             return;
         }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_name_Code]) {
             [self makeToast:@"Giao dịch không thành công. Tên chủ thẻ không đúng. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self showPaymentContentViewWithMoney: topupMoney];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Expired_card_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Thẻ hết hạn/Thẻ bị khóa. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Card_not_registed_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Thẻ chưa đăng ký sử dụng dịch vụ thanh toán trên Internet. Vui lòng liên hê ngân hàng theo số điện thoại sau mặt thẻ để được hỗ trợ." duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Invalid_card_date_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Ngày phát hành/Hết hạn không đúng. Vui lòng kiểm tra và thực hiện thanh toán lại" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: Exist_Amount_Code]) {
+            [self makeToast:@"Giao dịch không thành công. thẻ/ tài khoản đã vượt quá hạn mức thanh toán. Vui lòng kiểm tra và thực hiện thanh toán lại" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
             return;
             
         }else if ([vpc_TxnResponseCode isEqualToString: Insufficient_fund_Code]) {
             [self makeToast:@"Giao dịch không thành công. Số tiền không đủ để thanh toán. Vui lòng kiểm tra và thực hiện thanh toán lại!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self showPaymentContentViewWithMoney: topupMoney];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:4.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
+            return;
+            
+        }else if ([vpc_TxnResponseCode isEqualToString: User_cancel_Code]) {
+            [self makeToast:@"Giao dịch không thành công. Bạn đã hủy giao dịch!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
             return;
             
         }else if ([vpc_TxnResponseCode isEqualToString: Failured_Content]) {
-            [self makeToast:@"Giao dịch không thành công!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            [self showPaymentContentViewWithMoney: topupMoney];
+            [self makeToast:@"Giao dịch không thành công!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+            //  [self showPaymentContentViewWithMoney: topupMoney];
             return;
         }else if ([vpc_TxnResponseCode isEqualToString: Approved_Code]){
             [[AppDelegate sharedInstance] startTimerToReloadInfoAfterTopupSuccessful];
             
             [self regetMyAccountInformation];
             
-            if (resultView != nil) {
-                resultView.hidden = FALSE;
-                [resultView showContentWithInfo: info];
-            }
-            [self makeToast:@"Giao dịch thành công!" duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+            [self makeToast:@"Giao dịch thành công!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+        }else{
+            [self makeToast:@"Giao dịch không thành công!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+            return;
         }
     }
-}
-
-- (void)addPaymentResultViewIfNeed {
-    if (resultView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"PaymentResultView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[PaymentResultView class]]) {
-                resultView = (PaymentResultView *) currentObject;
-                break;
-            }
-        }
-        [self addSubview: resultView];
-    }
-    [resultView.icBack addTarget:self
-                          action:@selector(backIconViewResultClick)
-                forControlEvents:UIControlEventTouchUpInside];
-    
-    [resultView.btnTopupMore addTarget:self
-                                action:@selector(backIconViewResultClick)
-                forControlEvents:UIControlEventTouchUpInside];
-    
-    resultView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    [resultView setupUIForView];
-    resultView.hidden = TRUE;
 }
 
 - (void)backIconViewResultClick {

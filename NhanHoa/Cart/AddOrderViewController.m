@@ -40,7 +40,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"AddOrderViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     [self setupUIForView];
 }
@@ -209,6 +208,8 @@
             buyingDomain = domainName;
             
             if (![AppUtils isNullOrEmpty: profileCusId] && ![AppUtils isNullOrEmpty: domainName] && ![AppUtils isNullOrEmpty: years]) {
+                
+                [WebServiceUtils getInstance].delegate = self;
                 [[WebServiceUtils getInstance] addOrderForDomain:domainName contact_id:profileCusId year:[years intValue]];
             }else{
                 [paymentResult setObject:@"failed" forKey:buyingDomain];

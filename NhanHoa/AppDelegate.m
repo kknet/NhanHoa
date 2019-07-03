@@ -28,6 +28,7 @@
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
+@synthesize supportCall;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -84,6 +85,7 @@
     }
     
     //  setup logs folder
+    supportCall = FALSE;
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
     [self createErrorMessagesInfo];
@@ -603,7 +605,8 @@
 - (void)hideCartView {
     [ProgressHUD updateCurrentWindowWithNewWindow: self.window];
     if( [self.cartWindow isKeyWindow] ) {
-        [UIView animateWithDuration:0.2 animations:^{
+        
+        [UIView animateWithDuration:0.0 animations:^{
             self.cartWindow.alpha = 0;
         } completion:^(BOOL finished) {
             if (self.cartViewController != nil) {
@@ -616,6 +619,7 @@
                 self.cartNavViewController = nil;
             }
             [self.cartWindow removeFromSuperview];
+            [self.window makeKeyAndVisible];
         }];
     }
 }

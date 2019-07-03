@@ -106,6 +106,8 @@ typedef enum PaymentMethod{
 @property (nonatomic, assign) int countLogin;
 - (void)startTimerToReloadInfoAfterTopupSuccessful;
 
+@property (nonatomic, assign) BOOL supportCall;
+
 
 @end
 

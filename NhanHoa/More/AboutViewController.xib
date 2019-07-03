@@ -26,7 +26,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJf-dS-6Jn">
                     <rect key="frame" x="100" y="74" width="120" height="120"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="app-icon.png"/>
+                    <state key="normal" image="app-icon.jpg"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version: 1.0 (1)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zje-yH-MYM">
                     <rect key="frame" x="77" y="208" width="166" height="21"/>
@@ -58,6 +58,6 @@
         </view>
     </objects>
     <resources>
-        <image name="app-icon.png" width="1024" height="1024"/>
+        <image name="app-icon.jpg" width="1024" height="1024"/>
     </resources>
 </document>

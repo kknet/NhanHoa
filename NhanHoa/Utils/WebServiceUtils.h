@@ -111,7 +111,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendMessageWithEmail:(NSString *)email content:(NSString *)content;
 - (void)updatePhotoForCustomerWithURL: (NSString *)url;
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass;
-- (void)getHashKeyWithHash: (NSString *)hash;
 - (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code;
 - (void)resendOTPForUsername: (NSString *)username password: (NSString *)password;
 - (void)getTransactionsHistory;

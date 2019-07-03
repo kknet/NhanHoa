@@ -41,7 +41,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen: @"RenewDomainDetailViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     btnChangeDNS.hidden = btnUpdatePassport.hidden = btnSigning.hidden = btnRenewDomain.hidden = TRUE;
     domain_signed_url = domain_signing_url = @"";
@@ -147,6 +146,7 @@
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getDomainInfoWithOrdId: ord_id];
 }
 

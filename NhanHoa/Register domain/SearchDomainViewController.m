@@ -41,7 +41,6 @@
     [self.navigationController setNavigationBarHidden: TRUE];
     
     [WriteLogsUtils writeForGoToScreen: @"SearchDomainViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang kiểm tra. Vui lòng chờ trong giây lát..." Interaction:NO];
@@ -51,6 +50,7 @@
     
     [self registerObservers];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
 }
 
@@ -89,6 +89,7 @@
     strSearch = tfSearch.text;
     [self hideUIForSearch: TRUE];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
 }
 
@@ -144,7 +145,7 @@
     if (firstDomainInfo == nil) {
         hResult = 100.0;
     }else{
-        hResult = 200.0;
+        hResult = 220.0;
     }
     
     [viewResult mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -426,7 +427,7 @@
             [listDomains removeObject: firstDomainInfo];
             
             NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
-            NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
+            NSString *content = [NSString stringWithFormat:@"Chúc mừng!\nBạn có thế sử dụng tên miền:\n %@\nĐăng ký ngay để bảo vệ thương hiệu của bạn.", firstDomain];
             NSRange range = [content rangeOfString: firstDomain];
             if (range.location != NSNotFound) {
                 NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];

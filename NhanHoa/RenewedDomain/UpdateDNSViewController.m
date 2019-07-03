@@ -33,7 +33,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdateDNSViewController"];
-    [WebServiceUtils getInstance].delegate = self;
+    
     
     dictDNS = [[NSDictionary alloc] init];
     
@@ -92,12 +92,15 @@
 - (void)getDNSValueForDomain: (NSString *)domainName
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] domainName = %@", __FUNCTION__, domainName)];
+    
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getDNSValueForDomain: domainName];
 }
 
 - (void)changeDNSValueForDomain {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] changeDNSForDomain:domain dns1:tfDNS1.text dns2:tfDNS2.text dns3:tfDNS3.text dns4:tfDNS4.text];
 }
 

@@ -44,7 +44,6 @@ typedef enum TypeSelectDomain{
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"RenewedDomainViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     if (listSearch == nil) {
         listSearch = [[NSMutableArray alloc] init];
@@ -295,6 +294,7 @@ typedef enum TypeSelectDomain{
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang tải.." Interaction:NO];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getDomainsWasRegisteredWithType: type];
 }
 

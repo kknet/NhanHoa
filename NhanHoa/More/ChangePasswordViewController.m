@@ -26,7 +26,6 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen:@"ChangePasswordViewController"];
-    [WebServiceUtils getInstance].delegate = self;
 }
 
 - (void)setupUIForView {
@@ -200,6 +199,8 @@
     [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
     
     NSString *newPass = [AppUtils getMD5StringOfString: tfNewPass.text];
+    
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] changePasswordWithCurrentPass:PASSWORD newPass:newPass];
 }
 

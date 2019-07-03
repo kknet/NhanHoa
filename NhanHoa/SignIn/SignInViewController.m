@@ -191,6 +191,8 @@
     
     //
     float paddingTop = (hHeader/2 - (100 + 15.0 + 30.0 + 25.0))/2;
+    imgLogo.layer.cornerRadius = 15.0;
+    imgLogo.clipsToBounds = TRUE;
     [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.scvContent).offset(paddingTop + 30.0);
         make.centerX.equalTo(self.scvContent.mas_centerX);

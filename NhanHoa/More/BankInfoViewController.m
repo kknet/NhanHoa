@@ -33,7 +33,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"BankInfoViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     if ([AppDelegate sharedInstance].listBank == nil) {
         [self createListBank];
@@ -176,6 +175,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateBankInfoWithBankName:tfBankName.text bankaccount:tfOwner.text banknumber:tfAccNo.text];
 }
 
@@ -404,6 +404,8 @@
 - (void)tryLoginToUpdateInformation
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 

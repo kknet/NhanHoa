@@ -28,7 +28,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeLogContent:@"WithdrawalBonusAccountViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
      [self displayCusPoints];
 }
@@ -135,6 +134,7 @@
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
+                                                         [WebServiceUtils getInstance].delegate = self;
                                                          [[WebServiceUtils getInstance] withdrawWithAmout: self.withdrawMoney];
                                                      }];
     [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];

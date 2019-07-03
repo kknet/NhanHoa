@@ -7,6 +7,7 @@
 //
 
 #import "SupportViewController.h"
+#import "SupportListViewController.h"
 
 @interface SupportViewController ()<WebServiceUtilsDelegate>
 @end
@@ -25,7 +26,6 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen:@"SupportViewController"];
-    [WebServiceUtils getInstance].delegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -52,7 +52,14 @@
 
 - (IBAction)btnCallPress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phone_support]]];
+    if ([AppDelegate sharedInstance].supportCall) {
+        SupportListViewController *listVC = [[SupportListViewController alloc] initWithNibName:@"SupportListViewController" bundle:nil];
+        [self.navigationController pushViewController:listVC animated:TRUE];
+        
+    }else{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phone_support]]];
+    }
+    
     //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", phone_support]]];
     //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
@@ -125,6 +132,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang gửi tin nhắn..." Interaction:NO];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] sendMessageWithEmail:email content:content];
 }
 

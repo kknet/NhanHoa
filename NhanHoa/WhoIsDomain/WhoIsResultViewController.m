@@ -35,7 +35,6 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen: @"WhoIsResultViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     [listSearch removeObject:@""];
     
@@ -184,6 +183,8 @@
     if (listSearch.count > 0) {
         NSString *domain = [listSearch firstObject];
         [listSearch removeObjectAtIndex: 0];
+        
+        [WebServiceUtils getInstance].delegate = self;
         [[WebServiceUtils getInstance] searchDomainWithName:domain type:1];
         
         [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];

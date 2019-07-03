@@ -26,6 +26,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [WriteLogsUtils writeForGoToScreen:@"PaymentViewController"];
+    
     typePaymentMethod = ePaymentWithATM;
 }
 
@@ -101,12 +103,16 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     sender.backgroundColor = UIColor.whiteColor;
     [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     [self performSelector:@selector(startContinuePayment) withObject:nil afterDelay:0.05];
 }
 
 - (void)startContinuePayment {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     btnContinue.backgroundColor = BLUE_COLOR;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     

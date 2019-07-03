@@ -36,7 +36,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     [self showCurrentPassportForDomain];
 }
@@ -320,6 +319,7 @@
         [self.view makeToast:@"CMND của bạn chưa được tải thành công. Vui lòng thử lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId domainName:domain domainType:domainType domainId:domainId banKhai:linkBanKhai];
 }
 

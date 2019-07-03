@@ -45,6 +45,10 @@
     [super viewWillAppear: animated];
     [self.navigationController setNavigationBarHidden: YES];
     
+    NSString *md5 = [AppUtils getMD5StringOfString:[NSString stringWithFormat:@"%@%@", @"/cskhvoip", [AccountModel getCusPassword]]];
+    NSLog(@"%@", [AccountModel getCusPassword]);
+    NSLog(@"%@", md5);
+    
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
     
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];

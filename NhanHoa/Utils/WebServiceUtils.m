@@ -31,7 +31,9 @@
     [jsonDict setObject:login_mod forKey:@"mod"];
     [jsonDict setObject:username forKey:@"username"];
     [jsonDict setObject:password forKey:@"password"];
-    [webService callWebServiceWithLink:login_func withParams:jsonDict];
+    
+    //  [webService callWebServiceWithLink:login_func withParams:jsonDict];
+    [webService callWebServiceWithLink:login_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 //  update token function
@@ -48,7 +50,7 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:[NSString stringWithFormat:@"ios-%@", token] forKey:@"token"];
     
-    [webService callWebServiceWithLink:update_token_func withParams:jsonDict];
+    [webService callWebServiceWithLink:update_token_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 //  search whois domain
@@ -61,7 +63,8 @@
     [jsonDict setObject:domain forKey:@"domain"];
     [jsonDict setObject:[AccountModel getCusIdOfUser] forKey:@"cus_id"];
     [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
-    [webService callWebServiceWithLink:whois_func withParams:jsonDict];
+
+    [webService callWebServiceWithLink:whois_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 //  get domain list which was registerd
@@ -77,7 +80,7 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:[NSNumber numberWithInt: type] forKey:@"type"];
     
-    [webService callWebServiceWithLink:list_domain_func withParams:jsonDict];
+    [webService callWebServiceWithLink:list_domain_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getDomainsPricingList {
@@ -85,7 +88,8 @@
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:domain_pricing_mod forKey:@"mod"];
-    [webService callWebServiceWithLink:domain_pricing_func withParams:jsonDict];
+
+    [webService callWebServiceWithLink:domain_pricing_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
@@ -97,7 +101,7 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:ord_id forKey:@"ord_id"];
     
-    [webService callWebServiceWithLink:info_domain_func withParams:jsonDict];
+    [webService callWebServiceWithLink:info_domain_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)updateCMNDPhotoForDomainWithCMND_a: (NSString *)cmnd_a CMND_b: (NSString *)cmnd_b cusId: (NSString *)cusId domainName: (NSString *)domainName domainType: (NSString *)domainType domainId: (NSString *)domainId banKhai: (NSString *)banKhai
@@ -126,7 +130,7 @@
         [jsonDict setObject:cmnd_b forKey:@"cmnd_b"];
     }
     
-    [webService callWebServiceWithLink:update_cmnd_func withParams:jsonDict];
+    [webService callWebServiceWithLink:update_cmnd_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getDNSValueForDomain: (NSString *)domain
@@ -139,7 +143,7 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:domain forKey:@"domain"];
     
-    [webService callWebServiceWithLink:get_dns_func withParams:jsonDict];
+    [webService callWebServiceWithLink:get_dns_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)changeDNSForDomain: (NSString *)domain dns1: (NSString *)dns1 dns2: (NSString *)dns2 dns3: (NSString *)dns3 dns4: (NSString *)dns4
@@ -167,7 +171,7 @@
     if (![AppUtils isNullOrEmpty: dns4]) {
         [jsonDict setObject:dns4 forKey:@"ns4"];
     }
-    [webService callWebServiceWithLink:change_dns_func withParams:jsonDict];
+    [webService callWebServiceWithLink:change_dns_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getListProfilesForAccount: (NSString *)username {
@@ -177,21 +181,22 @@
     [jsonDict setObject:get_profile_mod forKey:@"mod"];
     [jsonDict setObject:username forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
-    [webService callWebServiceWithLink:get_profile_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:get_profile_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)addProfileWithContent: (NSDictionary *)data
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
-    [webService callWebServiceWithLink:add_contact_func withParams:data];
+    [webService callWebServiceWithLink:add_contact_func withParams:data inBackgroundMode:TRUE];
 }
 
 - (void)editProfileWithContent: (NSDictionary *)data
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
-    [webService callWebServiceWithLink:edit_contact_func withParams:data];
+    [webService callWebServiceWithLink:edit_contact_func withParams:data inBackgroundMode:TRUE];
 }
 
 -(void)sendMessageWithEmail:(NSString *)email content:(NSString *)content
@@ -203,7 +208,8 @@
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:email forKey:@"email"];
     [jsonDict setObject:content forKey:@"content"];
-    [webService callWebServiceWithLink:send_question_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:send_question_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)updatePhotoForCustomerWithURL: (NSString *)url
@@ -216,7 +222,7 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:url forKey:@"photo"];
     
-    [webService callWebServiceWithLink:profile_photo_func withParams:jsonDict];
+    [webService callWebServiceWithLink:profile_photo_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass
@@ -229,18 +235,8 @@
     [jsonDict setObject:currentPass forKey:@"old_password"];
     [jsonDict setObject:newPass forKey:@"new_password"];
     [jsonDict setObject:newPass forKey:@"re_new_password"];
-    [webService callWebServiceWithLink:change_pass_func withParams:jsonDict];
-}
-
-- (void)getHashKeyWithHash: (NSString *)hash {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] hash = %@", __FUNCTION__, hash)];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:hash_key_mod forKey:@"mod"];
-    [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:hash forKey:@"hash"];
-    [webService callWebServiceWithLink:hash_key_func withParams:jsonDict];
+    [webService callWebServiceWithLink:change_pass_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code {
@@ -251,7 +247,8 @@
     [jsonDict setObject:username forKey:@"username"];
     [jsonDict setObject:password forKey:@"password"];
     [jsonDict setObject:code forKey:@"code"];
-    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)resendOTPForUsername: (NSString *)username password: (NSString *)password {
@@ -261,7 +258,8 @@
     [jsonDict setObject:resend_otp_mod forKey:@"mod"];
     [jsonDict setObject:username forKey:@"username"];
     [jsonDict setObject:password forKey:@"password"];
-    [webService callWebServiceWithLink:resend_otp_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:resend_otp_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getTransactionsHistory {
@@ -271,7 +269,8 @@
     [jsonDict setObject:get_history_mod forKey:@"mod"];
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
-    [webService callWebServiceWithLink:get_history_func withParams:jsonDict];
+
+    [webService callWebServiceWithLink:get_history_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getRenewInfoForDomain: (NSString *)domain {
@@ -282,7 +281,8 @@
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:domain forKey:@"domain"];
-    [webService callWebServiceWithLink:renew_domain_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:renew_domain_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years {
@@ -296,7 +296,8 @@
     [jsonDict setObject:contact_id forKey:@"contact_id"];
     [jsonDict setObject:ord_id forKey:@"ord_id"];
     [jsonDict setObject:[NSNumber numberWithInt: years] forKey:@"year"];
-    [webService callWebServiceWithLink:renew_order_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:renew_order_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)updateBankInfoWithBankName: (NSString *)bankname bankaccount: (NSString *)bankaccount banknumber:(NSString *)banknumber {
@@ -309,7 +310,8 @@
     [jsonDict setObject:bankname forKey:@"bankname"];
     [jsonDict setObject:bankaccount forKey:@"bankaccount"];
     [jsonDict setObject:banknumber forKey:@"banknumber"];
-    [webService callWebServiceWithLink:info_bank_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:info_bank_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)withdrawWithAmout: (long)amount {
@@ -320,7 +322,8 @@
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:[NSNumber numberWithLong: amount] forKey:@"amount"];
-    [webService callWebServiceWithLink:withdraw_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:withdraw_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year {
@@ -333,7 +336,8 @@
     [jsonDict setObject:domain forKey:@"domain"];
     [jsonDict setObject:contact_id forKey:@"contact_id"];
     [jsonDict setObject:[NSNumber numberWithInt: year] forKey:@"year"];
-    [webService callWebServiceWithLink:add_order_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:add_order_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 - (void)getAddfunWithAmout: (NSString *)amount type: (int)type {
@@ -345,7 +349,8 @@
     [jsonDict setObject:PASSWORD forKey:@"password"];
     [jsonDict setObject:amount forKey:@"amount"];
     [jsonDict setObject:[NSNumber numberWithInt:type] forKey:@"type"];
-    [webService callWebServiceWithLink:addfun_func withParams:jsonDict];
+    
+    [webService callWebServiceWithLink:addfun_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 #pragma mark - Webservice delegate
@@ -536,6 +541,8 @@
     }else if ([link isEqualToString: get_history_func]) {
         if ([delegate respondsToSelector:@selector(getTransactionsHistorySuccessfulWithData:)]) {
             [delegate getTransactionsHistorySuccessfulWithData: data];
+        }else{
+            NSLog(@"HERE");
         }
     }else if ([link isEqualToString: renew_domain_func]) {
         if ([delegate respondsToSelector:@selector(getRenewInfoForDomainSuccessfulWithData:)]) {

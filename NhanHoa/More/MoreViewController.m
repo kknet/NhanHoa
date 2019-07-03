@@ -36,8 +36,6 @@
     
     [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
     
-    [WebServiceUtils getInstance].delegate = self;
-    
     [self addAccountInfoView];
     [accInfoView displayInformation];
 }
@@ -128,6 +126,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateTokenWithValue:@""];
 }
 

@@ -37,7 +37,6 @@
     [super viewWillAppear: animated];
     
     [WriteLogsUtils writeForGoToScreen:@"RenewDomainCartViewController"];
-    [WebServiceUtils getInstance].delegate = self;
     
     yearsForRenew = 1;
     priceForRenew = 0;
@@ -50,6 +49,7 @@
     [ProgressHUD show:@"Đang lấy thông tin..." Interaction:NO];
     [tbDomain reloadData];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getRenewInfoForDomain: domain];
 }
 
@@ -102,6 +102,7 @@
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
                                                          
+                                                         [WebServiceUtils getInstance].delegate = self;
                                                          [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:self.cus_id ord_id:self.ord_id years:self.yearsForRenew];
                                                      }];
     [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];

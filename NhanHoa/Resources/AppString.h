@@ -52,7 +52,7 @@
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
 #define PASSWORD_MIN_CHARS  6
-#define MAX_YEAR_FOR_RENEW  15
+#define MAX_YEAR_FOR_RENEW  10
 #define MIN_MONEY_TOPUP     200000
 #define phone_support       @"19006680"
 

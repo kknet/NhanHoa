@@ -132,7 +132,6 @@
 		15E084C522715E830010429B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E084C322715E830010429B /* LaunchViewController.m */; };
 		15E084C622715E830010429B /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E084C422715E830010429B /* LaunchViewController.xib */; };
 		15E7380222812A2200EFB017 /* dashline.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E7380122812A1C00EFB017 /* dashline.png */; };
-		15E92AD22272A2F3004AB658 /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACD2272A2F1004AB658 /* app-icon.png */; };
 		15E92AD32272A2F3004AB658 /* graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACE2272A2F1004AB658 /* graphic.png */; };
 		15E92AD42272A2F3004AB658 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92ACF2272A2F2004AB658 /* logo.png */; };
 		15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E92AD02272A2F2004AB658 /* show_pass_act.png */; };
@@ -171,6 +170,8 @@
 		566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */ = {isa = PBXBuildFile; fileRef = 566A159C22AEBDF800604FE8 /* ic_his_topup.png */; };
 		569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 569A0577229CA74100FD10D8 /* UploadPicture.m */; };
 		56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */ = {isa = PBXBuildFile; fileRef = 56A58E60229C3B99003402C1 /* ios_upload_file.php */; };
+		56A878A422CB504400300705 /* new_launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56A878A322CB504400300705 /* new_launch.jpg */; };
+		56A878A622CB50AF00300705 /* app-icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56A878A522CB50AF00300705 /* app-icon.jpg */; };
 		56B5685022B153A300AB8F29 /* tick_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B5684F22B153A300AB8F29 /* tick_white.png */; };
 		56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */; };
 		56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */; };
@@ -192,6 +193,8 @@
 		56FA23B522B0191F003F89CB /* BankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B322B0191F003F89CB /* BankCell.m */; };
 		56FA23B622B0191F003F89CB /* BankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23B422B0191F003F89CB /* BankCell.xib */; };
 		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
+		56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FCA44522CC8F88005C173E /* SupportListViewController.m */; };
+		56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FCA44622CC8F88005C173E /* SupportListViewController.xib */; };
 		56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FD5AD922B064B800955964 /* ic_bank_info.png */; };
 		56FDEB5C22B66486001A14AE /* launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB5B22B66486001A14AE /* launch.jpg */; };
 		56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */; };
@@ -507,7 +510,6 @@
 		15E084C322715E830010429B /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		15E084C422715E830010429B /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		15E7380122812A1C00EFB017 /* dashline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashline.png; sourceTree = "<group>"; };
-		15E92ACD2272A2F1004AB658 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
 		15E92ACE2272A2F1004AB658 /* graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphic.png; sourceTree = "<group>"; };
 		15E92ACF2272A2F2004AB658 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		15E92AD02272A2F2004AB658 /* show_pass_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show_pass_act.png; sourceTree = "<group>"; };
@@ -560,6 +562,8 @@
 		569A0577229CA74100FD10D8 /* UploadPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadPicture.m; sourceTree = "<group>"; };
 		569A0578229CA74100FD10D8 /* UploadPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadPicture.h; sourceTree = "<group>"; };
 		56A58E60229C3B99003402C1 /* ios_upload_file.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = ios_upload_file.php; sourceTree = "<group>"; };
+		56A878A322CB504400300705 /* new_launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = new_launch.jpg; sourceTree = "<group>"; };
+		56A878A522CB50AF00300705 /* app-icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icon.jpg"; sourceTree = "<group>"; };
 		56B5684F22B153A300AB8F29 /* tick_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_white.png; sourceTree = "<group>"; };
 		56C5AFC022BAA3A9005704A5 /* CertPushRelease.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPushRelease.p12; sourceTree = "<group>"; };
 		56C5AFC122BAA3AF005704A5 /* CertPush.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPush.p12; sourceTree = "<group>"; };
@@ -593,6 +597,9 @@
 		56FA23B322B0191F003F89CB /* BankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCell.m; sourceTree = "<group>"; };
 		56FA23B422B0191F003F89CB /* BankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankCell.xib; sourceTree = "<group>"; };
 		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
+		56FCA44422CC8F88005C173E /* SupportListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportListViewController.h; sourceTree = "<group>"; };
+		56FCA44522CC8F88005C173E /* SupportListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportListViewController.m; sourceTree = "<group>"; };
+		56FCA44622CC8F88005C173E /* SupportListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportListViewController.xib; sourceTree = "<group>"; };
 		56FD5AD922B064B800955964 /* ic_bank_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bank_info.png; sourceTree = "<group>"; };
 		56FDEB5B22B66486001A14AE /* launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpg; sourceTree = "<group>"; };
 		56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PricingDomainViewController.h; sourceTree = "<group>"; };
@@ -1008,8 +1015,8 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
-				15E92ACD2272A2F1004AB658 /* app-icon.png */,
 				15E92ACE2272A2F1004AB658 /* graphic.png */,
+				56A878A522CB50AF00300705 /* app-icon.jpg */,
 				15E92ACF2272A2F2004AB658 /* logo.png */,
 				15E92AD02272A2F2004AB658 /* show_pass_act.png */,
 				15E92AD12272A2F2004AB658 /* show_pass_def.png */,
@@ -1115,6 +1122,7 @@
 				56D0294E22B3F88D00280127 /* order_completed.png */,
 				56D0294D22B3F88D00280127 /* order_failed.png */,
 				56FDEB5B22B66486001A14AE /* launch.jpg */,
+				56A878A322CB504400300705 /* new_launch.jpg */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1224,6 +1232,9 @@
 				15D1BD832283E5EB004C0452 /* SupportViewController.h */,
 				15D1BD842283E5EB004C0452 /* SupportViewController.m */,
 				15D1BD852283E5EB004C0452 /* SupportViewController.xib */,
+				56FCA44422CC8F88005C173E /* SupportListViewController.h */,
+				56FCA44522CC8F88005C173E /* SupportListViewController.m */,
+				56FCA44622CC8F88005C173E /* SupportListViewController.xib */,
 			);
 			path = SupportCustomer;
 			sourceTree = "<group>";
@@ -1702,6 +1713,7 @@
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
 				1517FB602274465B0044E878 /* menu_recharge.png in Resources */,
+				56A878A622CB50AF00300705 /* app-icon.jpg in Resources */,
 				1517FBA022745D810044E878 /* tabbar_BO_act.png in Resources */,
 				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
@@ -1792,6 +1804,7 @@
 				15CD147922B9E2E9009CBE86 /* push.php in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
+				56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
 				563B8DC622B9B6D6004A037D /* ck.pem in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
@@ -1847,7 +1860,6 @@
 				15E7380222812A2200EFB017 /* dashline.png in Resources */,
 				1517FB9922745D810044E878 /* tabbar_home_act@2x.png in Resources */,
 				566A159B22AEBCB400604FE8 /* TransHistoryCell.xib in Resources */,
-				15E92AD22272A2F3004AB658 /* app-icon.png in Resources */,
 				1517FB9B22745D810044E878 /* tabbar_history_act@2x.png in Resources */,
 				841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */,
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
@@ -1862,6 +1874,7 @@
 				841966912276077400C14516 /* vn.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
+				56A878A422CB504400300705 /* new_launch.jpg in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
 				56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
@@ -2044,6 +2057,7 @@
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
 				5610492122B4FE9000463378 /* Constant.m in Sources */,
 				566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */,
+				56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

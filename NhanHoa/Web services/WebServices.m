@@ -73,8 +73,6 @@
 
 - (void)callWebServiceWithLink: (NSString *)linkService withParams: (NSDictionary *)paramsDict inBackgroundMode: (BOOL)isBackgroundMode
 {
-    receivedData = [[NSMutableData alloc] init];
-    
     NSString *strURL = [NSString stringWithFormat:@"%@/%@", link_api, linkService];
     NSURL *URL = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
@@ -92,38 +90,51 @@
     [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+    {
+        NSLog(@"check api: %@", linkService);
         
         // whatever you do on the connectionDidFinishLoading
         // delegate can be moved here
         if (error != nil) {
-            [self.delegate failedToCallWebService:strURL andError:@""];
+            [self.delegate failedToCallWebService:linkService andError:@""];
         }else{
-            NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            id object = [value objectFromJSONString];
-            if ([object isKindOfClass:[NSDictionary class]]) {
-                NSString *result = [object objectForKey:@"result"];
-                if (![result isKindOfClass:[NSNull class]] && result != nil)
-                {
-                    if ([result isEqualToString:@"failure"] || [result isEqualToString:@"failed"]) {
-                        NSString *message = [object objectForKey:@"message"];
-                        [self.delegate failedToCallWebService:linkService andError:message];
-                    }else if([result isEqualToString:@"success"])
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            int responseCode = (int)[httpResponse statusCode];
+            if (responseCode == 200) {
+                NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                id object = [value objectFromJSONString];
+                if ([object isKindOfClass:[NSDictionary class]]) {
+                    id result = [object objectForKey:@"success"];
+                    if (![result isKindOfClass:[NSNull class]] && result != nil)
                     {
-                        id data = [object objectForKey:@"data"];
-                        if ([data isKindOfClass:[NSDictionary class]]) {
-                            [self.delegate successfulToCallWebService:linkService withData:data];
-                        }else{
-                            if (data == nil && [object isKindOfClass:[NSDictionary class]]) {
-                                [self.delegate successfulToCallWebService:linkService withData:object];
-                            }else{
+                        if ([result boolValue] == NO || [result intValue] == 0) {
+                            id data = [object objectForKey:@"data"];
+                            if ([data isKindOfClass:[NSString class]]) {
+                                [self.delegate failedToCallWebService:linkService andError:data];
+                                
+                            }else if ([data isKindOfClass:[NSDictionary class]]){
+                                [self.delegate failedToCallWebService:linkService andError:data];
+                            }
+                            
+                        }else {
+                            id data = [object objectForKey:@"data"];
+                            if ([data isKindOfClass:[NSDictionary class]]) {
                                 [self.delegate successfulToCallWebService:linkService withData:data];
+                            }else{
+                                if (data == nil && [object isKindOfClass:[NSDictionary class]]) {
+                                    [self.delegate successfulToCallWebService:linkService withData:object];
+                                }else{
+                                    [self.delegate successfulToCallWebService:linkService withData:data];
+                                }
                             }
                         }
+                    }else{
+                        [self.delegate failedToCallWebService:linkService andError:result];
                     }
-                }else{
-                    
                 }
+            }else{
+                [self.delegate failedToCallWebService:linkService andError:@"Lỗi không xác định"];
             }
         }
     }];
@@ -205,6 +216,8 @@
             NSString *function = [self getFunctionFromRequestURL: requestURL];
             [delegate failedToCallWebService:function andError:result];
         }
+    }else{
+        NSLog(@"TEO ROI");
     }
 }
 

@@ -37,7 +37,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"AccountSettingViewController"];
-    [WebServiceUtils getInstance].delegate = self;
+    
     
     NSString *avatarName = [NSString stringWithFormat:@"%@.PNG", [AccountModel getCusIdOfUser]];
     NSString *localFile = [NSString stringWithFormat:@"/avatars/%@", avatarName];
@@ -411,6 +411,7 @@
 - (void)updatePhotoForCustomerWithURL: (NSString *)url {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] url = %@", __FUNCTION__, url)];
     
+    [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updatePhotoForCustomerWithURL: url];
 }
 
