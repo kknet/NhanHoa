@@ -15,6 +15,10 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
+    if ([AppUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     float smallPadding = 7.5;
     float sizeItem = (SCREEN_WIDTH - 2*padding - 3*smallPadding)/4;
     

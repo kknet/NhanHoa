@@ -54,4 +54,6 @@
 + (NSString *)getYesterdayDateString;
 + (NSString *)getStatusValueWithCode: (NSString *)status;
 + (BOOL)checkDomainIsNationalDomain: (NSString *)domain;
++ (BOOL)isScreen320;
+
 @end

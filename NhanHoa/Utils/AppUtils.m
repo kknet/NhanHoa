@@ -726,5 +726,15 @@
     return FALSE;
 }
 
++ (BOOL)isScreen320 {
+    NSString *deviceMode = [self getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
+    {
+        return TRUE;
+        
+    }
+    return FALSE;
+}
+
 
 @end

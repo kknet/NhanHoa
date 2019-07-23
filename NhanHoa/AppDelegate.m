@@ -35,7 +35,7 @@
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
-@synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, hTextfield, radius, fontBTN;
+@synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
@@ -530,6 +530,9 @@ AppDelegate      *app;
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
+        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
+        
         hTextfield = 38.0;
         
     }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
@@ -541,6 +544,9 @@ AppDelegate      *app;
         fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+        
+        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
         hTextfield = 38.0;
         
@@ -554,6 +560,9 @@ AppDelegate      *app;
         fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
         fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
+        fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
+        
         hTextfield = 40.0;
         
     }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
@@ -565,6 +574,9 @@ AppDelegate      *app;
         fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
         fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
+        fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
+        
         hTextfield = 40.0;
         
     }else{
@@ -574,6 +586,9 @@ AppDelegate      *app;
         fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
         fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+        
+        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
         hTextfield = 38.0;
     }

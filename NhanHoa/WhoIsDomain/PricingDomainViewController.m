@@ -43,6 +43,9 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    if ([AppUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     //  view menu
     float hMenu = 40.0;
@@ -86,6 +89,10 @@
 
 - (void)createHeaderViewForTableView {
     float padding = 15.0;
+    if ([AppUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     float sizeItem = (SCREEN_WIDTH - 2*padding - 3*10.0)/4;
     
     UIView *tbHeader = [[UIView alloc] init];

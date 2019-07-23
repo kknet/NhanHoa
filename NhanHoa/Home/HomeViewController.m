@@ -45,10 +45,6 @@
     [super viewWillAppear: animated];
     [self.navigationController setNavigationBarHidden: YES];
     
-    NSString *md5 = [AppUtils getMD5StringOfString:[NSString stringWithFormat:@"%@%@", @"/cskhvoip", [AccountModel getCusPassword]]];
-    NSLog(@"%@", [AccountModel getCusPassword]);
-    NSLog(@"%@", md5);
-    
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
     
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
@@ -106,7 +102,8 @@
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(self.viewSearch.mas_bottom);
-        make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
+        make.height.mas_equalTo(hBanner);
+        //  make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
     }];
     viewBanner.clipsToBounds = TRUE;
     viewBanner.hBanner = hBanner;
@@ -341,8 +338,7 @@
     }];
     
     hMenu = 100;
-    hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
-    
+    //  hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
     NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
     if (arr.count > 0) {
         NSDictionary *info = [arr firstObject];
@@ -354,7 +350,7 @@
     }
     [self addBannerImageForView];
     
-    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + hWallet + self.tabBarController.tabBar.frame.size.height))/3;
+    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;
@@ -363,7 +359,7 @@
     
     clvMenu.delegate = self;
     clvMenu.dataSource = self;
-    clvMenu.backgroundColor = UIColor.blackColor;
+    clvMenu.backgroundColor = UIColor.whiteColor;
     [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuCell"];
     
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -394,9 +390,14 @@
         make.width.height.mas_equalTo(36.0);
     }];
     
+    
+    lbMainWallet.textColor = lbRewards.textColor = TITLE_COLOR;
+    lbMainWallet.font = lbRewards.font = [AppDelegate sharedInstance].fontNormal;
+    
+    lbMoney.textColor = lbRewardsPoints.textColor = ORANGE_COLOR;
+    lbMoney.font = lbRewardsPoints.font = [AppDelegate sharedInstance].fontMediumDesc;
+    
     lbMainWallet.text = @"Tài khoản chính";
-    lbMainWallet.textColor = TITLE_COLOR;
-    lbMainWallet.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgMainWallet.mas_right).offset(5.0);
         make.bottom.equalTo(self.viewMainWallet.mas_centerY);
@@ -404,8 +405,7 @@
     }];
     
     lbMoney.text = @"";
-    lbMoney.textColor = ORANGE_COLOR;
-    lbMoney.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbMainWallet);
         make.top.equalTo(self.viewMainWallet.mas_centerY);
@@ -429,8 +429,6 @@
     }];
     
     lbRewards.text = @"Tiền thưởng";
-    lbRewards.textColor = TITLE_COLOR;
-    lbRewards.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgRewards.mas_right).offset(5.0);
         make.bottom.equalTo(self.viewRewards.mas_centerY);
@@ -438,8 +436,6 @@
     }];
     
     lbRewardsPoints.text = @"";
-    lbRewardsPoints.textColor = ORANGE_COLOR;
-    lbRewardsPoints.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRewards);
         make.top.equalTo(self.viewRewards.mas_centerY);
