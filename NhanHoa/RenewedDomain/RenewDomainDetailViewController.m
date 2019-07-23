@@ -28,7 +28,7 @@
 @end
 
 @implementation RenewDomainDetailViewController
-@synthesize lbTopDomain, viewDetail, lbID, lbIDValue, lbDomain, lbDomainValue, lbServiceName, lbServiceNameValue, lbRegisterDate, lbRegisterDateValue, lbExpire, lbExpireDate, lbState, lbStateValue, btnRenewDomain, btnChangeDNS, btnUpdatePassport, lbNoData, btnSigning;
+@synthesize lbTopDomain, viewDetail, lbID, lbIDValue, lbDomain, lbDomainValue, lbServiceName, lbServiceNameValue, lbRegisterDate, lbRegisterDateValue, lbExpire, lbExpireDate, lbState, lbStateValue, btnRenewDomain, btnChangeDNS, btnUpdatePassport, lbNoData, btnSigning, lbWhoisProtect, swWhoisProtect;
 @synthesize ordId, cusId, padding, hItem;
 
 - (void)viewDidLoad {
@@ -115,6 +115,8 @@
 }
 
 - (IBAction)btnSigningPress:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     SigningDomainViewController *signingVC = [[SigningDomainViewController alloc] initWithNibName:@"SigningDomainViewController" bundle:nil];
     signingVC.domain_signing_url = signingVC.domain_signed_url = @"";
     
@@ -127,6 +129,23 @@
     }
     [self.navigationController pushViewController:signingVC animated:TRUE];
 }
+
+- (IBAction)swWhoisProtectChanged:(UISwitch *)sender {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    sender.enabled = FALSE;
+    [self performSelector:@selector(enableSwitchWhoisProtect) withObject:nil afterDelay:1.0];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] whois protect value = %d", __FUNCTION__, sender.on)];
+    [[WebServiceUtils getInstance] updateWhoisProtectForDomain:domain domainId:domainId protectValue:sender.on];
+}
+
+- (void)enableSwitchWhoisProtect {
+    swWhoisProtect.enabled = TRUE;
+}
+
 - (void)changeNDS {
     btnChangeDNS.backgroundColor = BLUE_COLOR;
     [btnChangeDNS setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -143,6 +162,7 @@
 
 - (void)setEmptyValueForView {
     lbTopDomain.text = lbIDValue.text = lbDomainValue.text = lbServiceNameValue.text = lbRegisterDateValue.text = lbExpireDate.text = lbStateValue.text = @"";
+    lbWhoisProtect.hidden = swWhoisProtect.hidden = TRUE;
 }
 
 - (void)getDomainInfoWithOrdId: (NSString *)ord_id {
@@ -238,6 +258,10 @@
     }
     
     float hView = padding + hItem + hItem + (hItem/2 - 10.0) + hContent + hItem + hItem + hItem + padding;
+    if (![AppUtils checkDomainIsNationalDomain: domain]) {
+        hView += hItem;
+    }
+    
     [viewDetail mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTopDomain.mas_centerY);
         make.left.equalTo(self.view).offset(self.padding);
@@ -266,6 +290,17 @@
         
     }else if (![AppUtils isNullOrEmpty: domain_signing_url]){
         [btnSigning setTitle:text_signing_contract forState:UIControlStateNormal];
+    }
+    
+    //  check whois protect
+    id isProtect = [info objectForKey:@"domain_whois_protect"];
+    if ([isProtect isKindOfClass:[NSString class]]) {
+        lbWhoisProtect.hidden = swWhoisProtect.hidden = FALSE;
+        if ([isProtect isEqualToString:@"1"]) {
+            swWhoisProtect.on = TRUE;
+        }else{
+            swWhoisProtect.on = FALSE;
+        }
     }
 }
 
@@ -327,9 +362,9 @@
         make.height.mas_equalTo(270.0);
     }];
     
-    lbID.textColor = lbIDValue.textColor = lbDomain.textColor = lbDomainValue.textColor = lbServiceName.textColor = lbServiceNameValue.textColor = lbRegisterDate.textColor = lbRegisterDateValue.textColor = lbExpire.textColor = lbExpireDate.textColor = lbState.textColor = lbStateValue.textColor = TITLE_COLOR;
+    lbID.textColor = lbIDValue.textColor = lbDomain.textColor = lbDomainValue.textColor = lbServiceName.textColor = lbServiceNameValue.textColor = lbRegisterDate.textColor = lbRegisterDateValue.textColor = lbExpire.textColor = lbExpireDate.textColor = lbState.textColor = lbStateValue.textColor = lbWhoisProtect.textColor = TITLE_COLOR;
     
-    lbID.font = lbDomain.font = lbServiceName.font = lbRegisterDate.font = lbExpire.font = lbState.font = [AppDelegate sharedInstance].fontRegular;
+    lbID.font = lbDomain.font = lbServiceName.font = lbRegisterDate.font = lbExpire.font = lbState.font = lbWhoisProtect.font = [AppDelegate sharedInstance].fontRegular;
     
     lbIDValue.font = lbDomainValue.font = lbServiceNameValue.font = lbRegisterDateValue.font = lbExpireDate.font = lbStateValue.font = [AppDelegate sharedInstance].fontMedium;
     
@@ -410,6 +445,20 @@
         make.top.bottom.equalTo(self.lbState);
     }];
     
+    //  whois protect state
+    [lbWhoisProtect mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lbState.mas_bottom);
+        make.left.right.equalTo(self.lbState);
+        make.height.mas_equalTo(self.hItem);
+    }];
+    
+    [swWhoisProtect mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.lbExpireDate);
+        make.centerY.equalTo(self.lbWhoisProtect.mas_centerY);
+        make.width.mas_equalTo(49.0);
+        make.height.mas_equalTo(31.0);
+    }];
+    
     float hBTN = 45.0;
     
     btnChangeDNS.titleLabel.font = btnUpdatePassport.titleLabel.font = btnSigning.titleLabel.font = btnRenewDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
@@ -467,6 +516,28 @@
     [ProgressHUD dismiss];
     
     [self processDomainInfoWithData: data];
+}
+
+-(void)failedToUpdateWhoisProtect:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
+    //  reset value if failed to update
+    swWhoisProtect.on = !swWhoisProtect.on;
+    swWhoisProtect.enabled = TRUE;
+}
+
+-(void)updateWhoisProtectSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    NSString *message = [data objectForKey:@"message"];
+    if (![AppUtils isNullOrEmpty: message]) {
+        [self.view makeToast:message duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }else{
+        [self.view makeToast:@"Cập nhật thành công" duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }
+    swWhoisProtect.enabled = TRUE;
 }
 
 @end

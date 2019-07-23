@@ -16,6 +16,7 @@
 
 @interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>{
     float hCell;
+    float hProtectCell;
     int selectedIndex;
 }
 
@@ -101,10 +102,25 @@
     [[AppDelegate sharedInstance] hideCartView];
 }
 
+- (float)getHeightForTableView {
+    float hTableView = 0;
+    for (int i=0; i<[[CartModel getInstance] countItemInCart]; i++) {
+        NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: i];
+        NSString *domainName = [domainInfo objectForKey:@"domain"];
+        BOOL isNationalDomain = [AppUtils checkDomainIsNationalDomain: domainName];
+        if (isNationalDomain) {
+            hTableView += hCell;
+        }else{
+            hTableView += hProtectCell;
+        }
+    }
+    return hTableView;
+}
+
 - (void)rechangeLayoutForView {
     float padding = 15.0;
     
-    float hTableView = [[CartModel getInstance] countItemInCart] * hCell;
+    float hTableView =  [self getHeightForTableView];
     [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.scvContent);
         make.top.equalTo(self.viewInfo.mas_bottom);
@@ -118,7 +134,8 @@
     if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.tbDomains.mas_bottom);
+            //  make.top.equalTo(self.tbDomains.mas_bottom);
+            make.top.equalTo(self.scvContent).offset(self.hInfo+hTableView);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
@@ -178,7 +195,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     float padding = 15.0;
     hInfo = 40.0;
-    hCell = 106.0;
+    hCell = 105.0;
+    hProtectCell = 175;
     
     //  empty view
     
@@ -231,7 +249,7 @@
         make.left.equalTo(self.viewInfo.mas_centerX);
     }];
     
-    float hTableView = [[CartModel getInstance] countItemInCart] * hCell;
+    float hTableView = [self getHeightForTableView];
     tbDomains.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbDomains registerNib:[UINib nibWithNibName:@"CartDomainItemCell" bundle:nil] forCellReuseIdentifier:@"CartDomainItemCell"];
     tbDomains.delegate = self;
@@ -250,7 +268,7 @@
     if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.tbDomains.mas_bottom);
+            make.top.equalTo(self.scvContent).offset(self.hInfo+hTableView);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
@@ -381,6 +399,7 @@
     }else{
         CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.swProtect.tag = indexPath.row;
         
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
         [cell displayDomainInfoForCart: domainInfo];
@@ -422,7 +441,15 @@
     if (tableView == tbSelectYear) {
         return 38.0;
     }
-    return hCell;
+    
+    NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
+    NSString *domainName = [domainInfo objectForKey:@"domain"];
+    BOOL nationDomain = [AppUtils checkDomainIsNationalDomain: domainName];
+    if (nationDomain) {
+        return hCell;
+    }else{
+        return hProtectCell;
+    }
 }
 
 - (void)selectYearsForDomain: (UIButton *)sender {

@@ -719,5 +719,12 @@
     }
 }
 
++ (BOOL)checkDomainIsNationalDomain: (NSString *)domain {
+    if ([domain hasSuffix:@".vn"] || [domain hasSuffix:@".com.vn"]) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 
 @end

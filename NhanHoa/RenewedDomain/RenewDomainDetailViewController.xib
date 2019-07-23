@@ -29,6 +29,8 @@
                 <outlet property="lbState" destination="qZt-Nz-cbc" id="7iM-Cd-ubH"/>
                 <outlet property="lbStateValue" destination="GxY-L8-s8K" id="7VL-mb-ymQ"/>
                 <outlet property="lbTopDomain" destination="WAO-l8-ZHv" id="Ggg-li-qdo"/>
+                <outlet property="lbWhoisProtect" destination="nkD-Iu-yJi" id="WFU-t7-IMq"/>
+                <outlet property="swWhoisProtect" destination="SYO-2J-DP7" id="ihI-Mv-61Y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewDetail" destination="6qA-nH-BoQ" id="gQd-PN-ZCj"/>
             </connections>
@@ -39,7 +41,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6qA-nH-BoQ">
-                    <rect key="frame" x="16" y="20" width="288" height="222"/>
+                    <rect key="frame" x="16" y="20" width="288" height="270"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ORD ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVY-ak-gQ5">
@@ -126,6 +128,20 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Whois Protect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkD-Iu-yJi">
+                            <rect key="frame" x="8" y="241" width="97" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYO-2J-DP7">
+                            <rect key="frame" x="113" y="235" width="49" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <connections>
+                                <action selector="swWhoisProtectChanged:" destination="-1" eventType="valueChanged" id="Pbs-M3-0z0"/>
+                            </connections>
+                        </switch>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>

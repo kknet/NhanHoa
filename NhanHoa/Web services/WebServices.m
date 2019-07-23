@@ -92,8 +92,6 @@
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
     {
-        NSLog(@"check api: %@", linkService);
-        
         // whatever you do on the connectionDidFinishLoading
         // delegate can be moved here
         if (error != nil) {
@@ -134,7 +132,14 @@
                     }
                 }
             }else{
-                [self.delegate failedToCallWebService:linkService andError:@"Lỗi không xác định"];
+                NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                id object = [value objectFromJSONString];
+                if (object != nil && [object isKindOfClass:[NSDictionary class]]) {
+                    id data = [object objectForKey:@"data"];
+                    [self.delegate failedToCallWebService:linkService andError:data];
+                }else{
+                    [self.delegate failedToCallWebService:linkService andError:@"Lỗi không xác định"];
+                }
             }
         }
     }];
@@ -236,6 +241,55 @@
         }
     }
     return @"";
+}
+
+#pragma mark - API FOR CALl
+- (void)apiWebServiceForCallWithParams: (NSDictionary *)paramsDict
+{
+    NSURL *URL = [NSURL URLWithString: link_api_call];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setTimeoutInterval: 60];
+    
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    for (int i=0; i<[paramsDict allKeys].count; i++) {
+        NSString *key = [[paramsDict allKeys] objectAtIndex: i];
+        NSString *value = [paramsDict objectForKey: key];
+        [request setValue:value forHTTPHeaderField:key];
+    }
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         // whatever you do on the connectionDidFinishLoading
+         // delegate can be moved here
+         if (error != nil) {
+             NSString *action = [paramsDict objectForKey:@"action"];
+             [self.delegate failedToCallWebService:action andError:error];
+         }else{
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             int responseCode = (int)[httpResponse statusCode];
+             if (responseCode == 200) {
+                 NSString *action = [paramsDict objectForKey:@"action"];
+                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 id object = [value objectFromJSONString];
+                 if ([object isKindOfClass:[NSDictionary class]]) {
+                     id success = [object objectForKey:@"success"];
+                     if ([success boolValue] == TRUE) {
+                         NSDictionary *data = [object objectForKey:@"data"];
+                         [self.delegate successfulToCallWebService:action withData:(NSDictionary *)data];
+                     }else{
+                         [self.delegate failedToCallWebService:action andError:object];
+                     }
+                 }
+             }else{
+                 NSString *action = [paramsDict objectForKey:@"action"];
+                 [self.delegate failedToCallWebService:action andError:@"Lỗi không xác định"];
+             }
+         }
+     }];
 }
 
 @end

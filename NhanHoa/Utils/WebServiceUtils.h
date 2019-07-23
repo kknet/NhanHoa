@@ -88,6 +88,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToGetAmoutWithError: (NSString *)error;
 - (void)getAmoutSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToUpdateWhoisProtect: (NSString *)error;
+- (void)updateWhoisProtectSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToGetCustomersSupportList: (NSString *)error;
+- (void)getCustomersSupportListSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToUpdateCallToken: (NSString *)error;
+- (void)updateCallTokenSuccesful;
+
+- (void)failedToGetVoipAccount: (NSString *)error;
+- (void)getVoipAccountSuccessfulWithData: (NSDictionary *)data;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -118,8 +130,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years;
 - (void)updateBankInfoWithBankName: (NSString *)bankname bankaccount: (NSString *)bankaccount banknumber:(NSString *)banknumber;
 - (void)withdrawWithAmout: (long)amount;
-- (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year;
+- (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year protect: (NSNumber *)protect;
 - (void)getAddfunWithAmout: (NSString *)amount type: (int)type;
+- (void)updateWhoisProtectForDomain: (NSString *)domain domainId: (NSString *)domainId protectValue: (BOOL)protect;
+
+#pragma mark - Call API
+- (void)updateTokenForCallWithToken: (NSString *)token;
+- (void)getAccVoIPFree;
+- (void)getListCustomersSupport;
 
 @end
 

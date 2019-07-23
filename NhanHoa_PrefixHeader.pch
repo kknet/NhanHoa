@@ -9,6 +9,7 @@
 #ifndef NhanHoa_PrefixHeader_pch
 #define NhanHoa_PrefixHeader_pch
 
+#ifdef __OBJC__
 #import "Masonry.h"
 #import "AppString.h"
 #import "AppUtils.h"
@@ -23,5 +24,9 @@
 #import "AccountModel.h"
 #import "FirebaseInstanceID.h"
 #import "FIRMessaging.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
+#endif
+
 
 #endif /* NhanHoa_PrefixHeader_pch */

@@ -256,7 +256,7 @@
     
     lbTransferDomain.textColor = lbRenew.textColor;
     lbTransferDomain.font = lbRenew.font;
-    lbTransferDomain.text = @"Chuyển tên miền về Nhân Hoà";
+    lbTransferDomain.text = @"Chuyển tên miền về Nhân Hòa";
     lbTransferDomain.numberOfLines = 5.0;
     [lbTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewTransferDomain.mas_centerY);

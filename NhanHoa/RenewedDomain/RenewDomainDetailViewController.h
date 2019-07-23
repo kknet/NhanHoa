@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbRegisterDateValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbExpire;
 @property (weak, nonatomic) IBOutlet UILabel *lbExpireDate;
+@property (weak, nonatomic) IBOutlet UILabel *lbWhoisProtect;
+@property (weak, nonatomic) IBOutlet UISwitch *swWhoisProtect;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbState;
 @property (weak, nonatomic) IBOutlet UILabel *lbStateValue;
@@ -36,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender;
 - (IBAction)btnChangeDNSPress:(UIButton *)sender;
 - (IBAction)btnSigningPress:(UIButton *)sender;
+- (IBAction)swWhoisProtectChanged:(UISwitch *)sender;
 
 @property (nonatomic, strong) NSString *ordId;
 @property (nonatomic, strong) NSString *cusId;

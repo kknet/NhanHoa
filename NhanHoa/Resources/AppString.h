@@ -98,6 +98,9 @@
 #define User_cancel_Code            @"99"
 #define Failured_Content            @"Giao dịch thất bại"
 
+
+#define link_api_call           @"https://api.vfone.vn:51100/cskhvoip"
+
 #define link_support            @"https://tongdai.vfone.vn/callnew.php"
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
@@ -130,6 +133,7 @@
 #define withdraw_func           @"Withdraw"
 #define add_order_func          @"AddOrder"
 #define addfun_func             @"Addfun"
+#define WhoisProtect_func       @"WhoisProtect"
 
 
 #define login_mod               @"login"
@@ -159,11 +163,17 @@
 #define withdraw_mod            @"withdraw"
 #define add_order_mod           @"add_order"
 #define addfun_mod              @"addfun"
+#define whois_protect_mod       @"whois_protect"
 
+
+#define GetAccVoipAction        @"GetAccVoip"
+#define UpdateTokenAction       @"UpdateToken"
+#define GetListCSKHAction       @"GetListCSKH"
 
 #define logsFolderName      @"LogFiles"
 #define login_state         @"login_state"
 #define year_for_domain     @"year_for_domain"
+#define whois_protect       @"whois_protect"
 
 #define key_login           @"key_login"
 #define key_password        @"key_password"

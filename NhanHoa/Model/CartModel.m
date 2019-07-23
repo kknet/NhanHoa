@@ -27,6 +27,7 @@
 - (void)addDomainToCart: (NSDictionary *)info {
     NSMutableDictionary *domainInfo = [[NSMutableDictionary alloc] initWithDictionary: info];
     [domainInfo setObject:@"1" forKey:year_for_domain];
+    [domainInfo setObject:@"1" forKey:whois_protect];
     
     if (listDomain.count == 0) {
         [listDomain addObject: domainInfo];

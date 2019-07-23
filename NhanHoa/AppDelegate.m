@@ -13,6 +13,17 @@
 #import <UserNotificationsUI/UserNotificationsUI.h>
 #import "CartModel.h"
 #import <AVFoundation/AVAudioPlayer.h>
+
+
+#include "pjsip_sources/pjlib/include/pjlib.h"
+#include "pjsip_sources/pjsip/include/pjsua.h"
+
+#include "pjsip_sources/pjsua/pjsua_app.h"
+#include "pjsip_sources/pjsua/pjsua_app_config.h"
+
+#define THIS_FILE    "AppDelegate.m"
+#define KEEP_ALIVE_INTERVAL 600
+
 @import Firebase;
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -29,6 +40,9 @@
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall;
+@synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo;
+
+AppDelegate      *app;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //  hide title of back bar title
@@ -49,10 +63,8 @@
          }];
     } else {
         // iOS 10 notifications aren't available; fall back to iOS 8-9 notifications.
-        UIUserNotificationType allNotificationTypes =
-        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        UIUserNotificationType allNotificationTypes = (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
         [application registerUserNotificationSettings:settings];
     }
     [application registerForRemoteNotifications];
@@ -85,7 +97,7 @@
     }
     
     //  setup logs folder
-    supportCall = FALSE;
+    supportCall = TRUE;
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
     [self createErrorMessagesInfo];
@@ -184,6 +196,19 @@
     cartWindow.rootViewController = cartNavViewController;
     cartWindow.alpha = 0;
     
+    //  for callkit
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+        self.del = [[ProviderDelegate alloc] init];
+        [self.del config];
+    }
+    [self registerForNotifications:[UIApplication sharedApplication]];
+    app = self;
+    
+    [self startPjsuaForApp];
+    
+    /*
+    [self registerSIP];
+    */
     return YES;
 }
 
@@ -215,9 +240,9 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
-//    token = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
-//    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", token]];
+    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
+    callToken = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
+    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", callToken]];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -240,9 +265,9 @@
     }
 }
 
-//-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-//    NSLog(@"456");
-//}
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    NSLog(@"456");
+}
 
 +(AppDelegate *)sharedInstance{
     return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);
@@ -621,6 +646,8 @@
             [self.cartWindow removeFromSuperview];
             [self.window makeKeyAndVisible];
         }];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadChoosedDomainList" object:nil];
     }
 }
 
@@ -745,5 +772,488 @@
 -(void)loginSucessfulWithData:(NSDictionary *)data {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadBalanceInfo" object:nil];
 }
+
+#pragma mark PJSIP
+
+- (void)startPjsuaForApp {
+    pjsua_create();
+    
+    pjsua_config ua_cfg;
+    pjsua_logging_config log_cfg;
+    pjsua_media_config media_cfg;
+    
+    pjsua_config_default(&ua_cfg);
+    pjsua_logging_config_default(&log_cfg);
+    pjsua_media_config_default(&media_cfg);
+    
+    ua_cfg.cb.on_incoming_call = &on_incoming_call;
+    ua_cfg.cb.on_call_media_state = &on_call_media_state;
+    ua_cfg.cb.on_call_state = &on_call_state;
+    ua_cfg.cb.on_reg_state = &on_reg_state;
+    
+    pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
+    
+    pjsua_transport_config transportConfig;
+    
+    pjsua_transport_config_default(&transportConfig);
+    
+    transportConfig.port = 51000;
+    
+    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
+    pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+    
+    pjsua_start();
+}
+
+- (void)registerSIPAccountWithInfo: (NSDictionary *)info {
+    NSString *account = [info objectForKey:@"account"];
+    NSString *domain = [info objectForKey:@"domain"];
+    NSString *port = [info objectForKey:@"port"];
+    NSString *password = [info objectForKey:@"password"];
+    
+    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
+        account = @"nhcla150";
+        domain = @"nhanhoa1.vfone.vn";
+        port = @"51000";
+        password = @"cloudcall123";
+        
+//        account = ap1astapp;
+//        domain = "asapp.vfone.vn";
+//        password = yovU5lmlEA6WPcliwZwPLf1RT;
+//        port = 51000;
+        NSString *email = [AccountModel getCusEmail];
+        
+        pj_status_t status;
+        
+        // Register the account on local sip server
+        pjsua_acc_id acc_id;
+        pjsua_acc_config cfg;
+        pjsua_acc_config_default(&cfg);
+        
+        NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
+        NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
+        
+        cfg.id = pj_str((char *)[strCall UTF8String]);
+        cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
+        cfg.cred_count = 1;
+        cfg.cred_info[0].realm = pj_str("*");
+        cfg.cred_info[0].scheme = pj_str("digest");
+        cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
+        cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+        cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
+        cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+        
+        pjsip_generic_string_hdr CustomHeader;
+        pj_str_t name = pj_str("Call-ID");
+        pj_str_t value = pj_str((char *)[email UTF8String]);
+        pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
+        pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
+        
+        pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
+        pj_dns_resolver* resolver;
+        
+        struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
+        pjsip_endpt_create_resolver(endpoint, &resolver);
+        pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
+        
+        // Init transport config structure
+        pjsua_transport_config trans_cfg;
+        pjsua_transport_config_default(&trans_cfg);
+        trans_cfg.port = [port intValue];
+        
+        // Add UDP transport.
+        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
+        if (status != PJ_SUCCESS){
+            NSLog(@"Error creating transport");
+        }
+        
+        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+        if (status != PJ_SUCCESS){
+            NSLog(@"Error adding account");
+        }
+    }else{
+        [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
+    }
+}
+
+- (void)makeCallTo: (NSString *)strCall {
+    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
+    char *destUri = (char *)[stringForCall UTF8String];
+    
+    pjsua_acc_id acc_id = 0;
+    pj_status_t status;
+    pj_str_t uri = pj_str(destUri);
+    
+    //current register id _acc_id
+    status = pjsua_call_make_call(acc_id, &uri, 0, NULL, NULL, NULL);
+    if (status != PJ_SUCCESS){
+        NSLog(@"Error making call");
+    }
+}
+
+- (void)removeAccount {
+    pjsua_acc_id accId = pjsua_acc_get_default();
+    if (pjsua_acc_is_valid(accId)) {
+        pjsua_acc_del(accId);
+    }
+}
+
+//  Callback called by the library upon receiving incoming call
+static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata)
+{
+    pjsua_call_info ci;
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(rdata);
+    
+    pjsua_call_get_info(call_id, &ci);
+    
+    NSUUID *uuid = [NSUUID UUID];
+    NSString *callId = [NSString stringWithFormat:@"%d", call_id];
+    
+    [app.del.calls setObject:callId forKey:uuid];
+    [app.del.uuids setObject:uuid forKey:callId];
+    
+    [app.del reportIncomingCallwithUUID:uuid handle:@"Khai 150" video:FALSE];
+    
+    PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!", (int)ci.remote_info.slen,ci.remote_info.ptr));
+    //  Automatically answer incoming calls with 200/OK
+    //  pjsua_call_answer(call_id, 200, NULL, NULL);
+}
+
+//  Callback called by the library when call's media state has changed
+static void on_call_media_state(pjsua_call_id call_id)
+{
+    pjsua_call_info ci;
+    
+    pjsua_call_get_info(call_id, &ci);
+    
+    if (ci.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
+        // When media is active, connect call to sound device.
+        pjsua_conf_connect(ci.conf_slot, 0);
+        pjsua_conf_connect(0, ci.conf_slot);
+    }
+}
+
+// Callback called by the library when call's state has changed
+static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
+{
+    pjsua_call_info ci;
+    
+    PJ_UNUSED_ARG(e);
+    
+    pjsua_call_get_info(call_id, &ci);
+    PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, (int)ci.state_text.slen, ci.state_text.ptr));
+    
+    NSString *state = [NSString stringWithUTF8String: ci.state_text.ptr];
+    NSLog(@"state is: %@", state);
+    if ([state isEqualToString:@"DISCONNCTD"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [app removeAccount];
+        });
+    }
+}
+
+static void on_reg_state(pjsua_acc_id acc_id)
+{
+    //  pjsip_status_code   PJSIP_SC_OK
+    pjsua_acc_info info;
+    pj_status_t status = pjsua_acc_get_info(acc_id, &info);
+    NSLog(@"%d", status);
+    
+    PJ_UNUSED_ARG(acc_id);
+    
+    // Log already written.
+}
+
+- (void)registerForNotifications:(UIApplication *)app {
+    self.voipRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+    self.voipRegistry.delegate = self;
+    
+    // Initiate registration.
+    self.voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+    
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+        // Call category
+        UNNotificationAction *act_ans =
+        [UNNotificationAction actionWithIdentifier:@"Answer"
+                                             title:NSLocalizedString(@"Answer", nil)
+                                           options:UNNotificationActionOptionForeground];
+        UNNotificationAction *act_dec = [UNNotificationAction actionWithIdentifier:@"Decline"
+                                                                             title:NSLocalizedString(@"Decline", nil)
+                                                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_call =
+        [UNNotificationCategory categoryWithIdentifier:@"call_cat"
+                                               actions:[NSArray arrayWithObjects:act_ans, act_dec, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        // Msg category
+        UNTextInputNotificationAction *act_reply =
+        [UNTextInputNotificationAction actionWithIdentifier:@"Reply"
+                                                      title:NSLocalizedString(@"Reply", nil)
+                                                    options:UNNotificationActionOptionNone];
+        UNNotificationAction *act_seen =
+        [UNNotificationAction actionWithIdentifier:@"Seen"
+                                             title:NSLocalizedString(@"Mark as seen", nil)
+                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_msg =
+        [UNNotificationCategory categoryWithIdentifier:@"msg_cat"
+                                               actions:[NSArray arrayWithObjects:act_reply, act_seen, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        // Video Request Category
+        UNNotificationAction *act_accept =
+        [UNNotificationAction actionWithIdentifier:@"Accept"
+                                             title:NSLocalizedString(@"Accept", nil)
+                                           options:UNNotificationActionOptionForeground];
+        
+        UNNotificationAction *act_refuse = [UNNotificationAction actionWithIdentifier:@"Cancel"
+                                                                                title:NSLocalizedString(@"Cancel", nil)
+                                                                              options:UNNotificationActionOptionNone];
+        UNNotificationCategory *video_call =
+        [UNNotificationCategory categoryWithIdentifier:@"video_request"
+                                               actions:[NSArray arrayWithObjects:act_accept, act_refuse, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        // ZRTP verification category
+        UNNotificationAction *act_confirm = [UNNotificationAction actionWithIdentifier:@"Confirm"
+                                                                                 title:NSLocalizedString(@"Accept", nil)
+                                                                               options:UNNotificationActionOptionNone];
+        
+        UNNotificationAction *act_deny = [UNNotificationAction actionWithIdentifier:@"Deny"
+                                                                              title:NSLocalizedString(@"Deny", nil)
+                                                                            options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_zrtp =
+        [UNNotificationCategory categoryWithIdentifier:@"zrtp_request"
+                                               actions:[NSArray arrayWithObjects:act_confirm, act_deny, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound |
+                                          UNAuthorizationOptionBadge)
+         completionHandler:^(BOOL granted, NSError *_Nullable error) {
+             // Enable or disable features based on authorization.
+             if (error) {
+                 NSLog(@"%@", error.description);
+             }
+         }];
+        NSSet *categories = [NSSet setWithObjects:cat_call, cat_msg, video_call, cat_zrtp, nil];
+        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+    }
+}
+
+#pragma mark - PushKit Functions
+- (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {
+    NSLog(@"PushKit Token invalidated");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //  [LinphoneManager.instance setPushNotificationToken:nil];
+    });
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
+    
+    NSLog(@"PushKit : incoming voip notfication: %@", payload.dictionaryPayload);
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) { // Call category
+        UNNotificationAction *act_ans =
+        [UNNotificationAction actionWithIdentifier:@"Answer"
+                                             title:NSLocalizedString(@"Answer", nil)
+                                           options:UNNotificationActionOptionForeground];
+        UNNotificationAction *act_dec = [UNNotificationAction actionWithIdentifier:@"Decline"
+                                                                             title:NSLocalizedString(@"Decline", nil)
+                                                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_call =
+        [UNNotificationCategory categoryWithIdentifier:@"call_cat"
+                                               actions:[NSArray arrayWithObjects:act_ans, act_dec, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        // Msg category
+        UNTextInputNotificationAction *act_reply =
+        [UNTextInputNotificationAction actionWithIdentifier:@"Reply"
+                                                      title:NSLocalizedString(@"Reply", nil)
+                                                    options:UNNotificationActionOptionNone];
+        UNNotificationAction *act_seen =
+        [UNNotificationAction actionWithIdentifier:@"Seen"
+                                             title:NSLocalizedString(@"Mark as seen", nil)
+                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_msg =
+        [UNNotificationCategory categoryWithIdentifier:@"msg_cat"
+                                               actions:[NSArray arrayWithObjects:act_reply, act_seen, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        // Video Request Category
+        UNNotificationAction *act_accept =
+        [UNNotificationAction actionWithIdentifier:@"Accept"
+                                             title:NSLocalizedString(@"Accept", nil)
+                                           options:UNNotificationActionOptionForeground];
+        
+        UNNotificationAction *act_refuse = [UNNotificationAction actionWithIdentifier:@"Cancel"
+                                                                                title:NSLocalizedString(@"Cancel", nil)
+                                                                              options:UNNotificationActionOptionNone];
+        UNNotificationCategory *video_call =
+        [UNNotificationCategory categoryWithIdentifier:@"video_request"
+                                               actions:[NSArray arrayWithObjects:act_accept, act_refuse, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        // ZRTP verification category
+        UNNotificationAction *act_confirm = [UNNotificationAction actionWithIdentifier:@"Confirm"
+                                                                                 title:NSLocalizedString(@"Accept", nil)
+                                                                               options:UNNotificationActionOptionNone];
+        
+        UNNotificationAction *act_deny = [UNNotificationAction actionWithIdentifier:@"Deny"
+                                                                              title:NSLocalizedString(@"Deny", nil)
+                                                                            options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_zrtp =
+        [UNNotificationCategory categoryWithIdentifier:@"zrtp_request"
+                                               actions:[NSArray arrayWithObjects:act_confirm, act_deny, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        
+        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound |
+                                          UNAuthorizationOptionBadge)
+         completionHandler:^(BOOL granted, NSError *_Nullable error) {
+             // Enable or disable features based on authorization.
+             if (error) {
+                 NSLog(@"%@", error.description);
+             }
+         }];
+        NSSet *categories = [NSSet setWithObjects:cat_call, cat_msg, video_call, cat_zrtp, nil];
+        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self processRemoteNotification:payload.dictionaryPayload];
+    });
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(PKPushType)type
+{
+    NSLog(@"voip token: %@", (credentials.token));
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.callToken = credentials.token.description;
+        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+        
+        NSLog(@"Need update token for call");
+    });
+}
+
+- (void)processRemoteNotification:(NSDictionary *)userInfo {
+ 
+//     alert =     {
+//     "call-id" = 14953;
+//     "loc-key" = "Incoming call from 14953";
+//     };
+//     badge = 1;
+//     "call-id" = 14953;
+//     "content-available" = 1;
+//     "loc-key" = "Incoming call from 14953";
+//     sound = default;
+//     title = CloudCall;
+ 
+    NSDictionary *aps = [userInfo objectForKey:@"aps"];
+    if (aps != nil)
+    {
+        NSDictionary *alert = [aps objectForKey:@"alert"];
+        
+//        const MSList *list = linphone_core_get_proxy_config_list(LC);
+//        if (list == NULL) {
+//            NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:key_login];
+//            NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:key_password];
+//            NSString *domain = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_SERVER];
+//            NSString *port = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_PORT];
+//
+//            if (![AppUtils isNullOrEmpty: username] && ![AppUtils isNullOrEmpty: password] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port]) {
+//                [SipUtils registerPBXAccount:username password:password ipAddress:domain port:port];
+//            }
+//        }else{
+//            [[LinphoneManager instance] refreshRegisters];
+//        }
+        
+        NSString *loc_key = [aps objectForKey:@"loc-key"];
+        NSString *callId = [aps objectForKey:@"callerid"];
+        
+        NSString *caller = callId;
+        
+        NSString *content = [NSString stringWithFormat:@"Bạn có cuộc gọi từ %@", caller];
+        
+        UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
+        messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+        messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+        messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+        messageNotif.alertBody = content;
+        messageNotif.soundName = UILocalNotificationDefaultSoundName;
+        [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
+        
+        if (alert != nil) {
+            loc_key = [alert objectForKey:@"loc-key"];
+            //  if we receive a remote notification, it is probably because our TCP background socket was no more working. As a result, break it and refresh registers in order to make sure to receive incoming INVITE or MESSAGE
+ 
+//            if (linphone_core_get_calls(LC) == NULL) { // if there are calls, obviously our TCP socket shall be working
+//                //linphone_core_set_network_reachable(LC, FALSE);
+//                if (!linphone_core_is_network_reachable(LC)) {
+//                    LinphoneManager.instance.connectivity = none; //Force connectivity to be discovered again
+//                    [LinphoneManager.instance setupNetworkReachabilityCallback];
+//                }
+//                if (loc_key != nil) {
+//
+//                    //  callId = [userInfo objectForKey:@"call-id"];
+//                    if (callId != nil) {
+//                        if ([callId isEqualToString:@""]){
+//                            //Present apn pusher notifications for info
+//                            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+//                                UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+//                                content.title = @"APN Pusher";
+//                                content.body = @"Push notification received !";
+//
+//                                UNNotificationRequest *req = [UNNotificationRequest requestWithIdentifier:@"call_request" content:content trigger:NULL];
+//                                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:req withCompletionHandler:^(NSError * _Nullable error) {
+//                                    // Enable or disable features based on authorization.
+//                                    if (error) {
+//                                        NSLog(@"Error while adding notification request :%@", error.description);
+//                                    }
+//                                }];
+//                            } else {
+//                                UILocalNotification *notification = [[UILocalNotification alloc] init];
+//                                notification.repeatInterval = 0;
+//                                notification.alertBody = @"Push notification received !";
+//                                notification.alertTitle = @"APN Pusher";
+//                                [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+//                            }
+//                        } else {
+//                            NSLog(@"addPushCallId");
+//                            //  [LinphoneManager.instance addPushCallId:callId];
+//                        }
+//                    } else  if ([callId  isEqual: @""]) {
+//                        NSLog(@"PushNotification: does not have call-id yet, fix it !");
+//                    }
+//                }
+//            }
+        }
+        
+//        if (callId && [self addLongTaskIDforCallID:callId]) {
+//            if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive && loc_key &&
+//                index > 0) {
+//                if ([loc_key isEqualToString:@"IC_MSG"]) {
+//                    [LinphoneManager.instance startPushLongRunningTask:FALSE];
+//                    [self fixRing];
+//                } else if ([loc_key isEqualToString:@"IM_MSG"]) {
+//                    [LinphoneManager.instance startPushLongRunningTask:TRUE];
+//                }
+//            }
+//        }
+    }
+}
+
+- (void)answerCallWithCallID: (int)call_id {
+    pjsua_call_answer(call_id, 200, NULL, NULL);
+}
+
 
 @end

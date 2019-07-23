@@ -10,7 +10,7 @@
 #import "TransHistoryCell.h"
 
 @interface TransHistoryViewController ()<WebServiceUtilsDelegate, UITableViewDelegate, UITableViewDataSource> {
-    
+    NSMutableArray *listKey;
 }
 @end
 
@@ -34,6 +34,12 @@
         dataDict = [[NSMutableDictionary alloc] init];
     }else{
         [dataDict removeAllObjects];
+    }
+    
+    if (listKey == nil) {
+        listKey = [[NSMutableArray alloc] init];
+    }else{
+        [listKey removeAllObjects];
     }
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
@@ -92,8 +98,12 @@
     for (int index=0; index<array.count; index++) {
         NSDictionary *info = [array objectAtIndex: index];
         NSString *time = [info objectForKey:@"time"];
-        
         NSString *date = [AppUtils getDateStringFromTimerInterval:[time longLongValue]];
+        
+        if (![listKey containsObject: date]) {
+            [listKey addObject: date];
+        }
+        
         if (![AppUtils isNullOrEmpty: date]) {
             if (![[dataDict allKeys] containsObject: date]) {
                 NSMutableArray *data = [[NSMutableArray alloc] init];
@@ -108,7 +118,6 @@
             }
         }
     }
-    NSLog(@"%@", dataDict);
 }
 
 #pragma mark - WebServiceUtil Delegate
@@ -134,13 +143,12 @@
 
 #pragma mark - UITableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [dataDict allKeys].count;
+    return listKey.count;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
-    NSString *key = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: section];
-    
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSString *key = [listKey objectAtIndex: section];
     return [(NSArray *)[dataDict objectForKey: key] count];
 }
 
@@ -148,9 +156,7 @@
     TransHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransHistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
-    NSString *key = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: indexPath.section];
-    
+    NSString *key = [listKey objectAtIndex: indexPath.section];
     NSDictionary *info = [[dataDict objectForKey: key] objectAtIndex: indexPath.row];
     [cell displayDataWithInfo: info];
     return cell;
@@ -166,8 +172,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:FALSE selector:@selector(localizedCompare:)];
-    NSString *curDate = [[[dataDict allKeys] sortedArrayUsingDescriptors:@[sortDescriptor]] objectAtIndex: section];
+    NSString *curDate = [listKey objectAtIndex: section];
     
     UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30.0)];
     viewHeader.backgroundColor = LIGHT_GRAY_COLOR;

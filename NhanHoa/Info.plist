@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Nhân Hoà</string>
+	<string>Nhân Hòa</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.4</string>
+	<string>1.0.5</string>
 	<key>CFBundleVersion</key>
 	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -29,6 +29,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Để cập nhật ảnh đại diện và chứng minh nhân dân của bạn</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Muốn truy cập microphone của bạn để thực hiện cuộc gọi</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Để cập nhật ảnh đại diện và chứng minh nhân dân của bạn</string>
 	<key>UIAppFonts</key>

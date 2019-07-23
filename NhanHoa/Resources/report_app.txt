@@ -1,5 +1,5 @@
 
-TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HOÀ"
+TRẠNG THÁI TÍNH NĂNG CỦA ỨNG DỤNG "NHÂN HÒA"
 
 1. Login (Đăng nhập)
 ---Trạng thái: HOÀN TẤT

@@ -22,6 +22,7 @@
 - (void)callWebServiceWithLink: (NSString *)linkService withParams: (NSDictionary *)paramsDict;
 - (void)callWebServiceWithLink: (NSString *)linkService withParams: (NSDictionary *)paramsDict inBackgroundMode: (BOOL)isBackgroundMode;
 - (void)callGETWebServiceWithFunction: (NSString *)function andParams: (NSString *)params;
+- (void)apiWebServiceForCallWithParams: (NSDictionary *)paramsDict;
 
 @end
 

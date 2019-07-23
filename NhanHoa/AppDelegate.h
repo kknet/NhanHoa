@@ -15,6 +15,8 @@
 #import "LaunchViewController.h"
 #import "AudioSessionUtils.h"
 #import "WebServiceUtils.h"
+#import "ProviderDelegate.h"
+#import <PushKit/PushKit.h>
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -33,7 +35,7 @@ typedef enum PaymentMethod{
     ePaymentWithVisaMaster,
 }PaymentMethod;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate, PKPushRegistryDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -108,6 +110,17 @@ typedef enum PaymentMethod{
 
 @property (nonatomic, assign) BOOL supportCall;
 
+- (void)removeAccount;
+- (void)makeCallTo: (NSString *)strCall;
+- (void)answerCallWithCallID: (int)call_id;
+
+@property (nonatomic, strong) ProviderDelegate *del;
+@property (nonatomic, strong) PKPushRegistry* voipRegistry;
+@property (nonatomic, strong) NSString *callToken;
+@property (nonatomic, assign) BOOL callTokenReady;
+@property (nonatomic, strong) NSDictionary *accCallInfo;
+
+- (void)registerSIPAccountWithInfo: (NSDictionary *)info;
 
 @end
 

@@ -133,7 +133,7 @@
         make.right.equalTo(self.viewInfo).offset(-padding);
     }];
     
-    float maxText = [AppUtils getSizeWithText:@"Nhân Hoà ID:" withFont:[UIFont fontWithName:RobotoRegular size:17.0]].width;
+    float maxText = [AppUtils getSizeWithText:@"Nhân Hòa ID:" withFont:[UIFont fontWithName:RobotoRegular size:17.0]].width;
     //  name
     lbName.textColor = TITLE_COLOR;
     lbName.font = [UIFont fontWithName:RobotoRegular size:17.0];

@@ -174,6 +174,9 @@
 - (void)registerObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
                                                  name:@"afterAddOrderSuccessfully" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChoosedDomainList)
+                                                 name:@"reloadChoosedDomainList" object:nil];
 }
 
 - (void)popToRootView {
@@ -491,6 +494,10 @@
         }
     }
     return hTableView;
+}
+
+- (void)reloadChoosedDomainList {
+    [self prepareDataToDisplay];
 }
 
 #pragma mark - WebServicesUtilDelegate

@@ -416,6 +416,16 @@ year: number (số năm đăng ký)
     type: number (0: nội địa | 1: quốc tế)
 
 
+30. WhoisProtect
+    *Send request (Post / Get) [Auto]
+    mod: whois_protect
+    username: string
+    password: MD5
+    domain_id: number (domain_id lấy từ api info_domain)
+    domain_name: number (domain name lấy từ api info_domain)
+    protect: number (0: off | 1: on)
+    *Kết quả trả về: anh em send test để xem kết quả
+
 
 lekhai02121991@gmail.com    |   11111111
 

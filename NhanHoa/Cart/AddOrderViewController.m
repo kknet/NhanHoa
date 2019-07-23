@@ -202,15 +202,24 @@
         
         if (domainInfo != nil && [domainInfo isKindOfClass:[NSDictionary class]]) {
             NSString *years = [domainInfo objectForKey:year_for_domain];
+            NSString *whoisProtect = [domainInfo objectForKey:whois_protect];
+            NSNumber *protect;
+            if ([AppUtils isNullOrEmpty: whoisProtect]) {
+                protect = [NSNumber numberWithInt: 1];
+            }else{
+                protect = [NSNumber numberWithInt: [whoisProtect intValue]];
+            }
+            
             NSString *domainName = [domainInfo objectForKey:@"domain"];
             NSDictionary *profile = [domainInfo objectForKey:profile_cart];
             NSString *profileCusId = [profile objectForKey:@"cus_id"];
+            
             buyingDomain = domainName;
             
             if (![AppUtils isNullOrEmpty: profileCusId] && ![AppUtils isNullOrEmpty: domainName] && ![AppUtils isNullOrEmpty: years]) {
                 
                 [WebServiceUtils getInstance].delegate = self;
-                [[WebServiceUtils getInstance] addOrderForDomain:domainName contact_id:profileCusId year:[years intValue]];
+                [[WebServiceUtils getInstance] addOrderForDomain:domainName contact_id:profileCusId year:[years intValue] protect: protect];
             }else{
                 [paymentResult setObject:@"failed" forKey:buyingDomain];
                 [self startToAddAllDomainInYourCart];

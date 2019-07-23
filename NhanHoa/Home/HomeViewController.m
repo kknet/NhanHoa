@@ -341,6 +341,21 @@
     }];
     
     hMenu = 100;
+    hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
+    
+    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+    if (arr.count > 0) {
+        NSDictionary *info = [arr firstObject];
+        NSString *image = [info objectForKey:@"image"];
+        
+        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
+        UIImage *imgBanner = [UIImage imageWithData: imgData];
+        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
+    }
+    [self addBannerImageForView];
+    
+    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + hWallet + self.tabBarController.tabBar.frame.size.height))/3;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;
     layout.minimumInteritemSpacing = 0;
@@ -429,9 +444,6 @@
         make.left.right.equalTo(self.lbRewards);
         make.top.equalTo(self.viewRewards.mas_centerY);
     }];
-    
-    hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
-    [self addBannerImageForView];
 }
 
 - (void)whenTapOnMainWallet {
@@ -471,6 +483,31 @@
     searchDomainVC.strSearch = tfSearch.text;
     searchDomainVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchDomainVC animated:YES];
+}
+
+#pragma mark - Webservice Delegate
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    if (![AppDelegate sharedInstance].callTokenReady) {
+        if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].callToken]) {
+            NSString *token = [NSString stringWithFormat:@"ios%@", [AppDelegate sharedInstance].callToken];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] UPDATE TOKEN FOR CALL: %@", __FUNCTION__, token)];
+            
+            [[WebServiceUtils getInstance] updateTokenForCallWithToken: token];
+        }else{
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] WARNING!!!!!!!!!!!! CAN NOT GET TOKEN FOR CALL", __FUNCTION__)];
+        }
+    }
+}
+
+-(void)updateCallTokenSuccesful {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    [AppDelegate sharedInstance].callTokenReady = TRUE;
+}
+
+-(void)failedToUpdateCallToken:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR!!!!!!!!!!!! CAN NOT UPDATE TOKEN FOR CALL WITH ERROR = %@", __FUNCTION__, error)];
+    [AppDelegate sharedInstance].callTokenReady = FALSE;
 }
 
 @end

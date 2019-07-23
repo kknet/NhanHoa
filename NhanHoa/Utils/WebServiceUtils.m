@@ -326,7 +326,7 @@
     [webService callWebServiceWithLink:withdraw_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
-- (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year {
+- (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year protect: (NSNumber *)protect {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@, contact_id = %@, year = %d", __FUNCTION__, domain, contact_id, year)];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
@@ -336,6 +336,7 @@
     [jsonDict setObject:domain forKey:@"domain"];
     [jsonDict setObject:contact_id forKey:@"contact_id"];
     [jsonDict setObject:[NSNumber numberWithInt: year] forKey:@"year"];
+    [jsonDict setObject:protect forKey:@"protect"];
     
     [webService callWebServiceWithLink:add_order_func withParams:jsonDict inBackgroundMode:TRUE];
 }
@@ -353,6 +354,20 @@
     [webService callWebServiceWithLink:addfun_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
+- (void)updateWhoisProtectForDomain: (NSString *)domain domainId: (NSString *)domainId protectValue: (BOOL)protect {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domainId = %d, protect = %d", __FUNCTION__, [domainId intValue], protect)];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:whois_protect_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domainId forKey:@"domain_id"];
+    [jsonDict setObject:domain forKey:@"domain_name"];
+    [jsonDict setObject:[NSNumber numberWithBool: protect] forKey:@"protect"];
+    
+    [webService callWebServiceWithLink:WhoisProtect_func withParams:jsonDict inBackgroundMode:TRUE];
+}
+
 #pragma mark - Webservice delegate
 
 - (void)failedToCallWebService:(NSString *)link andError:(NSString *)error {
@@ -364,6 +379,9 @@
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(failedToUpdateToken)]) {
             [delegate failedToUpdateToken];
+            
+        }else if ([delegate respondsToSelector:@selector(failedToUpdateCallToken:)]) {
+            [delegate failedToUpdateCallToken: error];
         }
     }else if ([link isEqualToString: whois_func]) {
         if ([delegate respondsToSelector:@selector(failedToSearchDomainWithError:)]) {
@@ -457,8 +475,20 @@
         if ([delegate respondsToSelector:@selector(failedToGetAmoutWithError:)]) {
             [delegate failedToGetAmoutWithError: error];
         }
+    }else if ([link isEqualToString: WhoisProtect_func]) {
+        if ([delegate respondsToSelector:@selector(failedToUpdateWhoisProtect:)]) {
+            [delegate failedToUpdateWhoisProtect: error];
+        }
     }
-    
+    else if ([link isEqualToString: GetListCSKHAction]){
+        if ([delegate respondsToSelector:@selector(failedToGetCustomersSupportList:)]) {
+            [delegate failedToGetCustomersSupportList: error];
+        }
+    }else if ([link isEqualToString: GetAccVoipAction]){
+        if ([delegate respondsToSelector:@selector(failedToGetVoipAccount:)]) {
+            [delegate failedToGetVoipAccount: error];
+        }
+    }
 }
 
 - (void)successfulToCallWebService:(NSString *)link withData:(NSDictionary *)data {
@@ -473,6 +503,10 @@
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(updateTokenSuccessful)]) {
             [delegate updateTokenSuccessful];
+            
+        }else if ([delegate respondsToSelector:@selector(updateCallTokenSuccesful)]) {
+            [delegate updateCallTokenSuccesful];
+            
         }
     }else if ([link isEqualToString: whois_func]) {
         if ([delegate respondsToSelector:@selector(searchDomainSuccessfulWithData:)]) {
@@ -568,6 +602,18 @@
         if ([delegate respondsToSelector:@selector(getAmoutSuccessfulWithData:)]) {
             [delegate getAmoutSuccessfulWithData: data];
         }
+    }else if ([link isEqualToString: WhoisProtect_func]) {
+        if ([delegate respondsToSelector:@selector(updateWhoisProtectSuccessfulWithData:)]) {
+            [delegate updateWhoisProtectSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: GetListCSKHAction]){
+        if ([delegate respondsToSelector:@selector(getCustomersSupportListSuccessfulWithData:)]) {
+            [delegate getCustomersSupportListSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: GetAccVoipAction]){
+        if ([delegate respondsToSelector:@selector(getVoipAccountSuccessfulWithData:)]) {
+            [delegate getVoipAccountSuccessfulWithData: data];
+        }
     }
 }
 
@@ -575,6 +621,58 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] link = %@, responeCode = %d", __FUNCTION__, link, responeCode)];
 }
 
+#pragma mark - Update token for call
 
+- (void)updateTokenForCallWithToken: (NSString *)token {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    
+    [info setObject:USERNAME forKey:@"id"];
+    
+    NSString *password = [AccountModel getCusPassword];
+    [info setObject:password forKey:@"hash"];
+    
+    [info setObject:UpdateTokenAction forKey:@"action"];
+    [info setObject:token forKey:@"token"];
+    
+    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *key = [AppUtils getMD5StringOfString: total];
+    [info setObject:key forKey:@"key"];
+    
+    [webService apiWebServiceForCallWithParams: info];
+}
+
+- (void)getAccVoIPFree {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    
+    [info setObject:USERNAME forKey:@"id"];
+    
+    NSString *password = [AccountModel getCusPassword];
+    [info setObject:password forKey:@"hash"];
+    
+    [info setObject:GetAccVoipAction forKey:@"action"];
+    
+    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *key = [AppUtils getMD5StringOfString: total];
+    [info setObject:key forKey:@"key"];
+    
+    [webService apiWebServiceForCallWithParams: info];
+}
+
+- (void)getListCustomersSupport {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    
+    [info setObject:USERNAME forKey:@"id"];
+    
+    NSString *password = [AccountModel getCusPassword];
+    [info setObject:password forKey:@"hash"];
+    
+    [info setObject:GetListCSKHAction forKey:@"action"];
+    
+    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *key = [AppUtils getMD5StringOfString: total];
+    [info setObject:key forKey:@"key"];
+    
+    [webService apiWebServiceForCallWithParams: info];
+}
 
 @end

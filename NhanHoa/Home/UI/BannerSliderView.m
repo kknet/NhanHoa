@@ -29,53 +29,41 @@
 }
 
 - (void)showBannersForSliderView {
-    if ([AppDelegate sharedInstance].userInfo != nil) {
-        pageControl.hidden = FALSE;
+    pageControl.hidden = FALSE;
+    
+    NSArray *banners = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+    if (banners != nil && [banners isKindOfClass:[NSArray class]]) {
+        listBanners = [[NSArray alloc] initWithArray: banners];
         
-        NSArray *banners = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
-        if (banners != nil && [banners isKindOfClass:[NSArray class]]) {
-            listBanners = [[NSArray alloc] initWithArray: banners];
+        for (int index=0; index<listBanners.count; index++) {
+            NSDictionary *banner = [listBanners objectAtIndex: index];
             
-            for (int index=0; index<listBanners.count; index++) {
-                NSDictionary *banner = [listBanners objectAtIndex: index];
-                
-                UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(index*SCREEN_WIDTH, 0, SCREEN_WIDTH, hBanner)];
-                imgBanner.contentMode = UIViewContentModeScaleAspectFill;
-                imgBanner.clipsToBounds = TRUE;
-                imgBanner.tag = index;
-                [scvBanner addSubview: imgBanner];
-                
-                //  Add target
-                imgBanner.userInteractionEnabled = TRUE;
-                UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage:)];
-                [imgBanner addGestureRecognizer: tapOnBanner];
-                
-                NSString *image = [banner objectForKey:@"image"];
-                [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"banner.jpg"]];
-            }
-            //  for page control
-            if (listBanners.count > 1) {
-                pageControl.hidden = FALSE;
-            }else{
-                pageControl.hidden = TRUE;
-            }
+            UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(index*SCREEN_WIDTH, 0, SCREEN_WIDTH, hBanner)];
+            imgBanner.contentMode = UIViewContentModeScaleAspectFill;
+            imgBanner.clipsToBounds = TRUE;
+            imgBanner.tag = index;
+            [scvBanner addSubview: imgBanner];
             
-            pageControl.numberOfPages = listBanners.count;
-            pageControl.currentPage = 0;
-            scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH*listBanners.count, hBanner);
+            //  Add target
+            imgBanner.userInteractionEnabled = TRUE;
+            UITapGestureRecognizer *tapOnBanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBannerImage:)];
+            [imgBanner addGestureRecognizer: tapOnBanner];
             
-            slideTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_FOR_SLIDER target:self selector:@selector(nextSlider) userInfo:nil repeats:TRUE];
+            NSString *image = [banner objectForKey:@"image"];
+            [imgBanner sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"banner.jpg"]];
+        }
+        //  for page control
+        if (listBanners.count > 1) {
+            pageControl.hidden = FALSE;
+        }else{
+            pageControl.hidden = TRUE;
         }
         
-    }else{
-        pageControl.hidden = TRUE;
+        pageControl.numberOfPages = listBanners.count;
+        pageControl.currentPage = 0;
+        scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH*listBanners.count, hBanner);
         
-        UIImageView *imgBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBanner)];
-        imgBanner.image = [UIImage imageNamed:@"banner.jpg"];
-        imgBanner.contentMode = UIViewContentModeScaleAspectFill;
-        imgBanner.clipsToBounds = TRUE;
-        [scvBanner addSubview: imgBanner];
-        scvBanner.contentSize = CGSizeMake(SCREEN_WIDTH, hBanner);
+        slideTimer = [NSTimer scheduledTimerWithTimeInterval:TIME_FOR_SLIDER target:self selector:@selector(nextSlider) userInfo:nil repeats:TRUE];
     }
 }
 

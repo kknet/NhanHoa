@@ -23,6 +23,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTotalPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
+@property (weak, nonatomic) IBOutlet UIView *protectView;
+@property (weak, nonatomic) IBOutlet UILabel *lbProtect;
+@property (weak, nonatomic) IBOutlet UILabel *lbProtectDomain;
+@property (weak, nonatomic) IBOutlet UIButton *btnInfo;
+@property (weak, nonatomic) IBOutlet UISwitch *swProtect;
+@property (weak, nonatomic) IBOutlet UILabel *lbFree;
+
+- (IBAction)swProtectChanged:(UISwitch *)sender;
+- (IBAction)btnInfoPress:(UIButton *)sender;
+
 - (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew;
 - (void)displayDomainInfoForCart: (NSDictionary *)domainInfo;
 
