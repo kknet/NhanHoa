@@ -156,11 +156,33 @@
 		56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56064F3322C7696B003D8859 /* SigningDomainViewController.xib */; };
 		56064F3822C78C69003D8859 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56064F3722C78C69003D8859 /* WebKit.framework */; };
 		56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */ = {isa = PBXBuildFile; fileRef = 56064F3A22C796C7003D8859 /* UIWebView+GUIFixes.m */; };
+		56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 56078BEB22E7F1540009A3AF /* DeviceUtils.m */; };
 		560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */; };
 		560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */; };
 		560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 560F82E922BA865B004BF3FE /* iphone_text.mp3 */; };
 		560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5610492122B4FE9000463378 /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5610492022B4FE9000463378 /* Constant.m */; };
+		5612F8A922E6C04800ECBBB1 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5612F8A722E6C04800ECBBB1 /* CallViewController.m */; };
+		5612F8AA22E6C04800ECBBB1 /* CallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8A822E6C04800ECBBB1 /* CallViewController.xib */; };
+		5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */; };
+		5612F8AE22E6CA0A00ECBBB1 /* state_audio_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8AD22E6CA0A00ECBBB1 /* state_audio_call.png */; };
+		5612F8B022E6CA2B00ECBBB1 /* no_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8AF22E6CA2A00ECBBB1 /* no_avatar.png */; };
+		5612F8B422E6CA6B00ECBBB1 /* speaker_dis.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8B122E6CA6A00ECBBB1 /* speaker_dis.png */; };
+		5612F8B522E6CA6B00ECBBB1 /* speaker_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8B222E6CA6A00ECBBB1 /* speaker_normal.png */; };
+		5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8B322E6CA6A00ECBBB1 /* speaker_enable.png */; };
+		5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8B722E6CAA000ECBBB1 /* end_call_def.png */; };
+		5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8B822E6CAA000ECBBB1 /* end_call_act.png */; };
+		5612F8BE22E6CAC900ECBBB1 /* mute_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8BB22E6CAC800ECBBB1 /* mute_normal.png */; };
+		5612F8BF22E6CAC900ECBBB1 /* mute_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8BC22E6CAC800ECBBB1 /* mute_enable.png */; };
+		5612F8C022E6CAC900ECBBB1 /* mute_dis.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8BD22E6CAC900ECBBB1 /* mute_dis.png */; };
+		5612F8C722E7066C00ECBBB1 /* ringbacktone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8C622E7066A00ECBBB1 /* ringbacktone.mp3 */; };
+		5612F8CB22E7094700ECBBB1 /* hold_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8C822E7094600ECBBB1 /* hold_enable.png */; };
+		5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8C922E7094600ECBBB1 /* hold_normal.png */; };
+		5612F8CD22E7094700ECBBB1 /* hold_dis.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8CA22E7094700ECBBB1 /* hold_dis.png */; };
+		5612F8D122E70DDC00ECBBB1 /* keypad_dis.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8CE22E70DDB00ECBBB1 /* keypad_dis.png */; };
+		5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8CF22E70DDB00ECBBB1 /* keypad_enable.png */; };
+		5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */; };
+		5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */; };
 		562362D722E2D815001AE97A /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243422CDA3DD006AE4AA /* CallKit.framework */; };
 		562362D822E2D81A001AE97A /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243622CDA3F8006AE4AA /* PushKit.framework */; };
 		562362DB22E2D89C001AE97A /* ProviderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 562362DA22E2D89C001AE97A /* ProviderDelegate.m */; };
@@ -596,6 +618,8 @@
 		56064F3722C78C69003D8859 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		56064F3922C796C7003D8859 /* UIWebView+GUIFixes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWebView+GUIFixes.h"; sourceTree = "<group>"; };
 		56064F3A22C796C7003D8859 /* UIWebView+GUIFixes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+GUIFixes.m"; sourceTree = "<group>"; };
+		56078BEA22E7F1540009A3AF /* DeviceUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceUtils.h; sourceTree = "<group>"; };
+		56078BEB22E7F1540009A3AF /* DeviceUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceUtils.m; sourceTree = "<group>"; };
 		560B16E722B2AAFE0004DD29 /* AddOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderViewController.h; sourceTree = "<group>"; };
 		560B16E822B2AAFE0004DD29 /* AddOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderViewController.m; sourceTree = "<group>"; };
 		560B16E922B2AAFE0004DD29 /* AddOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOrderViewController.xib; sourceTree = "<group>"; };
@@ -604,6 +628,29 @@
 		560F82EE22BA8962004BF3FE /* AudioSessionUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioSessionUtils.m; sourceTree = "<group>"; };
 		5610491F22B4FE8F00463378 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		5610492022B4FE9000463378 /* Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
+		5612F8A622E6C04800ECBBB1 /* CallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
+		5612F8A722E6C04800ECBBB1 /* CallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
+		5612F8A822E6C04800ECBBB1 /* CallViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CallViewController.xib; sourceTree = "<group>"; };
+		5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "call-bg.png"; sourceTree = "<group>"; };
+		5612F8AD22E6CA0A00ECBBB1 /* state_audio_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = state_audio_call.png; sourceTree = "<group>"; };
+		5612F8AF22E6CA2A00ECBBB1 /* no_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_avatar.png; sourceTree = "<group>"; };
+		5612F8B122E6CA6A00ECBBB1 /* speaker_dis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker_dis.png; sourceTree = "<group>"; };
+		5612F8B222E6CA6A00ECBBB1 /* speaker_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker_normal.png; sourceTree = "<group>"; };
+		5612F8B322E6CA6A00ECBBB1 /* speaker_enable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker_enable.png; sourceTree = "<group>"; };
+		5612F8B722E6CAA000ECBBB1 /* end_call_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = end_call_def.png; sourceTree = "<group>"; };
+		5612F8B822E6CAA000ECBBB1 /* end_call_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = end_call_act.png; sourceTree = "<group>"; };
+		5612F8BB22E6CAC800ECBBB1 /* mute_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mute_normal.png; sourceTree = "<group>"; };
+		5612F8BC22E6CAC800ECBBB1 /* mute_enable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mute_enable.png; sourceTree = "<group>"; };
+		5612F8BD22E6CAC900ECBBB1 /* mute_dis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mute_dis.png; sourceTree = "<group>"; };
+		5612F8C622E7066A00ECBBB1 /* ringbacktone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringbacktone.mp3; sourceTree = "<group>"; };
+		5612F8C822E7094600ECBBB1 /* hold_enable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hold_enable.png; sourceTree = "<group>"; };
+		5612F8C922E7094600ECBBB1 /* hold_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hold_normal.png; sourceTree = "<group>"; };
+		5612F8CA22E7094700ECBBB1 /* hold_dis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hold_dis.png; sourceTree = "<group>"; };
+		5612F8CE22E70DDB00ECBBB1 /* keypad_dis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keypad_dis.png; sourceTree = "<group>"; };
+		5612F8CF22E70DDB00ECBBB1 /* keypad_enable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keypad_enable.png; sourceTree = "<group>"; };
+		5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keypad_normal.png; sourceTree = "<group>"; };
+		5612F8D522E7112D00ECBBB1 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
+		5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
 		562362D922E2D89B001AE97A /* ProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProviderDelegate.h; sourceTree = "<group>"; };
 		562362DA22E2D89C001AE97A /* ProviderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProviderDelegate.m; sourceTree = "<group>"; };
 		562362DC22E2DF03001AE97A /* SupportCustomerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportCustomerCell.h; sourceTree = "<group>"; };
@@ -1285,6 +1332,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				5612F8A422E6BFCB00ECBBB1 /* Call */,
 				15A496E222AA080C007609E8 /* NhanHoa.entitlements */,
 				567FDE4422CD11590081616B /* pjsip_sources */,
 				564619C122A812A000867B21 /* Payments */,
@@ -1406,6 +1454,8 @@
 			children = (
 				15224F092272EDDF00A45C3B /* AppUtils.h */,
 				15224F0A2272EDDF00A45C3B /* AppUtils.m */,
+				56078BEA22E7F1540009A3AF /* DeviceUtils.h */,
+				56078BEB22E7F1540009A3AF /* DeviceUtils.m */,
 				8430B551227C886F00548480 /* WriteLogsUtils.h */,
 				8430B550227C886F00548480 /* WriteLogsUtils.m */,
 				569A0578229CA74100FD10D8 /* UploadPicture.h */,
@@ -1475,6 +1525,23 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
+				5612F8B822E6CAA000ECBBB1 /* end_call_act.png */,
+				5612F8B722E6CAA000ECBBB1 /* end_call_def.png */,
+				5612F8CE22E70DDB00ECBBB1 /* keypad_dis.png */,
+				5612F8CF22E70DDB00ECBBB1 /* keypad_enable.png */,
+				5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */,
+				5612F8CA22E7094700ECBBB1 /* hold_dis.png */,
+				5612F8C822E7094600ECBBB1 /* hold_enable.png */,
+				5612F8C922E7094600ECBBB1 /* hold_normal.png */,
+				5612F8BD22E6CAC900ECBBB1 /* mute_dis.png */,
+				5612F8BC22E6CAC800ECBBB1 /* mute_enable.png */,
+				5612F8BB22E6CAC800ECBBB1 /* mute_normal.png */,
+				5612F8B122E6CA6A00ECBBB1 /* speaker_dis.png */,
+				5612F8B322E6CA6A00ECBBB1 /* speaker_enable.png */,
+				5612F8B222E6CA6A00ECBBB1 /* speaker_normal.png */,
+				5612F8AF22E6CA2A00ECBBB1 /* no_avatar.png */,
+				5612F8AD22E6CA0A00ECBBB1 /* state_audio_call.png */,
 				15E92ACE2272A2F1004AB658 /* graphic.png */,
 				56FC5DCF22CF04C200254F25 /* info.png */,
 				56A878A522CB50AF00300705 /* app-icon.jpg */,
@@ -1739,8 +1806,28 @@
 				560F82E922BA865B004BF3FE /* iphone_text.mp3 */,
 				56FC243B22CDBCE8006AE4AA /* chirtmas.mp3 */,
 				56FC243C22CDBCE8006AE4AA /* silence.mp3 */,
+				5612F8C622E7066A00ECBBB1 /* ringbacktone.mp3 */,
 			);
 			path = sounds;
+			sourceTree = "<group>";
+		};
+		5612F8A422E6BFCB00ECBBB1 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				5612F8A622E6C04800ECBBB1 /* CallViewController.h */,
+				5612F8A722E6C04800ECBBB1 /* CallViewController.m */,
+				5612F8A822E6C04800ECBBB1 /* CallViewController.xib */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		5612F8D422E7111500ECBBB1 /* MarqueeLabel */ = {
+			isa = PBXGroup;
+			children = (
+				5612F8D522E7112D00ECBBB1 /* MarqueeLabel.h */,
+				5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */,
+			);
+			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
 		563B8DC422B9B6B6004A037D /* PemFiles */ = {
@@ -2502,6 +2589,7 @@
 		845D8130227EE54B005734CF /* Outsources */ = {
 			isa = PBXGroup;
 			children = (
+				5612F8D422E7111500ECBBB1 /* MarqueeLabel */,
 				157A01BB22A7730700A0B11F /* PEPhotoCropEditor */,
 				845D8131227EE553005734CF /* Reachability */,
 			);
@@ -2782,9 +2870,11 @@
 				5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				56FDEB5C22B66486001A14AE /* launch.jpg in Resources */,
+				5612F8AE22E6CA0A00ECBBB1 /* state_audio_call.png in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */,
+				5612F8BE22E6CAC900ECBBB1 /* mute_normal.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
@@ -2803,6 +2893,7 @@
 				1517FBA022745D810044E878 /* tabbar_BO_act.png in Resources */,
 				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
+				5612F8CD22E7094700ECBBB1 /* hold_dis.png in Resources */,
 				567FDF4422CD157C0081616B /* config_auto.h.in in Resources */,
 				842F81B6227561ED00D6DE6D /* Roboto-Bold.ttf in Resources */,
 				5601BE0222BD40830011E73D /* GoogleService-Info.plist in Resources */,
@@ -2833,6 +2924,8 @@
 				841F00852274A97D00F1B314 /* banner.jpg in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
 				84588AA2228093F000B59E0F /* ic_manager_domain.png in Resources */,
+				5612F8D122E70DDC00ECBBB1 /* keypad_dis.png in Resources */,
+				5612F8B022E6CA2B00ECBBB1 /* no_avatar.png in Resources */,
 				157F0C122282966600DCB7D4 /* back_medium.png in Resources */,
 				841966872276016400C14516 /* SuggestDomainCell.xib in Resources */,
 				56FED7C322AD050F00FAD541 /* ic_add.png in Resources */,
@@ -2848,19 +2941,24 @@
 				15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */,
 				15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
+				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */,
 				56D0295A22B3FAA500280127 /* DomainResultView.xib in Resources */,
+				5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
 				842F81BF2275794C00D6DE6D /* tabbar_acc_def@2x.png in Resources */,
+				5612F8B422E6CA6B00ECBBB1 /* speaker_dis.png in Resources */,
 				846A41932275C759003C5D87 /* search_multi_domain.png in Resources */,
 				840F5DFB2277328B005BFC57 /* WhoIsViewController.xib in Resources */,
 				842F81AF227561ED00D6DE6D /* Roboto-ThinItalic.ttf in Resources */,
 				846AACB52276C96A005BC87E /* SearchDomainViewController.xib in Resources */,
 				1517FB6C227446980044E878 /* HomeViewController.xib in Resources */,
+				5612F8B522E6CA6B00ECBBB1 /* speaker_normal.png in Resources */,
 				56D0294F22B3F88D00280127 /* order_failed.png in Resources */,
 				5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */,
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
+				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				564619C622A812B400867B21 /* PaymentViewController.xib in Resources */,
 				842F81B4227561ED00D6DE6D /* Roboto-BlackItalic.ttf in Resources */,
@@ -2872,6 +2970,7 @@
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
 				56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */,
+				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
@@ -2904,6 +3003,7 @@
 				1517FB642274465B0044E878 /* menu_list_domain.png in Resources */,
 				1517FB9722745D810044E878 /* tabbar_history_act.png in Resources */,
 				845D32C6227943A20047B196 /* no_tick.png in Resources */,
+				5612F8AA22E6C04800ECBBB1 /* CallViewController.xib in Resources */,
 				15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
@@ -2923,6 +3023,7 @@
 				5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
 				1517FBAD22745D810044E878 /* tabbar_history_act@3x.png in Resources */,
+				5612F8BF22E6CAC900ECBBB1 /* mute_enable.png in Resources */,
 				849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */,
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
 				567FDE8122CD14410081616B /* os_auto.h.in in Resources */,
@@ -2939,6 +3040,8 @@
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
+				5612F8C022E6CAC900ECBBB1 /* mute_dis.png in Resources */,
+				5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
@@ -2959,6 +3062,7 @@
 				1508460E226EC9A400428514 /* RegisterDomainViewController.xib in Resources */,
 				8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */,
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
+				5612F8CB22E7094700ECBBB1 /* hold_enable.png in Resources */,
 				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
@@ -2968,6 +3072,7 @@
 				841966912276077400C14516 /* vn.png in Resources */,
 				56FC5DD022CF04C200254F25 /* info.png in Resources */,
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
+				5612F8C722E7066C00ECBBB1 /* ringbacktone.mp3 in Resources */,
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
 				56A878A422CB504400300705 /* new_launch.jpg in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
@@ -2982,9 +3087,11 @@
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
 				1517FBA922745D810044E878 /* tabbar_history_def.png in Resources */,
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
+				5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */,
 				840F5DE922770848005BFC57 /* DomainCell.xib in Resources */,
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
+				5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */,
@@ -3069,6 +3176,7 @@
 				56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */,
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
+				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
@@ -3085,6 +3193,7 @@
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
+				56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
 				5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
@@ -3107,6 +3216,7 @@
 				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
 				567FDE5022CD11AF0081616B /* pjsua_app_legacy.c in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
+				5612F8A922E6C04800ECBBB1 /* CallViewController.m in Sources */,
 				15E084C522715E830010429B /* LaunchViewController.m in Sources */,
 				15A613B122744C56000F6779 /* AppTabbarViewController.m in Sources */,
 				846EA9122276EF6D00F1D7DB /* DomainObject.m in Sources */,

@@ -8,7 +8,6 @@
 
 #import "AppUtils.h"
 #import "CustomTextAttachment.h"
-#import <sys/utsname.h>
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (MD5)
@@ -309,14 +308,6 @@
         }
     }
     return TRUE;
-}
-
-//  https://www.theiphonewiki.com/wiki/Models
-+ (NSString *)getModelsOfCurrentDevice {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *modelType =  [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    return modelType;
 }
 
 + (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor {
@@ -726,14 +717,13 @@
     return FALSE;
 }
 
-+ (BOOL)isScreen320 {
-    NSString *deviceMode = [self getModelsOfCurrentDevice];
-    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
-    {
-        return TRUE;
-        
++ (NSString *)durationToString:(int)duration {
+    NSMutableString *result = [[NSMutableString alloc] init];
+    if (duration / 3600 > 0) {
+        [result appendString:[NSString stringWithFormat:@"%02i:", duration / 3600]];
+        duration = duration % 3600;
     }
-    return FALSE;
+    return [result stringByAppendingString:[NSString stringWithFormat:@"%02i:%02i", (duration / 60), (duration % 60)]];
 }
 
 

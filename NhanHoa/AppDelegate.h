@@ -114,15 +114,25 @@ typedef enum PaymentMethod{
 
 - (void)removeAccount;
 - (void)makeCallTo: (NSString *)strCall;
+- (void)hangupAllCall;
 - (void)answerCallWithCallID: (int)call_id;
+- (int)getDurationForCurrentCall;
+- (BOOL)muteMicrophone: (BOOL)mute;
 
 @property (nonatomic, strong) ProviderDelegate *del;
 @property (nonatomic, strong) PKPushRegistry* voipRegistry;
 @property (nonatomic, strong) NSString *callToken;
 @property (nonatomic, assign) BOOL callTokenReady;
 @property (nonatomic, strong) NSDictionary *accCallInfo;
+@property (nonatomic, assign) int current_call_id;
+@property (nonatomic, assign) int pjsipConfAudioId;
 
 - (void)registerSIPAccountWithInfo: (NSDictionary *)info;
+
+//  for ringback tone
+@property (nonatomic, strong) AVAudioPlayer *ringbackPlayer;
+- (void)playRingbackTone;
+- (void)stopRingbackTone;
 
 @end
 

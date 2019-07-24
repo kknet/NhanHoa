@@ -105,6 +105,11 @@
 - (IBAction)btnContinuePress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     sender.backgroundColor = UIColor.whiteColor;
     [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     [self performSelector:@selector(startContinuePayment) withObject:nil afterDelay:0.05];

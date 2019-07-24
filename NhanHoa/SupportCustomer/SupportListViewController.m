@@ -7,6 +7,7 @@
 //
 
 #import "SupportListViewController.h"
+#import "CallViewController.h"
 #import "SupportCustomerCell.h"
 #import "AppDelegate.h"
 
@@ -58,10 +59,9 @@
         return;
     }
     
-    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", tfNumber.text];
-    [[AppDelegate sharedInstance] makeCallTo: stringForCall];
-    
-    
+    CallViewController *callVC = [[CallViewController alloc] initWithNibName:@"CallViewController" bundle:nil];
+    callVC.phoneNumber = @"150";
+    [self.navigationController pushViewController:callVC animated:TRUE];
 }
 
 - (void)setupUIForView {
@@ -236,8 +236,15 @@
         
         NSString *exten = [info objectForKey:@"exten"];
         if (![AppUtils isNullOrEmpty: exten]) {
-            exten = @"0363430737";
-            [[AppDelegate sharedInstance] makeCallTo: exten];
+            exten = @"151";
+            //  [[AppDelegate sharedInstance] makeCallTo: exten];
+            
+            NSString *name = [info objectForKey:@"name"];
+            
+            CallViewController *callVC = [[CallViewController alloc] initWithNibName:@"CallViewController" bundle:nil];
+            callVC.phoneNumber = exten;
+            callVC.calleeName = name;
+            [self.navigationController pushViewController:callVC animated:TRUE];
         }else{
             [self.view makeToast:@"Không tìm thấy số hỗ trợ. Vui lòng thực hiện lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }

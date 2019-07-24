@@ -43,7 +43,7 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
-    if ([AppUtils isScreen320]) {
+    if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
@@ -89,7 +89,7 @@
 
 - (void)createHeaderViewForTableView {
     float padding = 15.0;
-    if ([AppUtils isScreen320]) {
+    if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     

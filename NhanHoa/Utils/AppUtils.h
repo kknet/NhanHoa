@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    eReceiver = 1,
+    eSpeaker,
+    eEarphone,
+}TypeOutputRoute;
+
 @interface AppUtils : NSObject
 
 + (void)setPlaceholder: (NSString *)content textfield: (UITextField *)textField color: (UIColor *)color;
@@ -34,7 +40,6 @@
 + (NSString *)generateIDForTransaction;
 + (NSString *)getPaymentResultWithResponseCode: (NSString *)responseCode;
 + (BOOL)checkValidCurrency: (NSString *)money;
-+ (NSString *)getModelsOfCurrentDevice;
 + (void)setBorderForTextfield: (UITextField *)textfield borderColor: (UIColor *)borderColor;
 + (NSString *)getMD5StringOfString: (NSString *)string;
 +(UIImage *)resizeImage:(UIImage *)image;
@@ -54,6 +59,6 @@
 + (NSString *)getYesterdayDateString;
 + (NSString *)getStatusValueWithCode: (NSString *)status;
 + (BOOL)checkDomainIsNationalDomain: (NSString *)domain;
-+ (BOOL)isScreen320;
++ (NSString *)durationToString:(int)duration;
 
 @end
