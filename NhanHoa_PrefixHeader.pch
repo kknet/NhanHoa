@@ -13,6 +13,7 @@
 #import "Masonry.h"
 #import "AppString.h"
 #import "AppUtils.h"
+#import "DeviceUtils.h"
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
 #import "WriteLogsUtils.h"

@@ -234,6 +234,18 @@
 #define text_signed_contract    @"Hợp đồng đã ký tên"
 #define text_signing_contract   @"Ký tên lên hợp đồng"
 
+#define notifCallStateChanged       @"notifCallStateChanged"
+
+#define CALL_INV_STATE_NULL         @"PJSIP_INV_STATE_NULL"
+#define CALL_INV_STATE_CALLING      @"PJSIP_INV_STATE_CALLING"
+#define CALL_INV_STATE_INCOMING     @"PJSIP_INV_STATE_INCOMING"
+#define CALL_INV_STATE_EARLY        @"PJSIP_INV_STATE_EARLY"
+#define CALL_INV_STATE_CONNECTING   @"PJSIP_INV_STATE_CONNECTING"
+#define CALL_INV_STATE_CONFIRMED    @"PJSIP_INV_STATE_CONFIRMED"
+#define CALL_INV_STATE_DISCONNECTED @"PJSIP_INV_STATE_DISCONNECTED"
+
+
+
 #endif /* AppString_h */
 
 

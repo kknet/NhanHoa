@@ -14,7 +14,6 @@
 #import "CartModel.h"
 #import <AVFoundation/AVAudioPlayer.h>
 
-
 #include "pjsip_sources/pjlib/include/pjlib.h"
 #include "pjsip_sources/pjsip/include/pjsua.h"
 
@@ -39,8 +38,8 @@
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
-@synthesize supportCall;
-@synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo;
+@synthesize supportCall, ringbackPlayer;
+@synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 
 AppDelegate      *app;
 
@@ -202,13 +201,12 @@ AppDelegate      *app;
         [self.del config];
     }
     [self registerForNotifications:[UIApplication sharedApplication]];
+    
+    //  PJSIP
     app = self;
-    
     [self startPjsuaForApp];
+    current_call_id = -1;
     
-    /*
-    [self registerSIP];
-    */
     return YES;
 }
 
@@ -519,7 +517,7 @@ AppDelegate      *app;
 - (void)setupFontForApp {
     radius = 5.0;
     
-    NSString *deviceMode = [AppUtils getModelsOfCurrentDevice];
+    NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
     if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
     {
         //  Screen width: 320.000000 - Screen height: 667.000000
@@ -892,8 +890,8 @@ AppDelegate      *app;
 }
 
 - (void)makeCallTo: (NSString *)strCall {
-    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
-    char *destUri = (char *)[stringForCall UTF8String];
+    //  NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
+    char *destUri = (char *)[strCall UTF8String];
     
     pjsua_acc_id acc_id = 0;
     pj_status_t status;
@@ -904,6 +902,63 @@ AppDelegate      *app;
     if (status != PJ_SUCCESS){
         NSLog(@"Error making call");
     }
+    
+    
+    
+}
+
+- (int)getDurationForCurrentCall {
+    if (current_call_id != -1) {
+        pjsua_call_info ci;
+        pjsua_call_get_info(current_call_id, &ci);
+        //  NSLog(@"%ld - %ld", ci.total_duration.sec, ci.connect_duration.sec);
+        
+        unsigned int tx_level;
+        unsigned int rx_level;
+        pjsua_conf_get_signal_level(pjsipConfAudioId, &tx_level, &rx_level);
+        
+        NSLog(@"%d - %d", tx_level, rx_level);
+        
+        return (int)ci.connect_duration.sec;
+    }
+    return 0;
+}
+
+- (BOOL)muteMicrophone: (BOOL)mute {
+    if (mute) {
+        @try {
+            if( pjsipConfAudioId != 0 ) {
+                NSLog(@"WC_SIPServer microphone disconnected from call");
+                pjsua_conf_disconnect(0, pjsipConfAudioId);
+                return TRUE;
+            }
+            return FALSE;
+        }
+        @catch (NSException *exception) {
+            return FALSE;
+        }
+    }else{
+        @try {
+            if( pjsipConfAudioId != 0 ) {
+                NSLog(@"WC_SIPServer microphone reconnected to call");
+                pjsua_conf_connect(0,pjsipConfAudioId);
+                return TRUE;
+            }
+            return FALSE;
+        }
+        @catch (NSException *exception) {
+            return FALSE;
+        }
+    }
+}
+
+- (void)hangupAllCall {
+    pjsua_call_hangup_all();
+}
+
+- (void)hangupCallWithCallId: (pjsua_call_id)call_id code: (int)code reason: (NSString *)reason {
+    pj_str_t pj_reason = pj_str((char *)[reason UTF8String]);
+    pjsua_call_hangup(call_id, code, &pj_reason, nil);
 }
 
 - (void)removeAccount {
@@ -952,6 +1007,9 @@ static void on_call_media_state(pjsua_call_id call_id)
 // Callback called by the library when call's state has changed
 static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
 {
+    //  store call_id to get duration
+    app.current_call_id = call_id;
+    
     pjsua_call_info ci;
     
     PJ_UNUSED_ARG(e);
@@ -959,13 +1017,19 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
     pjsua_call_get_info(call_id, &ci);
     PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, (int)ci.state_text.slen, ci.state_text.ptr));
     
-    NSString *state = [NSString stringWithUTF8String: ci.state_text.ptr];
-    NSLog(@"state is: %@", state);
+    NSString *state = [app getContentOfCallStateWithStateValue: ci.state];
+    NSString *last_status = [NSString stringWithFormat:@"%d", ci.last_status];
+    app.pjsipConfAudioId = ci.conf_slot;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:notifCallStateChanged object:[NSDictionary dictionaryWithObjectsAndKeys:state, @"state", last_status, @"last_status", nil]];
+    
     if ([state isEqualToString:@"DISCONNCTD"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [app removeAccount];
         });
     }
+    
+    
 }
 
 static void on_reg_state(pjsua_acc_id acc_id)
@@ -978,6 +1042,33 @@ static void on_reg_state(pjsua_acc_id acc_id)
     PJ_UNUSED_ARG(acc_id);
     
     // Log already written.
+}
+
+- (NSString *)getContentOfCallStateWithStateValue: (pjsip_inv_state)state {
+    switch (state) {
+        case PJSIP_INV_STATE_NULL:{
+            return CALL_INV_STATE_NULL;
+        }
+        case PJSIP_INV_STATE_CALLING:{
+            return CALL_INV_STATE_CALLING;
+        }
+        case PJSIP_INV_STATE_INCOMING:{
+            return CALL_INV_STATE_INCOMING;
+        }
+        case PJSIP_INV_STATE_EARLY:{
+            return CALL_INV_STATE_EARLY;
+        }
+        case PJSIP_INV_STATE_CONNECTING:{
+            return CALL_INV_STATE_CONNECTING;
+        }
+        case PJSIP_INV_STATE_CONFIRMED:{
+            return CALL_INV_STATE_CONFIRMED;
+        }
+        case PJSIP_INV_STATE_DISCONNECTED:{
+            return CALL_INV_STATE_DISCONNECTED;
+        }
+    }
+    return @"";
 }
 
 - (void)registerForNotifications:(UIApplication *)app {
@@ -1269,6 +1360,32 @@ static void on_reg_state(pjsua_acc_id acc_id)
 - (void)answerCallWithCallID: (int)call_id {
     pjsua_call_answer(call_id, 200, NULL, NULL);
 }
+
+#pragma mark - Sound for call
+- (void)playRingbackTone {
+    if (ringbackPlayer == nil) {
+        /* Use this code to play an audio file */
+        NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"ringbacktone"  ofType:@"mp3"];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+        
+        ringbackPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+        ringbackPlayer.numberOfLoops = -1; //Infinite
+        [ringbackPlayer prepareToPlay];
+    }
+    
+    if (ringbackPlayer.isPlaying) {
+        return;
+    }
+    [ringbackPlayer play];
+}
+
+- (void)stopRingbackTone {
+    if (ringbackPlayer != nil) {
+        [ringbackPlayer stop];
+    }
+    ringbackPlayer = nil;
+}
+
 
 
 @end

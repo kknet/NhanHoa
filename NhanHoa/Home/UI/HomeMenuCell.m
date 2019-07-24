@@ -17,7 +17,7 @@
     float sizeIcon = 45.0;
     float mTop = 5.0;
     
-    if ([AppUtils isScreen320]) {
+    if ([DeviceUtils isScreen320]) {
         sizeIcon = 40.0;
         mTop = 0.0;
     }

@@ -283,7 +283,9 @@
     [ProgressHUD dismiss];
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
-    [self makeToast:@"Đã có lỗi xảy ra. Vui lòng thử lại." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 

@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    if ([AppUtils isScreen320]) {
+    if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
