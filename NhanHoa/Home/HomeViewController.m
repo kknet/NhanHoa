@@ -298,7 +298,7 @@
     //  self.edgesForExtendedLayout = UIRectEdgeNone;
     float paddingY = 10.0;
     float padding = 20.0;
-    float hWallet = 70.0;
+    float hWallet = 60.0;
     float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hTextfield = 34.0;
     float hNav = self.navigationController.navigationBar.frame.size.height;
@@ -337,8 +337,7 @@
         make.width.mas_equalTo(hTextfield);
     }];
     
-    hMenu = 100;
-    //  hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
+    //
     NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
     if (arr.count > 0) {
         NSDictionary *info = [arr firstObject];
@@ -348,9 +347,19 @@
         UIImage *imgBanner = [UIImage imageWithData: imgData];
         hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
     }
+    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
+    if (hMenu < 90) {
+        if ([DeviceUtils isScreen320]) {
+            hMenu = 80.0;
+        }else{
+            hMenu = 92;
+        }
+        paddingY = 5.0;
+        hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
+    }
     [self addBannerImageForView];
     
-    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
+    
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;

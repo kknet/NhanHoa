@@ -144,6 +144,35 @@
 		15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */; };
 		15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */; };
 		15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */; };
+		4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */; };
+		4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C041EA122E841F600DA7405 /* UIMiniKeypad.m */; };
+		4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA422E8432600DA7405 /* ic_back_act.png */; };
+		4C041EA822E8437500DA7405 /* numpad_one_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA622E8437400DA7405 /* numpad_one_hover.png */; };
+		4C041EA922E8437500DA7405 /* numpad_one_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA722E8437500DA7405 /* numpad_one_default.png */; };
+		4C041EAE22E8439600DA7405 /* numpad_three_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EAA22E8439500DA7405 /* numpad_three_hover.png */; };
+		4C041EAF22E8439600DA7405 /* numpad_two_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EAB22E8439500DA7405 /* numpad_two_hover.png */; };
+		4C041EB022E8439600DA7405 /* numpad_three_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EAC22E8439500DA7405 /* numpad_three_default.png */; };
+		4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EAD22E8439500DA7405 /* numpad_two_default.png */; };
+		4C041EB622E843C600DA7405 /* numpad_four_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EB222E843C500DA7405 /* numpad_four_default.png */; };
+		4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EB322E843C500DA7405 /* numpad_four_hover.png */; };
+		4C041EB822E843C600DA7405 /* numpad_five_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EB422E843C500DA7405 /* numpad_five_default.png */; };
+		4C041EB922E843C600DA7405 /* numpad_five_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EB522E843C600DA7405 /* numpad_five_hover.png */; };
+		4C041EBE22E843E400DA7405 /* numpad_seven_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EBA22E843E300DA7405 /* numpad_seven_hover.png */; };
+		4C041EBF22E843E400DA7405 /* numpad_six_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EBB22E843E300DA7405 /* numpad_six_hover.png */; };
+		4C041EC022E843E400DA7405 /* numpad_six_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EBC22E843E300DA7405 /* numpad_six_default.png */; };
+		4C041EC122E843E400DA7405 /* numpad_seven_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EBD22E843E400DA7405 /* numpad_seven_default.png */; };
+		4C041EC822E8440A00DA7405 /* numpad_nine_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC222E8440800DA7405 /* numpad_nine_hover.png */; };
+		4C041EC922E8440A00DA7405 /* numpad_zero_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC322E8440800DA7405 /* numpad_zero_hover.png */; };
+		4C041ECA22E8440A00DA7405 /* numpad_eight_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC422E8440800DA7405 /* numpad_eight_hover.png */; };
+		4C041ECB22E8440A00DA7405 /* numpad_zero_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC522E8440900DA7405 /* numpad_zero_default.png */; };
+		4C041ECC22E8440A00DA7405 /* numpad_eight_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC622E8440900DA7405 /* numpad_eight_default.png */; };
+		4C041ECD22E8440A00DA7405 /* numpad_nine_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EC722E8440900DA7405 /* numpad_nine_default.png */; };
+		4C041ED222E8443100DA7405 /* numpad_star_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ECE22E8443000DA7405 /* numpad_star_hover.png */; };
+		4C041ED322E8443100DA7405 /* numpad_hash_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ECF22E8443000DA7405 /* numpad_hash_default.png */; };
+		4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED022E8443000DA7405 /* numpad_hash_hover.png */; };
+		4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED122E8443100DA7405 /* numpad_star_default.png */; };
+		4C041ED722E8444800DA7405 /* button-endcall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED622E8444800DA7405 /* button-endcall.png */; };
+		4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED822E8505C00DA7405 /* beep.mp3 */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
@@ -601,6 +630,36 @@
 		15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePersonalProfile.h; sourceTree = "<group>"; };
 		15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePersonalProfile.m; sourceTree = "<group>"; };
 		15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePersonalProfile.xib; sourceTree = "<group>"; };
+		4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIMiniKeypad.xib; sourceTree = "<group>"; };
+		4C041EA022E841F600DA7405 /* UIMiniKeypad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIMiniKeypad.h; sourceTree = "<group>"; };
+		4C041EA122E841F600DA7405 /* UIMiniKeypad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIMiniKeypad.m; sourceTree = "<group>"; };
+		4C041EA422E8432600DA7405 /* ic_back_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_back_act.png; sourceTree = "<group>"; };
+		4C041EA622E8437400DA7405 /* numpad_one_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_one_hover.png; sourceTree = "<group>"; };
+		4C041EA722E8437500DA7405 /* numpad_one_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_one_default.png; sourceTree = "<group>"; };
+		4C041EAA22E8439500DA7405 /* numpad_three_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_three_hover.png; sourceTree = "<group>"; };
+		4C041EAB22E8439500DA7405 /* numpad_two_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_two_hover.png; sourceTree = "<group>"; };
+		4C041EAC22E8439500DA7405 /* numpad_three_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_three_default.png; sourceTree = "<group>"; };
+		4C041EAD22E8439500DA7405 /* numpad_two_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_two_default.png; sourceTree = "<group>"; };
+		4C041EB222E843C500DA7405 /* numpad_four_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_four_default.png; sourceTree = "<group>"; };
+		4C041EB322E843C500DA7405 /* numpad_four_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_four_hover.png; sourceTree = "<group>"; };
+		4C041EB422E843C500DA7405 /* numpad_five_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_five_default.png; sourceTree = "<group>"; };
+		4C041EB522E843C600DA7405 /* numpad_five_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_five_hover.png; sourceTree = "<group>"; };
+		4C041EBA22E843E300DA7405 /* numpad_seven_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_seven_hover.png; sourceTree = "<group>"; };
+		4C041EBB22E843E300DA7405 /* numpad_six_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_six_hover.png; sourceTree = "<group>"; };
+		4C041EBC22E843E300DA7405 /* numpad_six_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_six_default.png; sourceTree = "<group>"; };
+		4C041EBD22E843E400DA7405 /* numpad_seven_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_seven_default.png; sourceTree = "<group>"; };
+		4C041EC222E8440800DA7405 /* numpad_nine_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_nine_hover.png; sourceTree = "<group>"; };
+		4C041EC322E8440800DA7405 /* numpad_zero_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_zero_hover.png; sourceTree = "<group>"; };
+		4C041EC422E8440800DA7405 /* numpad_eight_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_eight_hover.png; sourceTree = "<group>"; };
+		4C041EC522E8440900DA7405 /* numpad_zero_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_zero_default.png; sourceTree = "<group>"; };
+		4C041EC622E8440900DA7405 /* numpad_eight_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_eight_default.png; sourceTree = "<group>"; };
+		4C041EC722E8440900DA7405 /* numpad_nine_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_nine_default.png; sourceTree = "<group>"; };
+		4C041ECE22E8443000DA7405 /* numpad_star_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_hover.png; sourceTree = "<group>"; };
+		4C041ECF22E8443000DA7405 /* numpad_hash_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_hash_default.png; sourceTree = "<group>"; };
+		4C041ED022E8443000DA7405 /* numpad_hash_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_hash_hover.png; sourceTree = "<group>"; };
+		4C041ED122E8443100DA7405 /* numpad_star_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_default.png; sourceTree = "<group>"; };
+		4C041ED622E8444800DA7405 /* button-endcall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-endcall.png"; sourceTree = "<group>"; };
+		4C041ED822E8505C00DA7405 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
 		5600E8F422A5E9FC00F7DECE /* support_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_call.png; sourceTree = "<group>"; };
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
@@ -1485,6 +1544,9 @@
 				15543EB422B1F764007E5966 /* ShoppingCartView.xib */,
 				56FC5DCD22CEF0D700254F25 /* CustomSwitchButton.h */,
 				56FC5DCC22CEF0D700254F25 /* CustomSwitchButton.m */,
+				4C041EA022E841F600DA7405 /* UIMiniKeypad.h */,
+				4C041EA122E841F600DA7405 /* UIMiniKeypad.m */,
+				4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */,
 			);
 			path = "App UI";
 			sourceTree = "<group>";
@@ -1526,6 +1588,32 @@
 			isa = PBXGroup;
 			children = (
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
+				4C041ED622E8444800DA7405 /* button-endcall.png */,
+				4C041EA722E8437500DA7405 /* numpad_one_default.png */,
+				4C041EA622E8437400DA7405 /* numpad_one_hover.png */,
+				4C041EAC22E8439500DA7405 /* numpad_three_default.png */,
+				4C041EAA22E8439500DA7405 /* numpad_three_hover.png */,
+				4C041EAD22E8439500DA7405 /* numpad_two_default.png */,
+				4C041EAB22E8439500DA7405 /* numpad_two_hover.png */,
+				4C041EB422E843C500DA7405 /* numpad_five_default.png */,
+				4C041EB522E843C600DA7405 /* numpad_five_hover.png */,
+				4C041EB222E843C500DA7405 /* numpad_four_default.png */,
+				4C041EB322E843C500DA7405 /* numpad_four_hover.png */,
+				4C041EBD22E843E400DA7405 /* numpad_seven_default.png */,
+				4C041EBA22E843E300DA7405 /* numpad_seven_hover.png */,
+				4C041EBC22E843E300DA7405 /* numpad_six_default.png */,
+				4C041EBB22E843E300DA7405 /* numpad_six_hover.png */,
+				4C041EC622E8440900DA7405 /* numpad_eight_default.png */,
+				4C041EC422E8440800DA7405 /* numpad_eight_hover.png */,
+				4C041EC722E8440900DA7405 /* numpad_nine_default.png */,
+				4C041EC222E8440800DA7405 /* numpad_nine_hover.png */,
+				4C041EC522E8440900DA7405 /* numpad_zero_default.png */,
+				4C041EC322E8440800DA7405 /* numpad_zero_hover.png */,
+				4C041ECF22E8443000DA7405 /* numpad_hash_default.png */,
+				4C041ED022E8443000DA7405 /* numpad_hash_hover.png */,
+				4C041ED122E8443100DA7405 /* numpad_star_default.png */,
+				4C041ECE22E8443000DA7405 /* numpad_star_hover.png */,
+				4C041EA422E8432600DA7405 /* ic_back_act.png */,
 				5612F8B822E6CAA000ECBBB1 /* end_call_act.png */,
 				5612F8B722E6CAA000ECBBB1 /* end_call_def.png */,
 				5612F8CE22E70DDB00ECBBB1 /* keypad_dis.png */,
@@ -1807,6 +1895,7 @@
 				56FC243B22CDBCE8006AE4AA /* chirtmas.mp3 */,
 				56FC243C22CDBCE8006AE4AA /* silence.mp3 */,
 				5612F8C622E7066A00ECBBB1 /* ringbacktone.mp3 */,
+				4C041ED822E8505C00DA7405 /* beep.mp3 */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -2868,12 +2957,14 @@
 				845D32BD22793DF50047B196 /* RegisterAccountStep2ViewController.xib in Resources */,
 				1517FBBD22745D9B0044E878 /* caseback.png in Resources */,
 				5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */,
+				4C041ECC22E8440A00DA7405 /* numpad_eight_default.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				56FDEB5C22B66486001A14AE /* launch.jpg in Resources */,
 				5612F8AE22E6CA0A00ECBBB1 /* state_audio_call.png in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */,
+				4C041EB022E8439600DA7405 /* numpad_three_default.png in Resources */,
 				5612F8BE22E6CAC900ECBBB1 /* mute_normal.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
@@ -2882,16 +2973,20 @@
 				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
+				4C041EAE22E8439600DA7405 /* numpad_three_hover.png in Resources */,
 				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
 				842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */,
 				56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */,
 				157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */,
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
+				4C041ECA22E8440A00DA7405 /* numpad_eight_hover.png in Resources */,
+				4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
 				1517FB602274465B0044E878 /* menu_recharge.png in Resources */,
 				56A878A622CB50AF00300705 /* app-icon.jpg in Resources */,
 				1517FBA022745D810044E878 /* tabbar_BO_act.png in Resources */,
 				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
+				4C041EA922E8437500DA7405 /* numpad_one_default.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				5612F8CD22E7094700ECBBB1 /* hold_dis.png in Resources */,
 				567FDF4422CD157C0081616B /* config_auto.h.in in Resources */,
@@ -2919,18 +3014,23 @@
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
+				4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */,
 				56D0295522B3F90400280127 /* OrderResultView.xib in Resources */,
 				849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */,
 				841F00852274A97D00F1B314 /* banner.jpg in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
+				4C041EAF22E8439600DA7405 /* numpad_two_hover.png in Resources */,
+				4C041EBF22E843E400DA7405 /* numpad_six_hover.png in Resources */,
 				84588AA2228093F000B59E0F /* ic_manager_domain.png in Resources */,
 				5612F8D122E70DDC00ECBBB1 /* keypad_dis.png in Resources */,
+				4C041ECB22E8440A00DA7405 /* numpad_zero_default.png in Resources */,
 				5612F8B022E6CA2B00ECBBB1 /* no_avatar.png in Resources */,
 				157F0C122282966600DCB7D4 /* back_medium.png in Resources */,
 				841966872276016400C14516 /* SuggestDomainCell.xib in Resources */,
 				56FED7C322AD050F00FAD541 /* ic_add.png in Resources */,
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
+				4C041EA822E8437500DA7405 /* numpad_one_hover.png in Resources */,
 				1535EEE022B0D99B0034F298 /* report_app.txt in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */,
@@ -2941,8 +3041,11 @@
 				15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */,
 				15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
+				4C041EBE22E843E400DA7405 /* numpad_seven_hover.png in Resources */,
+				4C041EC922E8440A00DA7405 /* numpad_zero_hover.png in Resources */,
 				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */,
+				4C041ED222E8443100DA7405 /* numpad_star_hover.png in Resources */,
 				56D0295A22B3FAA500280127 /* DomainResultView.xib in Resources */,
 				5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
@@ -2966,6 +3069,8 @@
 				1517FB9F22745D810044E878 /* tababr_acc_act@3x.png in Resources */,
 				84588A9E228093F000B59E0F /* ic_signout.png in Resources */,
 				1517FBA622745D810044E878 /* tabbar_BO_def@3x.png in Resources */,
+				4C041ECD22E8440A00DA7405 /* numpad_nine_default.png in Resources */,
+				4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */,
 				841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */,
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
@@ -2990,6 +3095,7 @@
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
+				4C041EB822E843C600DA7405 /* numpad_five_default.png in Resources */,
 				15CD147922B9E2E9009CBE86 /* push.php in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
 				56FC243D22CDBCE8006AE4AA /* chirtmas.mp3 in Resources */,
@@ -3020,9 +3126,12 @@
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
 				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
+				4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */,
 				5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
+				4C041EB622E843C600DA7405 /* numpad_four_default.png in Resources */,
 				1517FBAD22745D810044E878 /* tabbar_history_act@3x.png in Resources */,
+				4C041EB922E843C600DA7405 /* numpad_five_hover.png in Resources */,
 				5612F8BF22E6CAC900ECBBB1 /* mute_enable.png in Resources */,
 				849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */,
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
@@ -3040,8 +3149,10 @@
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
+				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
 				5612F8C022E6CAC900ECBBB1 /* mute_dis.png in Resources */,
 				5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */,
+				4C041EC122E843E400DA7405 /* numpad_seven_default.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
@@ -3076,12 +3187,16 @@
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
 				56A878A422CB504400300705 /* new_launch.jpg in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
+				4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */,
+				4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */,
+				4C041EC822E8440A00DA7405 /* numpad_nine_hover.png in Resources */,
 				56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				56B5685022B153A300AB8F29 /* tick_white.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
+				4C041ED722E8444800DA7405 /* button-endcall.png in Resources */,
 				56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */,
 				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
@@ -3096,9 +3211,11 @@
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
+				4C041EC022E843E400DA7405 /* numpad_six_default.png in Resources */,
 				15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
+				4C041ED322E8443100DA7405 /* numpad_hash_default.png in Resources */,
 				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
 				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
@@ -3177,6 +3294,7 @@
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
+				4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */,
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
@@ -3413,6 +3531,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = NhanHoa/NhanHoa.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
@@ -3462,6 +3581,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = NhanHoa/NhanHoa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;

@@ -7,6 +7,7 @@
 //
 
 #import "CallViewController.h"
+#import "UIMiniKeypad.h"
 
 @interface CallViewController (){
     NSTimer *durationTimer;
@@ -28,6 +29,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = TRUE;
+    
+    [WriteLogsUtils writeForGoToScreen:@"CallViewController"];
     
     [self registerObserveres];
     
@@ -55,6 +58,8 @@
 }
 
 - (IBAction)icOutSpeakerClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     TypeOutputRoute curRoute = [DeviceUtils getCurrentRouteForCall];
     if (curRoute == eReceiver) {
         BOOL result = [DeviceUtils enableSpeakerForCall: TRUE];
@@ -74,9 +79,33 @@
 }
 
 - (IBAction)icOutMuteClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    BOOL isMuted = [[AppDelegate sharedInstance] checkMicrophoneWasMuted];
+    if (isMuted) {
+        BOOL result = [[AppDelegate sharedInstance] muteMicrophone: FALSE];
+        if (result) {
+            [sender setImage:[UIImage imageNamed:@"mute_normal.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Microphone đã được bật" duration:1.0 position:CSToastPositionCenter];
+        }else{
+            [sender setImage:[UIImage imageNamed:@"mute_enable.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
+        }
+    }else {
+        BOOL result = [[AppDelegate sharedInstance] muteMicrophone: TRUE];
+        if (result) {
+            [sender setImage:[UIImage imageNamed:@"mute_enable.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Microphone đã được tắt" duration:1.0 position:CSToastPositionCenter];
+        }else{
+            [sender setImage:[UIImage imageNamed:@"mute_normal.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
+        }
+    }
 }
 
 - (IBAction)icOutEndCallClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     [[AppDelegate sharedInstance] hangupAllCall];
 }
 
@@ -109,8 +138,8 @@
         {
             //  Screen width: 375.000000 - Screen height: 667.000000
             wAvatar = 120.0;
-            wIconEndCall = 80.0;
-            wSmallIcon = 60.0;
+            wIconEndCall = 70.0;
+            wSmallIcon = 55.0;
             marginIcon = 10.0;
             
         }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
@@ -203,6 +232,8 @@
         make.width.height.mas_equalTo(wSmallIcon);
     }];
     
+    icOutMute.enabled = FALSE;
+    [icOutMute setImage:[UIImage imageNamed:@"mute_dis.png"] forState:UIControlStateDisabled];
     [icOutMute mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.icOutEndCall.mas_centerY);
         make.right.equalTo(self.icOutEndCall.mas_left).offset(-margin);
@@ -291,13 +322,13 @@
     }];
 }
 
-- (void)onCallStateChanged: (NSNotification *)notif {
+- (void)onCallStateChanged: (NSNotification *)notif
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *info = [notif object];
         if ([info isKindOfClass:[NSDictionary class]]) {
             NSString *state = [info objectForKey:@"state"];
             NSString *last_status = [info objectForKey:@"last_status"];
-            NSLog(@"k: %@", state);
             
             if ([state isEqualToString: CALL_INV_STATE_CALLING]) {
                 self.lbOutCallState.text = @"Đang gọi...";
@@ -326,6 +357,11 @@
                     NSLog(@"%@", last_status);
                 }
                 [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:1.5];
+                
+                //  clear timer
+                [durationTimer invalidate];
+                durationTimer = nil;
+                [self hideMiniKeypad];
             }
             
             if ([state isEqualToString: CALL_INV_STATE_CALLING] || [state isEqualToString: CALL_INV_STATE_EARLY]) {
@@ -343,10 +379,33 @@
 }
 
 - (IBAction)icMuteClick:(UIButton *)sender {
-    [[AppDelegate sharedInstance] muteMicrophone: TRUE];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    BOOL isMuted = [[AppDelegate sharedInstance] checkMicrophoneWasMuted];
+    if (isMuted) {
+        BOOL result = [[AppDelegate sharedInstance] muteMicrophone: FALSE];
+        if (result) {
+            [sender setImage:[UIImage imageNamed:@"mute_normal.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Microphone đã được bật" duration:1.0 position:CSToastPositionCenter];
+        }else{
+            [sender setImage:[UIImage imageNamed:@"mute_enable.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
+        }
+    }else {
+        BOOL result = [[AppDelegate sharedInstance] muteMicrophone: TRUE];
+        if (result) {
+            [sender setImage:[UIImage imageNamed:@"mute_enable.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Microphone đã được tắt" duration:1.0 position:CSToastPositionCenter];
+        }else{
+            [sender setImage:[UIImage imageNamed:@"mute_normal.png"] forState:UIControlStateNormal];
+            [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
+        }
+    }
 }
 
 - (IBAction)icSpeakerClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     TypeOutputRoute curRoute = [DeviceUtils getCurrentRouteForCall];
     if (curRoute == eReceiver) {
         BOOL result = [DeviceUtils enableSpeakerForCall: TRUE];
@@ -364,16 +423,33 @@
 }
 
 - (IBAction)icHangupClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     [[AppDelegate sharedInstance] hangupAllCall];
 }
 
 - (IBAction)icHoldCallClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    BOOL holing = [[AppDelegate sharedInstance] checkCurrentCallWasHold];
+    if (holing) {
+        [[AppDelegate sharedInstance] holdCurrentCall: FALSE];
+        [icHoldCall setImage:[UIImage imageNamed:@"hold_normal.png"] forState:UIControlStateNormal];
+    }else{
+        [[AppDelegate sharedInstance] holdCurrentCall: TRUE];
+        [icHoldCall setImage:[UIImage imageNamed:@"hold_enable.png"] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)icMiniKeypadClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    [self showMiniKeypadOnView: self.view];
 }
 
 - (void)startToUpdateDurationForCall {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     if (durationTimer) {
         [durationTimer invalidate];
         durationTimer = nil;
@@ -383,10 +459,67 @@
     durationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(resetDurationValueForCall) userInfo:nil repeats:TRUE];
 }
 
-- (void)resetDurationValueForCall {
+- (void)resetDurationValueForCall
+{
     long duration = [[AppDelegate sharedInstance] getDurationForCurrentCall];
-    NSString *strDuration = [AppUtils durationToString: duration];
+    NSString *strDuration = [AppUtils durationToString: (int)duration];
     lbDuration.text = strDuration;
+}
+
+- (void)showMiniKeypadOnView: (UIView *)aview {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UIMiniKeypad" owner:nil options:nil];
+    UIMiniKeypad *viewKeypad;
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[UIMiniKeypad class]]) {
+            viewKeypad = (UIMiniKeypad *) currentObject;
+            break;
+        }
+    }
+    [viewKeypad.iconBack addTarget:self
+                            action:@selector(hideMiniKeypad)
+                  forControlEvents:UIControlEventTouchUpInside];
+    [aview addSubview:viewKeypad];
+    [viewKeypad.iconMiniKeypadEndCall addTarget:self
+                                         action:@selector(endCallFromMiniKeypad)
+                               forControlEvents:UIControlEventTouchUpInside];
+    
+    [viewKeypad mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(aview);
+    }];
+    [viewKeypad setupUIForView];
+    
+    viewKeypad.tag = 10;
+    [self fadeIn:viewKeypad];
+}
+
+- (void)endCallFromMiniKeypad {
+    [self hideMiniKeypad];
+    [[AppDelegate sharedInstance] hangupAllCall];
+}
+
+//  Hide keypad mini
+- (void)hideMiniKeypad{
+    for (UIView *subView in self.view.subviews) {
+        if (subView.tag == 10) {
+            [UIView animateWithDuration:.35 animations:^{
+                subView.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                subView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    [subView removeFromSuperview];
+                }
+            }];
+        }
+    }
+}
+
+- (void)fadeIn :(UIView*)view{
+    view.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    view.alpha = 0.0;
+    [UIView animateWithDuration:.35 animations:^{
+        view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        view.alpha = 1.0;
+    }];
 }
 
 @end

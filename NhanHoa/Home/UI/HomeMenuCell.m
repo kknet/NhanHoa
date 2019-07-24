@@ -14,11 +14,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    float sizeIcon = 45.0;
+    float sizeIcon = [self getSizeIconForDevice];
     float mTop = 5.0;
     
     if ([DeviceUtils isScreen320]) {
-        sizeIcon = 40.0;
         mTop = 0.0;
     }
     
@@ -29,7 +28,7 @@
     }];
     
     lbName.numberOfLines = 10;
-    lbName.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbName.font = [self getFontForDevice];
     lbName.textColor = TITLE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerX.equalTo(self.mas_centerX);
@@ -53,6 +52,51 @@
         make.left.bottom.right.equalTo(self);
         make.height.mas_equalTo(1.0);
     }];
+}
+
+- (UIFont *)getFontForDevice {
+    NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
+    {
+        return [UIFont fontWithName:RobotoRegular size:13.5];
+        
+    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
+    {
+        return [UIFont fontWithName:RobotoRegular size:14.5];
+        
+    }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
+    {
+        return [UIFont fontWithName:RobotoRegular size:14.0];
+        
+    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
+        return [UIFont fontWithName:RobotoRegular size:14.0];
+        
+    }else{
+        return [UIFont fontWithName:RobotoRegular size:14.0];
+    }
+}
+
+- (float)getSizeIconForDevice {
+    float size = 45.0;
+    
+    NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
+    {
+        size = 38.0;
+        
+    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
+    {
+        size = 40.0;
+        
+    }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
+    {
+        
+    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
+        
+    }else{
+        
+    }
+    return size;
 }
 
 @end

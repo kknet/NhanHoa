@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (TypeOutputRoute)getCurrentRouteForCall;
 + (BOOL)enableSpeakerForCall: (BOOL)speaker;
 
++ (float)getSizeOfKeypadButtonForDevice;
++ (float)getSpaceYBetweenKeypadButtonsForDevice;
++ (float)getSpaceXBetweenKeypadButtonsForDevice;
+
 @end
 
 NS_ASSUME_NONNULL_END

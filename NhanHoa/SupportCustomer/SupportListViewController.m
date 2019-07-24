@@ -40,6 +40,9 @@
     }
     lbNoData.hidden = TRUE;
     
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:@"Đang lấy danh sách" Interaction:NO];
+    
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getAccVoIPFree];
     [[WebServiceUtils getInstance] getListCustomersSupport];
@@ -139,6 +142,8 @@
 -(void)getCustomersSupportListSuccessfulWithData:(NSDictionary *)data {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
+    [ProgressHUD dismiss];
+    
     if ([data isKindOfClass:[NSArray class]]) {
         [datas addObjectsFromArray: (NSArray *)data];
         
@@ -154,6 +159,7 @@
 -(void)failedToGetCustomersSupportList:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
+    [ProgressHUD dismiss];
     [self.view makeToast:@"Không thể lấy được danh sách hỗ trợ khách hàng. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
@@ -236,7 +242,7 @@
         
         NSString *exten = [info objectForKey:@"exten"];
         if (![AppUtils isNullOrEmpty: exten]) {
-            exten = @"151";
+            exten = @"150";
             //  [[AppDelegate sharedInstance] makeCallTo: exten];
             
             NSString *name = [info objectForKey:@"name"];

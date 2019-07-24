@@ -38,7 +38,7 @@
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
-@synthesize supportCall, ringbackPlayer;
+@synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 
 AppDelegate      *app;
@@ -825,7 +825,7 @@ AppDelegate      *app;
     NSString *password = [info objectForKey:@"password"];
     
     if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        account = @"nhcla150";
+        account = @"nhcla151";
         domain = @"nhanhoa1.vfone.vn";
         port = @"51000";
         password = @"cloudcall123";
@@ -902,9 +902,6 @@ AppDelegate      *app;
     if (status != PJ_SUCCESS){
         NSLog(@"Error making call");
     }
-    
-    
-    
 }
 
 - (int)getDurationForCurrentCall {
@@ -912,16 +909,47 @@ AppDelegate      *app;
         pjsua_call_info ci;
         pjsua_call_get_info(current_call_id, &ci);
         //  NSLog(@"%ld - %ld", ci.total_duration.sec, ci.connect_duration.sec);
-        
-        unsigned int tx_level;
-        unsigned int rx_level;
-        pjsua_conf_get_signal_level(pjsipConfAudioId, &tx_level, &rx_level);
-        
-        NSLog(@"%d - %d", tx_level, rx_level);
-        
         return (int)ci.connect_duration.sec;
     }
     return 0;
+}
+
+- (BOOL)checkMicrophoneWasMuted {
+    if (pjsipConfAudioId >= 0) {
+        unsigned int tx_level;
+        unsigned int rx_level;
+        pjsua_conf_get_signal_level(pjsipConfAudioId, &tx_level, &rx_level);
+        if (tx_level == 0) {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+    return FALSE;
+}
+
+- (BOOL)checkCurrentCallWasHold {
+    if (current_call_id != -1) {
+        pjsua_call_info ci;
+        pjsua_call_get_info(current_call_id, &ci);
+        if (ci.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+- (BOOL)sendDtmfWithValue: (NSString *)value {
+    pjsua_call_send_dtmf_param param;
+    param.method = PJSUA_DTMF_METHOD_RFC2833;
+    param.duration = PJSUA_CALL_SEND_DTMF_DURATION_DEFAULT;
+    param.digits = pj_str((char *)[value UTF8String]);
+
+    pj_status_t status = pjsua_call_send_dtmf(current_call_id, &param);
+    if (status != PJ_SUCCESS){
+        return FALSE;
+    }
+    return TRUE;
 }
 
 - (BOOL)muteMicrophone: (BOOL)mute {
@@ -949,6 +977,14 @@ AppDelegate      *app;
         @catch (NSException *exception) {
             return FALSE;
         }
+    }
+}
+
+- (void)holdCurrentCall: (BOOL)hold {
+    if (hold) {
+        pjsua_call_set_hold(current_call_id, nil);
+    }else{
+        pjsua_call_update(current_call_id, PJSUA_CALL_UNHOLD, nil);
     }
 }
 
@@ -1377,6 +1413,23 @@ static void on_reg_state(pjsua_acc_id acc_id)
         return;
     }
     [ringbackPlayer play];
+}
+
+- (void)playBeepSound {
+    if (beepPlayer == nil) {
+        /* Use this code to play an audio file */
+        NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"beep"  ofType:@"mp3"];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+        
+        beepPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+        [beepPlayer prepareToPlay];
+    }
+    
+    if (beepPlayer.isPlaying) {
+        [beepPlayer stop];
+        [beepPlayer prepareToPlay];
+    }
+    [beepPlayer play];
 }
 
 - (void)stopRingbackTone {

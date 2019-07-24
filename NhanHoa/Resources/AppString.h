@@ -51,6 +51,8 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
+#define HEADER_ICON_WIDTH 35.0
+
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  10
 #define MIN_MONEY_TOPUP     200000
