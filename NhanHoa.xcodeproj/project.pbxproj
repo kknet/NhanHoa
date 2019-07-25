@@ -181,6 +181,8 @@
 		5602034D22A3E8150038D6BA /* UpdateDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602034B22A3E8150038D6BA /* UpdateDNSViewController.m */; };
 		5602034E22A3E8150038D6BA /* UpdateDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */; };
 		5602A91222AAC113003AE8D9 /* WebServiceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602A91122AAC113003AE8D9 /* WebServiceUtils.m */; };
+		560348A522EA08B800DC9322 /* sip_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 560348A422EA08B800DC9322 /* sip_util.c */; };
+		560348A822EA0B1B00DC9322 /* sip_reg.c in Sources */ = {isa = PBXBuildFile; fileRef = 560348A722EA0B1B00DC9322 /* sip_reg.c */; };
 		56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56064F3222C7696B003D8859 /* SigningDomainViewController.m */; };
 		56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56064F3322C7696B003D8859 /* SigningDomainViewController.xib */; };
 		56064F3822C78C69003D8859 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56064F3722C78C69003D8859 /* WebKit.framework */; };
@@ -671,6 +673,8 @@
 		5602034C22A3E8150038D6BA /* UpdateDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateDNSViewController.xib; sourceTree = "<group>"; };
 		5602A91022AAC113003AE8D9 /* WebServiceUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServiceUtils.h; sourceTree = "<group>"; };
 		5602A91122AAC113003AE8D9 /* WebServiceUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebServiceUtils.m; sourceTree = "<group>"; };
+		560348A422EA08B800DC9322 /* sip_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sip_util.c; sourceTree = "<group>"; };
+		560348A722EA0B1B00DC9322 /* sip_reg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sip_reg.c; sourceTree = "<group>"; };
 		56064F3122C7696B003D8859 /* SigningDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SigningDomainViewController.h; sourceTree = "<group>"; };
 		56064F3222C7696B003D8859 /* SigningDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SigningDomainViewController.m; sourceTree = "<group>"; };
 		56064F3322C7696B003D8859 /* SigningDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningDomainViewController.xib; sourceTree = "<group>"; };
@@ -1888,6 +1892,31 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		560348A222EA088F00DC9322 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				560348A622EA0B0300DC9322 /* pjsip-ua */,
+				560348A322EA08A400DC9322 /* pjsip */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		560348A322EA08A400DC9322 /* pjsip */ = {
+			isa = PBXGroup;
+			children = (
+				560348A422EA08B800DC9322 /* sip_util.c */,
+			);
+			path = pjsip;
+			sourceTree = "<group>";
+		};
+		560348A622EA0B0300DC9322 /* pjsip-ua */ = {
+			isa = PBXGroup;
+			children = (
+				560348A722EA0B1B00DC9322 /* sip_reg.c */,
+			);
+			path = "pjsip-ua";
+			sourceTree = "<group>";
+		};
 		560F82E822BA864F004BF3FE /* sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -2396,6 +2425,7 @@
 		567FDF6E22CD16400081616B /* pjsip */ = {
 			isa = PBXGroup;
 			children = (
+				560348A222EA088F00DC9322 /* src */,
 				567FDFB722CD16EE0081616B /* lib */,
 				567FDF6F22CD16480081616B /* include */,
 			);
@@ -3357,6 +3387,7 @@
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
+				560348A522EA08B800DC9322 /* sip_util.c in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
@@ -3374,6 +3405,7 @@
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
+				560348A822EA0B1B00DC9322 /* sip_reg.c in Sources */,
 				1596AE7922B7A07C00857640 /* HaveNotSignedView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,

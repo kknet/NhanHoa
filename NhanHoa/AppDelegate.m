@@ -1053,6 +1053,9 @@ AppDelegate      *app;
     
     if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
         NSString *email = [AccountModel getCusEmail];
+        if ([AppUtils isNullOrEmpty: email]) {
+            email = USERNAME;
+        }
         
         pj_status_t status;
         

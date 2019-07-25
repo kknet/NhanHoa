@@ -128,6 +128,8 @@
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
         
+        [[AppDelegate sharedInstance] testAuthWithInfo: data];
+        
     }else{
         [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }

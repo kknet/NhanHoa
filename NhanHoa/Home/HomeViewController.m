@@ -70,13 +70,7 @@
         [AppDelegate sharedInstance].hNav = 50.0;
     }
     
-    
-//    [WebServiceUtils getInstance].delegate = self;
-//    [[WebServiceUtils getInstance] getAccVoIPFree];
     return;
-    
-    [[AppDelegate sharedInstance] tryToLogin150];
-    
     UIView *testView = [[UIView alloc] init];
     testView.backgroundColor = UIColor.orangeColor;
     [self.view addSubview: testView];
@@ -596,8 +590,8 @@
 }
 
 -(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
-//    [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
-//    [[AppDelegate sharedInstance] testAuthWithInfo: data];
+    [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
+    [[AppDelegate sharedInstance] testAuthWithInfo: data];
 }
 
 @end
