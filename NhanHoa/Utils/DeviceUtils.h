@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (float)getSpaceYBetweenKeypadButtonsForDevice;
 + (float)getSpaceXBetweenKeypadButtonsForDevice;
 
++ (BOOL)isiPhoneXAndNewer;
++ (BOOL)isScreen375;
+
 @end
 
 NS_ASSUME_NONNULL_END

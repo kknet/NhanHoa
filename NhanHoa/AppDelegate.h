@@ -139,6 +139,9 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) AVAudioPlayer *ringbackPlayer;
 - (void)playRingbackTone;
 - (void)stopRingbackTone;
+- (void)testAuthWithInfo: (NSDictionary *)info;
+- (void)tryToLogin151;
+- (void)tryToLogin150;
 
 @end
 

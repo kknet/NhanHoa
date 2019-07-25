@@ -48,8 +48,13 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
     
-    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", phoneNumber];
-    [[AppDelegate sharedInstance] makeCallTo: stringForCall];
+    if ([AppDelegate sharedInstance].accCallInfo != nil) {
+        [[AppDelegate sharedInstance] registerSIPAccountWithInfo: [AppDelegate sharedInstance].accCallInfo];
+        
+    }else{
+        [self.view makeToast:@"Tài khoản gọi không tồn tại. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -112,6 +117,9 @@
 - (void)registerObserveres {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCallStateChanged:)
                                                  name:notifCallStateChanged object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRegStateChanged:)
+                                                 name:notifRegStateChanged object:nil];
 }
 
 - (void)setupUIForView
@@ -354,14 +362,15 @@
                     self.lbOutCallState.text = @"Người dùng đang bận";
                 }else{
                     self.lbOutCallState.text = @"Cuộc gọi đã kết thúc";
-                    NSLog(@"%@", last_status);
                 }
-                [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:1.5];
+                [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
                 
                 //  clear timer
                 [durationTimer invalidate];
                 durationTimer = nil;
                 [self hideMiniKeypad];
+                
+                [[AppDelegate sharedInstance] removeAccount];
             }
             
             if ([state isEqualToString: CALL_INV_STATE_CALLING] || [state isEqualToString: CALL_INV_STATE_EARLY]) {
@@ -373,6 +382,25 @@
         }
     });
 }
+
+- (void)onRegStateChanged: (NSNotification *)notif
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSNumber *state = [notif object];
+        if ([state isKindOfClass:[NSNumber class]]) {
+            int value = [state intValue];
+            if (value == 1) {
+                NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", phoneNumber];
+                [[AppDelegate sharedInstance] makeCallTo: stringForCall];
+                
+            }else{
+                [self.view makeToast:@"Tài khoản SIP không được xác thực!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
+            }
+        }
+    });
+}
+
 
 - (void)dismissCallView {
     [self.navigationController popViewControllerAnimated: TRUE];

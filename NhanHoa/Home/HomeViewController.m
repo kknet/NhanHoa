@@ -26,6 +26,7 @@
 @interface HomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WebServiceUtilsDelegate>{
     NSMutableArray *listMenu;
     float hBanner;
+    UITextField *tfNumber;
 }
 @end
 
@@ -68,6 +69,75 @@
     }else{
         [AppDelegate sharedInstance].hNav = 50.0;
     }
+    
+    
+//    [WebServiceUtils getInstance].delegate = self;
+//    [[WebServiceUtils getInstance] getAccVoIPFree];
+    return;
+    
+    [[AppDelegate sharedInstance] tryToLogin150];
+    
+    UIView *testView = [[UIView alloc] init];
+    testView.backgroundColor = UIColor.orangeColor;
+    [self.view addSubview: testView];
+    [testView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+
+    tfNumber = [[UITextField alloc] init];
+    tfNumber.borderStyle = UITextBorderStyleRoundedRect;
+    tfNumber.text = @"0363430737";
+    [testView addSubview: tfNumber];
+    [tfNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(testView.mas_centerX);
+        make.top.equalTo(testView).offset(100);
+        make.width.mas_equalTo(250.0);
+        make.height.mas_equalTo(40.0);
+    }];
+
+    UIButton *btnCall = [[UIButton alloc] init];
+    btnCall.backgroundColor = UIColor.blackColor;
+    [btnCall setTitle:@"CALL" forState:UIControlStateNormal];
+    [btnCall setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnCall addTarget:self action:@selector(testCall) forControlEvents:UIControlEventTouchUpInside];
+    [testView addSubview: btnCall];
+    [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(testView.mas_centerX);
+        make.top.equalTo(tfNumber.mas_bottom).offset(20);
+        make.width.mas_equalTo(120.0);
+        make.height.mas_equalTo(40.0);
+    }];
+
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] getAccVoIPFree];
+}
+
+//account = ap1astapp;
+//domain = "asapp.vfone.vn";
+//password = yovU5lmlEA6WPcliwZwPLf1RT;
+//port = 51000;
+
+//account = ap1astapp;
+//domain = "asapp.vfone.vn";
+//password = yovU5lmlEA6WPcliwZwPLf1RT;
+//port = 51000;
+
+- (void)testCall {
+    if ([AppDelegate sharedInstance].accCallInfo != nil) {
+//        account = ap1astapp;
+//        domain = "asapp.vfone.vn";
+//        password = yovU5lmlEA6WPcliwZwPLf1RT;
+//        port = 51000;
+        
+        NSString *domain = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"domain"];
+        NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
+        NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", tfNumber.text, domain, port];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"Make call to: %@", stringForCall] duration:5.0 position:CSToastPositionCenter];
+        
+        [[AppDelegate sharedInstance] makeCallTo: stringForCall];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -89,6 +159,10 @@
 - (void)addBannerImageForView
 {
     float paddingY = 10.0;
+    if (hMenu < 100) {
+        paddingY = 5.0;
+    }
+    
     if (viewBanner == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
@@ -102,8 +176,8 @@
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(self.viewSearch.mas_bottom);
-        make.height.mas_equalTo(hBanner);
-        //  make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
+        make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
+        //  make.height.mas_equalTo(hBanner);
     }];
     viewBanner.clipsToBounds = TRUE;
     viewBanner.hBanner = hBanner;
@@ -298,7 +372,11 @@
     //  self.edgesForExtendedLayout = UIRectEdgeNone;
     float paddingY = 10.0;
     float padding = 20.0;
-    float hWallet = 60.0;
+    float hWallet = 55.0;
+    if ([DeviceUtils isiPhoneXAndNewer]) {
+        hWallet = 70.0;
+    }
+    
     float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hTextfield = 34.0;
     float hNav = self.navigationController.navigationBar.frame.size.height;
@@ -348,11 +426,13 @@
         hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
     }
     hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
-    if (hMenu < 90) {
+    if (hMenu < 100) {
         if ([DeviceUtils isScreen320]) {
             hMenu = 80.0;
-        }else{
+        }else if ([DeviceUtils isScreen375]){
             hMenu = 92;
+        }else{
+            hMenu = 100.0;
         }
         paddingY = 5.0;
         hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
@@ -513,6 +593,11 @@
 -(void)failedToUpdateCallToken:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR!!!!!!!!!!!! CAN NOT UPDATE TOKEN FOR CALL WITH ERROR = %@", __FUNCTION__, error)];
     [AppDelegate sharedInstance].callTokenReady = FALSE;
+}
+
+-(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
+//    [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
+//    [[AppDelegate sharedInstance] testAuthWithInfo: data];
 }
 
 @end

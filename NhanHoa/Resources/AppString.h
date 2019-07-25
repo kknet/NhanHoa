@@ -237,6 +237,7 @@
 #define text_signing_contract   @"Ký tên lên hợp đồng"
 
 #define notifCallStateChanged       @"notifCallStateChanged"
+#define notifRegStateChanged        @"notifRegStateChanged"
 
 #define CALL_INV_STATE_NULL         @"PJSIP_INV_STATE_NULL"
 #define CALL_INV_STATE_CALLING      @"PJSIP_INV_STATE_CALLING"

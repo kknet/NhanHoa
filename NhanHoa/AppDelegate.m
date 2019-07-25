@@ -23,6 +23,20 @@
 #define THIS_FILE    "AppDelegate.m"
 #define KEEP_ALIVE_INTERVAL 600
 
+#define MAX_MEDIA_CNT 1 /* Media count, set to 1 for audio
+* only or 2 for audio and video */
+#define AF pj_AF_INET() /* Change to pj_AF_INET6() for IPv6.
+71  * PJ_HAS_IPV6 must be enabled and
+72  * your system must support IPv6. */
+
+#if 0
+#define SIP_PORT 5080 /* Listening SIP port */
+#define RTP_PORT 5000 /* RTP port */
+#else
+#define SIP_PORT 5060 /* Listening SIP port */
+#define RTP_PORT 4000 /* RTP port */
+#endif
+
 @import Firebase;
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -238,9 +252,10 @@ AppDelegate      *app;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
-    callToken = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", callToken]];
+//    NSCharacterSet *removestring = [NSCharacterSet characterSetWithCharactersInString:@"<> "];
+//    callToken = [[[NSString stringWithFormat:@"%@", deviceToken] componentsSeparatedByCharactersInSet: removestring] componentsJoinedByString: @""];
+//
+//    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", callToken]];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -248,7 +263,15 @@ AppDelegate      *app;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSString *content = @"didReceiveRemoteNotification";
     
+    UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
+    messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+    messageNotif.alertBody = content;
+    messageNotif.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
 }
 
 
@@ -263,8 +286,17 @@ AppDelegate      *app;
     }
 }
 
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSLog(@"456");
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
+{
+    NSString *content = @"didReceiveNotificationResponse";
+    
+    UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
+    messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+    messageNotif.alertBody = content;
+    messageNotif.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
 }
 
 +(AppDelegate *)sharedInstance{
@@ -880,6 +912,192 @@ AppDelegate      *app;
             NSLog(@"Error creating transport");
         }
         
+//        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+//        if (status != PJ_SUCCESS){
+//            NSLog(@"Error adding account");
+//        }
+    }else{
+        [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
+    }
+}
+
+- (void)tryToLogin150 {
+    NSString *account = @"nhcla150";
+    NSString *domain = @"nhanhoa1.vfone.vn";
+    NSString *port = @"51000";
+    NSString *password = @"cloudcall123";
+    
+    //        account = ap1astapp;
+    //        domain = "asapp.vfone.vn";
+    //        password = yovU5lmlEA6WPcliwZwPLf1RT;
+    //        port = 51000;
+    NSString *email = [AccountModel getCusEmail];
+    
+    pj_status_t status;
+    
+    // Register the account on local sip server
+    pjsua_acc_id acc_id;
+    pjsua_acc_config cfg;
+    pjsua_acc_config_default(&cfg);
+    
+    NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
+    NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
+    
+    cfg.id = pj_str((char *)[strCall UTF8String]);
+    cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
+    cfg.cred_count = 1;
+    cfg.cred_info[0].realm = pj_str("*");
+    cfg.cred_info[0].scheme = pj_str("digest");
+    cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
+    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+    cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
+    cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+    
+    pjsip_generic_string_hdr CustomHeader;
+    pj_str_t name = pj_str("Call-ID");
+    pj_str_t value = pj_str((char *)[email UTF8String]);
+    pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
+    pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
+    
+    pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
+    pj_dns_resolver* resolver;
+    
+    struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
+    pjsip_endpt_create_resolver(endpoint, &resolver);
+    pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
+    
+    // Init transport config structure
+    pjsua_transport_config trans_cfg;
+    pjsua_transport_config_default(&trans_cfg);
+    trans_cfg.port = [port intValue];
+    
+    // Add UDP transport.
+    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
+    if (status != PJ_SUCCESS){
+        NSLog(@"Error creating transport");
+    }
+    
+    status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+    if (status != PJ_SUCCESS){
+        NSLog(@"Error adding account");
+    }
+}
+
+- (void)tryToLogin151 {
+    NSString *account = @"nhcla151";
+    NSString *domain = @"nhanhoa1.vfone.vn";
+    NSString *port = @"51000";
+    NSString *password = @"cloudcall123";
+    
+    //        account = ap1astapp;
+    //        domain = "asapp.vfone.vn";
+    //        password = yovU5lmlEA6WPcliwZwPLf1RT;
+    //        port = 51000;
+    NSString *email = [AccountModel getCusEmail];
+    
+    pj_status_t status;
+    
+    // Register the account on local sip server
+    pjsua_acc_id acc_id;
+    pjsua_acc_config cfg;
+    pjsua_acc_config_default(&cfg);
+    
+    NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
+    NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
+    
+    cfg.id = pj_str((char *)[strCall UTF8String]);
+    cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
+    cfg.cred_count = 1;
+    cfg.cred_info[0].realm = pj_str("*");
+    cfg.cred_info[0].scheme = pj_str("digest");
+    cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
+    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+    cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
+    cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+    
+    pjsip_generic_string_hdr CustomHeader;
+    pj_str_t name = pj_str("Call-ID");
+    pj_str_t value = pj_str((char *)[email UTF8String]);
+    pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
+    pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
+    
+    pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
+    pj_dns_resolver* resolver;
+    
+    struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
+    pjsip_endpt_create_resolver(endpoint, &resolver);
+    pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
+    
+    // Init transport config structure
+    pjsua_transport_config trans_cfg;
+    pjsua_transport_config_default(&trans_cfg);
+    trans_cfg.port = [port intValue];
+    
+    // Add UDP transport.
+    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
+    if (status != PJ_SUCCESS){
+        NSLog(@"Error creating transport");
+    }
+    
+    status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+    if (status != PJ_SUCCESS){
+        NSLog(@"Error adding account");
+    }
+}
+
+- (void)testAuthWithInfo: (NSDictionary *)info {
+    NSString *account = [info objectForKey:@"account"];
+    NSString *domain = [info objectForKey:@"domain"];
+    NSString *port = [info objectForKey:@"port"];
+    NSString *password = [info objectForKey:@"password"];
+    
+    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
+        NSString *email = [AccountModel getCusEmail];
+        
+        pj_status_t status;
+        
+        // Register the account on local sip server
+        pjsua_acc_id acc_id;
+        pjsua_acc_config cfg;
+        pjsua_acc_config_default(&cfg);
+        
+        NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
+        NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
+        
+        cfg.id = pj_str((char *)[strCall UTF8String]);
+        cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
+        cfg.cred_count = 1;
+        cfg.cred_info[0].realm = pj_str("*");
+        cfg.cred_info[0].scheme = pj_str("digest");
+        cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
+        cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+        cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
+        cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+        
+        pjsip_generic_string_hdr CustomHeader;
+        pj_str_t name = pj_str("Call-ID");
+        pj_str_t value = pj_str((char *)[email UTF8String]);
+        pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
+        pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
+        
+        pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
+        pj_dns_resolver* resolver;
+        
+        struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
+        pjsip_endpt_create_resolver(endpoint, &resolver);
+        pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
+        
+        // Init transport config structure
+        pjsua_transport_config trans_cfg;
+        pjsua_transport_config_default(&trans_cfg);
+        trans_cfg.port = [port intValue];
+        
+        // Add UDP transport.
+        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
+        if (status != PJ_SUCCESS){
+            NSLog(@"Error creating transport");
+        }
+        
         status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
         if (status != PJ_SUCCESS){
             NSLog(@"Error adding account");
@@ -890,13 +1108,99 @@ AppDelegate      *app;
 }
 
 - (void)makeCallTo: (NSString *)strCall {
+    
+//    pj_status_t status;
+//    pjsip_inv_session *g_inv;
+//    pjsip_tx_data *tdata;
+//    pjsip_dialog *dlg;
+//    pjmedia_sdp_session *local_sdp;
+//    pjmedia_transport_info g_med_tpinfo[MAX_MEDIA_CNT]; /* Socket info for media */
+//    pjmedia_sock_info g_sock_info[MAX_MEDIA_CNT];
+//    pjmedia_transport *g_med_transport[MAX_MEDIA_CNT];
+//
+//    /* Create UAC dialog */
+//    pj_str_t local_uri = pj_str((char *)[@"<sip:151@nhanhoa1.vfone.vn:51000>" UTF8String]);
+//    pj_str_t dst_uri = pj_str((char *)[@"<sip:150@nhanhoa1.vfone.vn:51000>" UTF8String]);
+//    status = pjsip_dlg_create_uac(pjsip_ua_instance(),
+//                                  &local_uri, /* local URI */
+//                                  &local_uri, /* local Contact */
+//                                  &dst_uri, /* remote URI */
+//                                  &dst_uri, /* remote target */
+//                                  &dlg); /* dialog */
+//    if (status != PJ_SUCCESS) {
+//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+//    }
+//
+//    /* Must create a pool factory before we can allocate any memory. */
+//    pj_caching_pool cp; /* Global pool factory. */
+//    pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
+//
+//    /* Get the SDP body to be put in the outgoing INVITE, by asking
+//     * media endpoint to create one for us.
+//     */
+//    pjmedia_endpt *g_med_endpt = pjsua_get_pjmedia_endpt();
+//
+//    for (int i = 0; i < PJ_ARRAY_SIZE(g_med_transport); ++i) {
+//        status = pjmedia_transport_udp_create3(g_med_endpt, AF, NULL, NULL, RTP_PORT + i*2, 0, &g_med_transport[i]);
+//        if (status != PJ_SUCCESS) {
+//            NSLog(@"Unable to create media transport %d", status);
+//            return;
+//        }
+//       /*
+//              425  * Get socket info (address, port) of the media transport. We will
+//              426  * need this info to create SDP (i.e. the address and port info in
+//              427  * the SDP).
+//              428  */
+//        pjmedia_transport_info_init(&g_med_tpinfo[i]);
+//        pjmedia_transport_get_info(g_med_transport[i], &g_med_tpinfo[i]);
+//
+//        pj_memcpy(&g_sock_info[i], &g_med_tpinfo[i].sock_info, sizeof(pjmedia_sock_info));
+//    }
+//
+////    status = pjmedia_endpt_create(&cp.factory, NULL, 1, &g_med_endpt);
+////    if (status != PJ_SUCCESS) {
+////        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+////    }
+//
+//    status = pjmedia_endpt_create_sdp(g_med_endpt, dlg->pool, MAX_MEDIA_CNT, g_sock_info, &local_sdp);
+//    if (status != PJ_SUCCESS) {
+//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+//    }
+//
+//    /* Create the INVITE session, and pass the SDP returned earlier
+//     * as the session's initial capability.
+//     */
+//    status = pjsip_inv_create_uac(dlg, local_sdp, 0, &g_inv);
+//    if (status != PJ_SUCCESS) {
+//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+//    }
+//
+//    /* Create initial INVITE request.
+//     * This INVITE request will contain a perfectly good request and
+//     * an SDP body as well.
+//     */
+//    status = pjsip_inv_invite(g_inv, &tdata);
+//    if (status != PJ_SUCCESS) {
+//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+//    }
+//
+//    /* Send initial INVITE request.
+//     * From now on, the invite session's state will be reported to us
+//     * via the invite session callbacks.
+//     */
+//    status = pjsip_inv_send_msg(g_inv, tdata);
+//    if (status != PJ_SUCCESS) {
+//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
+//    }
+//    return;
+    
     //  NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
     char *destUri = (char *)[strCall UTF8String];
-    
+
     pjsua_acc_id acc_id = 0;
     pj_status_t status;
     pj_str_t uri = pj_str(destUri);
-    
+
     //current register id _acc_id
     status = pjsua_call_make_call(acc_id, &uri, 0, NULL, NULL, NULL);
     if (status != PJ_SUCCESS){
@@ -1059,22 +1363,27 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
     
     [[NSNotificationCenter defaultCenter] postNotificationName:notifCallStateChanged object:[NSDictionary dictionaryWithObjectsAndKeys:state, @"state", last_status, @"last_status", nil]];
     
-    if ([state isEqualToString:@"DISCONNCTD"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [app removeAccount];
-        });
-    }
-    
-    
+//    if ([state isEqualToString:@"DISCONNCTD"]) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [app removeAccount];
+//        });
+//    }
 }
 
 static void on_reg_state(pjsua_acc_id acc_id)
 {
     //  pjsip_status_code   PJSIP_SC_OK
     pjsua_acc_info info;
-    pj_status_t status = pjsua_acc_get_info(acc_id, &info);
-    NSLog(@"%d", status);
-    
+    pjsua_acc_get_info(acc_id, &info);
+    if (info.status == PJSIP_SC_OK) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [app.window makeToast:@"Register SIP account successful" duration:2.0 position:CSToastPositionCenter];
+        });
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 1]];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 0]];
+    }
     PJ_UNUSED_ARG(acc_id);
     
     // Log already written.
@@ -1277,17 +1586,19 @@ static void on_reg_state(pjsua_acc_id acc_id)
 {
     NSLog(@"voip token: %@", (credentials.token));
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.callToken = credentials.token.description;
-        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
-        self.callToken = [self.callToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+        callToken = credentials.token.description;
+        callToken = [callToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+        callToken = [callToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        callToken = [callToken stringByReplacingOccurrencesOfString:@">" withString:@""];
         
-        NSLog(@"Need update token for call");
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = callToken;
+        
+        [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", callToken]];
     });
 }
 
 - (void)processRemoteNotification:(NSDictionary *)userInfo {
- 
 //     alert =     {
 //     "call-id" = 14953;
 //     "loc-key" = "Incoming call from 14953";
@@ -1304,23 +1615,11 @@ static void on_reg_state(pjsua_acc_id acc_id)
     {
         NSDictionary *alert = [aps objectForKey:@"alert"];
         
-//        const MSList *list = linphone_core_get_proxy_config_list(LC);
-//        if (list == NULL) {
-//            NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:key_login];
-//            NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:key_password];
-//            NSString *domain = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_SERVER];
-//            NSString *port = [[NSUserDefaults standardUserDefaults] objectForKey:PBX_PORT];
-//
-//            if (![AppUtils isNullOrEmpty: username] && ![AppUtils isNullOrEmpty: password] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port]) {
-//                [SipUtils registerPBXAccount:username password:password ipAddress:domain port:port];
-//            }
-//        }else{
-//            [[LinphoneManager instance] refreshRegisters];
-//        }
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] getAccVoIPFree];
         
         NSString *loc_key = [aps objectForKey:@"loc-key"];
         NSString *callId = [aps objectForKey:@"callerid"];
-        
         NSString *caller = callId;
         
         NSString *content = [NSString stringWithFormat:@"Bạn có cuộc gọi từ %@", caller];
@@ -1337,46 +1636,50 @@ static void on_reg_state(pjsua_acc_id acc_id)
             loc_key = [alert objectForKey:@"loc-key"];
             //  if we receive a remote notification, it is probably because our TCP background socket was no more working. As a result, break it and refresh registers in order to make sure to receive incoming INVITE or MESSAGE
  
-//            if (linphone_core_get_calls(LC) == NULL) { // if there are calls, obviously our TCP socket shall be working
-//                //linphone_core_set_network_reachable(LC, FALSE);
-//                if (!linphone_core_is_network_reachable(LC)) {
-//                    LinphoneManager.instance.connectivity = none; //Force connectivity to be discovered again
-//                    [LinphoneManager.instance setupNetworkReachabilityCallback];
-//                }
-//                if (loc_key != nil) {
-//
-//                    //  callId = [userInfo objectForKey:@"call-id"];
-//                    if (callId != nil) {
-//                        if ([callId isEqualToString:@""]){
-//                            //Present apn pusher notifications for info
-//                            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
-//                                UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
-//                                content.title = @"APN Pusher";
-//                                content.body = @"Push notification received !";
-//
-//                                UNNotificationRequest *req = [UNNotificationRequest requestWithIdentifier:@"call_request" content:content trigger:NULL];
-//                                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:req withCompletionHandler:^(NSError * _Nullable error) {
-//                                    // Enable or disable features based on authorization.
-//                                    if (error) {
-//                                        NSLog(@"Error while adding notification request :%@", error.description);
-//                                    }
-//                                }];
-//                            } else {
-//                                UILocalNotification *notification = [[UILocalNotification alloc] init];
-//                                notification.repeatInterval = 0;
-//                                notification.alertBody = @"Push notification received !";
-//                                notification.alertTitle = @"APN Pusher";
-//                                [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-//                            }
-//                        } else {
-//                            NSLog(@"addPushCallId");
-//                            //  [LinphoneManager.instance addPushCallId:callId];
-//                        }
-//                    } else  if ([callId  isEqual: @""]) {
-//                        NSLog(@"PushNotification: does not have call-id yet, fix it !");
-//                    }
-//                }
-//            }
+            int call_count = pjsua_call_get_count();
+            if (call_count == 0) { // if there are calls, obviously our TCP socket shall be working
+                
+            }
+            
+            //linphone_core_set_network_reachable(LC, FALSE);
+            if (![AppUtils checkNetworkAvailable]) {
+                [self.window makeToast:@"Không có kết nối internet. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:errorStyle];
+                return;
+            }
+            if (loc_key != nil) {
+                //  callId = [userInfo objectForKey:@"call-id"];
+                if (callId != nil) {
+                    if ([callId isEqualToString:@""]){
+                        //Present apn pusher notifications for info
+                        if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+                            UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+                            content.title = @"APN Pusher";
+                            content.body = @"Push notification received !";
+                            
+                            UNNotificationRequest *req = [UNNotificationRequest requestWithIdentifier:@"call_request" content:content trigger:NULL];
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:req withCompletionHandler:^(NSError * _Nullable error) {
+                                // Enable or disable features based on authorization.
+                                if (error) {
+                                    NSLog(@"Error while adding notification request :%@", error.description);
+                                }
+                            }];
+                        } else {
+                            UILocalNotification *notification = [[UILocalNotification alloc] init];
+                            notification.repeatInterval = 0;
+                            notification.alertBody = @"Push notification received !";
+                            notification.alertTitle = @"APN Pusher";
+                            [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+                        }
+                    } else {
+                        NSLog(@"addPushCallId");
+                        //  [LinphoneManager.instance addPushCallId:callId];
+                    }
+                } else  if ([callId  isEqual: @""]) {
+                    NSLog(@"PushNotification: does not have call-id yet, fix it !");
+                }
+            }else{
+                [self.window makeToast:@"Not loc_key" duration:1.0 position:CSToastPositionCenter style:self.errorStyle];
+            }
         }
         
 //        if (callId && [self addLongTaskIDforCallID:callId]) {
@@ -1439,6 +1742,10 @@ static void on_reg_state(pjsua_acc_id acc_id)
     ringbackPlayer = nil;
 }
 
+-(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
+    accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
+    [self testAuthWithInfo: data];
+}
 
 
 @end

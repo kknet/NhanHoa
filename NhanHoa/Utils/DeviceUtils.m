@@ -163,4 +163,25 @@
     }
 }
 
++ (BOOL)isiPhoneXAndNewer {
+    NSString *deviceMode = [self getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2])
+    {
+        return TRUE;
+        
+    }
+    return FALSE;
+}
+
+
++ (BOOL)isScreen375 {
+    NSString *deviceMode = [self getModelsOfCurrentDevice];
+    if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
+    {
+        return TRUE;
+        
+    }
+    return FALSE;
+}
+
 @end

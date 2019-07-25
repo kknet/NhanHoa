@@ -116,8 +116,8 @@
     }];
     
     padding = 15.0;
-    hBanner = 150.0;
     
+    [self getHeightBannerForView];
     [self addBannerImageForView];
     
     viewBanner.clipsToBounds = YES;
@@ -305,6 +305,20 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.bottom.equalTo(self.scvContent).offset(-5.0);
     }];
+}
+
+- (void)getHeightBannerForView {
+    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+    if (arr.count > 0) {
+        NSDictionary *info = [arr firstObject];
+        NSString *image = [info objectForKey:@"image"];
+        
+        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
+        UIImage *imgBanner = [UIImage imageWithData: imgData];
+        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
+    }else{
+        hBanner = 150.0;
+    }
 }
 
 - (IBAction)icSearchClick:(UIButton *)sender {
