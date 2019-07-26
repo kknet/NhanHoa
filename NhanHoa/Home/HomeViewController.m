@@ -70,59 +70,12 @@
         [AppDelegate sharedInstance].hNav = 50.0;
     }
     
-    return;
-    UIView *testView = [[UIView alloc] init];
-    testView.backgroundColor = UIColor.orangeColor;
-    [self.view addSubview: testView];
-    [testView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
-    }];
-
-    tfNumber = [[UITextField alloc] init];
-    tfNumber.borderStyle = UITextBorderStyleRoundedRect;
-    tfNumber.text = @"0363430737";
-    [testView addSubview: tfNumber];
-    [tfNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(testView.mas_centerX);
-        make.top.equalTo(testView).offset(100);
-        make.width.mas_equalTo(250.0);
-        make.height.mas_equalTo(40.0);
-    }];
-
-    UIButton *btnCall = [[UIButton alloc] init];
-    btnCall.backgroundColor = UIColor.blackColor;
-    [btnCall setTitle:@"CALL" forState:UIControlStateNormal];
-    [btnCall setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [btnCall addTarget:self action:@selector(testCall) forControlEvents:UIControlEventTouchUpInside];
-    [testView addSubview: btnCall];
-    [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(testView.mas_centerX);
-        make.top.equalTo(tfNumber.mas_bottom).offset(20);
-        make.width.mas_equalTo(120.0);
-        make.height.mas_equalTo(40.0);
-    }];
-
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getAccVoIPFree];
 }
 
-//account = ap1astapp;
-//domain = "asapp.vfone.vn";
-//password = yovU5lmlEA6WPcliwZwPLf1RT;
-//port = 51000;
-
-//account = ap1astapp;
-//domain = "asapp.vfone.vn";
-//password = yovU5lmlEA6WPcliwZwPLf1RT;
-//port = 51000;
-
 - (void)testCall {
     if ([AppDelegate sharedInstance].accCallInfo != nil) {
-//        account = ap1astapp;
-//        domain = "asapp.vfone.vn";
-//        password = yovU5lmlEA6WPcliwZwPLf1RT;
-//        port = 51000;
-        
         NSString *domain = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"domain"];
         NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
         NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", tfNumber.text, domain, port];
@@ -577,6 +530,9 @@
             [WriteLogsUtils writeLogContent:SFM(@"[%s] WARNING!!!!!!!!!!!! CAN NOT GET TOKEN FOR CALL", __FUNCTION__)];
         }
     }
+    
+    //  save password for get acc voip (used when app was killed)
+    [AccountModel storePasswordForAccount];
 }
 
 -(void)updateCallTokenSuccesful {
@@ -591,7 +547,9 @@
 
 -(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
     [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
-    [[AppDelegate sharedInstance] testAuthWithInfo: data];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"acc_call_info"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

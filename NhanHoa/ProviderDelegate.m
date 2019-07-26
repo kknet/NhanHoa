@@ -82,7 +82,8 @@
 
 #pragma mark - CXProdiverDelegate Protocol
 
-- (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action {
+- (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action
+{
     self.callKitCalls++;
 	[self configAudioSession:[AVAudioSession sharedInstance]];
 	[action fulfill];

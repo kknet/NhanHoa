@@ -9,16 +9,16 @@
 #import "AppDelegate.h"
 #import "AppTabbarViewController.h"
 #import "SignInViewController.h"
-#import <UserNotifications/UserNotifications.h>
-#import <UserNotificationsUI/UserNotificationsUI.h>
 #import "CartModel.h"
 #import <AVFoundation/AVAudioPlayer.h>
+#import "JSONKit.h"
 
 #include "pjsip_sources/pjlib/include/pjlib.h"
 #include "pjsip_sources/pjsip/include/pjsua.h"
 
 #include "pjsip_sources/pjsua/pjsua_app.h"
 #include "pjsip_sources/pjsua/pjsua_app_config.h"
+
 
 #define THIS_FILE    "AppDelegate.m"
 #define KEEP_ALIVE_INTERVAL 600
@@ -66,12 +66,11 @@ AppDelegate      *app;
     if ([UNUserNotificationCenter class] != nil) {
         // iOS 10 or later
         // For iOS 10 display notification (sent via APNS)
+        [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
+        
         [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-        UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
-        UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
-        [[UNUserNotificationCenter currentNotificationCenter]
-         requestAuthorizationWithOptions:authOptions
-         completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {
              // ...
          }];
     } else {
@@ -263,15 +262,7 @@ AppDelegate      *app;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSString *content = @"didReceiveRemoteNotification";
     
-    UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
-    messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
-    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-    messageNotif.alertBody = content;
-    messageNotif.soundName = UILocalNotificationDefaultSoundName;
-    [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
 }
 
 
@@ -288,15 +279,7 @@ AppDelegate      *app;
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
-    NSString *content = @"didReceiveNotificationResponse";
     
-    UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
-    messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
-    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-    messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-    messageNotif.alertBody = content;
-    messageNotif.soundName = UILocalNotificationDefaultSoundName;
-    [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
 }
 
 +(AppDelegate *)sharedInstance{
@@ -645,6 +628,9 @@ AppDelegate      *app;
 
 - (void)showCartScreenContent
 {
+    [self hangupAllCall];
+    return;
+    
     if (self.cartWindow == nil) {
         //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -819,6 +805,60 @@ AppDelegate      *app;
 }
 
 #pragma mark PJSIP
+
+- (void)getAccVoipFreeForUser {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:USERNAME forKey:@"id"];
+    
+    NSString *password = [AccountModel getPasswordWasStoredForAccount];
+    [info setObject:password forKey:@"hash"];
+    
+    [info setObject:GetAccVoipAction forKey:@"action"];
+    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *key = [AppUtils getMD5StringOfString: total];
+    [info setObject:key forKey:@"key"];
+
+    NSURL *URL = [NSURL URLWithString: link_api_call];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setTimeoutInterval: 60];
+
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    for (int i=0; i<[info allKeys].count; i++) {
+        NSString *key = [[info allKeys] objectAtIndex: i];
+        NSString *value = [info objectForKey: key];
+        [request setValue:value forHTTPHeaderField:key];
+    }
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         // whatever you do on the connectionDidFinishLoading
+         // delegate can be moved here
+         if (error != nil) {
+             
+         }else{
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             int responseCode = (int)[httpResponse statusCode];
+             if (responseCode == 200) {
+                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 id object = [value objectFromJSONString];
+                 if ([object isKindOfClass:[NSDictionary class]]) {
+                     id success = [object objectForKey:@"success"];
+                     if ([success boolValue] == TRUE) {
+                         NSDictionary *data = [object objectForKey:@"data"];
+                         [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"acc_call_info"];
+                         [[NSUserDefaults standardUserDefaults] synchronize];
+                         
+                         [self testAuthWithInfo: data];
+                     }
+                 }
+             }
+         }
+     }];
+}
 
 - (void)startPjsuaForApp {
     pjsua_create();
@@ -1046,17 +1086,14 @@ AppDelegate      *app;
 }
 
 - (void)testAuthWithInfo: (NSDictionary *)info {
+    
     NSString *account = [info objectForKey:@"account"];
     NSString *domain = [info objectForKey:@"domain"];
     NSString *port = [info objectForKey:@"port"];
     NSString *password = [info objectForKey:@"password"];
     
-    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        NSString *email = [AccountModel getCusEmail];
-        if ([AppUtils isNullOrEmpty: email]) {
-            email = USERNAME;
-        }
-        
+    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password])
+    {
         pj_status_t status;
         
         // Register the account on local sip server
@@ -1077,6 +1114,7 @@ AppDelegate      *app;
         cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
         cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
         
+        NSString *email = USERNAME;
         pjsip_generic_string_hdr CustomHeader;
         pj_str_t name = pj_str("Call-ID");
         pj_str_t value = pj_str((char *)[email UTF8String]);
@@ -1366,11 +1404,23 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
     
     [[NSNotificationCenter defaultCenter] postNotificationName:notifCallStateChanged object:[NSDictionary dictionaryWithObjectsAndKeys:state, @"state", last_status, @"last_status", nil]];
     
-//    if ([state isEqualToString:@"DISCONNCTD"]) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [app removeAccount];
-//        });
-//    }
+    if (ci.state == PJSIP_INV_STATE_DISCONNECTED) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *callId = [NSString stringWithFormat:@"%d", call_id];
+            NSUUID *uuid = (NSUUID *)[app.del.uuids objectForKey: callId];
+            if (uuid) {
+                [app.del.uuids removeObjectForKey: callId];
+                [app.del.calls removeObjectForKey: uuid];
+                
+                CXEndCallAction *act = [[CXEndCallAction alloc] initWithCallUUID:uuid];
+                CXTransaction *tr = [[CXTransaction alloc] initWithAction:act];
+                [app.del.controller requestTransaction:tr completion:^(NSError * _Nullable error) {
+                    NSLog(@"error = %@", error);
+                }];
+            }
+            //  [app removeAccount];
+        });
+    }
 }
 
 static void on_reg_state(pjsua_acc_id acc_id)
@@ -1379,10 +1429,6 @@ static void on_reg_state(pjsua_acc_id acc_id)
     pjsua_acc_info info;
     pjsua_acc_get_info(acc_id, &info);
     if (info.status == PJSIP_SC_OK) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [app.window makeToast:@"Register SIP account successful" duration:2.0 position:CSToastPositionCenter];
-        });
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 1]];
     }else{
         [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 0]];
@@ -1594,9 +1640,6 @@ static void on_reg_state(pjsua_acc_id acc_id)
         callToken = [callToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
         callToken = [callToken stringByReplacingOccurrencesOfString:@">" withString:@""];
         
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = callToken;
-        
         [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"GETTED TOKEN FOR APP: %@", callToken]];
     });
 }
@@ -1616,17 +1659,14 @@ static void on_reg_state(pjsua_acc_id acc_id)
     NSDictionary *aps = [userInfo objectForKey:@"aps"];
     if (aps != nil)
     {
+        [self getAccVoipFreeForUser];
+        
         NSDictionary *alert = [aps objectForKey:@"alert"];
-        
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] getAccVoIPFree];
-        
         NSString *loc_key = [aps objectForKey:@"loc-key"];
         NSString *callId = [aps objectForKey:@"callerid"];
         NSString *caller = callId;
         
         NSString *content = [NSString stringWithFormat:@"Bạn có cuộc gọi từ %@", caller];
-        
         UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
         messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
         messageNotif.timeZone = [NSTimeZone defaultTimeZone];
@@ -1634,6 +1674,31 @@ static void on_reg_state(pjsua_acc_id acc_id)
         messageNotif.alertBody = content;
         messageNotif.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
+        
+        
+//        //  get account to register SIP and received call
+//        NSDictionary *accInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"acc_call_info"];
+//        if (accInfo != nil) {
+//            UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
+//            messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            messageNotif.alertBody = @"Register sip with account was stored before";
+//            messageNotif.soundName = UILocalNotificationDefaultSoundName;
+//            [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
+//
+//            [self testAuthWithInfo: accInfo];
+//        }else{
+//            UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
+//            messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            messageNotif.alertBody = @"getAccVoipFreeForUser";
+//            messageNotif.soundName = UILocalNotificationDefaultSoundName;
+//            [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
+//
+//            [self getAccVoipFreeForUser];
+//        }
         
         if (alert != nil) {
             loc_key = [alert objectForKey:@"loc-key"];
@@ -1696,6 +1761,9 @@ static void on_reg_state(pjsua_acc_id acc_id)
 //                }
 //            }
 //        }
+    }else{
+        [[NSUserDefaults standardUserDefaults] setObject:@"MIA BA" forKey:@"test_aps"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -1744,11 +1812,5 @@ static void on_reg_state(pjsua_acc_id acc_id)
     }
     ringbackPlayer = nil;
 }
-
--(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
-    accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
-    [self testAuthWithInfo: data];
-}
-
 
 @end

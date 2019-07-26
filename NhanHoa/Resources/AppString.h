@@ -179,6 +179,7 @@
 
 #define key_login           @"key_login"
 #define key_password        @"key_password"
+#define pass_for_backup     @"pass_for_backup"
 #define domainvn_type       @"domainvn"
 #define domain_type         @"domain"
 #define profile_cart        @"profile_cart"

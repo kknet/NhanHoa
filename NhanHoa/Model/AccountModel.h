@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getCusBankName;
 + (NSString *)getCusBankNumber;
 
++ (void)storePasswordForAccount;
++ (NSString *)getPasswordWasStoredForAccount;
+
 @end
 
 NS_ASSUME_NONNULL_END

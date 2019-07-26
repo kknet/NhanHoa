@@ -17,6 +17,8 @@
 #import "WebServiceUtils.h"
 #import "ProviderDelegate.h"
 #import <PushKit/PushKit.h>
+#import <UserNotifications/UserNotifications.h>
+#import <UserNotificationsUI/UserNotificationsUI.h>
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -35,7 +37,7 @@ typedef enum PaymentMethod{
     ePaymentWithVisaMaster,
 }PaymentMethod;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate, PKPushRegistryDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

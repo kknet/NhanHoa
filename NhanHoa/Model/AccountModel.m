@@ -232,6 +232,24 @@
     return @"";
 }
 
++ (void)storePasswordForAccount {
+    NSString *password = [self getCusPassword];
+    if (![AppUtils isNullOrEmpty: password]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[AccountModel getCusPassword] forKey:pass_for_backup];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:pass_for_backup];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)getPasswordWasStoredForAccount {
+    NSString *passWasStored = [[NSUserDefaults standardUserDefaults] objectForKey:pass_for_backup];
+    if (![AppUtils isNullOrEmpty: passWasStored]) {
+        return passWasStored;
+    }
+    return @"";
+}
+
 /*
 {
     "careers_id" = 37;
