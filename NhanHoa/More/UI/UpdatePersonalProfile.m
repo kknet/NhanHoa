@@ -11,7 +11,7 @@
 
 @implementation UpdatePersonalProfile
 @synthesize lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, tfCountry, lbCity, tfCity, btnCity, btnSave, btnReset, imgArrCity;
-@synthesize gender, datePicker, toolBar, viewPicker, cityCode, delegate;
+@synthesize gender, datePicker, toolBar, viewPicker, cityCode, delegate, hContent;
 
 - (void)closeKeyboard {
     [self endEditing: TRUE];
@@ -21,6 +21,9 @@
     float padding = 15.0;
     float hLabel = 30.0;
     float mTop = 10.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     tapOnView.delegate = self;
@@ -195,12 +198,22 @@
     btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
     btnReset.layer.borderWidth = 1.0;
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(padding);
-        make.bottom.equalTo(self).offset(-padding);
-        make.right.equalTo(self.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(45.0);
-    }];
+    if ([DeviceUtils isScreen320]) {
+        [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(padding);
+            make.right.equalTo(self.mas_centerX).offset(-padding/2);
+            make.top.equalTo(self.btnCity.mas_bottom).offset(4*padding);
+            make.height.mas_equalTo(45.0);
+        }];
+        
+    }else{
+        [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(padding);
+            make.bottom.equalTo(self).offset(-padding);
+            make.right.equalTo(self.mas_centerX).offset(-padding/2);
+            make.height.mas_equalTo(45.0);
+        }];
+    }
     
     btnSave.backgroundColor = BLUE_COLOR;
     btnSave.layer.borderColor = BLUE_COLOR.CGColor;
@@ -223,6 +236,8 @@
     
     //  Add datepicker
     [self addDatePickerForView];
+    
+    hContent = (padding + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 4*padding + 45.0 + 4*padding;
 }
 
 - (void)selectMale {

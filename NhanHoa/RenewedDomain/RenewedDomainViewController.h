@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnExpirePress:(UIButton *)sender;
 - (IBAction)icSearchClick:(UIButton *)sender;
 
-@property (nonatomic, assign) float padding;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,7 +18,7 @@
     float padding = 15.0;
     
     lbDomain.textColor = BLUE_COLOR;
-    lbDomain.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbDomain.font = [AppDelegate sharedInstance].fontMedium;
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(padding);
@@ -94,9 +94,16 @@
     NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain];
     NSRange range = [content rangeOfString: domain];
     if (range.location != NSNotFound) {
+        UIFont *regular = [UIFont fontWithName:RobotoRegular size:16.0];
+        UIFont *medium = [UIFont fontWithName:RobotoMedium size:16.0];
+        if ([DeviceUtils isScreen320]) {
+            regular =[UIFont fontWithName:RobotoRegular size:15.0];
+            medium = [UIFont fontWithName:RobotoMedium size:15.0];
+        }
+        
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
-        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:16.0], NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
-        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoMedium size:16.0], NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
+        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:regular, NSFontAttributeName, TITLE_COLOR, NSForegroundColorAttributeName, nil] range:NSMakeRange(0, content.length)];
+        [attr addAttributes:[NSDictionary dictionaryWithObjectsAndKeys:medium, NSFontAttributeName, BLUE_COLOR, NSForegroundColorAttributeName, nil] range: range];
         
         lbContent.attributedText = attr;
     }else{

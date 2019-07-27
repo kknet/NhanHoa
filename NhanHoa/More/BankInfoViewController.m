@@ -70,6 +70,10 @@
     hCell = 40.0;
     
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     [lbBankName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);

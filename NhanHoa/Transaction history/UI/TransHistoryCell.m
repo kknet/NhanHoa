@@ -33,7 +33,7 @@
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.lbTitle.mas_right);
         make.top.equalTo(self.mas_centerY).offset(4.0);
-        make.width.mas_equalTo(150.0);
+        make.width.mas_equalTo(130.0);
     }];
     
     [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -57,6 +57,9 @@
 - (void)setupUIForView {
     float hInfo = 140.0;
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     //  view info
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {

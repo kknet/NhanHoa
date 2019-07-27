@@ -102,6 +102,9 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;

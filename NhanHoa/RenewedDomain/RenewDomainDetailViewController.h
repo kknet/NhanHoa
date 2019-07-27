@@ -42,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *ordId;
 @property (nonatomic, strong) NSString *cusId;
-@property (nonatomic, assign) float padding;
-@property (nonatomic, assign) float hItem;
 
 @end
 

@@ -62,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUIForView;
 - (void)displayPersonalInformation;
 
+@property (nonatomic, assign) float hContent;
+
 @end
 
 NS_ASSUME_NONNULL_END

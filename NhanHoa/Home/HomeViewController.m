@@ -55,9 +55,6 @@
     [self showUserWalletView];
     [self createCartViewIfNeed];
     
-    [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserWalletView)
                                                  name:@"reloadBalanceInfo" object:nil];
 }
@@ -69,7 +66,9 @@
     }else{
         [AppDelegate sharedInstance].hNav = 50.0;
     }
-    //  [[AppDelegate sharedInstance] tryToLogin151];
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 
 - (void)testCall {

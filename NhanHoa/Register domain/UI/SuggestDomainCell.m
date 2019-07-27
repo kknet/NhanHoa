@@ -15,6 +15,12 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
+    float sizeIcon = 60.0;
+    
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+        sizeIcon = 40.0;
+    }
     
     self.backgroundColor = UIColor.clearColor;
     viewParent.layer.cornerRadius = 5.0;
@@ -29,7 +35,7 @@
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewParent).offset(5.0);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(60.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];

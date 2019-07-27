@@ -30,6 +30,9 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     self.view.userInteractionEnabled = TRUE;

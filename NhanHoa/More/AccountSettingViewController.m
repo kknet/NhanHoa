@@ -104,13 +104,18 @@
 - (void)setupUIForView {
     float padding = 15.0;
     float hItem = 40.0;
+    float wAvatar = 100.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+        wAvatar = 80.0;
+    }
     
     btnAvatar.clipsToBounds = TRUE;
-    btnAvatar.layer.cornerRadius = 100.0/2;
+    btnAvatar.layer.cornerRadius = wAvatar/2;
     [btnAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.top.equalTo(self.view).offset(20.0);
-        make.width.height.mas_equalTo(100.0);
+        make.width.height.mas_equalTo(wAvatar);
     }];
     
     [btnChoosePhoto mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,7 +127,7 @@
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnAvatar.mas_bottom).offset(20.0);
         make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(hItem);
     }];
     
     lbInfo.textColor = TITLE_COLOR;

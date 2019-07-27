@@ -133,6 +133,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
     
     UILabel *lbTbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, headerView.frame.size.width-2*padding, headerView.frame.size.height)];
+    lbTbHeader.numberOfLines = 5;
     lbTbHeader.textAlignment = NSTextAlignmentCenter;
     lbTbHeader.text = @"Nhập một hay nhiều tên miền bạn muốn tra cứu";
     lbTbHeader.font = [AppDelegate sharedInstance].fontRegular;

@@ -157,6 +157,9 @@
 - (void)setupUIForView {
     float hInfo = 140.0;
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     tapOnScreen.delegate = self;
@@ -226,7 +229,11 @@
     unselectedColor = [UIColor colorWithRed:(236/255.0) green:(239/255.0) blue:(244/255.0) alpha:1.0];
     
     float wButton = (SCREEN_WIDTH - padding - 2*5.0)/3;
-    btn1000K.titleLabel.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    btn1000K.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
+    if ([DeviceUtils isScreen320]) {
+        btn1000K.titleLabel.font = [AppDelegate sharedInstance].fontDesc;
+    }
+    
     btn1000K.backgroundColor = unselectedColor;
     [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
     btn1000K.layer.cornerRadius = 6.0;

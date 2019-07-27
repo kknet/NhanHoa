@@ -23,13 +23,16 @@
     
     NSString *domain_signed_url;
     NSString *domain_signing_url;
+    
+    float padding;
+    float hItem;
 }
 
 @end
 
 @implementation RenewDomainDetailViewController
 @synthesize lbTopDomain, viewDetail, lbID, lbIDValue, lbDomain, lbDomainValue, lbServiceName, lbServiceNameValue, lbRegisterDate, lbRegisterDateValue, lbExpire, lbExpireDate, lbState, lbStateValue, btnRenewDomain, btnChangeDNS, btnUpdatePassport, lbNoData, btnSigning, lbWhoisProtect, swWhoisProtect;
-@synthesize ordId, cusId, padding, hItem;
+@synthesize ordId, cusId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -200,7 +203,7 @@
     //  reupdate frame for top label
     float sizeText = [AppUtils getSizeWithText:domain withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;
     [lbTopDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(self.padding);
+        make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.mas_equalTo(40.0);
         make.width.mas_equalTo(sizeText + 10.0);
@@ -264,8 +267,8 @@
     
     [viewDetail mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTopDomain.mas_centerY);
-        make.left.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
+        make.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hView);
     }];
     
@@ -313,9 +316,9 @@
         btnUpdatePassport.hidden = btnSigning.hidden = FALSE;
         
         [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(self.padding);
-            make.right.equalTo(self.view).offset(-self.padding);
-            make.bottom.equalTo(self.view).offset(-self.padding);
+            make.left.equalTo(self.view).offset(padding);
+            make.right.equalTo(self.view).offset(-padding);
+            make.bottom.equalTo(self.view).offset(-padding);
             make.height.mas_equalTo(hBTN);
         }];
         
@@ -330,7 +333,7 @@
         
         [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.btnChangeDNS);
-            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
+            make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-padding);
             make.height.equalTo(self.btnChangeDNS.mas_height);
         }];
     }
@@ -340,6 +343,10 @@
 - (void)setupUIForView {
     padding = 15.0;
     hItem = 40.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+        hItem = 35.0;
+    }
     
     lbTopDomain.backgroundColor = UIColor.whiteColor;
     
@@ -347,7 +354,7 @@
     lbTopDomain.font = [UIFont fontWithName:RobotoBold size:(fontSize + 2)];
     lbTopDomain.textColor = BLUE_COLOR;
     [lbTopDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(self.padding);
+        make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.mas_equalTo(40.0);
     }];
@@ -357,8 +364,8 @@
     viewDetail.layer.borderColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0].CGColor;
     [viewDetail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTopDomain.mas_centerY);
-        make.left.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
+        make.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(270.0);
     }];
     
@@ -370,22 +377,22 @@
     
     //  ID
     [lbID mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.viewDetail).offset(self.padding);
+        make.top.left.equalTo(self.viewDetail).offset(padding);
         make.right.equalTo(self.viewDetail.mas_centerX).offset(-30.0);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbIDValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lbID.mas_right).offset(10.0);
         make.top.bottom.equalTo(self.lbID);
-        make.right.equalTo(self.viewDetail.mas_right).offset(-self.padding);
+        make.right.equalTo(self.viewDetail.mas_right).offset(-padding);
     }];
     
     //  domain name
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbID.mas_bottom);
         make.left.right.equalTo(self.lbID);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbDomainValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -397,47 +404,47 @@
     [lbServiceName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbDomain.mas_bottom);
         make.left.right.equalTo(self.lbDomain);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbServiceNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbDomainValue);
         make.top.equalTo(self.lbServiceName);
         //  make.height.mas_equalTo(2*self.hItem);
-        make.height.mas_greaterThanOrEqualTo(self.hItem);
+        make.height.mas_greaterThanOrEqualTo(hItem);
     }];
     
     //  registered date
     [lbRegisterDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbServiceNameValue.mas_bottom);
         make.left.right.equalTo(self.lbServiceName);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbRegisterDateValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbServiceNameValue);
         make.top.equalTo(self.lbRegisterDate);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     //  expire date
     [lbExpire mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbRegisterDate.mas_bottom);
         make.left.right.equalTo(self.lbRegisterDate);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbExpireDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbRegisterDateValue);
         make.top.equalTo(self.lbExpire);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     //  state
     [lbState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbExpire.mas_bottom);
         make.left.right.equalTo(self.lbExpire);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbStateValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -449,7 +456,7 @@
     [lbWhoisProtect mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbState.mas_bottom);
         make.left.right.equalTo(self.lbState);
-        make.height.mas_equalTo(self.hItem);
+        make.height.mas_equalTo(hItem);
     }];
     
     [swWhoisProtect mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -470,27 +477,27 @@
     btnChangeDNS.layer.borderWidth = btnUpdatePassport.layer.borderWidth = btnSigning.layer.borderWidth = btnRenewDomain.layer.borderWidth = 1.0;
     
     [btnChangeDNS mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
-        make.bottom.equalTo(self.view).offset(-self.padding);
+        make.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
+        make.bottom.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
     
     [btnUpdatePassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.btnChangeDNS);
-        make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-self.padding);
+        make.bottom.equalTo(self.btnChangeDNS.mas_top).offset(-padding);
         make.height.equalTo(self.btnChangeDNS.mas_height);
     }];
     
     [btnSigning mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.btnUpdatePassport);
-        make.bottom.equalTo(self.btnUpdatePassport.mas_top).offset(-self.padding);
+        make.bottom.equalTo(self.btnUpdatePassport.mas_top).offset(-padding);
         make.height.equalTo(self.btnUpdatePassport.mas_height);
     }];
     
     [btnRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.btnSigning);
-        make.bottom.equalTo(self.btnSigning.mas_top).offset(-self.padding);
+        make.bottom.equalTo(self.btnSigning.mas_top).offset(-padding);
         make.height.equalTo(self.btnSigning.mas_height);
     }];
     

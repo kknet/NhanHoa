@@ -35,10 +35,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbManyOptions;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
-@property (nonatomic, assign) float hCell;
-@property (nonatomic, assign) float padding;
-@property (nonatomic, assign) float hBanner;
-
 - (IBAction)icSearchClick:(UIButton *)sender;
 
 @property (nonatomic, strong) BannerSliderView *viewBanner;

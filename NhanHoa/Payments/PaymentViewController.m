@@ -38,6 +38,9 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnContinue.layer.cornerRadius = 45.0/2;

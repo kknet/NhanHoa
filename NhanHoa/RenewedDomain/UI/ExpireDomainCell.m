@@ -15,14 +15,17 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     lbNum.textColor = TITLE_COLOR;
-    lbNum.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbNum.font = [AppDelegate sharedInstance].fontMedium;
     lbNum.textAlignment = NSTextAlignmentLeft;
     [lbNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.bottom.equalTo(self.mas_centerY).offset(-2.0);
-        make.width.mas_equalTo(30.0);
+        make.width.mas_equalTo(20.0);
     }];
     
     lbName.textColor = TITLE_COLOR;
@@ -41,7 +44,7 @@
     }];
     
     lbDate.textColor = TITLE_COLOR;
-    lbDate.font = [AppDelegate sharedInstance].fontDesc;
+    lbDate.font = [AppDelegate sharedInstance].fontRegular;
     lbDate.textAlignment = NSTextAlignmentLeft;
     [lbDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.lbState.mas_left).offset(-10.0);
@@ -89,7 +92,7 @@
     NSString *endTime = [info objectForKey:@"ord_end_time"];
     if (endTime != nil && ![endTime isEqualToString:@""] && [endTime isKindOfClass:[NSString class]]) {
         NSString *expireDate = [AppUtils getDateStringFromTimerInterval:[endTime longLongValue]];
-        lbDate.text = [NSString stringWithFormat:@"Hết hạn ngày %@", expireDate];
+        lbDate.text = [NSString stringWithFormat:@"Hết hạn: %@", expireDate];
     }else{
         lbDate.text = @"Hết hạn ngày: Đang cập nhật";
     }

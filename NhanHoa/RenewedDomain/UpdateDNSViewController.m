@@ -110,6 +110,10 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     float smallSize = (SCREEN_WIDTH - 3*padding)/4;
     
     //  DNS1

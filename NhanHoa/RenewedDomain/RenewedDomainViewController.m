@@ -23,13 +23,14 @@ typedef enum TypeSelectDomain{
     NSMutableArray *listSearch;
     BOOL searching;
     NSTimer *searchTimer;
+    
+    float padding;
 }
 
 @end
 
 @implementation RenewedDomainViewController
 @synthesize viewMenu, btnAllDomain, btnExpireDomain, tbDomain, lbNoData, tfSearch, icSearch;
-@synthesize padding;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,7 +81,7 @@ typedef enum TypeSelectDomain{
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
     }];
     
     type = eAllDomain;
@@ -118,7 +119,7 @@ typedef enum TypeSelectDomain{
     
     [tbDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
         make.bottom.equalTo(self.view);
     }];
     
@@ -157,12 +158,15 @@ typedef enum TypeSelectDomain{
 
 - (void)setupUIForView {
     padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     float hMenu = 40.0;
     
     viewMenu.layer.cornerRadius = hMenu/2;
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
+        make.left.top.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hMenu);
     }];
     
@@ -195,7 +199,7 @@ typedef enum TypeSelectDomain{
     tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
     tfSearch.layer.borderWidth = 1.0;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.viewMenu.mas_bottom).offset(padding);
         make.left.right.equalTo(self.viewMenu);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
@@ -229,7 +233,7 @@ typedef enum TypeSelectDomain{
     [tbDomain registerNib:[UINib nibWithNibName:@"ExpireDomainCell" bundle:nil] forCellReuseIdentifier:@"ExpireDomainCell"];
     [tbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
     }];
     
     lbNoData.text = text_no_data;

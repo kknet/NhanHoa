@@ -53,7 +53,11 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
     if ([AccountModel getCusOwnType] == type_personal) {
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-[AppDelegate sharedInstance].hNav-[AppDelegate sharedInstance].hStatusBar);
+        if ([DeviceUtils isScreen320]) {
+            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editPersonalView.hContent);
+        }else{
+            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-[AppDelegate sharedInstance].hNav-[AppDelegate sharedInstance].hStatusBar);
+        }
     }else{
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editBusinessView.hContent);
     }
@@ -119,6 +123,9 @@
     float padding = 15.0;
     float mTop = 10.0;
     float hLabel = 30.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     float hContent = (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;;
     

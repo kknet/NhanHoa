@@ -17,6 +17,10 @@
     self.layer.cornerRadius = 7.0;
     
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     imgAvatar.clipsToBounds = TRUE;
     imgAvatar.layer.cornerRadius = 60.0/2;
     imgAvatar.layer.borderColor = BLUE_COLOR.CGColor;

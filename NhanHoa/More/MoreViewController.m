@@ -66,6 +66,9 @@
 - (void)setupUIForView {
     hAccount = 135; //  10 + 30 + 30 + 10 + 10 + 40.0 + 10;
     padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     self.view.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
     

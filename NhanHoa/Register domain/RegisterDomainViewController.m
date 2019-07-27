@@ -14,14 +14,17 @@
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate>{
     NSMutableArray *listData;
-
+    
+    float hCell;
+    float padding;
+    float hBanner;
 }
 
 @end
 
 @implementation RegisterDomainViewController
 @synthesize scvContent, tfSearch, lbWWW, icSearch, viewInfo, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
-@synthesize hCell, padding, hBanner, viewBanner;
+@synthesize viewBanner;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,7 +66,7 @@
 - (void)reUpdateLayoutForView {
     float hTableView = listData.count * hCell;
     [tbContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(padding);
         make.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTableView);
@@ -71,7 +74,7 @@
 }
 
 - (void)viewDidLayoutSubviews {
-    float contentSize = tbContent.frame.origin.y + listData.count * hCell + self.padding;
+    float contentSize = tbContent.frame.origin.y + listData.count * hCell + padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
 }
 
@@ -92,7 +95,7 @@
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hBanner);
+        make.height.mas_equalTo(hBanner);
     }];
     
     viewBanner.hBanner = hBanner;
@@ -116,6 +119,9 @@
     }];
     
     padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     [self getHeightBannerForView];
     [self addBannerImageForView];
@@ -124,7 +130,7 @@
     [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hBanner);
+        make.height.mas_equalTo(hBanner);
     }];
     
     
@@ -140,8 +146,8 @@
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
+        make.left.equalTo(self.scvContent).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
         make.centerY.equalTo(self.viewBanner.mas_bottom);
         make.height.mas_equalTo(hSearch);
     }];
@@ -200,7 +206,12 @@
     [viewRenew addGestureRecognizer: tapRenew];
     
     lbRenew.textColor = UIColor.whiteColor;
-    lbRenew.font = [UIFont fontWithName:RobotoRegular size:13];
+    if ([DeviceUtils isScreen320]) {
+        lbRenew.font = [UIFont fontWithName:RobotoRegular size:12];
+    }else{
+        lbRenew.font = [UIFont fontWithName:RobotoRegular size:13];
+    }
+    
     lbRenew.text = @"Kiểm tra nhiều tên miền";
     lbRenew.numberOfLines = 5.0;
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,7 +289,7 @@
     lbSepa.lineBreakMode = NSLineBreakByTruncatingTail;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewInfo.mas_bottom);
-        make.left.equalTo(self.scvContent).offset(self.padding);
+        make.left.equalTo(self.scvContent).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(1.0);
     }];
@@ -289,8 +300,8 @@
     lbManyOptions.textColor = [UIColor colorWithRed:(57/255.0) green:(65/255.0) blue:(86/255.0) alpha:1.0];
     [lbManyOptions mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbSepa.mas_bottom).offset(20.0);
-        make.left.equalTo(self.scvContent).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
+        make.left.equalTo(self.scvContent).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
     }];
     
     [tbContent registerNib:[UINib nibWithNibName:@"SuggestDomainCell" bundle:nil] forCellReuseIdentifier:@"SuggestDomainCell"];
@@ -300,7 +311,7 @@
     tbContent.dataSource = self;
     tbContent.scrollEnabled = NO;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(self.padding);
+        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(padding);
         make.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.bottom.equalTo(self.scvContent).offset(-5.0);

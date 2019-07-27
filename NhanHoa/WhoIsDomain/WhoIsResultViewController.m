@@ -14,16 +14,20 @@
 
 @interface WhoIsResultViewController ()<UIScrollViewDelegate, WebServiceUtilsDelegate> {
     NSMutableArray *listResults;
+    float padding;
 }
 @end
 
 @implementation WhoIsResultViewController
-@synthesize scvContent, listSearch, padding, whoisView, noResultView, btnContinue;
+@synthesize scvContent, listSearch, whoisView, noResultView, btnContinue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     [self setupUIForView];
     self.title = @"Kết quả tra cứu";
@@ -78,9 +82,9 @@
     btnContinue.layer.cornerRadius = 45.0/2;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
-        make.bottom.equalTo(self.view).offset(-self.padding);
+        make.left.equalTo(self.view).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.bottom.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(45.0);
     }];
     
@@ -89,7 +93,7 @@
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.view);
-        make.bottom.equalTo(self.btnContinue.mas_top).offset(-self.padding);
+        make.bottom.equalTo(self.btnContinue.mas_top).offset(-padding);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
 }

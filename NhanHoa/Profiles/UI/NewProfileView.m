@@ -26,6 +26,10 @@
     linkFrontPassport = @"";
     linkBehindPassport = @"";
     
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     tapOnView.delegate = self;
     [self addGestureRecognizer: tapOnView];
