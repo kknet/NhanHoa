@@ -7,19 +7,19 @@
 //
 
 #import "SupportListViewController.h"
-#import "CallViewController.h"
 #import "SupportCustomerCell.h"
 #import "AppDelegate.h"
 
 @interface SupportListViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, UITableViewDelegate, UITableViewDataSource>{
     NSMutableArray *datas;
+    NSString *extenCall;
+    NSString *remoteName;
 }
 
 @end
 
 @implementation SupportListViewController
 @synthesize tbContent, lbNoData;
-@synthesize tfNumber, btnCall, btnClear;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +33,8 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"SupportListViewController"];
     
+    [self registerObserveres];
+    
     if (datas == nil) {
         datas = [[NSMutableArray alloc] init];
     }else{
@@ -44,27 +46,18 @@
     [ProgressHUD show:@"Đang lấy danh sách" Interaction:NO];
     
     [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] getAccVoIPFree];
     [[WebServiceUtils getInstance] getListCustomersSupport];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     //  [(AppDelegate *)[AppDelegate sharedInstance] removeAccount];
 }
 
-- (IBAction)btnClearPress:(UIButton *)sender {
-}
-
-- (IBAction)btnCallPress:(UIButton *)sender {
-    if (tfNumber.text.length == 0) {
-        [self.view makeToast:@"Vui lòng nhập số điện thoại muốn gọi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    CallViewController *callVC = [[CallViewController alloc] initWithNibName:@"CallViewController" bundle:nil];
-    callVC.phoneNumber = @"150";
-    [self.navigationController pushViewController:callVC animated:TRUE];
+- (void)registerObserveres {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRegStateChanged:)
+                                                 name:notifRegStateChanged object:nil];
 }
 
 - (void)setupUIForView {
@@ -82,36 +75,32 @@
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
-    
-    [AppUtils setBorderForTextfield:tfNumber borderColor:BORDER_COLOR];
-    tfNumber.returnKeyType = UIReturnKeyDone;
-    tfNumber.delegate = self;
-    tfNumber.font = [AppDelegate sharedInstance].fontRegular;
-    tfNumber.textColor = TITLE_COLOR;
-    [tfNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view).offset(50.0);
-        make.width.mas_equalTo(300);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    btnClear.backgroundColor = OLD_PRICE_COLOR;
-    [btnClear mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.tfNumber);
-        make.top.equalTo(self.tfNumber.mas_bottom).offset(20.0);
-        make.right.equalTo(self.tfNumber.mas_centerX).offset(-7.5);
-        make.height.mas_equalTo(45.0);
-    }];
-    
-    btnCall.backgroundColor = BLUE_COLOR;
-    [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.tfNumber.mas_centerX).offset(7.5);
-        make.top.bottom.equalTo(self.btnClear);
-        make.right.equalTo(self.tfNumber);
-    }];
-    
-    btnClear.layer.cornerRadius = btnCall.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
-    btnClear.titleLabel.font = btnCall.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+}
+
+- (void)onRegStateChanged: (NSNotification *)notif
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSNumber *state = [notif object];
+        if ([state isKindOfClass:[NSNumber class]]) {
+            int value = [state intValue];
+            if (value == 1) {
+                if ([AppDelegate sharedInstance].accCallInfo != nil && ![AppUtils isNullOrEmpty: extenCall]) {
+                    NSString *domain = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"domain"];
+                    NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
+                    
+                    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", extenCall, domain, port];
+                    //  stringForCall = @"sip:150@nhanhoa1.vfone.vn:51000";
+                    [[AppDelegate sharedInstance] makeCallTo: stringForCall];
+                    
+                    [[AppDelegate sharedInstance] showCallViewWithDirection:OutgoingCall remote:remoteName];
+                }else{
+                    [self.view makeToast:@"Tài khoản SIP không được xác thực." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                }
+            }else{
+                [self.view makeToast:@"Tài khoản SIP không được xác thực." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            }
+        }
+    });
 }
 
 #pragma mark - UITextfield delegate
@@ -128,7 +117,7 @@
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
         
-        [[AppDelegate sharedInstance] testAuthWithInfo: data];
+        [[AppDelegate sharedInstance] registerSIPAccountWithInfo: data];
         
     }else{
         [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -137,6 +126,7 @@
 
 -(void)failedToGetVoipAccount:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
     [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
@@ -240,18 +230,13 @@
     
     if (datas.count > sender.tag) {
         NSDictionary *info = [datas objectAtIndex: sender.tag];
+        extenCall = [info objectForKey:@"exten"];
         
-        NSString *exten = [info objectForKey:@"exten"];
-        if (![AppUtils isNullOrEmpty: exten]) {
-            exten = @"150";
-            //  [[AppDelegate sharedInstance] makeCallTo: exten];
+        if (![AppUtils isNullOrEmpty: extenCall]) {
+            remoteName = [info objectForKey:@"name"];
             
-            NSString *name = [info objectForKey:@"name"];
+            [[WebServiceUtils getInstance] getAccVoIPFree];
             
-            CallViewController *callVC = [[CallViewController alloc] initWithNibName:@"CallViewController" bundle:nil];
-            callVC.phoneNumber = exten;
-            callVC.calleeName = name;
-            [self.navigationController pushViewController:callVC animated:TRUE];
         }else{
             [self.view makeToast:@"Không tìm thấy số hỗ trợ. Vui lòng thực hiện lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }
@@ -259,12 +244,5 @@
         [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng thực hiện lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
-
-/*
-account = ap1astapp;
-domain = "asapp.vfone.vn";
-password = yovU5lmlEA6WPcliwZwPLf1RT;
-port = 51000;
-*/
 
 @end

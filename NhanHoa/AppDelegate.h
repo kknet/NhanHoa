@@ -20,6 +20,8 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
 
+#import "CallViewController.h"
+
 typedef enum TypeHomeMenu{
     eRegisterDomain,
     ePricingDomain,
@@ -121,6 +123,8 @@ typedef enum PaymentMethod{
 - (int)getDurationForCurrentCall;
 - (BOOL)checkMicrophoneWasMuted;
 - (BOOL)checkCurrentCallWasHold;
+- (BOOL)isCallWasConnected;
+- (NSArray *)getContactNameOfRemoteForCall;
 - (BOOL)muteMicrophone: (BOOL)mute;
 - (void)holdCurrentCall: (BOOL)hold;
 - (BOOL)sendDtmfWithValue: (NSString *)value;
@@ -141,9 +145,13 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) AVAudioPlayer *ringbackPlayer;
 - (void)playRingbackTone;
 - (void)stopRingbackTone;
-- (void)testAuthWithInfo: (NSDictionary *)info;
+
+@property (nonatomic, strong) CallViewController *callViewController;
+@property (nonatomic, strong) NSString *remoteName;
+- (void)showCallViewWithDirection: (CallDirection)direction remote: (NSString *)remote;
+- (void)hideCallView;
+
 - (void)tryToLogin151;
-- (void)tryToLogin150;
 
 @end
 

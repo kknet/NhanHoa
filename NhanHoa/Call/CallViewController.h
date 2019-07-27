@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MarqueeLabel.h"
 
+typedef enum CallDirection{
+    OutgoingCall,
+    IncomingCall,
+}CallDirection;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CallViewController : UIViewController
@@ -33,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewCall;
 @property (weak, nonatomic) IBOutlet UIImageView *bgCall;
 @property (weak, nonatomic) IBOutlet MarqueeLabel *lbName;
+@property (weak, nonatomic) IBOutlet UILabel *lbSubName;
 @property (weak, nonatomic) IBOutlet UILabel *lbDuration;
-@property (weak, nonatomic) IBOutlet UILabel *lbQuality;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (weak, nonatomic) IBOutlet UIButton *icMute;
 @property (weak, nonatomic) IBOutlet UIButton *icSpeaker;
@@ -48,9 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)icHoldCallClick:(UIButton *)sender;
 - (IBAction)icMiniKeypadClick:(UIButton *)sender;
 
-
-@property (nonatomic, strong) NSString *phoneNumber;
-@property (nonatomic, strong) NSString *calleeName;
+@property (nonatomic, strong) NSString *remoteName;
+@property (nonatomic, assign) CallDirection callDirection;
 
 @end
 

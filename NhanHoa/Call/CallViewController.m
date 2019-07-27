@@ -11,14 +11,15 @@
 
 @interface CallViewController (){
     NSTimer *durationTimer;
+    NSString *subname;
 }
 
 @end
 
 @implementation CallViewController
 @synthesize imgBackground, viewOutgoing, lbOutName, imgOutState, lbOutCallState, imgOutAvatar, icOutMute, icOutEndCall, icOutSpeaker;
-@synthesize viewCall, bgCall, lbName, lbDuration, lbQuality, imgAvatar, icMute, icSpeaker, icHangup, icHoldCall, icMiniKeypad;
-@synthesize phoneNumber, calleeName;
+@synthesize viewCall, bgCall, lbName, lbDuration, lbSubName, imgAvatar, icMute, icSpeaker, icHangup, icHoldCall, icMiniKeypad;
+@synthesize remoteName, callDirection;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,38 +29,47 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = TRUE;
+    //  self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = TRUE;
     
     [WriteLogsUtils writeForGoToScreen:@"CallViewController"];
     
     [self registerObserveres];
     
-    lbOutCallState.text = @"Vui lòng chờ...";
-    if (![AppUtils isNullOrEmpty: calleeName]) {
-        lbOutName.text = lbName.text = calleeName;
-    }else{
-        lbOutName.text = lbName.text = unknown;
+    //  set remote name
+    subname = @"";
+    if (callDirection == IncomingCall) {
+        NSArray *nameInfo = [[AppDelegate sharedInstance] getContactNameOfRemoteForCall];
+        if (nameInfo != nil) {
+            remoteName = [nameInfo objectAtIndex: 0];
+            subname = [nameInfo objectAtIndex: 1];
+        }
     }
+    if ([AppUtils isNullOrEmpty: remoteName]) {
+        remoteName = unknown;
+    }
+    lbOutName.text = lbName.text = remoteName;
+    lbSubName.text = subname;
     
-    viewOutgoing.hidden = FALSE;
-    viewCall.hidden = TRUE;
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear: animated];
-    
-    if ([AppDelegate sharedInstance].accCallInfo != nil) {
-        [[AppDelegate sharedInstance] registerSIPAccountWithInfo: [AppDelegate sharedInstance].accCallInfo];
+    if (callDirection == OutgoingCall) {
+        lbOutCallState.text = @"Vui lòng chờ...";
+        
+        viewOutgoing.hidden = FALSE;
+        viewCall.hidden = TRUE;
         
     }else{
-        [self.view makeToast:@"Tài khoản gọi không tồn tại. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
+        viewOutgoing.hidden = TRUE;
+        viewCall.hidden = FALSE;
+        
+        //  Hiển thị duration nếu khi vào màn hình call và cuộc gọi đã được kết nối thành công
+        if ([[AppDelegate sharedInstance] isCallWasConnected]) {
+            [self startToUpdateDurationForCall];
+        }
     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = FALSE;
+    //  self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = FALSE;
 }
 
 - (IBAction)icOutSpeakerClick:(UIButton *)sender {
@@ -109,6 +119,8 @@
 }
 
 - (IBAction)icOutEndCallClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] hideCallView];
+    
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [[AppDelegate sharedInstance] hangupAllCall];
@@ -117,9 +129,6 @@
 - (void)registerObserveres {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCallStateChanged:)
                                                  name:notifCallStateChanged object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRegStateChanged:)
-                                                 name:notifRegStateChanged object:nil];
 }
 
 - (void)setupUIForView
@@ -268,27 +277,27 @@
     imgAvatar.layer.borderWidth = 2.0;
     imgAvatar.layer.cornerRadius = wAvatar/2;
     
-    lbQuality.font = [AppDelegate sharedInstance].fontBTN;
-    lbQuality.textColor = UIColor.whiteColor;
-    [lbQuality mas_remakeConstraints:^(MASConstraintMaker *make) {
+    lbDuration.font = [UIFont fontWithName:RobotoRegular size:40.0];
+    lbDuration.textColor = UIColor.whiteColor;
+    [lbDuration mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewCall.mas_centerX);
         make.bottom.equalTo(self.imgAvatar.mas_top).offset(-marginQuality);
         make.width.mas_equalTo(200.0);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(50);
     }];
     
-    lbDuration.font = [UIFont fontWithName:RobotoMedium size:40.0];
-    [lbDuration mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.viewCall.mas_centerX);
-        make.bottom.equalTo(self.lbQuality.mas_top);
-        make.width.mas_equalTo(200.0);
-        make.height.mas_equalTo(50);
+    lbSubName.font = [UIFont fontWithName:RobotoMedium size:20.0];
+    [lbSubName mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.viewCall).offset(5.0);
+        make.right.equalTo(self.viewCall).offset(-5.0);
+        make.bottom.equalTo(self.lbDuration.mas_top).offset(-30.0);
+        make.height.mas_equalTo(25.0);
     }];
     
     [lbName mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewCall).offset(5.0);
         make.right.equalTo(self.viewCall).offset(-5.0);
-        make.bottom.equalTo(self.lbDuration.mas_top).offset(-30.0);
+        make.bottom.equalTo(self.lbSubName.mas_top);
         make.height.mas_equalTo(40.0);
     }];
     lbName.marqueeType = MLContinuous;
@@ -296,7 +305,7 @@
     lbName.animationCurve = UIViewAnimationOptionCurveEaseInOut;
     lbName.fadeLength = 10.0;
     lbName.continuousMarqueeExtraBuffer = 10.0f;
-    lbName.font = [UIFont fontWithName:RobotoMedium size:22.0];
+    lbName.font = [UIFont fontWithName:RobotoMedium size:26.0];
     lbName.textColor = UIColor.whiteColor;
     
     [icHangup mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -356,12 +365,15 @@
                 [self startToUpdateDurationForCall];
                 
             }else if ([state isEqualToString: CALL_INV_STATE_DISCONNECTED]) {
-                if ([last_status isEqualToString:@"503"]) {
-                    self.lbOutCallState.text = @"Người dùng đang bận";
-                }else if ([last_status isEqualToString:@"603"]) {
-                    self.lbOutCallState.text = @"Người dùng đang bận";
+                NSString *content = @"Kết thúc cuộc gọi";
+                if ([last_status isEqualToString:@"503"] || [last_status isEqualToString:@"603"]) {
+                    content = @"Người dùng đang bận";
+                }
+                
+                if (viewOutgoing.isHidden) {
+                    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter];
                 }else{
-                    self.lbOutCallState.text = @"Cuộc gọi đã kết thúc";
+                    self.lbOutCallState.text = content;
                 }
                 [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
                 
@@ -383,27 +395,9 @@
     });
 }
 
-- (void)onRegStateChanged: (NSNotification *)notif
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSNumber *state = [notif object];
-        if ([state isKindOfClass:[NSNumber class]]) {
-            int value = [state intValue];
-            if (value == 1) {
-                NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", phoneNumber];
-                [[AppDelegate sharedInstance] makeCallTo: stringForCall];
-                
-            }else{
-                [self.view makeToast:@"Tài khoản SIP không được xác thực!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-                [self performSelector:@selector(dismissCallView) withObject:nil afterDelay:2.0];
-            }
-        }
-    });
-}
-
-
 - (void)dismissCallView {
-    [self.navigationController popViewControllerAnimated: TRUE];
+    //  [self.navigationController popViewControllerAnimated: TRUE];
+    [[AppDelegate sharedInstance] hideCallView];
 }
 
 - (IBAction)icMuteClick:(UIButton *)sender {
@@ -441,12 +435,14 @@
             [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
         }
         [sender setImage:[UIImage imageNamed:@"speaker_enable"] forState:UIControlStateNormal];
+        [self.view makeToast:@"Đã bật loa ngoài" duration:1.0 position:CSToastPositionCenter];
     }else{
         BOOL result = [DeviceUtils enableSpeakerForCall: FALSE];
         if (!result) {
             [self.view makeToast:@"Thất bại" duration:1.0 position:CSToastPositionCenter];
         }
         [sender setImage:[UIImage imageNamed:@"speaker_normal"] forState:UIControlStateNormal];
+        [self.view makeToast:@"Đã tắt loa ngoài" duration:1.0 position:CSToastPositionCenter];
     }
 }
 

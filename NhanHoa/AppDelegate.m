@@ -19,7 +19,6 @@
 #include "pjsip_sources/pjsua/pjsua_app.h"
 #include "pjsip_sources/pjsua/pjsua_app_config.h"
 
-
 #define THIS_FILE    "AppDelegate.m"
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -54,6 +53,7 @@
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
+@synthesize callViewController, remoteName;
 
 AppDelegate      *app;
 
@@ -628,9 +628,6 @@ AppDelegate      *app;
 
 - (void)showCartScreenContent
 {
-    [self hangupAllCall];
-    return;
-    
     if (self.cartWindow == nil) {
         //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -852,7 +849,9 @@ AppDelegate      *app;
                          [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"acc_call_info"];
                          [[NSUserDefaults standardUserDefaults] synchronize];
                          
-                         [self testAuthWithInfo: data];
+                         accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
+                         
+                         [self registerSIPAccountWithInfo: data];
                      }
                  }
              }
@@ -890,22 +889,13 @@ AppDelegate      *app;
     pjsua_start();
 }
 
-- (void)registerSIPAccountWithInfo: (NSDictionary *)info {
-    NSString *account = [info objectForKey:@"account"];
-    NSString *domain = [info objectForKey:@"domain"];
-    NSString *port = [info objectForKey:@"port"];
-    NSString *password = [info objectForKey:@"password"];
+- (void)tryToLogin151 {
+    NSString *account = @"nhcla151";
+    NSString *domain = @"nhanhoa1.vfone.vn";
+    NSString *port = @"51000";
+    NSString *password = @"cloudcall123";
     
     if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        account = @"nhcla151";
-        domain = @"nhanhoa1.vfone.vn";
-        port = @"51000";
-        password = @"cloudcall123";
-        
-//        account = ap1astapp;
-//        domain = "asapp.vfone.vn";
-//        password = yovU5lmlEA6WPcliwZwPLf1RT;
-//        port = 51000;
         NSString *email = [AccountModel getCusEmail];
         
         pj_status_t status;
@@ -952,148 +942,24 @@ AppDelegate      *app;
             NSLog(@"Error creating transport");
         }
         
-//        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-//        if (status != PJ_SUCCESS){
-//            NSLog(@"Error adding account");
-//        }
+        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+        if (status != PJ_SUCCESS){
+            NSLog(@"Error adding account");
+        }
     }else{
         [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
     }
 }
 
-- (void)tryToLogin150 {
-    NSString *account = @"nhcla150";
-    NSString *domain = @"nhanhoa1.vfone.vn";
-    NSString *port = @"51000";
-    NSString *password = @"cloudcall123";
-    
-    //        account = ap1astapp;
-    //        domain = "asapp.vfone.vn";
-    //        password = yovU5lmlEA6WPcliwZwPLf1RT;
-    //        port = 51000;
-    NSString *email = [AccountModel getCusEmail];
-    
-    pj_status_t status;
-    
-    // Register the account on local sip server
-    pjsua_acc_id acc_id;
-    pjsua_acc_config cfg;
-    pjsua_acc_config_default(&cfg);
-    
-    NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
-    NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
-    
-    cfg.id = pj_str((char *)[strCall UTF8String]);
-    cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
-    cfg.cred_count = 1;
-    cfg.cred_info[0].realm = pj_str("*");
-    cfg.cred_info[0].scheme = pj_str("digest");
-    cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
-    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-    cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
-    cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
-    
-    pjsip_generic_string_hdr CustomHeader;
-    pj_str_t name = pj_str("Call-ID");
-    pj_str_t value = pj_str((char *)[email UTF8String]);
-    pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
-    pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
-    
-    pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
-    pj_dns_resolver* resolver;
-    
-    struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
-    pjsip_endpt_create_resolver(endpoint, &resolver);
-    pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
-    
-    // Init transport config structure
-    pjsua_transport_config trans_cfg;
-    pjsua_transport_config_default(&trans_cfg);
-    trans_cfg.port = [port intValue];
-    
-    // Add UDP transport.
-    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
-    if (status != PJ_SUCCESS){
-        NSLog(@"Error creating transport");
-    }
-    
-    status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-    if (status != PJ_SUCCESS){
-        NSLog(@"Error adding account");
-    }
-}
-
-- (void)tryToLogin151 {
-    NSString *account = @"nhcla151";
-    NSString *domain = @"nhanhoa1.vfone.vn";
-    NSString *port = @"51000";
-    NSString *password = @"cloudcall123";
-    
-    //        account = ap1astapp;
-    //        domain = "asapp.vfone.vn";
-    //        password = yovU5lmlEA6WPcliwZwPLf1RT;
-    //        port = 51000;
-    NSString *email = [AccountModel getCusEmail];
-    
-    pj_status_t status;
-    
-    // Register the account on local sip server
-    pjsua_acc_id acc_id;
-    pjsua_acc_config cfg;
-    pjsua_acc_config_default(&cfg);
-    
-    NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
-    NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
-    
-    cfg.id = pj_str((char *)[strCall UTF8String]);
-    cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
-    cfg.cred_count = 1;
-    cfg.cred_info[0].realm = pj_str("*");
-    cfg.cred_info[0].scheme = pj_str("digest");
-    cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
-    cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-    cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
-    cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
-    
-    pjsip_generic_string_hdr CustomHeader;
-    pj_str_t name = pj_str("Call-ID");
-    pj_str_t value = pj_str((char *)[email UTF8String]);
-    pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
-    pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
-    
-    pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
-    pj_dns_resolver* resolver;
-    
-    struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
-    pjsip_endpt_create_resolver(endpoint, &resolver);
-    pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
-    
-    // Init transport config structure
-    pjsua_transport_config trans_cfg;
-    pjsua_transport_config_default(&trans_cfg);
-    trans_cfg.port = [port intValue];
-    
-    // Add UDP transport.
-    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
-    if (status != PJ_SUCCESS){
-        NSLog(@"Error creating transport");
-    }
-    
-    status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-    if (status != PJ_SUCCESS){
-        NSLog(@"Error adding account");
-    }
-}
-
-- (void)testAuthWithInfo: (NSDictionary *)info {
-    
+- (void)registerSIPAccountWithInfo: (NSDictionary *)info {
     NSString *account = [info objectForKey:@"account"];
     NSString *domain = [info objectForKey:@"domain"];
     NSString *port = [info objectForKey:@"port"];
     NSString *password = [info objectForKey:@"password"];
     
-    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password])
-    {
+    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
+        NSString *email = [AccountModel getCusEmail];
+        
         pj_status_t status;
         
         // Register the account on local sip server
@@ -1114,7 +980,6 @@ AppDelegate      *app;
         cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
         cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
         
-        NSString *email = USERNAME;
         pjsip_generic_string_hdr CustomHeader;
         pj_str_t name = pj_str("Call-ID");
         pj_str_t value = pj_str((char *)[email UTF8String]);
@@ -1284,6 +1149,94 @@ AppDelegate      *app;
     return FALSE;
 }
 
+- (BOOL)isCallWasConnected {
+    if (current_call_id != -1) {
+        pjsua_call_info ci;
+        pjsua_call_get_info(current_call_id, &ci);
+        
+        if (ci.state == PJSIP_INV_STATE_CONFIRMED) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+- (NSArray *)getContactNameOfRemoteForCall {
+    if (current_call_id != -1) {
+        pjsua_call_info ci;
+        pjsua_call_get_info(current_call_id, &ci);
+        NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
+        if (![AppUtils isNullOrEmpty: contactName]) {
+            NSString *name;
+            NSString *subname;
+            
+            //  get name
+            NSRange range = [contactName rangeOfString:@" <"];
+            if (range.location != NSNotFound) {
+                name = [contactName substringToIndex: range.location];
+            }else {
+                range = [contactName rangeOfString:@"<"];
+                if (range.location != NSNotFound) {
+                    name = [contactName substringToIndex: range.location];
+                }
+            }
+            if ([name hasPrefix:@"\""]) {
+                name = [name substringFromIndex:1];
+            }
+            if ([name hasSuffix:@"\""]) {
+                name = [name substringToIndex:name.length - 1];
+            }
+            
+            //  get subname
+            range = [contactName rangeOfString:@"<sip:"];
+            if (range.location != NSNotFound) {
+                NSRange subrange = [contactName rangeOfString:@"@"];
+                if (subrange.location != NSNotFound && range.location < subrange.location) {
+                    subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
+                }
+            }
+            return @[name, subname];
+        }
+    }
+    return nil;
+}
+
+- (NSArray *)getContactNameForCallWithCallInfo: (pjsua_call_info)ci {
+    NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
+    if (![AppUtils isNullOrEmpty: contactName]) {
+        NSString *name;
+        NSString *subname;
+        
+        //  get name
+        NSRange range = [contactName rangeOfString:@" <"];
+        if (range.location != NSNotFound) {
+            name = [contactName substringToIndex: range.location];
+        }else {
+            range = [contactName rangeOfString:@"<"];
+            if (range.location != NSNotFound) {
+                name = [contactName substringToIndex: range.location];
+            }
+        }
+        if ([name hasPrefix:@"\""]) {
+            name = [name substringFromIndex:1];
+        }
+        if ([name hasSuffix:@"\""]) {
+            name = [name substringToIndex:name.length - 1];
+        }
+        
+        //  get subname
+        range = [contactName rangeOfString:@"<sip:"];
+        if (range.location != NSNotFound) {
+            NSRange subrange = [contactName rangeOfString:@"@"];
+            if (subrange.location != NSNotFound && range.location < subrange.location) {
+                subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
+            }
+        }
+        return @[name, subname];
+    }
+    return nil;
+}
+
 - (BOOL)sendDtmfWithValue: (NSString *)value {
     pjsua_call_send_dtmf_param param;
     param.method = PJSUA_DTMF_METHOD_RFC2833;
@@ -1364,7 +1317,12 @@ static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     [app.del.calls setObject:callId forKey:uuid];
     [app.del.uuids setObject:uuid forKey:callId];
     
-    [app.del reportIncomingCallwithUUID:uuid handle:@"Khai 150" video:FALSE];
+    NSString *caller = unknown;
+    NSArray *info = [app getContactNameForCallWithCallInfo: ci];
+    if (info != nil && info.count == 2) {
+        caller = [NSString stringWithFormat:@"%@ - %@", [info firstObject], [info lastObject]];
+    }
+    [app.del reportIncomingCallwithUUID:uuid handle:caller video:FALSE];
     
     PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!", (int)ci.remote_info.slen,ci.remote_info.ptr));
     //  Automatically answer incoming calls with 200/OK
@@ -1664,9 +1622,9 @@ static void on_reg_state(pjsua_acc_id acc_id)
         NSDictionary *alert = [aps objectForKey:@"alert"];
         NSString *loc_key = [aps objectForKey:@"loc-key"];
         NSString *callId = [aps objectForKey:@"callerid"];
-        NSString *caller = callId;
+        self.remoteName = callId;
         
-        NSString *content = [NSString stringWithFormat:@"Bạn có cuộc gọi từ %@", caller];
+        NSString *content = [NSString stringWithFormat:@"Bạn có cuộc gọi từ %@", self.remoteName];
         UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
         messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
         messageNotif.timeZone = [NSTimeZone defaultTimeZone];
@@ -1674,31 +1632,6 @@ static void on_reg_state(pjsua_acc_id acc_id)
         messageNotif.alertBody = content;
         messageNotif.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
-        
-        
-//        //  get account to register SIP and received call
-//        NSDictionary *accInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"acc_call_info"];
-//        if (accInfo != nil) {
-//            UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
-//            messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
-//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-//            messageNotif.alertBody = @"Register sip with account was stored before";
-//            messageNotif.soundName = UILocalNotificationDefaultSoundName;
-//            [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
-//
-//            [self testAuthWithInfo: accInfo];
-//        }else{
-//            UILocalNotification *messageNotif = [[UILocalNotification alloc] init];
-//            messageNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow: 0.1];
-//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-//            messageNotif.timeZone = [NSTimeZone defaultTimeZone];
-//            messageNotif.alertBody = @"getAccVoipFreeForUser";
-//            messageNotif.soundName = UILocalNotificationDefaultSoundName;
-//            [[UIApplication sharedApplication] scheduleLocalNotification: messageNotif];
-//
-//            [self getAccVoipFreeForUser];
-//        }
         
         if (alert != nil) {
             loc_key = [alert objectForKey:@"loc-key"];
@@ -1769,6 +1702,9 @@ static void on_reg_state(pjsua_acc_id acc_id)
 
 - (void)answerCallWithCallID: (int)call_id {
     pjsua_call_answer(call_id, 200, NULL, NULL);
+    
+    //  show call screen
+    [[AppDelegate sharedInstance] showCallViewWithDirection: IncomingCall remote: self.remoteName];
 }
 
 #pragma mark - Sound for call
@@ -1811,6 +1747,46 @@ static void on_reg_state(pjsua_acc_id acc_id)
         [ringbackPlayer stop];
     }
     ringbackPlayer = nil;
+}
+
+- (void)showCallViewWithDirection: (CallDirection)direction remote: (NSString *)remote {
+    if (callViewController == nil) {
+        callViewController = [[CallViewController alloc] initWithNibName:@"CallViewController" bundle:nil];
+    }
+    callViewController.callDirection = direction;
+    callViewController.remoteName = remote;
+    
+    callViewController.view.clipsToBounds = TRUE;
+    callViewController.view.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    [self.window addSubview: callViewController.view];
+    
+    [self performSelector:@selector(startToShowCallView) withObject:nil afterDelay:0.05];
+}
+
+- (void)startToShowCallView {
+    [callViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.window);
+    }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.window layoutIfNeeded];
+    }];
+}
+
+- (void)hideCallView {
+    [callViewController.view mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.window);
+        make.height.mas_equalTo(0.0);
+    }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.window layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        [callViewController.view removeFromSuperview];
+        callViewController = nil;
+        
+        [AppDelegate sharedInstance].cartView.hidden = FALSE;
+    }];
 }
 
 @end

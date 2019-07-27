@@ -110,7 +110,10 @@
 	self.callKitCalls--;
 	[action fulfill];
     
-    NSLog(@"---------performEndCallAction");
+    self.callKitCalls--;
+    [action fulfill];
+    
+    [[AppDelegate sharedInstance] hangupAllCall];
 }
 
 - (void)provider:(CXProvider *)provider performSetMutedCallAction:(nonnull CXSetMutedCallAction *)action {

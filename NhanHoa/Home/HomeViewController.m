@@ -69,9 +69,7 @@
     }else{
         [AppDelegate sharedInstance].hNav = 50.0;
     }
-    
-    [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] getAccVoIPFree];
+    //  [[AppDelegate sharedInstance] tryToLogin151];
 }
 
 - (void)testCall {
@@ -543,13 +541,6 @@
 -(void)failedToUpdateCallToken:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR!!!!!!!!!!!! CAN NOT UPDATE TOKEN FOR CALL WITH ERROR = %@", __FUNCTION__, error)];
     [AppDelegate sharedInstance].callTokenReady = FALSE;
-}
-
--(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
-    [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"acc_call_info"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
