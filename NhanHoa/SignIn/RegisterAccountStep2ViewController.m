@@ -105,6 +105,9 @@
     float mTop = 10.0;
     float hLabel = 30.0;
     float padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     float hView = 40 + 30 + 5.0 + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
     personalProfile.contentSize = hView;
@@ -156,6 +159,11 @@
     }];
     
     lbSepa.textColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
+    if ([DeviceUtils isScreen320]) {
+        lbSepa.text = @"--";
+    }else{
+        lbSepa.text = @"-----";
+    }
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewMenu.mas_centerX);
         make.top.bottom.equalTo(self.viewMenu);

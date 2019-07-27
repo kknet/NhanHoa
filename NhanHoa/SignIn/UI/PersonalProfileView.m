@@ -17,6 +17,9 @@
     float padding = 15.0;
     float hLabel = 30.0;
     float mTop = 10.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKyboard)];
     tapOnScreen.delegate = self;

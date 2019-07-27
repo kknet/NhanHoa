@@ -106,6 +106,12 @@
     }];
     
     lbSepa.textColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
+    if ([DeviceUtils isScreen320]) {
+        lbSepa.text = @"--";
+    }else{
+        lbSepa.text = @"-----";
+    }
+    
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewMenu.mas_centerX);
         make.top.bottom.equalTo(self.viewMenu);
