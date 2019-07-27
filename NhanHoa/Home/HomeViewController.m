@@ -69,6 +69,8 @@
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+    
+    //  [[AppDelegate sharedInstance] tryToLogin151];
 }
 
 - (void)testCall {

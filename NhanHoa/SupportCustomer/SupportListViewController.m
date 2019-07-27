@@ -113,6 +113,12 @@
 #pragma mark - WebServiceUtil Delegate
 
 -(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
+    NSString *stringForCall = @"sip:150@nhanhoa1.vfone.vn:51000";
+    [[AppDelegate sharedInstance] makeCallTo: stringForCall];
+    
+    [[AppDelegate sharedInstance] showCallViewWithDirection:OutgoingCall remote:remoteName];
+    return;
+    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];

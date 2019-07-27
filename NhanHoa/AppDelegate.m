@@ -958,7 +958,7 @@ AppDelegate      *app;
     NSString *password = [info objectForKey:@"password"];
     
     if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        NSString *email = [AccountModel getCusEmail];
+        NSString *email = USERNAME;
         
         pj_status_t status;
         
@@ -1302,6 +1302,8 @@ AppDelegate      *app;
     }
 }
 
+check loa ngoai , mute voi callkit
+
 //  Callback called by the library upon receiving incoming call
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata)
 {
@@ -1376,7 +1378,7 @@ static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
                     NSLog(@"error = %@", error);
                 }];
             }
-            //  [app removeAccount];
+            [app removeAccount];
         });
     }
 }

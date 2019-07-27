@@ -110,9 +110,6 @@
 	self.callKitCalls--;
 	[action fulfill];
     
-    self.callKitCalls--;
-    [action fulfill];
-    
     [[AppDelegate sharedInstance] hangupAllCall];
 }
 

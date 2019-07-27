@@ -134,6 +134,10 @@
 }
 
 - (void)logoutScreen {
+    //  reset token for call
+    [[WebServiceUtils getInstance] updateTokenForCallWithToken: @""];
+    [AppDelegate sharedInstance].callTokenReady = FALSE;
+    
     [AppDelegate sharedInstance].userInfo = nil;
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:key_password];
