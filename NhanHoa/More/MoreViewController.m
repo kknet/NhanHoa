@@ -135,7 +135,7 @@
 
 - (void)logoutScreen {
     //  reset token for call
-    [[WebServiceUtils getInstance] updateTokenForCallWithToken: @""];
+    [[WebServiceUtils getInstance] updateTokenForCallWithToken: @"ios"];
     [AppDelegate sharedInstance].callTokenReady = FALSE;
     
     [AppDelegate sharedInstance].userInfo = nil;

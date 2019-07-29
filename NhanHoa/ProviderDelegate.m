@@ -32,7 +32,7 @@
 - (void)config {
 	CXProviderConfiguration *config = [[CXProviderConfiguration alloc]
 		initWithLocalizedName:[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
-    config.ringtoneSound = @"chirtmas.mp3";
+    config.ringtoneSound = @"";
 	config.supportsVideo = TRUE;
 	config.iconTemplateImageData = UIImagePNGRepresentation([UIImage imageNamed:@"callkit_logo"]);
     //  config.supportedHandleTypes = [NSSet setWithObjects:@(CXHandleTypePhoneNumber), nil];

@@ -110,7 +110,7 @@ AppDelegate      *app;
     
     //  setup logs folder
     supportCall = TRUE;
-    newHomeLayout = FALSE;
+    newHomeLayout = TRUE;
     
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
@@ -981,6 +981,8 @@ AppDelegate      *app;
         cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
         cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
         cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+        //  disable IPV6
+        //  cfg.ipv6_media_use = PJSUA_IPV6_DISABLED;
         
         pjsip_generic_string_hdr CustomHeader;
         pj_str_t name = pj_str("Call-ID");

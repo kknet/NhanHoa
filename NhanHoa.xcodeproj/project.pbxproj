@@ -147,6 +147,8 @@
 		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
 		4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879422EE941B00EDD030 /* NewHomeViewController.m */; };
 		4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879522EE941B00EDD030 /* NewHomeViewController.xib */; };
+		4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879922EEB4D800EDD030 /* NewHomeMenuCell.m */; };
+		4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879A22EEB4D800EDD030 /* NewHomeMenuCell.xib */; };
 		4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */; };
 		4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C041EA122E841F600DA7405 /* UIMiniKeypad.m */; };
 		4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA422E8432600DA7405 /* ic_back_act.png */; };
@@ -639,6 +641,9 @@
 		4C01879322EE941B00EDD030 /* NewHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeViewController.h; sourceTree = "<group>"; };
 		4C01879422EE941B00EDD030 /* NewHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeViewController.m; sourceTree = "<group>"; };
 		4C01879522EE941B00EDD030 /* NewHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHomeViewController.xib; sourceTree = "<group>"; };
+		4C01879822EEB4D800EDD030 /* NewHomeMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeMenuCell.h; sourceTree = "<group>"; };
+		4C01879922EEB4D800EDD030 /* NewHomeMenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeMenuCell.m; sourceTree = "<group>"; };
+		4C01879A22EEB4D800EDD030 /* NewHomeMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHomeMenuCell.xib; sourceTree = "<group>"; };
 		4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIMiniKeypad.xib; sourceTree = "<group>"; };
 		4C041EA022E841F600DA7405 /* UIMiniKeypad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIMiniKeypad.h; sourceTree = "<group>"; };
 		4C041EA122E841F600DA7405 /* UIMiniKeypad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIMiniKeypad.m; sourceTree = "<group>"; };
@@ -2630,6 +2635,9 @@
 				841F00872274B0A100F1B314 /* HomeMenuCell.h */,
 				841F00882274B0A100F1B314 /* HomeMenuCell.m */,
 				841F00892274B0A100F1B314 /* HomeMenuCell.xib */,
+				4C01879822EEB4D800EDD030 /* NewHomeMenuCell.h */,
+				4C01879922EEB4D800EDD030 /* NewHomeMenuCell.m */,
+				4C01879A22EEB4D800EDD030 /* NewHomeMenuCell.xib */,
 				15D1BD8D2283E9D8004C0452 /* NotificationCell.h */,
 				15D1BD8E2283E9D8004C0452 /* NotificationCell.m */,
 				15D1BD8F2283E9D8004C0452 /* NotificationCell.xib */,
@@ -3247,6 +3255,7 @@
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
 				5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */,
 				840F5DE922770848005BFC57 /* DomainCell.xib in Resources */,
+				4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */,
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */,
@@ -3324,6 +3333,7 @@
 				1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */,
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
+				4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */,
 				15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
 				567FDE4F22CD11AF0081616B /* pjsua_app_common.c in Sources */,

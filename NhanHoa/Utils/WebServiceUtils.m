@@ -379,10 +379,8 @@
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(failedToUpdateToken)]) {
             [delegate failedToUpdateToken];
-            
-        }else if ([delegate respondsToSelector:@selector(failedToUpdateCallToken:)]) {
-            [delegate failedToUpdateCallToken: error];
         }
+        
     }else if ([link isEqualToString: whois_func]) {
         if ([delegate respondsToSelector:@selector(failedToSearchDomainWithError:)]) {
             [delegate failedToSearchDomainWithError: error];
@@ -503,9 +501,6 @@
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(updateTokenSuccessful)]) {
             [delegate updateTokenSuccessful];
-            
-        }else if ([delegate respondsToSelector:@selector(updateCallTokenSuccesful)]) {
-            [delegate updateCallTokenSuccesful];
             
         }
     }else if ([link isEqualToString: whois_func]) {

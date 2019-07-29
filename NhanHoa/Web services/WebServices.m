@@ -271,22 +271,32 @@
          }else{
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              int responseCode = (int)[httpResponse statusCode];
-             if (responseCode == 200) {
-                 NSString *action = [paramsDict objectForKey:@"action"];
-                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                 id object = [value objectFromJSONString];
-                 if ([object isKindOfClass:[NSDictionary class]]) {
-                     id success = [object objectForKey:@"success"];
-                     if ([success boolValue] == TRUE) {
-                         NSDictionary *data = [object objectForKey:@"data"];
-                         [self.delegate successfulToCallWebService:action withData:(NSDictionary *)data];
-                     }else{
-                         [self.delegate failedToCallWebService:action andError:object];
+             
+             NSString *action = [paramsDict objectForKey:@"action"];
+             NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             id object = [value objectFromJSONString];
+             
+             if ([action isEqualToString: update_token_func]) {
+                 if (responseCode == 200) {
+                     if ([object isKindOfClass:[NSDictionary class]]) {
+                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCallTokenResult" object:(NSDictionary *)object];
                      }
                  }
+                 
              }else{
-                 NSString *action = [paramsDict objectForKey:@"action"];
-                 [self.delegate failedToCallWebService:action andError:@"Lỗi không xác định"];
+                 if (responseCode == 200) {
+                     if ([object isKindOfClass:[NSDictionary class]]) {
+                         id success = [object objectForKey:@"success"];
+                         if ([success boolValue] == TRUE) {
+                             NSDictionary *data = [object objectForKey:@"data"];
+                             [self.delegate successfulToCallWebService:action withData:(NSDictionary *)data];
+                         }else{
+                             [self.delegate failedToCallWebService:action andError:object];
+                         }
+                     }
+                 }else{
+                     [self.delegate failedToCallWebService:action andError:@"Lỗi không xác định"];
+                 }
              }
          }
      }];

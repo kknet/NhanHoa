@@ -7,28 +7,34 @@
 //
 
 #import "NewHomeViewController.h"
+#import "TopupViewController.h"
+#import "BonusAccountViewController.h"
 #import "HomeMenuObject.h"
-#import "HomeMenuCell.h"
+#import "NewHomeMenuCell.h"
 
-@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>{
+@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIScrollViewDelegate>{
     NSMutableArray *listMenu;
+    float hTabbar;
     float hMenu;
     float hHeader;
     int numOfLine;
+    float hSearch;
+    float hNav;
 }
 
 @end
 
 @implementation NewHomeViewController
 @synthesize viewSearch, tfSearch, icSearch;
-@synthesize viewHeader;
+@synthesize imgBanner;
 @synthesize scvContent, viewWallet, viewMainWallet, imgMainWallet, lbMainWallet, lbMoneyMain, viewBonusWallet, imgBonusWallet, lbBonusWallet, lbMoneyBonus, lbSepa;
 @synthesize clvMenu;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    numOfLine = 4;
+    numOfLine = 3;
+    hTabbar = self.tabBarController.tabBar.frame.size.height;
     [self createDataForMenuView];
 }
 
@@ -150,8 +156,8 @@
     
     float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hTextfield = 34.0;
-    float hNav = self.navigationController.navigationBar.frame.size.height;
-    float hSearch = hStatusBar + hNav;
+    hNav = self.navigationController.navigationBar.frame.size.height;
+    hSearch = hStatusBar + hNav;
     
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -187,17 +193,27 @@
     }];
     
     //  header view
-    hHeader = 70.0;
-    viewHeader.backgroundColor = BORDER_COLOR;
-    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewSearch.mas_bottom);
+    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+    if (arr.count > 0) {
+        NSDictionary *info = [arr firstObject];
+        NSString *image = [info objectForKey:@"image"];
+        
+        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
+        UIImage *banner = [UIImage imageWithData: imgData];
+        hHeader = SCREEN_WIDTH * banner.size.height / banner.size.width;
+        imgBanner.image = banner;
+    }
+    [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
+        make.top.equalTo(viewSearch.mas_bottom);
         make.height.mas_equalTo(hHeader);
     }];
     
     //  scrollview content
+    scvContent.delegate = self;
+    scvContent.backgroundColor = UIColor.orangeColor;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom);
+        make.top.equalTo(imgBanner.mas_bottom);
         make.left.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
         make.width.mas_equalTo(SCREEN_WIDTH);
@@ -246,7 +262,7 @@
     }];
     
     //  rewards view
-    UITapGestureRecognizer *tapOnPoints = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnPoints)];
+    UITapGestureRecognizer *tapOnPoints = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBonusAccount)];
     viewBonusWallet.userInteractionEnabled = TRUE;
     [viewBonusWallet addGestureRecognizer: tapOnPoints];
     
@@ -277,7 +293,7 @@
     
     lbSepa.text = @"";
     lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
-    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
+    [lbSepa mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(viewWallet);
         make.height.mas_equalTo(2.0);
     }];
@@ -291,10 +307,11 @@
     clvMenu.delegate = self;
     clvMenu.dataSource = self;
     clvMenu.backgroundColor = UIColor.whiteColor;
-    [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuCell"];
+    [clvMenu registerNib:[UINib nibWithNibName:@"NewHomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"NewHomeMenuCell"];
     
     float hMenuView = [self getHeightOfMenuView];
-    [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
+    clvMenu.scrollEnabled = FALSE;
+    [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewWallet.mas_bottom);
         make.left.equalTo(scvContent);
         //  make.bottom.equalTo(scvContent);
@@ -303,6 +320,33 @@
     }];
     
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hWallet + hMenuView);
+}
+
+- (void)changeNumOfLine {
+    if (numOfLine == 3) {
+        numOfLine = 4;
+    }else{
+        numOfLine = 3;
+    }
+    [self setupUIForView];
+    [clvMenu reloadData];
+    [self showUserWalletView];
+}
+
+- (void)whenTapOnMainWallet {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+    topupVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController: topupVC animated:YES];
+}
+
+- (void)whenTapOnBonusAccount {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
+    bonusAccVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController: bonusAccVC animated:YES];
 }
 
 - (float)getHeightOfMenuView {
@@ -324,7 +368,7 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    HomeMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeMenuCell" forIndexPath:indexPath];
+    NewHomeMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewHomeMenuCell" forIndexPath:indexPath];
     
     HomeMenuObject *menu = [listMenu objectAtIndex: indexPath.row];
     cell.lbName.text = menu.menuName;
@@ -424,6 +468,82 @@
         [self.view endEditing: TRUE];
     }
     return TRUE;
+}
+
+#pragma mark - Scrollview delegate
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    
+    if(translation.y > 0)
+    {
+        NSLog(@"react to dragging down");
+        // react to dragging down
+    } else
+    {
+        NSLog(@"react to dragging up");
+        // react to dragging up
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    if(translation.y > 0)
+    {
+        // react to dragging down
+        if (scvContent.frame.origin.y < imgBanner.frame.origin.y + hHeader){
+            float newOriginY = scvContent.frame.origin.y + fabs(scrollView.contentOffset.y);
+            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
+            scvContent.contentOffset = CGPointMake(0, 0);
+            
+            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - imgBanner.frame.origin.y);
+        }else{
+            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, hHeader);
+            
+            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y + hHeader, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + hHeader + self.tabBarController.tabBar.frame.size.height));
+            scvContent.contentOffset = CGPointMake(0, 0);
+        }
+    } else
+    {
+        NSLog(@"y = %f", imgBanner.frame.origin.y);
+        
+        //  react to dragging up
+        if (scvContent.frame.origin.y > imgBanner.frame.origin.y) {
+            float newOriginY = scvContent.frame.origin.y-scrollView.contentOffset.y;
+            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
+            scvContent.contentOffset = CGPointMake(0, 0);
+            
+            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - imgBanner.frame.origin.y);
+        }else{
+            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, 0);
+            
+            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
+            scvContent.contentOffset = CGPointMake(0, 0);
+        }
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    if(translation.y > 0){
+        if (scrollView.frame.origin.y > imgBanner.frame.origin.y) {
+            [UIView animateWithDuration:0.2 animations:^{
+                imgBanner.frame = CGRectMake(imgBanner.frame.origin.x, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, hHeader);
+                scrollView.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y+hHeader, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + hHeader + self.tabBarController.tabBar.frame.size.height));
+            }];
+        }
+        NSLog(@"react to dragging down");
+
+    } else {
+        if (scrollView.frame.origin.y < imgBanner.frame.origin.y + hHeader) {
+            [UIView animateWithDuration:0.2 animations:^{
+                imgBanner.frame = CGRectMake(imgBanner.frame.origin.x, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, 0);
+                scrollView.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
+            }];
+        }
+
+        NSLog(@"react to dragging up");
+    }
 }
 
 @end

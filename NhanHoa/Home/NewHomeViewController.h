@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UIButton *icSearch;
 
-@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIImageView *imgBanner;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 

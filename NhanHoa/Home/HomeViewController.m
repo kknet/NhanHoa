@@ -57,6 +57,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserWalletView)
                                                  name:@"reloadBalanceInfo" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCallTokenResult:)
+                                                 name:@"updateCallTokenResult" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -174,6 +177,23 @@
         [[AppDelegate sharedInstance].window bringSubviewToFront:[AppDelegate sharedInstance].cartView];
     }
 }
+
+- (void)updateCallTokenResult: (NSNotification *)notif
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] object = %@", __FUNCTION__, @[[notif object]])];
+    
+    NSDictionary *object = [notif object];
+    if ([object isKindOfClass:[NSDictionary class]])
+    {
+        id success = [object objectForKey:@"success"];
+        if ([success boolValue] == TRUE) {
+            [AppDelegate sharedInstance].callTokenReady = TRUE;
+        }else{
+            [AppDelegate sharedInstance].callTokenReady = FALSE;
+        }
+    }
+}
+
 
 #pragma mark - UICollectionview menu
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -532,16 +552,6 @@
     
     //  save password for get acc voip (used when app was killed)
     [AccountModel storePasswordForAccount];
-}
-
--(void)updateCallTokenSuccesful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    [AppDelegate sharedInstance].callTokenReady = TRUE;
-}
-
--(void)failedToUpdateCallToken:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR!!!!!!!!!!!! CAN NOT UPDATE TOKEN FOR CALL WITH ERROR = %@", __FUNCTION__, error)];
-    [AppDelegate sharedInstance].callTokenReady = FALSE;
 }
 
 @end
