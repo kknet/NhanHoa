@@ -65,11 +65,13 @@
             [self startToUpdateDurationForCall];
         }
     }
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
+                                               name:AVAudioSessionRouteChangeNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    //  self.navigationController.navigationBarHidden = [AppDelegate sharedInstance].cartView.hidden = FALSE;
 }
 
 - (IBAction)icOutSpeakerClick:(UIButton *)sender {
@@ -95,6 +97,7 @@
 
 - (IBAction)icOutMuteClick:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    return;
     
     BOOL isMuted = [[AppDelegate sharedInstance] checkMicrophoneWasMuted];
     if (isMuted) {
@@ -119,10 +122,9 @@
 }
 
 - (IBAction)icOutEndCallClick:(UIButton *)sender {
-    [[AppDelegate sharedInstance] hideCallView];
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
+    [[AppDelegate sharedInstance] hideCallView];
     [[AppDelegate sharedInstance] hangupAllCall];
 }
 
@@ -347,6 +349,8 @@
             NSString *state = [info objectForKey:@"state"];
             NSString *last_status = [info objectForKey:@"last_status"];
             
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] state -------> %@", __FUNCTION__, state)];
+            
             if ([state isEqualToString: CALL_INV_STATE_CALLING]) {
                 self.lbOutCallState.text = @"Đang gọi...";
                 
@@ -491,6 +495,8 @@
 }
 
 - (void)showMiniKeypadOnView: (UIView *)aview {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UIMiniKeypad" owner:nil options:nil];
     UIMiniKeypad *viewKeypad;
     for(id currentObject in toplevelObject){
@@ -517,12 +523,16 @@
 }
 
 - (void)endCallFromMiniKeypad {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     [self hideMiniKeypad];
     [[AppDelegate sharedInstance] hangupAllCall];
 }
 
 //  Hide keypad mini
 - (void)hideMiniKeypad{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     for (UIView *subView in self.view.subviews) {
         if (subView.tag == 10) {
             [UIView animateWithDuration:.35 animations:^{
@@ -545,5 +555,55 @@
         view.alpha = 1.0;
     }];
 }
+
+- (void)audioRouteChangeListenerCallback:(NSNotification *)notif {
+    if ([DeviceUtils isIPAD]) {
+        return;
+    }
+    
+    // there is at least one bug when you disconnect an audio bluetooth headset
+    // since we only get notification of route having changed, we cannot tell if that is due to:
+    // -bluetooth headset disconnected or
+    // -user wanted to use earpiece
+    // the only thing we can assume is that when we lost a device, it must be a bluetooth one (strong hypothesis though)
+    if ([[notif.userInfo valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue] ==
+        AVAudioSessionRouteChangeReasonOldDeviceUnavailable)
+    {
+        NSLog(@"_bluetoothAvailable = NO;");
+    }
+    
+    AVAudioSessionRouteDescription *newRoute = [AVAudioSession sharedInstance].currentRoute;
+    if (newRoute && (unsigned long)newRoute.outputs.count > 0) {
+        NSString *route = newRoute.outputs[0].portType;
+        
+        NSLog(@"Detect BLE: newRoute = %@", route);
+        
+        BOOL _speakerEnabled = [route isEqualToString:AVAudioSessionPortBuiltInSpeaker];
+        if (notif.userInfo != nil) {
+            NSDictionary *info = notif.userInfo;
+            id headphonesObj = [info objectForKey:@"AVAudioSessionRouteChangeReasonKey"];
+            if (headphonesObj != nil && [headphonesObj isKindOfClass:[NSNumber class]]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"headsetPluginChanged" object:headphonesObj];
+            }
+        }
+        
+        //  [Khai Le - 23/03/2019]
+        if (([[AppUtils bluetoothRoutes] containsObject:route]) && !_speakerEnabled) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"bluetoothEnabled" object:nil];
+        }else if ([[route lowercaseString] containsString:@"speaker"]){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"speakerEnabled" object:nil];
+            
+            [icSpeaker setImage:[UIImage imageNamed:@"speaker_enable"] forState:UIControlStateNormal];
+            [icOutSpeaker setImage:[UIImage imageNamed:@"speaker_enable"] forState:UIControlStateNormal];
+            
+        }else{
+            [icSpeaker setImage:[UIImage imageNamed:@"speaker_normal"] forState:UIControlStateNormal];
+            [icOutSpeaker setImage:[UIImage imageNamed:@"speaker_normal"] forState:UIControlStateNormal];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"iPhoneReceiverEnabled" object:nil];
+        }
+    }
+}
+
 
 @end

@@ -52,6 +52,7 @@
 
 - (IBAction)btnCallPress:(UIButton *)sender {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
     if ([AppDelegate sharedInstance].supportCall) {
         SupportListViewController *listVC = [[SupportListViewController alloc] initWithNibName:@"SupportListViewController" bundle:nil];
         [self.navigationController pushViewController:listVC animated:TRUE];

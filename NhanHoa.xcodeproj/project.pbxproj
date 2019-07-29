@@ -144,6 +144,9 @@
 		15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */; };
 		15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */; };
 		15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */; };
+		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
+		4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879422EE941B00EDD030 /* NewHomeViewController.m */; };
+		4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879522EE941B00EDD030 /* NewHomeViewController.xib */; };
 		4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */; };
 		4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C041EA122E841F600DA7405 /* UIMiniKeypad.m */; };
 		4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA422E8432600DA7405 /* ic_back_act.png */; };
@@ -632,6 +635,10 @@
 		15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePersonalProfile.h; sourceTree = "<group>"; };
 		15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePersonalProfile.m; sourceTree = "<group>"; };
 		15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePersonalProfile.xib; sourceTree = "<group>"; };
+		4C01879022EE83E900EDD030 /* callkit_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callkit_logo.png; sourceTree = "<group>"; };
+		4C01879322EE941B00EDD030 /* NewHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeViewController.h; sourceTree = "<group>"; };
+		4C01879422EE941B00EDD030 /* NewHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeViewController.m; sourceTree = "<group>"; };
+		4C01879522EE941B00EDD030 /* NewHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHomeViewController.xib; sourceTree = "<group>"; };
 		4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIMiniKeypad.xib; sourceTree = "<group>"; };
 		4C041EA022E841F600DA7405 /* UIMiniKeypad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIMiniKeypad.h; sourceTree = "<group>"; };
 		4C041EA122E841F600DA7405 /* UIMiniKeypad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIMiniKeypad.m; sourceTree = "<group>"; };
@@ -1487,6 +1494,9 @@
 				1517FB68227446980044E878 /* HomeViewController.h */,
 				1517FB69227446980044E878 /* HomeViewController.m */,
 				1517FB6A227446980044E878 /* HomeViewController.xib */,
+				4C01879322EE941B00EDD030 /* NewHomeViewController.h */,
+				4C01879422EE941B00EDD030 /* NewHomeViewController.m */,
+				4C01879522EE941B00EDD030 /* NewHomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1592,6 +1602,7 @@
 			isa = PBXGroup;
 			children = (
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
+				4C01879022EE83E900EDD030 /* callkit_logo.png */,
 				4C041ED622E8444800DA7405 /* button-endcall.png */,
 				4C041EA722E8437500DA7405 /* numpad_one_default.png */,
 				4C041EA622E8437400DA7405 /* numpad_one_hover.png */,
@@ -3028,6 +3039,7 @@
 				157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */,
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				84588AA0228093F000B59E0F /* ic_setting_acc.png in Resources */,
+				4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
 				15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */,
@@ -3216,6 +3228,7 @@
 				5612F8C722E7066C00ECBBB1 /* ringbacktone.mp3 in Resources */,
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
 				56A878A422CB504400300705 /* new_launch.jpg in Resources */,
+				4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
 				4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */,
 				4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */,
@@ -3383,6 +3396,7 @@
 				56FA23B122B01524003F89CB /* BankObject.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				562362DB22E2D89C001AE97A /* ProviderDelegate.m in Sources */,
+				4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */,

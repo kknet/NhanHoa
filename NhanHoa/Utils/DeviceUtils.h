@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isiPhoneXAndNewer;
 + (BOOL)isScreen375;
++ (BOOL)isIPAD;
 
 @end
 

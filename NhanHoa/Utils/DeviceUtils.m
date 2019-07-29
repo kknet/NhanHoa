@@ -184,4 +184,8 @@
     return FALSE;
 }
 
++ (BOOL)isIPAD {
+    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+}
+
 @end

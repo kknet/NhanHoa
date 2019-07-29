@@ -726,5 +726,9 @@
     return [result stringByAppendingString:[NSString stringWithFormat:@"%02i:%02i", (duration / 60), (duration % 60)]];
 }
 
++ (NSArray *)bluetoothRoutes {
+    return @[ AVAudioSessionPortBluetoothA2DP, AVAudioSessionPortBluetoothLE, AVAudioSessionPortBluetoothHFP ];
+}
+
 
 @end

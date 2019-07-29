@@ -115,6 +115,7 @@ typedef enum PaymentMethod{
 - (void)startTimerToReloadInfoAfterTopupSuccessful;
 
 @property (nonatomic, assign) BOOL supportCall;
+@property (nonatomic, assign) BOOL newHomeLayout;
 
 - (void)removeAccount;
 - (void)makeCallTo: (NSString *)strCall;

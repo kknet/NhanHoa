@@ -51,7 +51,7 @@
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
-@synthesize supportCall, ringbackPlayer, beepPlayer;
+@synthesize supportCall, ringbackPlayer, beepPlayer, newHomeLayout;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName;
 
@@ -110,6 +110,8 @@ AppDelegate      *app;
     
     //  setup logs folder
     supportCall = TRUE;
+    newHomeLayout = FALSE;
+    
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
     [self createErrorMessagesInfo];
@@ -1014,104 +1016,33 @@ AppDelegate      *app;
 }
 
 - (void)makeCallTo: (NSString *)strCall {
-    
-//    pj_status_t status;
-//    pjsip_inv_session *g_inv;
-//    pjsip_tx_data *tdata;
-//    pjsip_dialog *dlg;
-//    pjmedia_sdp_session *local_sdp;
-//    pjmedia_transport_info g_med_tpinfo[MAX_MEDIA_CNT]; /* Socket info for media */
-//    pjmedia_sock_info g_sock_info[MAX_MEDIA_CNT];
-//    pjmedia_transport *g_med_transport[MAX_MEDIA_CNT];
-//
-//    /* Create UAC dialog */
-//    pj_str_t local_uri = pj_str((char *)[@"<sip:151@nhanhoa1.vfone.vn:51000>" UTF8String]);
-//    pj_str_t dst_uri = pj_str((char *)[@"<sip:150@nhanhoa1.vfone.vn:51000>" UTF8String]);
-//    status = pjsip_dlg_create_uac(pjsip_ua_instance(),
-//                                  &local_uri, /* local URI */
-//                                  &local_uri, /* local Contact */
-//                                  &dst_uri, /* remote URI */
-//                                  &dst_uri, /* remote target */
-//                                  &dlg); /* dialog */
-//    if (status != PJ_SUCCESS) {
-//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-//    }
-//
-//    /* Must create a pool factory before we can allocate any memory. */
-//    pj_caching_pool cp; /* Global pool factory. */
-//    pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
-//
-//    /* Get the SDP body to be put in the outgoing INVITE, by asking
-//     * media endpoint to create one for us.
-//     */
-//    pjmedia_endpt *g_med_endpt = pjsua_get_pjmedia_endpt();
-//
-//    for (int i = 0; i < PJ_ARRAY_SIZE(g_med_transport); ++i) {
-//        status = pjmedia_transport_udp_create3(g_med_endpt, AF, NULL, NULL, RTP_PORT + i*2, 0, &g_med_transport[i]);
-//        if (status != PJ_SUCCESS) {
-//            NSLog(@"Unable to create media transport %d", status);
-//            return;
-//        }
-//       /*
-//              425  * Get socket info (address, port) of the media transport. We will
-//              426  * need this info to create SDP (i.e. the address and port info in
-//              427  * the SDP).
-//              428  */
-//        pjmedia_transport_info_init(&g_med_tpinfo[i]);
-//        pjmedia_transport_get_info(g_med_transport[i], &g_med_tpinfo[i]);
-//
-//        pj_memcpy(&g_sock_info[i], &g_med_tpinfo[i].sock_info, sizeof(pjmedia_sock_info));
-//    }
-//
-////    status = pjmedia_endpt_create(&cp.factory, NULL, 1, &g_med_endpt);
-////    if (status != PJ_SUCCESS) {
-////        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-////    }
-//
-//    status = pjmedia_endpt_create_sdp(g_med_endpt, dlg->pool, MAX_MEDIA_CNT, g_sock_info, &local_sdp);
-//    if (status != PJ_SUCCESS) {
-//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-//    }
-//
-//    /* Create the INVITE session, and pass the SDP returned earlier
-//     * as the session's initial capability.
-//     */
-//    status = pjsip_inv_create_uac(dlg, local_sdp, 0, &g_inv);
-//    if (status != PJ_SUCCESS) {
-//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-//    }
-//
-//    /* Create initial INVITE request.
-//     * This INVITE request will contain a perfectly good request and
-//     * an SDP body as well.
-//     */
-//    status = pjsip_inv_invite(g_inv, &tdata);
-//    if (status != PJ_SUCCESS) {
-//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-//    }
-//
-//    /* Send initial INVITE request.
-//     * From now on, the invite session's state will be reported to us
-//     * via the invite session callbacks.
-//     */
-//    status = pjsip_inv_send_msg(g_inv, tdata);
-//    if (status != PJ_SUCCESS) {
-//        NSLog(@"ERROR!!!!!!!!!!!!!!!!!!!!");
-//    }
-//    return;
-    
     //  NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
     char *destUri = (char *)[strCall UTF8String];
 
     pjsua_acc_id acc_id = 0;
     pj_status_t status;
-    pj_str_t uri = pj_str(destUri);
+    pj_str_t pj_uri = pj_str(destUri);
 
     //current register id _acc_id
-    status = pjsua_call_make_call(acc_id, &uri, 0, NULL, NULL, NULL);
+    pj_caching_pool cp;
+    pj_pool_t *pool;
+    
+    pjsua_msg_data msg_data;
+    pjsua_msg_data_init(&msg_data);
+    
+    pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
+    pool= pj_pool_create(&cp.factory, "header", 1000, 1000, NULL);
+    
+    pj_str_t hname = pj_str((char *)[@"User-Agent" UTF8String]);
+    pj_str_t hvalue = pj_str((char *)[USERNAME UTF8String]);
+    pjsip_generic_string_hdr* add_hdr = pjsip_generic_string_hdr_create(pool, &hname, &hvalue);
+    pj_list_push_back(&msg_data.hdr_list, add_hdr);
+    
+    status = pjsua_call_make_call(acc_id, &pj_uri, 0, NULL, &msg_data, NULL);
     if (status != PJ_SUCCESS){
         NSLog(@"Error making call");
     }
+    pj_pool_release(pool);
 }
 
 - (int)getDurationForCurrentCall {
@@ -1301,8 +1232,6 @@ AppDelegate      *app;
         pjsua_acc_del(accId);
     }
 }
-
-check loa ngoai , mute voi callkit
 
 //  Callback called by the library upon receiving incoming call
 static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata)

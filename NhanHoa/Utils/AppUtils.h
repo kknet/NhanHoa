@@ -60,5 +60,6 @@ typedef enum {
 + (NSString *)getStatusValueWithCode: (NSString *)status;
 + (BOOL)checkDomainIsNationalDomain: (NSString *)domain;
 + (NSString *)durationToString:(int)duration;
++ (NSArray *)bluetoothRoutes;
 
 @end

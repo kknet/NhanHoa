@@ -80,8 +80,12 @@
 - (void)onRegStateChanged: (NSNotification *)notif
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUD dismiss];
+        
         NSNumber *state = [notif object];
         if ([state isKindOfClass:[NSNumber class]]) {
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] VALUE >>>>>>>>>> %d", __FUNCTION__, [state intValue])];
+            
             int value = [state intValue];
             if (value == 1) {
                 if ([AppDelegate sharedInstance].accCallInfo != nil && ![AppUtils isNullOrEmpty: extenCall]) {
@@ -89,6 +93,8 @@
                     NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
                     
                     NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", extenCall, domain, port];
+                    [WriteLogsUtils writeLogContent:SFM(@"YOU CALL TO STRING: %@", stringForCall)];
+                    
                     //  stringForCall = @"sip:150@nhanhoa1.vfone.vn:51000";
                     [[AppDelegate sharedInstance] makeCallTo: stringForCall];
                     
@@ -113,25 +119,22 @@
 #pragma mark - WebServiceUtil Delegate
 
 -(void)getVoipAccountSuccessfulWithData:(NSDictionary *)data {
-    NSString *stringForCall = @"sip:150@nhanhoa1.vfone.vn:51000";
-    [[AppDelegate sharedInstance] makeCallTo: stringForCall];
-    
-    [[AppDelegate sharedInstance] showCallViewWithDirection:OutgoingCall remote:remoteName];
-    return;
-    
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
         
         [[AppDelegate sharedInstance] registerSIPAccountWithInfo: data];
         
     }else{
+        [ProgressHUD dismiss];
         [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
 -(void)failedToGetVoipAccount:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    [ProgressHUD dismiss];
     
     [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
@@ -239,8 +242,9 @@
         extenCall = [info objectForKey:@"exten"];
         
         if (![AppUtils isNullOrEmpty: extenCall]) {
-            remoteName = [info objectForKey:@"name"];
+            [ProgressHUD backgroundColor: ProgressHUD_BG];
             
+            remoteName = [info objectForKey:@"name"];
             [[WebServiceUtils getInstance] getAccVoIPFree];
             
         }else{

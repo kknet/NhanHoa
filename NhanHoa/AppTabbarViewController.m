@@ -8,6 +8,7 @@
 
 #import "AppTabbarViewController.h"
 #import "HomeViewController.h"
+#import "NewHomeViewController.h"
 #import "BOViewController.h"
 #import "TransHistoryViewController.h"
 #import "MoreViewController.h"
@@ -36,8 +37,16 @@
     //  Tabbar home
     //  HelveticaNeue-Medium
     UIFont *itemFont = [UIFont fontWithName:@"HelveticaNeue" size:12.5];
-    HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
+    
+    UINavigationController *homeNav;
+    if ([AppDelegate sharedInstance].newHomeLayout) {
+        NewHomeViewController *homeVC = [[NewHomeViewController alloc] initWithNibName:@"NewHomeViewController" bundle:nil];
+        homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
+        
+    }else{
+        HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+        homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
+    }
     
     UIImage *imgHome = [UIImage imageNamed:@"tabbar_home_def"];
     imgHome = [imgHome imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -66,8 +75,15 @@
 //    boNav.tabBarItem = boItem;
     
     //  Tabbar transaction history
-    TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
-    UINavigationController *transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
+    UINavigationController *transHisNav;
+    if ([AppDelegate sharedInstance].newHomeLayout) {
+        HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+        transHisNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
+        
+    }else{
+        TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
+        transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
+    }
     
     UIImage *imgTransHis = [UIImage imageNamed:@"tabbar_history_def"];
     imgTransHis = [imgTransHis imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
