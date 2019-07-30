@@ -210,8 +210,10 @@
     }];
     
     //  scrollview content
+    scvContent.showsVerticalScrollIndicator = FALSE;
+    scvContent.showsHorizontalScrollIndicator = FALSE;
     scvContent.delegate = self;
-    scvContent.backgroundColor = UIColor.orangeColor;
+    scvContent.backgroundColor = UIColor.whiteColor;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgBanner.mas_bottom);
         make.left.equalTo(self.view);
@@ -491,12 +493,12 @@
     if(translation.y > 0)
     {
         // react to dragging down
-        if (scvContent.frame.origin.y < imgBanner.frame.origin.y + hHeader){
+        if (scrollView.frame.origin.y + fabs(scrollView.contentOffset.y) < (viewSearch.frame.origin.y + hSearch + hHeader)){
             float newOriginY = scvContent.frame.origin.y + fabs(scrollView.contentOffset.y);
             scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
             scvContent.contentOffset = CGPointMake(0, 0);
             
-            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - imgBanner.frame.origin.y);
+            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - (viewSearch.frame.origin.y+hSearch));
         }else{
             imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, hHeader);
             
@@ -505,20 +507,18 @@
         }
     } else
     {
-        NSLog(@"y = %f", imgBanner.frame.origin.y);
-        
         //  react to dragging up
-        if (scvContent.frame.origin.y > imgBanner.frame.origin.y) {
+        if (scrollView.frame.origin.y - scrollView.contentOffset.y > (viewSearch.frame.origin.y + hSearch)) {
             float newOriginY = scvContent.frame.origin.y-scrollView.contentOffset.y;
-            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
             scvContent.contentOffset = CGPointMake(0, 0);
+            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
             
             imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - imgBanner.frame.origin.y);
         }else{
             imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, 0);
-            
-            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
             scvContent.contentOffset = CGPointMake(0, 0);
+            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
+            
         }
     }
 }

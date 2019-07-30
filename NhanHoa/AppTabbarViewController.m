@@ -114,6 +114,15 @@
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
     tabBarController.viewControllers = @[homeNav, transHisNav, moreNav];
     [self.view addSubview: tabBarController.view];
+    
+    UIView *lbTop = [[UILabel alloc] init];
+    lbTop.backgroundColor = BORDER_COLOR;
+    [tabBarController.view addSubview: lbTop];
+    [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(tabBarController.view);
+        make.bottom.equalTo(tabBarController.view).offset(-tabBarController.tabBar.frame.size.height);
+        make.height.mas_equalTo(1.0);
+    }];
 }
 
 - (void)setupUIForView {
