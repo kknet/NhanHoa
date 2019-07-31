@@ -144,6 +144,14 @@
 		15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */; };
 		15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */; };
 		15FF498122A65B260056B078 /* UpdatePersonalProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */; };
+		4C0078F622F1310200C19492 /* DomainDNSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0078F422F1310200C19492 /* DomainDNSViewController.m */; };
+		4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0078F522F1310200C19492 /* DomainDNSViewController.xib */; };
+		4C0078FB22F1345100C19492 /* DNSManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0078F922F1345100C19492 /* DNSManagerCell.m */; };
+		4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0078FA22F1345100C19492 /* DNSManagerCell.xib */; };
+		4C00790522F143B300C19492 /* DNSDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00790322F143B300C19492 /* DNSDetailCell.m */; };
+		4C00790622F143B300C19492 /* DNSDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790422F143B300C19492 /* DNSDetailCell.xib */; };
+		4C00790922F144E800C19492 /* dns_del.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790722F144E800C19492 /* dns_del.png */; };
+		4C00790A22F144E800C19492 /* dns_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790822F144E800C19492 /* dns_edit.png */; };
 		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
 		4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879422EE941B00EDD030 /* NewHomeViewController.m */; };
 		4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879522EE941B00EDD030 /* NewHomeViewController.xib */; };
@@ -637,6 +645,17 @@
 		15FF497D22A65B180056B078 /* UpdatePersonalProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePersonalProfile.h; sourceTree = "<group>"; };
 		15FF497E22A65B180056B078 /* UpdatePersonalProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePersonalProfile.m; sourceTree = "<group>"; };
 		15FF498022A65B260056B078 /* UpdatePersonalProfile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePersonalProfile.xib; sourceTree = "<group>"; };
+		4C0078F322F1310200C19492 /* DomainDNSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDNSViewController.h; sourceTree = "<group>"; };
+		4C0078F422F1310200C19492 /* DomainDNSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDNSViewController.m; sourceTree = "<group>"; };
+		4C0078F522F1310200C19492 /* DomainDNSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainDNSViewController.xib; sourceTree = "<group>"; };
+		4C0078F822F1345100C19492 /* DNSManagerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSManagerCell.h; sourceTree = "<group>"; };
+		4C0078F922F1345100C19492 /* DNSManagerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSManagerCell.m; sourceTree = "<group>"; };
+		4C0078FA22F1345100C19492 /* DNSManagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSManagerCell.xib; sourceTree = "<group>"; };
+		4C00790222F143B300C19492 /* DNSDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailCell.h; sourceTree = "<group>"; };
+		4C00790322F143B300C19492 /* DNSDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailCell.m; sourceTree = "<group>"; };
+		4C00790422F143B300C19492 /* DNSDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSDetailCell.xib; sourceTree = "<group>"; };
+		4C00790722F144E800C19492 /* dns_del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dns_del.png; sourceTree = "<group>"; };
+		4C00790822F144E800C19492 /* dns_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dns_edit.png; sourceTree = "<group>"; };
 		4C01879022EE83E900EDD030 /* callkit_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callkit_logo.png; sourceTree = "<group>"; };
 		4C01879322EE941B00EDD030 /* NewHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeViewController.h; sourceTree = "<group>"; };
 		4C01879422EE941B00EDD030 /* NewHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeViewController.m; sourceTree = "<group>"; };
@@ -1607,6 +1626,8 @@
 			isa = PBXGroup;
 			children = (
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
+				4C00790722F144E800C19492 /* dns_del.png */,
+				4C00790822F144E800C19492 /* dns_edit.png */,
 				4C01879022EE83E900EDD030 /* callkit_logo.png */,
 				4C041ED622E8444800DA7405 /* button-endcall.png */,
 				4C041EA722E8437500DA7405 /* numpad_one_default.png */,
@@ -2852,6 +2873,9 @@
 				56064F3122C7696B003D8859 /* SigningDomainViewController.h */,
 				56064F3222C7696B003D8859 /* SigningDomainViewController.m */,
 				56064F3322C7696B003D8859 /* SigningDomainViewController.xib */,
+				4C0078F322F1310200C19492 /* DomainDNSViewController.h */,
+				4C0078F422F1310200C19492 /* DomainDNSViewController.m */,
+				4C0078F522F1310200C19492 /* DomainDNSViewController.xib */,
 			);
 			path = RenewedDomain;
 			sourceTree = "<group>";
@@ -2868,6 +2892,12 @@
 				56D5761522A287EA00F6ADAD /* PriceDomainInfoCell.h */,
 				56D5761622A287EA00F6ADAD /* PriceDomainInfoCell.m */,
 				56D5761722A287EA00F6ADAD /* PriceDomainInfoCell.xib */,
+				4C0078F822F1345100C19492 /* DNSManagerCell.h */,
+				4C0078F922F1345100C19492 /* DNSManagerCell.m */,
+				4C0078FA22F1345100C19492 /* DNSManagerCell.xib */,
+				4C00790222F143B300C19492 /* DNSDetailCell.h */,
+				4C00790322F143B300C19492 /* DNSDetailCell.m */,
+				4C00790422F143B300C19492 /* DNSDetailCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3055,6 +3085,7 @@
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				84F1730622833310006AEE87 /* wallet_white.png in Resources */,
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
+				4C00790A22F144E800C19492 /* dns_edit.png in Resources */,
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
@@ -3111,6 +3142,7 @@
 				5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */,
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
+				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
 				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				564619C622A812B400867B21 /* PaymentViewController.xib in Resources */,
@@ -3174,6 +3206,7 @@
 				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
+				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
 				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */,
@@ -3197,6 +3230,7 @@
 				8464D740227BBC8A00381DE5 /* passport_empty_front.png in Resources */,
 				842F81B7227561ED00D6DE6D /* Roboto-Medium.ttf in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
+				4C00790922F144E800C19492 /* dns_del.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
 				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
@@ -3224,6 +3258,7 @@
 				8464D73E227BBC8A00381DE5 /* passport_front.png in Resources */,
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
 				5612F8CB22E7094700ECBBB1 /* hold_enable.png in Resources */,
+				4C00790622F143B300C19492 /* DNSDetailCell.xib in Resources */,
 				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
 				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
@@ -3379,6 +3414,7 @@
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
+				4C0078F622F1310200C19492 /* DomainDNSViewController.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				56FA23B522B0191F003F89CB /* BankCell.m in Sources */,
 				567FDE5222CD11AF0081616B /* pjsua_app.c in Sources */,
@@ -3406,6 +3442,7 @@
 				56FA23B122B01524003F89CB /* BankObject.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				562362DB22E2D89C001AE97A /* ProviderDelegate.m in Sources */,
+				4C0078FB22F1345100C19492 /* DNSManagerCell.m in Sources */,
 				4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */,
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
@@ -3417,6 +3454,7 @@
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
+				4C00790522F143B300C19492 /* DNSDetailCell.m in Sources */,
 				84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */,
 				560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */,
 				56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */,

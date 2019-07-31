@@ -9,7 +9,7 @@
 #import "RenewDomainDetailViewController.h"
 #import "RenewDomainCartViewController.h"
 #import "UpdatePassportViewController.h"
-#import "UpdateDNSViewController.h"
+#import "DomainDNSViewController.h"
 #import "SigningDomainViewController.h"
 
 @interface RenewDomainDetailViewController ()<WebServiceUtilsDelegate> {
@@ -154,9 +154,12 @@
     [btnChangeDNS setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if (![AppUtils isNullOrEmpty: lbTopDomain.text]) {
-        UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
-        updateDNSVC.domain = lbTopDomain.text;
-        [self.navigationController pushViewController:updateDNSVC animated:TRUE];
+        DomainDNSViewController *domainDNSVC = [[DomainDNSViewController alloc] initWithNibName:@"DomainDNSViewController" bundle:nil];
+        [self.navigationController pushViewController:domainDNSVC animated:TRUE];
+        
+//        UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
+//        updateDNSVC.domain = lbTopDomain.text;
+//        [self.navigationController pushViewController:updateDNSVC animated:TRUE];
     }else{
         [self.view makeToast:@"Tên miền không tồn tại. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
@@ -202,10 +205,14 @@
     
     //  reupdate frame for top label
     float sizeText = [AppUtils getSizeWithText:domain withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;
+    float hTop = 40.0;
+    if ([DeviceUtils isScreen320]) {
+        hTop = 25.0;
+    }
     [lbTopDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hTop);
         make.width.mas_equalTo(sizeText + 10.0);
     }];
     
@@ -343,9 +350,11 @@
 - (void)setupUIForView {
     padding = 15.0;
     hItem = 40.0;
+    float hTop = 40.0;
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
         hItem = 35.0;
+        hTop = 25.0;
     }
     
     lbTopDomain.backgroundColor = UIColor.whiteColor;
@@ -356,7 +365,7 @@
     [lbTopDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hTop);
     }];
     
     viewDetail.layer.cornerRadius = 5.0;

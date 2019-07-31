@@ -9,10 +9,21 @@
 #import "NewHomeViewController.h"
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
+#import "SearchDomainViewController.h"
+#import "RegisterDomainViewController.h"
+#import "PricingDomainViewController.h"
+#import "WhoIsViewController.h"
+#import "RenewedDomainViewController.h"
+#import "WithdrawalBonusAccountViewController.h"
+#import "ProfileManagerViewController.h"
+#import "SupportViewController.h"
 #import "HomeMenuObject.h"
 #import "NewHomeMenuCell.h"
 
-@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIScrollViewDelegate>{
+#import "DomainDNSViewController.h"
+
+@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WebServiceUtilsDelegate>
+{
     NSMutableArray *listMenu;
     float hTabbar;
     float hMenu;
@@ -20,6 +31,9 @@
     int numOfLine;
     float hSearch;
     float hNav;
+    
+    CGPoint startLocation;
+    UIPanGestureRecognizer *panAction;
 }
 
 @end
@@ -27,7 +41,7 @@
 @implementation NewHomeViewController
 @synthesize viewSearch, tfSearch, icSearch;
 @synthesize imgBanner;
-@synthesize scvContent, viewWallet, viewMainWallet, imgMainWallet, lbMainWallet, lbMoneyMain, viewBonusWallet, imgBonusWallet, lbBonusWallet, lbMoneyBonus, lbSepa;
+@synthesize viewContent, viewWallet, viewMainWallet, imgMainWallet, lbMainWallet, lbMoneyMain, viewBonusWallet, imgBonusWallet, lbBonusWallet, lbMoneyBonus, lbSepa;
 @synthesize clvMenu;
 
 - (void)viewDidLoad {
@@ -36,6 +50,7 @@
     numOfLine = 3;
     hTabbar = self.tabBarController.tabBar.frame.size.height;
     [self createDataForMenuView];
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -45,10 +60,33 @@
     [WriteLogsUtils writeForGoToScreen: @"NewHomeViewController"];
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
     
-    [self setupUIForView];
-    
     [self showUserWalletView];
     [self createCartViewIfNeed];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUserWalletView)
+                                                 name:@"reloadBalanceInfo" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCallTokenResult:)
+                                                 name:@"updateCallTokenResult" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    if (self.navigationController.navigationBar.frame.size.height > 0) {
+        [AppDelegate sharedInstance].hNav = self.navigationController.navigationBar.frame.size.height;
+    }else{
+        [AppDelegate sharedInstance].hNav = 50.0;
+    }
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
+    [self.navigationController setNavigationBarHidden: FALSE];
 }
 
 - (void)showUserWalletView {
@@ -200,7 +238,7 @@
         
         NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
         UIImage *banner = [UIImage imageWithData: imgData];
-        hHeader = SCREEN_WIDTH * banner.size.height / banner.size.width;
+        hHeader = (int)(SCREEN_WIDTH * banner.size.height / banner.size.width);
         imgBanner.image = banner;
     }
     [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,22 +247,21 @@
         make.height.mas_equalTo(hHeader);
     }];
     
-    //  scrollview content
-    scvContent.showsVerticalScrollIndicator = FALSE;
-    scvContent.showsHorizontalScrollIndicator = FALSE;
-    scvContent.delegate = self;
-    scvContent.backgroundColor = UIColor.whiteColor;
-    [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
+    //  view content
+    panAction = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    [viewContent addGestureRecognizer:panAction];
+    
+    viewContent.userInteractionEnabled = TRUE;
+    viewContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgBanner.mas_bottom);
-        make.left.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-hTabbar);
     }];
     
     //  wallet info view
     [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.top.left.right.equalTo(viewContent);
         make.height.mas_equalTo(hWallet);
     }];
     
@@ -300,7 +337,8 @@
         make.height.mas_equalTo(2.0);
     }];
     
-    hMenu = 100;
+    hMenu = (SCREEN_HEIGHT - hSearch - hWallet - hTabbar)/[self getNumLineOfMenuView];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;
     layout.minimumInteritemSpacing = 0;
@@ -311,28 +349,11 @@
     clvMenu.backgroundColor = UIColor.whiteColor;
     [clvMenu registerNib:[UINib nibWithNibName:@"NewHomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"NewHomeMenuCell"];
     
-    float hMenuView = [self getHeightOfMenuView];
     clvMenu.scrollEnabled = FALSE;
     [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewWallet.mas_bottom);
-        make.left.equalTo(scvContent);
-        //  make.bottom.equalTo(scvContent);
-        make.height.mas_equalTo(hMenuView);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.right.bottom.equalTo(viewContent);
     }];
-    
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hWallet + hMenuView);
-}
-
-- (void)changeNumOfLine {
-    if (numOfLine == 3) {
-        numOfLine = 4;
-    }else{
-        numOfLine = 3;
-    }
-    [self setupUIForView];
-    [clvMenu reloadData];
-    [self showUserWalletView];
 }
 
 - (void)whenTapOnMainWallet {
@@ -351,13 +372,29 @@
     [self.navigationController pushViewController: bonusAccVC animated:YES];
 }
 
-- (float)getHeightOfMenuView {
+- (int)getNumLineOfMenuView {
     int numLine = (int)listMenu.count/numOfLine;
     float surPlus = listMenu.count % numOfLine;
     if (surPlus > 0) {
         numLine++;
     }
-    return numLine * hMenu;
+    return numLine;
+}
+
+- (void)updateCallTokenResult: (NSNotification *)notif
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] object = %@", __FUNCTION__, @[[notif object]])];
+    
+    NSDictionary *object = [notif object];
+    if ([object isKindOfClass:[NSDictionary class]])
+    {
+        id success = [object objectForKey:@"success"];
+        if ([success boolValue] == TRUE) {
+            [AppDelegate sharedInstance].callTokenReady = TRUE;
+        }else{
+            [AppDelegate sharedInstance].callTokenReady = FALSE;
+        }
+    }
 }
 
 #pragma mark - UICollectionview menu
@@ -388,7 +425,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
-    /*
+    
     switch (indexPath.row) {
         case eRegisterDomain:{
             RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
@@ -446,9 +483,37 @@
             
             break;
         }
+        case eOrdersList:{
+            DomainDNSViewController *domainDNSVC = [[DomainDNSViewController alloc] initWithNibName:@"DomainDNSViewController" bundle:nil];
+            domainDNSVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: domainDNSVC animated:YES];
+            
+            NSLog(@"Orders List");
+            break;
+        }
+        case eRegisterHosting:{
+            NSLog(@"Register Hosting");
+            break;
+        }
+        case eRegisterSSL:{
+            NSLog(@"Register SSL");
+            break;
+        }
+        case eRegisterEmail:{
+            NSLog(@"Orders List");
+            break;
+        }
+        case eRegisterVPS:{
+            NSLog(@"Register VPS");
+            break;
+        }
+        case eRegisterCloudServer:{
+            NSLog(@"Register Cloud Server");
+            break;
+        }
         default:
         break;
-    }   */
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -472,78 +537,112 @@
     return TRUE;
 }
 
-#pragma mark - Scrollview delegate
+#pragma mark - UIPanGestureRecognizer delegate
 
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+- (void)panGesture:(UIPanGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        startLocation = [sender locationInView:self.view];
+        
+    }else if (sender.state == UIGestureRecognizerStateChanged) {
+        CGPoint stopLocation = [sender locationInView:self.view];
+        //  CGFloat dx = stopLocation.x - startLocation.x;
+        CGFloat dy = stopLocation.y - startLocation.y;
+        if (dy < 0) {
+            //  move up
+            dy = fabs(dy);
+            if (imgBanner.frame.size.height == 0) {
+                return;
+            }
+            if ((hHeader - dy) > 0 && (hHeader - dy) < hHeader) {
+                [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(hHeader-dy);
+                }];
+            }else{
+                [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(0);
+                }];
+                startLocation = stopLocation;
+            }
+        }else{
+            if (dy > hHeader) {
+                [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(hHeader);
+                }];
+                startLocation = stopLocation;
+            }else{
+                if (imgBanner.frame.size.height + 10 > hHeader) {
+                    [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                        make.height.mas_equalTo(hHeader);
+                    }];
+                    startLocation = stopLocation;
+                }else{
+                    if (imgBanner.frame.size.height < hHeader && dy < hHeader) {
+                        [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                            make.height.mas_equalTo(dy);
+                        }];
+                    }
+                }
+            }
+        }
+    }
+    else if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint stopLocation = [sender locationInView:self.view];
+        CGFloat dy = stopLocation.y - startLocation.y;
+        if (dy < 0) {
+            if (imgBanner.frame.size.height > 0) {
+                [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(0);
+                }];
+                
+                [UIView animateWithDuration:0.2 animations:^{
+                    [self.view layoutIfNeeded];
+                }];
+            }
+        }else{
+            if (imgBanner.frame.size.height < hHeader) {
+                [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(hHeader);
+                }];
+                [UIView animateWithDuration:0.2 animations:^{
+                    [self.view layoutIfNeeded];
+                }];
+            }
+        }
+    }
+}
+
+- (IBAction)icSearchClick:(UIButton *)sender {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text)];
     
-    if(translation.y > 0)
-    {
-        NSLog(@"react to dragging down");
-        // react to dragging down
-    } else
-    {
-        NSLog(@"react to dragging up");
-        // react to dragging up
+    [self.view endEditing: TRUE];
+    
+    if ([AppUtils isNullOrEmpty: tfSearch.text]) {
+        return;
     }
+    
+    SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
+    searchDomainVC.strSearch = tfSearch.text;
+    searchDomainVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchDomainVC animated:YES];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-    if(translation.y > 0)
-    {
-        // react to dragging down
-        if (scrollView.frame.origin.y + fabs(scrollView.contentOffset.y) < (viewSearch.frame.origin.y + hSearch + hHeader)){
-            float newOriginY = scvContent.frame.origin.y + fabs(scrollView.contentOffset.y);
-            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
-            scvContent.contentOffset = CGPointMake(0, 0);
+#pragma mark - Webservice Delegate
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    if (![AppDelegate sharedInstance].callTokenReady) {
+        if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].callToken]) {
+            NSString *token = [NSString stringWithFormat:@"ios%@", [AppDelegate sharedInstance].callToken];
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] UPDATE TOKEN FOR CALL: %@", __FUNCTION__, token)];
             
-            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - (viewSearch.frame.origin.y+hSearch));
+            [[WebServiceUtils getInstance] updateTokenForCallWithToken: token];
         }else{
-            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, hHeader);
-            
-            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y + hHeader, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + hHeader + self.tabBarController.tabBar.frame.size.height));
-            scvContent.contentOffset = CGPointMake(0, 0);
-        }
-    } else
-    {
-        //  react to dragging up
-        if (scrollView.frame.origin.y - scrollView.contentOffset.y > (viewSearch.frame.origin.y + hSearch)) {
-            float newOriginY = scvContent.frame.origin.y-scrollView.contentOffset.y;
-            scvContent.contentOffset = CGPointMake(0, 0);
-            scvContent.frame = CGRectMake(scvContent.frame.origin.x, newOriginY, scvContent.frame.size.width, SCREEN_HEIGHT-(newOriginY + self.tabBarController.tabBar.frame.size.height));
-            
-            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, newOriginY - imgBanner.frame.origin.y);
-        }else{
-            imgBanner.frame = CGRectMake(0, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, 0);
-            scvContent.contentOffset = CGPointMake(0, 0);
-            scvContent.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
-            
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] WARNING!!!!!!!!!!!! CAN NOT GET TOKEN FOR CALL", __FUNCTION__)];
         }
     }
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-    if(translation.y > 0){
-        if (scrollView.frame.origin.y > imgBanner.frame.origin.y) {
-            [UIView animateWithDuration:0.2 animations:^{
-                imgBanner.frame = CGRectMake(imgBanner.frame.origin.x, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, hHeader);
-                scrollView.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y+hHeader, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + hHeader + self.tabBarController.tabBar.frame.size.height));
-            }];
-        }
-        NSLog(@"react to dragging down");
-
-    } else {
-        if (scrollView.frame.origin.y < imgBanner.frame.origin.y + hHeader) {
-            [UIView animateWithDuration:0.2 animations:^{
-                imgBanner.frame = CGRectMake(imgBanner.frame.origin.x, viewSearch.frame.origin.y+hSearch, imgBanner.frame.size.width, 0);
-                scrollView.frame = CGRectMake(scrollView.frame.origin.x, imgBanner.frame.origin.y, scrollView.frame.size.width, SCREEN_HEIGHT-(hSearch + self.tabBarController.tabBar.frame.size.height));
-            }];
-        }
-
-        NSLog(@"react to dragging up");
-    }
+    
+    //  save password for get acc voip (used when app was killed)
+    [AccountModel storePasswordForAccount];
 }
 
 @end

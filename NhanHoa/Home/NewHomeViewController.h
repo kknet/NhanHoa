@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgBanner;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
+@property (weak, nonatomic) IBOutlet UIView *viewContent;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
 @property (weak, nonatomic) IBOutlet UIView *viewMainWallet;
@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *clvMenu;
+
+- (IBAction)icSearchClick:(UIButton *)sender;
 
 @end
 

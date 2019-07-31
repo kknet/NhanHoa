@@ -32,6 +32,12 @@ typedef enum TypeHomeMenu{
     eWithdrawal,
     eProfile,
     eSupport,
+    eOrdersList,
+    eRegisterHosting,
+    eRegisterSSL,
+    eRegisterEmail,
+    eRegisterVPS,
+    eRegisterCloudServer,
 }TypeHomeMenu;
 
 typedef enum PaymentMethod{

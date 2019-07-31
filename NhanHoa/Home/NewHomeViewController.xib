@@ -21,10 +21,10 @@
                 <outlet property="lbMoneyBonus" destination="3EW-tu-XR1" id="CRy-yT-nVM"/>
                 <outlet property="lbMoneyMain" destination="trI-ut-G2u" id="d1M-CS-65U"/>
                 <outlet property="lbSepa" destination="DQk-us-LiO" id="VxL-kZ-tSa"/>
-                <outlet property="scvContent" destination="MQZ-WI-phS" id="7wO-p6-huK"/>
                 <outlet property="tfSearch" destination="4RI-4D-1CM" id="Ecj-P4-RI1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewBonusWallet" destination="I1g-rI-VIb" id="o86-fo-NkD"/>
+                <outlet property="viewContent" destination="IRE-4p-6xz" id="EhO-W6-hw1"/>
                 <outlet property="viewMainWallet" destination="Y8t-Qn-b2n" id="aQU-la-swQ"/>
                 <outlet property="viewSearch" destination="n8X-3E-Sva" id="cVi-ap-TCw"/>
                 <outlet property="viewWallet" destination="mJO-TT-KZq" id="eNh-bp-wEa"/>
@@ -52,6 +52,9 @@
                             <rect key="frame" x="280" y="10" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="search.png"/>
+                            <connections>
+                                <action selector="icSearchClick:" destination="-1" eventType="touchUpInside" id="7HC-XL-8yC"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.043137254899999998" green="0.3803921569" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,7 +63,7 @@
                     <rect key="frame" x="0.0" y="50" width="320" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQZ-WI-phS">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRE-4p-6xz">
                     <rect key="frame" x="0.0" y="150" width="320" height="330"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -129,7 +132,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5B1-X4-RkM">
-                            <rect key="frame" x="0.0" y="60" width="320" height="300"/>
+                            <rect key="frame" x="0.0" y="60" width="320" height="270"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fFK-Uz-s9k">
@@ -140,11 +143,12 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                     </subviews>
-                </scrollView>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-186" y="-165"/>
+            <point key="canvasLocation" x="-599" y="-276"/>
         </view>
     </objects>
     <resources>

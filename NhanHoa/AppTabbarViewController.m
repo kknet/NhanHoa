@@ -117,6 +117,7 @@
     
     UIView *lbTop = [[UILabel alloc] init];
     lbTop.backgroundColor = BORDER_COLOR;
+    lbTop.hidden = TRUE;
     [tabBarController.view addSubview: lbTop];
     [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(tabBarController.view);
