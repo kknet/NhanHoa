@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbHost;
 @property (weak, nonatomic) IBOutlet UILabel *lbBotSepa;
 
+- (void)showDNSRecordContentWithInfo: (NSDictionary *)info;
+
 @end
 
 NS_ASSUME_NONNULL_END

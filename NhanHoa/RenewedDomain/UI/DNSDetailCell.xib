@@ -136,7 +136,7 @@
                 <outlet property="lbType" destination="sD3-67-L8V" id="pDV-XJ-Tsy"/>
                 <outlet property="lbValue" destination="Bqs-Vi-VOZ" id="FMM-ZW-oej"/>
             </connections>
-            <point key="canvasLocation" x="-313" y="46"/>
+            <point key="canvasLocation" x="-383" y="47"/>
         </tableViewCell>
     </objects>
     <resources>

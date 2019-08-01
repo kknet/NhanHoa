@@ -730,5 +730,19 @@
     return @[ AVAudioSessionPortBluetoothA2DP, AVAudioSessionPortBluetoothLE, AVAudioSessionPortBluetoothHFP ];
 }
 
++ (BOOL)stringContainsOnlyNumber: (NSString *)string
+{
+    NSArray *numbers = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
+    
+    for (int index=0; index<string.length; index++) {
+        char c = [string characterAtIndex: index];
+        NSString *character = [NSString stringWithFormat:@"%c", c];
+        if (![numbers containsObject: character]) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
 
 @end

@@ -63,7 +63,6 @@
 		153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EB22867C48005E7DB2 /* ChooseCityPopupView.m */; };
 		153035F022868056005E7DB2 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 153035EE22868056005E7DB2 /* CityCell.m */; };
 		153035F122868056005E7DB2 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153035EF22868056005E7DB2 /* CityCell.xib */; };
-		1535EEE022B0D99B0034F298 /* report_app.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1535EEDF22B0D99B0034F298 /* report_app.txt */; };
 		15362864227C0688006827F9 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 15362863227C0686006827F9 /* picture.png */; };
 		15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15543EB222B1F759007E5966 /* ShoppingCartView.m */; };
 		15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15543EB422B1F764007E5966 /* ShoppingCartView.xib */; };
@@ -152,6 +151,11 @@
 		4C00790622F143B300C19492 /* DNSDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790422F143B300C19492 /* DNSDetailCell.xib */; };
 		4C00790922F144E800C19492 /* dns_del.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790722F144E800C19492 /* dns_del.png */; };
 		4C00790A22F144E800C19492 /* dns_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C00790822F144E800C19492 /* dns_edit.png */; };
+		4C00B3F322F2C7160087479C /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C00B3F222F2C7160087479C /* arrow_up.png */; };
+		4C00B3F722F2C7750087479C /* DNSRecordTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00B3F522F2C7750087479C /* DNSRecordTypeCell.m */; };
+		4C00B3F822F2C7750087479C /* DNSRecordTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C00B3F622F2C7750087479C /* DNSRecordTypeCell.xib */; };
+		4C00B3FC22F2E7520087479C /* DNSRecordManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */; };
+		4C00B3FE22F2E75F0087479C /* DNSRecordManagerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */; };
 		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
 		4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879422EE941B00EDD030 /* NewHomeViewController.m */; };
 		4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879522EE941B00EDD030 /* NewHomeViewController.xib */; };
@@ -308,7 +312,6 @@
 		56FA23B122B01524003F89CB /* BankObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B022B01524003F89CB /* BankObject.m */; };
 		56FA23B522B0191F003F89CB /* BankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FA23B322B0191F003F89CB /* BankCell.m */; };
 		56FA23B622B0191F003F89CB /* BankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FA23B422B0191F003F89CB /* BankCell.xib */; };
-		56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56FC1DBC229F45C70024CBB2 /* test_api.txt */; };
 		56FC243D22CDBCE8006AE4AA /* chirtmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56FC243B22CDBCE8006AE4AA /* chirtmas.mp3 */; };
 		56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56FC243C22CDBCE8006AE4AA /* silence.mp3 */; };
 		56FC5DCE22CEF0D700254F25 /* CustomSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FC5DCC22CEF0D700254F25 /* CustomSwitchButton.m */; };
@@ -529,7 +532,6 @@
 		153035ED22868056005E7DB2 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		153035EE22868056005E7DB2 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		153035EF22868056005E7DB2 /* CityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
-		1535EEDF22B0D99B0034F298 /* report_app.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = report_app.txt; sourceTree = "<group>"; };
 		15362863227C0686006827F9 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 		15543EB122B1F759007E5966 /* ShoppingCartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCartView.h; sourceTree = "<group>"; };
 		15543EB222B1F759007E5966 /* ShoppingCartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartView.m; sourceTree = "<group>"; };
@@ -656,6 +658,13 @@
 		4C00790422F143B300C19492 /* DNSDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSDetailCell.xib; sourceTree = "<group>"; };
 		4C00790722F144E800C19492 /* dns_del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dns_del.png; sourceTree = "<group>"; };
 		4C00790822F144E800C19492 /* dns_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dns_edit.png; sourceTree = "<group>"; };
+		4C00B3F222F2C7160087479C /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
+		4C00B3F422F2C7750087479C /* DNSRecordTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSRecordTypeCell.h; sourceTree = "<group>"; };
+		4C00B3F522F2C7750087479C /* DNSRecordTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSRecordTypeCell.m; sourceTree = "<group>"; };
+		4C00B3F622F2C7750087479C /* DNSRecordTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSRecordTypeCell.xib; sourceTree = "<group>"; };
+		4C00B3FA22F2E7520087479C /* DNSRecordManagerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSRecordManagerView.h; sourceTree = "<group>"; };
+		4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSRecordManagerView.m; sourceTree = "<group>"; };
+		4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSRecordManagerView.xib; sourceTree = "<group>"; };
 		4C01879022EE83E900EDD030 /* callkit_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callkit_logo.png; sourceTree = "<group>"; };
 		4C01879322EE941B00EDD030 /* NewHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeViewController.h; sourceTree = "<group>"; };
 		4C01879422EE941B00EDD030 /* NewHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeViewController.m; sourceTree = "<group>"; };
@@ -1148,7 +1157,6 @@
 		56FA23B222B0191F003F89CB /* BankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCell.h; sourceTree = "<group>"; };
 		56FA23B322B0191F003F89CB /* BankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCell.m; sourceTree = "<group>"; };
 		56FA23B422B0191F003F89CB /* BankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankCell.xib; sourceTree = "<group>"; };
-		56FC1DBC229F45C70024CBB2 /* test_api.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_api.txt; sourceTree = "<group>"; };
 		56FC243422CDA3DD006AE4AA /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		56FC243622CDA3F8006AE4AA /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		56FC243B22CDBCE8006AE4AA /* chirtmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chirtmas.mp3; sourceTree = "<group>"; };
@@ -1611,8 +1619,6 @@
 				84FA12602272783D002E290D /* AppString.h */,
 				153035E4228675AF005E7DB2 /* list_city.txt */,
 				157A5F98229CF1C20095AAEF /* desc.txt */,
-				1535EEDF22B0D99B0034F298 /* report_app.txt */,
-				56FC1DBC229F45C70024CBB2 /* test_api.txt */,
 				56C5AFC022BAA3A9005704A5 /* CertPushRelease.p12 */,
 				56C5AFC122BAA3AF005704A5 /* CertPush.p12 */,
 				56C5AFC222BAB08A005704A5 /* DevelopmentCertificates.p12 */,
@@ -1742,6 +1748,7 @@
 				845D32C4227943A20047B196 /* no_tick.png */,
 				845D32C5227943A20047B196 /* tick_orange.png */,
 				845D32C92279624C0047B196 /* arrow_down.png */,
+				4C00B3F222F2C7160087479C /* arrow_up.png */,
 				159F7D8D227AAC4700A64586 /* trash.png */,
 				84C78F2B227B350F00FCFC58 /* ic_profile.png */,
 				8464D73C227BBC8900381DE5 /* passport_behind.png */,
@@ -2898,6 +2905,12 @@
 				4C00790222F143B300C19492 /* DNSDetailCell.h */,
 				4C00790322F143B300C19492 /* DNSDetailCell.m */,
 				4C00790422F143B300C19492 /* DNSDetailCell.xib */,
+				4C00B3F422F2C7750087479C /* DNSRecordTypeCell.h */,
+				4C00B3F522F2C7750087479C /* DNSRecordTypeCell.m */,
+				4C00B3F622F2C7750087479C /* DNSRecordTypeCell.xib */,
+				4C00B3FA22F2E7520087479C /* DNSRecordManagerView.h */,
+				4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */,
+				4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3112,7 +3125,6 @@
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
 				4C041EA822E8437500DA7405 /* numpad_one_hover.png in Resources */,
-				1535EEE022B0D99B0034F298 /* report_app.txt in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
 				15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
@@ -3225,6 +3237,7 @@
 				8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */,
 				84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */,
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
+				4C00B3FE22F2E75F0087479C /* DNSRecordManagerView.xib in Resources */,
 				841966932276077400C14516 /* comvn.png in Resources */,
 				15D1BD812283D618004C0452 /* RenewDomainCartViewController.xib in Resources */,
 				8464D740227BBC8A00381DE5 /* passport_empty_front.png in Resources */,
@@ -3270,6 +3283,7 @@
 				1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */,
 				5612F8C722E7066C00ECBBB1 /* ringbacktone.mp3 in Resources */,
 				157A5F99229CF1C30095AAEF /* desc.txt in Resources */,
+				4C00B3F322F2C7160087479C /* arrow_up.png in Resources */,
 				56A878A422CB504400300705 /* new_launch.jpg in Resources */,
 				4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */,
 				842F81B2227561ED00D6DE6D /* Roboto-Light.ttf in Resources */,
@@ -3279,6 +3293,7 @@
 				56064F3522C7696B003D8859 /* SigningDomainViewController.xib in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				56B5685022B153A300AB8F29 /* tick_white.png in Resources */,
+				4C00B3F822F2C7750087479C /* DNSRecordTypeCell.xib in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
@@ -3307,7 +3322,6 @@
 				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
-				56FC1DBD229F45C80024CBB2 /* test_api.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3380,6 +3394,7 @@
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
 				56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */,
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
+				4C00B3F722F2C7750087479C /* DNSRecordTypeCell.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
 				4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */,
@@ -3484,6 +3499,7 @@
 				566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */,
 				56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
+				4C00B3FC22F2E7520087479C /* DNSRecordManagerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

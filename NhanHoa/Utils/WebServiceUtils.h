@@ -91,6 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToUpdateWhoisProtect: (NSString *)error;
 - (void)updateWhoisProtectSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToGetDNSRecordList: (id)error;
+- (void)getDNSRecordsListSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToAddDNSRecord: (id)error;
+- (void)addDNSRecordsSuccessfulWithData: (NSDictionary *)data;
+
 - (void)failedToGetCustomersSupportList: (NSString *)error;
 - (void)getCustomersSupportListSuccessfulWithData: (NSDictionary *)data;
 
@@ -138,6 +144,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateTokenForCallWithToken: (NSString *)token;
 - (void)getAccVoIPFree;
 - (void)getListCustomersSupport;
+
+#pragma mark - Api for DNS record of domain
+- (void)getDNSRecordListOfDomain: (NSString *)domain;
+- (void)addDNSRecordForDomain: (NSString *)domain name: (NSString *)name value: (NSString *)value type:(NSString *)type ttl:(NSString *)ttl mx: (NSString *)mx;
 
 @end
 

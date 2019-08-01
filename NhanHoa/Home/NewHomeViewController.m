@@ -20,8 +20,6 @@
 #import "HomeMenuObject.h"
 #import "NewHomeMenuCell.h"
 
-#import "DomainDNSViewController.h"
-
 @interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WebServiceUtilsDelegate>
 {
     NSMutableArray *listMenu;
@@ -484,9 +482,6 @@
             break;
         }
         case eOrdersList:{
-            DomainDNSViewController *domainDNSVC = [[DomainDNSViewController alloc] initWithNibName:@"DomainDNSViewController" bundle:nil];
-            domainDNSVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: domainDNSVC animated:YES];
             
             NSLog(@"Orders List");
             break;

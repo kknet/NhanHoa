@@ -155,6 +155,7 @@
     
     if (![AppUtils isNullOrEmpty: lbTopDomain.text]) {
         DomainDNSViewController *domainDNSVC = [[DomainDNSViewController alloc] initWithNibName:@"DomainDNSViewController" bundle:nil];
+        domainDNSVC.domainName = domain;
         [self.navigationController pushViewController:domainDNSVC animated:TRUE];
         
 //        UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];

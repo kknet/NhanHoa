@@ -302,4 +302,88 @@
      }];
 }
 
+
+#pragma mark - API FOR DNS RECORDS OF DOMAIN
+- (void)apiWSForRecordDNSWithParams: (NSDictionary *)paramsDict andAction: (NSString *)action
+{
+    NSString *strURL = [NSString stringWithFormat:@"%@/%@", link_api, DNSRecord_func];
+    NSURL *URL = [NSURL URLWithString:strURL];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setTimeoutInterval: 60];
+    
+    NSString *jsonRequest = [paramsDict JSONString];
+    NSData *requestData = [jsonRequest dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         // whatever you do on the connectionDidFinishLoading
+         // delegate can be moved here
+         if (error != nil) {
+             [self.delegate failedToCallWebService:DNSRecord_func andError:@""];
+         }else{
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             int responseCode = (int)[httpResponse statusCode];
+             if (responseCode == 200) {
+                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 id object = [value objectFromJSONString];
+                 if ([object isKindOfClass:[NSDictionary class]]) {
+                     id result = [object objectForKey:@"success"];
+                     if (![result isKindOfClass:[NSNull class]] && result != nil)
+                     {
+                         if ([result boolValue] == NO || [result intValue] == 0) {
+                             id data = [object objectForKey:@"data"];
+                             if ([data isKindOfClass:[NSString class]]) {
+                                 [self.delegate failedToCallWebService:DNSRecord_func andError:data];
+                                 
+                             }else if ([data isKindOfClass:[NSDictionary class]]){
+                                 if ([delegate respondsToSelector:@selector(dnsRecordFailedWithData:action:)]) {
+                                     [delegate dnsRecordFailedWithData:data action:action];
+                                 }
+                             }
+                         }else {
+                             id data = [object objectForKey:@"data"];
+                             if ([data isKindOfClass:[NSDictionary class]]) {
+                                 if ([self.delegate respondsToSelector:@selector(dnsRecordResultWithData:action:)]) {
+                                    [self.delegate dnsRecordResultWithData:data action:action];
+                                 }
+                             }else{
+                                 if (data == nil && [object isKindOfClass:[NSDictionary class]]) {
+                                     [self.delegate dnsRecordResultWithData:object action:action];
+                                 }else{
+                                     [self.delegate dnsRecordResultWithData:data action:action];
+                                 }
+                             }
+                         }
+                     }else{
+                         [self.delegate failedToCallWebService:DNSRecord_func andError:result];
+                     }
+                 }
+             }else{
+                 NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 id object = [value objectFromJSONString];
+                 if (object != nil && [object isKindOfClass:[NSDictionary class]]) {
+                     id data = [object objectForKey:@"data"];
+                     if ([delegate respondsToSelector:@selector(dnsRecordFailedWithData:action:)]) {
+                         [delegate dnsRecordFailedWithData:data action:action];
+                     }
+                     
+                 }else{
+                     if ([delegate respondsToSelector:@selector(dnsRecordFailedWithData:action:)]) {
+                         [delegate dnsRecordFailedWithData:@"Lỗi không xác định" action:action];
+                     }
+                 }
+             }
+         }
+     }];
+}
+
 @end

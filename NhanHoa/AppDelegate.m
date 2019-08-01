@@ -548,7 +548,7 @@ AppDelegate      *app;
         fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
-        hTextfield = 38.0;
+        hTextfield = 35.0;
         
     }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
     {

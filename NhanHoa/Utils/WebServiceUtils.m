@@ -477,6 +477,10 @@
         if ([delegate respondsToSelector:@selector(failedToUpdateWhoisProtect:)]) {
             [delegate failedToUpdateWhoisProtect: error];
         }
+    }else if ([link isEqualToString: DNSRecord_func]) {
+        if ([delegate respondsToSelector:@selector(failedToGetDNSRecordList:)]) {
+            [delegate failedToGetDNSRecordList: error];
+        }
     }
     else if ([link isEqualToString: GetListCSKHAction]){
         if ([delegate respondsToSelector:@selector(failedToGetCustomersSupportList:)]) {
@@ -668,6 +672,63 @@
     [info setObject:key forKey:@"key"];
     
     [webService apiWebServiceForCallWithParams: info];
+}
+
+#pragma mark - API for DNS Record of domain
+
+-(void)dnsRecordResultWithData:(NSDictionary *)data action:(NSString *)action {
+    if ([action isEqualToString:@"list"]) {
+        if ([delegate respondsToSelector:@selector(getDNSRecordsListSuccessfulWithData:)]) {
+            [delegate getDNSRecordsListSuccessfulWithData: data];
+        }
+    }else if ([action isEqualToString:@"add"]){
+        if ([delegate respondsToSelector:@selector(addDNSRecordsSuccessfulWithData:)]) {
+            [delegate addDNSRecordsSuccessfulWithData: data];
+        }
+    }
+}
+
+-(void)dnsRecordFailedWithData:(NSDictionary *)data action:(NSString *)action {
+    if ([action isEqualToString:@"list"]) {
+        if ([delegate respondsToSelector:@selector(failedToGetDNSRecordList:)]) {
+            [delegate failedToGetDNSRecordList: data];
+        }
+    }else if ([action isEqualToString:@"add"]){
+        if ([delegate respondsToSelector:@selector(failedToAddDNSRecord:)]) {
+            [delegate failedToAddDNSRecord: data];
+        }
+    }
+}
+
+
+- (void)getDNSRecordListOfDomain: (NSString *)domain {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] domain = %@", __FUNCTION__, domain)];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:dns_record_mod forKey:@"mod"];
+    [jsonDict setObject:@"list" forKey:@"action"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    
+    [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"list"];
+}
+
+- (void)addDNSRecordForDomain: (NSString *)domain name: (NSString *)name value: (NSString *)value type:(NSString *)type ttl:(NSString *)ttl mx: (NSString *)mx {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:dns_record_mod forKey:@"mod"];
+    [jsonDict setObject:@"add" forKey:@"action"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [jsonDict setObject:name forKey:@"record_name"];
+    [jsonDict setObject:value forKey:@"record_value"];
+    [jsonDict setObject:type forKey:@"record_type"];
+    [jsonDict setObject:ttl forKey:@"record_ttl"];
+    [jsonDict setObject:ttl forKey:@"record_ttl"];
+    [jsonDict setObject:mx forKey:@"record_mx"];
+    
+    [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"add"];
 }
 
 @end

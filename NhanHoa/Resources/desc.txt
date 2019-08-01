@@ -426,6 +426,23 @@ year: number (số năm đăng ký)
     protect: number (0: off | 1: on)
     *Kết quả trả về: anh em send test để xem kết quả
 
+31. DNSRecord (Quản lý DNS record của tên miền trong phần info domain)
+    *Send request (Post / Get) [Auto]
+    mod: dns_record
+    action: (list | add | edit | delete)
+    username: string (require for all action)
+    password: MD5 (require for all action)
+    domain: string (require for all action)
+    record_name: string (require for action: add / edit / delete)
+    record_value: string (require for action: add / edit)
+    record_type: string [A|MX|TXT|...] (require for action: add / edit)
+    record_ttl: number [300->86400] (require for action: add / edit)
+    record_mx: string (require for action: add / edit and record_type: MX)
+    record_id: number [1->100] (require for action: edit)
+    *Kết quả trả về: anh em send test để xem kết quả
+
+
+
 
 lekhai02121991@gmail.com    |   11111111
 

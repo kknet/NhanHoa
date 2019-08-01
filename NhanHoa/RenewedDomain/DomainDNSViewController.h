@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DomainDNSViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbRecords;
+
+@property (nonatomic, strong) NSString *domainName;
 
 @end
 

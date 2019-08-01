@@ -65,6 +65,22 @@
 #define type_personal       0
 #define type_business       1
 
+#define type_A              @"A"
+#define type_AAAA           @"AAAA"
+#define type_CNAME          @"CNAME"
+#define type_MX             @"MX"
+#define type_URL_Redirect   @"URL Redirect"
+#define type_URL_Frame      @"URL Frame"
+#define type_TXT            @"TXT"
+#define type_SRV            @"SRV"
+#define type_SPF            @"SPF"
+
+#define TTL_MIN     300
+#define TTL_MAX     86400
+
+#define MX_MIN      1
+#define MX_MAX      100
+
 #define TAG_HUD             100
 #define TIME_FOR_SLIDER     6
 #define COUNTRY_CODE        @"231"
@@ -136,6 +152,7 @@
 #define add_order_func          @"AddOrder"
 #define addfun_func             @"Addfun"
 #define WhoisProtect_func       @"WhoisProtect"
+#define DNSRecord_func          @"DNSRecord"
 
 
 #define login_mod               @"login"
@@ -166,7 +183,7 @@
 #define add_order_mod           @"add_order"
 #define addfun_mod              @"addfun"
 #define whois_protect_mod       @"whois_protect"
-
+#define dns_record_mod          @"dns_record"
 
 #define GetAccVoipAction        @"GetAccVoip"
 #define UpdateTokenAction       @"UpdateToken"
