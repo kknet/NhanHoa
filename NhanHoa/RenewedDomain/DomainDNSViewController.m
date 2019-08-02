@@ -10,47 +10,29 @@
 #import "DNSManagerCell.h"
 #import "DNSDetailCell.h"
 #import "DNSRecordManagerView.h"
+#import "DNSDetailPopupView.h"
 
-@interface DomainDNSViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, DNSRecordManagerViewDelegate> {
+@interface DomainDNSViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, DNSRecordManagerViewDelegate, DNSDetailPopupViewDelegate>
+{
     float hCell;
     NSMutableArray *recordList;
     float wContent;
     DNSRecordManagerView *addDNSRecordView;
     DNSRecordManagerView *editDNSRecordView;
+    UIButton *btnAddNew;
+    DNSDetailPopupView *popupView;
 }
 @end
 
 @implementation DomainDNSViewController
-@synthesize scvContent, tbRecords, domainName;
+@synthesize scvContent, tbRecords, domainName, lbNoData;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Quản lý DNS";
-    hCell = 50.0;
     
-    scvContent.showsVerticalScrollIndicator = FALSE;
-    scvContent.showsHorizontalScrollIndicator = FALSE;
-    scvContent.pagingEnabled = TRUE;
-    [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
-    }];
-    
-    float hContent = SCREEN_HEIGHT;
-    wContent = UIScreen.mainScreen.bounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    [tbRecords registerNib:[UINib nibWithNibName:@"DNSDetailCell" bundle:nil] forCellReuseIdentifier:@"DNSDetailCell"];
-    tbRecords.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbRecords.scrollEnabled = FALSE;
-    tbRecords.delegate = self;
-    tbRecords.dataSource = self;
-    [tbRecords mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(scvContent);
-        make.width.mas_equalTo(wContent);
-        make.height.mas_equalTo(hContent);
-    }];
-    
-    scvContent.contentSize = CGSizeMake(wContent, hContent);
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -72,12 +54,51 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [AppDelegate sharedInstance].cartView.hidden = FALSE;
+    [btnAddNew removeFromSuperview];
+}
+
+- (void)setupUIForView {
+    hCell = 50.0;
+    scvContent.showsVerticalScrollIndicator = FALSE;
+    scvContent.showsHorizontalScrollIndicator = FALSE;
+    scvContent.pagingEnabled = FALSE;
+    [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
+    float hContent = SCREEN_HEIGHT;
+    wContent = UIScreen.mainScreen.bounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    [tbRecords registerNib:[UINib nibWithNibName:@"DNSDetailCell" bundle:nil] forCellReuseIdentifier:@"DNSDetailCell"];
+    tbRecords.separatorStyle = UITableViewCellSelectionStyleNone;
+    tbRecords.scrollEnabled = FALSE;
+    tbRecords.delegate = self;
+    tbRecords.dataSource = self;
+    [tbRecords mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(scvContent);
+        make.width.mas_equalTo(wContent);
+        make.height.mas_equalTo(hContent);
+    }];
+    
+    scvContent.contentSize = CGSizeMake(wContent, hContent);
+    
+    lbNoData.text = @"Không có dữ liệu";
+    lbNoData.textColor = TITLE_COLOR;
+    lbNoData.font = [AppDelegate sharedInstance].fontBTN;
+    lbNoData.hidden = TRUE;
+    [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
 }
 
 - (void) orientationChanged:(NSNotification *)note
 {
+    //  nếu đang show popup xem thông tin thì không cho xoay
+    if (popupView != nil || addDNSRecordView != nil || editDNSRecordView != nil) {
+        return;
+    }
+    
     UIDevice * device = note.object;
-    self.view.backgroundColor = UIColor.whiteColor;
     if (device.orientation == UIDeviceOrientationLandscapeRight) {
         [UIView animateWithDuration:0.2 delay:0.0
                             options:0 animations:^{
@@ -111,27 +132,42 @@
 }
 
 - (void)addRightBarButtonForNavigationBar {
-    UIView *viewAdd = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    viewAdd.backgroundColor = UIColor.clearColor;
+//    UIView *viewAdd = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 55, 40)];
+//    viewAdd.backgroundColor = UIColor.redColor;
+//
+//    UIButton *btnAdd =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    btnAdd.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+//    btnAdd.frame = CGRectMake(15, 0, 40, 40);
+//    btnAdd.backgroundColor = UIColor.clearColor;
+//    [btnAdd setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+//    [btnAdd addTarget:self action:@selector(addNewDNSRecord) forControlEvents:UIControlEventTouchUpInside];
+//    btnAdd.backgroundColor = UIColor.orangeColor;
+//    [viewAdd addSubview: btnAdd];
+//
+//    UIBarButtonItem *btnAddBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewAdd];
+//    self.navigationItem.rightBarButtonItems = @[btnAddBarButtonItem];
     
-    UIButton *btnAdd =  [UIButton buttonWithType:UIButtonTypeCustom];
-    btnAdd.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    btnAdd.frame = CGRectMake(15, 0, 40, 40);
-    btnAdd.backgroundColor = UIColor.clearColor;
-    [btnAdd setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-    [btnAdd addTarget:self action:@selector(addNewDNSRecord) forControlEvents:UIControlEventTouchUpInside];
-    [viewAdd addSubview: btnAdd];
-    
-    UIBarButtonItem *btnAddBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: viewAdd];
-    self.navigationItem.rightBarButtonItems = @[btnAddBarButtonItem];
+    btnAddNew =  [UIButton buttonWithType:UIButtonTypeCustom];
+    btnAddNew.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    [btnAddNew setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    [btnAddNew addTarget:self action:@selector(addNewDNSRecord) forControlEvents:UIControlEventTouchUpInside];
+    btnAddNew.backgroundColor = UIColor.clearColor;
+    [[AppDelegate sharedInstance].window addSubview: btnAddNew];
+    [btnAddNew mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo([AppDelegate sharedInstance].window).offset([AppDelegate sharedInstance].hStatusBar);
+        make.right.equalTo([AppDelegate sharedInstance].window);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].hNav);
+    }];
 }
 
 - (void)addNewDNSRecord {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    btnAddNew.hidden = TRUE;
     
     if (addDNSRecordView == nil) {
         [self addDNSRecordViewToMainView];
     }
+    [addDNSRecordView resetAllValue];
     addDNSRecordView.delegate = self;
     addDNSRecordView.domain = domainName;
     [addDNSRecordView showContentForView];
@@ -156,17 +192,21 @@
 -(void)closeAddDNSRecordView {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
-    self.navigationController.navigationBarHidden = FALSE;
+    self.navigationController.navigationBarHidden = btnAddNew.hidden = FALSE;
     if (addDNSRecordView != nil) {
         [addDNSRecordView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
         }];
+        [addDNSRecordView removeFromSuperview];
+        addDNSRecordView = nil;
     }
     
     if (editDNSRecordView != nil) {
         [editDNSRecordView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
         }];
+        [editDNSRecordView removeFromSuperview];
+        editDNSRecordView = nil;
     }
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -174,7 +214,7 @@
     }];
 }
 
--(void)addNewRecordSuccessful {
+-(void)reloadDNSRecordListAfterAndOrEdit {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [self getDNSRecordListForDomain];
@@ -211,8 +251,15 @@
     }];
     scvContent.contentSize = CGSizeMake(wContent, hContent);
     
-    
-    [tbRecords reloadData];
+    if (recordList.count == 0) {
+        scvContent.hidden = TRUE;
+        lbNoData.hidden = FALSE;
+    }else{
+        scvContent.hidden = FALSE;
+        lbNoData.hidden = TRUE;
+        
+        [tbRecords reloadData];
+    }
 }
 
 - (void)addDNSRecordViewToMainView {
@@ -270,6 +317,11 @@
                     action:@selector(clickOnEditDNSRecord:)
           forControlEvents:UIControlEventTouchUpInside];
     
+    cell.icDelete.tag = indexPath.row;
+    [cell.icDelete addTarget:self
+                      action:@selector(clickOnDeleteDNSRecord:)
+            forControlEvents:UIControlEventTouchUpInside];
+    
     if (indexPath.row % 2 == 0) {
         cell.backgroundColor = UIColor.whiteColor;
     }else{
@@ -280,14 +332,58 @@
 }
 
 - (void)clickOnEditDNSRecord: (UIButton *)sender {
+    if ([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait) {
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIDeviceOrientationPortrait] forKey:@"orientation"];
+    }
+    
+    btnAddNew.hidden = TRUE;
+    
     NSDictionary *info = [recordList objectAtIndex: sender.tag];
     if (editDNSRecordView == nil) {
         [self addEditDNSRecordViewToMainView];
     }
     editDNSRecordView.delegate = self;
     editDNSRecordView.domain = domainName;
+    [editDNSRecordView showContentForView];
     [editDNSRecordView showDNSRecordContentWithInfo: info];
     [self performSelector:@selector(showEditDNSRecordView) withObject:nil afterDelay:0.1];
+}
+
+- (void)clickOnDeleteDNSRecord: (UIButton *)sender
+{
+    if (sender.tag < recordList.count) {
+        NSDictionary *info = [recordList objectAtIndex: (int)sender.tag];
+        if (info != nil) {
+            NSString *record_id = [info objectForKey:@"record_id"];
+            
+            if (![AppUtils isNullOrEmpty: record_id]) {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+                
+                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn xoá record này?"];
+                [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
+                [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+                
+                UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction *action){
+                                                                     NSLog(@"Đóng");
+                                                                 }];
+                [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
+                
+                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:@"Xóa" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction *action){
+                                                                      [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                                      [ProgressHUD show:@"Đang xoá..." Interaction:NO];
+                                                                      
+                                                                      [[WebServiceUtils getInstance] deleteDNSRecordForDomain:domainName record_id: record_id];
+                                                                  }];
+                [btnDelete setValue:UIColor.redColor forKey:@"titleTextColor"];
+                
+                [alertVC addAction:btnClose];
+                [alertVC addAction:btnDelete];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        }
+    }
 }
 
 - (void)showEditDNSRecordView {
@@ -303,7 +399,32 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%d", (int)indexPath.row);
+    if ([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait){
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIDeviceOrientationPortrait] forKey:@"orientation"];
+    }
+    
+    float padding = 15.0;
+    float margin = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    float hPopup = [AppDelegate sharedInstance].hNav + 20.0 + 4*[AppDelegate sharedInstance].hTextfield + 4*margin + 45.0 + 20.0;
+    BOOL hasMX = FALSE;
+    
+    NSDictionary *info = [recordList objectAtIndex: (int)indexPath.row];
+    NSString *record_type = [info objectForKey:@"record_type"];
+    if (![AppUtils isNullOrEmpty: record_type] && [record_type isEqualToString: type_MX]) {
+        hPopup += [AppDelegate sharedInstance].hTextfield + margin;
+        hasMX = TRUE;
+    }
+    
+    float hNav = [AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav;
+    
+    popupView = [[DNSDetailPopupView alloc] initWithFrame:CGRectMake(padding, (SCREEN_HEIGHT - hNav - hPopup)/2, SCREEN_WIDTH-2*padding, hPopup) hasMXValue: hasMX];
+    [popupView showDNSRecordInfoWithContent: info];
+    popupView.btnDelete.tag = popupView.btnEdit.tag = indexPath.row;
+    [popupView showInView:self.view animated:TRUE];
+    popupView.delegate = self;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -315,7 +436,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    float wHost = 90.0;
+    float wHost = 100.0;
     float widthMX = 60.0;
     float widthTTL = 60.0;
     float widthValue = 120.0;
@@ -334,7 +455,7 @@
         
     }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
     {
-        wHost = 80.0;
+        wHost = 90.0;
         widthTTL = 45.0;
         widthMX = 30.0;
         widthType = 90.0;
@@ -517,6 +638,102 @@
     [ProgressHUD dismiss];
     
     [self prepareDataToDisplay: data];
+}
+
+-(void)failedToDeleteDNSRecord:(id)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    [ProgressHUD dismiss];
+    
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSString *content = [AppUtils getErrorContentFromData: error];
+        [self.view makeToast:content duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+    }else if ([error isKindOfClass:[NSString class]]) {
+        [self.view makeToast:error duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
+}
+
+-(void)deleteDNSRecordsSuccessfulWithData:(NSDictionary *)data
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    [ProgressHUD dismiss];
+    
+    [self getDNSRecordListForDomain];
+    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSString *message = [data objectForKey:@"message"];
+        if (![AppUtils isNullOrEmpty: message]) {
+            [self.view makeToast:message duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+            return;
+        }
+    }
+    [self.view makeToast:@"Record đã được xoá thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+}
+
+#pragma mark - Popup DNS Detail Delegate
+-(void)closeDNSRecordOnPopupView {
+    if (popupView != nil) {
+        [popupView removeFromSuperview];
+        popupView = nil;
+    }
+}
+
+-(void)deleteDNSRecordOnPopupViewWithTag:(int)tag {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    if (tag < recordList.count) {
+        NSDictionary *info = [recordList objectAtIndex: tag];
+        if (info != nil) {
+            NSString *record_id = [info objectForKey:@"record_id"];
+            
+            if (![AppUtils isNullOrEmpty: record_id]) {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+                
+                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn xoá record này?"];
+                [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
+                [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+                
+                UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction *action){
+                                                                     NSLog(@"Đóng");
+                                                                 }];
+                [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
+                
+                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:@"Xóa" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction *action){
+                                                                      if (popupView != nil) {
+                                                                          [popupView closePopupView];
+                                                                      }
+                                                                      [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                                      [ProgressHUD show:@"Đang xoá..." Interaction:NO];
+                                                                      
+                                                                      [[WebServiceUtils getInstance] deleteDNSRecordForDomain:domainName record_id: record_id];
+                                                                  }];
+                [btnDelete setValue:UIColor.redColor forKey:@"titleTextColor"];
+                
+                [alertVC addAction:btnClose];
+                [alertVC addAction:btnDelete];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        }
+    }
+}
+
+-(void)editDNSRecordOnPopupViewWithTag:(int)tag {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
+    
+    [self closeDNSRecordOnPopupView];
+    btnAddNew.hidden = TRUE;
+    
+    NSDictionary *info = [recordList objectAtIndex: tag];
+    if (editDNSRecordView == nil) {
+        [self addEditDNSRecordViewToMainView];
+    }
+    editDNSRecordView.delegate = self;
+    editDNSRecordView.domain = domainName;
+    [editDNSRecordView showContentForView];
+    [editDNSRecordView showDNSRecordContentWithInfo: info];
+    [self performSelector:@selector(showEditDNSRecordView) withObject:nil afterDelay:0.1];
 }
 
 @end

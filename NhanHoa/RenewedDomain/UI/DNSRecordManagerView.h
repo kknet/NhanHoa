@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DNSRecordManagerViewDelegate
 - (void)closeAddDNSRecordView;
-- (void)addNewRecordSuccessful;
+- (void)reloadDNSRecordListAfterAndOrEdit;
 @end
 
 
@@ -44,25 +44,27 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbTTL;
 @property (weak, nonatomic) IBOutlet UITextField *tfTTL;
-@property (weak, nonatomic) IBOutlet UILabel *lbDesc;
-@property (weak, nonatomic) IBOutlet UITextView *tvDesc;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddRecord;
+@property (weak, nonatomic) IBOutlet UIButton *btnReset;
 @property (weak, nonatomic) IBOutlet UILabel *lbWarning;
 
 - (IBAction)btnAddRecordPress:(UIButton *)sender;
 - (IBAction)btnTypePress:(UIButton *)sender;
 - (IBAction)icCloseClick:(UIButton *)sender;
+- (IBAction)btnResetPress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *domain;
 @property (nonatomic, assign) float margin;
 @property (nonatomic, strong) UITableView *tbType;
 @property (nonatomic, strong) NSArray *listType;
+@property (nonatomic, assign) DNSRecordType curType;
+@property (nonatomic, strong) NSDictionary *curInfo;
 
 - (void)setupUIForViewWithType: (DNSRecordType)type;
 - (void)showContentForView;
 
-
 - (void)showDNSRecordContentWithInfo: (NSDictionary *)info;
+- (void)resetAllValue;
 
 @end
 

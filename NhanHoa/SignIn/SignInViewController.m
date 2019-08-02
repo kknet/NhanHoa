@@ -390,6 +390,59 @@
     icClearAcc.hidden = (textfield.text.length > 0)? FALSE : TRUE;
 }
 
+- (void)showWarningWhenCurrentVersionNotAccept {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Phiên bản quý khách đang sử dụng đã cũ.\nVui lòng cập nhật phiên bản mới để trải nghiệm tốt hơn."];
+    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:17.0] range:NSMakeRange(0, attrTitle.string.length)];
+    [attrTitle addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attrTitle.string.length)];
+    [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+    
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         NSLog(@"Đóng");
+                                                     }];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    UIAlertAction *btnGoStore = [UIAlertAction actionWithTitle:@"Cập nhật" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action){
+                                                           [self checkAndGotoAppStore];
+                                                       }];
+    [btnGoStore setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnClose];
+    [alertVC addAction:btnGoStore];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (void)checkAndGotoAppStore {
+    NSString *linkToAppStore = [self checkNewVersionOnAppStore];
+    if (![AppUtils isNullOrEmpty: linkToAppStore]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+    }
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] linkToAppStore: %@", __FUNCTION__, linkToAppStore)];
+}
+
+- (NSString *)checkNewVersionOnAppStore {
+    NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString* appID = infoDictionary[@"CFBundleIdentifier"];
+    if (appID.length > 0) {
+        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", appID]];
+        NSData* data = [NSData dataWithContentsOfURL:url];
+        
+        if (data) {
+            NSDictionary* lookup = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            if ([lookup[@"resultCount"] integerValue] == 1){
+                // app needs to be updated
+                return lookup[@"results"][0][@"trackViewUrl"] ? lookup[@"results"][0][@"trackViewUrl"] : @"";
+            }
+        }
+    }
+    return @"";
+}
+
+
 #pragma mark - UITextfield Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == tfAccount) {
@@ -420,12 +473,75 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
+    NSString *min_ios_version = [data objectForKey:@"min_ios_version"];
+    if (![AppUtils isNullOrEmpty: min_ios_version]) {
+        BOOL versionReady = [self checkVersionAppToAcceptLogin: min_ios_version];
+        if (!versionReady) {
+            [ProgressHUD dismiss];
+            [self showWarningWhenCurrentVersionNotAccept];
+            
+            return;
+        }
+    }
+    
     [self processForLoginSuccessful];
     if (![AppUtils isNullOrEmpty:[AppDelegate sharedInstance].token]) {
         [[WebServiceUtils getInstance] updateTokenWithValue: [AppDelegate sharedInstance].token];
     }else{
         [ProgressHUD dismiss];
         [self goToHomeScreen];
+    }
+}
+
+- (BOOL)checkVersionAppToAcceptLogin: (NSString *)requireVersion {
+    NSArray *requireArr = [requireVersion componentsSeparatedByString:@"."];
+    
+    NSString *curVersion = [AppUtils getAppVersionWithBuildVersion: FALSE];
+    NSArray *currentArr = [curVersion componentsSeparatedByString:@"."];
+    
+    if (requireArr.count == currentArr.count) {
+        for (int i=0; i<currentArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]) {
+                return TRUE;
+            }
+        }
+        //  version hiện tại giống version tối thiểu đc yêu cầu
+        return TRUE;
+        
+    }else if (requireArr.count > currentArr.count) {
+        for (int i=0; i<currentArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]) {
+                return TRUE;
+            }
+        }
+        //  version hiện tại nhỏ hơn version được yêu cầu
+        return FALSE;
+    }else {
+        for (int i=0; i<requireArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]){
+                return TRUE;
+            }
+        }
+        //  version hiện tại lớn hơn version được yêu cầu
+        return TRUE;
     }
 }
 

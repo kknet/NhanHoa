@@ -190,6 +190,7 @@
 		4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED122E8443100DA7405 /* numpad_star_default.png */; };
 		4C041ED722E8444800DA7405 /* button-endcall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED622E8444800DA7405 /* button-endcall.png */; };
 		4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED822E8505C00DA7405 /* beep.mp3 */; };
+		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
@@ -702,6 +703,8 @@
 		4C041ED122E8443100DA7405 /* numpad_star_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_default.png; sourceTree = "<group>"; };
 		4C041ED622E8444800DA7405 /* button-endcall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-endcall.png"; sourceTree = "<group>"; };
 		4C041ED822E8505C00DA7405 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
+		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
 		5600E8F422A5E9FC00F7DECE /* support_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_call.png; sourceTree = "<group>"; };
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
@@ -2911,6 +2914,8 @@
 				4C00B3FA22F2E7520087479C /* DNSRecordManagerView.h */,
 				4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */,
 				4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */,
+				4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */,
+				4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3462,6 +3467,7 @@
 				847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */,
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */,
+				4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				560348A522EA08B800DC9322 /* sip_util.c in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,

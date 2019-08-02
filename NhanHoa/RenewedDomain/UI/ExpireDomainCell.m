@@ -25,7 +25,7 @@
     [lbNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.bottom.equalTo(self.mas_centerY).offset(-2.0);
-        make.width.mas_equalTo(20.0);
+        make.width.mas_equalTo(30.0);
     }];
     
     lbName.textColor = TITLE_COLOR;

@@ -97,6 +97,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToAddDNSRecord: (id)error;
 - (void)addDNSRecordsSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToUpdateDNSRecord: (id)error;
+- (void)updateDNSRecordsSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToDeleteDNSRecord: (id)error;
+- (void)deleteDNSRecordsSuccessfulWithData: (NSDictionary *)data;
+
 - (void)failedToGetCustomersSupportList: (NSString *)error;
 - (void)getCustomersSupportListSuccessfulWithData: (NSDictionary *)data;
 
@@ -148,6 +154,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Api for DNS record of domain
 - (void)getDNSRecordListOfDomain: (NSString *)domain;
 - (void)addDNSRecordForDomain: (NSString *)domain name: (NSString *)name value: (NSString *)value type:(NSString *)type ttl:(NSString *)ttl mx: (NSString *)mx;
+- (void)updateDNSRecordForDomain: (NSString *)domain name: (NSString *)name value: (NSString *)value type:(NSString *)type ttl:(NSString *)ttl mx: (NSString *)mx record_id: (NSString *)record_id;
+- (void)deleteDNSRecordForDomain: (NSString *)domain record_id:(NSString *)record_id;
 
 @end
 

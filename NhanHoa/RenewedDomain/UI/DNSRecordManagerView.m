@@ -11,21 +11,22 @@
 
 @implementation DNSRecordManagerView
 @synthesize viewHeader, lbHeader, icClose;
-@synthesize scvContent, lbTitle, lbName, tfName, lbType, tfType, btnType, imgArrow, lbMX, tfMX, lbValue, tfValue, lbTTL, tfTTL, lbDesc, tvDesc, btnAddRecord, lbWarning;
-@synthesize domain, margin, tbType, listType, delegate;
+@synthesize scvContent, lbTitle, lbName, tfName, lbType, tfType, btnType, imgArrow, lbMX, tfMX, lbValue, tfValue, lbTTL, tfTTL, btnAddRecord, btnReset, lbWarning;
+@synthesize domain, margin, tbType, listType, delegate, curType, curInfo;
 
 - (void)setupUIForViewWithType: (DNSRecordType)type
 {
+    curType = type;
+    
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     tapOnScreen.delegate = self;
     [self addGestureRecognizer: tapOnScreen];
     
     float padding = 15.0;
-    margin = 10.0;
+    margin = 15.0;
     
     if ([DeviceUtils isScreen320]) {
         padding = 7.5;
-        margin = 7.0;
     }
     
     viewHeader.backgroundColor = BLUE_COLOR;
@@ -69,11 +70,11 @@
         make.width.mas_equalTo(SCREEN_WIDTH - 2*padding);
     }];
     
-    lbName.textColor = lbType.textColor = lbValue.textColor = lbMX.textColor = lbTTL.textColor = lbDesc.textColor = TITLE_COLOR;
-    lbName.font = lbType.font = lbValue.font = lbMX.font = lbTTL.font = lbDesc.font = [AppDelegate sharedInstance].fontRegular;
-    tfName.font = tfType.font = tfValue.font = tfMX.font = tfTTL.font = tvDesc.font = [AppDelegate sharedInstance].fontRegular;
+    lbName.textColor = lbType.textColor = lbValue.textColor = lbMX.textColor = lbTTL.textColor = TITLE_COLOR;
+    lbName.font = lbType.font = lbValue.font = lbMX.font = lbTTL.font = [AppDelegate sharedInstance].fontRegular;
+    tfName.font = tfType.font = tfValue.font = tfMX.font = tfTTL.font = [AppDelegate sharedInstance].fontRegular;
     
-    lbWarning.font = [AppDelegate sharedInstance].fontNormal;
+    lbWarning.font = [AppDelegate sharedInstance].fontRegular;
     lbWarning.text = @"Nếu là A record thì sau khi tạo, đợi 1 phút sau hãy truy cập để tránh bị dính cache DNS.";
     
     float leftSize = [AppUtils getSizeWithText:@"Giá trị record" withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:SCREEN_WIDTH].width + 5.0;
@@ -101,6 +102,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfType borderColor:BORDER_COLOR];
+    tfType.placeholder = @"Chọn loại record";
     tfType.returnKeyType = UIReturnKeyNext;
     tfType.delegate = self;
     tfType.enabled = FALSE;
@@ -169,33 +171,17 @@
         make.left.right.equalTo(tfValue);
     }];
     
-    //  Description
-    [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbTTL.mas_bottom).offset(margin);
-        make.left.right.equalTo(lbTTL);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    tvDesc.layer.borderColor = BORDER_COLOR.CGColor;
-    tvDesc.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    tvDesc.layer.borderWidth = 1.0;
-    tvDesc.returnKeyType = UIReturnKeyDone;
-    [tvDesc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbDesc);
-        make.left.right.equalTo(tfValue);
-        make.height.mas_equalTo(2.5*[AppDelegate sharedInstance].hTextfield);
-    }];
-    
-    btnAddRecord.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    btnAddRecord.backgroundColor = ORANGE_COLOR;
-    [btnAddRecord setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [btnAddRecord setTitle:@"TẠO RECORD" forState:UIControlStateNormal];
-    btnAddRecord.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnAddRecord mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tvDesc.mas_bottom).offset(margin);
-        make.left.equalTo(tvDesc);
+        make.top.equalTo(tfTTL.mas_bottom).offset(margin);
+        make.left.equalTo(tfTTL);
+        make.right.equalTo(tfTTL.mas_centerX).offset(-5.0);
         make.height.mas_equalTo(45.0);
-        make.width.mas_equalTo(150.0);
+    }];
+    
+    [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(btnAddRecord);
+        make.left.equalTo(tfTTL.mas_centerX).offset(5.0);
+        make.right.equalTo(tfTTL);
     }];
     
     lbWarning.textColor = UIColor.redColor;
@@ -204,14 +190,37 @@
         make.left.equalTo(scvContent).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH - 2*padding);
     }];
+    
+    btnAddRecord.layer.cornerRadius = btnReset.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnAddRecord.backgroundColor = btnReset.backgroundColor = BLUE_COLOR;
+    btnAddRecord.titleLabel.font = btnReset.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnAddRecord setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
 }
 
 - (void)hideKeyboard {
     [self endEditing: TRUE];
+    [self showListTypeRecord:FALSE withSender:nil];
 }
 
 - (void)showContentForView {
-    NSString *content = [NSString stringWithFormat:@"Bạn đang thêm record cho tên miền:\n %@", domain];
+    if ([AppUtils isNullOrEmpty: domain]) {
+        lbTitle.text = @"Không tìm thấy tên miền!";
+        return;
+    }
+    
+    NSString *content;
+    if (curType == DNSRecordAddNew) {
+        content = [NSString stringWithFormat:@"Bạn đang thêm record cho tên miền:\n %@", domain];
+        lbWarning.hidden = FALSE;
+        [btnAddRecord setTitle:@"Tạo Record" forState:UIControlStateNormal];
+        
+    }else{
+        content = [NSString stringWithFormat:@"Bạn đang cập nhật record cho tên miền:\n %@", domain];
+        lbWarning.hidden = TRUE;
+        [btnAddRecord setTitle:@"Sửa Record" forState:UIControlStateNormal];
+    }
+    
     NSRange range = [content rangeOfString: domain];
     if (range.location != NSNotFound) {
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
@@ -271,10 +280,6 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.bottom.equalTo(self).offset(-keyboardSize.height);
     }];
-    
-    if (tvDesc.isFirstResponder) {
-        [scvContent setContentOffset:CGPointMake(0, tfTTL.frame.origin.y) animated:TRUE];
-    }
 }
 
 - (void)keyboardDidHide: (NSNotification *) notif{
@@ -291,6 +296,15 @@
     
     if ([delegate respondsToSelector:@selector(closeAddDNSRecordView)]) {
         [delegate closeAddDNSRecordView];
+    }
+}
+
+- (IBAction)btnResetPress:(UIButton *)sender {
+    if (curType == DNSRecordAddNew) {
+        tfName.text = tfType.text = tfMX.text = tfValue.text = @"";
+        [self showMXField: FALSE];
+    }else{
+        [self showDNSRecordContentWithInfo: curInfo];
     }
 }
 
@@ -366,10 +380,22 @@
     }
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang thêm record. Vui lòng chờ..." Interaction:NO];
-    
-    [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] addDNSRecordForDomain:domain name:tfName.text value:tfValue.text type:tfType.text ttl:tfTTL.text mx:tfMX.text];
+    if (curType == DNSRecordAddNew) {
+        [ProgressHUD show:@"Đang thêm record..." Interaction:NO];
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] addDNSRecordForDomain:domain name:tfName.text value:tfValue.text type:tfType.text ttl:tfTTL.text mx:tfMX.text];
+    }else{
+        NSString *recordId = [curInfo objectForKey:@"record_id"];
+        if ([AppUtils isNullOrEmpty: recordId]) {
+            [self makeToast:@"Không tìm thấy giá trị recordId, vui lòng thực hiện lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            return;
+        }
+        [ProgressHUD show:@"Đang cập nhật record..." Interaction:NO];
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] updateDNSRecordForDomain:domain name:tfName.text value:tfValue.text type:tfType.text ttl:tfTTL.text mx:tfMX.text record_id:recordId];
+    }
 }
 
 - (void)showListTypeRecord: (BOOL)show withSender: (UIButton *)sender {
@@ -395,8 +421,47 @@
     }];
 }
 
-- (void)showDNSRecordContentWithInfo: (NSDictionary *)info {
+- (void)showDNSRecordContentWithInfo: (NSDictionary *)info
+{
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] info = %@", __FUNCTION__, @[info])];
     
+    if (info != nil) {
+        curInfo = [[NSDictionary alloc] initWithDictionary: info];
+        
+        NSString *record_name = [info objectForKey:@"record_name"];
+        tfName.text = (![AppUtils isNullOrEmpty: record_name]) ? record_name : @"";
+        
+        NSString *record_type = [info objectForKey:@"record_type"];
+        tfType.text = (![AppUtils isNullOrEmpty: record_type]) ? record_type : @"";
+        
+        NSString *record_mx = [info objectForKey:@"record_mx"];
+        tfMX.text = (![AppUtils isNullOrEmpty: record_mx]) ? record_mx : @"";
+        
+        NSString *record_value = [info objectForKey:@"record_value"];
+        tfValue.text = (![AppUtils isNullOrEmpty: record_value]) ? record_value : @"";
+        
+        NSString *record_ttl = [info objectForKey:@"record_ttl"];
+        tfTTL.text = (![AppUtils isNullOrEmpty: record_ttl]) ? record_ttl : @"";
+        
+        if (![AppUtils isNullOrEmpty: record_type] && [record_type isEqualToString: type_MX]) {
+            [self showMXField: TRUE];
+        }else{
+            [self showMXField: FALSE];
+        }
+    }
+    
+    /*
+    "record_id" = 840096;
+    "record_mx" = 50;
+    "record_name" = "khaile.skype.";
+    "record_ttl" = 300;
+    "record_type" = MX;
+    "record_value" = "103.101.163.135";
+    */
+}
+
+- (void)resetAllValue {
+    tfName.text = tfType.text = tfMX.text = tfValue.text = tfTTL.text = @"";
 }
 
 #pragma mark - UITableview Delegate
@@ -424,7 +489,9 @@
         [self showMXField: TRUE];
     }else{
         [self showMXField: FALSE];
-        tfMX.text = @"";
+        if (curType == DNSRecordAddNew) {
+            tfMX.text = @"";
+        }
     }
     
     [self showListTypeRecord: FALSE withSender: nil];
@@ -437,7 +504,7 @@
 #pragma mark - UITextfield delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == tfName) {
-        [tfType becomeFirstResponder];
+        [tfValue becomeFirstResponder];
         
     }else if (textField == tfType) {
         [tfMX becomeFirstResponder];
@@ -449,11 +516,20 @@
         [tfTTL becomeFirstResponder];
         
     }else if (textField == tfTTL) {
-        [tvDesc becomeFirstResponder];
+        [self endEditing: TRUE];
     }
     return TRUE;
 }
 
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewHeader.mas_bottom);
+        make.left.bottom.equalTo(self);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+    }];
+    
+    return TRUE;
+}
 
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -485,7 +561,49 @@
 -(void)addDNSRecordsSuccessfulWithData:(NSDictionary *)data {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
-    [self makeToast:@"Thêm record thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSString *message = [data objectForKey:@"message"];
+        if (![AppUtils isNullOrEmpty: message]) {
+            [self makeToast:message duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        }else{
+            [self makeToast:@"Thêm record thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        }
+    }else{
+        [self makeToast:@"Thêm record thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }
+    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
+}
+
+-(void)failedToUpdateDNSRecord:(id)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    [ProgressHUD dismiss];
+    
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSString *content = [AppUtils getErrorContentFromData: error];
+        [self makeToast:content duration:4.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+    }else if ([error isKindOfClass:[NSString class]]) {
+        [self makeToast:error duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
+}
+
+-(void)updateDNSRecordsSuccessfulWithData:(NSDictionary *)data {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
+    [ProgressHUD dismiss];
+    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSString *message = [data objectForKey:@"message"];
+        if (![AppUtils isNullOrEmpty: message]) {
+            [self makeToast:message duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        }else{
+            [self makeToast:@"Cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        }
+    }else{
+        [self makeToast:@"Cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }
+    
+    
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
@@ -499,8 +617,8 @@
         [delegate closeAddDNSRecordView];
     }
     
-    if ([delegate respondsToSelector:@selector(addNewRecordSuccessful)]) {
-        [delegate addNewRecordSuccessful];
+    if ([delegate respondsToSelector:@selector(reloadDNSRecordListAfterAndOrEdit)]) {
+        [delegate reloadDNSRecordListAfterAndOrEdit];
     }
 }
 

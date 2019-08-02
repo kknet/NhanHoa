@@ -685,6 +685,14 @@
         if ([delegate respondsToSelector:@selector(addDNSRecordsSuccessfulWithData:)]) {
             [delegate addDNSRecordsSuccessfulWithData: data];
         }
+    }else if ([action isEqualToString:@"edit"]){
+        if ([delegate respondsToSelector:@selector(updateDNSRecordsSuccessfulWithData:)]) {
+            [delegate updateDNSRecordsSuccessfulWithData: data];
+        }
+    }else if ([action isEqualToString:@"delete"]){
+        if ([delegate respondsToSelector:@selector(deleteDNSRecordsSuccessfulWithData:)]) {
+            [delegate deleteDNSRecordsSuccessfulWithData: data];
+        }
     }
 }
 
@@ -696,6 +704,14 @@
     }else if ([action isEqualToString:@"add"]){
         if ([delegate respondsToSelector:@selector(failedToAddDNSRecord:)]) {
             [delegate failedToAddDNSRecord: data];
+        }
+    }else if ([action isEqualToString:@"edit"]){
+        if ([delegate respondsToSelector:@selector(failedToUpdateDNSRecord:)]) {
+            [delegate failedToUpdateDNSRecord: data];
+        }
+    }else if ([action isEqualToString:@"delete"]){
+        if ([delegate respondsToSelector:@selector(failedToDeleteDNSRecord:)]) {
+            [delegate failedToDeleteDNSRecord: data];
         }
     }
 }
@@ -729,6 +745,37 @@
     [jsonDict setObject:mx forKey:@"record_mx"];
     
     [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"add"];
+}
+
+- (void)updateDNSRecordForDomain: (NSString *)domain name: (NSString *)name value: (NSString *)value type:(NSString *)type ttl:(NSString *)ttl mx: (NSString *)mx record_id: (NSString *)record_id {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:dns_record_mod forKey:@"mod"];
+    [jsonDict setObject:@"edit" forKey:@"action"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [jsonDict setObject:name forKey:@"record_name"];
+    
+    [jsonDict setObject:value forKey:@"record_value"];
+    [jsonDict setObject:type forKey:@"record_type"];
+    [jsonDict setObject:ttl forKey:@"record_ttl"];
+    [jsonDict setObject:ttl forKey:@"record_ttl"];
+    [jsonDict setObject:mx forKey:@"record_mx"];
+    [jsonDict setObject:record_id forKey:@"record_id"];
+    
+    [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"edit"];
+}
+
+- (void)deleteDNSRecordForDomain: (NSString *)domain record_id:(NSString *)record_id {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:dns_record_mod forKey:@"mod"];
+    [jsonDict setObject:@"delete" forKey:@"action"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:domain forKey:@"domain"];
+    [jsonDict setObject:record_id forKey:@"record_id"];
+    
+    [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"delete"];
 }
 
 @end

@@ -129,20 +129,6 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mô tả" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IlT-dK-i3n">
-                            <rect key="frame" x="16" y="253" width="44" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn3-Ig-8aF">
-                            <rect key="frame" x="115" y="253" width="189" height="132"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJg-Zx-QmN">
                             <rect key="frame" x="115" y="404" width="120" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -158,6 +144,14 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gO0-dq-bJb">
+                            <rect key="frame" x="251" y="404" width="61" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Nhập Lại"/>
+                            <connections>
+                                <action selector="btnResetPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="LaB-eB-ZUS"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </scrollView>
             </subviews>
@@ -165,10 +159,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btnAddRecord" destination="pJg-Zx-QmN" id="4yt-2U-Iag"/>
+                <outlet property="btnReset" destination="gO0-dq-bJb" id="P8G-wJ-EXT"/>
                 <outlet property="btnType" destination="7TI-82-v2M" id="vp7-d2-QUx"/>
                 <outlet property="icClose" destination="aUB-6m-kXF" id="xEe-Aw-J4h"/>
                 <outlet property="imgArrow" destination="HZp-BW-Pft" id="qa2-cZ-NqD"/>
-                <outlet property="lbDesc" destination="IlT-dK-i3n" id="Wse-zE-7Xu"/>
                 <outlet property="lbHeader" destination="rfT-To-4zM" id="l4R-w0-4Bd"/>
                 <outlet property="lbMX" destination="Lc7-QM-ryQ" id="p71-oS-6bt"/>
                 <outlet property="lbName" destination="HdG-xK-hZO" id="0wH-Nu-gt6"/>
@@ -183,10 +177,9 @@
                 <outlet property="tfTTL" destination="ogx-o7-I5O" id="wHA-T5-jH4"/>
                 <outlet property="tfType" destination="QoW-j4-X1l" id="3vo-FC-d7h"/>
                 <outlet property="tfValue" destination="89R-yB-Abs" id="cVa-qM-8HE"/>
-                <outlet property="tvDesc" destination="rn3-Ig-8aF" id="r2M-Kz-VXO"/>
                 <outlet property="viewHeader" destination="Les-Xr-wqw" id="mmY-fr-Rbp"/>
             </connections>
-            <point key="canvasLocation" x="-213.04347826086959" y="141.62946428571428"/>
+            <point key="canvasLocation" x="-238" y="131"/>
         </view>
     </objects>
     <resources>
