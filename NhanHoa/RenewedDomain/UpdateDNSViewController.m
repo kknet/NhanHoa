@@ -223,7 +223,17 @@
 }
 
 - (void)dismissView {
-    [self.navigationController popViewControllerAnimated: TRUE];
+    if ([AppDelegate sharedInstance].needChangeDNS) {
+        [AppDelegate sharedInstance].needChangeDNS = FALSE;
+        NSArray *viewControllers = [self.navigationController viewControllers];
+        if (viewControllers.count >= 3) {
+            [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
+        }else{
+            [self.navigationController popViewControllerAnimated: TRUE];
+        }
+    }else{
+        [self.navigationController popViewControllerAnimated: TRUE];
+    }
 }
 
 #pragma mark - Webservice delegate
@@ -248,13 +258,12 @@
     [ProgressHUD dismiss];
     
     if ([error isKindOfClass:[NSDictionary class]]) {
-        NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
-        if (errorCode != nil && [errorCode isEqualToString:@"008"]) {
-            [self.view makeToast:@"Tên miền không được tìm thấy. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-            return;
-        }
+        NSString *content = [AppUtils getErrorContentFromData: error];
+        [self.view makeToast:content duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        
+    }else if ([error isKindOfClass:[NSString class]]) {
+        [self.view makeToast:error duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
-    [self.view makeToast:@"Cập nhật thất bại. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)changeDNSForDomainSuccessful {

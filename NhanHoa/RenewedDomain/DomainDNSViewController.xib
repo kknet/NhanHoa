@@ -11,10 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DomainDNSViewController">
             <connections>
+                <outlet property="btnChange" destination="Foh-ua-ptN" id="4RD-iB-k1L"/>
+                <outlet property="lbInfo" destination="USc-F3-63M" id="ZZZ-i1-BdN"/>
                 <outlet property="lbNoData" destination="3uW-Bh-cG4" id="ICn-cZ-39c"/>
                 <outlet property="scvContent" destination="Ipj-rt-arE" id="NUs-MC-rw2"/>
                 <outlet property="tbRecords" destination="jqd-1r-ld3" id="xn1-W5-4I3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewNotSupport" destination="ccS-1p-BeY" id="ee0-dy-OAR"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -40,10 +43,32 @@
                         </tableView>
                     </subviews>
                 </scrollView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccS-1p-BeY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USc-F3-63M">
+                            <rect key="frame" x="139" y="229" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Foh-ua-ptN">
+                            <rect key="frame" x="84" y="225" width="152" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Thay đổi Name Server"/>
+                            <connections>
+                                <action selector="btnChangePress:" destination="-1" eventType="touchUpInside" id="oRc-Ey-mbc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-774" y="-157"/>
+            <point key="canvasLocation" x="-928" y="-151"/>
         </view>
     </objects>
 </document>

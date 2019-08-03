@@ -16,6 +16,8 @@ target 'NhanHoa' do
     pod 'Firebase'
     pod 'FirebaseMessaging'
     pod 'FirebaseInstanceID'
+    pod 'Fabric'
+    pod 'Crashlytics'
     
 #    pod 'MBProgressHUD', '~> 1.1.0'
 end

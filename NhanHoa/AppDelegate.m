@@ -53,7 +53,7 @@
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall, ringbackPlayer, beepPlayer, newHomeLayout;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
-@synthesize callViewController, remoteName;
+@synthesize callViewController, remoteName, needChangeDNS;
 
 AppDelegate      *app;
 
@@ -221,6 +221,9 @@ AppDelegate      *app;
     app = self;
     [self startPjsuaForApp];
     current_call_id = -1;
+    
+    //  setup for Fabric
+    [Fabric with:@[[Crashlytics class]]];
     
     return YES;
 }

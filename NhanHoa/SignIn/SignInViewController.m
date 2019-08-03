@@ -473,6 +473,11 @@
 }
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
+    //  set username for Fabric
+    if (![AppUtils isNullOrEmpty: tfAccount.text]) {
+        [[Crashlytics sharedInstance] setUserName:tfAccount.text];
+    }
+    
     NSString *min_ios_version = [data objectForKey:@"min_ios_version"];
     if (![AppUtils isNullOrEmpty: min_ios_version]) {
         BOOL versionReady = [self checkVersionAppToAcceptLogin: min_ios_version];

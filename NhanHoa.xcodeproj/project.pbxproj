@@ -190,6 +190,24 @@
 		4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED122E8443100DA7405 /* numpad_star_default.png */; };
 		4C041ED722E8444800DA7405 /* button-endcall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED622E8444800DA7405 /* button-endcall.png */; };
 		4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED822E8505C00DA7405 /* beep.mp3 */; };
+		4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90522F58CF600910F54 /* mene_order_list.png */; };
+		4C28B90822F5900400910F54 /* menu_hosting.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90722F5900400910F54 /* menu_hosting.png */; };
+		4C28B90A22F5917300910F54 /* menu_ssl.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90922F5917300910F54 /* menu_ssl.png */; };
+		4C28B90C22F5948500910F54 /* menu_email.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90B22F5948500910F54 /* menu_email.png */; };
+		4C28B90E22F5957000910F54 /* menu_vps.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90D22F5957000910F54 /* menu_vps.png */; };
+		4C28B91022F5967200910F54 /* menu_cloud_server.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90F22F5967200910F54 /* menu_cloud_server.png */; };
+		4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B91322F596E000910F54 /* OrdersListViewController.m */; };
+		4C28B91622F596E000910F54 /* OrdersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B91422F596E000910F54 /* OrdersListViewController.xib */; };
+		4C28B91B22F5975100910F54 /* RegisterHostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B91922F5975100910F54 /* RegisterHostingViewController.m */; };
+		4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B91A22F5975100910F54 /* RegisterHostingViewController.xib */; };
+		4C28B92122F597C000910F54 /* RegisterSSLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B91F22F597C000910F54 /* RegisterSSLViewController.m */; };
+		4C28B92222F597C000910F54 /* RegisterSSLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92022F597C000910F54 /* RegisterSSLViewController.xib */; };
+		4C28B92722F5983C00910F54 /* RegisterEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B92522F5983C00910F54 /* RegisterEmailViewController.m */; };
+		4C28B92822F5983C00910F54 /* RegisterEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92622F5983C00910F54 /* RegisterEmailViewController.xib */; };
+		4C28B92D22F5985900910F54 /* RegisterVPSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B92B22F5985900910F54 /* RegisterVPSViewController.m */; };
+		4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */; };
+		4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */; };
+		4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
@@ -703,6 +721,30 @@
 		4C041ED122E8443100DA7405 /* numpad_star_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_default.png; sourceTree = "<group>"; };
 		4C041ED622E8444800DA7405 /* button-endcall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-endcall.png"; sourceTree = "<group>"; };
 		4C041ED822E8505C00DA7405 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		4C28B90522F58CF600910F54 /* mene_order_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mene_order_list.png; sourceTree = "<group>"; };
+		4C28B90722F5900400910F54 /* menu_hosting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_hosting.png; sourceTree = "<group>"; };
+		4C28B90922F5917300910F54 /* menu_ssl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_ssl.png; sourceTree = "<group>"; };
+		4C28B90B22F5948500910F54 /* menu_email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_email.png; sourceTree = "<group>"; };
+		4C28B90D22F5957000910F54 /* menu_vps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_vps.png; sourceTree = "<group>"; };
+		4C28B90F22F5967200910F54 /* menu_cloud_server.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_cloud_server.png; sourceTree = "<group>"; };
+		4C28B91222F596E000910F54 /* OrdersListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrdersListViewController.h; sourceTree = "<group>"; };
+		4C28B91322F596E000910F54 /* OrdersListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrdersListViewController.m; sourceTree = "<group>"; };
+		4C28B91422F596E000910F54 /* OrdersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrdersListViewController.xib; sourceTree = "<group>"; };
+		4C28B91822F5975100910F54 /* RegisterHostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterHostingViewController.h; sourceTree = "<group>"; };
+		4C28B91922F5975100910F54 /* RegisterHostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterHostingViewController.m; sourceTree = "<group>"; };
+		4C28B91A22F5975100910F54 /* RegisterHostingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterHostingViewController.xib; sourceTree = "<group>"; };
+		4C28B91E22F597C000910F54 /* RegisterSSLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterSSLViewController.h; sourceTree = "<group>"; };
+		4C28B91F22F597C000910F54 /* RegisterSSLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterSSLViewController.m; sourceTree = "<group>"; };
+		4C28B92022F597C000910F54 /* RegisterSSLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterSSLViewController.xib; sourceTree = "<group>"; };
+		4C28B92422F5983C00910F54 /* RegisterEmailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterEmailViewController.h; sourceTree = "<group>"; };
+		4C28B92522F5983C00910F54 /* RegisterEmailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterEmailViewController.m; sourceTree = "<group>"; };
+		4C28B92622F5983C00910F54 /* RegisterEmailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterEmailViewController.xib; sourceTree = "<group>"; };
+		4C28B92A22F5985900910F54 /* RegisterVPSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterVPSViewController.h; sourceTree = "<group>"; };
+		4C28B92B22F5985900910F54 /* RegisterVPSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterVPSViewController.m; sourceTree = "<group>"; };
+		4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterVPSViewController.xib; sourceTree = "<group>"; };
+		4C28B93022F5987800910F54 /* RegisterCloudServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterCloudServerViewController.h; sourceTree = "<group>"; };
+		4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterCloudServerViewController.m; sourceTree = "<group>"; };
+		4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterCloudServerViewController.xib; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
@@ -1437,6 +1479,12 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				4C28B92F22F5986100910F54 /* RegisterCloudServer */,
+				4C28B92922F5984100910F54 /* RegisterVPS */,
+				4C28B92322F5982500910F54 /* RegisterEmail */,
+				4C28B91D22F597A800910F54 /* RegisterSSL */,
+				4C28B91722F5973200910F54 /* RegisterHosting */,
+				4C28B91122F596C600910F54 /* OrdersList */,
 				5612F8A422E6BFCB00ECBBB1 /* Call */,
 				15A496E222AA080C007609E8 /* NhanHoa.entitlements */,
 				567FDE4422CD11590081616B /* pjsip_sources */,
@@ -1695,6 +1743,12 @@
 				1517FB4A227446500044E878 /* menu_search_domain.png */,
 				1517FB4D227446520044E878 /* menu_support.png */,
 				1517FB50227446540044E878 /* menu_withdrawal.png */,
+				4C28B90522F58CF600910F54 /* mene_order_list.png */,
+				4C28B90722F5900400910F54 /* menu_hosting.png */,
+				4C28B90922F5917300910F54 /* menu_ssl.png */,
+				4C28B90B22F5948500910F54 /* menu_email.png */,
+				4C28B90D22F5957000910F54 /* menu_vps.png */,
+				4C28B90F22F5967200910F54 /* menu_cloud_server.png */,
 				1517FB8D22745D790044E878 /* tababr_acc_act.png */,
 				1517FB8C22745D780044E878 /* tababr_acc_act@2x.png */,
 				1517FB8722745D760044E878 /* tababr_acc_act@3x.png */,
@@ -1924,6 +1978,66 @@
 				845D32BB22793DF50047B196 /* RegisterAccountStep2ViewController.xib */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		4C28B91122F596C600910F54 /* OrdersList */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B91222F596E000910F54 /* OrdersListViewController.h */,
+				4C28B91322F596E000910F54 /* OrdersListViewController.m */,
+				4C28B91422F596E000910F54 /* OrdersListViewController.xib */,
+			);
+			path = OrdersList;
+			sourceTree = "<group>";
+		};
+		4C28B91722F5973200910F54 /* RegisterHosting */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B91822F5975100910F54 /* RegisterHostingViewController.h */,
+				4C28B91922F5975100910F54 /* RegisterHostingViewController.m */,
+				4C28B91A22F5975100910F54 /* RegisterHostingViewController.xib */,
+			);
+			path = RegisterHosting;
+			sourceTree = "<group>";
+		};
+		4C28B91D22F597A800910F54 /* RegisterSSL */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B91E22F597C000910F54 /* RegisterSSLViewController.h */,
+				4C28B91F22F597C000910F54 /* RegisterSSLViewController.m */,
+				4C28B92022F597C000910F54 /* RegisterSSLViewController.xib */,
+			);
+			path = RegisterSSL;
+			sourceTree = "<group>";
+		};
+		4C28B92322F5982500910F54 /* RegisterEmail */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B92422F5983C00910F54 /* RegisterEmailViewController.h */,
+				4C28B92522F5983C00910F54 /* RegisterEmailViewController.m */,
+				4C28B92622F5983C00910F54 /* RegisterEmailViewController.xib */,
+			);
+			path = RegisterEmail;
+			sourceTree = "<group>";
+		};
+		4C28B92922F5984100910F54 /* RegisterVPS */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B92A22F5985900910F54 /* RegisterVPSViewController.h */,
+				4C28B92B22F5985900910F54 /* RegisterVPSViewController.m */,
+				4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */,
+			);
+			path = RegisterVPS;
+			sourceTree = "<group>";
+		};
+		4C28B92F22F5986100910F54 /* RegisterCloudServer */ = {
+			isa = PBXGroup;
+			children = (
+				4C28B93022F5987800910F54 /* RegisterCloudServerViewController.h */,
+				4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */,
+				4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */,
+			);
+			path = RegisterCloudServer;
 			sourceTree = "<group>";
 		};
 		5600E8F822A5EEAD00F7DECE /* UI */ = {
@@ -2993,6 +3107,7 @@
 				150845EC226EBF2400428514 /* Frameworks */,
 				150845ED226EBF2400428514 /* Resources */,
 				129CF2702B6B5B569A623BCF /* [CP] Copy Pods Resources */,
+				4C28B90422F56E7F00910F54 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3049,6 +3164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
+				4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */,
 				1517FBBA22745D9B0044E878 /* wallet.png in Resources */,
 				84A1646E2284EA5C0001B833 /* visa.png in Resources */,
 				845D32BD22793DF50047B196 /* RegisterAccountStep2ViewController.xib in Resources */,
@@ -3071,6 +3187,7 @@
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
 				4C041EAE22E8439600DA7405 /* numpad_three_hover.png in Resources */,
+				4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */,
 				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
 				842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */,
 				56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */,
@@ -3086,6 +3203,7 @@
 				4C041EA922E8437500DA7405 /* numpad_one_default.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				5612F8CD22E7094700ECBBB1 /* hold_dis.png in Resources */,
+				4C28B91022F5967200910F54 /* menu_cloud_server.png in Resources */,
 				567FDF4422CD157C0081616B /* config_auto.h.in in Resources */,
 				842F81B6227561ED00D6DE6D /* Roboto-Bold.ttf in Resources */,
 				5601BE0222BD40830011E73D /* GoogleService-Info.plist in Resources */,
@@ -3160,6 +3278,7 @@
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
+				4C28B90E22F5957000910F54 /* menu_vps.png in Resources */,
 				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				564619C622A812B400867B21 /* PaymentViewController.xib in Resources */,
@@ -3174,6 +3293,8 @@
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
 				56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */,
+				4C28B90C22F5948500910F54 /* menu_email.png in Resources */,
+				4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
@@ -3194,6 +3315,7 @@
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
+				4C28B92822F5983C00910F54 /* RegisterEmailViewController.xib in Resources */,
 				4C041EB822E843C600DA7405 /* numpad_five_default.png in Resources */,
 				15CD147922B9E2E9009CBE86 /* push.php in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
@@ -3202,6 +3324,7 @@
 				56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
 				563B8DC622B9B6D6004A037D /* ck.pem in Resources */,
+				4C28B91622F596E000910F54 /* OrdersListViewController.xib in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
 				157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */,
@@ -3211,6 +3334,7 @@
 				5612F8AA22E6C04800ECBBB1 /* CallViewController.xib in Resources */,
 				15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
+				4C28B90A22F5917300910F54 /* menu_ssl.png in Resources */,
 				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
 				84588A9F228093F000B59E0F /* ic_support.png in Resources */,
 				8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */,
@@ -3229,6 +3353,7 @@
 				4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */,
 				5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */,
 				1517FB5B2274465B0044E878 /* menu_domain.png in Resources */,
+				4C28B90822F5900400910F54 /* menu_hosting.png in Resources */,
 				4C041EB622E843C600DA7405 /* numpad_four_default.png in Resources */,
 				1517FBAD22745D810044E878 /* tabbar_history_act@3x.png in Resources */,
 				4C041EB922E843C600DA7405 /* numpad_five_hover.png in Resources */,
@@ -3237,6 +3362,7 @@
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
 				567FDE8122CD14410081616B /* os_auto.h.in in Resources */,
 				84A63C4022839E9100C52B8A /* BonusAccountViewController.xib in Resources */,
+				4C28B92222F597C000910F54 /* RegisterSSLViewController.xib in Resources */,
 				15E92AD32272A2F3004AB658 /* graphic.png in Resources */,
 				842F81B3227561ED00D6DE6D /* Roboto-Black.ttf in Resources */,
 				8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */,
@@ -3249,6 +3375,7 @@
 				842F81B7227561ED00D6DE6D /* Roboto-Medium.ttf in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				4C00790922F144E800C19492 /* dns_del.png in Resources */,
+				4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
 				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
@@ -3368,6 +3495,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4C28B90422F56E7F00910F54 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" cb9eb31586d71f1504f5234d010f4bc83bc32124 ada121267d45900d0c7171e7cf4dfb59e70742d799831a1b98ff5415fe794f47\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -3404,6 +3549,7 @@
 				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
 				4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */,
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
+				4C28B92722F5983C00910F54 /* RegisterEmailViewController.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */,
@@ -3418,6 +3564,7 @@
 				157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
+				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
 				56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
@@ -3432,6 +3579,7 @@
 				157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */,
 				56D0295822B3FA9900280127 /* DomainResultView.m in Sources */,
 				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
+				4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
 				4C0078F622F1310200C19492 /* DomainDNSViewController.m in Sources */,
@@ -3440,6 +3588,7 @@
 				567FDE5222CD11AF0081616B /* pjsua_app.c in Sources */,
 				56D5761F22A2C0A200F6ADAD /* UpdatePassportViewController.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
+				4C28B92D22F5985900910F54 /* RegisterVPSViewController.m in Sources */,
 				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
 				567FDE5022CD11AF0081616B /* pjsua_app_legacy.c in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
@@ -3452,6 +3601,7 @@
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
 				56FA23AD22B00AD9003F89CB /* BankInfoViewController.m in Sources */,
+				4C28B91B22F5975100910F54 /* RegisterHostingViewController.m in Sources */,
 				157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */,
 				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
@@ -3499,6 +3649,7 @@
 				562362DF22E2DF03001AE97A /* SupportCustomerCell.m in Sources */,
 				56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
+				4C28B92122F597C000910F54 /* RegisterSSLViewController.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
 				5610492122B4FE9000463378 /* Constant.m in Sources */,
@@ -3651,6 +3802,7 @@
 				CODE_SIGN_ENTITLEMENTS = NhanHoa/NhanHoa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 4LY8SQLV6P;
 				ENABLE_BITCODE = NO;
 				GCC_NO_COMMON_BLOCKS = YES;

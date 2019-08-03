@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnChangeDNS;
 @property (weak, nonatomic) IBOutlet UIButton *btnUpdatePassport;
 @property (weak, nonatomic) IBOutlet UIButton *btnSigning;
+@property (weak, nonatomic) IBOutlet UIButton *btnManagerDNS;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 - (IBAction)btnRenewDomainPress:(UIButton *)sender;
@@ -39,9 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnChangeDNSPress:(UIButton *)sender;
 - (IBAction)btnSigningPress:(UIButton *)sender;
 - (IBAction)swWhoisProtectChanged:(UISwitch *)sender;
+- (IBAction)btnManagerDNSPress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSString *ordId;
 @property (nonatomic, strong) NSString *cusId;
+
+
+
 
 @end
 

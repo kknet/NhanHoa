@@ -130,7 +130,6 @@
     }];
     
     [AppUtils setBorderForTextfield:tfMX borderColor:BORDER_COLOR];
-    tfMX.placeholder = [NSString stringWithFormat:@"[%d -> %d]", MX_MIN, MX_MAX];
     tfMX.keyboardType = UIKeyboardTypeNumberPad;
     tfMX.returnKeyType = UIReturnKeyNext;
     tfMX.delegate = self;
@@ -162,7 +161,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfTTL borderColor:BORDER_COLOR];
-    tfTTL.placeholder = [NSString stringWithFormat:@"[%d -> %d]", TTL_MIN, TTL_MAX];
+    tfTTL.text = [NSString stringWithFormat:@"%d]", TTL_MIN];
     tfTTL.keyboardType = UIKeyboardTypeNumberPad;
     tfTTL.returnKeyType = UIReturnKeyNext;
     tfTTL.delegate = self;
@@ -461,7 +460,8 @@
 }
 
 - (void)resetAllValue {
-    tfName.text = tfType.text = tfMX.text = tfValue.text = tfTTL.text = @"";
+    tfName.text = tfType.text = tfMX.text = tfValue.text = @"";
+    tfTTL.text = [NSString stringWithFormat:@"%d", TTL_MIN];
 }
 
 #pragma mark - UITableview Delegate

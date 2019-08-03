@@ -27,6 +27,8 @@
 #import "FIRMessaging.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #endif
 
 

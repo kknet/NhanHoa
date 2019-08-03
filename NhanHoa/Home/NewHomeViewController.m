@@ -17,6 +17,12 @@
 #import "WithdrawalBonusAccountViewController.h"
 #import "ProfileManagerViewController.h"
 #import "SupportViewController.h"
+#import "OrdersListViewController.h"
+#import "RegisterHostingViewController.h"
+#import "RegisterSSLViewController.h"
+#import "RegisterEmailViewController.h"
+#import "RegisterVPSViewController.h"
+#import "RegisterCloudServerViewController.h"
 #import "HomeMenuObject.h"
 #import "NewHomeMenuCell.h"
 
@@ -161,22 +167,22 @@
     HomeMenuObject *support = [[HomeMenuObject alloc] initWithName:@"Hỗ trợ khách hàng" icon:@"menu_support" type:eSupport];
     [listMenu addObject: support];
     
-    HomeMenuObject *Orders = [[HomeMenuObject alloc] initWithName:@"Danh sách đơn hàng" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *Orders = [[HomeMenuObject alloc] initWithName:@"Danh sách đơn hàng" icon:@"mene_order_list" type:eSupport];
     [listMenu addObject: Orders];
     
-    HomeMenuObject *Hosting = [[HomeMenuObject alloc] initWithName:@"Đăng ký Hosting" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *Hosting = [[HomeMenuObject alloc] initWithName:@"Đăng ký Hosting" icon:@"menu_hosting" type:eSupport];
     [listMenu addObject: Hosting];
     
-    HomeMenuObject *SSL = [[HomeMenuObject alloc] initWithName:@"Đăng ký SSL" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *SSL = [[HomeMenuObject alloc] initWithName:@"Đăng ký SSL" icon:@"menu_ssl" type:eSupport];
     [listMenu addObject: SSL];
     
-    HomeMenuObject *Email = [[HomeMenuObject alloc] initWithName:@"Đăng ký Email" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *Email = [[HomeMenuObject alloc] initWithName:@"Đăng ký Email" icon:@"menu_email" type:eSupport];
     [listMenu addObject: Email];
     
-    HomeMenuObject *VPS = [[HomeMenuObject alloc] initWithName:@"Đăng ký VPS" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *VPS = [[HomeMenuObject alloc] initWithName:@"Đăng ký VPS" icon:@"menu_vps" type:eSupport];
     [listMenu addObject: VPS];
     
-    HomeMenuObject *CloudServer = [[HomeMenuObject alloc] initWithName:@"Đăng ký Cloud Server" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *CloudServer = [[HomeMenuObject alloc] initWithName:@"Đăng ký Cloud Server" icon:@"menu_cloud_server" type:eSupport];
     [listMenu addObject: CloudServer];
 }
 
@@ -482,28 +488,40 @@
             break;
         }
         case eOrdersList:{
+            OrdersListViewController *ordersVC = [[OrdersListViewController alloc] initWithNibName:@"OrdersListViewController" bundle:nil];
+            ordersVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: ordersVC animated:YES];
             
-            NSLog(@"Orders List");
             break;
         }
         case eRegisterHosting:{
-            NSLog(@"Register Hosting");
+            RegisterHostingViewController *registerHostingVC = [[RegisterHostingViewController alloc] initWithNibName:@"RegisterHostingViewController" bundle:nil];
+            registerHostingVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: registerHostingVC animated:YES];
             break;
         }
         case eRegisterSSL:{
-            NSLog(@"Register SSL");
+            RegisterSSLViewController *registerSSLVC = [[RegisterSSLViewController alloc] initWithNibName:@"RegisterSSLViewController" bundle:nil];
+            registerSSLVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: registerSSLVC animated:YES];
             break;
         }
         case eRegisterEmail:{
-            NSLog(@"Orders List");
+            RegisterEmailViewController *registerEmailVC = [[RegisterEmailViewController alloc] initWithNibName:@"RegisterEmailViewController" bundle:nil];
+            registerEmailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: registerEmailVC animated:YES];
             break;
         }
         case eRegisterVPS:{
-            NSLog(@"Register VPS");
+            RegisterVPSViewController *registerVpsVC = [[RegisterVPSViewController alloc] initWithNibName:@"RegisterVPSViewController" bundle:nil];
+            registerVpsVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: registerVpsVC animated:YES];
             break;
         }
         case eRegisterCloudServer:{
-            NSLog(@"Register Cloud Server");
+            RegisterCloudServerViewController *registerCloudServerVC = [[RegisterCloudServerViewController alloc] initWithNibName:@"RegisterCloudServerViewController" bundle:nil];
+            registerCloudServerVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController: registerCloudServerVC animated:YES];
             break;
         }
         default:

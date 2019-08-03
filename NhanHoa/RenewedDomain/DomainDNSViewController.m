@@ -11,6 +11,7 @@
 #import "DNSDetailCell.h"
 #import "DNSRecordManagerView.h"
 #import "DNSDetailPopupView.h"
+#import "UpdateDNSViewController.h"
 
 @interface DomainDNSViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, DNSRecordManagerViewDelegate, DNSDetailPopupViewDelegate>
 {
@@ -25,12 +26,12 @@
 @end
 
 @implementation DomainDNSViewController
-@synthesize scvContent, tbRecords, domainName, lbNoData;
+@synthesize scvContent, tbRecords, domainName, lbNoData, viewNotSupport, lbInfo, btnChange, supportDNSRecords;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Quản lý DNS";
+    self.title = @"Quản lý DNS Records";
     
     [self setupUIForView];
 }
@@ -42,13 +43,17 @@
     
     //  hide cart button to show icon add new dns record
     [AppDelegate sharedInstance].cartView.hidden = TRUE;
-    [self addRightBarButtonForNavigationBar];
-    
-    [self getDNSRecordListForDomain];
-    
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+    if (supportDNSRecords) {
+        viewNotSupport.hidden = TRUE;
+        [self addRightBarButtonForNavigationBar];
+        [self getDNSRecordListForDomain];
+        
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:)
+                                                     name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+    }else{
+        viewNotSupport.hidden = FALSE;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -88,6 +93,34 @@
     lbNoData.hidden = TRUE;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
+    [viewNotSupport mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
+    lbInfo.numberOfLines = 15;
+    lbInfo.font = [AppDelegate sharedInstance].fontBTN;
+    lbInfo.textAlignment = NSTextAlignmentCenter;
+    lbInfo.textColor = TITLE_COLOR;
+    lbInfo.text = @"Tên miền của bạn đang sử dụng name server không thuộc hệ thống Nhân Hòa, bạn cần đổi name server theo thông tin bên dưới sau đó vào lại mục này.\n\nns1.zonedns.vn\nns2.zonedns.vn\nns3.zonedns.vn\nns4.zonedns.vn";
+    [lbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(viewNotSupport.mas_centerY).offset(-10.0);
+        make.left.equalTo(viewNotSupport).offset(5.0);
+        make.right.equalTo(viewNotSupport).offset(-5.0);
+    }];
+    
+    btnChange.backgroundColor = BLUE_COLOR;
+    btnChange.layer.borderWidth = 1.0;
+    btnChange.layer.borderColor = BLUE_COLOR.CGColor;
+    btnChange.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    btnChange.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnChange setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnChange mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewNotSupport.mas_centerY).offset(10.0);
+        make.centerX.equalTo(viewNotSupport.mas_centerX);
+        make.width.mas_equalTo(220.0);
+        make.height.mas_equalTo(45.0);
     }];
 }
 
@@ -736,4 +769,19 @@
     [self performSelector:@selector(showEditDNSRecordView) withObject:nil afterDelay:0.1];
 }
 
+- (IBAction)btnChangePress:(UIButton *)sender {
+//    btnChangeDNS.backgroundColor = BLUE_COLOR;
+//    [btnChangeDNS setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    
+    if (![AppUtils isNullOrEmpty: domainName]) {
+        [AppDelegate sharedInstance].needChangeDNS = TRUE;
+        //  [self.navigationController popViewControllerAnimated: TRUE];
+        
+        UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
+        updateDNSVC.domain = domainName;
+        [self.navigationController pushViewController:updateDNSVC animated:TRUE];
+    }else{
+        [self.view makeToast:@"Tên miền không tồn tại. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    }
+}
 @end
