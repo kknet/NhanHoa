@@ -75,15 +75,9 @@
 //    boNav.tabBarItem = boItem;
     
     //  Tabbar transaction history
-    UINavigationController *transHisNav;
-    if ([AppDelegate sharedInstance].newHomeLayout) {
-        HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-        transHisNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
-        
-    }else{
-        TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
-        transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
-    }
+    TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
+    UINavigationController *transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
+    
     
     UIImage *imgTransHis = [UIImage imageNamed:@"tabbar_history_def"];
     imgTransHis = [imgTransHis imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
