@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrdersListViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITextField *tfSearch;
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
 @end
 
 NS_ASSUME_NONNULL_END

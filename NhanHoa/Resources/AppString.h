@@ -10,6 +10,7 @@
 #define AppString_h
 
 #define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"

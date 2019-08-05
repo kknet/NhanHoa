@@ -12,6 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterHostingViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *viewMenu;
+@property (weak, nonatomic) IBOutlet UIButton *btnWindows;
+@property (weak, nonatomic) IBOutlet UIButton *btnWorldPress;
+@property (weak, nonatomic) IBOutlet UIButton *btnLinux;
+@property (weak, nonatomic) IBOutlet UIImageView *imgArr;
+
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
+- (IBAction)btnLinuxPress:(UIButton *)sender;
+- (IBAction)btnWindowsPress:(UIButton *)sender;
+- (IBAction)btnWorldpressPPress:(UIButton *)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

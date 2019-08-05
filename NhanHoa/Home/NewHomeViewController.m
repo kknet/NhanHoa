@@ -567,7 +567,7 @@
             if (imgBanner.frame.size.height == 0) {
                 return;
             }
-            if ((hHeader - dy) > 0 && (hHeader - dy) < hHeader) {
+            if ((hHeader - dy) > 0) {
                 [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(hHeader-dy);
                 }];
