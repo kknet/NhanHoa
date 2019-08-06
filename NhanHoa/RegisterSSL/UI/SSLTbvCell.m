@@ -250,6 +250,7 @@
         make.height.equalTo(lbSepa1.mas_height);
     }];
     
+    [btnAddCart setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAddCart.backgroundColor = [UIColor colorWithRed:(241/255.0) green:(103/255.0) blue:(37/255.0) alpha:1.0];
     [btnAddCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa11.mas_bottom).offset(mTop);
@@ -261,7 +262,9 @@
     lbFeeRenew.font = lbFeeSetup.font = lbCert.font = lbDomainNum.font = lbSAN.font = lbBlueAddr.font = lbPolicy.font = lbTrust.font = lbTimeRegister.font = lbSupport.font = [AppDelegate sharedInstance].fontRegular;
     
     lbFeeRenewValue.font = lbFeeSetupValue.font = lbCertValue.font = lbDomainNumValue.font = lbSANValue.font = lbBlueAddrValue.font = lbPolicyValue.font = lbTrustValue.font = lbTimeRegisterValue.font = lbSupportValue.font = [AppDelegate sharedInstance].fontMedium;
-    ssssss
+    
+    btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
