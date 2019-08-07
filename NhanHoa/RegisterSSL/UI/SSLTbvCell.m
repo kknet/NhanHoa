@@ -19,13 +19,17 @@
     float padding = 10.0;
     float mTop = 15.0;
     
+    viewWrapper.layer.borderWidth = 1.0;
+    viewWrapper.layer.borderColor = BORDER_COLOR.CGColor;
     [viewWrapper mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self).offset(paddingContent);
         make.right.equalTo(self).offset(-paddingContent);
-        make.bottom.right.equalTo(self).offset(-paddingContent-mTop);
+        make.bottom.equalTo(self).offset(-paddingContent-mTop);
     }];
     
     //  header
+    viewHeader.backgroundColor = [UIColor colorWithRed:(236/255.0) green:(239/255.0)
+                                                  blue:(241/255.0) alpha:1.0];
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(viewWrapper);
         make.height.mas_equalTo(60.0);
@@ -50,7 +54,8 @@
     }];
     
     float hItem = 40.0;
-    float maxSize = [AppUtils getSizeWithText:@"Số domain được bảo mật" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
+    float maxSize = [AppUtils getSizeWithText:@"Phí cài đặt" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
+    lbFeeSetup.backgroundColor = UIColor.orangeColor;
     [lbFeeSetup mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
         make.left.equalTo(viewWrapper).offset(padding);
@@ -58,9 +63,10 @@
         make.height.mas_equalTo(hItem);
     }];
     
+    lbFeeSetupValue.backgroundColor = UIColor.orangeColor;
     [lbFeeSetupValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbFeeSetup);
-        make.left.equalTo(lbFeeSetup.mas_right);
+        make.left.equalTo(lbFeeSetup.mas_right).offset(5.0);
         make.right.equalTo(viewWrapper).offset(-padding);
     }];
     
@@ -71,15 +77,18 @@
     }];
     
     //  phí duy trì
+    lbFeeRenew.backgroundColor = UIColor.orangeColor;
     [lbFeeRenew mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa1.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
+    lbFeeRenewValue.backgroundColor = UIColor.orangeColor;
     [lbFeeRenewValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbFeeRenew);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbFeeRenew.mas_right).offset(5.0);
+        make.right.equalTo(viewWrapper).offset(-padding);
     }];
     
     [lbSepa2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,15 +98,18 @@
     }];
     
     //  mã hoá
+    lbEncrypt.backgroundColor = UIColor.orangeColor;
     [lbEncrypt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa2.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(viewWrapper).offset(padding);
         make.height.mas_equalTo(hItem);
     }];
     
+    lbEncryptValue.backgroundColor = UIColor.orangeColor;
     [lbEncryptValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbEncrypt);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbEncrypt.mas_right).offset(5.0);
+        make.right.equalTo(viewWrapper).offset(-padding);
     }];
     
     [lbSepa3 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,15 +119,18 @@
     }];
     
     //  chứng thực
+    lbCert.backgroundColor = UIColor.orangeColor;
     [lbCert mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa3.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
+    lbCertValue.backgroundColor = UIColor.orangeColor;
     [lbCertValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbCert);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbCert.mas_right).offset(5.0);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa4 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,15 +140,18 @@
     }];
     
     //  Số domain được bảo mật
+    lbDomainNum.backgroundColor = UIColor.orangeColor;
     [lbDomainNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa4.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
+    lbDomainNumValue.backgroundColor = UIColor.orangeColor;
     [lbDomainNumValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbDomainNum);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbDomainNum.mas_right).offset(5.0);
+        make.right.equalTo(viewWrapper).offset(-padding);
     }];
     
     [lbSepa5 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -259,9 +277,9 @@
         make.height.mas_equalTo(45.0);
     }];
     
-    lbFeeRenew.font = lbFeeSetup.font = lbCert.font = lbDomainNum.font = lbSAN.font = lbBlueAddr.font = lbPolicy.font = lbTrust.font = lbTimeRegister.font = lbSupport.font = [AppDelegate sharedInstance].fontRegular;
+    lbFeeRenew.font = lbFeeSetup.font = lbEncrypt.font = lbCert.font = lbDomainNum.font = lbSAN.font = lbBlueAddr.font = lbPolicy.font = lbTrust.font = lbTimeRegister.font = lbSupport.font = [AppDelegate sharedInstance].fontNormal;
     
-    lbFeeRenewValue.font = lbFeeSetupValue.font = lbCertValue.font = lbDomainNumValue.font = lbSANValue.font = lbBlueAddrValue.font = lbPolicyValue.font = lbTrustValue.font = lbTimeRegisterValue.font = lbSupportValue.font = [AppDelegate sharedInstance].fontMedium;
+    lbFeeRenewValue.font = lbFeeSetupValue.font = lbEncryptValue.font = lbCertValue.font = lbDomainNumValue.font = lbSANValue.font = lbBlueAddrValue.font = lbPolicyValue.font = lbTrustValue.font = lbTimeRegisterValue.font = lbSupportValue.font = [AppDelegate sharedInstance].fontMediumDesc;
     
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
