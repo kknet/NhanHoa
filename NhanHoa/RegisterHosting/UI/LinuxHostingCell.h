@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LinuxHostingCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIView *viewWrapper;
+
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIImageView *imgType;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;

@@ -567,6 +567,9 @@
             if (imgBanner.frame.size.height == 0) {
                 return;
             }
+            
+            NSLog(@"%f", hHeader - dy);
+            
             if ((hHeader - dy) > 0) {
                 [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(hHeader-dy);
@@ -577,6 +580,9 @@
                 }];
                 startLocation = stopLocation;
             }
+            [UIView animateWithDuration:0.2 animations:^{
+                [self.view layoutIfNeeded];
+            }];
         }else{
             if (dy > hHeader) {
                 [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -588,11 +594,17 @@
                     [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                         make.height.mas_equalTo(hHeader);
                     }];
+                    [UIView animateWithDuration:0.2 animations:^{
+                        [self.view layoutIfNeeded];
+                    }];
                     startLocation = stopLocation;
                 }else{
                     if (imgBanner.frame.size.height < hHeader && dy < hHeader) {
                         [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                             make.height.mas_equalTo(dy);
+                        }];
+                        [UIView animateWithDuration:0.2 animations:^{
+                            [self.view layoutIfNeeded];
                         }];
                     }
                 }

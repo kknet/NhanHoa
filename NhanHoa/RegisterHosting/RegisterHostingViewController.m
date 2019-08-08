@@ -9,6 +9,7 @@
 #import "RegisterHostingViewController.h"
 #import "LinuxHostingCell.h"
 #import "WindowsHostingCell.h"
+#import "WorldpressHostingCell.h"
 
 typedef enum TypeHosting{
     eHostingLinux,
@@ -62,7 +63,7 @@ typedef enum TypeHosting{
     //  menu view
     float wButton = 120.0;
     if ([DeviceUtils isScreen320]) {
-        wButton = 100.0;
+        wButton = 105.0;
     }
     hMenu = 70.0;
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,13 +98,14 @@ typedef enum TypeHosting{
     }];
     
     //  content
+    tbContent.showsVerticalScrollIndicator = FALSE;
     [tbContent registerNib:[UINib nibWithNibName:@"LinuxHostingCell" bundle:nil] forCellReuseIdentifier:@"LinuxHostingCell"];
     [tbContent registerNib:[UINib nibWithNibName:@"WindowsHostingCell" bundle:nil] forCellReuseIdentifier:@"WindowsHostingCell"];
+    [tbContent registerNib:[UINib nibWithNibName:@"WorldpressHostingCell" bundle:nil] forCellReuseIdentifier:@"WorldpressHostingCell"];
     
     tbContent.delegate = self;
     tbContent.dataSource = self;
     tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewMenu.mas_bottom);
         make.bottom.left.right.equalTo(self.view);
@@ -114,6 +116,10 @@ typedef enum TypeHosting{
     UIColor *grayCOLOR = [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(200/255.0) alpha:1.0];
     float sizeIcon = 20.0;
     UIFont *textFont = [AppDelegate sharedInstance].fontDesc;
+    if ([DeviceUtils isScreen320]) {
+        sizeIcon = 16.0;
+        textFont = [UIFont fontWithName:RobotoMedium size:12.0];
+    }
     
     float arrowWidth = 16.0;
     float arrowHeight = 8.0;
@@ -200,7 +206,7 @@ typedef enum TypeHosting{
         
         return cell;
     }else{
-        WindowsHostingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WindowsHostingCell"];
+        WorldpressHostingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorldpressHostingCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
@@ -208,7 +214,16 @@ typedef enum TypeHosting{
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 10 + 80 + 9 * 40.0 + 9*1.0 + [AppDelegate sharedInstance].hTextfield + 15.0 + 15.0 + 45.0 + 15.0;
+    if (typeHosting == eHostingWindows || typeHosting == eHostingLinux) {
+        float paddingContent = 7.0;
+        float mTop = 15.0;
+        
+        return paddingContent + 60 + 9 * 40.0 + 9*1.0 + [AppDelegate sharedInstance].hTextfield + mTop + mTop + 45.0 + mTop + paddingContent + mTop;
+    }else{
+        float paddingContent = 7.0;
+        float mTop = 15.0;
+        return paddingContent + 60 + 40.0 + [AppDelegate sharedInstance].hTextfield + mTop + 1.0 + mTop + 45.0 + mTop + paddingContent + mTop;
+    }
 }
 
 

@@ -9,73 +9,50 @@
 #import "OrderTbvCell.h"
 
 @implementation OrderTbvCell
-@synthesize lbServiceName, lbCustomer, lbMoney, lbSepa, lbStatus, icEdit, lbType, lbTime;
+@synthesize lbSepa, lbDomain, lbMoney, lbService, lbStatus, lbTime;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     float padding = 10.0;
-    float hItem = 35.0;
     
-    float wButton = [AppUtils getSizeWithText:@"Cập nhật" withFont:[AppDelegate sharedInstance].fontMedium].width + 5;
-    icEdit.titleLabel.font = [AppDelegate sharedInstance].fontMedium;
-    [icEdit setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    [icEdit mas_makeConstraints:^(MASConstraintMaker *make) {
+    lbService.textColor = BLUE_COLOR;
+    lbService.font = [AppDelegate sharedInstance].fontMedium;
+    [lbService mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
         make.top.equalTo(self).offset(5.0);
-        make.width.mas_equalTo(wButton);
-        make.height.mas_equalTo(35.0);
-    }];
-    
-    lbServiceName.textColor = ORANGE_COLOR;
-    lbServiceName.font = [AppDelegate sharedInstance].fontRegular;
-    [lbServiceName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(padding);
-        make.top.bottom.equalTo(icEdit);
-        make.right.equalTo(icEdit.mas_left).offset(-5.0);
-    }];
-    
-    float maxSizeType = [AppUtils getSizeWithText:@"Khách hàng" withFont:[AppDelegate sharedInstance].fontDesc].width + 10.0;
-    lbType.textColor = TITLE_COLOR;
-    lbType.font = [AppDelegate sharedInstance].fontDesc;
-    [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.mas_centerX);
-        make.width.mas_equalTo(maxSizeType);
-        make.height.mas_equalTo(25.0);
+        make.height.mas_equalTo(30.0);
     }];
     
     lbMoney.textColor = NEW_PRICE_COLOR;
     lbMoney.font = [AppDelegate sharedInstance].fontDesc;
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbType);
-        make.right.equalTo(self).offset(-padding);
-        make.left.equalTo(lbType.mas_right).offset(5.0);
+        make.top.equalTo(lbService.mas_bottom);
+        make.right.equalTo(lbService);
+        make.width.mas_equalTo(140.0);
+        make.height.mas_equalTo(20.0);
     }];
     
-    lbCustomer.textColor = ORANGE_COLOR;
-    lbCustomer.font = [AppDelegate sharedInstance].fontDesc;
-    [lbCustomer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbType);
-        make.right.equalTo(lbType.mas_left).offset(-5.0);
-        make.left.equalTo(self).offset(padding);
+    lbDomain.textColor = lbTime.textColor = lbTime.textColor = lbStatus.textColor = TITLE_COLOR;
+    lbDomain.font = lbTime.font = lbTime.font = lbStatus.font  = [AppDelegate sharedInstance].fontDesc;
+    [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(lbMoney);
+        make.left.equalTo(lbService);
+        make.left.equalTo(lbMoney.mas_left).offset(-5.0);
     }];
     
-    lbTime.textColor = TITLE_COLOR;
-    lbTime.font = [AppDelegate sharedInstance].fontDesc;
     [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(padding);
-        make.bottom.equalTo(self).offset(-5.0);
-        make.right.equalTo(self.mas_centerX);
-        make.height.mas_equalTo(25.0);
+        make.top.equalTo(lbDomain.mas_bottom);
+        make.left.equalTo(lbDomain);
+        make.right.equalTo(self.mas_centerX).offset(30.0);
+        make.height.mas_equalTo(20.0);
     }];
     
-    lbStatus.textColor = TITLE_COLOR;
-    lbStatus.font = [AppDelegate sharedInstance].fontDesc;
     [lbStatus mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX);
+        make.left.equalTo(lbTime.mas_right).offset(5.0);
         make.top.bottom.equalTo(lbTime);
-        make.right.equalTo(self).offset(-padding);
+        make.right.equalTo(lbMoney);
     }];
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];

@@ -35,6 +35,7 @@ typedef enum {
 + (NSString *)getDateTimeStringFromTimerInterval: (long)timeInterval;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
++ (void)addBoxShadowForView: (UIView *)view color: (UIColor *)color opacity: (float)opacity offsetX: (float)x offsetY:(float)y;
 
 + (float)getHeightOfWhoIsDomainViewWithContent: (NSString *)content font:(UIFont *)font heightItem: (float)hItem maxSize: (float)maxSize;
 + (NSString *)generateIDForTransaction;

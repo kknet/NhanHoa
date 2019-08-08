@@ -19,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DT tên miền quốc gia .VN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4va-dW-p5R">
-                        <rect key="frame" x="9" y="8" width="163" height="17"/>
+                        <rect key="frame" x="9" y="8" width="380" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hồ Hữu Tường" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uy-aH-acN">
-                        <rect key="frame" x="9" y="42" width="152" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="khaile.vn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uy-aH-acN">
+                        <rect key="frame" x="9" y="42" width="218" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -60,34 +60,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tv1-Qt-sfD">
-                        <rect key="frame" x="322" y="2" width="73" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="Cập nhật">
-                            <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Khách hàng" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyo-3g-ARc">
-                        <rect key="frame" x="169" y="42" width="77" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="icEdit" destination="tv1-Qt-sfD" id="9uP-Eg-ehi"/>
-                <outlet property="lbCustomer" destination="4uy-aH-acN" id="gY1-Vi-o3R"/>
+                <outlet property="lbDomain" destination="4uy-aH-acN" id="Gv3-Fr-vVt"/>
                 <outlet property="lbMoney" destination="QTr-nI-FPR" id="KPc-Ue-CBs"/>
                 <outlet property="lbSepa" destination="I97-OJ-bDy" id="Mev-hM-Udp"/>
-                <outlet property="lbServiceName" destination="4va-dW-p5R" id="Jks-67-wso"/>
+                <outlet property="lbService" destination="4va-dW-p5R" id="RzE-WB-2Fl"/>
                 <outlet property="lbStatus" destination="u2r-Pi-KPY" id="fvu-Ck-4y5"/>
                 <outlet property="lbTime" destination="rYb-ew-a7s" id="dua-u8-zUn"/>
-                <outlet property="lbType" destination="gyo-3g-ARc" id="etc-Nu-lXW"/>
             </connections>
-            <point key="canvasLocation" x="-273" y="4"/>
+            <point key="canvasLocation" x="-283" y="-24"/>
         </tableViewCell>
     </objects>
 </document>

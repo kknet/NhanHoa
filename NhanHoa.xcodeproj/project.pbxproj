@@ -208,6 +208,9 @@
 		4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */; };
 		4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */; };
 		4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */; };
+		4C6580E522F92BA600F38087 /* VPSTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6580E322F92BA600F38087 /* VPSTbvCell.m */; };
+		4C6580E622F92BA600F38087 /* VPSTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E422F92BA600F38087 /* VPSTbvCell.xib */; };
+		4C6580E822F937FD00F38087 /* checked_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E722F937FD00F38087 /* checked_blue.png */; };
 		4C765EF922F7E89A002AFEC8 /* OrderTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C765EF722F7E89A002AFEC8 /* OrderTbvCell.m */; };
 		4C765EFA22F7E89A002AFEC8 /* OrderTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C765EF822F7E89A002AFEC8 /* OrderTbvCell.xib */; };
 		4C765EFD22F8153F002AFEC8 /* worldpress.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C765EFB22F8153D002AFEC8 /* worldpress.png */; };
@@ -221,6 +224,8 @@
 		4C765F0E22F81EB6002AFEC8 /* LinuxHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C765F0C22F81EB6002AFEC8 /* LinuxHostingCell.xib */; };
 		4C8B835522F82ED2009D441A /* WindowsHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B835322F82ED2009D441A /* WindowsHostingCell.m */; };
 		4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */; };
+		4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */; };
+		4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
@@ -758,6 +763,10 @@
 		4C28B93022F5987800910F54 /* RegisterCloudServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterCloudServerViewController.h; sourceTree = "<group>"; };
 		4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterCloudServerViewController.m; sourceTree = "<group>"; };
 		4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterCloudServerViewController.xib; sourceTree = "<group>"; };
+		4C6580E222F92BA600F38087 /* VPSTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPSTbvCell.h; sourceTree = "<group>"; };
+		4C6580E322F92BA600F38087 /* VPSTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPSTbvCell.m; sourceTree = "<group>"; };
+		4C6580E422F92BA600F38087 /* VPSTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPSTbvCell.xib; sourceTree = "<group>"; };
+		4C6580E722F937FD00F38087 /* checked_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_blue.png; sourceTree = "<group>"; };
 		4C765EF622F7E89A002AFEC8 /* OrderTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTbvCell.h; sourceTree = "<group>"; };
 		4C765EF722F7E89A002AFEC8 /* OrderTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTbvCell.m; sourceTree = "<group>"; };
 		4C765EF822F7E89A002AFEC8 /* OrderTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderTbvCell.xib; sourceTree = "<group>"; };
@@ -774,6 +783,9 @@
 		4C8B835222F82ED2009D441A /* WindowsHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowsHostingCell.h; sourceTree = "<group>"; };
 		4C8B835322F82ED2009D441A /* WindowsHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowsHostingCell.m; sourceTree = "<group>"; };
 		4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowsHostingCell.xib; sourceTree = "<group>"; };
+		4CA8E27222F90C01000BD5E5 /* WorldpressHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldpressHostingCell.h; sourceTree = "<group>"; };
+		4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldpressHostingCell.m; sourceTree = "<group>"; };
+		4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorldpressHostingCell.xib; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
@@ -1712,6 +1724,7 @@
 			isa = PBXGroup;
 			children = (
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
+				4C6580E722F937FD00F38087 /* checked_blue.png */,
 				4C765F0722F81AE6002AFEC8 /* down_arrow_blue.png */,
 				4C765EFC22F8153E002AFEC8 /* worldpress_act.png */,
 				4C765EFB22F8153D002AFEC8 /* worldpress.png */,
@@ -2061,6 +2074,7 @@
 		4C28B92922F5984100910F54 /* RegisterVPS */ = {
 			isa = PBXGroup;
 			children = (
+				4C6580E122F92B9400F38087 /* UI */,
 				4C28B92A22F5985900910F54 /* RegisterVPSViewController.h */,
 				4C28B92B22F5985900910F54 /* RegisterVPSViewController.m */,
 				4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */,
@@ -2076,6 +2090,16 @@
 				4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */,
 			);
 			path = RegisterCloudServer;
+			sourceTree = "<group>";
+		};
+		4C6580E122F92B9400F38087 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C6580E222F92BA600F38087 /* VPSTbvCell.h */,
+				4C6580E322F92BA600F38087 /* VPSTbvCell.m */,
+				4C6580E422F92BA600F38087 /* VPSTbvCell.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		4C765EF522F7E70B002AFEC8 /* UI */ = {
@@ -2097,6 +2121,9 @@
 				4C8B835222F82ED2009D441A /* WindowsHostingCell.h */,
 				4C8B835322F82ED2009D441A /* WindowsHostingCell.m */,
 				4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */,
+				4CA8E27222F90C01000BD5E5 /* WorldpressHostingCell.h */,
+				4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */,
+				4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3225,6 +3252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
+				4C6580E822F937FD00F38087 /* checked_blue.png in Resources */,
 				4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */,
 				1517FBBA22745D9B0044E878 /* wallet.png in Resources */,
 				84A1646E2284EA5C0001B833 /* visa.png in Resources */,
@@ -3343,6 +3371,7 @@
 				4C765F0422F81756002AFEC8 /* windows.png in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
+				4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */,
 				4C28B90E22F5957000910F54 /* menu_vps.png in Resources */,
 				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
@@ -3378,6 +3407,7 @@
 				157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */,
 				1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */,
 				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
+				4C6580E622F92BA600F38087 /* VPSTbvCell.xib in Resources */,
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
@@ -3613,6 +3643,7 @@
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
+				4C6580E522F92BA600F38087 /* VPSTbvCell.m in Sources */,
 				56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */,
 				15FF497B22A659220056B078 /* UpdateMyInfoViewController.m in Sources */,
 				4C00B3F722F2C7750087479C /* DNSRecordTypeCell.m in Sources */,
@@ -3720,6 +3751,7 @@
 				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
+				4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */,
 				562362DF22E2DF03001AE97A /* SupportCustomerCell.m in Sources */,
 				56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,

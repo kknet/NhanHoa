@@ -219,6 +219,14 @@
     view.layer.shadowOpacity = 0.4;
 }
 
++ (void)addBoxShadowForView: (UIView *)view color: (UIColor *)color opacity: (float)opacity offsetX: (float)x offsetY:(float)y
+{
+    view.layer.masksToBounds = NO;
+    view.layer.shadowOffset = CGSizeMake(x, y);
+    view.layer.shadowColor = color.CGColor;
+    view.layer.shadowOpacity = opacity;
+}
+
 + (float)getHeightOfWhoIsDomainViewWithContent: (NSString *)content font:(UIFont *)font heightItem: (float)hItem maxSize: (float)maxSize
 {
     float padding = 15.0;
