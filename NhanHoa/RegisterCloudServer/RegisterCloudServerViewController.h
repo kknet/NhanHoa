@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterCloudServerViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
 @end
 
 NS_ASSUME_NONNULL_END

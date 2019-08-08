@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DT tên miền quốc gia .VN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4va-dW-p5R">
-                        <rect key="frame" x="9" y="8" width="380" height="17"/>
+                        <rect key="frame" x="9" y="8" width="282" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -46,6 +46,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[13/09/2019 - 13/09/2020]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYb-ew-a7s">
+                        <rect key="frame" x="9" y="74" width="174" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I97-OJ-bDy">
                         <rect key="frame" x="0.0" y="43" width="409" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -53,8 +60,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[13/09/2019 - 13/09/2020]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYb-ew-a7s">
-                        <rect key="frame" x="9" y="74" width="174" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ORD896893" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2Y-KU-UjG">
+                        <rect key="frame" x="299" y="6" width="102" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -65,12 +72,13 @@
             <connections>
                 <outlet property="lbDomain" destination="4uy-aH-acN" id="Gv3-Fr-vVt"/>
                 <outlet property="lbMoney" destination="QTr-nI-FPR" id="KPc-Ue-CBs"/>
+                <outlet property="lbOrID" destination="m2Y-KU-UjG" id="3mo-LP-PAc"/>
                 <outlet property="lbSepa" destination="I97-OJ-bDy" id="Mev-hM-Udp"/>
                 <outlet property="lbService" destination="4va-dW-p5R" id="RzE-WB-2Fl"/>
                 <outlet property="lbStatus" destination="u2r-Pi-KPY" id="fvu-Ck-4y5"/>
                 <outlet property="lbTime" destination="rYb-ew-a7s" id="dua-u8-zUn"/>
             </connections>
-            <point key="canvasLocation" x="-283" y="-24"/>
+            <point key="canvasLocation" x="-425.36231884057975" y="-20.424107142857142"/>
         </tableViewCell>
     </objects>
 </document>

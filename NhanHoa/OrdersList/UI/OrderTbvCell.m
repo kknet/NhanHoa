@@ -9,18 +9,27 @@
 #import "OrderTbvCell.h"
 
 @implementation OrderTbvCell
-@synthesize lbSepa, lbDomain, lbMoney, lbService, lbStatus, lbTime;
+@synthesize lbSepa, lbDomain, lbOrID, lbMoney, lbService, lbStatus, lbTime;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     float padding = 10.0;
     
+    lbOrID.textColor = BLUE_COLOR;
+    lbOrID.font = [AppDelegate sharedInstance].fontItalicDesc;
+    [lbOrID mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(5.0);
+        make.right.equalTo(self).offset(-padding);
+        make.height.mas_equalTo(30.0);
+        make.width.mas_equalTo(80.0);
+    }];
+    
     lbService.textColor = BLUE_COLOR;
     lbService.font = [AppDelegate sharedInstance].fontMedium;
     [lbService mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.right.equalTo(self).offset(-padding);
+        make.right.equalTo(lbOrID.mas_left).offset(-5.0);
         make.top.equalTo(self).offset(5.0);
         make.height.mas_equalTo(30.0);
     }];
@@ -29,7 +38,7 @@
     lbMoney.font = [AppDelegate sharedInstance].fontDesc;
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbService.mas_bottom);
-        make.right.equalTo(lbService);
+        make.right.equalTo(lbOrID.mas_right);
         make.width.mas_equalTo(140.0);
         make.height.mas_equalTo(20.0);
     }];
@@ -39,7 +48,7 @@
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbMoney);
         make.left.equalTo(lbService);
-        make.left.equalTo(lbMoney.mas_left).offset(-5.0);
+        make.right.equalTo(lbMoney.mas_left).offset(-5.0);
     }];
     
     [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,7 +64,7 @@
         make.right.equalTo(lbMoney);
     }];
     
-    lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    lbSepa.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
         make.height.mas_equalTo(1.0);

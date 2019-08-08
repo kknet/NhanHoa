@@ -47,7 +47,7 @@
 @implementation AppDelegate
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
-@synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN;
+@synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
@@ -549,6 +549,7 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
         hTextfield = 35.0;
@@ -564,6 +565,7 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
         hTextfield = 38.0;
@@ -579,6 +581,7 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
         fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
         
         hTextfield = 40.0;
@@ -593,6 +596,7 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
         
         fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
         
         hTextfield = 40.0;
@@ -606,6 +610,7 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
         
         fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
         fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
         
         hTextfield = 38.0;

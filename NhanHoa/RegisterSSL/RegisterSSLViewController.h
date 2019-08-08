@@ -11,7 +11,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterSSLViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *btnComodo;
+@property (weak, nonatomic) IBOutlet UIButton *btnGeoTrust;
+@property (weak, nonatomic) IBOutlet UIButton *btnSymantic;
+
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
+- (IBAction)btnComodoSSLPress:(UIButton *)sender;
+- (IBAction)btnGeoTrustSSLPress:(UIButton *)sender;
+- (IBAction)btnSymanticSSLPress:(UIButton *)sender;
 
 @end
 

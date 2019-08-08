@@ -7,27 +7,53 @@
 //
 
 #import "RegisterCloudServerViewController.h"
+#import "VPSTbvCell.h"
 
-@interface RegisterCloudServerViewController ()
+@interface RegisterCloudServerViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation RegisterCloudServerViewController
+@synthesize tbContent;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Đăng ký Cloud Server";
+    [self setupUIForView];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setupUIForView {
+    [tbContent registerNib:[UINib nibWithNibName:@"VPSTbvCell" bundle:nil] forCellReuseIdentifier:@"VPSTbvCell"];
+    tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tbContent.delegate = self;
+    tbContent.dataSource = self;
+    [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
+    }];
 }
-*/
+
+#pragma mark - UITableview delegate
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 20;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    VPSTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VPSTbvCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    float paddingContent = 7.0;
+    float mTop = 15.0;
+    
+    return paddingContent + 60.0 + 8*45.0 + 8*1.0 + mTop + [AppDelegate sharedInstance].hTextfield + mTop + paddingContent + mTop;
+}
 
 @end

@@ -71,6 +71,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) UIFont *fontMedium;
 @property (nonatomic, strong) UIFont *fontThin;
 @property (nonatomic, strong) UIFont *fontItalic;
+@property (nonatomic, strong) UIFont *fontItalicDesc;
 @property (nonatomic, strong) UIFont *fontDesc;
 @property (nonatomic, strong) UIFont *fontMediumDesc;
 @property (nonatomic, strong) UIFont *fontNormal;

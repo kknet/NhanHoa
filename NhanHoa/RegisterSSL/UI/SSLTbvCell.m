@@ -26,6 +26,7 @@
         make.right.equalTo(self).offset(-paddingContent);
         make.bottom.equalTo(self).offset(-paddingContent-mTop);
     }];
+    [AppUtils addBoxShadowForView:viewWrapper color:[UIColor colorWithRed:(220/255.0) green:(220/255.0) blue:(220/255.0) alpha:1.0] opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     //  header
     viewHeader.backgroundColor = [UIColor colorWithRed:(236/255.0) green:(239/255.0)
@@ -55,7 +56,6 @@
     
     float hItem = 40.0;
     float maxSize = [AppUtils getSizeWithText:@"Phí cài đặt" withFont:[AppDelegate sharedInstance].fontRegular].width + 5.0;
-    lbFeeSetup.backgroundColor = UIColor.orangeColor;
     [lbFeeSetup mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
         make.left.equalTo(viewWrapper).offset(padding);
@@ -63,10 +63,9 @@
         make.height.mas_equalTo(hItem);
     }];
     
-    lbFeeSetupValue.backgroundColor = UIColor.orangeColor;
     [lbFeeSetupValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbFeeSetup);
-        make.left.equalTo(lbFeeSetup.mas_right).offset(5.0);
+        make.left.equalTo(lbFeeSetup.mas_right).offset(paddingContent);
         make.right.equalTo(viewWrapper).offset(-padding);
     }];
     
@@ -77,18 +76,16 @@
     }];
     
     //  phí duy trì
-    lbFeeRenew.backgroundColor = UIColor.orangeColor;
     [lbFeeRenew mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa1.mas_bottom);
         make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbFeeRenewValue.backgroundColor = UIColor.orangeColor;
     [lbFeeRenewValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbFeeRenew);
-        make.left.equalTo(lbFeeRenew.mas_right).offset(5.0);
-        make.right.equalTo(viewWrapper).offset(-padding);
+        make.left.equalTo(lbFeeRenew.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,18 +95,16 @@
     }];
     
     //  mã hoá
-    lbEncrypt.backgroundColor = UIColor.orangeColor;
     [lbEncrypt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa2.mas_bottom);
         make.left.equalTo(viewWrapper).offset(padding);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbEncryptValue.backgroundColor = UIColor.orangeColor;
     [lbEncryptValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbEncrypt);
-        make.left.equalTo(lbEncrypt.mas_right).offset(5.0);
-        make.right.equalTo(viewWrapper).offset(-padding);
+        make.left.equalTo(lbEncrypt.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa3 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -119,17 +114,15 @@
     }];
     
     //  chứng thực
-    lbCert.backgroundColor = UIColor.orangeColor;
     [lbCert mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa3.mas_bottom);
         make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbCertValue.backgroundColor = UIColor.orangeColor;
     [lbCertValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbCert);
-        make.left.equalTo(lbCert.mas_right).offset(5.0);
+        make.left.equalTo(lbCert.mas_right).offset(paddingContent);
         make.right.equalTo(lbFeeSetupValue);
     }];
     
@@ -140,18 +133,16 @@
     }];
     
     //  Số domain được bảo mật
-    lbDomainNum.backgroundColor = UIColor.orangeColor;
     [lbDomainNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa4.mas_bottom);
         make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbDomainNumValue.backgroundColor = UIColor.orangeColor;
     [lbDomainNumValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbDomainNum);
-        make.left.equalTo(lbDomainNum.mas_right).offset(5.0);
-        make.right.equalTo(viewWrapper).offset(-padding);
+        make.left.equalTo(lbDomainNum.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa5 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,13 +154,14 @@
     //  Hỗ trợ SAN
     [lbSAN mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa5.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbSANValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbSAN);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbSAN.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa6 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,13 +173,14 @@
     //  Thanh địa chỉ màu xanh
     [lbBlueAddr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa6.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbBlueAddrValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbBlueAddr);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbBlueAddr.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa7 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -199,13 +192,14 @@
     //  Chính sách bảo hiểm
     [lbPolicy mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa7.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbPolicyValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbPolicy);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbPolicy.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa8 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,13 +211,14 @@
     //  Trust level
     [lbTrust mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa8.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbTrustValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbTrust);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbTrust.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa9 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,13 +230,14 @@
     //  Thời hạn đăng ký
     [lbTimeRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa9.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbTimeRegisterValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbTimeRegister);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbTimeRegister.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa10 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -253,13 +249,14 @@
     //  Hỗ trợ khách hàng
     [lbSupport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa10.mas_bottom);
-        make.left.right.equalTo(lbFeeSetup);
+        make.left.equalTo(lbFeeSetup);
         make.height.mas_equalTo(hItem);
     }];
     
     [lbSupportValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbSupport);
-        make.left.right.equalTo(lbFeeSetupValue);
+        make.left.equalTo(lbSupport.mas_right).offset(paddingContent);
+        make.right.equalTo(lbFeeSetupValue);
     }];
     
     [lbSepa11 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,11 +274,13 @@
         make.height.mas_equalTo(45.0);
     }];
     
-    lbFeeRenew.font = lbFeeSetup.font = lbEncrypt.font = lbCert.font = lbDomainNum.font = lbSAN.font = lbBlueAddr.font = lbPolicy.font = lbTrust.font = lbTimeRegister.font = lbSupport.font = [AppDelegate sharedInstance].fontNormal;
+    lbFeeRenew.font = lbFeeSetup.font = lbEncrypt.font = lbCert.font = lbDomainNum.font = lbSAN.font = lbBlueAddr.font = lbPolicy.font = lbTrust.font = lbTimeRegister.font = lbSupport.font = [AppDelegate sharedInstance].fontRegular;
     
-    lbFeeRenewValue.font = lbFeeSetupValue.font = lbEncryptValue.font = lbCertValue.font = lbDomainNumValue.font = lbSANValue.font = lbBlueAddrValue.font = lbPolicyValue.font = lbTrustValue.font = lbTimeRegisterValue.font = lbSupportValue.font = [AppDelegate sharedInstance].fontMediumDesc;
+    lbFeeRenewValue.font = lbFeeSetupValue.font = lbEncryptValue.font = lbCertValue.font = lbDomainNumValue.font = lbSANValue.font = lbBlueAddrValue.font = lbPolicyValue.font = lbTrustValue.font = lbTimeRegisterValue.font = lbSupportValue.font = [AppDelegate sharedInstance].fontMedium;
     
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
+    lbFeeRenew.textColor = lbFeeSetup.textColor = lbEncrypt.textColor = lbCert.textColor = lbDomainNum.textColor = lbSAN.textColor = lbBlueAddr.textColor = lbPolicy.textColor = lbTrust.textColor = lbTimeRegister.textColor = lbSupport.textColor = TITLE_COLOR;
     
 }
 

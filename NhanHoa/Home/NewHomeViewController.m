@@ -568,8 +568,6 @@
                 return;
             }
             
-            NSLog(@"%f", hHeader - dy);
-            
             if ((hHeader - dy) > 0) {
                 [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(hHeader-dy);
@@ -580,7 +578,7 @@
                 }];
                 startLocation = stopLocation;
             }
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:0.15 animations:^{
                 [self.view layoutIfNeeded];
             }];
         }else{
@@ -594,7 +592,7 @@
                     [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                         make.height.mas_equalTo(hHeader);
                     }];
-                    [UIView animateWithDuration:0.2 animations:^{
+                    [UIView animateWithDuration:0.15 animations:^{
                         [self.view layoutIfNeeded];
                     }];
                     startLocation = stopLocation;
@@ -603,7 +601,7 @@
                         [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                             make.height.mas_equalTo(dy);
                         }];
-                        [UIView animateWithDuration:0.2 animations:^{
+                        [UIView animateWithDuration:0.15 animations:^{
                             [self.view layoutIfNeeded];
                         }];
                     }
@@ -620,7 +618,7 @@
                     make.height.mas_equalTo(0);
                 }];
                 
-                [UIView animateWithDuration:0.2 animations:^{
+                [UIView animateWithDuration:0.15 animations:^{
                     [self.view layoutIfNeeded];
                 }];
             }
@@ -629,7 +627,7 @@
                 [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(hHeader);
                 }];
-                [UIView animateWithDuration:0.2 animations:^{
+                [UIView animateWithDuration:0.15 animations:^{
                     [self.view layoutIfNeeded];
                 }];
             }

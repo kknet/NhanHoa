@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderTbvCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *lbService;
+@property (weak, nonatomic) IBOutlet UILabel *lbOrID;
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbMoney;
 @property (weak, nonatomic) IBOutlet UILabel *lbTime;

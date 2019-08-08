@@ -11,6 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterEmailViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *btnEmailHosting;
+@property (weak, nonatomic) IBOutlet UIButton *btnEmailServer;
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
+- (IBAction)btnEmailHostingPress:(UIButton *)sender;
+- (IBAction)btnEmailServerPress:(UIButton *)sender;
 
 @end
 

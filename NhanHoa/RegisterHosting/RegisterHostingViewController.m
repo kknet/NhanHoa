@@ -19,7 +19,7 @@ typedef enum TypeHosting{
 
 @interface RegisterHostingViewController ()<UITableViewDelegate, UITableViewDataSource>{
     float hMenu;
-    float typeHosting;
+    TypeHosting typeHosting;
 }
 
 @end
