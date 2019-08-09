@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WorldpressHostingCell : UITableViewCell
+@interface WorldpressHostingCell : UITableViewCell<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *viewWrapper;
 
@@ -26,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnAmount;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCart;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *clvAmount;
+
+- (IBAction)btnAmountPress:(UIButton *)sender;
+
+@property (nonatomic, assign) float paddingContent;
+@property (nonatomic, assign) float padding;
 
 @end
 

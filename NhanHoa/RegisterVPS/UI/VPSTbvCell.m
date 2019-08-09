@@ -235,7 +235,7 @@
     }];
     
     btnAddCart.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    btnAddCart.backgroundColor = UIColorFromRGB(0xf16725);
+    btnAddCart.backgroundColor = ORANGE_BUTTON;
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
     lbSepa1.backgroundColor = lbSepa2.backgroundColor = lbSepa3.backgroundColor = lbSepa4.backgroundColor = lbSepa5.backgroundColor = lbSepa6.backgroundColor = lbSepa7.backgroundColor = lbSepa8.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];

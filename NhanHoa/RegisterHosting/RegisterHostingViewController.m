@@ -199,6 +199,8 @@ typedef enum TypeHosting{
         LinuxHostingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LinuxHostingCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        
+        
         return cell;
     }else if (typeHosting == eHostingWindows){
         WindowsHostingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WindowsHostingCell"];

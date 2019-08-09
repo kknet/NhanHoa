@@ -250,6 +250,10 @@
 		4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */; };
 		4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
+		4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */; };
+		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
+		4CFCBCA322FD31A500427B86 /* SelectAmountClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */; };
+		4CFCBCA422FD31A500427B86 /* SelectAmountClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
@@ -847,6 +851,12 @@
 		4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorldpressHostingCell.xib; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
+		4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingPackageCell.h; sourceTree = "<group>"; };
+		4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostingPackageCell.m; sourceTree = "<group>"; };
+		4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HostingPackageCell.xib; sourceTree = "<group>"; };
+		4CFCBCA022FD31A500427B86 /* SelectAmountClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectAmountClvCell.h; sourceTree = "<group>"; };
+		4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectAmountClvCell.m; sourceTree = "<group>"; };
+		4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAmountClvCell.xib; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
 		5600E8F422A5E9FC00F7DECE /* support_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_call.png; sourceTree = "<group>"; };
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
@@ -2199,6 +2209,9 @@
 				4C765EF622F7E89A002AFEC8 /* OrderTbvCell.h */,
 				4C765EF722F7E89A002AFEC8 /* OrderTbvCell.m */,
 				4C765EF822F7E89A002AFEC8 /* OrderTbvCell.xib */,
+				4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */,
+				4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */,
+				4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */,
 				4C65811A22FC2AF500F38087 /* HostingDetailTbvCell.h */,
 				4C65811B22FC2AF500F38087 /* HostingDetailTbvCell.m */,
 				4C65811C22FC2AF500F38087 /* HostingDetailTbvCell.xib */,
@@ -2230,6 +2243,9 @@
 				4CA8E27222F90C01000BD5E5 /* WorldpressHostingCell.h */,
 				4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */,
 				4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */,
+				4CFCBCA022FD31A500427B86 /* SelectAmountClvCell.h */,
+				4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */,
+				4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3446,6 +3462,7 @@
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
 				4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */,
 				56D0295522B3F90400280127 /* OrderResultView.xib in Resources */,
+				4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */,
 				849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */,
 				841F00852274A97D00F1B314 /* banner.jpg in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
@@ -3514,6 +3531,7 @@
 				4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
+				4CFCBCA422FD31A500427B86 /* SelectAmountClvCell.xib in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
@@ -3794,6 +3812,7 @@
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
 				56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */,
+				4CFCBCA322FD31A500427B86 /* SelectAmountClvCell.m in Sources */,
 				15084602226EBF2900428514 /* main.m in Sources */,
 				15224F0B2272EDDF00A45C3B /* AppUtils.m in Sources */,
 				841485FF2277EB0600CC58AF /* WhoIsResultViewController.m in Sources */,
@@ -3825,6 +3844,7 @@
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
 				4C0078F622F1310200C19492 /* DomainDNSViewController.m in Sources */,
+				4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				56FA23B522B0191F003F89CB /* BankCell.m in Sources */,
 				567FDE5222CD11AF0081616B /* pjsua_app.c in Sources */,

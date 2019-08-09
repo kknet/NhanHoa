@@ -230,7 +230,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g3q-9J-C3u">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g3q-9J-C3u">
                                 <rect key="frame" x="10" y="411" width="294" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -245,6 +245,9 @@
                                 <rect key="frame" x="10" y="411" width="293" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnAmountPress:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zza-aI-Ciu"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6n-QT-35Y">
                                 <rect key="frame" x="0.0" y="450" width="320" height="1"/>
@@ -259,6 +262,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Đặt mua ngay"/>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="uNv-H4-3ZU">
+                                <rect key="frame" x="0.0" y="450" width="320" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gFh-De-9q6">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -267,6 +281,7 @@
             <connections>
                 <outlet property="btnAddCart" destination="1QA-do-wdm" id="3Ce-UM-Ddy"/>
                 <outlet property="btnAmount" destination="f5t-1B-oxP" id="b75-dw-W5s"/>
+                <outlet property="clvAmount" destination="uNv-H4-3ZU" id="h0s-YU-lPf"/>
                 <outlet property="imgArrAmount" destination="o5a-4X-m8k" id="IJ1-N1-2Ij"/>
                 <outlet property="imgType" destination="YBj-UQ-cSY" id="PXR-EI-pZg"/>
                 <outlet property="lbAliasOrParkDomain" destination="jSh-HK-Y3O" id="IRT-Be-9tP"/>
@@ -301,7 +316,7 @@
                 <outlet property="viewHeader" destination="C8r-Sk-rzP" id="0x4-dn-0li"/>
                 <outlet property="viewWrapper" destination="71H-DC-nUe" id="AyP-Tl-enR"/>
             </connections>
-            <point key="canvasLocation" x="-699" y="-133"/>
+            <point key="canvasLocation" x="-700" y="-133.25892857142856"/>
         </tableViewCell>
     </objects>
     <resources>

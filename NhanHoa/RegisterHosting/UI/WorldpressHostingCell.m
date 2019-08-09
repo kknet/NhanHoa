@@ -7,16 +7,19 @@
 //
 
 #import "WorldpressHostingCell.h"
+#import "SelectAmountClvCell.h"
 
 @implementation WorldpressHostingCell
-@synthesize viewWrapper, viewHeader, lbName, lbPrice, lbAmount, tfAmount, btnAddCart, btnAmount, imgType, lbSepa, imgArr;
+@synthesize viewWrapper, viewHeader, lbName, lbPrice, lbAmount, tfAmount, btnAddCart, btnAmount, imgType, lbSepa, imgArr, clvAmount;
+@synthesize paddingContent, padding;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    float padding = 15.0;
+    padding = 15.0;
+    paddingContent = 7.0;
+    
     float mTop = 15.0;
-    float paddingContent = 7.0;
     
     viewWrapper.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(220/255.0) blue:(220/255.0) alpha:1.0].CGColor;
     viewWrapper.layer.borderWidth = 1.0;
@@ -88,13 +91,33 @@
         make.height.mas_equalTo(1.0);
     }];
     
-    btnAddCart.backgroundColor = UIColorFromRGB(0xf16725);
+    btnAddCart.backgroundColor = ORANGE_BUTTON;
     [btnAddCart setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnAddCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepa.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfAmount);
         make.height.mas_equalTo(45.0);
+    }];
+    
+    //  collection view amount
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 10.0;
+    layout.minimumInteritemSpacing = 0;
+    clvAmount.collectionViewLayout = layout;
+    
+    clvAmount.delegate = self;
+    clvAmount.dataSource = self;
+    clvAmount.backgroundColor = UIColor.whiteColor;
+    [clvAmount registerNib:[UINib nibWithNibName:@"SelectAmountClvCell" bundle:nil] forCellWithReuseIdentifier:@"SelectAmountClvCell"];
+    
+    clvAmount.layer.borderColor = GRAY_220.CGColor;
+    clvAmount.layer.borderWidth = 1.0;
+    clvAmount.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    [clvAmount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(tfAmount);
+        make.bottom.equalTo(tfAmount.mas_top).offset(-2.0);
+        make.height.mas_equalTo(0.0);
     }];
     
     lbName.textColor = BLUE_COLOR;
@@ -115,6 +138,63 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (IBAction)btnAmountPress:(UIButton *)sender {
+    if (clvAmount.frame.size.height == 0) {
+        [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(95.0);
+        }];
+    }else{
+        [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0.0);
+        }];
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+#pragma mark - UICollectionview menu
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 10;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SelectAmountClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SelectAmountClvCell" forIndexPath:indexPath];
+    
+    cell.lbNum.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0.0);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+    
+    tfAmount.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((SCREEN_WIDTH - 2*paddingContent - 2*padding)/5, 95.0/2);
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsZero;
 }
 
 @end

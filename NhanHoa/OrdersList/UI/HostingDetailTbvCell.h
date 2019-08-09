@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HostingDetailTbvCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet PaddingLabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lbValue;
+@property (weak, nonatomic) IBOutlet PaddingLabel *lbValue;
 @end
 
 NS_ASSUME_NONNULL_END

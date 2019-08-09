@@ -140,7 +140,7 @@
     lbMemory.textColor = lbEmailPOP3.textColor = lbEmailForwarders.textColor = lbDomain.textColor = TITLE_COLOR;
     
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    btnAddCart.backgroundColor = UIColorFromRGB(0xf16725);
+    btnAddCart.backgroundColor = ORANGE_BUTTON;
     [btnAddCart setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     lbSepa1.backgroundColor = lbSepa2.backgroundColor = lbSepa3.backgroundColor = lbSepa4.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];

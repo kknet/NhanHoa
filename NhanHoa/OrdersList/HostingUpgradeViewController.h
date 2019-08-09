@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HostingUpgradeViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
 @property (weak, nonatomic) IBOutlet UITableView *tbChoosePackage;
+@property (weak, nonatomic) IBOutlet UITableView *tbPreview;
 
 @end
 

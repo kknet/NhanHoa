@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    float leftSize = 140.0;
+    float leftSize = 130.0;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self);
         make.width.mas_equalTo(leftSize);
@@ -26,8 +26,9 @@
         make.right.equalTo(self);
     }];
     
+    lbTitle.textColor = TITLE_COLOR;
     lbTitle.font = lbValue.font = [AppDelegate sharedInstance].fontNormal;
-    lbTitle.backgroundColor = UIColorFromRGB(0xeceff1);
+    //  lbTitle.backgroundColor = UIColorFromRGB(0xeceff1);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

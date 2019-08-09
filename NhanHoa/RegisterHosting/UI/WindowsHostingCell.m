@@ -7,17 +7,19 @@
 //
 
 #import "WindowsHostingCell.h"
+#import "SelectAmountClvCell.h"
 
 @implementation WindowsHostingCell
 
-@synthesize viewWrapper, viewHeader, imgType, lbName, lbPrice, lbMemory, lbMemoryValue, lbSepa1, lbBandwidth, lbBandwidthValue, lbSepa2, lbFTP, lbFTPValue, lbSepa3, lbMySQL, lbMySQLValue, lbSepa4, lbMSSQL, lbMSSQLValue, lbSepa5, lbDomain, lbDomainValue, lbSepa6, lbSubdomain, lbSubdomainValue, lbSepa7, lbAliasOrParkDomain, lbAliasOrParkDomainValue, lbSepa8, lbAmount, tfAmount, imgArrAmount, btnAmount, lbSepa9, btnAddCart;
+@synthesize viewWrapper, viewHeader, imgType, lbName, lbPrice, lbMemory, lbMemoryValue, lbSepa1, lbBandwidth, lbBandwidthValue, lbSepa2, lbFTP, lbFTPValue, lbSepa3, lbMySQL, lbMySQLValue, lbSepa4, lbMSSQL, lbMSSQLValue, lbSepa5, lbDomain, lbDomainValue, lbSepa6, lbSubdomain, lbSubdomainValue, lbSepa7, lbAliasOrParkDomain, lbAliasOrParkDomainValue, lbSepa8, lbAmount, tfAmount, imgArrAmount, btnAmount, lbSepa9, btnAddCart, clvAmount;
+@synthesize paddingContent, padding;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    float padding = 10.0;
     float mTop = 15.0;
-    float paddingContent = 7.0;
+    padding = 10.0;
+    paddingContent = 7.0;
     
     viewWrapper.layer.borderColor = [UIColor colorWithRed:(220/255.0) green:(220/255.0) blue:(220/255.0) alpha:1.0].CGColor;
     viewWrapper.layer.borderWidth = 1.0;
@@ -206,6 +208,8 @@
         make.height.mas_equalTo(hItem);
     }];
     
+    [AppUtils setBorderForTextfield:tfAmount borderColor:BORDER_COLOR];
+    tfAmount.text = @"1";
     [tfAmount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbAmount.mas_bottom);
         make.left.right.equalTo(lbAmount);
@@ -236,6 +240,26 @@
         make.height.mas_equalTo(45.0);
     }];
     
+    //  collection view amount
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 10.0;
+    layout.minimumInteritemSpacing = 0;
+    clvAmount.collectionViewLayout = layout;
+    
+    clvAmount.delegate = self;
+    clvAmount.dataSource = self;
+    clvAmount.backgroundColor = UIColor.whiteColor;
+    [clvAmount registerNib:[UINib nibWithNibName:@"SelectAmountClvCell" bundle:nil] forCellWithReuseIdentifier:@"SelectAmountClvCell"];
+    
+    clvAmount.layer.borderColor = GRAY_220.CGColor;
+    clvAmount.layer.borderWidth = 1.0;
+    clvAmount.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+    [clvAmount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(tfAmount);
+        make.bottom.equalTo(tfAmount.mas_top).offset(-2.0);
+        make.height.mas_equalTo(0.0);
+    }];
+    
     lbName.textColor = BLUE_COLOR;
     lbMemory.font = lbBandwidth.font = lbFTP.font = lbMySQL.font = lbDomain.font = lbSubdomain.font = lbAliasOrParkDomain.font = lbMSSQL.font = tfAmount.font = [AppDelegate sharedInstance].fontRegular;
     
@@ -245,7 +269,7 @@
     
     lbSepa1.backgroundColor = lbSepa2.backgroundColor = lbSepa3.backgroundColor = lbSepa4.backgroundColor = lbSepa5.backgroundColor = lbSepa6.backgroundColor = lbSepa7.backgroundColor = lbSepa8.backgroundColor = lbSepa9.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     
-    btnAddCart.backgroundColor = UIColorFromRGB(0xf16725);
+    btnAddCart.backgroundColor = ORANGE_BUTTON;
     [btnAddCart setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAddCart.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
@@ -265,6 +289,63 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (IBAction)btnAmountPress:(UIButton *)sender {
+    if (clvAmount.frame.size.height == 0) {
+        [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(100.0);
+        }];
+    }else{
+        [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0.0);
+        }];
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+#pragma mark - UICollectionview menu
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 10;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SelectAmountClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SelectAmountClvCell" forIndexPath:indexPath];
+    
+    cell.lbNum.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [clvAmount mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0.0);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+    
+    tfAmount.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((SCREEN_WIDTH - 2*paddingContent - 2*padding)/5, 50.0);
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsZero;
 }
 
 @end

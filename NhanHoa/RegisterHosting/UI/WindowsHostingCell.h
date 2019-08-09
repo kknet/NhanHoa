@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WindowsHostingCell : UITableViewCell
+@interface WindowsHostingCell : UITableViewCell<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *viewWrapper;
 
@@ -58,7 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa9;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAddCart;
+@property (weak, nonatomic) IBOutlet UICollectionView *clvAmount;
 
+- (IBAction)btnAmountPress:(UIButton *)sender;
+
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float paddingContent;
 
 @end
 
