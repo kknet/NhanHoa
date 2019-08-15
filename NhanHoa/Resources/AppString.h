@@ -45,6 +45,7 @@
 #define RobotoBold          @"Roboto-Bold"
 #define RobotoBoldItalic    @"Roboto-BoldItalic"
 #define RobotoItalic        @"Roboto-Italic"
+#define RobotoLight         @"Roboto-Light"
 #define RobotoLightItalic   @"Roboto-LightItalic"
 #define RobotoMedium        @"Roboto-Medium"
 #define RobotoMediumItalic  @"Roboto-MediumItalic"
@@ -276,6 +277,15 @@
 #define CALL_INV_STATE_DISCONNECTED @"PJSIP_INV_STATE_DISCONNECTED"
 
 
+
+
+#define text_welcome_to         @"Chào mừng đến với"
+#define text_have_not_account   @"Bạn chưa có tài khoản?"
+#define text_have_account       @"Bạn đã có tài khoản?"
+#define text_sign_up            @"Đăng ký"
+
+#define text_main_account       @"Tài khoản chính"
+#define text_bonus_account      @"Tiền thưởng"
 
 #endif /* AppString_h */
 

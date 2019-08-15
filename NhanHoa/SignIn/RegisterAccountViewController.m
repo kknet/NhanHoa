@@ -97,6 +97,25 @@
     float padding = 15.0;
     float hSmallLB = 30.0;
     float mTop = 10.0;
+    float sizeMenu = 20.0;
+    float paddingX = 3.0;
+    float hStepOne = 50.0;
+    float hBottom = 60.0;
+    float hBTN = 45.0;
+    
+    lbAccount.font = lbProfile.font = lbNumOne.font = lbNumTwo.font = [AppDelegate sharedInstance].fontDesc;
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        sizeMenu = 30.0;
+        paddingX = 10.0;
+        hStepOne = 70.0;
+        hSmallLB = 50.0;
+        mTop = 20.0;
+        hBottom = 80.0;
+        hBTN = 55.0;
+        
+        lbAccount.font = lbProfile.font = lbNumOne.font = lbNumTwo.font = [AppDelegate sharedInstance].fontRegular;
+    }
     
     self.view.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     
@@ -113,52 +132,48 @@
     }
     
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.viewMenu.mas_centerX);
-        make.top.bottom.equalTo(self.viewMenu);
+        make.centerX.equalTo(viewMenu.mas_centerX);
+        make.top.bottom.equalTo(viewMenu);
     }];
     
     [viewAccInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.viewMenu);
-        make.right.equalTo(self.lbSepa.mas_left);
+        make.left.top.bottom.equalTo(viewMenu);
+        make.right.equalTo(lbSepa.mas_left);
     }];
     
-    lbAccount.font = [AppDelegate sharedInstance].fontDesc;
     [lbAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewAccInfo);
-        make.right.equalTo(self.viewAccInfo).offset(-2.0);
+        make.top.bottom.equalTo(viewAccInfo);
+        make.right.equalTo(viewAccInfo).offset(-2.0);
     }];
     
     lbNumOne.clipsToBounds = TRUE;
-    lbNumOne.layer.cornerRadius = 20.0/2;
-    lbNumOne.font = lbAccount.font;
+    lbNumOne.layer.cornerRadius = sizeMenu/2;
     [lbNumOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.lbAccount.mas_left).offset(-3.0);
-        make.centerY.equalTo(self.lbAccount.mas_centerY);
-        make.width.height.mas_equalTo(20.0);
+        make.right.equalTo(lbAccount.mas_left).offset(-paddingX);
+        make.centerY.equalTo(lbAccount.mas_centerY);
+        make.width.height.mas_equalTo(sizeMenu);
     }];
     
     [viewProfileInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.viewMenu);
-        make.left.equalTo(self.lbSepa.mas_right);
+        make.right.top.bottom.equalTo(viewMenu);
+        make.left.equalTo(lbSepa.mas_right);
     }];
     
     lbNumTwo.clipsToBounds = TRUE;
-    lbNumTwo.layer.cornerRadius = 20.0/2;
-    lbNumTwo.font = lbAccount.font;
+    lbNumTwo.layer.cornerRadius = sizeMenu/2;
     [lbNumTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewProfileInfo).offset(2.0);
-        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.width.height.mas_equalTo(20.0);
+        make.left.equalTo(viewProfileInfo).offset(paddingX);
+        make.centerY.equalTo(viewProfileInfo.mas_centerY);
+        make.width.height.mas_equalTo(sizeMenu);
     }];
     
-    lbProfile.font = lbAccount.font;
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbNumTwo.mas_right).offset(3.0);
-        make.top.bottom.equalTo(self.viewProfileInfo);
+        make.left.equalTo(lbNumTwo.mas_right).offset(paddingX);
+        make.top.bottom.equalTo(viewProfileInfo);
     }];
     
     [scvAccInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
+        make.top.equalTo(viewMenu.mas_bottom).offset(10.0);
         make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
@@ -166,18 +181,18 @@
     lbStepOne.font = [AppDelegate sharedInstance].fontBold;
     lbStepOne.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
     [lbStepOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scvAccInfo.mas_top);
-        make.left.equalTo(self.scvAccInfo).offset(padding);
+        make.top.equalTo(scvAccInfo.mas_top);
+        make.left.equalTo(scvAccInfo).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(hStepOne);
     }];
     
     //  Email
     lbEmail.font = [AppDelegate sharedInstance].fontMedium;
     lbEmail.textColor = lbStepOne.textColor;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbStepOne.mas_bottom);
-        make.left.right.equalTo(self.lbStepOne);
+        make.top.equalTo(lbStepOne.mas_bottom);
+        make.left.right.equalTo(lbStepOne);
         make.height.mas_equalTo(hSmallLB);
     }];
     
@@ -188,8 +203,8 @@
     tfEmail.delegate = self;
     tfEmail.returnKeyType = UIReturnKeyNext;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbEmail.mas_bottom);
-        make.left.right.equalTo(self.lbEmail);
+        make.top.equalTo(lbEmail.mas_bottom);
+        make.left.right.equalTo(lbEmail);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
@@ -197,8 +212,8 @@
     lbPassword.font = [AppDelegate sharedInstance].fontMedium;
     lbPassword.textColor = lbStepOne.textColor;
     [lbPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfEmail.mas_bottom).offset(mTop);
-        make.left.right.equalTo(self.lbEmail);
+        make.top.equalTo(tfEmail.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbEmail);
         make.height.mas_equalTo(hSmallLB);
     }];
     
@@ -209,14 +224,14 @@
     tfPassword.delegate = self;
     tfPassword.returnKeyType = UIReturnKeyNext;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPassword.mas_bottom);
-        make.left.right.equalTo(self.lbPassword);
+        make.top.equalTo(lbPassword.mas_bottom);
+        make.left.right.equalTo(lbPassword);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     icShowPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.tfPassword);
+        make.top.right.bottom.equalTo(tfPassword);
         make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
@@ -224,8 +239,8 @@
     lbConfirmPass.font = [AppDelegate sharedInstance].fontMedium;
     lbConfirmPass.textColor = lbStepOne.textColor;
     [lbConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfPassword.mas_bottom).offset(mTop);
-        make.left.right.equalTo(self.lbPassword);
+        make.top.equalTo(tfPassword.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbPassword);
         make.height.mas_equalTo(hSmallLB);
     }];
     
@@ -236,14 +251,14 @@
     tfConfirmPass.delegate = self;
     tfConfirmPass.returnKeyType = UIReturnKeyDone;
     [tfConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbConfirmPass.mas_bottom);
-        make.left.right.equalTo(self.lbConfirmPass);
+        make.top.equalTo(lbConfirmPass.mas_bottom);
+        make.left.right.equalTo(lbConfirmPass);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     icShowConfirmPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.tfConfirmPass);
+        make.top.right.bottom.equalTo(tfConfirmPass);
         make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
    
@@ -257,28 +272,28 @@
     lbHaveAccount.font = [AppDelegate sharedInstance].fontRegular;
     lbHaveAccount.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
     [lbHaveAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvAccInfo).offset(originX);
-        make.top.equalTo(self.scvAccInfo).offset(hScv-60.0);
+        make.left.equalTo(scvAccInfo).offset(originX);
+        make.top.equalTo(scvAccInfo).offset(hScv-hBottom);
         make.width.mas_equalTo(widthText);
-        make.height.mas_equalTo(60.0);
+        make.height.mas_equalTo(hBottom);
     }];
     
     btnSignIn.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     [btnSignIn setTitleColor:ORANGE_COLOR forState:UIControlStateNormal];
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbHaveAccount.mas_right).offset(5.0);
-        make.top.bottom.equalTo(self.lbHaveAccount);
+        make.left.equalTo(lbHaveAccount.mas_right).offset(5.0);
+        make.top.bottom.equalTo(lbHaveAccount);
         make.width.mas_equalTo(widthBTN);
     }];
     
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnContinue.backgroundColor = BLUE_COLOR;
-    btnContinue.layer.cornerRadius = 45.0/2;
+    btnContinue.layer.cornerRadius = hBTN/2;
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvAccInfo).offset(padding);
-        make.bottom.equalTo(self.lbHaveAccount.mas_top);
+        make.left.equalTo(scvAccInfo).offset(padding);
+        make.bottom.equalTo(lbHaveAccount.mas_top);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
 }
 

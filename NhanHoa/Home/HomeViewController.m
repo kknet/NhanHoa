@@ -27,6 +27,7 @@
     NSMutableArray *listMenu;
     float hBanner;
     UITextField *tfNumber;
+    float hMenu;
 }
 @end
 
@@ -34,7 +35,7 @@
 @synthesize viewSearch, tfSearch, btnSearch;
 @synthesize viewWallet,viewMainWallet, imgMainWallet, lbMainWallet, lbMoney;
 @synthesize viewRewards, imgRewards, lbRewards, lbRewardsPoints, clvMenu;
-@synthesize hMenu, viewBanner;
+@synthesize imgBanner;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,21 +73,6 @@
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
-    
-    //  [[AppDelegate sharedInstance] tryToLogin151];
-}
-
-- (void)testCall {
-    if ([AppDelegate sharedInstance].accCallInfo != nil) {
-        NSString *domain = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"domain"];
-        NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
-        NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", tfNumber.text, domain, port];
-        
-        [self.view makeToast:[NSString stringWithFormat:@"Make call to: %@", stringForCall] duration:5.0 position:CSToastPositionCenter];
-        
-        [[AppDelegate sharedInstance] makeCallTo: stringForCall];
-    }
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -94,44 +80,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
     [self.navigationController setNavigationBarHidden: NO];
-    [viewBanner.slideTimer invalidate];
-    viewBanner.slideTimer = nil;
-    [viewBanner removeFromSuperview];
-    viewBanner = nil;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)addBannerImageForView
-{
-    float paddingY = 10.0;
-    if (hMenu < 100) {
-        paddingY = 5.0;
-    }
-    
-    if (viewBanner == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[BannerSliderView class]]) {
-                viewBanner = (BannerSliderView *) currentObject;
-                break;
-            }
-        }
-        [self.view addSubview: viewBanner];
-    }
-    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.viewSearch.mas_bottom);
-        make.bottom.equalTo(self.viewWallet.mas_top).offset(-paddingY);
-        //  make.height.mas_equalTo(hBanner);
-    }];
-    viewBanner.clipsToBounds = TRUE;
-    viewBanner.hBanner = hBanner;
-    [viewBanner setupUIForView];
-    [viewBanner showBannersForSliderView];
 }
 
 - (void)showUserWalletView {
@@ -212,9 +165,9 @@
     cell.imgType.image = [UIImage imageNamed: menu.menuIcon];
     
     if (indexPath.row == eSearchDomain || indexPath.row == eManagerDomain || indexPath.row == eSupport) {
-        cell.lbSepaRight.hidden = YES;
+        cell.lbSepaRight.hidden = TRUE;
     }else {
-        cell.lbSepaRight.hidden = NO;
+        cell.lbSepaRight.hidden = FALSE;
     }
     
     return cell;
@@ -227,57 +180,57 @@
     switch (indexPath.row) {
         case eRegisterDomain:{
             RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-            registerDomainVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: registerDomainVC animated:YES];
+            registerDomainVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: registerDomainVC animated:TRUE];
             
             break;
         }
         case ePricingDomain:{
             PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
-            pricingVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: pricingVC animated:YES];
+            pricingVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: pricingVC animated:TRUE];
             break;
         }
         case eSearchDomain:{
             WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-            whoIsVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: whoIsVC animated:YES];
+            whoIsVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: whoIsVC animated:TRUE];
             break;
         }
         case eRecharge:{
             TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-            topupVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: topupVC animated:YES];
+            topupVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: topupVC animated:TRUE];
             break;
         }
         case eRewardsPoints:{
             BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-            bonusAccVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: bonusAccVC animated:YES];
+            bonusAccVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: bonusAccVC animated:TRUE];
             break;
         }
         case eManagerDomain:{
             RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-            renewedVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: renewedVC animated:YES];
+            renewedVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: renewedVC animated:TRUE];
             break;
         }
         case eWithdrawal:{
             WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-            withdrawVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: withdrawVC animated:YES];
+            withdrawVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: withdrawVC animated:TRUE];
             break;
         }
         case eProfile:{
             ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
-            profileVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: profileVC animated:YES];
+            profileVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: profileVC animated:TRUE];
             break;
         }
         case eSupport:{
             SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
-            supportVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController: supportVC animated:YES];
+            supportVC.hidesBottomBarWhenPushed = TRUE;
+            [self.navigationController pushViewController: supportVC animated:TRUE];
             
             break;
         }
@@ -361,9 +314,9 @@
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeyDone;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewSearch).offset(hStatusBar+(hSearch - hStatusBar - hTextfield)/2);
-        make.left.equalTo(self.viewSearch).offset(padding);
-        make.right.equalTo(self.viewSearch.mas_right).offset(-hNav);
+        make.top.equalTo(viewSearch).offset(hStatusBar+(hSearch - hStatusBar - hTextfield)/2);
+        make.left.equalTo(viewSearch).offset(padding);
+        make.right.equalTo(viewSearch.mas_right).offset(-hNav);
         make.height.mas_equalTo(hTextfield);
     }];
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, hTextfield)];
@@ -377,7 +330,7 @@
     //  image search
     btnSearch.imageEdgeInsets = UIEdgeInsetsMake(7.5, 7.5, 7.5, 7.5);
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.tfSearch);
+        make.right.top.bottom.equalTo(tfSearch);
         make.width.mas_equalTo(hTextfield);
     }];
     
@@ -388,8 +341,9 @@
         NSString *image = [info objectForKey:@"image"];
         
         NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
-        UIImage *imgBanner = [UIImage imageWithData: imgData];
-        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
+        UIImage *banner = [UIImage imageWithData: imgData];
+        imgBanner.image = banner;
+        hBanner = SCREEN_WIDTH * banner.size.height / banner.size.width;
     }
     hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
     if (hMenu < 100) {
@@ -403,9 +357,12 @@
         paddingY = 5.0;
         hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
     }
-    [self addBannerImageForView];
-    
-    
+    [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(viewSearch.mas_bottom);
+        make.bottom.equalTo(viewWallet.mas_top).offset(-paddingY);
+        //  make.height.mas_equalTo(hBanner);
+    }];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;
@@ -420,12 +377,12 @@
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
-        make.height.mas_equalTo(3*self.hMenu);
+        make.height.mas_equalTo(3*hMenu);
     }];
     
     //  wallet info view
     [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.clvMenu.mas_top).offset(-paddingY);
+        make.bottom.equalTo(clvMenu.mas_top).offset(-paddingY);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(hWallet);
     }];
@@ -435,13 +392,13 @@
     [viewMainWallet addGestureRecognizer: tapOnMainWallet];
     
     [viewMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.viewWallet);
-        make.right.equalTo(self.viewWallet.mas_centerX);
+        make.top.left.bottom.equalTo(viewWallet);
+        make.right.equalTo(viewWallet.mas_centerX);
     }];
     
     [imgMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewMainWallet).offset(10.0);
-        make.centerY.equalTo(self.viewMainWallet.mas_centerY);
+        make.left.equalTo(viewMainWallet).offset(10.0);
+        make.centerY.equalTo(viewMainWallet.mas_centerY);
         make.width.height.mas_equalTo(36.0);
     }];
     
@@ -452,19 +409,35 @@
     lbMoney.textColor = lbRewardsPoints.textColor = ORANGE_COLOR;
     lbMoney.font = lbRewardsPoints.font = [AppDelegate sharedInstance].fontMediumDesc;
     
-    lbMainWallet.text = @"Tài khoản chính";
-    [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgMainWallet.mas_right).offset(5.0);
-        make.bottom.equalTo(self.viewMainWallet.mas_centerY);
-        make.right.equalTo(self.viewMainWallet);
-    }];
-    
+    lbMainWallet.text = [NSString stringWithFormat:@"%@: ", text_main_account];
     lbMoney.text = @"";
     
-    [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbMainWallet);
-        make.top.equalTo(self.viewMainWallet.mas_centerY);
-    }];
+    if (!IS_IPHONE && !IS_IPOD) {
+        float sizeText = [AppUtils getSizeWithText:text_main_account withFont:lbMainWallet.font].width + 10.0;
+        [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgMainWallet.mas_right).offset(5.0);
+            make.top.bottom.equalTo(viewMainWallet);
+            make.width.mas_equalTo(sizeText);
+        }];
+        
+        [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbMainWallet.mas_right).offset(5.0);
+            make.top.bottom.equalTo(lbMainWallet);
+            make.right.equalTo(viewMainWallet).offset(-5.0);
+        }];
+    }else{
+        [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgMainWallet.mas_right).offset(5.0);
+            make.bottom.equalTo(viewMainWallet.mas_centerY);
+            make.right.equalTo(viewMainWallet);
+        }];
+        
+        [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(lbMainWallet);
+            make.top.equalTo(viewMainWallet.mas_centerY);
+        }];
+        
+    }
     
     //  rewards view
     UITapGestureRecognizer *tapOnPoints = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnPoints)];
@@ -472,28 +445,28 @@
     [viewRewards addGestureRecognizer: tapOnPoints];
     
     [viewRewards mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.viewWallet);
-        make.left.equalTo(self.viewWallet.mas_centerX);
+        make.top.right.bottom.equalTo(viewWallet);
+        make.left.equalTo(viewWallet.mas_centerX);
     }];
     
     [imgRewards mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewRewards).offset(10.0);
-        make.centerY.equalTo(self.viewRewards.mas_centerY);
-        make.width.equalTo(self.imgMainWallet.mas_width);
-        make.height.equalTo(self.imgMainWallet.mas_height);
+        make.left.equalTo(viewRewards).offset(10.0);
+        make.centerY.equalTo(viewRewards.mas_centerY);
+        make.width.equalTo(imgMainWallet.mas_width);
+        make.height.equalTo(imgMainWallet.mas_height);
     }];
     
     lbRewards.text = @"Tiền thưởng";
     [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgRewards.mas_right).offset(5.0);
-        make.bottom.equalTo(self.viewRewards.mas_centerY);
-        make.right.equalTo(self.viewRewards);
+        make.left.equalTo(imgRewards.mas_right).offset(5.0);
+        make.bottom.equalTo(viewRewards.mas_centerY);
+        make.right.equalTo(viewRewards);
     }];
     
     lbRewardsPoints.text = @"";
     [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbRewards);
-        make.top.equalTo(self.viewRewards.mas_centerY);
+        make.left.right.equalTo(lbRewards);
+        make.top.equalTo(viewRewards.mas_centerY);
     }];
 }
 

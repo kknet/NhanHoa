@@ -11,14 +11,17 @@
 #import "RegisterAccountViewController.h"
 #import "OTPConfirmView.h"
 
-@interface SignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, UIAlertViewDelegate, OTPConfirmViewDelegate>{
+@interface SignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, UIAlertViewDelegate, OTPConfirmViewDelegate>
+{
     UIColor *signInColor;
+    float hHeader;
+    float padding;
 }
 @end
 
 @implementation SignInViewController
 @synthesize viewTop, imgLogo, lbCompany, lbToBeTheBest, tfAccount, tfPassword, icShowPass, btnForgotPass, btnSignIn, viewBottom, lbNotAccount, btnRegister, scvContent, icClearAcc;
-@synthesize hHeader, padding, activeAccView;
+@synthesize activeAccView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -175,44 +178,72 @@
 }
 
 - (void)setupUIForView {
+    float hCurve = 30.0;
+    float hTextfield = 44.0;
+    float hButton = 48.0;
+    float paddingY = 15.0;
+    float wLogo = 100.0;
+    float hLabelCompany = 30.0;
+    float hToBeTheBest = 25.0;
+    float radius = 15.0;
+    
     hHeader = SCREEN_HEIGHT * 7/9;
     padding = 30.0;
     signInColor = [UIColor colorWithRed:(240/255.0) green:(138/255.0) blue:(38/255.0) alpha:1.0];
+    
+    float offsetSignInBTN = hHeader-hButton/2-20.0;
+    UIFont *textFont = [UIFont fontWithName:RobotoBold size:30.0];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hCurve = 50.0;
+        hTextfield = 55.0;
+        hButton = 55.0;
+        padding = 60.0;
+        paddingY = 30.0;
+        wLogo = 150.0;
+        hLabelCompany = 50.0;
+        hToBeTheBest = 35.0;
+        radius = 30.0;
+        offsetSignInBTN = hHeader-hButton/2-hCurve/2;
+        textFont = [UIFont fontWithName:RobotoBold size:50.0];
+    }
     
     //  view top
     viewTop.backgroundColor = UIColor.clearColor;
     [viewTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(self.hHeader);
+        make.height.mas_equalTo(hHeader);
     }];
     
-    float hTextfield = 44.0;
+    
     float originY = (hHeader/2 - (hTextfield + 15 + hTextfield + hTextfield))/2;
     
     //
-    float paddingTop = (hHeader/2 - (100 + 15.0 + 30.0 + 25.0))/2;
-    imgLogo.layer.cornerRadius = 15.0;
+    float paddingTop = (hHeader/2 - (wLogo + paddingY + hLabelCompany + hToBeTheBest))/2;
+    imgLogo.layer.cornerRadius = radius;
     imgLogo.clipsToBounds = TRUE;
     [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scvContent).offset(paddingTop + 30.0);
-        make.centerX.equalTo(self.scvContent.mas_centerX);
-        make.width.height.mas_equalTo(100.0);
+        make.top.equalTo(scvContent).offset(paddingTop + 30.0);
+        make.centerX.equalTo(scvContent.mas_centerX);
+        make.width.height.mas_equalTo(wLogo);
     }];
     
+    lbCompany.font = textFont;
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgLogo.mas_bottom).offset(15.0);
-        make.left.equalTo(self.scvContent).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
-        make.height.mas_equalTo(30.0);
+        make.top.equalTo(imgLogo.mas_bottom).offset(paddingY);
+        make.left.equalTo(scvContent).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.height.mas_equalTo(hLabelCompany);
     }];
     
+    lbToBeTheBest.font = [AppDelegate sharedInstance].fontBTN;
     [lbToBeTheBest mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbCompany.mas_bottom);
-        make.left.right.equalTo(self.lbCompany);
-        make.height.mas_equalTo(25.0);
+        make.top.equalTo(lbCompany.mas_bottom);
+        make.left.right.equalTo(lbCompany);
+        make.height.mas_equalTo(hToBeTheBest);
     }];
     
-    float hCurve = 30.0;
+    
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint: CGPointMake(0, 0)];
     [path addLineToPoint: CGPointMake(0, hHeader-hCurve)];
@@ -258,24 +289,25 @@
     }];
     
     //  sign in button
-    float hButton = 48.0;
-    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    
+    btnSignIn.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnSignIn.layer.borderColor = signInColor.CGColor;
     btnSignIn.layer.cornerRadius = hButton/2;
     btnSignIn.layer.borderWidth = 1.0;
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scvContent).offset(self.hHeader-hButton/2-20.0);
-        make.left.equalTo(self.scvContent).offset(self.padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*self.padding);
+        make.top.equalTo(scvContent).offset(offsetSignInBTN);
+        make.left.equalTo(scvContent).offset(padding);
+        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
         make.height.mas_equalTo(hButton);
     }];
     
+    btnForgotPass.titleLabel.font = [AppDelegate sharedInstance].fontItalic;
     btnForgotPass.backgroundColor = UIColor.clearColor;
     [btnForgotPass setTitleColor:BORDER_COLOR forState:UIControlStateNormal];
     [btnForgotPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.btnSignIn);
-        make.bottom.equalTo(self.btnSignIn.mas_top).offset(-10.0);
+        make.left.right.equalTo(btnSignIn);
+        make.bottom.equalTo(btnSignIn.mas_top).offset(-10.0);
         make.height.mas_equalTo(hTextfield);
     }];
     
@@ -283,10 +315,9 @@
     tfPassword.secureTextEntry = YES;
     tfPassword.layer.cornerRadius = hTextfield/2;
     tfPassword.backgroundColor = [UIColor colorWithRed:(40/255.0) green:(123/255.0) blue:(229/255.0) alpha:1.0];
-    tfPassword.font = [UIFont fontWithName:RobotoRegular size:17.0];
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.btnForgotPass);
-        make.bottom.equalTo(self.btnForgotPass.mas_top).offset(-10.0);
+        make.left.right.equalTo(btnForgotPass);
+        make.bottom.equalTo(btnForgotPass.mas_top).offset(-paddingY);
         make.height.mas_equalTo(hTextfield);
     }];
     [AppUtils setPlaceholder:@"Mật khẩu" textfield:tfPassword color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
@@ -302,8 +333,8 @@
     
     icShowPass.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icShowPass mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfPassword.mas_right);
-        make.top.bottom.equalTo(self.tfPassword);
+        make.right.equalTo(tfPassword.mas_right);
+        make.top.bottom.equalTo(tfPassword);
         make.width.mas_equalTo(hTextfield);
     }];
     
@@ -315,10 +346,9 @@
     tfAccount.textColor = tfAccount.tintColor = BORDER_COLOR;
     tfAccount.layer.cornerRadius = hTextfield/2;
     tfAccount.backgroundColor = tfPassword.backgroundColor;
-    tfAccount.font = tfPassword.font;
     [tfAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.tfPassword);
-        make.bottom.equalTo(self.tfPassword.mas_top).offset(-15.0);
+        make.left.right.equalTo(tfPassword);
+        make.bottom.equalTo(tfPassword.mas_top).offset(-paddingY);
         make.height.mas_equalTo(hTextfield);
     }];
     [AppUtils setPlaceholder:@"Tài khoản đăng nhập" textfield:tfAccount color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
@@ -335,20 +365,22 @@
     
     icClearAcc.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
     [icClearAcc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.tfAccount);
+        make.top.right.bottom.equalTo(tfAccount);
         make.width.mas_equalTo(hTextfield);
     }];
     
+    tfPassword.font = tfAccount.font = [AppDelegate sharedInstance].fontRegular;
+    
     //  footer
-    CGSize sizeText = [AppUtils getSizeWithText:@"Bạn chưa có tài khoản?" withFont:[UIFont fontWithName:RobotoRegular size:17.0]];
-    CGSize sizeText2 = [AppUtils getSizeWithText:@"ĐĂNG KÝ" withFont:[UIFont fontWithName:RobotoRegular size:17.0]];
+    CGSize sizeText = [AppUtils getSizeWithText:@"Bạn chưa có tài khoản?" withFont:[AppDelegate sharedInstance].fontRegular];
+    CGSize sizeText2 = [AppUtils getSizeWithText:@"ĐĂNG KÝ" withFont:[AppDelegate sharedInstance].fontRegular];
     
     float hFooter = (SCREEN_HEIGHT - hHeader - hCurve/2);
     
     float originX = (SCREEN_WIDTH - (sizeText.width + 10.0 + sizeText2.width))/2;
     originY = (hFooter - 30.0)/2;
     
-    lbNotAccount.font = [UIFont fontWithName:RobotoRegular size:17.0];
+    lbNotAccount.font = [AppDelegate sharedInstance].fontRegular;
     lbNotAccount.textColor = BORDER_COLOR;
     [lbNotAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnSignIn.mas_bottom).offset(originY);
@@ -357,7 +389,7 @@
         make.width.mas_equalTo(sizeText.width);
     }];
     
-    btnRegister.titleLabel.font = [UIFont fontWithName:RobotoRegular size:17.0];
+    btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     [btnRegister setTitleColor:signInColor forState:UIControlStateNormal];
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbNotAccount);

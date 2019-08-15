@@ -45,27 +45,50 @@
 
 - (void)setupUIForView {
     float hCurve = 30.0;
-    padding = 30.0;
     float hTopView = SCREEN_HEIGHT * 3/5 + 50.0;
+    float hButton = 48.0;
+    padding = 30.0;
+    float paddingBTN = 7.5;
+    float hBottom = 38.0;
+    UIFont *slogentFont = [UIFont fontWithName:RobotoRegular size:21.0];
+    UIFont *welcomeFont = [UIFont fontWithName:RobotoRegular size:21.0];
+    
+    float paddingTopView = 15.0;
+    float wImgInfor = SCREEN_WIDTH/2 + 30.0;
+    
+    lbWelcome.text = text_welcome_to;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        wImgInfor = 300;
+        hCurve = 80.0;
+        hTopView = SCREEN_HEIGHT *4/6;
+        hButton = 55.0;
+        paddingBTN = 10.0;
+        hBottom = 80.0;
+        paddingTopView = 30.0;
+        slogentFont = [UIFont fontWithName:RobotoLight size:30.0];
+        welcomeFont = [UIFont fontWithName:RobotoLight size:35.0];
+        
+        //  set content
+        lbWelcome.text = [text_welcome_to uppercaseString];
+    }
+    
     viewTop.backgroundColor = UIColor.clearColor;
     [viewTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hTopView);
-        //  make.height.equalTo(self.view.mas_height).multipliedBy(0.6);
     }];
     
     UIImage *imgGraphic = [UIImage imageNamed:@"graphic.png"];
-    float hImage = (SCREEN_WIDTH/2 + 30.0) * imgGraphic.size.height/imgGraphic.size.width;
+    float hImage = wImgInfor * imgGraphic.size.height/imgGraphic.size.width;
     float originY = (hTopView/2 - hImage)/2;
     [imgInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.viewTop).offset(-originY);
-        make.centerX.equalTo(self.viewTop.mas_centerX);
-        make.width.mas_equalTo(SCREEN_WIDTH/2 + 30.0);
+        make.bottom.equalTo(viewTop).offset(-originY);
+        make.centerX.equalTo(viewTop.mas_centerX);
+        make.width.mas_equalTo(wImgInfor);
         make.height.mas_equalTo(hImage);
     }];
     
-    lbDescription.textColor = [UIColor colorWithRed:(83/255.0) green:(98/255.0) blue:(127/255.0) alpha:1.0];
-    lbDescription.font = [UIFont fontWithName:RobotoRegular size:21.0];
     [lbDescription mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.viewTop.mas_centerY).offset(-20.0);
         make.left.equalTo(self.viewTop).offset(15.0);
@@ -73,61 +96,61 @@
     }];
     
     UIImage *logo = [UIImage imageNamed:@"logo.png"];
-    float hImageLogo = (SCREEN_WIDTH/2 + 30) * logo.size.height/logo.size.width;
+    float hImageLogo = wImgInfor * logo.size.height/logo.size.width;
     
     [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbDescription.mas_top).offset(-15.0);
+        make.bottom.equalTo(self.lbDescription.mas_top).offset(-paddingTopView);
         make.centerX.equalTo(self.viewTop.mas_centerX);
-        make.width.mas_equalTo(SCREEN_WIDTH/2 + 30);
+        make.width.mas_equalTo(wImgInfor);
         make.height.mas_equalTo(hImageLogo);
     }];
     
-    lbWelcome.textColor = lbDescription.textColor;
-    lbWelcome.font = [UIFont fontWithName:RobotoRegular size:21.0];
     [lbWelcome mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.imgLogo.mas_top).offset(-15.0);
+        make.bottom.equalTo(self.imgLogo.mas_top).offset(-paddingTopView);
         make.left.right.equalTo(self.viewTop);
     }];
     
+    lbDescription.textColor = lbWelcome.textColor = [UIColor colorWithRed:(83/255.0) green:(98/255.0) blue:(127/255.0) alpha:1.0];
+    lbDescription.font = slogentFont;
+    lbWelcome.font = welcomeFont;
+    
+    //  VIEW BOTTOm
     [viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.equalTo(self.view);
         make.top.equalTo(self.viewTop.mas_bottom).offset(-hCurve);
     }];
     
-    float hButton = 48.0;
     signInColor = [UIColor colorWithRed:(240/255.0) green:(138/255.0) blue:(38/255.0) alpha:1.0];
-    btnSignIn.layer.cornerRadius = hButton/2;
-    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoRegular size:20.0];
-    btnSignIn.layer.borderWidth = 1.0;
     btnSignIn.layer.borderColor = signInColor.CGColor;
     btnSignIn.backgroundColor = signInColor;
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewBottom).offset(self.padding);
         make.right.equalTo(self.viewBottom).offset(-self.padding);
-        make.bottom.equalTo(self.viewBottom.mas_centerY).offset(-7.5);
+        make.bottom.equalTo(self.viewBottom.mas_centerY).offset(-paddingBTN);
         make.height.mas_equalTo(hButton);
     }];
     
     registerColor = [UIColor colorWithRed:(11/255.0) green:(97/255.0) blue:(200/255.0) alpha:1.0];
-    btnRegister.layer.cornerRadius = hButton/2;
-    btnRegister.titleLabel.font = btnSignIn.titleLabel.font;
-    btnRegister.layer.borderWidth = 1.0;
     btnRegister.layer.borderColor = UIColor.whiteColor.CGColor;
     [btnRegister setTitleColor:registerColor forState:UIControlStateNormal];
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewBottom).offset(self.padding);
         make.right.equalTo(self.viewBottom).offset(-self.padding);
-        make.top.equalTo(self.viewBottom.mas_centerY).offset(7.5);
+        make.top.equalTo(self.viewBottom.mas_centerY).offset(paddingBTN);
         make.height.mas_equalTo(hButton);
     }];
     
-    lbCompany.font = [UIFont fontWithName:RobotoRegular size:15.0];
+    btnSignIn.layer.cornerRadius = btnRegister.layer.cornerRadius = hButton/2;
+    btnSignIn.titleLabel.font = btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnSignIn.layer.borderWidth = btnRegister.layer.borderWidth = 1.0;
+    
+    lbCompany.font = [AppDelegate sharedInstance].fontRegular;
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.viewBottom);
-        make.height.mas_equalTo(38.0);
+        make.height.mas_equalTo(hBottom);
     }];
     
-    
+    //  PATH
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint: CGPointMake(0, 0)];
     [path addLineToPoint: CGPointMake(0, hTopView-hCurve)];

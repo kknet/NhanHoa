@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     
-    lbName.font = [UIFont fontWithName:RobotoRegular size:18.0];
+    lbName.font = [AppDelegate sharedInstance].fontRegular;
     lbName.textColor = TITLE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15.0);

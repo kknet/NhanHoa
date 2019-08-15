@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *lbTitle;
 
 @property (nonatomic, strong) UITableView *tbCity;
+@property (nonatomic, assign) float hCell;
 
 - (void)showInView:(UIView *)aView animated:(BOOL)animated;
 - (void)fadeOut;

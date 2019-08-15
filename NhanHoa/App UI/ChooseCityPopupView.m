@@ -11,7 +11,7 @@
 #import "CityObject.h"
 
 @implementation ChooseCityPopupView
-@synthesize viewHeader, icClose, lbTitle, tbCity, delegate;
+@synthesize viewHeader, icClose, lbTitle, tbCity, delegate, hCell;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame: frame];
@@ -21,12 +21,19 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 12.0;
         
+        float hHeader = 45.0;
+        hCell = 44.0;
+        if (!IS_IPHONE && !IS_IPOD) {
+            hHeader = 60.0;
+            hCell = 60.0;
+        }
+        
         viewHeader = [[UIView alloc] init];
         viewHeader.backgroundColor = BLUE_COLOR;
         [self addSubview: viewHeader];
         [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self);
-            make.height.mas_equalTo(45.0);
+            make.height.mas_equalTo(hHeader);
         }];
         
         //  close popup
@@ -38,19 +45,20 @@
           forControlEvents:UIControlEventTouchUpInside];
         [viewHeader addSubview: icClose];
         [icClose mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.equalTo(self);
+            make.right.equalTo(self);
+            make.centerY.equalTo(viewHeader.mas_centerY);
             make.width.height.mas_equalTo(44.0);
         }];
         
         lbTitle = [[UILabel alloc] init];
         lbTitle.text = @"Tỉnh/Thành phố";
         lbTitle.textColor = UIColor.whiteColor;
-        lbTitle.font = [UIFont fontWithName:RobotoRegular size:18.0];
+        lbTitle.font = [AppDelegate sharedInstance].fontBTN;
         [viewHeader addSubview: lbTitle];
         [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.viewHeader.mas_centerX);
-            make.width.mas_equalTo(150.0);
-            make.top.bottom.equalTo(self.viewHeader);
+            make.centerX.equalTo(viewHeader.mas_centerX);
+            make.width.mas_equalTo(250.0);
+            make.top.bottom.equalTo(viewHeader);
         }];
         
         tbCity = [[UITableView alloc] init];
@@ -61,7 +69,7 @@
         [self addSubview: tbCity];
         [tbCity mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.bottom.right.equalTo(self);
-            make.top.equalTo(self.viewHeader.mas_bottom);
+            make.top.equalTo(viewHeader.mas_bottom);
         }];
         
     }
@@ -135,7 +143,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return hCell;
 }
 
 

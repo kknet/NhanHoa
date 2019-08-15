@@ -14,9 +14,19 @@
 
 - (void)setupUIForView {
     float padding = 20.0;
+    float sizeBox = 50.0;
+    float hBTN = 45.0;
+    float wBTN = 200.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 40.0;
+        sizeBox= 70.0;
+        hBTN = 55.0;
+        wBTN = 350.0;
+    }
     
     lbTitle.textColor = TITLE_COLOR;
-    lbTitle.font = [UIFont fontWithName:RobotoRegular size:22.0];
+    lbTitle.font = [AppDelegate sharedInstance].fontBTN;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(50.0);
         make.left.right.equalTo(self);
@@ -28,7 +38,7 @@
     [tfChar2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbTitle.mas_bottom).offset(padding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
-        make.width.height.mas_equalTo(50.0);
+        make.width.height.mas_equalTo(sizeBox);
     }];
     [tfChar2 addTarget:self
                 action:@selector(onTextfieldDidChange:)
@@ -74,17 +84,16 @@
     [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tfChar3.mas_bottom).offset(2*padding);
         make.centerX.equalTo(self.mas_centerX);
-        make.width.mas_equalTo(200);
-        make.height.mas_equalTo(45.0);
+        make.width.mas_equalTo(wBTN);
+        make.height.mas_equalTo(hBTN);
     }];
     
-    UIFont *textFont = [UIFont fontWithName:RobotoItalic size:18.0];
-    float widthText = [AppUtils getSizeWithText:@"Không nhận được mã?" withFont:textFont].width + 5;
+    float widthText = [AppUtils getSizeWithText:@"Không nhận được mã?" withFont:[AppDelegate sharedInstance].fontRegular].width + 5;
     float widthBTN = [AppUtils getSizeWithText:@"Gửi lại" withFont:[AppDelegate sharedInstance].fontRegular].width;
     float originX = (SCREEN_WIDTH - widthText - widthBTN)/2;
     
     lbNotReceived.textColor = UIColor.grayColor;
-    lbNotReceived.font = textFont;
+    lbNotReceived.font = [AppDelegate sharedInstance].fontBTN;
     [lbNotReceived mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnConfirm.mas_bottom).offset(padding);
         make.left.equalTo(self).offset(originX);
@@ -93,7 +102,7 @@
     }];
     
     [btnResend setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    btnResend.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
+    btnResend.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnResend mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.lbNotReceived);
         make.left.equalTo(self.lbNotReceived.mas_right);

@@ -17,8 +17,18 @@
     float padding = 15.0;
     float hLabel = 30.0;
     float mTop = 10.0;
+    float hTitle = 40.0;
+    float hBTN = 45.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hLabel = 40.0;
+        hTitle = 60.0;
+        hBTN = 55.0;
+        padding = 30.0;
     }
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKyboard)];
@@ -31,7 +41,7 @@
         make.top.equalTo(self);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hTitle);
     }];
     
     //  vision
@@ -287,12 +297,12 @@
     [btnRegister setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnRegister.layer.borderColor = BLUE_COLOR.CGColor;
     btnRegister.layer.borderWidth = 1.0;
-    btnRegister.layer.cornerRadius = 45.0/2;
+    btnRegister.layer.cornerRadius = hBTN/2;
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(self.tfCountry.mas_bottom).offset(2*padding);
-        make.height.mas_equalTo(45.0);
+        make.top.equalTo(tfCountry.mas_bottom).offset(2*padding);
+        make.height.mas_equalTo(hBTN);
     }];
     
     lbTitle.font = [AppDelegate sharedInstance].fontBold;
@@ -476,7 +486,12 @@
 - (IBAction)btnCityPress:(UIButton *)sender {
     [self endEditing: TRUE];
     
-    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, SCREEN_HEIGHT-100)];
+    float wPopup = 300.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        wPopup = 500;
+    }
+    
+    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, SCREEN_HEIGHT-100)];
     popupView.delegate = self;
     [popupView showInView:[AppDelegate sharedInstance].window animated:TRUE];
 }

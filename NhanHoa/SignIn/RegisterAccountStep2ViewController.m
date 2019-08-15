@@ -20,6 +20,7 @@
     BusinessProfileView *businessProfile;
     OTPConfirmView *otpView;
     WebServices *webService;
+    float hMenu;
 }
 @end
 
@@ -41,7 +42,6 @@
 
 @implementation RegisterAccountStep2ViewController
 @synthesize viewMenu, viewAccInfo, lbAccount, lbNumOne, lbSepa, viewProfileInfo, lbProfile, lbNumTwo, scvContent;
-@synthesize hMenu;
 @synthesize email, password;
 
 - (void)viewDidLoad {
@@ -100,25 +100,34 @@
         }
     }
     personalProfile.delegate = self;
-    [self.scvContent addSubview: personalProfile];
+    [scvContent addSubview: personalProfile];
     
     float mTop = 10.0;
     float hLabel = 30.0;
     float padding = 15.0;
+    float hTitle = 40.0;
+    float hBTN = 45.0;
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
-    float hView = 40 + 30 + 5.0 + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hLabel = 40.0;
+        hTitle = 60.0;
+        padding = 30.0;
+        hBTN = 55.0;
+    }
+    
+    float hView = hTitle + 30 + 5.0 + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hBTN + 2*padding;
     personalProfile.contentSize = hView;
     
     [personalProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
+        make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
     [personalProfile setupUIForView];
-    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
 }
 
 - (void)addBusinessProfileView {
@@ -135,8 +144,17 @@
     float mTop = 10.0;
     float hLabel = 30.0;
     float padding = 15.0;
+    float hTitle = 40.0;
+    float hBTN = 45.0;
     
-    float hView = 40 + 30 + 5.0 + hLabel + padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hLabel = 40.0;
+        hTitle = 60.0;
+        hBTN = 55.0;
+        padding = 30.0;
+    }
+    
+    float hView = hTitle + 30 + 5.0 + hLabel + padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hBTN + 2*padding;
     businessProfile.contentSize = hView;
     
     [businessProfile mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,12 +168,21 @@
 
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    float paddingX = 3.0;
+    float sizeMenu = 20.0;
     hMenu = 60.0;
     self.view.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     
+    lbAccount.font = lbNumOne.font = lbNumTwo.font = lbProfile.font = [AppDelegate sharedInstance].fontDesc;
+    if (!IS_IPHONE && !IS_IPOD) {
+        sizeMenu = 30.0;
+        paddingX = 10.0;
+        lbAccount.font = lbProfile.font = lbNumOne.font = lbNumTwo.font = [AppDelegate sharedInstance].fontRegular;
+    }
+    
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
-        make.height.mas_equalTo(self.hMenu);
+        make.height.mas_equalTo(hMenu);
     }];
     
     lbSepa.textColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
@@ -165,51 +192,47 @@
         lbSepa.text = @"-----";
     }
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.viewMenu.mas_centerX);
-        make.top.bottom.equalTo(self.viewMenu);
+        make.centerX.equalTo(viewMenu.mas_centerX);
+        make.top.bottom.equalTo(viewMenu);
     }];
     
     [viewAccInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.viewMenu);
-        make.right.equalTo(self.lbSepa.mas_left);
+        make.left.top.bottom.equalTo(viewMenu);
+        make.right.equalTo(lbSepa.mas_left);
     }];
     
-    lbAccount.font = [AppDelegate sharedInstance].fontDesc;
     [lbAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewAccInfo);
-        make.right.equalTo(self.viewAccInfo).offset(-2.0);
+        make.top.bottom.equalTo(viewAccInfo);
+        make.right.equalTo(viewAccInfo).offset(-2.0);
     }];
     
-    lbNumOne.clipsToBounds = TRUE;
-    lbNumOne.layer.cornerRadius = 20.0/2;
-    lbNumOne.font = lbAccount.font;
     [lbNumOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.lbAccount.mas_left).offset(-3.0);
-        make.centerY.equalTo(self.lbAccount.mas_centerY);
-        make.width.height.mas_equalTo(20.0);
+        make.right.equalTo(lbAccount.mas_left).offset(-paddingX);
+        make.centerY.equalTo(lbAccount.mas_centerY);
+        make.width.height.mas_equalTo(sizeMenu);
     }];
     
     [viewProfileInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.viewMenu);
-        make.left.equalTo(self.lbSepa.mas_right);
+        make.right.top.bottom.equalTo(viewMenu);
+        make.left.equalTo(lbSepa.mas_right);
     }];
     
-    lbNumTwo.clipsToBounds = TRUE;
-    lbNumTwo.layer.cornerRadius = 20.0/2;
-    lbNumTwo.font = lbAccount.font;
     [lbNumTwo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.viewProfileInfo).offset(2.0);
         make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.width.height.mas_equalTo(20.0);
+        make.width.height.mas_equalTo(sizeMenu);
     }];
     
-    lbProfile.font = lbAccount.font;
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbNumTwo.mas_right).offset(3.0);
+        make.left.equalTo(self.lbNumTwo.mas_right).offset(paddingX);
         make.top.bottom.equalTo(self.viewProfileInfo);
     }];
     
+    lbNumOne.clipsToBounds = lbNumTwo.clipsToBounds = TRUE;
+    lbNumOne.layer.cornerRadius = lbNumTwo.layer.cornerRadius = sizeMenu/2;
+    
     scvContent.delegate = self;
+    scvContent.backgroundColor = UIColor.whiteColor;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
         make.left.bottom.equalTo(self.view);

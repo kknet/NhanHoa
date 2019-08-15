@@ -36,9 +36,6 @@
 - (IBAction)btnSignInPress:(UIButton *)sender;
 - (IBAction)btnRegisterPress:(UIButton *)sender;
 
-@property (nonatomic, assign) float hHeader;
-@property (nonatomic, assign) float padding;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 
 @end

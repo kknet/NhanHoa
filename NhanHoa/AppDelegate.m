@@ -13,11 +13,11 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "JSONKit.h"
 
-#include "pjsip_sources/pjlib/include/pjlib.h"
-#include "pjsip_sources/pjsip/include/pjsua.h"
-
-#include "pjsip_sources/pjsua/pjsua_app.h"
-#include "pjsip_sources/pjsua/pjsua_app_config.h"
+//  comment for call
+//#include "pjsip_sources/pjlib/include/pjlib.h"
+//#include "pjsip_sources/pjsip/include/pjsua.h"
+//#include "pjsip_sources/pjsua/pjsua_app.h"
+//#include "pjsip_sources/pjsua/pjsua_app_config.h"
 
 #define THIS_FILE    "AppDelegate.m"
 #define KEEP_ALIVE_INTERVAL 600
@@ -110,7 +110,7 @@ AppDelegate      *app;
     
     //  setup logs folder
     supportCall = TRUE;
-    newHomeLayout = TRUE;
+    newHomeLayout = FALSE;
     
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
@@ -217,10 +217,10 @@ AppDelegate      *app;
     }
     [self registerForNotifications:[UIApplication sharedApplication]];
     
-    //  PJSIP
-    app = self;
-    [self startPjsuaForApp];
-    current_call_id = -1;
+    //  comment for call
+//    app = self;
+//    [self startPjsuaForApp];
+//    current_call_id = -1;
     
     //  setup for Fabric
     [Fabric with:@[[Crashlytics class]]];
@@ -537,83 +537,98 @@ AppDelegate      *app;
 - (void)setupFontForApp {
     radius = 5.0;
     
-    NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
-    if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
-    {
-        //  Screen width: 320.000000 - Screen height: 667.000000
-        fontBold = [UIFont fontWithName:RobotoBold size:16.0];
-        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
-        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
-        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
-        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
-        
-        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
-        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
-        
-        hTextfield = 35.0;
-        
-    }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
-    {
-        //  Screen width: 375.000000 - Screen height: 667.000000
-        fontBold = [UIFont fontWithName:RobotoBold size:16.0];
-        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
-        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
-        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
-        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
-        
-        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
-        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
-        
-        hTextfield = 38.0;
-        
-    }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
-    {
-        //  Screen width: 414.000000 - Screen height: 736.000000
-        fontBold = [UIFont fontWithName:RobotoBold size:18.0];
-        fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
-        fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
-        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
-        fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
-        
-        fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
-        
-        hTextfield = 40.0;
-        
-    }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
-        //  Screen width: 375.000000 - Screen height: 812.000000
-        fontBold = [UIFont fontWithName:RobotoBold size:18.0];
-        fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
-        fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
-        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
-        fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
-        
-        fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
-        
-        hTextfield = 40.0;
-        
+    if (IS_IPHONE || IS_IPOD) {
+        NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
+        if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
+        {
+            //  Screen width: 320.000000 - Screen height: 667.000000
+            fontBold = [UIFont fontWithName:RobotoBold size:16.0];
+            fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+            fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+            fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+            fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+            
+            fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+            fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
+            fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
+            
+            hTextfield = 35.0;
+            
+        }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
+        {
+            //  Screen width: 375.000000 - Screen height: 667.000000
+            fontBold = [UIFont fontWithName:RobotoBold size:16.0];
+            fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+            fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+            fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+            fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+            
+            fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+            fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
+            fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
+            
+            hTextfield = 38.0;
+            
+        }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
+        {
+            //  Screen width: 414.000000 - Screen height: 736.000000
+            fontBold = [UIFont fontWithName:RobotoBold size:18.0];
+            fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
+            fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
+            fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+            fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
+            
+            fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
+            fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
+            
+            hTextfield = 40.0;
+            
+        }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
+            //  Screen width: 375.000000 - Screen height: 812.000000
+            fontBold = [UIFont fontWithName:RobotoBold size:18.0];
+            fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
+            fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
+            fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontBTN = [UIFont fontWithName:RobotoRegular size:20.0];
+            fontItalic = [UIFont fontWithName:RobotoItalic size:18.0];
+            
+            fontNormal = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
+            fontMediumDesc = [UIFont fontWithName:RobotoMedium size:16.0];
+            
+            hTextfield = 40.0;
+            
+        }else{
+            fontBold = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
+            fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
+            fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
+            fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
+            fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+            
+            fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
+            fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
+            fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
+            
+            hTextfield = 38.0;
+        }
     }else{
-        fontBold = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontMedium = [UIFont fontWithName:RobotoMedium size:16.0];
-        fontRegular = [UIFont fontWithName:RobotoRegular size:16.0];
-        fontDesc = [UIFont fontWithName:RobotoRegular size:14.0];
-        fontBTN = [UIFont fontWithName:RobotoRegular size:18.0];
-        fontItalic = [UIFont fontWithName:RobotoItalic size:16.0];
+        fontRegular = [UIFont fontWithName:RobotoRegular size:22.0];
+        fontBTN = [UIFont fontWithName:RobotoRegular size:25.0];
+        fontItalic = [UIFont fontWithName:RobotoItalic size:22.0];
+        fontMedium = [UIFont fontWithName:RobotoMedium size:22.0];
+        fontBold = [UIFont fontWithName:RobotoBold size:22.0];
+        fontNormal = [UIFont fontWithName:RobotoRegular size:22.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:22.0];
         
-        fontNormal = [UIFont fontWithName:RobotoRegular size:15.0];
-        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:15.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:15.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
+        fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
         
-        hTextfield = 38.0;
+        hTextfield = 50.0;
     }
 }
 
@@ -869,581 +884,6 @@ AppDelegate      *app;
      }];
 }
 
-- (void)startPjsuaForApp {
-    pjsua_create();
-    
-    pjsua_config ua_cfg;
-    pjsua_logging_config log_cfg;
-    pjsua_media_config media_cfg;
-    
-    pjsua_config_default(&ua_cfg);
-    pjsua_logging_config_default(&log_cfg);
-    pjsua_media_config_default(&media_cfg);
-    
-    ua_cfg.cb.on_incoming_call = &on_incoming_call;
-    ua_cfg.cb.on_call_media_state = &on_call_media_state;
-    ua_cfg.cb.on_call_state = &on_call_state;
-    ua_cfg.cb.on_reg_state = &on_reg_state;
-    
-    pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
-    
-    pjsua_transport_config transportConfig;
-    
-    pjsua_transport_config_default(&transportConfig);
-    
-    transportConfig.port = 51000;
-    
-    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
-    pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
-    
-    pjsua_start();
-}
-
-- (void)tryToLogin151 {
-    NSString *account = @"nhcla151";
-    NSString *domain = @"nhanhoa1.vfone.vn";
-    NSString *port = @"51000";
-    NSString *password = @"cloudcall123";
-    
-    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        NSString *email = [AccountModel getCusEmail];
-        
-        pj_status_t status;
-        
-        // Register the account on local sip server
-        pjsua_acc_id acc_id;
-        pjsua_acc_config cfg;
-        pjsua_acc_config_default(&cfg);
-        
-        NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
-        NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
-        
-        cfg.id = pj_str((char *)[strCall UTF8String]);
-        cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
-        cfg.cred_count = 1;
-        cfg.cred_info[0].realm = pj_str("*");
-        cfg.cred_info[0].scheme = pj_str("digest");
-        cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
-        cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-        cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
-        cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
-        
-        pjsip_generic_string_hdr CustomHeader;
-        pj_str_t name = pj_str("Call-ID");
-        pj_str_t value = pj_str((char *)[email UTF8String]);
-        pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
-        pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
-        
-        pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
-        pj_dns_resolver* resolver;
-        
-        struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
-        pjsip_endpt_create_resolver(endpoint, &resolver);
-        pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
-        
-        // Init transport config structure
-        pjsua_transport_config trans_cfg;
-        pjsua_transport_config_default(&trans_cfg);
-        trans_cfg.port = [port intValue];
-        
-        // Add UDP transport.
-        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
-        if (status != PJ_SUCCESS){
-            NSLog(@"Error creating transport");
-        }
-        
-        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-        if (status != PJ_SUCCESS){
-            NSLog(@"Error adding account");
-        }
-    }else{
-        [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
-    }
-}
-
-- (void)registerSIPAccountWithInfo: (NSDictionary *)info {
-    NSString *account = [info objectForKey:@"account"];
-    NSString *domain = [info objectForKey:@"domain"];
-    NSString *port = [info objectForKey:@"port"];
-    NSString *password = [info objectForKey:@"password"];
-    
-    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
-        NSString *email = USERNAME;
-        
-        pj_status_t status;
-        
-        // Register the account on local sip server
-        pjsua_acc_id acc_id;
-        pjsua_acc_config cfg;
-        pjsua_acc_config_default(&cfg);
-        
-        NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
-        NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
-        
-        cfg.id = pj_str((char *)[strCall UTF8String]);
-        cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
-        cfg.cred_count = 1;
-        cfg.cred_info[0].realm = pj_str("*");
-        cfg.cred_info[0].scheme = pj_str("digest");
-        cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
-        cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
-        cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
-        cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
-        //  disable IPV6
-        //  cfg.ipv6_media_use = PJSUA_IPV6_DISABLED;
-        
-        pjsip_generic_string_hdr CustomHeader;
-        pj_str_t name = pj_str("Call-ID");
-        pj_str_t value = pj_str((char *)[email UTF8String]);
-        pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
-        pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
-        
-        pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
-        pj_dns_resolver* resolver;
-        
-        struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
-        pjsip_endpt_create_resolver(endpoint, &resolver);
-        pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
-        
-        // Init transport config structure
-        pjsua_transport_config trans_cfg;
-        pjsua_transport_config_default(&trans_cfg);
-        trans_cfg.port = [port intValue];
-        
-        // Add UDP transport.
-        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
-        if (status != PJ_SUCCESS){
-            NSLog(@"Error creating transport");
-        }
-        
-        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
-        if (status != PJ_SUCCESS){
-            NSLog(@"Error adding account");
-        }
-    }else{
-        [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
-    }
-}
-
-- (void)makeCallTo: (NSString *)strCall {
-    //  NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
-    char *destUri = (char *)[strCall UTF8String];
-
-    pjsua_acc_id acc_id = 0;
-    pj_status_t status;
-    pj_str_t pj_uri = pj_str(destUri);
-
-    //current register id _acc_id
-    pj_caching_pool cp;
-    pj_pool_t *pool;
-    
-    pjsua_msg_data msg_data;
-    pjsua_msg_data_init(&msg_data);
-    
-    pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
-    pool= pj_pool_create(&cp.factory, "header", 1000, 1000, NULL);
-    
-    pj_str_t hname = pj_str((char *)[@"User-Agent" UTF8String]);
-    pj_str_t hvalue = pj_str((char *)[USERNAME UTF8String]);
-    pjsip_generic_string_hdr* add_hdr = pjsip_generic_string_hdr_create(pool, &hname, &hvalue);
-    pj_list_push_back(&msg_data.hdr_list, add_hdr);
-    
-    status = pjsua_call_make_call(acc_id, &pj_uri, 0, NULL, &msg_data, NULL);
-    if (status != PJ_SUCCESS){
-        NSLog(@"Error making call");
-    }
-    pj_pool_release(pool);
-}
-
-- (int)getDurationForCurrentCall {
-    if (current_call_id != -1) {
-        pjsua_call_info ci;
-        pjsua_call_get_info(current_call_id, &ci);
-        //  NSLog(@"%ld - %ld", ci.total_duration.sec, ci.connect_duration.sec);
-        return (int)ci.connect_duration.sec;
-    }
-    return 0;
-}
-
-- (BOOL)checkMicrophoneWasMuted {
-    if (pjsipConfAudioId >= 0) {
-        unsigned int tx_level;
-        unsigned int rx_level;
-        pjsua_conf_get_signal_level(pjsipConfAudioId, &tx_level, &rx_level);
-        if (tx_level == 0) {
-            return TRUE;
-        }else{
-            return FALSE;
-        }
-    }
-    return FALSE;
-}
-
-- (BOOL)checkCurrentCallWasHold {
-    if (current_call_id != -1) {
-        pjsua_call_info ci;
-        pjsua_call_get_info(current_call_id, &ci);
-        if (ci.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
-            return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-- (BOOL)isCallWasConnected {
-    if (current_call_id != -1) {
-        pjsua_call_info ci;
-        pjsua_call_get_info(current_call_id, &ci);
-        
-        if (ci.state == PJSIP_INV_STATE_CONFIRMED) {
-            return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-- (NSArray *)getContactNameOfRemoteForCall {
-    if (current_call_id != -1) {
-        pjsua_call_info ci;
-        pjsua_call_get_info(current_call_id, &ci);
-        NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
-        if (![AppUtils isNullOrEmpty: contactName]) {
-            NSString *name;
-            NSString *subname;
-            
-            //  get name
-            NSRange range = [contactName rangeOfString:@" <"];
-            if (range.location != NSNotFound) {
-                name = [contactName substringToIndex: range.location];
-            }else {
-                range = [contactName rangeOfString:@"<"];
-                if (range.location != NSNotFound) {
-                    name = [contactName substringToIndex: range.location];
-                }
-            }
-            if ([name hasPrefix:@"\""]) {
-                name = [name substringFromIndex:1];
-            }
-            if ([name hasSuffix:@"\""]) {
-                name = [name substringToIndex:name.length - 1];
-            }
-            
-            //  get subname
-            range = [contactName rangeOfString:@"<sip:"];
-            if (range.location != NSNotFound) {
-                NSRange subrange = [contactName rangeOfString:@"@"];
-                if (subrange.location != NSNotFound && range.location < subrange.location) {
-                    subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
-                }
-            }
-            return @[name, subname];
-        }
-    }
-    return nil;
-}
-
-- (NSArray *)getContactNameForCallWithCallInfo: (pjsua_call_info)ci {
-    NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
-    if (![AppUtils isNullOrEmpty: contactName]) {
-        NSString *name;
-        NSString *subname;
-        
-        //  get name
-        NSRange range = [contactName rangeOfString:@" <"];
-        if (range.location != NSNotFound) {
-            name = [contactName substringToIndex: range.location];
-        }else {
-            range = [contactName rangeOfString:@"<"];
-            if (range.location != NSNotFound) {
-                name = [contactName substringToIndex: range.location];
-            }
-        }
-        if ([name hasPrefix:@"\""]) {
-            name = [name substringFromIndex:1];
-        }
-        if ([name hasSuffix:@"\""]) {
-            name = [name substringToIndex:name.length - 1];
-        }
-        
-        //  get subname
-        range = [contactName rangeOfString:@"<sip:"];
-        if (range.location != NSNotFound) {
-            NSRange subrange = [contactName rangeOfString:@"@"];
-            if (subrange.location != NSNotFound && range.location < subrange.location) {
-                subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
-            }
-        }
-        return @[name, subname];
-    }
-    return nil;
-}
-
-- (BOOL)sendDtmfWithValue: (NSString *)value {
-    pjsua_call_send_dtmf_param param;
-    param.method = PJSUA_DTMF_METHOD_RFC2833;
-    param.duration = PJSUA_CALL_SEND_DTMF_DURATION_DEFAULT;
-    param.digits = pj_str((char *)[value UTF8String]);
-
-    pj_status_t status = pjsua_call_send_dtmf(current_call_id, &param);
-    if (status != PJ_SUCCESS){
-        return FALSE;
-    }
-    return TRUE;
-}
-
-- (BOOL)muteMicrophone: (BOOL)mute {
-    if (mute) {
-        @try {
-            if( pjsipConfAudioId != 0 ) {
-                NSLog(@"WC_SIPServer microphone disconnected from call");
-                pjsua_conf_disconnect(0, pjsipConfAudioId);
-                return TRUE;
-            }
-            return FALSE;
-        }
-        @catch (NSException *exception) {
-            return FALSE;
-        }
-    }else{
-        @try {
-            if( pjsipConfAudioId != 0 ) {
-                NSLog(@"WC_SIPServer microphone reconnected to call");
-                pjsua_conf_connect(0,pjsipConfAudioId);
-                return TRUE;
-            }
-            return FALSE;
-        }
-        @catch (NSException *exception) {
-            return FALSE;
-        }
-    }
-}
-
-- (void)holdCurrentCall: (BOOL)hold {
-    if (hold) {
-        pjsua_call_set_hold(current_call_id, nil);
-    }else{
-        pjsua_call_update(current_call_id, PJSUA_CALL_UNHOLD, nil);
-    }
-}
-
-- (void)hangupAllCall {
-    pjsua_call_hangup_all();
-}
-
-- (void)hangupCallWithCallId: (pjsua_call_id)call_id code: (int)code reason: (NSString *)reason {
-    pj_str_t pj_reason = pj_str((char *)[reason UTF8String]);
-    pjsua_call_hangup(call_id, code, &pj_reason, nil);
-}
-
-- (void)removeAccount {
-    pjsua_acc_id accId = pjsua_acc_get_default();
-    if (pjsua_acc_is_valid(accId)) {
-        pjsua_acc_del(accId);
-    }
-}
-
-//  Callback called by the library upon receiving incoming call
-static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata)
-{
-    pjsua_call_info ci;
-    PJ_UNUSED_ARG(acc_id);
-    PJ_UNUSED_ARG(rdata);
-    
-    pjsua_call_get_info(call_id, &ci);
-    
-    NSUUID *uuid = [NSUUID UUID];
-    NSString *callId = [NSString stringWithFormat:@"%d", call_id];
-    
-    [app.del.calls setObject:callId forKey:uuid];
-    [app.del.uuids setObject:uuid forKey:callId];
-    
-    NSString *caller = unknown;
-    NSArray *info = [app getContactNameForCallWithCallInfo: ci];
-    if (info != nil && info.count == 2) {
-        caller = [NSString stringWithFormat:@"%@ - %@", [info firstObject], [info lastObject]];
-    }
-    [app.del reportIncomingCallwithUUID:uuid handle:caller video:FALSE];
-    
-    PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!", (int)ci.remote_info.slen,ci.remote_info.ptr));
-    //  Automatically answer incoming calls with 200/OK
-    //  pjsua_call_answer(call_id, 200, NULL, NULL);
-}
-
-//  Callback called by the library when call's media state has changed
-static void on_call_media_state(pjsua_call_id call_id)
-{
-    pjsua_call_info ci;
-    
-    pjsua_call_get_info(call_id, &ci);
-    
-    if (ci.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
-        // When media is active, connect call to sound device.
-        pjsua_conf_connect(ci.conf_slot, 0);
-        pjsua_conf_connect(0, ci.conf_slot);
-    }
-}
-
-// Callback called by the library when call's state has changed
-static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
-{
-    //  store call_id to get duration
-    app.current_call_id = call_id;
-    
-    pjsua_call_info ci;
-    
-    PJ_UNUSED_ARG(e);
-    
-    pjsua_call_get_info(call_id, &ci);
-    PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, (int)ci.state_text.slen, ci.state_text.ptr));
-    
-    NSString *state = [app getContentOfCallStateWithStateValue: ci.state];
-    NSString *last_status = [NSString stringWithFormat:@"%d", ci.last_status];
-    app.pjsipConfAudioId = ci.conf_slot;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:notifCallStateChanged object:[NSDictionary dictionaryWithObjectsAndKeys:state, @"state", last_status, @"last_status", nil]];
-    
-    if (ci.state == PJSIP_INV_STATE_DISCONNECTED) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *callId = [NSString stringWithFormat:@"%d", call_id];
-            NSUUID *uuid = (NSUUID *)[app.del.uuids objectForKey: callId];
-            if (uuid) {
-                [app.del.uuids removeObjectForKey: callId];
-                [app.del.calls removeObjectForKey: uuid];
-                
-                CXEndCallAction *act = [[CXEndCallAction alloc] initWithCallUUID:uuid];
-                CXTransaction *tr = [[CXTransaction alloc] initWithAction:act];
-                [app.del.controller requestTransaction:tr completion:^(NSError * _Nullable error) {
-                    NSLog(@"error = %@", error);
-                }];
-            }
-            [app removeAccount];
-        });
-    }
-}
-
-static void on_reg_state(pjsua_acc_id acc_id)
-{
-    //  pjsip_status_code   PJSIP_SC_OK
-    pjsua_acc_info info;
-    pjsua_acc_get_info(acc_id, &info);
-    if (info.status == PJSIP_SC_OK) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 1]];
-    }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 0]];
-    }
-    PJ_UNUSED_ARG(acc_id);
-    
-    // Log already written.
-}
-
-- (NSString *)getContentOfCallStateWithStateValue: (pjsip_inv_state)state {
-    switch (state) {
-        case PJSIP_INV_STATE_NULL:{
-            return CALL_INV_STATE_NULL;
-        }
-        case PJSIP_INV_STATE_CALLING:{
-            return CALL_INV_STATE_CALLING;
-        }
-        case PJSIP_INV_STATE_INCOMING:{
-            return CALL_INV_STATE_INCOMING;
-        }
-        case PJSIP_INV_STATE_EARLY:{
-            return CALL_INV_STATE_EARLY;
-        }
-        case PJSIP_INV_STATE_CONNECTING:{
-            return CALL_INV_STATE_CONNECTING;
-        }
-        case PJSIP_INV_STATE_CONFIRMED:{
-            return CALL_INV_STATE_CONFIRMED;
-        }
-        case PJSIP_INV_STATE_DISCONNECTED:{
-            return CALL_INV_STATE_DISCONNECTED;
-        }
-    }
-    return @"";
-}
-
-- (void)registerForNotifications:(UIApplication *)app {
-    self.voipRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
-    self.voipRegistry.delegate = self;
-    
-    // Initiate registration.
-    self.voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
-    
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
-        // Call category
-        UNNotificationAction *act_ans =
-        [UNNotificationAction actionWithIdentifier:@"Answer"
-                                             title:NSLocalizedString(@"Answer", nil)
-                                           options:UNNotificationActionOptionForeground];
-        UNNotificationAction *act_dec = [UNNotificationAction actionWithIdentifier:@"Decline"
-                                                                             title:NSLocalizedString(@"Decline", nil)
-                                                                           options:UNNotificationActionOptionNone];
-        UNNotificationCategory *cat_call =
-        [UNNotificationCategory categoryWithIdentifier:@"call_cat"
-                                               actions:[NSArray arrayWithObjects:act_ans, act_dec, nil]
-                                     intentIdentifiers:[[NSMutableArray alloc] init]
-                                               options:UNNotificationCategoryOptionCustomDismissAction];
-        
-        // Msg category
-        UNTextInputNotificationAction *act_reply =
-        [UNTextInputNotificationAction actionWithIdentifier:@"Reply"
-                                                      title:NSLocalizedString(@"Reply", nil)
-                                                    options:UNNotificationActionOptionNone];
-        UNNotificationAction *act_seen =
-        [UNNotificationAction actionWithIdentifier:@"Seen"
-                                             title:NSLocalizedString(@"Mark as seen", nil)
-                                           options:UNNotificationActionOptionNone];
-        UNNotificationCategory *cat_msg =
-        [UNNotificationCategory categoryWithIdentifier:@"msg_cat"
-                                               actions:[NSArray arrayWithObjects:act_reply, act_seen, nil]
-                                     intentIdentifiers:[[NSMutableArray alloc] init]
-                                               options:UNNotificationCategoryOptionCustomDismissAction];
-        
-        // Video Request Category
-        UNNotificationAction *act_accept =
-        [UNNotificationAction actionWithIdentifier:@"Accept"
-                                             title:NSLocalizedString(@"Accept", nil)
-                                           options:UNNotificationActionOptionForeground];
-        
-        UNNotificationAction *act_refuse = [UNNotificationAction actionWithIdentifier:@"Cancel"
-                                                                                title:NSLocalizedString(@"Cancel", nil)
-                                                                              options:UNNotificationActionOptionNone];
-        UNNotificationCategory *video_call =
-        [UNNotificationCategory categoryWithIdentifier:@"video_request"
-                                               actions:[NSArray arrayWithObjects:act_accept, act_refuse, nil]
-                                     intentIdentifiers:[[NSMutableArray alloc] init]
-                                               options:UNNotificationCategoryOptionCustomDismissAction];
-        
-        // ZRTP verification category
-        UNNotificationAction *act_confirm = [UNNotificationAction actionWithIdentifier:@"Confirm"
-                                                                                 title:NSLocalizedString(@"Accept", nil)
-                                                                               options:UNNotificationActionOptionNone];
-        
-        UNNotificationAction *act_deny = [UNNotificationAction actionWithIdentifier:@"Deny"
-                                                                              title:NSLocalizedString(@"Deny", nil)
-                                                                            options:UNNotificationActionOptionNone];
-        UNNotificationCategory *cat_zrtp =
-        [UNNotificationCategory categoryWithIdentifier:@"zrtp_request"
-                                               actions:[NSArray arrayWithObjects:act_confirm, act_deny, nil]
-                                     intentIdentifiers:[[NSMutableArray alloc] init]
-                                               options:UNNotificationCategoryOptionCustomDismissAction];
-        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-        [[UNUserNotificationCenter currentNotificationCenter]
-         requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound |
-                                          UNAuthorizationOptionBadge)
-         completionHandler:^(BOOL granted, NSError *_Nullable error) {
-             // Enable or disable features based on authorization.
-             if (error) {
-                 NSLog(@"%@", error.description);
-             }
-         }];
-        NSSet *categories = [NSSet setWithObjects:cat_call, cat_msg, video_call, cat_zrtp, nil];
-        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
-    }
-}
-
 #pragma mark - PushKit Functions
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {
     NSLog(@"PushKit Token invalidated");
@@ -1544,17 +984,6 @@ static void on_reg_state(pjsua_acc_id acc_id)
 }
 
 - (void)processRemoteNotification:(NSDictionary *)userInfo {
-//     alert =     {
-//     "call-id" = 14953;
-//     "loc-key" = "Incoming call from 14953";
-//     };
-//     badge = 1;
-//     "call-id" = 14953;
-//     "content-available" = 1;
-//     "loc-key" = "Incoming call from 14953";
-//     sound = default;
-//     title = CloudCall;
- 
     NSDictionary *aps = [userInfo objectForKey:@"aps"];
     if (aps != nil)
     {
@@ -1577,11 +1006,6 @@ static void on_reg_state(pjsua_acc_id acc_id)
         if (alert != nil) {
             loc_key = [alert objectForKey:@"loc-key"];
             //  if we receive a remote notification, it is probably because our TCP background socket was no more working. As a result, break it and refresh registers in order to make sure to receive incoming INVITE or MESSAGE
- 
-            int call_count = pjsua_call_get_count();
-            if (call_count == 0) { // if there are calls, obviously our TCP socket shall be working
-                
-            }
             
             //linphone_core_set_network_reachable(LC, FALSE);
             if (![AppUtils checkNetworkAvailable]) {
@@ -1623,29 +1047,7 @@ static void on_reg_state(pjsua_acc_id acc_id)
                 [self.window makeToast:@"Not loc_key" duration:1.0 position:CSToastPositionCenter style:self.errorStyle];
             }
         }
-        
-//        if (callId && [self addLongTaskIDforCallID:callId]) {
-//            if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive && loc_key &&
-//                index > 0) {
-//                if ([loc_key isEqualToString:@"IC_MSG"]) {
-//                    [LinphoneManager.instance startPushLongRunningTask:FALSE];
-//                    [self fixRing];
-//                } else if ([loc_key isEqualToString:@"IM_MSG"]) {
-//                    [LinphoneManager.instance startPushLongRunningTask:TRUE];
-//                }
-//            }
-//        }
-    }else{
-        [[NSUserDefaults standardUserDefaults] setObject:@"MIA BA" forKey:@"test_aps"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-}
-
-- (void)answerCallWithCallID: (int)call_id {
-    pjsua_call_answer(call_id, 200, NULL, NULL);
-    
-    //  show call screen
-    [[AppDelegate sharedInstance] showCallViewWithDirection: IncomingCall remote: self.remoteName];
 }
 
 #pragma mark - Sound for call
@@ -1728,6 +1130,530 @@ static void on_reg_state(pjsua_acc_id acc_id)
         
         [AppDelegate sharedInstance].cartView.hidden = FALSE;
     }];
+}
+
+#pragma mark - functions for PJSIP
+
+//- (void)startPjsuaForApp {
+//    pjsua_create();
+//
+//    pjsua_config ua_cfg;
+//    pjsua_logging_config log_cfg;
+//    pjsua_media_config media_cfg;
+//
+//    pjsua_config_default(&ua_cfg);
+//    pjsua_logging_config_default(&log_cfg);
+//    pjsua_media_config_default(&media_cfg);
+//
+//    ua_cfg.cb.on_incoming_call = &on_incoming_call;
+//    ua_cfg.cb.on_call_media_state = &on_call_media_state;
+//    ua_cfg.cb.on_call_state = &on_call_state;
+//    ua_cfg.cb.on_reg_state = &on_reg_state;
+//
+//    pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
+//
+//    pjsua_transport_config transportConfig;
+//
+//    pjsua_transport_config_default(&transportConfig);
+//
+//    transportConfig.port = 51000;
+//
+//    pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
+//    pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+//
+//    pjsua_start();
+//}
+//
+//- (void)registerSIPAccountWithInfo: (NSDictionary *)info {
+//    NSString *account = [info objectForKey:@"account"];
+//    NSString *domain = [info objectForKey:@"domain"];
+//    NSString *port = [info objectForKey:@"port"];
+//    NSString *password = [info objectForKey:@"password"];
+//
+//    if (![AppUtils isNullOrEmpty: account] && ![AppUtils isNullOrEmpty: domain] && ![AppUtils isNullOrEmpty: port] && ![AppUtils isNullOrEmpty: password]) {
+//        NSString *email = USERNAME;
+//
+//        pj_status_t status;
+//
+//        // Register the account on local sip server
+//        pjsua_acc_id acc_id;
+//        pjsua_acc_config cfg;
+//        pjsua_acc_config_default(&cfg);
+//
+//        NSString *strCall = [NSString stringWithFormat:@"sip:%@@%@:%@", account, domain, port];
+//        NSString *regUri = [NSString stringWithFormat:@"sip:%@:%@", domain, port];
+//
+//        cfg.id = pj_str((char *)[strCall UTF8String]);
+//        cfg.reg_uri = pj_str((char *)[regUri UTF8String]);
+//        cfg.cred_count = 1;
+//        cfg.cred_info[0].realm = pj_str("*");
+//        cfg.cred_info[0].scheme = pj_str("digest");
+//        cfg.cred_info[0].username = pj_str((char *)[account UTF8String]);
+//        cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+//        cfg.cred_info[0].data = pj_str((char *)[password UTF8String]);
+//        cfg.ice_cfg_use=PJSUA_ICE_CONFIG_USE_DEFAULT;
+//        //  disable IPV6
+//        cfg.ipv6_media_use = PJSUA_IPV6_DISABLED;
+//
+//        pjsip_generic_string_hdr CustomHeader;
+//        pj_str_t name = pj_str("Call-ID");
+//        pj_str_t value = pj_str((char *)[email UTF8String]);
+//        pjsip_generic_string_hdr_init2(&CustomHeader, &name, &value);
+//        pj_list_push_back(&cfg.reg_hdr_list, &CustomHeader);
+//
+//        pjsip_endpoint* endpoint = pjsua_get_pjsip_endpt();
+//        pj_dns_resolver* resolver;
+//
+//        struct pj_str_t servers[] = {pj_str((char *)[domain UTF8String]) };
+//        pjsip_endpt_create_resolver(endpoint, &resolver);
+//        pj_dns_resolver_set_ns(resolver, 1, servers, NULL);
+//
+//        // Init transport config structure
+//        pjsua_transport_config trans_cfg;
+//        pjsua_transport_config_default(&trans_cfg);
+//        trans_cfg.port = [port intValue];
+//
+//        // Add UDP transport.
+//        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &trans_cfg, NULL);
+//        if (status != PJ_SUCCESS){
+//            NSLog(@"Error creating transport");
+//        }
+//
+//        status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
+//        if (status != PJ_SUCCESS){
+//            NSLog(@"Error adding account");
+//        }
+//    }else{
+//        [self.window makeToast:@"Thông tin tài khoản gọi không hợp lệ. Vui lòng kiểm tra lại!" duration:3.0 position:CSToastPositionCenter style:self.errorStyle];
+//    }
+//}
+//
+//- (void)makeCallTo: (NSString *)strCall {
+//    //  NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@nhanhoa1.vfone.vn:51000", strCall];
+//    char *destUri = (char *)[strCall UTF8String];
+//
+//    pjsua_acc_id acc_id = 0;
+//    pj_status_t status;
+//    pj_str_t pj_uri = pj_str(destUri);
+//
+//    //current register id _acc_id
+//    pj_caching_pool cp;
+//    pj_pool_t *pool;
+//
+//    pjsua_msg_data msg_data;
+//    pjsua_msg_data_init(&msg_data);
+//
+//    pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
+//    pool= pj_pool_create(&cp.factory, "header", 1000, 1000, NULL);
+//
+//    pj_str_t hname = pj_str((char *)[@"User-Agent" UTF8String]);
+//    pj_str_t hvalue = pj_str((char *)[USERNAME UTF8String]);
+//    pjsip_generic_string_hdr* add_hdr = pjsip_generic_string_hdr_create(pool, &hname, &hvalue);
+//    pj_list_push_back(&msg_data.hdr_list, add_hdr);
+//
+//    status = pjsua_call_make_call(acc_id, &pj_uri, 0, NULL, &msg_data, NULL);
+//    if (status != PJ_SUCCESS){
+//        NSLog(@"Error making call");
+//    }
+//    pj_pool_release(pool);
+//}
+//
+//- (int)getDurationForCurrentCall {
+//    if (current_call_id != -1) {
+//        pjsua_call_info ci;
+//        pjsua_call_get_info(current_call_id, &ci);
+//        //  NSLog(@"%ld - %ld", ci.total_duration.sec, ci.connect_duration.sec);
+//        return (int)ci.connect_duration.sec;
+//    }
+//    return 0;
+//}
+//
+//- (BOOL)checkMicrophoneWasMuted {
+//    if (pjsipConfAudioId >= 0) {
+//        unsigned int tx_level;
+//        unsigned int rx_level;
+//        pjsua_conf_get_signal_level(pjsipConfAudioId, &tx_level, &rx_level);
+//        if (tx_level == 0) {
+//            return TRUE;
+//        }else{
+//            return FALSE;
+//        }
+//    }
+//    return FALSE;
+//}
+//
+//- (BOOL)checkCurrentCallWasHold {
+//    if (current_call_id != -1) {
+//        pjsua_call_info ci;
+//        pjsua_call_get_info(current_call_id, &ci);
+//        if (ci.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
+//            return TRUE;
+//        }
+//    }
+//    return FALSE;
+//}
+//
+//- (BOOL)isCallWasConnected {
+//    if (current_call_id != -1) {
+//        pjsua_call_info ci;
+//        pjsua_call_get_info(current_call_id, &ci);
+//
+//        if (ci.state == PJSIP_INV_STATE_CONFIRMED) {
+//            return TRUE;
+//        }
+//    }
+//    return FALSE;
+//}
+//
+//- (NSArray *)getContactNameOfRemoteForCall {
+//    if (current_call_id != -1) {
+//        pjsua_call_info ci;
+//        pjsua_call_get_info(current_call_id, &ci);
+//        NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
+//        if (![AppUtils isNullOrEmpty: contactName]) {
+//            NSString *name;
+//            NSString *subname;
+//
+//            //  get name
+//            NSRange range = [contactName rangeOfString:@" <"];
+//            if (range.location != NSNotFound) {
+//                name = [contactName substringToIndex: range.location];
+//            }else {
+//                range = [contactName rangeOfString:@"<"];
+//                if (range.location != NSNotFound) {
+//                    name = [contactName substringToIndex: range.location];
+//                }
+//            }
+//            if ([name hasPrefix:@"\""]) {
+//                name = [name substringFromIndex:1];
+//            }
+//            if ([name hasSuffix:@"\""]) {
+//                name = [name substringToIndex:name.length - 1];
+//            }
+//
+//            //  get subname
+//            range = [contactName rangeOfString:@"<sip:"];
+//            if (range.location != NSNotFound) {
+//                NSRange subrange = [contactName rangeOfString:@"@"];
+//                if (subrange.location != NSNotFound && range.location < subrange.location) {
+//                    subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
+//                }
+//            }
+//            return @[name, subname];
+//        }
+//    }
+//    return nil;
+//}
+//
+//- (NSArray *)getContactNameForCallWithCallInfo: (pjsua_call_info)ci {
+//    NSString *contactName = [NSString stringWithUTF8String: ci.remote_info.ptr];
+//    if (![AppUtils isNullOrEmpty: contactName]) {
+//        NSString *name;
+//        NSString *subname;
+//
+//        //  get name
+//        NSRange range = [contactName rangeOfString:@" <"];
+//        if (range.location != NSNotFound) {
+//            name = [contactName substringToIndex: range.location];
+//        }else {
+//            range = [contactName rangeOfString:@"<"];
+//            if (range.location != NSNotFound) {
+//                name = [contactName substringToIndex: range.location];
+//            }
+//        }
+//        if ([name hasPrefix:@"\""]) {
+//            name = [name substringFromIndex:1];
+//        }
+//        if ([name hasSuffix:@"\""]) {
+//            name = [name substringToIndex:name.length - 1];
+//        }
+//
+//        //  get subname
+//        range = [contactName rangeOfString:@"<sip:"];
+//        if (range.location != NSNotFound) {
+//            NSRange subrange = [contactName rangeOfString:@"@"];
+//            if (subrange.location != NSNotFound && range.location < subrange.location) {
+//                subname = [contactName substringWithRange:NSMakeRange(range.location+range.length, subrange.location - (range.location+range.length))];
+//            }
+//        }
+//        return @[name, subname];
+//    }
+//    return nil;
+//}
+//
+//- (BOOL)sendDtmfWithValue: (NSString *)value {
+//    pjsua_call_send_dtmf_param param;
+//    param.method = PJSUA_DTMF_METHOD_RFC2833;
+//    param.duration = PJSUA_CALL_SEND_DTMF_DURATION_DEFAULT;
+//    param.digits = pj_str((char *)[value UTF8String]);
+//
+//    pj_status_t status = pjsua_call_send_dtmf(current_call_id, &param);
+//    if (status != PJ_SUCCESS){
+//        return FALSE;
+//    }
+//    return TRUE;
+//}
+//
+//- (BOOL)muteMicrophone: (BOOL)mute {
+//    if (mute) {
+//        @try {
+//            if( pjsipConfAudioId != 0 ) {
+//                NSLog(@"WC_SIPServer microphone disconnected from call");
+//                pjsua_conf_disconnect(0, pjsipConfAudioId);
+//                return TRUE;
+//            }
+//            return FALSE;
+//        }
+//        @catch (NSException *exception) {
+//            return FALSE;
+//        }
+//    }else{
+//        @try {
+//            if( pjsipConfAudioId != 0 ) {
+//                NSLog(@"WC_SIPServer microphone reconnected to call");
+//                pjsua_conf_connect(0,pjsipConfAudioId);
+//                return TRUE;
+//            }
+//            return FALSE;
+//        }
+//        @catch (NSException *exception) {
+//            return FALSE;
+//        }
+//    }
+//}
+//
+//- (void)holdCurrentCall: (BOOL)hold {
+//    if (hold) {
+//        pjsua_call_set_hold(current_call_id, nil);
+//    }else{
+//        pjsua_call_update(current_call_id, PJSUA_CALL_UNHOLD, nil);
+//    }
+//}
+//
+//- (void)hangupAllCall {
+//    pjsua_call_hangup_all();
+//}
+//
+//- (void)hangupCallWithCallId: (pjsua_call_id)call_id code: (int)code reason: (NSString *)reason {
+//    pj_str_t pj_reason = pj_str((char *)[reason UTF8String]);
+//    pjsua_call_hangup(call_id, code, &pj_reason, nil);
+//}
+//
+//- (void)removeAccount {
+//    pjsua_acc_id accId = pjsua_acc_get_default();
+//    if (pjsua_acc_is_valid(accId)) {
+//        pjsua_acc_del(accId);
+//    }
+//}
+//
+////  Callback called by the library upon receiving incoming call
+//static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata)
+//{
+//    pjsua_call_info ci;
+//    PJ_UNUSED_ARG(acc_id);
+//    PJ_UNUSED_ARG(rdata);
+//
+//    pjsua_call_get_info(call_id, &ci);
+//
+//    NSUUID *uuid = [NSUUID UUID];
+//    NSString *callId = [NSString stringWithFormat:@"%d", call_id];
+//
+//    [app.del.calls setObject:callId forKey:uuid];
+//    [app.del.uuids setObject:uuid forKey:callId];
+//
+//    NSString *caller = unknown;
+//    NSArray *info = [app getContactNameForCallWithCallInfo: ci];
+//    if (info != nil && info.count == 2) {
+//        caller = [NSString stringWithFormat:@"%@ - %@", [info firstObject], [info lastObject]];
+//    }
+//    [app.del reportIncomingCallwithUUID:uuid handle:caller video:FALSE];
+//
+//    PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!", (int)ci.remote_info.slen,ci.remote_info.ptr));
+//    //  Automatically answer incoming calls with 200/OK
+//    //  pjsua_call_answer(call_id, 200, NULL, NULL);
+//}
+//
+////  Callback called by the library when call's media state has changed
+//static void on_call_media_state(pjsua_call_id call_id)
+//{
+//    pjsua_call_info ci;
+//
+//    pjsua_call_get_info(call_id, &ci);
+//
+//    if (ci.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
+//        // When media is active, connect call to sound device.
+//        pjsua_conf_connect(ci.conf_slot, 0);
+//        pjsua_conf_connect(0, ci.conf_slot);
+//    }
+//}
+//
+//// Callback called by the library when call's state has changed
+//static void on_call_state(pjsua_call_id call_id, pjsip_event *e)
+//{
+//    //  store call_id to get duration
+//    app.current_call_id = call_id;
+//
+//    pjsua_call_info ci;
+//
+//    PJ_UNUSED_ARG(e);
+//
+//    pjsua_call_get_info(call_id, &ci);
+//    PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id, (int)ci.state_text.slen, ci.state_text.ptr));
+//
+//    NSString *state = [app getContentOfCallStateWithStateValue: ci.state];
+//    NSString *last_status = [NSString stringWithFormat:@"%d", ci.last_status];
+//    app.pjsipConfAudioId = ci.conf_slot;
+//
+//    [[NSNotificationCenter defaultCenter] postNotificationName:notifCallStateChanged object:[NSDictionary dictionaryWithObjectsAndKeys:state, @"state", last_status, @"last_status", nil]];
+//
+//    if (ci.state == PJSIP_INV_STATE_DISCONNECTED) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSString *callId = [NSString stringWithFormat:@"%d", call_id];
+//            NSUUID *uuid = (NSUUID *)[app.del.uuids objectForKey: callId];
+//            if (uuid) {
+//                [app.del.uuids removeObjectForKey: callId];
+//                [app.del.calls removeObjectForKey: uuid];
+//
+//                CXEndCallAction *act = [[CXEndCallAction alloc] initWithCallUUID:uuid];
+//                CXTransaction *tr = [[CXTransaction alloc] initWithAction:act];
+//                [app.del.controller requestTransaction:tr completion:^(NSError * _Nullable error) {
+//                    NSLog(@"error = %@", error);
+//                }];
+//            }
+//            [app removeAccount];
+//        });
+//    }
+//}
+//
+//static void on_reg_state(pjsua_acc_id acc_id)
+//{
+//    //  pjsip_status_code   PJSIP_SC_OK
+//    pjsua_acc_info info;
+//    pjsua_acc_get_info(acc_id, &info);
+//    if (info.status == PJSIP_SC_OK) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 1]];
+//    }else{
+//        [[NSNotificationCenter defaultCenter] postNotificationName:notifRegStateChanged object:[NSNumber numberWithInt: 0]];
+//    }
+//    PJ_UNUSED_ARG(acc_id);
+//
+//    // Log already written.
+//}
+//
+//- (NSString *)getContentOfCallStateWithStateValue: (pjsip_inv_state)state {
+//    switch (state) {
+//        case PJSIP_INV_STATE_NULL:{
+//            return CALL_INV_STATE_NULL;
+//        }
+//        case PJSIP_INV_STATE_CALLING:{
+//            return CALL_INV_STATE_CALLING;
+//        }
+//        case PJSIP_INV_STATE_INCOMING:{
+//            return CALL_INV_STATE_INCOMING;
+//        }
+//        case PJSIP_INV_STATE_EARLY:{
+//            return CALL_INV_STATE_EARLY;
+//        }
+//        case PJSIP_INV_STATE_CONNECTING:{
+//            return CALL_INV_STATE_CONNECTING;
+//        }
+//        case PJSIP_INV_STATE_CONFIRMED:{
+//            return CALL_INV_STATE_CONFIRMED;
+//        }
+//        case PJSIP_INV_STATE_DISCONNECTED:{
+//            return CALL_INV_STATE_DISCONNECTED;
+//        }
+//    }
+//    return @"";
+//}
+//
+
+//- (void)answerCallWithCallID: (int)call_id {
+//    pjsua_call_answer(call_id, 200, NULL, NULL);
+//    
+//    //  show call screen
+//    [[AppDelegate sharedInstance] showCallViewWithDirection: IncomingCall remote: self.remoteName];
+//}
+
+
+- (void)registerForNotifications:(UIApplication *)app {
+    self.voipRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+    self.voipRegistry.delegate = self;
+
+    // Initiate registration.
+    self.voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+        // Call category
+        UNNotificationAction *act_ans =
+        [UNNotificationAction actionWithIdentifier:@"Answer"
+                                             title:NSLocalizedString(@"Answer", nil)
+                                           options:UNNotificationActionOptionForeground];
+        UNNotificationAction *act_dec = [UNNotificationAction actionWithIdentifier:@"Decline"
+                                                                             title:NSLocalizedString(@"Decline", nil)
+                                                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_call =
+        [UNNotificationCategory categoryWithIdentifier:@"call_cat"
+                                               actions:[NSArray arrayWithObjects:act_ans, act_dec, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+
+        // Msg category
+        UNTextInputNotificationAction *act_reply =
+        [UNTextInputNotificationAction actionWithIdentifier:@"Reply"
+                                                      title:NSLocalizedString(@"Reply", nil)
+                                                    options:UNNotificationActionOptionNone];
+        UNNotificationAction *act_seen =
+        [UNNotificationAction actionWithIdentifier:@"Seen"
+                                             title:NSLocalizedString(@"Mark as seen", nil)
+                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_msg =
+        [UNNotificationCategory categoryWithIdentifier:@"msg_cat"
+                                               actions:[NSArray arrayWithObjects:act_reply, act_seen, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+
+        // Video Request Category
+        UNNotificationAction *act_accept =
+        [UNNotificationAction actionWithIdentifier:@"Accept"
+                                             title:NSLocalizedString(@"Accept", nil)
+                                           options:UNNotificationActionOptionForeground];
+
+        UNNotificationAction *act_refuse = [UNNotificationAction actionWithIdentifier:@"Cancel"
+                                                                                title:NSLocalizedString(@"Cancel", nil)
+                                                                              options:UNNotificationActionOptionNone];
+        UNNotificationCategory *video_call =
+        [UNNotificationCategory categoryWithIdentifier:@"video_request"
+                                               actions:[NSArray arrayWithObjects:act_accept, act_refuse, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+
+        // ZRTP verification category
+        UNNotificationAction *act_confirm = [UNNotificationAction actionWithIdentifier:@"Confirm"
+                                                                                 title:NSLocalizedString(@"Accept", nil)
+                                                                               options:UNNotificationActionOptionNone];
+
+        UNNotificationAction *act_deny = [UNNotificationAction actionWithIdentifier:@"Deny"
+                                                                              title:NSLocalizedString(@"Deny", nil)
+                                                                            options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat_zrtp =
+        [UNNotificationCategory categoryWithIdentifier:@"zrtp_request"
+                                               actions:[NSArray arrayWithObjects:act_confirm, act_deny, nil]
+                                     intentIdentifiers:[[NSMutableArray alloc] init]
+                                               options:UNNotificationCategoryOptionCustomDismissAction];
+        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound |
+                                          UNAuthorizationOptionBadge)
+         completionHandler:^(BOOL granted, NSError *_Nullable error) {
+             // Enable or disable features based on authorization.
+             if (error) {
+                 NSLog(@"%@", error.description);
+             }
+         }];
+        NSSet *categories = [NSSet setWithObjects:cat_call, cat_msg, video_call, cat_zrtp, nil];
+        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+    }
 }
 
 @end

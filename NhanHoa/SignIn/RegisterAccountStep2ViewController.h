@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterAccountStep2ViewController : UIViewController
 
-
-
 @property (weak, nonatomic) IBOutlet UIView *viewMenu;
 @property (weak, nonatomic) IBOutlet UIView *viewAccInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lbAccount;
@@ -24,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbNumTwo;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
-
-@property (nonatomic, assign) float hMenu;
 
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *password;

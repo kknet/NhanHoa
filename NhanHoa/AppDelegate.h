@@ -160,7 +160,5 @@ typedef enum PaymentMethod{
 - (void)showCallViewWithDirection: (CallDirection)direction remote: (NSString *)remote;
 - (void)hideCallView;
 
-- (void)tryToLogin151;
-
 @end
 
