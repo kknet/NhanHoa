@@ -52,6 +52,7 @@
     }else{
         lbMoney.text = @"0VNĐ";
     }
+    here
 }
 
 - (void)setupUIForView {

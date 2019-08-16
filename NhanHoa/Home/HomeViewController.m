@@ -257,10 +257,10 @@
 - (void)createDataForMenuView {
     listMenu = [[NSMutableArray alloc] init];
     
-    HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:@"Đăng ký tên miền" icon:@"menu_domain" type:eRegisterDomain];
+    HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:text_register_domains icon:@"menu_domain" type:eRegisterDomain];
     [listMenu addObject: regDomain];
     
-    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:@"Bảng giá tên miền" icon:@"menu_reorder_domain" type:ePricingDomain];
+    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:domains_pricing_list icon:@"menu_reorder_domain" type:ePricingDomain];
     [listMenu addObject: renewDomain];
     
     HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Kiểm tra tên miền" icon:@"menu_search_domain" type:eSearchDomain];
@@ -289,6 +289,7 @@
 - (void)setupUIForView {
     self.view.backgroundColor = [UIColor colorWithRed:(242/255.0) green:(242/255.0) blue:(242/255.0) alpha:1.0];
     //  self.edgesForExtendedLayout = UIRectEdgeNone;
+    float hTabbar = self.tabBarController.tabBar.frame.size.height;
     float paddingY = 10.0;
     float padding = 20.0;
     float hWallet = 55.0;
@@ -335,18 +336,16 @@
     }];
     
     //
-    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
-    if (arr.count > 0) {
-        NSDictionary *info = [arr firstObject];
-        NSString *image = [info objectForKey:@"image"];
-        
-        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
-        UIImage *banner = [UIImage imageWithData: imgData];
-        imgBanner.image = banner;
-        hBanner = SCREEN_WIDTH * banner.size.height / banner.size.width;
+    UIImage *banner = [AccountModel getBannerPhotoFromUser];
+    imgBanner.image = banner;
+    hBanner = SCREEN_WIDTH * banner.size.height / banner.size.width;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hBanner = (SCREEN_HEIGHT - hSearch - hTabbar)/2;
     }
-    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + self.tabBarController.tabBar.frame.size.height))/3;
-    if (hMenu < 100) {
+    
+    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/3;
+    if (hMenu < 100 && (IS_IPHONE || IS_IPOD)) {
         if ([DeviceUtils isScreen320]) {
             hMenu = 80.0;
         }else if ([DeviceUtils isScreen375]){
@@ -355,13 +354,12 @@
             hMenu = 100.0;
         }
         paddingY = 5.0;
-        hBanner = SCREEN_HEIGHT - (self.tabBarController.tabBar.frame.size.height + 3*hMenu + hWallet + 2*paddingY + hSearch);
+        hBanner = SCREEN_HEIGHT - (hTabbar + 3*hMenu + hWallet + 2*paddingY + hSearch);
     }
     [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(viewSearch.mas_bottom);
         make.bottom.equalTo(viewWallet.mas_top).offset(-paddingY);
-        //  make.height.mas_equalTo(hBanner);
     }];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -376,7 +374,7 @@
     
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
+        make.bottom.equalTo(self.view).offset(-hTabbar);
         make.height.mas_equalTo(3*hMenu);
     }];
     
@@ -404,15 +402,17 @@
     
     
     lbMainWallet.textColor = lbRewards.textColor = TITLE_COLOR;
-    lbMainWallet.font = lbRewards.font = [AppDelegate sharedInstance].fontNormal;
-    
     lbMoney.textColor = lbRewardsPoints.textColor = ORANGE_COLOR;
-    lbMoney.font = lbRewardsPoints.font = [AppDelegate sharedInstance].fontMediumDesc;
+    lbMainWallet.font = lbRewards.font = [AppDelegate sharedInstance].fontNormal;
+    lbMoney.font = lbRewardsPoints.font = [AppDelegate sharedInstance].fontRegular;
     
     lbMainWallet.text = [NSString stringWithFormat:@"%@: ", text_main_account];
     lbMoney.text = @"";
     
     if (!IS_IPHONE && !IS_IPOD) {
+        lbMainWallet.font = [UIFont fontWithName:RobotoRegular size:18.0];
+        lbMoney.font = [UIFont fontWithName:RobotoRegular size:24.0];
+        
         float sizeText = [AppUtils getSizeWithText:text_main_account withFont:lbMainWallet.font].width + 10.0;
         [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imgMainWallet.mas_right).offset(5.0);
@@ -456,18 +456,36 @@
         make.height.equalTo(imgMainWallet.mas_height);
     }];
     
-    lbRewards.text = @"Tiền thưởng";
-    [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(imgRewards.mas_right).offset(5.0);
-        make.bottom.equalTo(viewRewards.mas_centerY);
-        make.right.equalTo(viewRewards);
-    }];
-    
-    lbRewardsPoints.text = @"";
-    [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(lbRewards);
-        make.top.equalTo(viewRewards.mas_centerY);
-    }];
+    lbRewards.text = [NSString stringWithFormat:@"%@:", text_bonus_account];
+    if (!IS_IPHONE && !IS_IPOD) {
+        lbRewards.font = [UIFont fontWithName:RobotoRegular size:18.0];
+        lbRewardsPoints.font = [UIFont fontWithName:RobotoRegular size:24.0];
+        
+        float sizeText = [AppUtils getSizeWithText:text_bonus_account withFont:lbRewards.font].width + 10.0;
+        [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgRewards.mas_right).offset(5.0);
+            make.top.bottom.equalTo(viewRewards);
+            make.width.mas_equalTo(sizeText);
+        }];
+        
+        [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbRewards.mas_right).offset(5.0);
+            make.top.bottom.equalTo(lbRewards);
+            make.right.equalTo(viewRewards).offset(-5.0);
+        }];
+    }else{
+        [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgRewards.mas_right).offset(5.0);
+            make.bottom.equalTo(viewRewards.mas_centerY);
+            make.right.equalTo(viewRewards);
+        }];
+        
+        lbRewardsPoints.text = @"";
+        [lbRewardsPoints mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(lbRewards);
+            make.top.equalTo(viewRewards.mas_centerY);
+        }];
+    }
 }
 
 - (void)whenTapOnMainWallet {

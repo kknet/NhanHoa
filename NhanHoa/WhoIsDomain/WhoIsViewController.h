@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)btnSearchPress:(UIButton *)sender;
 
-@property (nonatomic, assign) float padding;
-
 @end
 
 NS_ASSUME_NONNULL_END

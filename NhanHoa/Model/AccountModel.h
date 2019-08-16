@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)storePasswordForAccount;
 + (NSString *)getPasswordWasStoredForAccount;
++ (UIImage *)getBannerPhotoFromUser;
 
 @end
 

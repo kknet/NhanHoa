@@ -126,8 +126,8 @@ AppDelegate      *app;
     UINavigationBar.appearance.barTintColor = NAV_COLOR;
     UINavigationBar.appearance.tintColor = UIColor.whiteColor;
     UINavigationBar.appearance.translucent = NO;
+    UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[AppDelegate sharedInstance].fontRegular, NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     
-    UINavigationBar.appearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:RobotoRegular size:18.0], NSFontAttributeName, UIColor.whiteColor, NSForegroundColorAttributeName, nil];
     
     listNumber = [[NSArray alloc] initWithObjects: @"+", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     
@@ -622,10 +622,10 @@ AppDelegate      *app;
         fontItalic = [UIFont fontWithName:RobotoItalic size:22.0];
         fontMedium = [UIFont fontWithName:RobotoMedium size:22.0];
         fontBold = [UIFont fontWithName:RobotoBold size:22.0];
-        fontNormal = [UIFont fontWithName:RobotoRegular size:22.0];
-        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:22.0];
+        fontNormal = [UIFont fontWithName:RobotoRegular size:20.0];
+        fontMediumDesc = [UIFont fontWithName:RobotoMedium size:20.0];
+        fontDesc = [UIFont fontWithName:RobotoRegular size:19.0];
         
-        fontDesc = [UIFont fontWithName:RobotoRegular size:16.0];
         fontItalicDesc = [UIFont fontWithName:RobotoItalic size:16.0];
         
         hTextfield = 50.0;

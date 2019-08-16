@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Đăng ký tên miền";
+    self.title = text_register_domains;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

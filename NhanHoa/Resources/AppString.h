@@ -278,6 +278,10 @@
 
 
 
+#define many_options_with_attractive_offers @"Nhiều lựa chọn với ưu đãi hấp dẫn"
+#define text_checking_please_wait           @"Đang kiểm tra. Vui lòng chờ trong giây lát..."
+#define text_enter_domains_to_check         @"Vui lòng nhập tên miền muốn kiểm tra!"
+#define text_register_to_protect_brand      @"Đăng ký ngay để bảo vệ thương hiệu của bạn."
 
 #define text_welcome_to         @"Chào mừng đến với"
 #define text_have_not_account   @"Bạn chưa có tài khoản?"
@@ -287,13 +291,28 @@
 #define text_main_account       @"Tài khoản chính"
 #define text_bonus_account      @"Tiền thưởng"
 
+
+#define text_register_domains       @"Đăng ký tên miền"
+#define text_renew_domains          @"Gia hạn tên miền"
+#define text_check_multi_domains    @"Kiểm tra nhiều tên miền"
+#define text_transfer_to_nhanhoa    @"Chuyển tên miền về Nhân Hòa"
+#define text_can_use_domains        @"Chúc mừng! Bạn có thể sử dụng tên miền:"
+#define text_cannot_use_domains     @"Xin lỗi! Bạn không thể sử dụng tên miền:"
+#define cannot_get_domains_pricing  @"Không thể lấy bảng giá tên miền"
+
+
+#define domains_pricing_list    @"Bảng giá tên miền"
+#define text_domains            @"Tên miền"
+#define text_registration_fee   @"Phí khởi tạo"
+#define text_renewal_fee        @"Phí gia hạn"
+#define text_transfer_to        @"Chuyển về"
+#define text_free               @"Miễn phí"
+
+#define text_select     @"Chọn"
+#define text_unselect   @"Bỏ chọn"
+#define text_loading    @"Đang tải..."
+
+
+
+
 #endif /* AppString_h */
-
-
-
-/*
- IP Host / FTP: 103.57.210.79
- Username:       apitest
- Password:       Ck79QMp6
- Domain:         api.websudo.xyz
-*/

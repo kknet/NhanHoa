@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Gia hạn tên miền";
+    self.title = text_renew_domains;
     [self setupUIForView];
 }
 

@@ -15,29 +15,38 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
+    float hTextfield = 40.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hTextfield = 50.0;
+    }
+    
+    float sizeText = [AppUtils getSizeWithText:lbWWW.text withFont:[AppDelegate sharedInstance].fontMediumDesc].width + 15.0;
+    
     tfDomain.font = [AppDelegate sharedInstance].fontRegular;
     tfDomain.textColor = TITLE_COLOR;
     tfDomain.placeholder = @"nhập tên miền";
     tfDomain.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    tfDomain.layer.borderColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0].CGColor;
+    tfDomain.layer.borderColor = GRAY_200.CGColor;
     tfDomain.layer.borderWidth = 1.0;
     [tfDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hTextfield);
     }];
-    tfDomain.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 40.0)];
+    tfDomain.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sizeText, hTextfield)];
     tfDomain.leftViewMode = UITextFieldViewModeAlways;
     
-    tfDomain.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40.0, 40.0)];
+    tfDomain.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hTextfield, hTextfield)];
     tfDomain.rightViewMode = UITextFieldViewModeAlways;
     
-    lbWWW.font = [UIFont fontWithName:RobotoMedium size:13.0];
+    lbWWW.font = [AppDelegate sharedInstance].fontMediumDesc;
     lbWWW.textColor = BLUE_COLOR;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(self.tfDomain);
-        make.width.mas_equalTo(50.0);
+        make.width.mas_equalTo(sizeText);
     }];
     
     icRemove.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
@@ -47,7 +56,7 @@
         make.top.equalTo(self.tfDomain).offset(3);
         make.bottom.equalTo(self.tfDomain).offset(-3);
         make.right.equalTo(self.tfDomain).offset(-3);
-        make.width.mas_equalTo(40.0-6);
+        make.width.mas_equalTo(hTextfield-6);
     }];
 }
 

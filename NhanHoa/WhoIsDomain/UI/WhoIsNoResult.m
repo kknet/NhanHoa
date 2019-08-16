@@ -12,10 +12,17 @@
 @implementation WhoIsNoResult
 
 @synthesize lbDomain, imgEmoji, lbContent, viewDomain, lbName, lbPrice, btnChoose;
-@synthesize domainInfo;
+@synthesize domainInfo, hEmoji, padding, hDomainView;
 
 - (void)setupUIForView {
-    float padding = 15.0;
+    padding = 15.0;
+    hEmoji = 35.0;
+    hDomainView = 65.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hEmoji = 50.0;
+        hDomainView = 80.0;
+    }
     
     lbDomain.textColor = BLUE_COLOR;
     lbDomain.font = [AppDelegate sharedInstance].fontMedium;
@@ -27,14 +34,14 @@
     }];
     
     [imgEmoji mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbDomain.mas_bottom);
+        make.top.equalTo(lbDomain.mas_bottom);
         make.centerX.equalTo(self.mas_centerX);
-        make.width.height.mas_equalTo(35.0);
+        make.width.height.mas_equalTo(hEmoji);
     }];
     
-    lbContent.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbContent.font = [AppDelegate sharedInstance].fontRegular;
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgEmoji.mas_bottom).offset(10.0);
+        make.top.equalTo(imgEmoji.mas_bottom).offset(10.0);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
     }];
@@ -43,39 +50,39 @@
     viewDomain.layer.borderWidth = 2.0;
     viewDomain.layer.borderColor = [UIColor colorWithRed:(250/255.0) green:(157/255.0) blue:(26/255.0) alpha:1.0].CGColor;
     [viewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbContent.mas_bottom).offset(10.0);
+        make.top.equalTo(lbContent.mas_bottom).offset(10.0);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(65.0);
+        make.height.mas_equalTo(hDomainView);
     }];
     
-    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:15.0];
+    btnChoose.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     btnChoose.backgroundColor = BLUE_COLOR;
     btnChoose.layer.cornerRadius = 36.0/2;
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.viewDomain).offset(-padding);
-        make.centerY.equalTo(self.viewDomain.mas_centerY);
+        make.right.equalTo(viewDomain).offset(-padding);
+        make.centerY.equalTo(viewDomain.mas_centerY);
         make.height.mas_equalTo(36.0);
         make.width.mas_equalTo(80.0);
     }];
     
-    lbName.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbName.font = [AppDelegate sharedInstance].fontMedium;
     lbName.textColor = BLUE_COLOR;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewDomain).offset(padding);
-        make.bottom.equalTo(self.viewDomain.mas_centerY).offset(-2.0);
-        make.right.equalTo(self.btnChoose.mas_left).offset(-padding);
+        make.left.equalTo(viewDomain).offset(padding);
+        make.bottom.equalTo(viewDomain.mas_centerY).offset(-2.0);
+        make.right.equalTo(btnChoose.mas_left).offset(-padding);
     }];
     
-    lbPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbPrice.font = [AppDelegate sharedInstance].fontRegular;
     lbPrice.textColor = NEW_PRICE_COLOR;
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbName);
-        make.top.equalTo(self.viewDomain.mas_centerY).offset(2.0);
+        make.left.right.equalTo(lbName);
+        make.top.equalTo(viewDomain.mas_centerY).offset(2.0);
     }];
 }
 
-- (void)showContentOfDomainWithInfo: (NSDictionary *)info {
+- (float)showContentOfDomainWithInfo: (NSDictionary *)info {
     if (info != nil) {
         domainInfo = [[NSDictionary alloc] initWithDictionary: info];
     }
@@ -84,21 +91,22 @@
     lbDomain.text = lbName.text = domain;
     BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: domain];
     if (exists) {
-        [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+        [btnChoose setTitle:text_unselect forState:UIControlStateNormal];
         btnChoose.backgroundColor = ORANGE_COLOR;
     }else{
-        [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        [btnChoose setTitle:text_select forState:UIControlStateNormal];
         btnChoose.backgroundColor = BLUE_COLOR;        
     }
+    [self updateFrameWithContentOfButton];
     
     NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain];
     NSRange range = [content rangeOfString: domain];
     if (range.location != NSNotFound) {
-        UIFont *regular = [UIFont fontWithName:RobotoRegular size:16.0];
-        UIFont *medium = [UIFont fontWithName:RobotoMedium size:16.0];
+        UIFont *regular = [AppDelegate sharedInstance].fontRegular;
+        UIFont *medium = [AppDelegate sharedInstance].fontMedium;
         if ([DeviceUtils isScreen320]) {
-            regular =[UIFont fontWithName:RobotoRegular size:15.0];
-            medium = [UIFont fontWithName:RobotoMedium size:15.0];
+            regular = [AppDelegate sharedInstance].fontNormal;
+            medium = [AppDelegate sharedInstance].fontMediumDesc;
         }
         
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
@@ -122,6 +130,10 @@
     }else{
         lbPrice.text = @"Liên hệ";
     }
+    
+    float hContent = [AppUtils getSizeWithText:lbContent.text withFont:lbContent.font andMaxWidth:(SCREEN_WIDTH - 2*padding)].height + 10.0;
+    
+    return 60.0 + hEmoji + 10.0 + hContent + 10.0 + hDomainView + 10.0;
 }
 
 - (IBAction)btnChoosePress:(UIButton *)sender {
@@ -136,12 +148,23 @@
             [[CartModel getInstance] addDomainToCart: domainInfo];
             [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
             btnChoose.backgroundColor = ORANGE_COLOR;
-            
         }
+        [self updateFrameWithContentOfButton];
+        
         [[AppDelegate sharedInstance] updateShoppingCartCount];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"selectedOrRemoveDomainFromCart" object:nil];
     }
+}
+
+- (void)updateFrameWithContentOfButton {
+    float widthBTN = [AppUtils getSizeWithText:btnChoose.currentTitle withFont:btnChoose.titleLabel.font].width + 20.0;
+    [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewDomain).offset(-padding);
+        make.centerY.equalTo(viewDomain.mas_centerY);
+        make.height.mas_equalTo(36.0);
+        make.width.mas_equalTo(widthBTN);
+    }];
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "PaymentMethodCell.h"
 
 @interface PaymentViewController ()<UITableViewDelegate, UITableViewDataSource, OnepayPaymentViewDelegate> {
-    
+    float hCell;
 }
 @end
 
@@ -37,19 +37,28 @@
 }
 
 - (void)setupUIForView {
+    hCell = 60.0;
+    float hBTN = 45.0;
     float padding = 15.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        hCell = 80.0;
+        hBTN = 55.0;
+        padding = 30.0;
+    }
+    
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    btnContinue.layer.cornerRadius = 45.0/2;
+    btnContinue.layer.cornerRadius = hBTN/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.bottom.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     tbContent.delegate = self;
@@ -57,7 +66,7 @@
     tbContent.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.btnContinue.mas_top).offset(-padding);
+        make.bottom.equalTo(btnContinue.mas_top).offset(-padding);
     }];
     [tbContent registerNib:[UINib nibWithNibName:@"PaymentMethodCell" bundle:nil] forCellReuseIdentifier:@"PaymentMethodCell"];
 }
@@ -102,7 +111,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0;
+    return hCell;
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {

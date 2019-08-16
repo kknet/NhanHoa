@@ -14,7 +14,6 @@
 
 @interface RegisterDomainViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate>{
     NSMutableArray *listData;
-    
     float hCell;
     float padding;
     float hBanner;
@@ -23,13 +22,12 @@
 @end
 
 @implementation RegisterDomainViewController
-@synthesize scvContent, tfSearch, lbWWW, icSearch, viewInfo, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbSepa, lbManyOptions, tbContent;
-@synthesize viewBanner;
+@synthesize scvContent, imgBanner, tfSearch, lbWWW, icSearch, viewInfo, viewSearch, imgSearch, lbSearch, viewRenew, imgRenew, lbRenew, viewTransferDomain, imgTransferDomain, lbTransferDomain, lbManyOptions, tbContent;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Đăng ký tên miền";
+    self.title = text_register_domains;
     
     [self createListDomainPrice];
     [self setupUIForView];
@@ -38,8 +36,11 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"RegisterDomainViewController"];
-    
     [self reUpdateLayoutForView];
+    
+    //  show banner image
+    UIImage *bannerPhoto = [AccountModel getBannerPhotoFromUser];
+    imgBanner.image = bannerPhoto;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -78,39 +79,37 @@
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
 }
 
-- (void)addBannerImageForView
+- (void)setupUIForView
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    
-    if (viewBanner == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"BannerSliderView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[BannerSliderView class]]) {
-                viewBanner = (BannerSliderView *) currentObject;
-                break;
-            }
-        }
-        [self.scvContent addSubview: viewBanner];
-    }
-    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hBanner);
-    }];
-    
-    viewBanner.hBanner = hBanner;
-    [viewBanner setupUIForView];
-    [viewBanner showBannersForSliderView];
-    
-    [self.scvContent bringSubviewToFront: tfSearch];
-    [self.scvContent bringSubviewToFront: lbWWW];
-    [self.scvContent bringSubviewToFront: icSearch];
-}
-
-- (void)setupUIForView {
     self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    float hSearch = 38.0;
+    float searchPadding = 1.0;
+    padding = 15.0;
     hCell = 90.0;
+    float backagePadding = 5.0;
+    float wItemImg = 50.0;
+    float radius = [AppDelegate sharedInstance].radius;
+    
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+        lbRenew.font = lbSearch.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:12];
+    }else{
+        lbRenew.font = lbSearch.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:13];
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        searchPadding = 2.0;
+        padding = 30.0;
+        hSearch = 50.0;
+        backagePadding = 20.0;
+        wItemImg = 80.0;
+        radius = 10.0;
+        hCell = 120.0;
+        
+        lbRenew.font = lbSearch.font = lbTransferDomain.font = [AppDelegate sharedInstance].fontDesc;
+    }
     
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -118,189 +117,149 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
     
-    padding = 15.0;
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-    }
-    
     [self getHeightBannerForView];
-    [self addBannerImageForView];
-    
-    viewBanner.clipsToBounds = YES;
-    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
+    [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hBanner);
     }];
     
-    
     //  search UI
-    float hSearch = 38.0;
     tfSearch.text = @"";
     tfSearch.backgroundColor = UIColor.whiteColor;
     tfSearch.layer.cornerRadius = hSearch/2;
-    tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
+    tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
     tfSearch.layer.borderWidth = 2;
-    tfSearch.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent).offset(padding);
+        make.left.equalTo(scvContent).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
-        make.centerY.equalTo(self.viewBanner.mas_bottom);
+        make.centerY.equalTo(imgBanner.mas_bottom);
         make.height.mas_equalTo(hSearch);
     }];
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, hSearch)];
-    tfSearch.leftViewMode = UITextFieldViewModeAlways;    
-    icSearch.layer.cornerRadius = hSearch/2;
-    icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
-    [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.tfSearch);
-        make.width.mas_equalTo(hSearch);
-    }];
     
-    icSearch.layer.cornerRadius = hSearch/2;
+    icSearch.layer.cornerRadius = (hSearch-2*searchPadding)/2;
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self.tfSearch);
-        make.width.mas_equalTo(hSearch);
+        make.top.equalTo(tfSearch).offset(searchPadding);
+        make.right.bottom.equalTo(tfSearch).offset(-searchPadding);
+        make.width.mas_equalTo(hSearch-2*searchPadding);
     }];
     
     lbWWW.backgroundColor = UIColor.clearColor;
-    lbWWW.text = @"WWW.";
-    lbWWW.textColor = [UIColor colorWithRed:(41/255.0) green:(121/255.0) blue:(216/255.0) alpha:1.0];
-    lbWWW.font = [UIFont fontWithName:RobotoBold size:13.0];
+    lbWWW.text = @"www.";
+    lbWWW.textColor = BLUE_COLOR;
+    lbWWW.font = [AppDelegate sharedInstance].fontMediumDesc;
+    
+    float sizeWWW = [AppUtils getSizeWithText:lbWWW.text withFont:lbWWW.font].width + 5.0;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.tfSearch);
-        make.width.mas_equalTo(60);
+        make.left.equalTo(tfSearch).offset(3.0);
+        make.top.bottom.equalTo(tfSearch);
+        make.width.mas_equalTo(sizeWWW);
     }];
+    
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sizeWWW, hSearch)];
+    tfSearch.leftViewMode = UITextFieldViewModeAlways;
     
     //  info view
-    float hItemView = 80.0;
-    float hInfo = hSearch/2 + 10.0 + hItemView + 20.0;
+    UIImage *itemImg = [UIImage imageNamed:@"search_multi_domain"];
+    float hItemImg = wItemImg * itemImg.size.height / itemImg.size.width;
+    
+    float hItemView = (hSearch/2 + 10.0) + 10.0 + hItemImg + 50.0 + 5.0;
     viewInfo.backgroundColor = UIColor.clearColor;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.viewBanner.mas_bottom);
+        make.left.equalTo(scvContent);
+        make.top.equalTo(imgBanner.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hInfo);
-    }];
-    
-    float sizeItem = (SCREEN_WIDTH - 2*padding - 2*5)/3;
-    
-    //  view re-order domain
-    UIImage *itemImg = [UIImage imageNamed:@"search_multi_domain"];
-    float wItemImg = 50.0;
-    float hItemImg = wItemImg * itemImg.size.height / itemImg.size.width;
-    float smallPadding = 4.0;
-    viewRenew.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    [viewRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo).offset(hSearch/2 + 10.0);
-        make.centerX.equalTo(self.viewInfo.mas_centerX);
-        make.width.mas_equalTo(sizeItem);
         make.height.mas_equalTo(hItemView);
     }];
+    
+    float sizeItem = (SCREEN_WIDTH - 2*padding - 2*backagePadding)/3;
+    
+    //  view re-order domain
+    viewRenew.layer.cornerRadius = viewSearch.layer.cornerRadius = viewTransferDomain.layer.cornerRadius = radius;
+    viewRenew.userInteractionEnabled = viewSearch.userInteractionEnabled = TRUE;
+    
+    [viewRenew mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewInfo).offset(hSearch/2 + 10.0);
+        make.centerX.equalTo(viewInfo.mas_centerX);
+        make.width.mas_equalTo(sizeItem);
+        make.bottom.equalTo(viewInfo);
+    }];
     UITapGestureRecognizer *tapRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSearchDomains)];
-    viewRenew.userInteractionEnabled = TRUE;
     [viewRenew addGestureRecognizer: tapRenew];
     
-    lbRenew.textColor = UIColor.whiteColor;
-    if ([DeviceUtils isScreen320]) {
-        lbRenew.font = [UIFont fontWithName:RobotoRegular size:12];
-    }else{
-        lbRenew.font = [UIFont fontWithName:RobotoRegular size:13];
-    }
-    
-    lbRenew.text = @"Kiểm tra nhiều tên miền";
-    lbRenew.numberOfLines = 5.0;
-    [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewRenew.mas_centerY);
-        make.left.equalTo(self.viewRenew).offset(3.0);
-        make.right.equalTo(self.viewRenew).offset(-3.0);
-    }];
-    
-    imgRenew.image = itemImg;
     [imgRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbRenew.mas_top).offset(-smallPadding);
-        make.centerX.equalTo(self.viewRenew.mas_centerX);
+        make.top.equalTo(viewRenew).offset(10.0);
+        make.centerX.equalTo(viewRenew.mas_centerX);
         make.width.mas_equalTo(wItemImg);
         make.height.mas_equalTo(hItemImg);
+    }];
+    
+    lbRenew.text = text_check_multi_domains;
+    [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewRenew).offset(3.0);
+        make.right.equalTo(viewRenew).offset(-3.0);
+        make.top.equalTo(imgRenew.mas_bottom);
+        make.height.mas_equalTo(50.0);
     }];
     
     //  view check multi domain
-    viewSearch.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewRenew);
-        make.right.equalTo(self.viewRenew.mas_left).offset(-5.0);
+        make.top.bottom.equalTo(viewRenew);
+        make.right.equalTo(viewRenew.mas_left).offset(-backagePadding);
         make.width.mas_equalTo(sizeItem);
     }];
     UITapGestureRecognizer *tapSearchDomain = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToRenewDomains)];
-    viewSearch.userInteractionEnabled = TRUE;
     [viewSearch addGestureRecognizer: tapSearchDomain];
     
-    lbSearch.textColor = lbRenew.textColor;
-    lbSearch.font = lbRenew.font;
-    lbSearch.text = @"Gia hạn tên miền";
-    lbSearch.numberOfLines = 5.0;
-    [lbSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewSearch.mas_centerY);
-        make.left.equalTo(self.viewSearch).offset(3.0);
-        make.right.equalTo(self.viewSearch).offset(-3.0);
-    }];
-    
-    imgSearch.image = itemImg;
     [imgSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbSearch.mas_top).offset(-smallPadding);
-        make.centerX.equalTo(self.viewSearch.mas_centerX);
+        make.top.equalTo(viewSearch).offset(10.0);
+        make.centerX.equalTo(viewSearch.mas_centerX);
         make.width.mas_equalTo(wItemImg);
         make.height.mas_equalTo(hItemImg);
+    }];
+    
+    lbSearch.text = text_renew_domains;
+    [lbSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewSearch).offset(3.0);
+        make.right.equalTo(viewSearch).offset(-3.0);
+        make.top.equalTo(imgSearch.mas_bottom);
+        make.height.mas_equalTo(lbRenew.mas_height);
     }];
     
     //  view transfer domain
-    viewTransferDomain.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     [viewTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewRenew);
-        make.left.equalTo(self.viewRenew.mas_right).offset(5.0);
+        make.top.bottom.equalTo(viewRenew);
+        make.left.equalTo(viewRenew.mas_right).offset(backagePadding);
         make.width.mas_equalTo(sizeItem);
     }];
     
-    lbTransferDomain.textColor = lbRenew.textColor;
-    lbTransferDomain.font = lbRenew.font;
-    lbTransferDomain.text = @"Chuyển tên miền về Nhân Hòa";
-    lbTransferDomain.numberOfLines = 5.0;
-    [lbTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewTransferDomain.mas_centerY);
-        make.left.equalTo(self.viewTransferDomain).offset(3.0);
-        make.right.equalTo(self.viewTransferDomain).offset(-3.0);
-    }];
-    
-    imgTransferDomain.image = itemImg;
     [imgTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbTransferDomain.mas_top).offset(-smallPadding);
-        make.centerX.equalTo(self.viewTransferDomain.mas_centerX);
+        make.top.equalTo(viewTransferDomain).offset(10.0);
+        make.centerX.equalTo(viewTransferDomain.mas_centerX);
         make.width.mas_equalTo(wItemImg);
         make.height.mas_equalTo(hItemImg);
     }];
     
-    //  sepa
-    lbSepa.backgroundColor = BORDER_COLOR;
-    lbSepa.adjustsFontSizeToFitWidth = NO;
-    lbSepa.lineBreakMode = NSLineBreakByTruncatingTail;
-    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo.mas_bottom);
-        make.left.equalTo(self.scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(1.0);
+    lbTransferDomain.text = text_transfer_to_nhanhoa;
+    [lbTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imgTransferDomain.mas_bottom);
+        make.left.equalTo(viewTransferDomain).offset(3.0);
+        make.right.equalTo(viewTransferDomain).offset(-3.0);
+        make.height.mas_equalTo(lbRenew.mas_height);
     }];
     
     //  many options
-    lbManyOptions.text = @"Nhiều lựa chọn với ưu đãi hấp dẫn";
-    lbManyOptions.font = [UIFont fontWithName:RobotoBold size:16.0];
+    lbManyOptions.text = many_options_with_attractive_offers;
+    lbManyOptions.font = [AppDelegate sharedInstance].fontMedium;
     lbManyOptions.textColor = [UIColor colorWithRed:(57/255.0) green:(65/255.0) blue:(86/255.0) alpha:1.0];
     [lbManyOptions mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbSepa.mas_bottom).offset(20.0);
-        make.left.equalTo(self.scvContent).offset(padding);
+        make.top.equalTo(viewInfo.mas_bottom).offset(20.0);
+        make.left.equalTo(scvContent).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
     }];
     
@@ -311,24 +270,20 @@
     tbContent.dataSource = self;
     tbContent.scrollEnabled = NO;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(padding);
-        make.left.equalTo(self.scvContent);
+        make.top.equalTo(lbManyOptions.mas_bottom).offset(padding);
+        make.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.bottom.equalTo(self.scvContent).offset(-5.0);
+        make.bottom.equalTo(scvContent).offset(-5.0);
     }];
 }
 
 - (void)getHeightBannerForView {
-    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
-    if (arr.count > 0) {
-        NSDictionary *info = [arr firstObject];
-        NSString *image = [info objectForKey:@"image"];
-        
-        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
-        UIImage *imgBanner = [UIImage imageWithData: imgData];
-        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
+    if (!IS_IPHONE && !IS_IPOD) {
+        float hNavBar = [AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav;
+        hBanner = (SCREEN_HEIGHT - hNavBar)/2;
     }else{
-        hBanner = 150.0;
+        UIImage *imgBanner = [AccountModel getBannerPhotoFromUser];
+        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
     }
 }
 
@@ -338,7 +293,7 @@
     [self.view endEditing: TRUE];
     
     if ([AppUtils isNullOrEmpty: tfSearch.text]) {
-        [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:text_enter_domains_to_check duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     

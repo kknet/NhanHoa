@@ -24,11 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    padding = 15.0;
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-    }
-    
     [self setupUIForView];
     self.title = @"Kết quả tra cứu";
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -76,20 +71,30 @@
 }
 
 - (void)setupUIForView {
+    float hBTN = 45.0;
+    padding = 15.0;
+    if ([DeviceUtils isScreen320]) {
+        padding = 5.0;
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hBTN = 55.0;
+    }
     
     [self checkToEnableContinueButton];
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    btnContinue.layer.cornerRadius = 45.0/2;
+    btnContinue.layer.cornerRadius = hBTN/2;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
         make.bottom.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
-    scvContent.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
-    scvContent.backgroundColor = LIGHT_GRAY_COLOR;
+    self.view.backgroundColor = GRAY_235;
+    scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.view);
@@ -116,7 +121,14 @@
 }
 
 - (void)addAvailableForViewWithInfo: (NSDictionary *)info withIndex: (int)index {
-    float mTop = (index > 0)? 10.0 : 0.0;
+    float mTop = 0;
+    if (index > 0) {
+        if (!IS_IPHONE && !IS_IPOD) {
+            mTop = 20.0;
+        }else{
+            mTop = 10.0;
+        }
+    }
     
     WhoIsNoResult *whoisView;
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsNoResult" owner:nil options:nil];
@@ -126,26 +138,28 @@
             break;
         }
     }
-    
-    float textSize = [AppUtils getSizeWithText:whoisView.lbContent.text withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(SCREEN_WIDTH-2*padding)].height;
-    float hView = 60 + 35.0 + 10.0 + textSize + 10.0 + 65.0 + padding;
     [scvContent addSubview: whoisView];
     [whoisView setupUIForView];
-    [whoisView showContentOfDomainWithInfo: info];
+    float hView = [whoisView showContentOfDomainWithInfo: info];
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height+mTop);
+        make.left.equalTo(scvContent);
+        make.top.equalTo(scvContent).offset(scvContent.contentSize.height+mTop);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
-    
-    
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
 
 - (void)addWhoIsResultViewWithInfo: (NSDictionary *)info withIndex:(int)index {
-    float mTop = (index > 0)? 10.0 : 0.0;
+    float mTop = 0;
+    if (index > 0) {
+        if (!IS_IPHONE && !IS_IPOD) {
+            mTop = 20.0;
+        }else{
+            mTop = 10.0;
+        }
+    }
     
     WhoIsDomainView *whoisView;
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"WhoIsDomainView" owner:nil options:nil];
@@ -161,13 +175,11 @@
     float hView = [whoisView showContentOfDomainWithInfo: info];
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.scvContent).offset(self.scvContent.contentSize.height + mTop);
+        make.left.equalTo(scvContent);
+        make.top.equalTo(scvContent).offset(scvContent.contentSize.height + mTop);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
-    whoisView.backgroundColor = UIColor.orangeColor;
-    
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
 }
 

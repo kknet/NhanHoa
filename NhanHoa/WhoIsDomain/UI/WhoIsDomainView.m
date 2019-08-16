@@ -15,133 +15,140 @@
 - (void)setupUIForView {
     mTop = 5.0;
     hLabel = 35.0;
-    
-    sizeLeft = [AppUtils getSizeWithText:@"Ngày đăng ký" withFont:[UIFont fontWithName:RobotoRegular size:16.0]].width + 10.0;
-    
     padding = 15.0;
+    sizeLeft = [AppUtils getSizeWithText:@"Ngày đăng ký" withFont:[AppDelegate sharedInstance].fontMediumDesc].width + 10.0;
+    
+    if ([DeviceUtils isScreen320] || [DeviceUtils isScreen375]) {
+        padding = 5.0;
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hLabel = 40.0;
+        sizeLeft = SCREEN_WIDTH/3 - 50.0;
+    }
+    
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
         //  make.bottom.equalTo(self);
-        make.bottom.equalTo(self.lbDNSSECValue.mas_bottom).offset(self.padding);
+        make.bottom.equalTo(lbDNSSECValue.mas_bottom).offset(padding);
     }];
     
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewContent).offset(self.padding);
-        make.left.equalTo(self.viewContent).offset(self.padding);
-        make.width.mas_equalTo(self.sizeLeft);
-        make.height.mas_equalTo(self.hLabel);
+        make.top.equalTo(viewContent).offset(padding);
+        make.left.equalTo(viewContent).offset(padding);
+        make.width.mas_equalTo(sizeLeft);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [lbDomainValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbDomain);
-        make.left.equalTo(self.lbDomain.mas_right);
-        make.right.equalTo(self.viewContent).offset(-self.padding);
+        make.top.bottom.equalTo(lbDomain);
+        make.left.equalTo(lbDomain.mas_right);
+        make.right.equalTo(viewContent).offset(-padding);
     }];
     
     [lbIssueDate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDomain);
-        make.top.equalTo(self.lbDomain.mas_bottom).offset(self.mTop);
-        make.height.mas_equalTo(self.hLabel);
+        make.left.right.equalTo(lbDomain);
+        make.top.equalTo(lbDomain.mas_bottom).offset(mTop);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [lbIssueDateValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbIssueDate);
-        make.left.right.equalTo(self.lbDomainValue);
+        make.top.bottom.equalTo(lbIssueDate);
+        make.left.right.equalTo(lbDomainValue);
     }];
     
     [lbExpiredDate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbIssueDate);
-        make.top.equalTo(self.lbIssueDate.mas_bottom).offset(self.mTop);
-        make.height.mas_equalTo(self.hLabel);
+        make.left.right.equalTo(lbIssueDate);
+        make.top.equalTo(lbIssueDate.mas_bottom).offset(mTop);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [lbExpiredDateValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbExpiredDate);
-        make.left.right.equalTo(self.lbIssueDateValue);
+        make.top.bottom.equalTo(lbExpiredDate);
+        make.left.right.equalTo(lbIssueDateValue);
     }];
     
     lbOwnerValue.numberOfLines = 10;
     [lbOwnerValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        //  make.top.equalTo(self.lbOwner);
-        make.top.equalTo(self.lbExpiredDate.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.top.equalTo(lbExpiredDate.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
+        make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
     [lbOwner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbExpiredDate);
-        make.centerY.equalTo(self.lbOwnerValue.mas_centerY);
-        make.height.mas_equalTo(self.hLabel);
+        make.left.right.equalTo(lbExpiredDate);
+        make.centerY.equalTo(lbOwnerValue.mas_centerY);
+        make.height.mas_equalTo(hLabel);
     }];
     
-    lbStatusValue.numberOfLines = 10;
+    lbStatusValue.numberOfLines = 0;
     [lbStatusValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbOwnerValue.mas_bottom).offset(self.mTop);
-        //  make.top.equalTo(self.lbStatus);
-        make.left.right.equalTo(self.lbOwnerValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.top.equalTo(lbOwnerValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbOwnerValue);
+        //  make.height.mas_greaterThanOrEqualTo(hLabel);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [lbStatus mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lbStatusValue.mas_centerY);
-        make.left.right.equalTo(self.lbOwner);
-        make.height.mas_equalTo(self.hLabel);
+        make.centerY.equalTo(lbStatusValue.mas_centerY);
+        make.left.right.equalTo(lbOwner);
+        make.height.mas_equalTo(hLabel);
     }];
     
     lbRegisterNameValue.numberOfLines = 10;
     [lbRegisterNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
         //  make.top.equalTo(self.lbRegisterName);
-        make.top.equalTo(self.lbStatusValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbStatusValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.top.equalTo(lbStatusValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbStatusValue);
+        make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
     [lbRegisterName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lbRegisterNameValue.mas_centerY);
-        make.left.right.equalTo(self.lbStatus);
-        make.height.mas_equalTo(self.hLabel);
+        make.centerY.equalTo(lbRegisterNameValue.mas_centerY);
+        make.left.right.equalTo(lbStatus);
+        make.height.mas_equalTo(hLabel);
     }];
-    
-    
     
     lbDNSValue.numberOfLines = 10;
     [lbDNSValue mas_makeConstraints:^(MASConstraintMaker *make) {
         //  make.top.equalTo(self.lbDNS);
-        make.top.equalTo(self.lbRegisterNameValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbRegisterNameValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.top.equalTo(lbRegisterNameValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbRegisterNameValue);
+        make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
     [lbDNS mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lbDNSValue.mas_centerY);
-        make.left.right.equalTo(self.lbRegisterName);
-        make.height.mas_equalTo(self.hLabel);
+        make.centerY.equalTo(lbDNSValue.mas_centerY);
+        make.left.right.equalTo(lbRegisterName);
+        make.height.mas_equalTo(hLabel);
     }];
     
     lbDNSSECValue.numberOfLines = 10;
     [lbDNSSECValue mas_makeConstraints:^(MASConstraintMaker *make) {
         //  make.top.bottom.equalTo(self.lbDNSSEC);
-        make.top.equalTo(self.lbDNSValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbDNSValue);
-        make.height.mas_greaterThanOrEqualTo(self.hLabel);
+        make.top.equalTo(lbDNSValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbDNSValue);
+        make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
     [lbDNSSEC mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lbDNSSECValue.mas_centerY);
-        make.left.right.equalTo(self.lbDNS);
-        make.height.mas_equalTo(self.hLabel);
+        make.centerY.equalTo(lbDNSSECValue.mas_centerY);
+        make.left.right.equalTo(lbDNS);
+        make.height.mas_equalTo(hLabel);
     }];
     
-    //  lbDomain.font = lbIssueDate.font = lbIssueDateValue.font = lbExpiredDate.font = lbExpiredDateValue.font = lbOwner.font = lbOwnerValue.font = lbStatus.font = lbStatusValue.font = lbRegisterName.font = lbRegisterNameValue.font = lbDNS.font = lbDNSValue.font = lbDNSSEC.font = lbDNSSECValue.font = [UIFont fontWithName:RobotoRegular size:16.0];
-    
-    lbDomain.font = lbIssueDate.font = lbExpiredDate.font = lbOwner.font = lbStatus.font = lbRegisterName.font = lbDNS.font = lbDNSSEC.font = [UIFont fontWithName:RobotoMedium size:16.0];
-    
-    lbIssueDateValue.font = lbExpiredDateValue.font = lbOwnerValue.font = lbStatusValue.font = lbRegisterNameValue.font = lbDNSValue.font = lbDNSSECValue.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    if (!IS_IPHONE && !IS_IPOD) {
+        lbDomain.font = lbIssueDate.font = lbExpiredDate.font = lbOwner.font = lbStatus.font = lbRegisterName.font = lbDNS.font = lbDNSSEC.font = lbDomainValue.font = [AppDelegate sharedInstance].fontMediumDesc;
+        lbIssueDateValue.font = lbExpiredDateValue.font = lbOwnerValue.font = lbStatusValue.font = lbRegisterNameValue.font = lbDNSValue.font = lbDNSSECValue.font = [AppDelegate sharedInstance].fontNormal;
+        
+    }else{
+        lbDomain.font = lbIssueDate.font = lbExpiredDate.font = lbOwner.font = lbStatus.font = lbRegisterName.font = lbDNS.font = lbDNSSEC.font = lbDomainValue.font = [AppDelegate sharedInstance].fontMediumDesc;
+        lbIssueDateValue.font = lbExpiredDateValue.font = lbOwnerValue.font = lbStatusValue.font = lbRegisterNameValue.font = lbDNSValue.font = lbDNSSECValue.font = [AppDelegate sharedInstance].fontNormal;
+    }
     
     lbDomain.textColor = lbIssueDate.textColor = lbIssueDateValue.textColor = lbExpiredDate.textColor = lbExpiredDateValue.textColor = lbOwner.textColor = lbOwnerValue.textColor = lbStatus.textColor = lbStatusValue.textColor = lbRegisterName.textColor = lbRegisterNameValue.textColor = lbDNS.textColor = lbDNSValue.textColor = lbDNSSEC.textColor = lbDNSSECValue.textColor = TITLE_COLOR;
     
     lbDomainValue.textColor = BLUE_COLOR;
-    lbDomainValue.font = [AppDelegate sharedInstance].fontMedium;
 }
 
 - (float)showContentOfDomainWithInfo: (NSDictionary *)info {
@@ -177,52 +184,50 @@
         hOwner = hLabel;
     }
     [lbOwnerValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbExpiredDate.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
+        make.top.equalTo(lbExpiredDate.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
         make.height.mas_equalTo(hOwner);
     }];
     
-    [lbStatusValue sizeToFit];
-    float hStatus = lbStatusValue.frame.size.height;
+    float sizeText = 2*SCREEN_WIDTH/3;
+    
+    float hStatus = [AppUtils getSizeWithText:lbStatusValue.text withFont:lbStatusValue.font andMaxWidth: sizeText].height + 10.0;
     if (hStatus < hLabel) {
         hStatus = hLabel;
     }
     [lbStatusValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbOwnerValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
+        make.top.equalTo(lbOwnerValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
         make.height.mas_equalTo(hStatus);
     }];
     
-    [lbRegisterNameValue sizeToFit];
-    float hRegistrarName = lbRegisterNameValue.frame.size.height;
+    float hRegistrarName = [AppUtils getSizeWithText:lbRegisterNameValue.text withFont:lbRegisterNameValue.font andMaxWidth:sizeText].height + 10.0;
     if (hRegistrarName < hLabel) {
         hRegistrarName = hLabel;
     }
     [lbRegisterNameValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbStatusValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
+        make.top.equalTo(lbStatusValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
         make.height.mas_equalTo(hRegistrarName);
     }];
     
-    [lbDNSValue sizeToFit];
-    float hDNS = lbDNSValue.frame.size.height;
+    float hDNS = [AppUtils getSizeWithText:lbDNSValue.text withFont:lbDNSValue.font andMaxWidth:sizeText].height + 10.0;
     if (hDNS < hLabel) {
         hDNS = hLabel;
     }
     [lbDNSValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbRegisterNameValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
+        make.top.equalTo(lbRegisterNameValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
         make.height.mas_equalTo(hDNS);
     }];
     
-    [lbDNSSECValue sizeToFit];
-    float hDNSSec = lbDNSSECValue.frame.size.height;
+    float hDNSSec = [AppUtils getSizeWithText:lbDNSSECValue.text withFont:lbDNSSECValue.font andMaxWidth:sizeText].height + 10.0;
     if (hDNSSec < hLabel) {
         hDNSSec = hLabel;
     }
     [lbDNSSECValue mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbDNSValue.mas_bottom).offset(self.mTop);
-        make.left.right.equalTo(self.lbExpiredDateValue);
+        make.top.equalTo(lbDNSValue.mas_bottom).offset(mTop);
+        make.left.right.equalTo(lbExpiredDateValue);
         make.height.mas_equalTo(hDNSSec);
     }];
     

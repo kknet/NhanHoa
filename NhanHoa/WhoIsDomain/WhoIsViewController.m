@@ -12,12 +12,14 @@
 
 @interface WhoIsViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
     NSMutableArray *listDomain;
+    float padding;
+    float hCell;
 }
 
 @end
 
 @implementation WhoIsViewController
-@synthesize tbContent, btnSearch, padding;
+@synthesize tbContent, btnSearch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,7 +75,7 @@
     NSMutableArray *result = [[NSMutableArray alloc] initWithArray: listDomain];
     [result removeObject:@""];
     if (result.count == 0) {
-        [self.view makeToast:@"Vui lòng nhập tên miền muốn kiểm tra!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:text_enter_domains_to_check duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     
@@ -97,7 +99,7 @@
 - (void)keyboardDidHide: (NSNotification *) notif{
     [tbContent mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.btnSearch).offset(-self.padding);
+        make.bottom.equalTo(btnSearch).offset(-padding);
     }];
 }
 
@@ -108,16 +110,27 @@
     [self.view addGestureRecognizer: tapOnScreen];
     
     float hBTN = 45.0;
-    
+    float hHeader = 50.0;
+    float hFooter = 55.0;
     padding = 15.0;
+    hCell = 48.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hBTN = 55.0;
+        padding = 30.0;
+        hHeader = 80.0;
+        hFooter = 80.0;
+        hCell = 65.0;
+    }
+    
     btnSearch.layer.cornerRadius = hBTN/2;
     btnSearch.backgroundColor = BLUE_COLOR;
     btnSearch.layer.borderColor = BLUE_COLOR.CGColor;
     btnSearch.layer.borderWidth = 1.0;
     btnSearch.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(self.padding);
-        make.bottom.right.equalTo(self.view).offset(-self.padding);
+        make.left.equalTo(self.view).offset(padding);
+        make.bottom.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
     
@@ -127,10 +140,10 @@
     tbContent.dataSource = self;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.btnSearch.mas_top).offset(-self.padding);
+        make.bottom.equalTo(btnSearch.mas_top).offset(-padding);
     }];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50.0)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hHeader)];
     
     UILabel *lbTbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, headerView.frame.size.width-2*padding, headerView.frame.size.height)];
     lbTbHeader.numberOfLines = 5;
@@ -141,13 +154,13 @@
     [headerView addSubview: lbTbHeader];
     tbContent.tableHeaderView = headerView;
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 55.0)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     UIButton *btnTbFooter = [UIButton buttonWithType: UIButtonTypeCustom];
-    btnTbFooter.frame = CGRectMake(padding, footerView.frame.size.height-45.0, footerView.frame.size.width-2*padding, hBTN);
+    btnTbFooter.frame = CGRectMake(padding, (hFooter-hBTN)/2, footerView.frame.size.width-2*padding, hBTN);
     btnTbFooter.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnTbFooter.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
-    NSAttributedString *content = [AppUtils generateTextWithContent:@"Thêm tên miền" font:[AppDelegate sharedInstance].fontBTN color:UIColor.whiteColor image:[UIImage imageNamed:@"add"] size:22.0 imageFirst:YES];
-    [btnTbFooter setAttributedTitle:content forState:UIControlStateNormal];
+    btnTbFooter.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnTbFooter setTitle:@"Thêm tên miền" forState:UIControlStateNormal];
     [btnTbFooter addTarget:self
                     action:@selector(addNewRowForDomain)
           forControlEvents:UIControlEventTouchUpInside];
@@ -163,7 +176,7 @@
 - (void)addNewRowForDomain {
     if (listDomain.count == 5 || listDomain.count > 5) {
         self.view.clipsToBounds = NO;
-        [self.view makeToast:@"Vượt quá số lượng tìm kiếm" duration:2.0 position:CSToastPositionTop style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:@"Vượt quá số lượng tìm kiếm" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
     }else{
         [listDomain addObject:@""];
         [tbContent reloadData];
@@ -217,7 +230,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48.0;
+    return hCell;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

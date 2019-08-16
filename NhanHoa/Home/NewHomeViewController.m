@@ -140,10 +140,10 @@
 - (void)createDataForMenuView {
     listMenu = [[NSMutableArray alloc] init];
     
-    HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:@"Đăng ký tên miền" icon:@"menu_domain" type:eRegisterDomain];
+    HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:text_register_domains icon:@"menu_domain" type:eRegisterDomain];
     [listMenu addObject: regDomain];
     
-    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:@"Bảng giá tên miền" icon:@"menu_reorder_domain" type:ePricingDomain];
+    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:domains_pricing_list icon:@"menu_reorder_domain" type:ePricingDomain];
     [listMenu addObject: renewDomain];
     
     HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Kiểm tra tên miền" icon:@"menu_search_domain" type:eSearchDomain];
@@ -235,16 +235,10 @@
     }];
     
     //  header view
-    NSArray *arr = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
-    if (arr.count > 0) {
-        NSDictionary *info = [arr firstObject];
-        NSString *image = [info objectForKey:@"image"];
-        
-        NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:image]];
-        UIImage *banner = [UIImage imageWithData: imgData];
-        hHeader = (int)(SCREEN_WIDTH * banner.size.height / banner.size.width);
-        imgBanner.image = banner;
-    }
+    UIImage *banner = [AccountModel getBannerPhotoFromUser];
+    hHeader = (int)(SCREEN_WIDTH * banner.size.height / banner.size.width);
+    imgBanner.image = banner;
+    
     [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(viewSearch.mas_bottom);

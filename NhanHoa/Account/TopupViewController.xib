@@ -17,7 +17,6 @@
                 <outlet property="btnTopup" destination="h0O-93-Pr6" id="AtS-6R-dWk"/>
                 <outlet property="btnWallet" destination="2L9-vn-Efm" id="dwy-0f-cNk"/>
                 <outlet property="imgBackground" destination="v1J-UL-5Bg" id="Bsm-zg-WP1"/>
-                <outlet property="imgWallet" destination="WBg-jp-vXE" id="8bA-39-fR3"/>
                 <outlet property="lbDesc" destination="jaG-Qt-ldO" id="rjH-mt-oQB"/>
                 <outlet property="lbMoney" destination="TFT-jI-bfI" id="gba-eE-Go6"/>
                 <outlet property="lbTitle" destination="DdE-Dd-E4M" id="1df-27-93e"/>
@@ -37,10 +36,6 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v1J-UL-5Bg">
                             <rect key="frame" x="24" y="28" width="265" height="92"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WBg-jp-vXE">
-                            <rect key="frame" x="140" y="10" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2L9-vn-Efm">

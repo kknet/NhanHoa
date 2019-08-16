@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Bảng giá tên miền";
+    self.title = domains_pricing_list;
     [self setupUIForView];
 }
 
@@ -32,7 +32,7 @@
     eTypePrice = eTypePriceVN;
     if ([AppDelegate sharedInstance].listPricingVN == nil) {
         [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:@"Đang tải..." Interaction:NO];
+        [ProgressHUD show:text_loading Interaction:NO];
         
         [WebServiceUtils getInstance].delegate = self;
         [[WebServiceUtils getInstance] getDomainsPricingList];
@@ -43,12 +43,19 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hMenu = 40.0;
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
+    btnVietnam.titleLabel.font = btnQT.titleLabel.font = [AppDelegate sharedInstance].fontDesc;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hMenu = 55.0;
+        padding = 30.0;
+        btnVietnam.titleLabel.font = btnQT.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
+    }
     
     //  view menu
-    float hMenu = 40.0;
     viewHeader.layer.cornerRadius = hMenu/2;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
@@ -59,20 +66,19 @@
     
     eTypePrice = eTypePriceVN;
     [btnVietnam setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnVietnam.titleLabel.font = btnQT.titleLabel.font = [AppDelegate sharedInstance].fontDesc;
     btnVietnam.backgroundColor = BLUE_COLOR;
     btnVietnam.layer.cornerRadius = hMenu/2;
     [btnVietnam mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.viewHeader);
-        make.right.equalTo(self.viewHeader.mas_centerX);
+        make.left.top.bottom.equalTo(viewHeader);
+        make.right.equalTo(viewHeader.mas_centerX);
     }];
     
     [btnQT setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnQT.backgroundColor = UIColor.clearColor;
     btnQT.layer.cornerRadius = btnVietnam.layer.cornerRadius;
     [btnQT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewHeader.mas_centerX);
-        make.right.top.bottom.equalTo(self.viewHeader);
+        make.left.equalTo(viewHeader.mas_centerX);
+        make.right.top.bottom.equalTo(viewHeader);
     }];
     
     //  table content
@@ -81,7 +87,7 @@
     [tbContent registerNib:[UINib nibWithNibName:@"PriceDomainInfoCell" bundle:nil] forCellReuseIdentifier:@"PriceDomainInfoCell"];
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader.mas_bottom).offset(padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(padding);
         make.left.bottom.right.equalTo(self.view);
     }];
     [self createHeaderViewForTableView];
@@ -99,7 +105,7 @@
     tbHeader.frame = CGRectMake(0, 0, SCREEN_WIDTH, 40.0);
     
     UILabel *lbName = [[UILabel alloc] init];
-    lbName.text = @"Tên miền";
+    lbName.text = text_domains;
     lbName.textAlignment = NSTextAlignmentLeft;
     [tbHeader addSubview: lbName];
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,7 +115,7 @@
     }];
     
     UILabel *lbRenew = [[UILabel alloc] init];
-    lbRenew.text = @"Phí khởi tạo";
+    lbRenew.text = text_registration_fee;
     lbRenew.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbRenew];
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -119,7 +125,7 @@
     }];
     
     UILabel *lbSetup = [[UILabel alloc] init];
-    lbSetup.text = @"Phí duy trì";
+    lbSetup.text = text_renewal_fee;
     lbSetup.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbSetup];
     [lbSetup mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -129,7 +135,7 @@
     }];
     
     UILabel *lbTransfer = [[UILabel alloc] init];
-    lbTransfer.text = @"Chuyển về";
+    lbTransfer.text = text_transfer_to;
     lbTransfer.textAlignment = NSTextAlignmentRight;
     [tbHeader addSubview: lbTransfer];
     [lbTransfer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -182,7 +188,7 @@
 -(void)failedGetPricingListWithError:(NSString *)error {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Không thể lấy bảng giá tên miền" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self.view makeToast:cannot_get_domains_pricing duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)getPricingListSuccessfulWithData:(NSDictionary *)data {

@@ -20,8 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
 
+@property (nonatomic, assign) float hEmoji;
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hDomainView;
+
 - (void)setupUIForView;
-- (void)showContentOfDomainWithInfo: (NSDictionary *)info;
+- (float)showContentOfDomainWithInfo: (NSDictionary *)info;
 - (IBAction)btnChoosePress:(UIButton *)sender;
 
 @property (nonatomic, strong) NSDictionary *domainInfo;

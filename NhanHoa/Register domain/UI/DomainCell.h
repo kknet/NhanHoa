@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnWarning;
 
 @property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float marginX;
+
 - (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
 
 - (void)updateSizeButtonWithContent: (NSString *)content;
