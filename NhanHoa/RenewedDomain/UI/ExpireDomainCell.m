@@ -19,6 +19,10 @@
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+    }
+    
     lbNum.textColor = TITLE_COLOR;
     lbNum.font = [AppDelegate sharedInstance].fontMedium;
     lbNum.textAlignment = NSTextAlignmentLeft;
@@ -31,12 +35,12 @@
     lbName.textColor = TITLE_COLOR;
     lbName.font = [AppDelegate sharedInstance].fontMedium;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbNum.mas_right).offset(5.0);
+        make.left.equalTo(lbNum.mas_right).offset(5.0);
         make.bottom.equalTo(self.mas_centerY).offset(-2.0);
         make.right.equalTo(self).offset(-padding);
     }];
     
-    lbState.font = [AppDelegate sharedInstance].fontMedium;
+    lbState.font = [AppDelegate sharedInstance].fontMediumDesc;
     lbState.textAlignment = NSTextAlignmentRight;
     [lbState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-padding);
@@ -44,18 +48,18 @@
     }];
     
     lbDate.textColor = TITLE_COLOR;
-    lbDate.font = [AppDelegate sharedInstance].fontRegular;
+    lbDate.font = [AppDelegate sharedInstance].fontNormal;
     lbDate.textAlignment = NSTextAlignmentLeft;
     [lbDate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.lbState.mas_left).offset(-10.0);
-        make.left.equalTo(self.lbName);
-        make.centerY.equalTo(self.lbState.mas_centerY);
+        make.right.equalTo(lbState.mas_left).offset(-10.0);
+        make.left.equalTo(lbName);
+        make.centerY.equalTo(lbState.mas_centerY);
     }];
     
-    lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    lbSepa.backgroundColor = GRAY_230;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);
-        make.left.equalTo(self.lbDate);
+        make.left.equalTo(lbDate);
         make.height.mas_equalTo(1.0);
     }];
 }

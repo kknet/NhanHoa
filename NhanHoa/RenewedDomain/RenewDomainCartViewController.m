@@ -18,6 +18,7 @@
     
     long priceForRenew;
     long vatPrice;
+    float hSmallCell;
 }
 
 @end
@@ -61,7 +62,7 @@
 - (IBAction)btnContinuePress:(UIButton *)sender {
     //  close table view
     [UIView animateWithDuration:0.15 animations:^{
-        self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
+        tbSelectYear.frame = CGRectMake(tbSelectYear.frame.origin.x, tbSelectYear.frame.origin.y, tbSelectYear.frame.size.width, 0);
     }];
     
     long totalPrice = [self getTotalPriceForPayment];
@@ -88,7 +89,7 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn gia hạn tên miền này?"];
-    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
+    [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
     UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
@@ -114,7 +115,19 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
-    hCell = 106.0;
+    float hLabel = 30.0;
+    float hIcon = 38.0;
+    float hBTN = 45.0;
+    hSmallCell = 38.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hLabel = 40.0;
+        hIcon = 45.0;
+        hBTN = 55.0;
+        hSmallCell = 50.0;
+    }
+    hCell = (hLabel + hLabel + hIcon + 10.0);
     
     [tbDomain registerNib:[UINib nibWithNibName:@"CartDomainItemCell" bundle:nil] forCellReuseIdentifier:@"CartDomainItemCell"];
     tbDomain.scrollEnabled = FALSE;
@@ -128,79 +141,71 @@
     
     lbSepa.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tbDomain.mas_bottom).offset(padding);
+        make.top.equalTo(tbDomain.mas_bottom).offset(padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view);
         make.height.mas_equalTo(1.0);
     }];
     
     //  continue button
-    btnContinue.layer.cornerRadius = 45.0/2;
+    btnContinue.layer.cornerRadius = hBTN/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     //  footer view
-    float hFooter = padding + 4*30 + padding;
+    float hFooter = padding + 3*hLabel + padding;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
-        make.top.equalTo(self.lbSepa.mas_bottom);
+        make.top.equalTo(lbSepa.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hFooter);
     }];
     
     //  price
-    lbDomainPrice.textColor = TITLE_COLOR;
-    lbDomainPrice.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbDomainPrice.textColor = lbDomainPriceValue.textColor = lbVAT.textColor = lbVATValue.textColor = lbTotalPrice.textColor = TITLE_COLOR;
+    lbTotalPriceValue.textColor = NEW_PRICE_COLOR;
+    lbDomainPrice.font = lbDomainPriceValue.font = lbVAT.font = lbVATValue.font = [AppDelegate sharedInstance].fontRegular;
+    lbTotalPrice.font = lbTotalPriceValue.font = [AppDelegate sharedInstance].fontMedium;
+    
     [lbDomainPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.viewFooter).offset(padding);
-        make.right.equalTo(self.viewFooter.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(30.0);
+        make.top.left.equalTo(viewFooter).offset(padding);
+        make.right.equalTo(viewFooter.mas_centerX).offset(-padding/2);
+        make.height.mas_equalTo(hLabel);
     }];
     
-    lbDomainPriceValue.textColor = lbDomainPrice.textColor;
-    lbDomainPriceValue.font = lbDomainPrice.font;
     [lbDomainPriceValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewFooter.mas_centerX).offset(padding/2);
-        make.top.bottom.equalTo(self.lbDomainPrice);
-        make.right.equalTo(self.viewFooter).offset(-padding);
+        make.left.equalTo(viewFooter.mas_centerX).offset(padding/2);
+        make.top.bottom.equalTo(lbDomainPrice);
+        make.right.equalTo(viewFooter).offset(-padding);
     }];
     
     //  VAT
-    lbVAT.textColor = TITLE_COLOR;
-    lbVAT.font = [UIFont fontWithName:RobotoRegular size:16.0];
     [lbVAT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbDomainPrice.mas_bottom);
-        make.left.right.equalTo(self.lbDomainPrice);
-        make.height.equalTo(self.lbDomainPrice.mas_height);
+        make.top.equalTo(lbDomainPrice.mas_bottom);
+        make.left.right.equalTo(lbDomainPrice);
+        make.height.equalTo(lbDomainPrice.mas_height);
     }];
     
-    lbVATValue.textColor = lbDomainPrice.textColor;
-    lbVATValue.font = lbDomainPrice.font;
     [lbVATValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDomainPriceValue);
-        make.top.bottom.equalTo(self.lbVAT);
+        make.left.right.equalTo(lbDomainPriceValue);
+        make.top.bottom.equalTo(lbVAT);
     }];
-    
     
     //  Total price
-    lbTotalPrice.textColor = TITLE_COLOR;
-    lbTotalPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotalPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbVAT.mas_bottom);
-        make.left.right.equalTo(self.lbVAT);
-        make.height.equalTo(self.lbVAT.mas_height);
+        make.top.equalTo(lbVAT.mas_bottom);
+        make.left.right.equalTo(lbVAT);
+        make.height.equalTo(lbVAT.mas_height);
     }];
     
-    lbTotalPriceValue.textColor = NEW_PRICE_COLOR;
-    lbTotalPriceValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotalPriceValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbVATValue);
-        make.top.bottom.equalTo(self.lbTotalPrice);
+        make.left.right.equalTo(lbVATValue);
+        make.top.bottom.equalTo(lbTotalPrice);
     }];
 }
 
@@ -257,6 +262,7 @@
     }else{
         CartDomainItemCell *cell = (CartDomainItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CartDomainItemCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.protectView.hidden = TRUE;
         
         NSString *domainName = domain;
         
@@ -284,14 +290,14 @@
         [tbDomain reloadData];
         
         [UIView animateWithDuration:0.15 animations:^{
-            self.tbSelectYear.frame = CGRectMake(self.tbSelectYear.frame.origin.x, self.tbSelectYear.frame.origin.y, self.tbSelectYear.frame.size.width, 0);
+            tbSelectYear.frame = CGRectMake(tbSelectYear.frame.origin.x, tbSelectYear.frame.origin.y, tbSelectYear.frame.size.width, 0);
         }];
     }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == tbSelectYear) {
-        return 38.0;
+        return hSmallCell;
     }
     return hCell;
 }
@@ -305,21 +311,31 @@
     if (tbSelectYear.frame.origin.y == newYFrame) {
         float hTbView = 0;
         if (tbSelectYear.frame.size.height == 0) {
-            hTbView = 6*sender.frame.size.height;
+            if (IS_IPHONE || IS_IPOD) {
+                hTbView = 6*hSmallCell;
+            }else{
+                hTbView = MAX_YEAR_FOR_RENEW*hSmallCell;
+            }
         }
         tbSelectYear.hidden = TRUE;
         tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, 0);
         
         tbSelectYear.hidden = FALSE;
         [UIView animateWithDuration:0.15 animations:^{
-            self.tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
+            tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
         }];
     }else{
         tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, 0);
         
-        float hTbView = 6*sender.frame.size.height;
+        float hTbView;
+        if (IS_IPHONE || IS_IPOD) {
+            hTbView = 6*hSmallCell;
+        }else{
+            hTbView = MAX_YEAR_FOR_RENEW*hSmallCell;
+        }
+        
         [UIView animateWithDuration:0.15 animations:^{
-            self.tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
+            tbSelectYear.frame = CGRectMake(sender.frame.origin.x, newYFrame, sender.frame.size.width, hTbView);
         }];
     }
 }

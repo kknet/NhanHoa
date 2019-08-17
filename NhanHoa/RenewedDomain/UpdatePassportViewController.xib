@@ -14,8 +14,6 @@
                 <outlet property="btnBanKhai" destination="D0J-Xj-zLe" id="TJk-Nw-PNG"/>
                 <outlet property="btnCMND_a" destination="ACe-BU-vtv" id="X0Z-D4-su2"/>
                 <outlet property="btnCMND_b" destination="9Cq-gd-YPD" id="2yc-At-O8x"/>
-                <outlet property="btnCancel" destination="rqP-eh-yXn" id="KVY-oe-bFz"/>
-                <outlet property="btnSave" destination="A08-Kq-ga6" id="vdJ-wQ-DNn"/>
                 <outlet property="imgWaitBanKhai" destination="BGJ-Ng-2qb" id="NzQ-d7-nOk"/>
                 <outlet property="imgWaitCMND_a" destination="7bz-Uw-L8V" id="X1d-2f-MgE"/>
                 <outlet property="imgWaitCMND_b" destination="w5A-C9-Q7H" id="L4x-ff-OM2"/>
@@ -56,22 +54,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqP-eh-yXn">
-                    <rect key="frame" x="20" y="628" width="123" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Hủy"/>
-                    <connections>
-                        <action selector="btnCancelPress:" destination="-1" eventType="touchUpInside" id="mU1-D3-DQG"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A08-Kq-ga6">
-                    <rect key="frame" x="178" y="628" width="122" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Lưu cập nhật"/>
-                    <connections>
-                        <action selector="btnSavePress:" destination="-1" eventType="touchUpInside" id="f5G-CJ-h7k"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cq-gd-YPD">
                     <rect key="frame" x="31" y="420" width="248" height="156"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -13,12 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BonusAccountViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *viewInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *imgBackground;
-@property (weak, nonatomic) IBOutlet UIImageView *imgWallet;
 @property (weak, nonatomic) IBOutlet UIButton *btnWallet;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbMoney;
 @property (weak, nonatomic) IBOutlet UIButton *btnWithdrawal;
-@property (weak, nonatomic) IBOutlet UITableView *tbHistory;
 
 - (IBAction)btnWithdrawalPress:(UIButton *)sender;
 @end

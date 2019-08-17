@@ -102,24 +102,31 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hSearch = [AppDelegate sharedInstance].hTextfield;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hSearch = 45.0;
+    }
+    
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, [AppDelegate sharedInstance].hTextfield)];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hSearch)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
     tfSearch.placeholder = @"Nhập để tìm kiếm...";
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
-    tfSearch.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
+    tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
     tfSearch.layer.borderWidth = 1.0;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hSearch);
     }];
     [tfSearch addTarget:self
                  action:@selector(searchTextfieldChanged:)
@@ -127,12 +134,12 @@
     
     icClear.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
     icClear.backgroundColor = BORDER_COLOR;
-    icClear.layer.cornerRadius = ([AppDelegate sharedInstance].hTextfield-6.0)/2;
+    icClear.layer.cornerRadius = (hSearch-6.0)/2;
     [icClear mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfSearch).offset(-3.0);
-        make.top.equalTo(self.tfSearch).offset(3.0);
-        make.bottom.equalTo(self.tfSearch).offset(-3.0);
-        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield-6.0);
+        make.right.equalTo(tfSearch).offset(-3.0);
+        make.top.equalTo(tfSearch).offset(3.0);
+        make.bottom.equalTo(tfSearch).offset(-3.0);
+        make.width.mas_equalTo(hSearch-6.0);
     }];
     
     
@@ -141,15 +148,15 @@
     tbProfiles.delegate = self;
     tbProfiles.dataSource = self;
     [tbProfiles mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
+        make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.left.bottom.right.equalTo(self.view);
     }];
     
     lbNoData.hidden = TRUE;
     lbNoData.textColor = [UIColor colorWithRed:(100/255.0) green:(100/255.0) blue:(100/255.0) alpha:1.0];
-    lbNoData.font = [UIFont fontWithName:RobotoRegular size:20.0];
+    lbNoData.font = [AppDelegate sharedInstance].fontBTN;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.tbProfiles);
+        make.top.left.bottom.right.equalTo(tbProfiles);
     }];
 }
 
@@ -307,10 +314,17 @@
     
     if (type != nil && [type isKindOfClass:[NSString class]]) {
         if ([type isEqualToString:@"0"]) {
-            return 70.0;
+            if (IS_IPHONE || IS_IPOD) {
+                return 70.0;
+            }
+            return 75.0;
         }
     }
-    return 95.0;
+    if (IS_IPHONE || IS_IPOD) {
+        return 95.0;
+    }else{
+        return 110.0;
+    }
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {

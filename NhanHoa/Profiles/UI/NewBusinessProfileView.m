@@ -17,9 +17,16 @@
 @synthesize padding, hLabel, mTop, delegate, businessCity, gender, datePicker, toolBar, popupChooseCity, linkFrontPassport, linkBehindPassport, mode;
 
 - (void)setupUIForViewForAddProfile: (BOOL)isAddNew update: (BOOL)isUpdate{
+    float hBTN = 45.0;
     padding = 15.0;
     hLabel = 30.0;
     mTop = 10.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hLabel = 40.0;
+        padding = 30.0;
+        hBTN = 55.0;
+    }
     
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     tapOnView.delegate = self;
@@ -27,15 +34,16 @@
     
     lbTitle.font = lbInfoBusiness.font = lbInfoRegister.font = [AppDelegate sharedInstance].fontBold;
     
-    lbVision.font = lbBusinessName.font = lbTaxCode.font = lbBusinessAddress.font = lbBusinessPhone.font = lbCountry.font = lbCity.font = lbRegisterName.font = lbGender.font = lbBOD.font = lbPosition.font = lbPassport.font = lbPhone.font = lbAddress.font = [AppDelegate sharedInstance].fontMedium;
+    lbVision.font = lbBusinessName.font = lbTaxCode.font = lbBusinessAddress.font = lbBusinessPhone.font = lbCountry.font = lbCity.font = lbRegisterName.font = lbGender.font = lbBOD.font = lbPosition.font = lbPassport.font = lbPhone.font = lbAddress.font = lbPassportTitle.font = [AppDelegate sharedInstance].fontMedium;
     
-    lbPersonal.font = lbBusiness.font = tfBusinessName.font = tfTaxCode.font = tfBusinessAddress.font = tfBusinessPhone.font = tfCountry.font = tfCity.font = tfRegisterName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPosition.font = tfPassport.font = tfPhone.font = tfAddress.font = [AppDelegate sharedInstance].fontRegular;
+    lbPersonal.font = lbBusiness.font = tfBusinessName.font = tfTaxCode.font = tfBusinessAddress.font = tfBusinessPhone.font = tfCountry.font = tfCity.font = tfRegisterName.font = lbMale.font = lbFemale.font = tfBOD.font = tfPosition.font = tfPassport.font = tfPhone.font = tfAddress.font = lbPassportFront.font = lbPassportBehind.font = [AppDelegate sharedInstance].fontRegular;
     
     lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbBusinessName.textColor = lbTaxCode.textColor = lbBusinessAddress.textColor = lbBusinessPhone.textColor = lbCountry.textColor = lbCity.textColor = lbRegisterName.textColor = lbPassport.textColor = lbPhone.textColor = lbAddress.textColor = TITLE_COLOR;
     
     lbInfoBusiness.textColor = lbInfoRegister.textColor = BLUE_COLOR;
     
     scvContent.delegate = self;
+    scvContent.showsVerticalScrollIndicator = FALSE;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
@@ -423,24 +431,24 @@
     [imgPassportBehind addGestureRecognizer: tapOnBehindImg];
     
     [lbPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportBehind);
-        make.top.equalTo(self.imgPassportBehind.mas_bottom);
-        make.height.mas_equalTo(self.hLabel);
+        make.left.right.equalTo(imgPassportBehind);
+        make.top.equalTo(imgPassportBehind.mas_bottom);
+        make.height.mas_equalTo(hLabel);
     }];
     
-    btnCancel.layer.cornerRadius = 45.0/2;
+    btnCancel.layer.cornerRadius = hBTN/2;
     btnCancel.backgroundColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportFront);
-        make.top.equalTo(self.viewPassport.mas_bottom).offset(2*self.padding);
-        make.height.mas_equalTo(45.0);
+        make.left.right.equalTo(imgPassportFront);
+        make.top.equalTo(viewPassport.mas_bottom).offset(padding);
+        make.height.mas_equalTo(hBTN);
     }];
     
     btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
     btnSave.backgroundColor = BLUE_COLOR;
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportBehind);
-        make.top.bottom.equalTo(self.btnCancel);
+        make.left.right.equalTo(imgPassportBehind);
+        make.top.bottom.equalTo(btnCancel);
     }];
     
     btnEdit.hidden = TRUE;
@@ -449,9 +457,9 @@
     btnEdit.layer.borderWidth = 1.0;
     btnEdit.layer.borderColor = BLUE_COLOR.CGColor;
     [btnEdit mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.btnCancel);
-        make.right.equalTo(self.btnSave);
-        make.top.bottom.equalTo(self.btnCancel);
+        make.left.equalTo(btnCancel);
+        make.right.equalTo(btnSave);
+        make.top.bottom.equalTo(btnCancel);
     }];
     
     btnCancel.titleLabel.font = btnSave.titleLabel.font = btnEdit.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
@@ -459,7 +467,7 @@
     //  Add datepicker
     [self addDatePickerForView];
     
-    float hScrollView = hTitle + hVision + hGender + (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45.0 + 2*padding;
+    float hScrollView = hTitle + hVision + hGender + (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
 
@@ -540,7 +548,12 @@
     
     float realHeight = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (popupChooseCity == nil) {
-        popupChooseCity = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, 50, 300, realHeight-100)];
+        float wPopup = 300.0;
+        if (!IS_IPHONE && !IS_IPOD) {
+            wPopup = 500;
+        }
+        
+        popupChooseCity = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, realHeight-100)];
         popupChooseCity.delegate = self;
     }
     [popupChooseCity showInView:self animated:TRUE];

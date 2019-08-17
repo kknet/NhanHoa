@@ -25,6 +25,7 @@ typedef enum TypeSelectDomain{
     NSTimer *searchTimer;
     
     float padding;
+    float hCell;
 }
 
 @end
@@ -157,51 +158,62 @@ typedef enum TypeSelectDomain{
 }
 
 - (void)setupUIForView {
+    float hTextfield = [AppDelegate sharedInstance].hTextfield;
+    btnAllDomain.titleLabel.font = btnExpireDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     padding = 15.0;
+    hCell = 65.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     float hMenu = 40.0;
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        btnAllDomain.titleLabel.font = btnExpireDomain.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
+        padding = 30.0;
+        hMenu = 55.0;
+        hTextfield = 45.0;
+        hCell = 80.0;
+    }
+    
     viewMenu.layer.cornerRadius = hMenu/2;
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.view).offset(padding);
+        make.top.equalTo(self.view).offset(15.0);
+        make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hMenu);
     }];
-    
-    btnAllDomain.titleLabel.font = btnExpireDomain.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
     [btnAllDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = BLUE_COLOR;
     btnAllDomain.layer.cornerRadius = hMenu/2;
     [btnAllDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.viewMenu);
-        make.right.equalTo(self.viewMenu.mas_centerX);
+        make.left.top.bottom.equalTo(viewMenu);
+        make.right.equalTo(viewMenu.mas_centerX);
     }];
     
     [btnExpireDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnExpireDomain.backgroundColor = UIColor.clearColor;
     btnExpireDomain.layer.cornerRadius = hMenu/2;
     [btnExpireDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewMenu.mas_centerX);
-        make.right.top.bottom.equalTo(self.viewMenu);
+        make.left.equalTo(viewMenu.mas_centerX);
+        make.right.top.bottom.equalTo(viewMenu);
     }];
     
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, [AppDelegate sharedInstance].hTextfield)];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
     tfSearch.placeholder = @"Nhập để tìm kiếm...";
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.textColor = TITLE_COLOR;
-    tfSearch.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
+    tfSearch.layer.cornerRadius = hTextfield/2;
     tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
     tfSearch.layer.borderWidth = 1.0;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(padding);
-        make.left.right.equalTo(self.viewMenu);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.top.equalTo(viewMenu.mas_bottom).offset(15.0);
+        make.left.right.equalTo(viewMenu);
+        make.height.mas_equalTo(hTextfield);
     }];
     [tfSearch addTarget:self
                  action:@selector(searchTextfieldChanged:)
@@ -215,17 +227,13 @@ typedef enum TypeSelectDomain{
     
     icSearch.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
     icSearch.backgroundColor = BORDER_COLOR;
-    icSearch.layer.cornerRadius = ([AppDelegate sharedInstance].hTextfield-6.0)/2;
+    icSearch.layer.cornerRadius = (hTextfield-6.0)/2;
     [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfSearch).offset(-3.0);
-        make.top.equalTo(self.tfSearch).offset(3.0);
-        make.bottom.equalTo(self.tfSearch).offset(-3.0);
-        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield-6.0);
+        make.right.equalTo(tfSearch).offset(-3.0);
+        make.top.equalTo(tfSearch).offset(3.0);
+        make.bottom.equalTo(tfSearch).offset(-3.0);
+        make.width.mas_equalTo(hTextfield-6.0);
     }];
-    
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshDomainsList:) forControlEvents:UIControlEventValueChanged];
-    [tbDomain addSubview:refreshControl];
     
     tbDomain.separatorStyle = UITableViewCellSelectionStyleNone;
     tbDomain.delegate = self;
@@ -233,7 +241,7 @@ typedef enum TypeSelectDomain{
     [tbDomain registerNib:[UINib nibWithNibName:@"ExpireDomainCell" bundle:nil] forCellReuseIdentifier:@"ExpireDomainCell"];
     [tbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
+        make.top.equalTo(tfSearch.mas_bottom).offset(padding);
     }];
     
     lbNoData.text = text_no_data;
@@ -241,15 +249,9 @@ typedef enum TypeSelectDomain{
     lbNoData.textAlignment = NSTextAlignmentCenter;
     lbNoData.textColor = UIColor.grayColor;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.tbDomain);
+        make.top.bottom.equalTo(tbDomain);
         make.left.right.equalTo(self.view);
     }];
-}
-
-- (void)refreshDomainsList:(UIRefreshControl *)refreshControl
-{
-    [[WebServiceUtils getInstance] getDomainsWasRegisteredWithType: type];
-    [refreshControl endRefreshing];
 }
 
 - (void)searchTextfieldChanged: (UITextField *)textfield {
@@ -429,7 +431,7 @@ typedef enum TypeSelectDomain{
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65.0;
+    return hCell;
 }
 
 #pragma mark - UITextfield delegate

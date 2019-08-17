@@ -152,7 +152,7 @@
                 <outlet property="swProtect" destination="xlI-R3-aQS" id="r4W-Rh-ZN4"/>
                 <outlet property="tfYears" destination="Uw8-WR-kL4" id="byu-G6-40E"/>
             </connections>
-            <point key="canvasLocation" x="-157" y="48"/>
+            <point key="canvasLocation" x="-536" y="-27"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -21,7 +21,7 @@
 @end
 
 @implementation UpdatePassportViewController
-@synthesize btnBanKhai, imgWaitBanKhai, lbBanKhai, btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b, btnSave, btnCancel;
+@synthesize btnBanKhai, imgWaitBanKhai, lbBanKhai, btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b;
 @synthesize linkCMND_a, linkCMND_b, cusId, curCMND_a, curCMND_b, linkBanKhai, curBanKhai, domain, domainId, domainType;
 
 - (void)viewDidLoad {
@@ -55,12 +55,17 @@
 }
 
 - (void)addRightBarButtonForNavigationBar {
-    UIView *viewSave = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    float hView = 45.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hView = 50.0;
+    }
+    
+    UIView *viewSave = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hView, hView)];
     viewSave.backgroundColor = UIColor.clearColor;
     
     UIButton *btnSave =  [UIButton buttonWithType:UIButtonTypeCustom];
     btnSave.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    btnSave.frame = CGRectMake(15, 0, 40, 40);
+    btnSave.frame = CGRectMake(15, 0, hView, hView);
     btnSave.backgroundColor = UIColor.clearColor;
     [btnSave setImage:[UIImage imageNamed:@"tick_white"] forState:UIControlStateNormal];
     [btnSave addTarget:self action:@selector(saveInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -338,10 +343,17 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     float padding = 15.0;
-    float hFooterBTN = 45.0;
     float hLabel = 25.0;
-    float hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hNav + 3*2*padding + 2*hLabel + hFooterBTN + 10.0))/2;
-    hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hNav + [AppDelegate sharedInstance].hStatusBar + 4*padding + 3*hLabel))/3;
+    btnBanKhai.imageEdgeInsets = btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
+
+    btnBanKhai.imageView.contentMode = btnCMND_a.imageView.contentMode = btnCMND_b.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        btnBanKhai.imageEdgeInsets = btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(45, 120, 45, 120);
+        hLabel = 50.0;
+    }
+    
+    float hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 3*padding + 3*hLabel))/3;
     
     imgWaitBanKhai.backgroundColor = imgWaitCMND_a.backgroundColor = imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
     imgWaitBanKhai.alpha = imgWaitCMND_a.alpha = imgWaitCMND_b.alpha = 0.5;
@@ -351,8 +363,6 @@
     btnBanKhai.layer.borderWidth = btnCMND_a.layer.borderWidth = btnCMND_b.layer.borderWidth = 1.0;
     btnBanKhai.layer.borderColor = btnCMND_a.layer.borderColor = btnCMND_b.layer.borderColor = BORDER_COLOR.CGColor;
     
-    btnBanKhai.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
-    [btnBanKhai.imageView setContentMode: UIViewContentModeScaleAspectFit];
     [btnBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
         make.left.equalTo(self.view).offset(2*padding);
@@ -361,75 +371,50 @@
     }];
     
     [imgWaitBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.btnBanKhai);
+        make.top.left.bottom.right.equalTo(btnBanKhai);
     }];
     
     [lbBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnBanKhai.mas_bottom);
-        make.left.right.equalTo(self.btnBanKhai);
+        make.top.equalTo(btnBanKhai.mas_bottom);
+        make.left.right.equalTo(btnBanKhai);
         make.height.mas_equalTo(hLabel);
     }];
     
     //  CMND_a
-    btnCMND_a.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
-    [btnCMND_a.imageView setContentMode: UIViewContentModeScaleAspectFit];
     [btnCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbBanKhai.mas_bottom).offset(padding);
-        make.left.right.equalTo(self.btnBanKhai);
+        make.top.equalTo(lbBanKhai.mas_bottom).offset(padding);
+        make.left.right.equalTo(btnBanKhai);
         make.height.mas_equalTo(hBTN);
     }];
 
     [imgWaitCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.btnCMND_a);
+        make.top.left.bottom.right.equalTo(btnCMND_a);
     }];
     
     [lbCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnCMND_a.mas_bottom);
-        make.left.right.equalTo(self.btnCMND_a);
+        make.top.equalTo(btnCMND_a.mas_bottom);
+        make.left.right.equalTo(btnCMND_a);
         make.height.mas_equalTo(hLabel);
     }];
 
     //  CMND_b
-    btnCMND_b.imageEdgeInsets = btnCMND_a.imageEdgeInsets;
-
-    [btnCMND_b.imageView setContentMode: UIViewContentModeScaleAspectFit];
     [btnCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbCMND_a.mas_bottom).offset(padding);
-        make.left.right.equalTo(self.lbCMND_a);
+        make.top.equalTo(lbCMND_a.mas_bottom).offset(padding);
+        make.left.right.equalTo(lbCMND_a);
         make.height.mas_equalTo(hBTN);
     }];
 
     [imgWaitCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.btnCMND_b);
+        make.top.left.bottom.right.equalTo(btnCMND_b);
     }];
 
     [lbCMND_b mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnCMND_b.mas_bottom);
-        make.left.right.equalTo(self.btnCMND_b);
+        make.top.equalTo(btnCMND_b.mas_bottom);
+        make.left.right.equalTo(btnCMND_b);
         make.height.mas_equalTo(hLabel);
     }];
 
-    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnCancel.backgroundColor = OLD_PRICE_COLOR;
-    btnCancel.layer.cornerRadius = hFooterBTN/2;
-    [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(padding);
-        make.bottom.equalTo(self.view).offset(-padding);
-        make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(hFooterBTN);
-    }];
-
-    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnSave.backgroundColor = BLUE_COLOR;
-    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
-    [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.btnCancel);
-        make.left.equalTo(self.btnCancel.mas_right).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
-    }];
-
-    btnCancel.hidden = btnSave.hidden = TRUE;
-    btnCancel.titleLabel.font = btnSave.titleLabel.font = lbCMND_a.font = lbCMND_b.font = [AppDelegate sharedInstance].fontBTN;
+    lbBanKhai.font = lbCMND_a.font = lbCMND_b.font = [AppDelegate sharedInstance].fontRegular;
     lbBanKhai.textColor = lbCMND_a.textColor = lbCMND_b.textColor = TITLE_COLOR;
 }
 

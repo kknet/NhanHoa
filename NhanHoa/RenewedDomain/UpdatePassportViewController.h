@@ -26,9 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnCMND_b;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *imgWaitCMND_b;
 
-@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
-@property (weak, nonatomic) IBOutlet UIButton *btnSave;
-
 @property (nonatomic, strong) NSString *linkCMND_a;
 @property (nonatomic, strong) NSString *linkCMND_b;
 @property (nonatomic, strong) NSString *cusId;
@@ -44,9 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnCMND_a_Press:(UIButton *)sender;
 - (IBAction)btnCMND_b_Press:(UIButton *)sender;
 - (IBAction)btnBanKhaiPress:(UIButton *)sender;
-
-- (IBAction)btnCancelPress:(UIButton *)sender;
-- (IBAction)btnSavePress:(UIButton *)sender;
 
 @end
 

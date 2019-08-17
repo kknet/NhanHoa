@@ -110,8 +110,16 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hBTN = 45.0;
+    float mTop = 15.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hBTN = 55.0;
     }
     
     float smallSize = (SCREEN_WIDTH - 3*padding)/4;
@@ -125,73 +133,72 @@
     
     [AppUtils setBorderForTextfield:tfDNS1 borderColor:BORDER_COLOR];
     [tfDNS1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbDNS1);
-        make.left.equalTo(self.lbDNS1.mas_right).offset(padding);
+        make.top.bottom.equalTo(lbDNS1);
+        make.left.equalTo(lbDNS1.mas_right).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
     }];
     
     //  DNS2
     [lbDNS2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDNS1);
-        make.top.equalTo(self.lbDNS1.mas_bottom).offset(padding);
+        make.left.right.equalTo(lbDNS1);
+        make.top.equalTo(lbDNS1.mas_bottom).offset(mTop);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS2 borderColor:BORDER_COLOR];
     [tfDNS2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbDNS2);
-        make.left.right.equalTo(self.tfDNS1);
+        make.top.bottom.equalTo(lbDNS2);
+        make.left.right.equalTo(tfDNS1);
     }];
     
     //  DNS3
     [lbDNS3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDNS2);
-        make.top.equalTo(self.lbDNS2.mas_bottom).offset(padding);
+        make.left.right.equalTo(lbDNS2);
+        make.top.equalTo(lbDNS2.mas_bottom).offset(mTop);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS3 borderColor:BORDER_COLOR];
     [tfDNS3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbDNS3);
-        make.left.right.equalTo(self.tfDNS2);
+        make.top.bottom.equalTo(lbDNS3);
+        make.left.right.equalTo(tfDNS2);
     }];
     
     //  DNS4
     [lbDNS4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbDNS3);
-        make.top.equalTo(self.lbDNS3.mas_bottom).offset(padding);
+        make.left.right.equalTo(lbDNS3);
+        make.top.equalTo(lbDNS3.mas_bottom).offset(mTop);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS4 borderColor:BORDER_COLOR];
     [tfDNS4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbDNS4);
-        make.left.right.equalTo(self.tfDNS3);
+        make.top.bottom.equalTo(lbDNS4);
+        make.left.right.equalTo(tfDNS3);
     }];
     
     btnCancel.backgroundColor = OLD_PRICE_COLOR;
     btnCancel.layer.borderColor = OLD_PRICE_COLOR.CGColor;
-    btnCancel.layer.borderWidth = 1.0;
     [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.bottom.equalTo(self.view).offset(-padding);
         make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     btnSave.backgroundColor = BLUE_COLOR;
     btnSave.layer.borderColor = BLUE_COLOR.CGColor;
-    btnSave.layer.borderWidth = 1.0;
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.btnCancel.mas_right).offset(padding);
-        make.top.bottom.equalTo(self.btnCancel);
+        make.left.equalTo(btnCancel.mas_right).offset(padding);
+        make.top.bottom.equalTo(btnCancel);
         make.right.equalTo(self.view).offset(-padding);
     }];
     
-    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius = 45.0/2;
+    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius = hBTN/2;
     btnSave.titleLabel.font = btnCancel.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnCancel.layer.borderWidth = btnSave.layer.borderWidth = 1.0;
     
     lbDNS1.font = lbDNS2.font = lbDNS3.font = lbDNS4.font = [AppDelegate sharedInstance].fontMedium;
     tfDNS1.font = tfDNS2.font = tfDNS3.font = tfDNS4.font = [AppDelegate sharedInstance].fontRegular;

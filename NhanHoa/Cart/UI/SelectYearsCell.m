@@ -14,7 +14,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    lbContent.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    if (IS_IPHONE || IS_IPOD) {
+        lbContent.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    }else{
+        lbContent.font = [AppDelegate sharedInstance].fontNormal;
+    }
+    
     lbContent.textColor = TITLE_COLOR;
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(5.0);

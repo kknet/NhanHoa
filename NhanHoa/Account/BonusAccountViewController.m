@@ -11,12 +11,12 @@
 #import "AccountModel.h"
 #import "WithdrawalBonusAccountViewController.h"
 
-@interface BonusAccountViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface BonusAccountViewController ()
 
 @end
 
 @implementation BonusAccountViewController
-@synthesize viewInfo, imgBackground, imgWallet, btnWallet, lbTitle, lbMoney, tbHistory, btnWithdrawal;
+@synthesize viewInfo, imgBackground, btnWallet, lbTitle, lbMoney, btnWithdrawal;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,66 +52,75 @@
     }else{
         lbMoney.text = @"0VNĐ";
     }
-    here
 }
 
 - (void)setupUIForView {
-    float hInfo = 140.0;
     float padding = 15.0;
+    float hIconWallet = 50.0;
+    float hTitle = 25.0;
+    float hMoney = 30.0;
+    float hBTN = 45.0;
+    
+    btnWallet.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
+    lbMoney.font = [UIFont fontWithName:RobotoMedium size:22.0];
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        btnWallet.imageEdgeInsets = UIEdgeInsetsMake(18, 18, 18, 18);
+        lbMoney.font = [UIFont fontWithName:RobotoMedium size:28.0];
+        
+        hIconWallet = 70.0;
+        hTitle = 30.0;
+        hMoney = 40.0;
+        hBTN = 55.0;
+        padding = 30.0;
+    }
+    
     //  view info
+    float hInfo = padding + hIconWallet + 5.0 + hTitle + hMoney + 10.0;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hInfo);
     }];
     
-    imgWallet.hidden = TRUE;
-    imgWallet.layer.cornerRadius = 50.0/2;
-    imgWallet.clipsToBounds = TRUE;
-    [imgWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo).offset(padding);
-        make.centerX.equalTo(self.viewInfo.mas_centerX);
-        make.width.height.mas_equalTo(50.0);
-    }];
     
-    btnWallet.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
-    btnWallet.layer.cornerRadius = 50.0/2;
+    btnWallet.layer.cornerRadius = hIconWallet/2;
     btnWallet.layer.borderWidth = 1.0;
     btnWallet.layer.borderColor = UIColor.whiteColor.CGColor;
     btnWallet.backgroundColor = GREEN_COLOR;
     [btnWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo).offset(padding);
-        make.centerX.equalTo(self.viewInfo.mas_centerX);
-        make.width.height.mas_equalTo(50.0);
+        make.top.equalTo(viewInfo).offset(padding);
+        make.centerX.equalTo(viewInfo.mas_centerX);
+        make.width.height.mas_equalTo(hIconWallet);
     }];
     
     imgBackground.layer.cornerRadius = 7.0;
     imgBackground.backgroundColor = GREEN_COLOR;
     [imgBackground mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnWallet.mas_centerY);
-        make.left.equalTo(self.viewInfo).offset(padding);
-        make.bottom.right.equalTo(self.viewInfo).offset(-padding);
+        make.top.equalTo(btnWallet.mas_centerY);
+        make.left.equalTo(viewInfo).offset(padding);
+        make.right.equalTo(viewInfo).offset(-padding);
+        make.bottom.equalTo(viewInfo);
     }];
     
     lbTitle.font = [AppDelegate sharedInstance].fontRegular;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.imgBackground.mas_centerY);
-        make.left.equalTo(self.viewInfo).offset(padding);
-        make.right.equalTo(self.viewInfo).offset(-padding);
-        make.height.mas_equalTo(25.0);
+        make.top.equalTo(btnWallet.mas_bottom).offset(5.0);
+        make.left.equalTo(viewInfo).offset(padding);
+        make.right.equalTo(viewInfo).offset(-padding);
+        make.height.mas_equalTo(hTitle);
     }];
     
-    lbMoney.font = [UIFont fontWithName:RobotoMedium size:22.0];
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitle.mas_bottom);
-        make.left.equalTo(self.viewInfo).offset(padding);
-        make.right.equalTo(self.viewInfo).offset(-padding);
+        make.top.equalTo(lbTitle.mas_bottom);
+        make.left.right.equalTo(lbTitle);
+        make.height.mas_equalTo(hMoney);
     }];
     
-    btnWithdrawal.layer.cornerRadius = 45.0/2;
+    btnWithdrawal.layer.cornerRadius = hBTN/2;
     btnWithdrawal.backgroundColor = BLUE_COLOR;
     btnWithdrawal.layer.borderColor = BLUE_COLOR.CGColor;
     btnWithdrawal.layer.borderWidth = 1.0;
@@ -120,57 +129,8 @@
         make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
-    
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
-    UILabel *lbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, headerView.frame.size.width-padding, headerView.frame.size.height)];
-    lbHeader.font = [UIFont fontWithName:RobotoMedium size:18.0];
-    lbHeader.text = @"Lịch sử thưởng gần đây";
-    lbHeader.textColor = TITLE_COLOR;
-    lbHeader.textAlignment = NSTextAlignmentLeft;
-    [headerView addSubview: lbHeader];
-    tbHistory.tableHeaderView = headerView;
-    
-    UIImageView *imgSepa = [[UIImageView alloc] initWithFrame:CGRectMake(lbHeader.frame.origin.x, headerView.frame.size.height-1, lbHeader.frame.size.width, 1.0)];
-    imgSepa.image = [UIImage imageNamed:@"dashline"];
-    [headerView addSubview: imgSepa];
-    
-    tbHistory.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tbHistory.delegate = self;
-    tbHistory.dataSource = self;
-    [tbHistory registerNib:[UINib nibWithNibName:@"BonusHistoryCell" bundle:nil] forCellReuseIdentifier:@"BonusHistoryCell"];
-    [tbHistory mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo.mas_bottom);
-        make.bottom.equalTo(self.btnWithdrawal.mas_top).offset(-10.0);
-        make.left.right.equalTo(self.view);
-    }];
-    tbHistory.hidden = TRUE;
-}
-
-#pragma mark - UITableview
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BonusHistoryCell *cell = (BonusHistoryCell *)[tableView dequeueReusableCellWithIdentifier:@"BonusHistoryCell" forIndexPath:indexPath];
-    
-    cell.lbActionName.text = @"Nạp tiền vào tài khoản";
-    cell.lbDateTime.text = @"10:15 | 28/03/2019";
-    cell.lbValue.text = @"+50.000Đ";
-    
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
 }
 
 @end

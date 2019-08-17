@@ -170,7 +170,7 @@
     }
     
     if (!IS_IPHONE && !IS_IPOD) {
-        btnWallet.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+        btnWallet.imageEdgeInsets = UIEdgeInsetsMake(18, 18, 18, 18);
         lbMoney.font = [UIFont fontWithName:RobotoMedium size:28.0];
         padding = 30.0;
         hIconWallet = 70.0;
