@@ -14,6 +14,7 @@
     NSMutableArray *datas;
     NSString *extenCall;
     NSString *remoteName;
+    float hCell;
 }
 
 @end
@@ -61,6 +62,11 @@
 }
 
 - (void)setupUIForView {
+    hCell = 60.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hCell = 80.0;
+    }
+    
     [tbContent registerNib:[UINib nibWithNibName:@"SupportCustomerCell" bundle:nil] forCellReuseIdentifier:@"SupportCustomerCell"];
     tbContent.delegate = self;
     tbContent.dataSource = self;
@@ -231,7 +237,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0;
+    return hCell;
 }
 
 - (void)onCallCustomerSupport: (UIButton *)sender {

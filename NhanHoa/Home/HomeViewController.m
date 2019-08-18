@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setupUIForView];
     [self createDataForMenuView];
 }
 
@@ -50,8 +51,6 @@
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
     
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
-    
-    [self setupUIForView];
     
     [self showUserWalletView];
     [self createCartViewIfNeed];

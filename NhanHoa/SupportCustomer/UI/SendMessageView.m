@@ -18,6 +18,14 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hBTN = 45.0;
+    float hLabel = 30.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hBTN = 55.0;
+        hLabel = 40.0;
+    }
     
     self.clipsToBounds = TRUE;
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
@@ -32,39 +40,39 @@
     
     icClose.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
     [icClose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
-        make.left.bottom.equalTo(self.viewHeader);
+        make.top.equalTo(viewHeader).offset([AppDelegate sharedInstance].hStatusBar);
+        make.left.bottom.equalTo(viewHeader);
         make.width.mas_equalTo([AppDelegate sharedInstance].hNav);
     }];
     
     lbHeader.font = [AppDelegate sharedInstance].fontBTN;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.icClose);
-        make.centerX.equalTo(self.viewHeader.mas_centerX);
-        make.width.mas_equalTo(200);
+        make.top.bottom.equalTo(icClose);
+        make.centerX.equalTo(viewHeader.mas_centerX);
+        make.width.mas_equalTo(250);
     }];
     
     //  email
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader.mas_bottom).offset(2*padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(2*padding);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(30.0);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [AppUtils setBorderForTextfield:tfEmail borderColor:BORDER_COLOR];
     tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbEmail.mas_bottom);
-        make.left.right.equalTo(self.lbEmail);
+        make.top.equalTo(lbEmail.mas_bottom);
+        make.left.right.equalTo(lbEmail);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     //  content
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfEmail.mas_bottom ).offset(padding);
-        make.left.right.equalTo(self.tfEmail);
-        make.height.equalTo(self.lbEmail.mas_height);
+        make.top.equalTo(tfEmail.mas_bottom ).offset(padding);
+        make.left.right.equalTo(tfEmail);
+        make.height.equalTo(lbEmail.mas_height);
     }];
     
     tvContent.text = @"";
@@ -72,15 +80,15 @@
     tvContent.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     tvContent.layer.borderColor = BORDER_COLOR.CGColor;
     [tvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbContent.mas_bottom);
-        make.left.right.equalTo(self.lbContent);
+        make.top.equalTo(lbContent.mas_bottom);
+        make.left.right.equalTo(lbContent);
         make.height.mas_equalTo(3*[AppDelegate sharedInstance].hTextfield);
     }];
     
     //  footer button
     
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnReset.layer.cornerRadius = 45.0/2;
+    btnReset.layer.cornerRadius = hBTN/2;
     btnReset.backgroundColor = OLD_PRICE_COLOR;
     btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
     btnReset.layer.borderWidth = 1.0;
@@ -88,7 +96,7 @@
         make.left.equalTo(self).offset(padding);
         make.bottom.equalTo(self).offset(-padding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [btnSend setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -97,13 +105,13 @@
     btnSend.layer.borderColor = BLUE_COLOR.CGColor;
     btnSend.layer.borderWidth = 1.0;
     [btnSend mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.btnReset.mas_right).offset(padding);
-        make.top.bottom.equalTo(self.btnReset);
+        make.left.equalTo(btnReset.mas_right).offset(padding);
+        make.top.bottom.equalTo(btnReset);
         make.right.equalTo(self).offset(-padding);
     }];
     
     btnReset.titleLabel.font = btnSend.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    tfEmail.font = tvContent.font = [AppDelegate sharedInstance].fontRegular;
+    lbEmail.font = tfEmail.font = lbContent.font = tvContent.font = [AppDelegate sharedInstance].fontRegular;
 }
 
 - (IBAction)btnResetPress:(UIButton *)sender {

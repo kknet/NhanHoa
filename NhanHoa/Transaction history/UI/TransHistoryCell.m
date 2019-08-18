@@ -15,36 +15,57 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 10.0;
+    float sizeIcon = 35.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        sizeIcon = 40.0;
+    }
     
     imgType.clipsToBounds = TRUE;
-    imgType.layer.cornerRadius = 34.0/2;
+    imgType.layer.cornerRadius = sizeIcon/2;
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(35.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgType.mas_right).offset(padding);
+        make.left.equalTo(imgType.mas_right).offset(padding);
         make.bottom.equalTo(self.mas_centerY).offset(-4.0);
         make.right.equalTo(self).offset(-padding);
     }];
     
-    [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.lbTitle.mas_right);
-        make.top.equalTo(self.mas_centerY).offset(4.0);
-        make.width.mas_equalTo(130.0);
-    }];
-    
-    [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbTitle);
-        make.top.equalTo(self.lbMoney);
-        make.right.equalTo(self.lbMoney.mas_left).offset(-padding);
-    }];
+    if (IS_IPHONE || IS_IPOD) {
+        [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(lbTitle.mas_right);
+            make.top.equalTo(self.mas_centerY).offset(4.0);
+            make.width.mas_equalTo(130.0);
+        }];
+        
+        [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbTitle);
+            make.top.equalTo(lbMoney);
+            make.right.equalTo(lbMoney.mas_left).offset(-padding);
+        }];
+        
+    }else{
+        [lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_centerY).offset(4.0);
+            make.left.equalTo(lbTitle);
+            make.right.equalTo(self.mas_centerX);
+        }];
+        
+        [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lbTime);
+            make.left.equalTo(lbTime.mas_right);
+            make.right.equalTo(lbTitle);
+        }];
+    }
     
     lbSepa.backgroundColor = BORDER_COLOR;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbTitle);
+        make.left.equalTo(lbTitle);
         make.right.bottom.equalTo(self);
         make.height.mas_equalTo(1.0);
     }];

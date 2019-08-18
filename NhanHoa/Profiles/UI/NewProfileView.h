@@ -102,6 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float mTop;
 @property (nonatomic, assign) float hLabel;
+@property (nonatomic, assign) float hVision;
+@property (nonatomic, assign) float hBTN;
 
 @property (nonatomic, strong) NSString *linkFrontPassport;
 @property (nonatomic, strong) NSString *linkBehindPassport;

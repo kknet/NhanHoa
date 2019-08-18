@@ -15,11 +15,12 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, viewPassport;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, linkFrontPassport, linkBehindPassport, mode, cusId, btnEdit;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, linkFrontPassport, linkBehindPassport, mode, cusId, btnEdit, hVision, hBTN;
 
 - (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate {
     //  setup for add profile
-    float hBTN = 45.0;
+    hVision = 40.0;
+    hBTN = 45.0;
     padding = 15.0;
     mTop = 10.0;
     hLabel = 30.0;
@@ -35,6 +36,7 @@
         padding = 30.0;
         hLabel = 40.0;
         hBTN = 55.0;
+        hVision = 60.0;
     }
     
     UITapGestureRecognizer *tapOnView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
@@ -47,7 +49,7 @@
         make.top.left.bottom.right.equalTo(self);
     }];
     
-    float hVision = 40.0;
+    
     float genderTop = mTop;
     float hGender = hLabel;
     
@@ -297,21 +299,21 @@
     float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
     
     [viewPassport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvPersonal);
-        make.top.equalTo(self.tfCountry.mas_bottom);
+        make.left.equalTo(scvPersonal);
+        make.top.equalTo(tfCountry.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hViewPassport);
     }];
     
     [lbTitlePassport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewPassport).offset(self.padding + 20.0 + 10);
-        make.top.right.equalTo(self.viewPassport).offset(self.mTop);
+        make.left.equalTo(viewPassport).offset(padding + 20.0 + 10);
+        make.top.right.equalTo(viewPassport).offset(mTop);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     
     [imgPassport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewPassport).offset(self.padding);
-        make.centerY.equalTo(self.lbTitlePassport.mas_centerY);
+        make.left.equalTo(viewPassport).offset(padding);
+        make.centerY.equalTo(lbTitlePassport.mas_centerY);
         make.width.height.mas_equalTo(20.0);
     }];
     
@@ -319,8 +321,8 @@
     imgPassportFront.layer.cornerRadius = 5.0;
     imgPassportFront.clipsToBounds = TRUE;
     [imgPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitlePassport.mas_bottom);
-        make.left.equalTo(self.viewPassport).offset(self.padding);
+        make.top.equalTo(lbTitlePassport.mas_bottom);
+        make.left.equalTo(viewPassport).offset(padding);
         make.width.mas_equalTo(wPassport);
         make.height.mas_equalTo(hPassport);
     }];
@@ -329,26 +331,26 @@
     [imgPassportFront addGestureRecognizer: tapOnFrontImg];
     
     [lbPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportFront);
-        make.top.equalTo(self.imgPassportFront.mas_bottom);
-        make.height.equalTo(self.lbName.mas_height);
+        make.left.right.equalTo(imgPassportFront);
+        make.top.equalTo(imgPassportFront.mas_bottom);
+        make.height.equalTo(lbName.mas_height);
     }];
     
     imgPassportBehind.layer.cornerRadius = imgPassportBehind.layer.cornerRadius;
     imgPassportBehind.clipsToBounds = TRUE;
     [imgPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.imgPassportFront);
-        make.left.equalTo(self.imgPassportFront.mas_right).offset(self.padding);
-        make.width.equalTo(self.imgPassportFront.mas_width);
+        make.top.bottom.equalTo(imgPassportFront);
+        make.left.equalTo(imgPassportFront.mas_right).offset(padding);
+        make.width.equalTo(imgPassportFront.mas_width);
     }];
     imgPassportBehind.userInteractionEnabled = TRUE;
     UITapGestureRecognizer *tapOnBehindImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBehindImage)];
     [imgPassportBehind addGestureRecognizer: tapOnBehindImg];
     
     [lbPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportBehind);
-        make.top.equalTo(self.imgPassportBehind.mas_bottom);
-        make.height.equalTo(self.lbName.mas_height);
+        make.left.right.equalTo(imgPassportBehind);
+        make.top.equalTo(imgPassportBehind.mas_bottom);
+        make.height.equalTo(lbName.mas_height);
     }];
     
     imgPassportFront.backgroundColor = imgPassportBehind.backgroundColor = GRAY_240;
@@ -356,16 +358,16 @@
     btnCancel.layer.cornerRadius = hBTN/2;
     btnCancel.backgroundColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportFront);
-        make.top.equalTo(self.viewPassport.mas_bottom).offset(self.padding);
+        make.left.right.equalTo(imgPassportFront);
+        make.top.equalTo(viewPassport.mas_bottom).offset(padding);
         make.height.mas_equalTo(hBTN);
     }];
     
     btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
     btnSave.backgroundColor = BLUE_COLOR;
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.imgPassportBehind);
-        make.top.bottom.equalTo(self.btnCancel);
+        make.left.right.equalTo(imgPassportBehind);
+        make.top.bottom.equalTo(btnCancel);
     }];
     
     btnEdit.hidden = TRUE;
@@ -411,7 +413,7 @@
     [self addSubview: toolBar];
     [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
     
@@ -425,8 +427,8 @@
        forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview: btnClose];
     [btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.toolBar).offset(15.0);
-        make.bottom.top.equalTo(self.toolBar);
+        make.left.equalTo(toolBar).offset(15.0);
+        make.bottom.top.equalTo(toolBar);
         make.width.mas_equalTo(100);
     }];
     
@@ -440,8 +442,8 @@
         forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview: btnChoose];
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.toolBar).offset(-15.0);
-        make.bottom.top.equalTo(self.toolBar);
+        make.right.equalTo(toolBar).offset(-15.0);
+        make.bottom.top.equalTo(toolBar);
         make.width.mas_equalTo(100);
     }];
 }
@@ -451,7 +453,7 @@
     float hPassport = wPassport * 2/3;
     float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
     
-    float hScrollView = 40 + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + 2*padding + 45 + 2*padding;
+    float hScrollView = hVision + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
     
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
 }
@@ -464,7 +466,7 @@
     
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
     
@@ -562,7 +564,7 @@
     }];
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(hToolbar);
     }];
     
@@ -581,7 +583,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.datePicker.maximumDate = [NSDate date];
+        datePicker.maximumDate = [NSDate date];
     }];
 }
 
@@ -696,7 +698,7 @@
     if ([AppDelegate sharedInstance].editCMND_a != nil) {
         [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_a);
-        NSString *imageName = [NSString stringWithFormat:@"%@_front_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
+        NSString *imageName = SFM(@"%@_front_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]);
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -714,7 +716,7 @@
                     }else{
                         [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload front passport with link: %@", __FUNCTION__, uploadSession.namePicture)];
                         
-                        self.linkFrontPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                        self.linkFrontPassport = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
                     }
                     
                     [self startUploadPassportBehindPictures];
@@ -731,7 +733,7 @@
         [AppDelegate sharedInstance].editCMND_b = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_b];
         NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_b);
         
-        NSString *imageName = [NSString stringWithFormat:@"%@_behind_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]];
+        NSString *imageName = SFM(@"%@_behind_%@.PNG", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]);
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             UploadPicture *session = [[UploadPicture alloc] init];
@@ -748,7 +750,7 @@
                     }else{
                         [WriteLogsUtils writeLogContent:SFM(@"[%s] Finish upload behind passport with link: %@", __FUNCTION__, uploadSession.namePicture)];
                         
-                        self.linkBehindPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                        self.linkBehindPassport = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
                     }
                     [self handlePersonalProfileProfile];
                 });
@@ -982,7 +984,7 @@
 
 - (void)saveAllValueBeforeChangeView {
     [[AppDelegate sharedInstance].profileEdit setObject:tfName.text forKey:@"cus_realname"];
-    [[AppDelegate sharedInstance].profileEdit setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cus_gender"];
+    [[AppDelegate sharedInstance].profileEdit setObject:SFM(@"%d", gender) forKey:@"cus_gender"];
     [[AppDelegate sharedInstance].profileEdit setObject:tfBOD.text forKey:@"cus_birthday"];
     [[AppDelegate sharedInstance].profileEdit setObject:tfPassport.text forKey:@"cus_idcard_number"];
     [[AppDelegate sharedInstance].profileEdit setObject:tfPhone.text forKey:@"cus_phone"];

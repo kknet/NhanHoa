@@ -81,10 +81,18 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
+    float hBTN = 45.0;
+    float sizeIcon = 22.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hBTN = 55.0;
+        sizeIcon = 24.0;
+    }
     
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(2*padding + 60.0 + 45.0 + 2*padding);
+        make.height.mas_equalTo(2*padding + 60.0 + hBTN + 2*padding);
     }];
     
     lbTitle.textColor = TITLE_COLOR;
@@ -97,33 +105,33 @@
     }];
     
     
-    NSAttributedString *msgTitle = [AppUtils generateTextWithContent:@"Gửi tin nhắn" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_message"] size:22.0 imageFirst:TRUE];
+    NSAttributedString *msgTitle = [AppUtils generateTextWithContent:@"Gửi tin nhắn" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_message"] size:sizeIcon imageFirst:TRUE];
     btnSendMsg.layer.cornerRadius = 5.0;
     [btnSendMsg setAttributedTitle:msgTitle forState:UIControlStateNormal];
     
     btnSendMsg.backgroundColor = [UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:0.2];
     [btnSendMsg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitle.mas_bottom);
+        make.top.equalTo(lbTitle.mas_bottom);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
-    NSAttributedString *callTitle = [AppUtils generateTextWithContent:@"Gọi tổng đài" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_call"] size:22.0 imageFirst:TRUE];
+    NSAttributedString *callTitle = [AppUtils generateTextWithContent:@"Gọi tổng đài" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_call"] size:sizeIcon imageFirst:TRUE];
     btnCall.layer.cornerRadius = 5.0;
     [btnCall setAttributedTitle:callTitle forState:UIControlStateNormal];
     btnCall.backgroundColor = btnSendMsg.backgroundColor;
     [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.btnSendMsg.mas_right).offset(padding);
+        make.left.equalTo(btnSendMsg.mas_right).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.top.bottom.equalTo(self.btnSendMsg);
+        make.top.bottom.equalTo(btnSendMsg);
     }];
 }
 
 #pragma mark - SendMessageView Delegate
 -(void)closeSendMessageView {
     [UIView animateWithDuration:0.25 animations:^{
-        self.sendMsgView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+        sendMsgView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
     }];
 }
 

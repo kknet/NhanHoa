@@ -72,12 +72,17 @@
 }
 
 - (void)addRightBarButtonForNavigationBar {
-    UIView *viewAdd = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    float hView = 45.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hView = 50.0;
+    }
+    
+    UIView *viewAdd = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hView, hView)];
     viewAdd.backgroundColor = UIColor.clearColor;
     
     UIButton *btnAdd =  [UIButton buttonWithType:UIButtonTypeCustom];
     btnAdd.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    btnAdd.frame = CGRectMake(15, 0, 40, 40);
+    btnAdd.frame = CGRectMake(15, 0, hView, hView);
     btnAdd.backgroundColor = UIColor.clearColor;
     [btnAdd setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
     [btnAdd addTarget:self action:@selector(addNewProfile) forControlEvents:UIControlEventTouchUpInside];

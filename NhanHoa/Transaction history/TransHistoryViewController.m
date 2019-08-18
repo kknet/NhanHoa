@@ -11,6 +11,8 @@
 
 @interface TransHistoryViewController ()<WebServiceUtilsDelegate, UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *listKey;
+    float hCell;
+    float hSection;
 }
 @end
 
@@ -56,6 +58,12 @@
 
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    hCell = 65.0;
+    hSection = 30.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hCell = 80.0;
+        hSection = 40.0;
+    }
     
     lbBottomSepa.backgroundColor = LIGHT_GRAY_COLOR;
     [lbBottomSepa mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +75,7 @@
     lbNoData.font = [AppDelegate sharedInstance].fontBTN;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
-        make.bottom.equalTo(self.lbBottomSepa.mas_top);
+        make.bottom.equalTo(lbBottomSepa.mas_top);
     }];
     
     [tbContent registerNib:[UINib nibWithNibName:@"TransHistoryCell" bundle:nil] forCellReuseIdentifier:@"TransHistoryCell"];
@@ -75,7 +83,7 @@
     tbContent.delegate = self;
     tbContent.dataSource = self;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.bottom.equalTo(self.lbNoData);
+        make.top.left.right.bottom.equalTo(lbNoData);
     }];
 }
 
@@ -84,9 +92,9 @@
         [self prepareDataWithInfo: data];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.lbNoData.hidden = TRUE;
-            self.tbContent.hidden = FALSE;
-            [self.tbContent reloadData];
+            lbNoData.hidden = TRUE;
+            tbContent.hidden = FALSE;
+            [tbContent reloadData];
         });
     });
 }
@@ -163,11 +171,11 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65.0;
+    return hCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30.0;
+    return hSection;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

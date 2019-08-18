@@ -16,21 +16,27 @@
     // Initialization code
     
     float padding = 15.0;
+    float sizeIcon = 40.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        sizeIcon = 45.0;
+    }
     
     btnCall.backgroundColor = LIGHT_GRAY_COLOR;
     btnCall.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
-    btnCall.layer.cornerRadius = 40.0/2;
+    btnCall.layer.cornerRadius = sizeIcon/2;
     [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.right.equalTo(self).offset(-padding);
-        make.width.height.mas_equalTo(40.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     lbName.font = [AppDelegate sharedInstance].fontMedium;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.top.bottom.equalTo(self.btnCall);
-        make.right.equalTo(self.btnCall).offset(-5.0);
+        make.top.bottom.equalTo(btnCall);
+        make.right.equalTo(btnCall).offset(-5.0);
     }];
     
     
@@ -44,7 +50,7 @@
     lbExtension.hidden = TRUE;
     lbExtension.font = [AppDelegate sharedInstance].fontRegular;
     [lbExtension mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbName);
+        make.left.right.equalTo(lbName);
         make.top.equalTo(self.mas_centerY).offset(2.0);
     }];
     
