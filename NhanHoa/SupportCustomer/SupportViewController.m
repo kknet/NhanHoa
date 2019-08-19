@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Hỗ trợ khách hàng";
+    self.title = text_customers_support;
     [self setupUIForView];
 }
 
@@ -58,11 +58,8 @@
         [self.navigationController pushViewController:listVC animated:TRUE];
         
     }else{
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phone_support]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phone_support]] options:[[NSDictionary alloc] init] completionHandler:nil];
     }
-    
-    //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", phone_support]]];
-    //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_support]];
 }
 
 - (void)addSendMessageViewForMainView {
@@ -82,7 +79,7 @@
 - (void)setupUIForView {
     float padding = 15.0;
     float hBTN = 45.0;
-    float sizeIcon = 22.0;
+    float sizeIcon = 20.0;
     
     if (!IS_IPHONE && !IS_IPOD) {
         padding = 30.0;
@@ -97,6 +94,7 @@
     
     lbTitle.textColor = TITLE_COLOR;
     lbTitle.font = [AppDelegate sharedInstance].fontBold;
+    lbTitle.text = have_not_found_issue_yet;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
@@ -105,7 +103,7 @@
     }];
     
     
-    NSAttributedString *msgTitle = [AppUtils generateTextWithContent:@"Gửi tin nhắn" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_message"] size:sizeIcon imageFirst:TRUE];
+    NSAttributedString *msgTitle = [AppUtils generateTextWithContent:text_send_message font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_message"] size:sizeIcon imageFirst:TRUE];
     btnSendMsg.layer.cornerRadius = 5.0;
     [btnSendMsg setAttributedTitle:msgTitle forState:UIControlStateNormal];
     
@@ -117,7 +115,7 @@
         make.height.mas_equalTo(hBTN);
     }];
     
-    NSAttributedString *callTitle = [AppUtils generateTextWithContent:@"Gọi tổng đài" font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_call"] size:sizeIcon imageFirst:TRUE];
+    NSAttributedString *callTitle = [AppUtils generateTextWithContent:text_call_hotline font:[AppDelegate sharedInstance].fontRegular color:BLUE_COLOR image:[UIImage imageNamed:@"support_call"] size:sizeIcon imageFirst:TRUE];
     btnCall.layer.cornerRadius = 5.0;
     [btnCall setAttributedTitle:callTitle forState:UIControlStateNormal];
     btnCall.backgroundColor = btnSendMsg.backgroundColor;
@@ -139,7 +137,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang gửi tin nhắn..." Interaction:NO];
+    [ProgressHUD show:text_sending Interaction:FALSE];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] sendMessageWithEmail:email content:content];
@@ -159,7 +157,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     
-    [[AppDelegate sharedInstance].window makeToast:@"Tin nhắn của bạn đã được gửi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [[AppDelegate sharedInstance].window makeToast:your_message_was_sent duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     [self performSelector:@selector(closeSendMessageView) withObject:nil afterDelay:2.0];
 }
 

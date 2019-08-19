@@ -10,15 +10,24 @@
 
 @implementation DomainProfileCell
 @synthesize lbDomain, btnChooseProfile, viewProfileInfo, imgType, lbType, lbTypeValue, lbCompanyValue, lbProfile, lbProfileValue, lbSepa;
-@synthesize padding, hBTN, sizeType, sizeProfile;
+@synthesize padding, hBTN, sizeType, sizeProfile, mTop, hLabel;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     padding = 15.0;
     hBTN = 34.0;
+    mTop = 10.0;
+    hLabel = 20.0;
     
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hBTN = 45.0;
+        mTop = 20.0;
+        hLabel = 30.0;
+    }
+    
+    UIFont *textFont = [AppDelegate sharedInstance].fontRegular;
     sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width+5;
     sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont:textFont].width+5;
     
@@ -28,48 +37,49 @@
     btnChooseProfile.layer.cornerRadius = hBTN/2;
     btnChooseProfile.titleLabel.font = textFont;
     btnChooseProfile.backgroundColor = BLUE_COLOR;
+    float sizeText = [AppUtils getSizeWithText:text_select_profile withFont:textFont].width + 20.0;
     [btnChooseProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-self.padding);
-        make.top.equalTo(self).offset(10.0);
-        make.width.mas_equalTo(100.0);
-        make.height.mas_equalTo(self.hBTN);
+        make.right.equalTo(self).offset(-padding);
+        make.top.equalTo(self).offset(mTop);
+        make.width.mas_equalTo(sizeText);
+        make.height.mas_equalTo(hBTN);
     }];
     
-    lbDomain.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbDomain.font = [AppDelegate sharedInstance].fontMedium;
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(self.padding);
-        make.right.equalTo(self.btnChooseProfile.mas_left).offset(-10.0);
-        make.top.bottom.equalTo(self.btnChooseProfile);
+        make.left.equalTo(self).offset(padding);
+        make.right.equalTo(btnChooseProfile.mas_left).offset(-10.0);
+        make.top.bottom.equalTo(btnChooseProfile);
     }];
     
     //  profile info
     viewProfileInfo.clipsToBounds = TRUE;
     [viewProfileInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnChooseProfile.mas_bottom);
-        make.bottom.equalTo(self).offset(-10.0);
+        make.top.equalTo(btnChooseProfile.mas_bottom);
+        make.bottom.equalTo(self).offset(-mTop);
         make.left.right.equalTo(self);
     }];
     
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.left.equalTo(self.viewProfileInfo).offset(self.padding);
+        make.centerY.equalTo(viewProfileInfo.mas_centerY);
+        make.left.equalTo(viewProfileInfo).offset(padding);
         make.width.height.mas_equalTo(35.0);
     }];
     
     //  company
     [lbCompanyValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
-        make.height.mas_equalTo(20.0);
-        make.left.equalTo(self.imgType.mas_right).offset(5.0);
-        make.right.equalTo(self.viewProfileInfo).offset(-self.padding);
+        make.centerY.equalTo(viewProfileInfo.mas_centerY);
+        make.height.mas_equalTo(hLabel);
+        make.left.equalTo(imgType.mas_right).offset(5.0);
+        make.right.equalTo(viewProfileInfo).offset(-padding);
     }];
     
     //  type
     [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lbCompanyValue.mas_top);
-        make.left.equalTo(self.lbCompanyValue);
-        make.height.mas_equalTo(20.0);
-        make.width.mas_equalTo(self.sizeType);
+        make.bottom.equalTo(lbCompanyValue.mas_top);
+        make.left.equalTo(lbCompanyValue);
+        make.height.mas_equalTo(hLabel);
+        make.width.mas_equalTo(sizeType);
     }];
     
     [lbTypeValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +92,7 @@
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbCompanyValue.mas_bottom);
         make.left.equalTo(self.lbCompanyValue);
-        make.height.mas_equalTo(20.0);
+        make.height.mas_equalTo(hLabel);
         make.width.mas_equalTo(self.sizeProfile);
     }];
     
@@ -112,7 +122,7 @@
     
     [btnChooseProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-self.padding);
-        make.top.equalTo(self).offset(10.0);
+        make.top.equalTo(self).offset(mTop);
         make.width.mas_equalTo(wText + 20);
         make.height.mas_equalTo(self.hBTN);
     }];
@@ -120,7 +130,7 @@
     if (show) {
         [viewProfileInfo mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.btnChooseProfile.mas_bottom);
-            make.bottom.equalTo(self).offset(-10.0);
+            make.bottom.equalTo(self).offset(-mTop);
             make.left.equalTo(self).offset(self.padding);
             make.right.equalTo(self).offset(-self.padding);
         }];
@@ -132,7 +142,7 @@
             [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.equalTo(self.lbCompanyValue.mas_top);
                 make.left.equalTo(self.lbCompanyValue);
-                make.height.mas_equalTo(20.0);
+                make.height.mas_equalTo(hLabel);
                 make.width.mas_equalTo(self.sizeType);
             }];
             
@@ -140,7 +150,7 @@
             [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.lbCompanyValue.mas_bottom);
                 make.left.equalTo(self.lbCompanyValue);
-                make.height.mas_equalTo(20.0);
+                make.height.mas_equalTo(hLabel);
                 make.width.mas_equalTo(self.sizeProfile);
             }];
             
@@ -150,7 +160,7 @@
             [lbType mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.imgType.mas_right).offset(5.0);
                 make.bottom.equalTo(self.viewProfileInfo.mas_centerY);
-                make.height.mas_equalTo(20.0);
+                make.height.mas_equalTo(hLabel);
                 make.width.mas_equalTo(self.sizeType);
             }];
             
@@ -158,7 +168,7 @@
             [lbProfile mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.viewProfileInfo.mas_centerY);
                 make.left.equalTo(self.lbType);
-                make.height.mas_equalTo(20.0);
+                make.height.mas_equalTo(hLabel);
                 make.width.mas_equalTo(self.sizeProfile);
             }];
         }

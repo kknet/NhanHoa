@@ -18,6 +18,13 @@
 @synthesize webService, listProfiles;
 
 - (void)setupUIForView {
+    float padding = 15.0;
+    float hSearch = [AppDelegate sharedInstance].hTextfield;
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hSearch = 45.0;
+    }
+    
     if (listSearch == nil) {
         listSearch = [[NSMutableArray alloc] init];
     }else{
@@ -40,38 +47,40 @@
     icBack.hidden = TRUE;
     icBack.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.icClose);
+        make.top.left.bottom.right.equalTo(icClose);
     }];
     
     icAdd.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
     [icAdd mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.icClose);
+        make.top.bottom.equalTo(icClose);
         make.right.equalTo(self.mas_right);
-        make.width.equalTo(self.icClose.mas_width);
+        make.width.equalTo(icClose.mas_width);
     }];
     
+    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
+    lbTitle.text = text_profiles_list;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.icClose);
-        make.left.equalTo(self.icClose.mas_right).offset(5.0);
-        make.right.equalTo(self.icAdd.mas_left).offset(-5.0);
+        make.top.bottom.equalTo(icClose);
+        make.left.equalTo(icClose.mas_right).offset(5.0);
+        make.right.equalTo(icAdd.mas_left).offset(-5.0);
     }];
     
-    float padding = 15.0;
+    
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, [AppDelegate sharedInstance].hTextfield)];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hSearch)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
     tfSearch.placeholder = @"Nhập để tìm kiếm...";
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
-    tfSearch.layer.cornerRadius = [AppDelegate sharedInstance].hTextfield/2;
+    tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = BLUE_COLOR.CGColor;
     tfSearch.layer.borderWidth = 1.0;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader.mas_bottom).offset(padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(padding);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hSearch);
     }];
     [tfSearch addTarget:self
                  action:@selector(searchTextfieldChanged:)
@@ -79,12 +88,12 @@
     
     icClear.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
     icClear.backgroundColor = BORDER_COLOR;
-    icClear.layer.cornerRadius = ([AppDelegate sharedInstance].hTextfield-6.0)/2;
+    icClear.layer.cornerRadius = (hSearch-6.0)/2;
     [icClear mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.tfSearch).offset(-3.0);
-        make.top.equalTo(self.tfSearch).offset(3.0);
-        make.bottom.equalTo(self.tfSearch).offset(-3.0);
-        make.width.mas_equalTo([AppDelegate sharedInstance].hTextfield-6.0);
+        make.right.equalTo(tfSearch).offset(-3.0);
+        make.top.equalTo(tfSearch).offset(3.0);
+        make.bottom.equalTo(tfSearch).offset(-3.0);
+        make.width.mas_equalTo(hSearch-6.0);
     }];
     if (tfSearch.text.length == 0) {
         icClear.hidden = TRUE;
@@ -97,14 +106,14 @@
     tbProfile.delegate = self;
     tbProfile.dataSource = self;
     [tbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfSearch.mas_bottom).offset(padding);
+        make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.left.right.bottom.equalTo(self);
     }];
     
     lbNoData.textColor = [UIColor colorWithRed:(80/255.0) green:(80/255.0)
                                           blue:(80/255.0) alpha:1.0];
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.top.equalTo(viewHeader.mas_bottom);
         make.left.right.bottom.equalTo(self);
     }];
     
@@ -130,7 +139,7 @@
 
 - (void)getListProfilesForAccount {
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang lấy danh sách hồ sơ..." Interaction:NO];
+    [ProgressHUD show:text_loading Interaction:FALSE];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:get_profile_mod forKey:@"mod"];
@@ -155,9 +164,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.lbTitle.text = @"Danh sách hồ sơ";
-        self.icBack.hidden = TRUE;
-        self.icClose.hidden = self.icAdd.hidden = FALSE;
+        lbTitle.text = text_profiles_list;
+        icBack.hidden = TRUE;
+        icClose.hidden = icAdd.hidden = FALSE;
     }];
 }
 
@@ -395,6 +404,8 @@
 
 - (float)getHeightProfileTableViewCell: (int)row {
     float hItem = 30.0;
+    
+    ssssss
     
     float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
     float hPassport = wPassport * 2/3;

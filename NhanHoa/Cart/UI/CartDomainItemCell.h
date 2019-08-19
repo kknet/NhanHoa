@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)swProtectChanged:(UISwitch *)sender;
 - (IBAction)btnInfoPress:(UIButton *)sender;
 
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hItem;
+
 - (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew;
 - (void)displayDomainInfoForCart: (NSDictionary *)domainInfo;
 

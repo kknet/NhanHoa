@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Tài khoản thưởng";
+    self.title = text_bonus_account;
     [self setupUIForView];
 }
 

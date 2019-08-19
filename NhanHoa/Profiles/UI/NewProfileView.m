@@ -263,7 +263,7 @@
         make.left.right.equalTo(lbCountry);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
-    tfCountry.text = @"Việt Nam";
+    tfCountry.text = text_vietnam;
     
     [btnCountry setTitle:@"" forState:UIControlStateNormal];
     [btnCountry mas_makeConstraints:^(MASConstraintMaker *make) {

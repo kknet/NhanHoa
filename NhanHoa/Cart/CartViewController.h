@@ -33,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
 @property (weak, nonatomic) IBOutlet UIButton *btnGoShop;
 
-@property (nonatomic, assign) float hInfo;
 @property (nonatomic, strong) UITableView *tbSelectYear;
 - (IBAction)btnContinuePress:(UIButton *)sender;
 - (IBAction)btnGoShopPress:(UIButton *)sender;

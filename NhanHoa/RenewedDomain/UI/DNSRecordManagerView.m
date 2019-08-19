@@ -177,6 +177,7 @@
         make.height.mas_equalTo(45.0);
     }];
     
+    [btnReset setTitle:text_reset forState:UIControlStateNormal];
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(btnAddRecord);
         make.left.equalTo(tfTTL.mas_centerX).offset(5.0);

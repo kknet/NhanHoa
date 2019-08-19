@@ -18,6 +18,10 @@
     float hCell;
     float hProtectCell;
     int selectedIndex;
+    
+    float hInfo;
+    float hItem;
+    float hBTN;
 }
 
 @end
@@ -25,12 +29,11 @@
 @implementation CartViewController
 
 @synthesize scvContent, viewInfo, lbInfo, lbCount, tbDomains, viewFooter, lbPrice, lbPriceValue, lbVAT, lbVATValue, lbTotal, lbTotalValue, btnContinue, btnGoShop, viewEmpty, imgCartEmpty, lbEmpty, tbSelectYear;
-@synthesize hInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Giỏ hàng";
+    self.title = text_shopping_cart;
     [self.navigationController setNavigationBarHidden: FALSE];
     
     [self addBackBarButtonForNavigationBar];
@@ -49,7 +52,7 @@
         viewEmpty.hidden = FALSE;
         scvContent.hidden = TRUE;
     }else{
-        lbCount.text = [NSString stringWithFormat:@"%d tên miền", [[CartModel getInstance] countItemInCart]];
+        lbCount.text = SFM(@"%d %@", [[CartModel getInstance] countItemInCart], [text_domains lowercaseString]);
         viewEmpty.hidden = TRUE;
         scvContent.hidden = FALSE;
     }
@@ -122,32 +125,31 @@
     
     float hTableView =  [self getHeightForTableView];
     [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.viewInfo.mas_bottom);
+        make.left.equalTo(scvContent);
+        make.top.equalTo(viewInfo.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTableView);
     }];
     
     //  footer view
-    float hFooter = padding + 3*30 + 2*padding + 45.0 + padding + 45.0 + padding;
+    float hFooter = padding + 3*hItem + 2*padding + hBTN + padding + hBTN + padding;
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
-    if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
+    if (hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            //  make.top.equalTo(self.tbDomains.mas_bottom);
-            make.top.equalTo(self.scvContent).offset(self.hInfo+hTableView);
+            make.left.equalTo(scvContent);
+            make.top.equalTo(scvContent).offset(hInfo+hTableView);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, self.hInfo + hTableView + hFooter);
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo + hTableView + hFooter);
     }else{
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent).offset(maxHeightScroll - hFooter);
+            make.left.equalTo(scvContent);
+            make.top.equalTo(scvContent).offset(maxHeightScroll - hFooter);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
-        self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, maxHeightScroll);
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, maxHeightScroll);
     }
 }
 
@@ -194,9 +196,21 @@
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     float padding = 15.0;
+    hItem = 30.0;
+    hBTN = 45.0;
+    
     hInfo = 40.0;
     hCell = 105.0;
     hProtectCell = 175;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hInfo = 60.0;
+        hCell = 40.0 + 40.0 + 45.0 + 15.0;
+        hProtectCell = 40.0 + 40.0 + 45.0 + 5.0 + 80.0 + 15.0;
+        
+        hItem = 40.0;
+        hBTN = 55.0;
+    }
     
     //  empty view
     
@@ -206,19 +220,19 @@
         make.top.left.bottom.right.equalTo(self.view);
     }];
     [imgCartEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.viewEmpty.mas_centerX);
-        make.centerY.equalTo(self.viewEmpty.mas_centerY).offset(-20.0);
+        make.centerX.equalTo(viewEmpty.mas_centerX);
+        make.centerY.equalTo(viewEmpty.mas_centerY).offset(-20.0);
         make.width.height.mas_equalTo(120.0);
     }];
     
-    lbEmpty.text = @"Giỏ hàng trống";
+    lbEmpty.text = text_empty_cart;
     lbEmpty.textColor = [UIColor colorWithRed:(180/255.0) green:(180/255.0)
                                          blue:(180/255.0) alpha:1.0];
     lbEmpty.font = [AppDelegate sharedInstance].fontBTN;
     [lbEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgCartEmpty.mas_bottom);
-        make.left.equalTo(self.viewEmpty).offset(10.0);
-        make.right.equalTo(self.viewEmpty).offset(-10.0);
+        make.top.equalTo(imgCartEmpty.mas_bottom);
+        make.left.equalTo(viewEmpty).offset(10.0);
+        make.right.equalTo(viewEmpty).offset(-10.0);
         make.height.mas_equalTo(40.0);
     }];
     
@@ -231,22 +245,22 @@
     //  view top
     viewInfo.backgroundColor = [UIColor colorWithRed:(246/255.0) green:(247/255.0) blue:(251/255.0) alpha:1.0];
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
+        make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hInfo);
+        make.height.mas_equalTo(hInfo);
     }];
     
     lbInfo.font = lbCount.font = [AppDelegate sharedInstance].fontRegular;
     [lbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewInfo).offset(padding);
-        make.top.bottom.equalTo(self.viewInfo);
-        make.right.equalTo(self.viewInfo.mas_centerX);
+        make.left.equalTo(viewInfo).offset(padding);
+        make.top.bottom.equalTo(viewInfo);
+        make.right.equalTo(viewInfo.mas_centerX);
     }];
     
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.viewInfo).offset(-padding);
-        make.top.bottom.equalTo(self.viewInfo);
-        make.left.equalTo(self.viewInfo.mas_centerX);
+        make.right.equalTo(viewInfo).offset(-padding);
+        make.top.bottom.equalTo(viewInfo);
+        make.left.equalTo(viewInfo.mas_centerX);
     }];
     
     float hTableView = [self getHeightForTableView];
@@ -256,26 +270,26 @@
     tbDomains.dataSource = self;
     tbDomains.scrollEnabled = FALSE;
     [tbDomains mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.scvContent);
-        make.top.equalTo(self.viewInfo.mas_bottom);
+        make.left.equalTo(scvContent);
+        make.top.equalTo(viewInfo.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTableView);
     }];
     
     //  footer view
-    float hFooter = padding + 3*30 + 2*padding + 45.0 + padding + 45.0 + padding;
+    float hFooter = padding + 3*hItem + 2*padding + hBTN + padding + hBTN + padding;
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
-    if (self.hInfo + hTableView + hFooter > maxHeightScroll) {
+    if (hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent).offset(self.hInfo+hTableView);
+            make.left.equalTo(scvContent);
+            make.top.equalTo(scvContent).offset(hInfo+hTableView);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
     }else{
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scvContent);
-            make.top.equalTo(self.scvContent).offset(maxHeightScroll - hFooter);
+            make.left.equalTo(scvContent);
+            make.top.equalTo(scvContent).offset(maxHeightScroll - hFooter);
             make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
@@ -283,34 +297,34 @@
     
     //  price
     lbPrice.textColor = lbVAT.textColor = lbVATValue.textColor = lbTotal.textColor = TITLE_COLOR;
-    lbPrice.font = lbPriceValue.font = lbVAT.font = lbVATValue.font = [UIFont fontWithName:RobotoRegular size:16.0];
+    lbPrice.font = lbVAT.font = lbTotal.font = [AppDelegate sharedInstance].fontRegular;
+    lbPriceValue.font = lbVATValue.font = lbTotalValue.font = [AppDelegate sharedInstance].fontMedium;
     
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.viewFooter).offset(padding);
-        make.right.equalTo(self.viewFooter.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(30.0);
+        make.top.left.equalTo(viewFooter).offset(padding);
+        make.right.equalTo(viewFooter.mas_centerX).offset(-padding/2);
+        make.height.mas_equalTo(hItem);
     }];
     
     [lbPriceValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewFooter.mas_centerX).offset(padding/2);
-        make.top.bottom.equalTo(self.lbPrice);
-        make.right.equalTo(self.viewFooter).offset(-padding);
+        make.left.equalTo(viewFooter.mas_centerX).offset(padding/2);
+        make.top.bottom.equalTo(lbPrice);
+        make.right.equalTo(viewFooter).offset(-padding);
     }];
     
     //  VAT
     [lbVAT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPrice.mas_bottom);
-        make.left.right.equalTo(self.lbPrice);
-        make.height.equalTo(self.lbPrice.mas_height);
+        make.top.equalTo(lbPrice.mas_bottom);
+        make.left.right.equalTo(lbPrice);
+        make.height.equalTo(lbPrice.mas_height);
     }];
     
     [lbVATValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbPriceValue);
-        make.top.bottom.equalTo(self.lbVAT);
+        make.left.right.equalTo(lbPriceValue);
+        make.top.bottom.equalTo(lbVAT);
     }];
     
     //  Total price
-    lbTotal.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lbVAT.mas_bottom);
         make.left.right.equalTo(self.lbVAT);
@@ -318,36 +332,35 @@
     }];
     
     lbTotalValue.textColor = NEW_PRICE_COLOR;
-    lbTotalValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
     [lbTotalValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.lbVATValue);
         make.top.bottom.equalTo(self.lbTotal);
     }];
     
-    btnContinue.layer.cornerRadius = 45.0/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.layer.borderColor = BLUE_COLOR.CGColor;
-    btnContinue.layer.borderWidth = 1.0;
-    btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnContinue setTitle:proceed_to_register forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTotalValue.mas_bottom).offset(2*padding);
-        make.left.equalTo(self.viewFooter).offset(padding);
-        make.right.equalTo(self.viewFooter).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.top.equalTo(lbTotalValue.mas_bottom).offset(2*padding);
+        make.left.equalTo(viewFooter).offset(padding);
+        make.right.equalTo(viewFooter).offset(-padding);
+        make.height.mas_equalTo(hBTN);
     }];
     
     btnGoShop.backgroundColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0];
     btnGoShop.layer.borderColor = [UIColor colorWithRed:(84/255.0) green:(99/255.0) blue:(128/255.0) alpha:1.0].CGColor;
-    btnGoShop.layer.borderWidth = 1.0;
-    btnGoShop.layer.cornerRadius = btnContinue.layer.cornerRadius;
-    btnGoShop.titleLabel.font = btnContinue.titleLabel.font;
+    [btnGoShop setTitle:continue_shopping forState:UIControlStateNormal];
     [btnGoShop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnContinue.mas_bottom).offset(padding);
-        make.left.right.equalTo(self.btnContinue);
-        make.height.equalTo(self.btnContinue.mas_height);
+        make.top.equalTo(btnContinue.mas_bottom).offset(padding);
+        make.left.right.equalTo(btnContinue);
+        make.height.equalTo(btnContinue.mas_height);
     }];
     
-    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo+hTableView+hFooter);
+    btnContinue.layer.cornerRadius = btnGoShop.layer.cornerRadius = hBTN/2;
+    btnContinue.layer.borderWidth = btnGoShop.layer.borderWidth = 1.0;
+    btnContinue.titleLabel.font = btnGoShop.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo+hTableView+hFooter);
 }
 
 - (void)removeDomainFromCart: (UIButton *)sender {
@@ -495,7 +508,7 @@
         tbSelectYear.layer.borderColor = BORDER_COLOR.CGColor;
         tbSelectYear.delegate = self;
         tbSelectYear.dataSource = self;
-        [self.scvContent addSubview: tbSelectYear];
+        [scvContent addSubview: tbSelectYear];
     }
 }
 

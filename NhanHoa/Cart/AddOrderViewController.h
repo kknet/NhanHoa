@@ -20,9 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnPayment;
-@property (nonatomic, assign) float hMenu;
-@property (nonatomic, assign) float hTbConfirm;
-@property (nonatomic, assign) float padding;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbConfirmProfile;
 

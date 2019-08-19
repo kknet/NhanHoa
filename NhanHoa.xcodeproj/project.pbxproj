@@ -101,8 +101,6 @@
 		15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD522803AE9004A8575 /* SettingMenuCell.xib */; };
 		15865BD922803D36004A8575 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD822803D35004A8575 /* right-arrow.png */; };
 		15865BDB228047FF004A8575 /* default_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 15865BDA228047FF004A8575 /* default_avatar.png */; };
-		1596AE7922B7A07C00857640 /* HaveNotSignedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1596AE7822B7A07C00857640 /* HaveNotSignedView.m */; };
-		1596AE7B22B7A08800857640 /* HaveNotSignedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */; };
 		159F7D8F227AAC4800A64586 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D8D227AAC4700A64586 /* trash.png */; };
 		159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 159F7D96227AC92B00A64586 /* PaymentStepView.m */; };
 		159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159F7D98227AC93800A64586 /* PaymentStepView.xib */; };
@@ -157,6 +155,9 @@
 		4C00B3FC22F2E7520087479C /* DNSRecordManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */; };
 		4C00B3FE22F2E75F0087479C /* DNSRecordManagerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */; };
 		4C01687B23064A8800C43D5F /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01687A23064A8700C43D5F /* banner.png */; };
+		4C017AE0230A38B7000E2780 /* tabbar_acc_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C017ADD230A38B7000E2780 /* tabbar_acc_act.png */; };
+		4C017AE1230A38B7000E2780 /* tabbar_acc_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C017ADE230A38B7000E2780 /* tabbar_acc_act@2x.png */; };
+		4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C017ADF230A38B7000E2780 /* tabbar_acc_act@3x.png */; };
 		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
 		4C01879622EE941B00EDD030 /* NewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879422EE941B00EDD030 /* NewHomeViewController.m */; };
 		4C01879722EE941B00EDD030 /* NewHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879522EE941B00EDD030 /* NewHomeViewController.xib */; };
@@ -623,9 +624,6 @@
 		15865BD522803AE9004A8575 /* SettingMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCell.xib; sourceTree = "<group>"; };
 		15865BD822803D35004A8575 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
 		15865BDA228047FF004A8575 /* default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_avatar.png; sourceTree = "<group>"; };
-		1596AE7722B7A07C00857640 /* HaveNotSignedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HaveNotSignedView.h; sourceTree = "<group>"; };
-		1596AE7822B7A07C00857640 /* HaveNotSignedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HaveNotSignedView.m; sourceTree = "<group>"; };
-		1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HaveNotSignedView.xib; sourceTree = "<group>"; };
 		159F7D8D227AAC4700A64586 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		159F7D95227AC92B00A64586 /* PaymentStepView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentStepView.h; sourceTree = "<group>"; };
 		159F7D96227AC92B00A64586 /* PaymentStepView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentStepView.m; sourceTree = "<group>"; };
@@ -701,6 +699,9 @@
 		4C00B3FB22F2E7520087479C /* DNSRecordManagerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSRecordManagerView.m; sourceTree = "<group>"; };
 		4C00B3FD22F2E75F0087479C /* DNSRecordManagerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSRecordManagerView.xib; sourceTree = "<group>"; };
 		4C01687A23064A8700C43D5F /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
+		4C017ADD230A38B7000E2780 /* tabbar_acc_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_acc_act.png; sourceTree = "<group>"; };
+		4C017ADE230A38B7000E2780 /* tabbar_acc_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_acc_act@2x.png"; sourceTree = "<group>"; };
+		4C017ADF230A38B7000E2780 /* tabbar_acc_act@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_acc_act@3x.png"; sourceTree = "<group>"; };
 		4C01879022EE83E900EDD030 /* callkit_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callkit_logo.png; sourceTree = "<group>"; };
 		4C01879322EE941B00EDD030 /* NewHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeViewController.h; sourceTree = "<group>"; };
 		4C01879422EE941B00EDD030 /* NewHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeViewController.m; sourceTree = "<group>"; };
@@ -1116,7 +1117,7 @@
 		849E31182280632E003A8813 /* AccountSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountSettingViewController.xib; sourceTree = "<group>"; };
 		849E311B2280647A003A8813 /* photo-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-camera.png"; sourceTree = "<group>"; };
 		849E311D22806C8E003A8813 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
-		849E311E22806C8E003A8813 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		849E311E22806C8E003A8813 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		849E312222807393003A8813 /* ContactInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactInfoViewController.h; sourceTree = "<group>"; };
 		849E312322807393003A8813 /* ContactInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactInfoViewController.m; sourceTree = "<group>"; };
@@ -1493,6 +1494,9 @@
 				842F81BE2275794C00D6DE6D /* tabbar_acc_def.png */,
 				842F81BC2275794C00D6DE6D /* tabbar_acc_def@2x.png */,
 				842F81BD2275794C00D6DE6D /* tabbar_acc_def@3x.png */,
+				4C017ADD230A38B7000E2780 /* tabbar_acc_act.png */,
+				4C017ADE230A38B7000E2780 /* tabbar_acc_act@2x.png */,
+				4C017ADF230A38B7000E2780 /* tabbar_acc_act@3x.png */,
 				1517FB8822745D760044E878 /* tabbar_BO_act.png */,
 				1517FB9322745D7C0044E878 /* tabbar_BO_act@2x.png */,
 				1517FB9422745D7D0044E878 /* tabbar_BO_act@3x.png */,
@@ -1617,9 +1621,6 @@
 				15865BCE227FDFA5004A8575 /* AccountInfoView.h */,
 				15865BCF227FDFA5004A8575 /* AccountInfoView.m */,
 				15865BD1227FDFB7004A8575 /* AccountInfoView.xib */,
-				1596AE7722B7A07C00857640 /* HaveNotSignedView.h */,
-				1596AE7822B7A07C00857640 /* HaveNotSignedView.m */,
-				1596AE7A22B7A08800857640 /* HaveNotSignedView.xib */,
 				15865BD322803AE9004A8575 /* SettingMenuCell.h */,
 				15865BD422803AE9004A8575 /* SettingMenuCell.m */,
 				15865BD522803AE9004A8575 /* SettingMenuCell.xib */,
@@ -2418,6 +2419,7 @@
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				84588AA0228093F000B59E0F /* ic_setting_acc.png in Resources */,
 				4C6580ED22FBC42F00F38087 /* email_server_act.png in Resources */,
+				4C017AE1230A38B7000E2780 /* tabbar_acc_act@2x.png in Resources */,
 				4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
@@ -2428,6 +2430,7 @@
 				1517FB9822745D810044E878 /* tabbar_history_def@2x.png in Resources */,
 				4C00790A22F144E800C19492 /* dns_edit.png in Resources */,
 				4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */,
+				4C017AE0230A38B7000E2780 /* tabbar_acc_act.png in Resources */,
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				4C765F0622F81756002AFEC8 /* windows_act.png in Resources */,
 				4C65810522FC085400F38087 /* OrderDetailView.xib in Resources */,
@@ -2435,7 +2438,6 @@
 				4C65811E22FC2AF500F38087 /* HostingDetailTbvCell.xib in Resources */,
 				56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
-				1596AE7B22B7A08800857640 /* HaveNotSignedView.xib in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
@@ -2509,6 +2511,7 @@
 				56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */,
 				4C28B90C22F5948500910F54 /* menu_email.png in Resources */,
 				4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */,
+				4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
 				4CFCBCA422FD31A500427B86 /* SelectAmountClvCell.xib in Resources */,
@@ -2874,7 +2877,6 @@
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
-				1596AE7922B7A07C00857640 /* HaveNotSignedView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,

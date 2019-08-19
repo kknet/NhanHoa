@@ -53,6 +53,7 @@
     }];
     
     //  email
+    lbEmail.text = text_email_address;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(2*padding);
         make.left.equalTo(self).offset(padding);
@@ -69,6 +70,7 @@
     }];
     
     //  content
+    lbContent.text = text_question_content;
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom ).offset(padding);
         make.left.right.equalTo(tfEmail);
@@ -86,12 +88,10 @@
     }];
     
     //  footer button
-    
     [btnReset setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnReset.layer.cornerRadius = hBTN/2;
     btnReset.backgroundColor = OLD_PRICE_COLOR;
     btnReset.layer.borderColor = OLD_PRICE_COLOR.CGColor;
-    btnReset.layer.borderWidth = 1.0;
+    [btnReset setTitle:text_reset forState:UIControlStateNormal];
     [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.bottom.equalTo(self).offset(-padding);
@@ -100,15 +100,17 @@
     }];
     
     [btnSend setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnSend.layer.cornerRadius = btnReset.layer.cornerRadius;
     btnSend.backgroundColor = BLUE_COLOR;
     btnSend.layer.borderColor = BLUE_COLOR.CGColor;
-    btnSend.layer.borderWidth = 1.0;
+    [btnSend setTitle:text_send_message forState:UIControlStateNormal];
     [btnSend mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(btnReset.mas_right).offset(padding);
         make.top.bottom.equalTo(btnReset);
         make.right.equalTo(self).offset(-padding);
     }];
+    
+    btnReset.layer.cornerRadius = btnSend.layer.cornerRadius = hBTN/2;
+    btnReset.layer.borderWidth = btnSend.layer.borderWidth = 1.0;
     
     btnReset.titleLabel.font = btnSend.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     lbEmail.font = tfEmail.font = lbContent.font = tvContent.font = [AppDelegate sharedInstance].fontRegular;
@@ -139,12 +141,12 @@
     [btnSend setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if ([AppUtils isNullOrEmpty: tfEmail.text]) {
-        [self makeToast:@"Vui lòng nhập email của bạn" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:pls_enter_your_email duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tvContent.text]) {
-        [self makeToast:@"Vui lòng nhập nội dung muốn gửi" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:pls_enter_question_content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     

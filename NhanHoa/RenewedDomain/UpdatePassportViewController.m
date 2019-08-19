@@ -94,7 +94,7 @@
     }
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
+    [ProgressHUD show:text_updating Interaction:NO];
     
     [self uploadBanKhaiPicture];
 }

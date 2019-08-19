@@ -22,12 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Cập nhật thông tin";
+    self.title = text_update_my_info;
     
     scvContent.delegate = self;
+    scvContent.showsVerticalScrollIndicator = FALSE;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
-        //  make.width.mas_equalTo(SCREEN_WIDTH);
     }];
 }
 
@@ -52,15 +52,6 @@
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
-    if ([AccountModel getCusOwnType] == type_personal) {
-        if ([DeviceUtils isScreen320]) {
-            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editPersonalView.hContent);
-        }else{
-            scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-[AppDelegate sharedInstance].hNav-[AppDelegate sharedInstance].hStatusBar);
-        }
-    }else{
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editBusinessView.hContent);
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -80,17 +71,19 @@
         [scvContent addSubview: editPersonalView];
     }
     editPersonalView.delegate = self;
+    [editPersonalView setupUIForView];
+    
     [editPersonalView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(SCREEN_HEIGHT-[AppDelegate sharedInstance].hNav-[AppDelegate sharedInstance].hStatusBar);
+        make.height.mas_equalTo(editPersonalView.hContent);
     }];
-    [editPersonalView setupUIForView];
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editPersonalView.hContent);
 }
 
 -(void)savePersonalMyAccountInformation:(NSDictionary *)info {
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang cập nhật.." Interaction:NO];
+    [ProgressHUD show:text_updating Interaction:NO];
     
     if (webService == nil) {
         webService = [[WebServices alloc] init];
@@ -119,27 +112,19 @@
         [scvContent addSubview: editBusinessView];
     }
     editBusinessView.delegate = self;
-    
-    float padding = 15.0;
-    float mTop = 10.0;
-    float hLabel = 30.0;
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-    }
-    
-    float hContent = (padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (2*padding + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + 45.0 + 2*padding;;
+    [editBusinessView setupUIForView];
     
     [editBusinessView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hContent);
+        make.height.mas_equalTo(editBusinessView.hContent);
     }];
-    [editBusinessView setupUIForView];
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, editBusinessView.hContent);
 }
 
 - (void)saveBusinessMyAccountInformation:(NSDictionary *)info {
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang cập nhật.." Interaction:NO];
+    [ProgressHUD show:text_updating Interaction:NO];
     
     if (webService == nil) {
         webService = [[WebServices alloc] init];
@@ -229,7 +214,7 @@
         if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
             [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
         }
-        [self.view makeToast:@"Thông tin đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        [self.view makeToast:your_info_has_been_updated duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
         [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
     }
 }

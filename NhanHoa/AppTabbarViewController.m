@@ -54,7 +54,7 @@
     UIImage *imgHomeAct = [UIImage imageNamed:@"tabbar_home_act"];
     imgHomeAct = [imgHomeAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:@"Trang chủ" image:imgHome selectedImage:imgHomeAct];
+    UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:text_home image:imgHome selectedImage:imgHomeAct];
     [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     homeNav.tabBarItem = homeItem;
@@ -85,7 +85,7 @@
     UIImage *imgTransHisAct = [UIImage imageNamed:@"tabbar_history_act"];
     imgTransHisAct = [imgTransHisAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *transHisItem = [[UITabBarItem alloc] initWithTitle:@"Lịch sử giao dịch" image:imgTransHis selectedImage:imgTransHisAct];
+    UITabBarItem *transHisItem = [[UITabBarItem alloc] initWithTitle:text_trans_history image:imgTransHis selectedImage:imgTransHisAct];
     [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     transHisNav.tabBarItem = transHisItem;
@@ -100,7 +100,7 @@
     UIImage *imgAccAct = [UIImage imageNamed:@"tabbar_acc_act"];
     imgAccAct = [imgAccAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *accItem = [[UITabBarItem alloc] initWithTitle:@"Tài khoản" image:imgAcc selectedImage:imgAccAct];
+    UITabBarItem *accItem = [[UITabBarItem alloc] initWithTitle:text_account image:imgAcc selectedImage:imgAccAct];
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     moreNav.tabBarItem = accItem;
@@ -132,6 +132,15 @@
         [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
         
         //  [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIColor redColor], UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0,0)], NSShadowAttributeName, [AppDelegate sharedInstance].fontRegular, UITextAttributeFont, nil] forState:UIControlStateNormal];
+    }else{
+        [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+        [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+        
+        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+        
+        [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+        [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     }
 }
 

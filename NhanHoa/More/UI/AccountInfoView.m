@@ -16,37 +16,49 @@
     self.backgroundColor = UIColor.whiteColor;
     self.layer.cornerRadius = 7.0;
     
+    float hAvatar = 60.0;
+    float paddingX = 5.0;
+    
     float padding = 15.0;
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
+    lbMainAccount.font = lbRewardAccount.font = [UIFont fontWithName:RobotoRegular size:14.0];
+    lbMainMoney.font = lbRewardMoney.font = [UIFont fontWithName:RobotoMedium size:14.0];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        hAvatar = 80.0;
+        paddingX = 5.0;
+        
+        lbMainAccount.font = lbRewardAccount.font = [AppDelegate sharedInstance].fontDesc;
+        lbMainMoney.font = lbRewardMoney.font = [AppDelegate sharedInstance].fontMediumDesc;
+    }
+    
     imgAvatar.clipsToBounds = TRUE;
-    imgAvatar.layer.cornerRadius = 60.0/2;
+    imgAvatar.layer.cornerRadius = hAvatar/2;
     imgAvatar.layer.borderColor = BLUE_COLOR.CGColor;
     imgAvatar.layer.borderWidth = 1.0;
     [imgAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.top.equalTo(self).offset(10.0);
-        make.width.height.mas_equalTo(60.0);
+        make.width.height.mas_equalTo(hAvatar);
     }];
     
-    lbName.font = [UIFont fontWithName:RobotoMedium size:18.0];
-    lbName.textColor = TITLE_COLOR;
+    lbName.font = [AppDelegate sharedInstance].fontMedium;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgAvatar.mas_right).offset(5.0);
+        make.left.equalTo(imgAvatar.mas_right).offset(paddingX);
         make.right.equalTo(self).offset(-padding);
-        make.bottom.equalTo(self.imgAvatar.mas_centerY).offset(-2.5);
+        make.bottom.equalTo(imgAvatar.mas_centerY).offset(-2.5);
     }];
     
-    lbEmail.font = [UIFont fontWithName:RobotoRegular size:16.0];
-    lbEmail.textColor = TITLE_COLOR;
+    lbEmail.font = [AppDelegate sharedInstance].fontRegular;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbName);
-        make.top.equalTo(self.imgAvatar.mas_centerY).offset(2.5);
+        make.left.right.equalTo(lbName);
+        make.top.equalTo(imgAvatar.mas_centerY).offset(2.5);
     }];
     
-    imgSepa.backgroundColor = BORDER_COLOR;
+    imgSepa.backgroundColor = GRAY_235;
     [imgSepa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imgAvatar);
         make.right.equalTo(self).offset(-padding);
@@ -55,68 +67,121 @@
     }];
     
     //  main wallet
-    viewWallet.backgroundColor = UIColor.clearColor;
-    [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgSepa.mas_bottom).offset(10.0);
-        make.left.equalTo(self);
-        make.right.equalTo(self.mas_centerX).offset(-padding/2);
-        make.bottom.equalTo(self).offset(-10.0);
-    }];
+    viewWallet.backgroundColor = viewReward.backgroundColor = UIColor.clearColor;
+    imgWallet.layer.cornerRadius = imgReward.layer.cornerRadius = 35.0/2;
+    imgWallet.clipsToBounds = imgReward.clipsToBounds = TRUE;
     
-    imgWallet.layer.cornerRadius = 35.0/2;
-    imgWallet.clipsToBounds = TRUE;
-    [imgWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewWallet).offset(padding);
-        make.centerY.equalTo(self.viewWallet.mas_centerY);
-        make.width.height.mas_equalTo(35.0);
-    }];
+    lbName.textColor = lbEmail.textColor = lbMainAccount.textColor = lbRewardAccount.textColor = TITLE_COLOR;
+    lbMainMoney.textColor = lbRewardMoney.textColor = ORANGE_COLOR;
     
-    lbMainAccount.textColor = TITLE_COLOR;
-    lbMainAccount.font = [UIFont fontWithName:RobotoRegular size:14.0];
-    [lbMainAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgWallet.mas_right).offset(2.0);
-        make.bottom.equalTo(self.imgWallet.mas_centerY).offset(-1.0);
-        make.right.equalTo(self.viewWallet);
-    }];
+    lbMainAccount.text = text_main_account;
+    lbRewardAccount.text = text_bonus_money;
     
-    lbMainMoney.font = [UIFont fontWithName:RobotoMedium size:14.0];
-    lbMainMoney.textColor = ORANGE_COLOR;
-    [lbMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbMainAccount);
-        make.top.equalTo(self.imgWallet.mas_centerY).offset(1.0);
-    }];
-    
-    //  reward wallet
-    viewReward.backgroundColor = UIColor.clearColor;
-    [viewReward mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewWallet);
-        make.right.equalTo(self);
-        make.left.equalTo(self.mas_centerX).offset(padding/2);
-    }];
-    
-    imgReward.layer.cornerRadius = 35.0/2;
-    imgReward.clipsToBounds = TRUE;
-    [imgReward mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewReward);
-        make.centerY.equalTo(self.viewReward.mas_centerY);
-        make.width.height.mas_equalTo(35.0);
-    }];
-    
-    lbRewardAccount.textColor = TITLE_COLOR;
-    lbRewardAccount.font = lbMainAccount.font;
-    [lbRewardAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.imgReward.mas_right).offset(2.0);
-        make.bottom.equalTo(self.imgReward.mas_centerY).offset(-1.0);
-        make.right.equalTo(self.viewReward).offset(-padding);
-    }];
-    
-    lbRewardMoney.font = lbMainMoney.font;
-    lbRewardMoney.textColor = ORANGE_COLOR;
-    [lbRewardMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbRewardAccount);
-        make.top.equalTo(self.imgReward.mas_centerY).offset(1.0);
-    }];
-    
+    if (IS_IPHONE || IS_IPOD) {
+        [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(imgSepa.mas_bottom).offset(10.0);
+            make.left.equalTo(self);
+            make.right.equalTo(self.mas_centerX).offset(-padding/2);
+            make.bottom.equalTo(self).offset(-10.0);
+        }];
+        
+        [imgWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.viewWallet).offset(padding);
+            make.centerY.equalTo(self.viewWallet.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        
+        [lbMainAccount mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imgWallet.mas_right).offset(2.0);
+            make.bottom.equalTo(self.imgWallet.mas_centerY).offset(-1.0);
+            make.right.equalTo(self.viewWallet);
+        }];
+        
+        [lbMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.lbMainAccount);
+            make.top.equalTo(self.imgWallet.mas_centerY).offset(1.0);
+        }];
+        
+        //  reward wallet
+        [viewReward mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.viewWallet);
+            make.right.equalTo(self);
+            make.left.equalTo(self.mas_centerX).offset(padding/2);
+        }];
+        
+        
+        [imgReward mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.viewReward);
+            make.centerY.equalTo(self.viewReward.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        
+        [lbRewardAccount mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imgReward.mas_right).offset(2.0);
+            make.bottom.equalTo(self.imgReward.mas_centerY).offset(-1.0);
+            make.right.equalTo(self.viewReward).offset(-padding);
+        }];
+        
+        [lbRewardMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.lbRewardAccount);
+            make.top.equalTo(self.imgReward.mas_centerY).offset(1.0);
+        }];
+        
+    }else{
+        [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(imgSepa.mas_bottom).offset(10.0);
+            make.left.equalTo(self);
+            make.right.equalTo(self.mas_centerX).offset(-padding/2);
+            make.bottom.equalTo(self).offset(-10.0);
+        }];
+        
+        [imgWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(viewWallet).offset(padding);
+            make.centerY.equalTo(viewWallet.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        
+        lbMainAccount.text = @"Tài khoản chính:";
+        float sizeText = [AppUtils getSizeWithText:lbMainAccount.text withFont:lbMainAccount.font].width + 5.0;
+        [lbMainAccount mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgWallet.mas_right).offset(paddingX);
+            make.top.bottom.equalTo(viewWallet);
+            make.width.mas_equalTo(sizeText);
+        }];
+        
+        [lbMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbMainAccount.mas_right);
+            make.top.bottom.equalTo(lbMainAccount);
+            make.right.equalTo(viewWallet).offset(-paddingX);
+        }];
+        
+        //  reward wallet
+        [viewReward mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewWallet);
+            make.right.equalTo(self);
+            make.left.equalTo(self.mas_centerX).offset(padding/2);
+        }];
+        
+        [imgReward mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(viewReward);
+            make.centerY.equalTo(viewReward.mas_centerY);
+            make.width.height.mas_equalTo(35.0);
+        }];
+        
+        lbRewardAccount.text = @"Tiền thưởng:";
+        sizeText = [AppUtils getSizeWithText:lbRewardAccount.text withFont:lbRewardAccount.font].width + 5.0;
+        [lbRewardAccount mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imgReward.mas_right).offset(paddingX);
+            make.top.bottom.equalTo(viewReward);
+            make.width.mas_equalTo(sizeText);
+        }];
+        
+        [lbRewardMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbRewardAccount.mas_right);
+            make.top.bottom.equalTo(lbRewardAccount);
+            make.right.equalTo(viewReward).offset(-paddingX);
+        }];
+    }
 }
 
 - (void)displayInformation

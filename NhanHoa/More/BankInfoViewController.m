@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Thông tin ngân hàng";
+    self.title = text_bank_account_info;
     [self setupUIForView];
 }
 
@@ -70,20 +70,34 @@
     hCell = 40.0;
     
     float padding = 15.0;
+    float hLabel = 30.0;
+    float mTop = 15.0;
+    float hBTN = 45.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        hLabel = 50.0;
+        mTop = 20.0;
+        hBTN = 55.0;
+        hCell = 50.0;
+    }
+    
+    lbBankName.text = text_bank_name;
     [lbBankName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(30.0);
+        make.height.mas_equalTo(hLabel);
     }];
     
     [AppUtils setBorderForTextfield:tfBankName borderColor:BORDER_COLOR];
+    tfBankName.placeholder = enter_bank_name;
     [tfBankName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbBankName);
-        make.top.equalTo(self.lbBankName.mas_bottom);
+        make.left.right.equalTo(lbBankName);
+        make.top.equalTo(lbBankName.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     tfBankName.delegate = self;
@@ -92,51 +106,56 @@
                    action:@selector(tfBankDidChanged:)
          forControlEvents:UIControlEventEditingChanged];
     
+    lbOwner.text = text_owner_name;
     [lbOwner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.tfBankName);
-        make.top.equalTo(self.tfBankName.mas_bottom).offset(padding);
-        make.height.equalTo(self.lbBankName.mas_height);
+        make.left.right.equalTo(tfBankName);
+        make.top.equalTo(tfBankName.mas_bottom).offset(mTop);
+        make.height.equalTo(lbBankName.mas_height);
     }];
     
     [AppUtils setBorderForTextfield:tfOwner borderColor:BORDER_COLOR];
+    tfOwner.placeholder = enter_owner_name;
     [tfOwner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbOwner);
-        make.top.equalTo(self.lbOwner.mas_bottom);
+        make.left.right.equalTo(lbOwner);
+        make.top.equalTo(lbOwner.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     tfOwner.delegate = self;
     tfOwner.returnKeyType = UIReturnKeyNext;
     
+    lbAccNo.text = text_bank_account_number;
     [lbAccNo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.tfOwner);
-        make.top.equalTo(self.tfOwner.mas_bottom).offset(padding);
-        make.height.equalTo(self.lbBankName.mas_height);
+        make.left.right.equalTo(tfOwner);
+        make.top.equalTo(tfOwner.mas_bottom).offset(mTop);
+        make.height.equalTo(lbBankName.mas_height);
     }];
     
     [AppUtils setBorderForTextfield:tfAccNo borderColor:BORDER_COLOR];
+    tfAccNo.placeholder = enter_bank_account_number;
     [tfAccNo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbAccNo);
-        make.top.equalTo(self.lbAccNo.mas_bottom);
+        make.left.right.equalTo(lbAccNo);
+        make.top.equalTo(lbAccNo.mas_bottom);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     tfAccNo.delegate = self;
     tfAccNo.returnKeyType = UIReturnKeyDone;
     
-    btnUpdate.layer.cornerRadius = 45.0/2;
+    btnUpdate.layer.cornerRadius = hBTN/2;
     btnUpdate.backgroundColor = BLUE_COLOR;
     btnUpdate.layer.borderColor = BLUE_COLOR.CGColor;
     btnUpdate.layer.borderWidth = 1.0;
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnUpdate setTitle:text_update forState:UIControlStateNormal];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     tbBank = [[UITableView alloc] init];
     tbBank.backgroundColor = UIColor.whiteColor;
     tbBank.layer.cornerRadius = 5.0;
-    tbBank.layer.borderColor = BORDER_COLOR.CGColor;
+    tbBank.layer.borderColor = GRAY_230.CGColor;
     tbBank.layer.borderWidth = 1.0;
     [tbBank registerNib:[UINib nibWithNibName:@"BankCell" bundle:nil] forCellReuseIdentifier:@"BankCell"];
     tbBank.delegate = self;
@@ -144,8 +163,8 @@
     tbBank.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview: tbBank];
     [tbBank mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfBankName.mas_bottom).offset(2.0);
-        make.left.right.equalTo(self.tfBankName);
+        make.top.equalTo(tfBankName.mas_bottom).offset(2.0);
+        make.left.right.equalTo(tfBankName);
         make.height.mas_equalTo(0.0);
     }];
     
@@ -154,8 +173,6 @@
     btnUpdate.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     
     lbBankName.textColor = lbOwner.textColor = lbAccNo.textColor = tfBankName.textColor = tfOwner.textColor = tfAccNo.textColor = TITLE_COLOR;
-    
-    
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
@@ -171,13 +188,13 @@
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if ([AppUtils isNullOrEmpty: tfBankName.text] || [AppUtils isNullOrEmpty: tfOwner.text] || [AppUtils isNullOrEmpty: tfAccNo.text]) {
-        [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin của bạn" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:pls_fill_full_informations duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang cập nhật..." Interaction:NO];
+    [ProgressHUD show:text_updating Interaction:FALSE];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateBankInfoWithBankName:tfBankName.text bankaccount:tfOwner.text banknumber:tfAccNo.text];
@@ -212,8 +229,8 @@
         }
         
         [tbBank mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.tfBankName.mas_bottom).offset(2.0);
-            make.left.right.equalTo(self.tfBankName);
+            make.top.equalTo(tfBankName.mas_bottom).offset(2.0);
+            make.left.right.equalTo(tfBankName);
             make.height.mas_equalTo(hTbView);
         }];
         [tbBank reloadData];

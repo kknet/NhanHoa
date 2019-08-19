@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Chăm sóc khách hàng";
+    self.title = text_customers_care;
     
     [self setupUIForView];
 }
@@ -44,7 +44,7 @@
     lbNoData.hidden = TRUE;
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang lấy danh sách" Interaction:NO];
+    [ProgressHUD show:text_loading Interaction:FALSE];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getListCustomersSupport];
@@ -77,7 +77,7 @@
     
     lbNoData.font = [AppDelegate sharedInstance].fontBTN;
     lbNoData.textColor = TITLE_COLOR;
-    lbNoData.text = @"Không có dữ liệu";
+    lbNoData.text = text_no_data;
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self.view);
     }];
@@ -98,7 +98,7 @@
                     NSString *domain = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"domain"];
                     NSString *port = [[AppDelegate sharedInstance].accCallInfo objectForKey:@"port"];
                     
-                    NSString *stringForCall = [NSString stringWithFormat:@"sip:%@@%@:%@", extenCall, domain, port];
+                    NSString *stringForCall = SFM(@"sip:%@@%@:%@", extenCall, domain, port);
                     [WriteLogsUtils writeLogContent:SFM(@"YOU CALL TO STRING: %@", stringForCall)];
                     
                     //  stringForCall = @"sip:150@nhanhoa1.vfone.vn:51000";
@@ -106,10 +106,10 @@
                     
                     [[AppDelegate sharedInstance] showCallViewWithDirection:OutgoingCall remote:remoteName];
                 }else{
-                    [self.view makeToast:@"Tài khoản SIP không được xác thực." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                    [self.view makeToast:text_cant_make_call_now duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
                 }
             }else{
-                [self.view makeToast:@"Tài khoản SIP không được xác thực." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                [self.view makeToast:text_cant_make_call_now duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
             }
         }
     });
@@ -134,7 +134,7 @@
         
     }else{
         [ProgressHUD dismiss];
-        [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:text_cant_make_call_now duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
@@ -142,7 +142,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     [ProgressHUD dismiss];
     
-    [self.view makeToast:@"Không thể lấy được tài khoản gọi ngay lúc này. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self.view makeToast:text_cant_make_call_now duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)getCustomersSupportListSuccessfulWithData:(NSDictionary *)data {
@@ -166,7 +166,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Không thể lấy được danh sách hỗ trợ khách hàng. Vui lòng thử lại sau!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self.view makeToast:text_cant_make_call_now duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 - (void)displayInfoAfterGetData {
@@ -179,38 +179,6 @@
         [tbContent reloadData];
     }
 }
-
-/*
-{
-    data =     (
-                {
-                    exten = domain;
-                    name = "Domain + Hosting";
-                },
-                {
-                    exten = web;
-                    name = Web4s;
-                },
-                {
-                    exten = vfone;
-                    name = "T\U1ed5ng \U0111\U00e0i s\U1ed1 vfone";
-                },
-                {
-                    exten = server;
-                    name = "M\U00e1y ch\U1ee7";
-                },
-                {
-                    exten = acc;
-                    name = "K\U1ebf to\U00e1n";
-                },
-                {
-                    exten = support;
-                    name = "H\U1ed7 tr\U1ee3 chung";
-                }
-                );
-    success = 1;
-}
-*/
 
 #pragma mark - UITableview Delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -254,10 +222,10 @@
             [[WebServiceUtils getInstance] getAccVoIPFree];
             
         }else{
-            [self.view makeToast:@"Không tìm thấy số hỗ trợ. Vui lòng thực hiện lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+            [self.view makeToast:text_cant_make_call_now duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         }
     }else{
-        [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng thực hiện lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:text_cant_make_call_now duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 

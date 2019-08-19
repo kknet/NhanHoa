@@ -239,18 +239,23 @@
 #define BEHIND_EMPTY_IMG    [UIImage imageNamed:@"passport_empty_behind.png"]
 #define DEFAULT_AVATAR      [UIImage imageNamed:@"default_avatar.png"]
 
+#define nhanhoa_software_company    @"Công ty TNHH Phần mềm Nhân Hòa"
+
 #define N_A             @"Không giá trị"
 #define unknown         @"Chưa xác định"
 #define not_support_yet @"Chưa hỗ trợ"
 
-#define text_personal @"Cá nhân"
-#define text_business @"Doanh nghiệp"
+#define text_vietnam    @"Việt Nam"
+#define text_personal   @"Cá nhân"
+#define text_business   @"Doanh nghiệp"
 
 #define not_access_camera   @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
 #define no_internet         @"Không có kết nối internet. Vui lòng kiểm tra lại!"
 
-#define text_close  @"Đóng"
-#define text_choose @"Chọn"
+#define text_close      @"Đóng"
+#define text_choose     @"Chọn"
+#define text_year       @"năm"
+#define text_years      @"năm"
 
 #define text_capture    @"Chụp ảnh"
 #define text_gallery    @"Thư viện ảnh"
@@ -290,10 +295,16 @@
 #define text_sign_up            @"Đăng ký"
 
 #define text_main_account       @"Tài khoản chính"
-#define text_bonus_account      @"Tiền thưởng"
-
+#define text_bonus_money        @"Tiền thưởng"
 
 #define text_register_domains       @"Đăng ký tên miền"
+#define text_domains_pricing_list   @"Bảng giá tên miền"
+#define text_search_domains         @"Kiểm tra tên miền"
+#define text_top_up_into_account    @"Nạp tiền vào tài khoản"
+#define text_bonus_account          @"Tài khoản thưởng"
+#define text_draw_bonuses           @"Rút tiền thưởng"
+#define text_profiles_list          @"Danh sách hồ sơ"
+
 #define text_renew_domains          @"Gia hạn tên miền"
 #define text_check_multi_domains    @"Kiểm tra nhiều tên miền"
 #define text_transfer_to_nhanhoa    @"Chuyển tên miền về Nhân Hòa"
@@ -302,7 +313,7 @@
 #define cannot_get_domains_pricing  @"Không thể lấy bảng giá tên miền"
 
 
-#define domains_pricing_list    @"Bảng giá tên miền"
+
 #define text_domains            @"Tên miền"
 #define text_registration_fee   @"Phí khởi tạo"
 #define text_renewal_fee        @"Phí gia hạn"
@@ -315,5 +326,144 @@
 
 
 
+#define you_are_using_newest_version    @"Bạn đang sử dụng phiên bản mới nhất."
+#define text_update_version_now         @"Phiên bản hiện tại trên AppStore là %@. Bạn có muốn cập nhật ngay không?"
+#define text_confirm_sign_out           @"Bạn có muốn đăng xuất khỏi ứng dụng hay không?"
+#define text_failed_to_upload_avatar    @"Tải ảnh không thành công"
+#define avatar_has_been_uploaded        @"Ảnh đại diện đã được cập nhật thành công."
+#define your_info_has_been_updated      @"Thông tin đã được cập nhật thành công."
+#define pls_enter_current_password      @"Vui lòng nhập mật khẩu hiện tại!"
+#define pls_enter_new_password          @"Bạn chưa nhập mật khẩu mới!"
+#define pls_enter_confirm_password      @"Bạn chưa nhập mật khẩu xác nhận!"
+#define confirm_pass_is_incorrect       @"Xác nhận mật khẩu không chính xác. Vui lòng kiểm tra lại!"
+#define current_pass_is_incorrect       @"Mật khẩu hiện tại bạn nhập không chính xác. Vui lòng kiểm tra lại!"
+#define password_must_be_at_least       @"Mật khẩu phải có độ dài tối thiểu %d kí tự"
+#define password_has_been_updated       @"Mật khẩu đã được cập nhật thành công. Vui lòng đăng nhập lại với mật khẩu bạn vừa cập nhật."
+#define your_message_was_sent           @"Tin nhắn của bạn đã được gửi"
+#define pls_enter_your_email            @"Vui lòng nhập địa chỉ email của bạn!"
+#define pls_enter_question_content      @"Vui lòng nhập nội dung muốn gửi!"
+#define text_at_least_characters        @"Tối thiểu %d ký tự"
+#define text_hide_info_when_whois       @"Ẩn thông tin của quý khách khi whois tên miền."
 
-#endif /* AppString_h */
+
+#define text_home               @"Trang chủ"
+#define text_account            @"Tài khoản"
+#define text_trans_history      @"Lịch sử giao dịch"
+
+#define text_account_settings   @"Cài đặt tài khoản"
+#define text_domains_management @"Quản lý tên miền"
+#define text_customers_support  @"Hỗ trợ khách hàng"
+#define text_bank_account_info  @"Thông tin tài khoản ngân hàng"
+#define text_app_info           @"Thông tin ứng dụng"
+
+#define text_version            @"Phiên bản"
+#define text_release_date       @"Ngày phát hành"
+#define text_check_for_update   @"Kiểm tra cập nhật"
+#define text_sign_out           @"Đăng xuất"
+#define text_no                 @"Không"
+#define text_update             @"Cập nhật"
+#define text_save_update        @"Lưu cập nhật"
+#define text_updating           @"Đang cập nhật..."
+#define text_update_my_info     @"Cập nhật thông tin"
+#define text_change_password    @"Đổi mật khẩu"
+
+#define text_send_message       @"Gửi tin nhắn"
+#define text_sending            @"Đang gửi..."
+
+#define text_email_address      @"Địa chỉ email"
+#define text_question_content   @"Nội dung câu hỏi"
+
+#define text_reset              @"Nhập lại"
+#define text_send_question      @"Gửi câu hỏi"
+
+#define text_current_password   @"Mật khẩu hiện tại"
+#define text_new_password       @"Mật khẩu mới"
+#define text_confirm_password   @"Xác nhận mật khẩu"
+
+#define enter_current_password  @"Nhập mật khẩu hiện tại"
+#define enter_new_password      @"Nhập mật khẩu mới"
+#define enter_confirm_password  @"Nhập xác nhận mật khẩu"
+
+#define text_fullname           @"Họ tên"
+#define text_gender             @"Giới tính"
+#define text_birthday           @"Ngày sinh"
+#define text_male               @"Nam"
+#define text_female             @"Nữ"
+#define text_passport           @"CMND"
+#define text_phonenumber        @"Phone number"
+#define text_address            @"Địa chỉ"
+#define text_country            @"Quốc gia"
+#define text_city               @"Tỉnh/thành phố"
+#define text_email              @"Email"
+
+#define text_business_info      @"Phần thông tin doanh nghiệp"
+#define text_business_name      @"Tên doanh nghiệp"
+#define text_business_tax_code  @"Mã số thuế"
+#define text_business_address   @"Địa chỉ doanh nghiệp"
+#define text_business_phone     @"Số điện thoại doanh nghiệp"
+#define text_registrar_info     @"Phần thông tin người đăng ký"
+#define text_registrant_name    @"Họ tên người đăng ký"
+#define text_postition          @"Chức vụ"
+
+#define enter_business_name     @"Nhập tên doanh nghiệp"
+#define enter_business_tax_code @"Nhập mã số thuế"
+#define enter_business_address  @"Nhập địa chỉ doanh nghiệp"
+#define enter_business_phone    @"Nhập số điện thoại doanh nghiệp"
+#define enter_registrant_name   @"Nhập tên người đăng ký"
+#define enter_postition         @"Nhập chức vụ"
+#define enter_passport          @"Nhập CMND"
+#define enter_phone_number      @"Nhập số điện thoại"
+#define enter_address           @"Nhập địa chỉ"
+#define enter_email             @"Nhập địa chỉ email"
+
+#define pls_enter_business_name         @"Vui lòng nhập tên doanh nghiệp!"
+#define pls_enter_business_tax_code     @"Vui lòng nhập mã số thuế doanh nghiệp!"
+#define pls_enter_business_address      @"Vui lòng nhập địa chỉ doanh nghiệp!"
+#define pls_enter_business_phone        @"Vui lòng nhập số điện thoại doanh nghiệp!"
+#define pls_choose_business_city        @"Vui lòng chọn tỉnh/thành phố cho doanh nghiệp!"
+#define pls_enter_registrant_name       @"Vui lòng nhập tên người đăng ký!"
+#define pls_enter_registrant_dob        @"Vui lòng nhập ngày sinh người đăng ký!"
+#define pls_enter_registrant_postition  @"Vui lòng nhập chức vụ người đăng ký!"
+#define pls_enter_registrant_passport   @"Vui lòng nhập CMND người đăng ký!"
+#define pls_enter_registrant_phone      @"Vui lòng nhập số điện thoại người đăng ký!"
+#define pls_enter_registrant_address    @"Vui lòng nhập địa chỉ người đăng ký!"
+#define pls_enter_registrant_email      @"Vui lòng nhập email người đăng ký!"
+#define pls_fill_full_informations      @"Vui lòng nhập đầy đủ thông tin của bạn"
+
+#define have_not_found_issue_yet    @"Bạn vẫn chưa tìm thấy vấn đề?"
+#define text_call_hotline           @"Gọi tổng đài"
+#define text_customers_care         @"Chăm sóc khách hàng"
+#define text_cant_make_call_now     @"Không thể thực hiện cuộc gọi vào lúc này"
+
+#define text_bank_name              @"Tên ngân hàng"
+#define text_owner_name             @"Tên chủ sở hữu"
+#define text_bank_account_number    @"Số tài khoản"
+#define enter_bank_name             @"Nhập tên ngân hàng"
+#define enter_owner_name            @"Nhập tên chủ sở hữu"
+#define enter_bank_account_number   @"Nhập số  tài khoản"
+
+#define register_vietnam_domains        @"Đăng ký tên miền quốc gia"
+#define register_international_domains  @"Đăng ký tên miền quốc tế"
+
+#define text_view_info          @"Xem thông tin"
+#define text_creation_date      @"Ngày đăng ký"
+#define text_expiration_date    @"Ngày hết hạn"
+#define text_owner              @"Chủ sở hữu"
+#define text_status             @"Trạng thái"
+#define text_registrar          @"Nhà đăng ký"
+#define text_name_servers       @"Name Servers"
+#define text_DNSSEC             @"DNSSEC"
+#define text_related_domains    @"Tên miền liên quan"
+#define text_continue           @"Tiếp tục"
+#define text_enter_domain_name  @"Nhập tên miền"
+#define text_contact_price      @"Giá liên hệ"
+
+#define text_shopping_cart      @"Giỏ hàng"
+#define text_empty_cart         @"Giỏ hàng trống"
+#define text_whois_protect      @"Whois Protect"
+
+#define proceed_to_register     @"Tiến hành đăng ký"
+#define continue_shopping       @"Tiếp tục mua hàng"
+#define text_select_profile     @"Chọn hồ sơ"
+
+#endif /* AppString_t */

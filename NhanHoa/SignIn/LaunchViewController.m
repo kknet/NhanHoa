@@ -145,6 +145,7 @@
     btnSignIn.layer.borderWidth = btnRegister.layer.borderWidth = 1.0;
     
     lbCompany.font = [AppDelegate sharedInstance].fontRegular;
+    lbCompany.text = nhanhoa_software_company;
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.viewBottom);
         make.height.mas_equalTo(hBottom);

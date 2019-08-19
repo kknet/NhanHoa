@@ -16,7 +16,7 @@
     mTop = 5.0;
     hLabel = 35.0;
     padding = 15.0;
-    sizeLeft = [AppUtils getSizeWithText:@"Ngày đăng ký" withFont:[AppDelegate sharedInstance].fontMediumDesc].width + 10.0;
+    sizeLeft = [AppUtils getSizeWithText:text_creation_date withFont:[AppDelegate sharedInstance].fontMediumDesc].width + 10.0;
     
     if ([DeviceUtils isScreen320] || [DeviceUtils isScreen375]) {
         padding = 5.0;
@@ -33,6 +33,7 @@
         make.bottom.equalTo(lbDNSSECValue.mas_bottom).offset(padding);
     }];
     
+    lbDomain.text = SFM(@"%@:", text_domains);
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewContent).offset(padding);
         make.left.equalTo(viewContent).offset(padding);
@@ -46,6 +47,7 @@
         make.right.equalTo(viewContent).offset(-padding);
     }];
     
+    lbIssueDate.text = SFM(@"%@:", text_creation_date);
     [lbIssueDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbDomain);
         make.top.equalTo(lbDomain.mas_bottom).offset(mTop);
@@ -57,6 +59,7 @@
         make.left.right.equalTo(lbDomainValue);
     }];
     
+    lbExpiredDate.text = SFM(@"%@:", text_expiration_date);
     [lbExpiredDate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbIssueDate);
         make.top.equalTo(lbIssueDate.mas_bottom).offset(mTop);
@@ -75,6 +78,7 @@
         make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
+    lbOwner.text = text_owner;
     [lbOwner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbExpiredDate);
         make.centerY.equalTo(lbOwnerValue.mas_centerY);
@@ -89,6 +93,7 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    lbStatus.text = text_status;
     [lbStatus mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(lbStatusValue.mas_centerY);
         make.left.right.equalTo(lbOwner);
@@ -103,6 +108,7 @@
         make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
+    lbRegisterName.text = text_registrar;
     [lbRegisterName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(lbRegisterNameValue.mas_centerY);
         make.left.right.equalTo(lbStatus);
@@ -117,6 +123,7 @@
         make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
+    lbDNS.text = text_name_servers;
     [lbDNS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(lbDNSValue.mas_centerY);
         make.left.right.equalTo(lbRegisterName);
@@ -131,6 +138,7 @@
         make.height.mas_greaterThanOrEqualTo(hLabel);
     }];
     
+    lbDNSSEC.text = text_DNSSEC;
     [lbDNSSEC mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(lbDNSSECValue.mas_centerY);
         make.left.right.equalTo(lbDNS);

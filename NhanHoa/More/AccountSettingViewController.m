@@ -16,7 +16,7 @@
 #import <Photos/PHAsset.h>
 #import "UploadPicture.h"
 
-@interface AccountSettingViewController ()<UIActionSheetDelegate, PECropViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebServiceUtilsDelegate> {
+@interface AccountSettingViewController ()<PECropViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebServiceUtilsDelegate> {
     PECropViewController *PECropController;
     UIImagePickerController *imagePickerController;
 }
@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
-    self.title = @"Cài đặt tài khoản";
+    self.title = text_account_settings;
     self.edgesForExtendedLayout = UIRectEdgeBottom;
 }
 
@@ -38,9 +38,11 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"AccountSettingViewController"];
     
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    lbID.text = SFM(@"%@ ID:", appName);
     
-    NSString *avatarName = [NSString stringWithFormat:@"%@.PNG", [AccountModel getCusIdOfUser]];
-    NSString *localFile = [NSString stringWithFormat:@"/avatars/%@", avatarName];
+    NSString *avatarName = SFM(@"%@.PNG", [AccountModel getCusIdOfUser]);
+    NSString *localFile = SFM(@"/avatars/%@", avatarName);
     NSData *avatarData = [AppUtils getFileDataFromDirectoryWithFileName:localFile];
     if (avatarData != nil) {
         [btnAvatar setImage:[UIImage imageWithData:avatarData] forState:UIControlStateNormal];
@@ -65,7 +67,7 @@
     //  Show avatar if updating
     if ([AppDelegate sharedInstance].dataCrop != nil) {
         [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:@"Đang cập nhật ảnh đại diện..." Interaction:NO];
+        [ProgressHUD show:text_updating Interaction:FALSE];
         
         [self startUpdateAvatarForUser];
         
@@ -82,7 +84,7 @@
 - (void)startUpdateAvatarForUser {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
-    NSString *imageName = [NSString stringWithFormat:@"avatar_%@.png", [AccountModel getCusIdOfUser]];
+    NSString *imageName = SFM(@"avatar_%@.png", [AccountModel getCusIdOfUser]);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         UploadPicture *session = [[UploadPicture alloc] init];
@@ -90,9 +92,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
                 {
-                    [self.view makeToast:@"Tải ảnh không thành công." duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                    [self.view makeToast:text_failed_to_upload_avatar duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
                 }else{
-                    self.avatarUploadURL = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                    self.avatarUploadURL = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
                     [self updatePhotoForCustomerWithURL: self.avatarUploadURL];
                 }
                 [AppDelegate sharedInstance].dataCrop = nil;
@@ -105,9 +107,18 @@
     float padding = 15.0;
     float hItem = 40.0;
     float wAvatar = 100.0;
+    float hBTN = 45.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
         wAvatar = 80.0;
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        wAvatar = 120.0;
+        hItem = 60.0;
+        hBTN = 55.0;
     }
     
     btnAvatar.clipsToBounds = TRUE;
@@ -120,125 +131,112 @@
     
     [btnChoosePhoto mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.btnAvatar.mas_bottom).offset(-5.0);
+        make.bottom.equalTo(btnAvatar.mas_bottom).offset(-5.0);
         make.width.height.mas_equalTo(22.0);
     }];
     
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnAvatar.mas_bottom).offset(20.0);
+        make.top.equalTo(btnAvatar.mas_bottom).offset(20.0);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbInfo.textColor = TITLE_COLOR;
-    lbInfo.font = [UIFont fontWithName:RobotoMedium size:17.0];
+    lbInfo.textColor = lbName.textColor = lbNameValue.textColor = lbID.textColor = lbIDValue.textColor = lbEmail.textColor = lbEmailValue.textColor = lbPasswordInfo.textColor = lbPassword.textColor = lbPasswordValue.textColor = TITLE_COLOR;
+    lbInfo.font = lbNameValue.font = lbIDValue.font = lbEmailValue.font = lbPasswordInfo.font = lbPasswordValue.font = [AppDelegate sharedInstance].fontMedium;
+    lbName.font = lbID.font = lbEmail.font = lbPassword.font = [AppDelegate sharedInstance].fontRegular;
+    
     [lbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewInfo);
-        make.left.equalTo(self.viewInfo).offset(padding);
-        make.right.equalTo(self.viewInfo).offset(-padding);
+        make.top.bottom.equalTo(viewInfo);
+        make.left.equalTo(viewInfo).offset(padding);
+        make.right.equalTo(viewInfo).offset(-padding);
     }];
     
-    float maxText = [AppUtils getSizeWithText:@"Nhân Hòa ID:" withFont:[UIFont fontWithName:RobotoRegular size:17.0]].width;
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    float maxText = [AppUtils getSizeWithText:SFM(@"%@ ID:", appName) withFont:[AppDelegate sharedInstance].fontRegular].width + 10.0;
     //  name
-    lbName.textColor = TITLE_COLOR;
-    lbName.font = [UIFont fontWithName:RobotoRegular size:17.0];
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewInfo.mas_bottom).offset(10.0);
+        make.top.equalTo(viewInfo.mas_bottom).offset(10.0);
         make.left.equalTo(self.view).offset(padding);
         make.width.mas_equalTo(maxText);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbNameValue.textColor = TITLE_COLOR;
-    lbNameValue.font = lbInfo.font;
     [lbNameValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbName);
-        make.left.equalTo(self.lbName.mas_right).offset(5.0);
+        make.top.bottom.equalTo(lbName);
+        make.left.equalTo(lbName.mas_right).offset(5.0);
         make.right.equalTo(self.view).offset(-padding);
 
     }];
     
     //  Nhan Hoa ID
-    lbID.textColor = TITLE_COLOR;
-    lbID.font = lbName.font;
     [lbID mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbName);
-        make.top.equalTo(self.lbName.mas_bottom);
+        make.left.right.equalTo(lbName);
+        make.top.equalTo(lbName.mas_bottom);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbIDValue.textColor = TITLE_COLOR;
-    lbIDValue.font = lbNameValue.font;
     [lbIDValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbID);
-        make.left.right.equalTo(self.lbNameValue);
+        make.top.bottom.equalTo(lbID);
+        make.left.right.equalTo(lbNameValue);
         
     }];
     
     //  Email
-    lbEmail.textColor = TITLE_COLOR;
-    lbEmail.font = lbName.font;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbID);
-        make.top.equalTo(self.lbID.mas_bottom);
+        make.left.right.equalTo(lbID);
+        make.top.equalTo(lbID.mas_bottom);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbEmailValue.textColor = TITLE_COLOR;
-    lbEmailValue.font = lbNameValue.font;
     [lbEmailValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbEmail);
-        make.left.right.equalTo(self.lbIDValue);
+        make.top.bottom.equalTo(lbEmail);
+        make.left.right.equalTo(lbIDValue);
     }];
     
     //  view password
     [viewPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbEmailValue.mas_bottom).offset(5.0);
+        make.top.equalTo(lbEmailValue.mas_bottom).offset(5.0);
         make.left.right.equalTo(self.view);
-        make.height.equalTo(self.viewInfo.mas_height);
+        make.height.equalTo(viewInfo.mas_height);
     }];
     
-    lbPasswordInfo.textColor = TITLE_COLOR;
-    lbPasswordInfo.font = lbInfo.font;
     [lbPasswordInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.viewPassword);
-        make.left.equalTo(self.viewPassword).offset(padding);
-        make.right.equalTo(self.viewPassword).offset(-padding);
+        make.top.bottom.equalTo(viewPassword);
+        make.left.equalTo(viewPassword).offset(padding);
+        make.right.equalTo(viewPassword).offset(-padding);
     }];
     
     //  password
-    lbPassword.textColor = TITLE_COLOR;
-    lbPassword.font = lbName.font;
     [lbPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.lbEmail);
-        make.top.equalTo(self.viewPassword.mas_bottom).offset(5.0);
+        make.left.right.equalTo(lbEmail);
+        make.top.equalTo(viewPassword.mas_bottom).offset(5.0);
         make.height.mas_equalTo(hItem);
     }];
     
-    lbPasswordValue.textColor = TITLE_COLOR;
-    lbPasswordValue.font = lbNameValue.font;
     [lbPasswordValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbPassword);
-        make.left.right.equalTo(self.lbEmailValue);
+        make.top.bottom.equalTo(lbPassword);
+        make.left.right.equalTo(lbEmailValue);
     }];
     
+    [btnChangePassword setTitle:text_change_password forState:UIControlStateNormal];
     [btnChangePassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
+    [btnUpdateInfo setTitle:text_update_my_info forState:UIControlStateNormal];
     [btnUpdateInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.btnChangePassword);
-        make.bottom.equalTo(self.btnChangePassword.mas_top).offset(-padding);
-        make.height.equalTo(self.btnChangePassword.mas_height);
+        make.left.right.equalTo(btnChangePassword);
+        make.bottom.equalTo(btnChangePassword.mas_top).offset(-15.0);
+        make.height.equalTo(btnChangePassword.mas_height);
     }];
     
     btnChangePassword.layer.borderColor = btnUpdateInfo.layer.borderColor = BLUE_COLOR.CGColor;
     btnChangePassword.layer.borderWidth = btnUpdateInfo.layer.borderWidth = 1.0;
     btnChangePassword.backgroundColor = btnUpdateInfo.backgroundColor = BLUE_COLOR;
-    btnChangePassword.layer.cornerRadius = btnUpdateInfo.layer.cornerRadius = 45.0/2;
+    btnChangePassword.layer.cornerRadius = btnUpdateInfo.layer.cornerRadius = hBTN/2;
     btnChangePassword.titleLabel.font = btnUpdateInfo.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
 }
 
@@ -259,13 +257,11 @@
 }
 
 - (IBAction)btnAvatarPress:(UIButton *)sender {
-    UIActionSheet *act = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, nil];
-    [act showInView: self.view];
+    [self showViewChangeAvatar];
 }
 
 - (IBAction)btnChoosePhotoPress:(UIButton *)sender {
-    UIActionSheet *act = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Đóng" destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, nil];
-    [act showInView: self.view];
+    [self showViewChangeAvatar];
 }
 
 - (IBAction)btnUpdateInfoPress:(UIButton *)sender {
@@ -306,6 +302,35 @@
     //  [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
+- (void)showViewChangeAvatar
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //  close button
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){}];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    //  capture button
+    UIAlertAction *btnCapture = [UIAlertAction actionWithTitle:text_capture style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action){
+                                                           [self requestToAccessYourCamera];
+                                                       }];
+    [btnCapture setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    //  gallery button
+    UIAlertAction *btnGallery = [UIAlertAction actionWithTitle:text_gallery style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action){
+                                                           [self onSelectPhotosGallery];
+                                                       }];
+    [btnGallery setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnGallery];
+    [alertVC addAction:btnCapture];
+    [alertVC addAction:btnClose];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
 #pragma mark - ContactDetailsImagePickerDelegate Functions
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
@@ -324,17 +349,6 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - ActionSheet Delegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [actionSheet buttonTitleAtIndex: buttonIndex];
-    if ([title isEqualToString: text_capture]) {
-        [self requestToAccessYourCamera];
-        
-    }else if ([title isEqualToString: text_gallery]) {
-        [self onSelectPhotosGallery];
-    }
 }
 
 - (void)requestToAccessYourCamera {
@@ -447,7 +461,7 @@
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
         [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
     }
-    [self.view makeToast:@"Ảnh đại diện đã được cập nhật thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:avatar_has_been_uploaded duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self displayInformationForAccount];
 }
 

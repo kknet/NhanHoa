@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Rút tiền thưởng";
+    self.title = text_draw_bonuses;
     [self setupUIForView];
 }
 
@@ -123,9 +123,9 @@
     [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
-    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
-                                                         NSLog(@"Đóng");
+                                                         
                                                      }];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     

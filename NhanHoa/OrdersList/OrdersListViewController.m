@@ -122,7 +122,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        [actionSheet addAction:[UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [actionSheet addAction:[UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:TRUE completion:nil];
         }]];
         

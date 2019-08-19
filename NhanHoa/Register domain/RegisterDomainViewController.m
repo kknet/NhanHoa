@@ -332,9 +332,9 @@
     
     NSString *content;
     if ([name hasSuffix:@".vn"]) {
-        content = [NSString stringWithFormat:@"Đăng ký tên miền quốc gia %@", name];
+        content = SFM(@"%@ %@", register_vietnam_domains, name);
     }else{
-        content = [NSString stringWithFormat:@"Đăng ký tên miền quốc tế %@", name];
+        content = SFM(@"%@ %@", register_international_domains, name);
     }
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString: content];
     NSRange range = [content rangeOfString: name];
@@ -342,11 +342,11 @@
     cell.lbDomain.attributedText = attr;
     
     if ([price isKindOfClass:[NSNumber class]]) {
-        NSString *strPrice = [NSString stringWithFormat:@"%d", [price intValue]];
-        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: strPrice]];
+        NSString *strPrice = SFM(@"%d", [price intValue]);
+        cell.lbPrice.text = SFM(@"%@đ/%@", [AppUtils convertStringToCurrencyFormat: strPrice], text_year);
         
     }else if ([price isKindOfClass:[NSString class]]) {
-        cell.lbPrice.text = [NSString stringWithFormat:@"%@đ/năm", [AppUtils convertStringToCurrencyFormat: (NSString *)price]];
+        cell.lbPrice.text = SFM(@"%@đ/%@", [AppUtils convertStringToCurrencyFormat: (NSString *)price], text_year);
     }
     
     NSString *image = name;

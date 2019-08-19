@@ -145,9 +145,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gO0-dq-bJb">
-                            <rect key="frame" x="251" y="404" width="61" height="30"/>
+                            <rect key="frame" x="262" y="404" width="39" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Nhập Lại"/>
+                            <state key="normal" title="Reset"/>
                             <connections>
                                 <action selector="btnResetPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="LaB-eB-ZUS"/>
                             </connections>

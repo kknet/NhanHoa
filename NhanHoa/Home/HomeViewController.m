@@ -259,28 +259,28 @@
     HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:text_register_domains icon:@"menu_domain" type:eRegisterDomain];
     [listMenu addObject: regDomain];
     
-    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:domains_pricing_list icon:@"menu_reorder_domain" type:ePricingDomain];
+    HomeMenuObject *renewDomain = [[HomeMenuObject alloc] initWithName:text_domains_pricing_list icon:@"menu_reorder_domain" type:ePricingDomain];
     [listMenu addObject: renewDomain];
     
-    HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:@"Kiểm tra tên miền" icon:@"menu_search_domain" type:eSearchDomain];
+    HomeMenuObject *searchDomain = [[HomeMenuObject alloc] initWithName:text_search_domains icon:@"menu_search_domain" type:eSearchDomain];
     [listMenu addObject: searchDomain];
     
-    HomeMenuObject *recharge = [[HomeMenuObject alloc] initWithName:@"Nạp tiền vào tài khoản" icon:@"menu_recharge" type:eRecharge];
+    HomeMenuObject *recharge = [[HomeMenuObject alloc] initWithName:text_top_up_into_account icon:@"menu_recharge" type:eRecharge];
     [listMenu addObject: recharge];
     
-    HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:@"Tài khoản thưởng" icon:@"menu_bonus" type:eRewardsPoints];
+    HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:text_bonus_account icon:@"menu_bonus" type:eRewardsPoints];
     [listMenu addObject: rewardsPoints];
     
-    HomeMenuObject *managerDomains = [[HomeMenuObject alloc] initWithName:@"Quản lý tên miền" icon:@"menu_list_domain" type:eManagerDomain];
+    HomeMenuObject *managerDomains = [[HomeMenuObject alloc] initWithName:text_domains_management icon:@"menu_list_domain" type:eManagerDomain];
     [listMenu addObject: managerDomains];
     
-    HomeMenuObject *withdrawal = [[HomeMenuObject alloc] initWithName:@"Rút tiền thưởng" icon:@"menu_withdrawal" type:eWithdrawal];
+    HomeMenuObject *withdrawal = [[HomeMenuObject alloc] initWithName:text_draw_bonuses icon:@"menu_withdrawal" type:eWithdrawal];
     [listMenu addObject: withdrawal];
     
-    HomeMenuObject *profile = [[HomeMenuObject alloc] initWithName:@"Danh sách hồ sơ" icon:@"menu_profile" type:eProfile];
+    HomeMenuObject *profile = [[HomeMenuObject alloc] initWithName:text_profiles_list icon:@"menu_profile" type:eProfile];
     [listMenu addObject: profile];
     
-    HomeMenuObject *support = [[HomeMenuObject alloc] initWithName:@"Hỗ trợ khách hàng" icon:@"menu_support" type:eSupport];
+    HomeMenuObject *support = [[HomeMenuObject alloc] initWithName:text_customers_support icon:@"menu_support" type:eSupport];
     [listMenu addObject: support];
     
 }
@@ -455,12 +455,12 @@
         make.height.equalTo(imgMainWallet.mas_height);
     }];
     
-    lbRewards.text = [NSString stringWithFormat:@"%@:", text_bonus_account];
+    lbRewards.text = [NSString stringWithFormat:@"%@:", text_bonus_money];
     if (!IS_IPHONE && !IS_IPOD) {
         lbRewards.font = [UIFont fontWithName:RobotoRegular size:18.0];
         lbRewardsPoints.font = [UIFont fontWithName:RobotoRegular size:24.0];
         
-        float sizeText = [AppUtils getSizeWithText:text_bonus_account withFont:lbRewards.font].width + 10.0;
+        float sizeText = [AppUtils getSizeWithText:text_bonus_money withFont:lbRewards.font].width + 10.0;
         [lbRewards mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imgRewards.mas_right).offset(5.0);
             make.top.bottom.equalTo(viewRewards);

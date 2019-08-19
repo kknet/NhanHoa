@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Danh sách hồ sơ";
+    self.title = text_profiles_list;
     [self setupUIForView];
     
     [AppDelegate sharedInstance].needReloadListProfile = FALSE;

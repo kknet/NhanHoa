@@ -12,15 +12,17 @@
 @implementation CartDomainItemCell
 
 @synthesize lbNum, lbName, lbPrice, lbDescription, lbFirstYear, icRemove, tfYears, imgArrow, btnYears, lbTotalPrice, lbSepa;
-@synthesize protectView, lbProtect, lbProtectDomain, btnInfo, swProtect, lbFree;
+@synthesize protectView, lbProtect, lbProtectDomain, btnInfo, swProtect, lbFree, padding, hItem;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    float padding = 15.0;
-    float hItem = 30.0;
+    padding = 15.0;
+    hItem = 30.0;
     float hIcon = 38.0;
     float wTextfield = 100.0;
+    float smallPadding = 5.0;
+    float sizeInfo = 31.0;
     
     lbNum.font = [UIFont fontWithName:RobotoRegular size:16.0];
     lbPrice.font = [UIFont fontWithName:RobotoRegular size:16.0];
@@ -28,6 +30,7 @@
     lbFirstYear.font = [UIFont fontWithName:RobotoRegular size:14.0];
     tfYears.font = [UIFont fontWithName:RobotoRegular size:16.0];
     lbTotalPrice.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    btnInfo.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     
     if (!IS_IPHONE && !IS_IPOD) {
         lbNum.font = lbPrice.font = tfYears.font = [AppDelegate sharedInstance].fontRegular;
@@ -38,6 +41,9 @@
         hItem = 40.0;
         hIcon = 45.0;
         wTextfield = 200.0;
+        smallPadding = 30.0;
+        sizeInfo = 45.0;
+        btnInfo.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     }
     
     [lbNum mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -115,17 +121,19 @@
     protectView.backgroundColor = GRAY_235;
     [protectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfYears.mas_bottom).offset(5.0);
-        make.left.equalTo(self).offset(5.0);
-        make.right.equalTo(self).offset(-5.0);
-        make.height.mas_equalTo(60.0);
+        make.left.equalTo(self).offset(padding);
+        make.right.equalTo(self).offset(-padding);
+        make.height.mas_equalTo(2*hItem);
     }];
     
-    lbFree.text = @"(Miễn phí)";
+    lbFree.text = SFM(@"(%@)", text_free);
     lbFree.font = [AppDelegate sharedInstance].fontItalic;
+    
+    float sizeText = [AppUtils getSizeWithText:lbFree.text withFont:lbFree.font].width + 30.0;
     [lbFree mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(protectView).offset(-5.0);
         make.centerY.equalTo(protectView.mas_centerY);
-        make.width.mas_equalTo(90.0);
+        make.width.mas_equalTo(sizeText);
     }];
     
     [swProtect mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -135,24 +143,23 @@
         make.height.mas_equalTo(31.0);
     }];
     
-    btnInfo.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [btnInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(swProtect.mas_left).offset(-10.0);
-        make.top.bottom.equalTo(swProtect);
-        make.width.mas_equalTo(31.0);
+        make.centerY.equalTo(swProtect.mas_centerY);
+        make.width.height.mas_equalTo(sizeInfo);
     }];
     
-    lbProtect.text = @"Whois Protect";
-    lbProtect.font = [AppDelegate sharedInstance].fontBold;
+    lbProtect.text = text_whois_protect;
+    lbProtect.font = [AppDelegate sharedInstance].fontMedium;
     [lbProtect mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(btnInfo.mas_left).offset(-10.0);
         make.bottom.equalTo(protectView.mas_centerY).offset(-2.0);
-        make.left.equalTo(protectView).offset(5.0);
+        make.left.equalTo(protectView).offset(smallPadding);
     }];
     
     lbProtectDomain.text = @"";
     lbProtectDomain.textColor = TITLE_COLOR;
-    lbProtectDomain.font = [AppDelegate sharedInstance].fontRegular;
+    lbProtectDomain.font = [AppDelegate sharedInstance].fontNormal;
     [lbProtectDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbProtect);
         make.top.equalTo(protectView.mas_centerY).offset(2.0);
@@ -160,13 +167,12 @@
 }
 
 - (void)frameForShowWhoisProtectView: (BOOL)show {
-    float padding = 7.5;
     if (show) {
         [protectView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.tfYears.mas_bottom).offset(7.5);
             make.left.equalTo(self).offset(padding);
             make.right.equalTo(self).offset(-padding);
-            make.height.mas_equalTo(60.0);
+            make.height.mas_equalTo(2*hItem);
         }];
     }else{
         [protectView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -192,7 +198,7 @@
 }
 
 - (IBAction)btnInfoPress:(UIButton *)sender {
-    [[AppDelegate sharedInstance].cartWindow makeToast:@"Ẩn thông tin của quý khách khi whois tên miền." duration:3.0 position:CSToastPositionCenter];
+    [[AppDelegate sharedInstance].cartWindow makeToast:text_hide_info_when_whois duration:3.0 position:CSToastPositionCenter];
 }
 
 - (void)displayDataWithInfo: (NSDictionary *)info forYear: (int)yearsForRenew {
@@ -268,19 +274,6 @@
     
     BOOL isNationalDomain = [AppUtils checkDomainIsNationalDomain: domainName];
     [self frameForShowWhoisProtectView: !isNationalDomain];
-    
-//    available = 1;
-//    domain = "dailyxanh.net";
-//    flag = 0;
-//    "price_first_year" = 219000;
-//    "price_next_years" = 219000;
-//    "price_vat_first_year" = 21900;
-//    "price_vat_next_year" = 21900;
-//    "total_first_year" = 240900;
-//    "total_next_years" = 240900;
-//    vat = 10;
-//    "year_for_domain" = 1;
-    
 }
 
 @end

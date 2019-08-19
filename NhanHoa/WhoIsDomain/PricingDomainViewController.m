@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = domains_pricing_list;
+    self.title = text_domains_pricing_list;
     [self setupUIForView];
 }
 

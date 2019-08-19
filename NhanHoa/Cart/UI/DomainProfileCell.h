@@ -27,6 +27,8 @@
 @property (nonatomic, assign) float hBTN;
 @property (nonatomic, assign) float sizeType;
 @property (nonatomic, assign) float sizeProfile;
+@property (nonatomic, assign) float mTop;
+@property (nonatomic, assign) float hLabel;
 
 - (void)showProfileView: (BOOL)show withBusiness: (BOOL)business;
 - (void)showProfileContentWithInfo: (NSDictionary *)profile;

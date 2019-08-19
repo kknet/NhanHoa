@@ -20,6 +20,11 @@
     float hBTN = 35.0;
     float hHeaderItem = 25.0;
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+        
+    }
+    
     //  header: 10 + 20 + 20 + 10
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
@@ -55,13 +60,13 @@
     }];
     
     //  get size
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+    UIFont *textFont = [AppDelegate sharedInstance].fontRegular;
     sizeType = [AppUtils getSizeWithText:@"Hồ sơ:" withFont:textFont].width + 10;
     sizeProfile = [AppUtils getSizeWithText:@"Người đại diện:" withFont: textFont].width + 10;
     
     //  set font and color
     lbTypeName.font = lbProfileName.font = textFont;
-    lbTypeNameValue.font = lbCompanyValue.font = lbProfileNameValue.font = [UIFont fontWithName:RobotoMedium size:16.0];
+    lbTypeNameValue.font = lbCompanyValue.font = lbProfileNameValue.font = [AppDelegate sharedInstance].fontMedium;
     lbTypeName.textColor = lbTypeNameValue.textColor = lbCompanyValue.textColor = lbProfileName.textColor = lbProfileNameValue.textColor = TITLE_COLOR;
     
     //  company

@@ -16,13 +16,18 @@
 #import "AboutViewController.h"
 #import "SettingMenuCell.h"
 #import "AccountModel.h"
+#import "AccountInfoView.h"
 
-@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>
+@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
+    float hAccount;
+    float padding;
+    AccountInfoView *accInfoView;
+    float hCell;
+}
 @end
 
 @implementation MoreViewController
-@synthesize viewHeader, tbContent, accInfoView;
-@synthesize hAccount, padding;
+@synthesize viewHeader, tbContent;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,25 +59,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)icCloseClick:(UIButton *)sender {
-}
-
-- (IBAction)icNotifyClick:(UIButton *)sender {
-}
-
-- (IBAction)icSearchClick:(UIButton *)sender {
-}
-
 - (void)setupUIForView {
     hAccount = 135; //  10 + 30 + 30 + 10 + 10 + 40.0 + 10;
     padding = 15.0;
+    hCell = 60.0;
+    
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
     
-    self.view.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding =30.0;
+        hAccount = 10 + 80.0 + 10.0 + 1.0 + 10.0 + 40.0 + 10.0;
+        hCell = 80.0;
+    }
     
-    float hHeader = self.hAccount/2 + 2*[AppDelegate sharedInstance].hStatusBar;
+    self.view.backgroundColor = GRAY_235;
+    
+    float hHeader = hAccount/2 + 2*[AppDelegate sharedInstance].hStatusBar;
     
     viewHeader.backgroundColor = UIColor.orangeColor;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +91,7 @@
     tbContent.dataSource = self;
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewHeader.mas_bottom);
+        make.top.equalTo(viewHeader.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
     
@@ -110,15 +114,15 @@
     [self.view addSubview: accInfoView];
     
     [accInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewHeader.mas_bottom).offset(20.0);
-        make.left.equalTo(self.view).offset(self.padding);
-        make.right.equalTo(self.view).offset(-self.padding);
-        make.height.mas_equalTo(self.hAccount);
+        make.centerY.equalTo(viewHeader.mas_bottom).offset(20.0);
+        make.left.equalTo(self.view).offset(padding);
+        make.right.equalTo(self.view).offset(-padding);
+        make.height.mas_equalTo(hAccount);
     }];
     [accInfoView setupUIForView];
     [AppUtils addBoxShadowForView:accInfoView withColor:UIColor.blackColor];
     
-    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.hAccount/2 + 20 + 10)];
+    UIView *tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hAccount/2 + 20 + 10)];
     tbHeaderView.backgroundColor = UIColor.whiteColor;
     tbContent.tableHeaderView = tbHeaderView;
 }
@@ -169,33 +173,33 @@
     
     switch (indexPath.row) {
         case eSettingAccount:{
-            cell.lbName.text = @"Cài đặt tài khoản";
+            cell.lbName.text = text_account_settings;
             cell.imgType.image = [UIImage imageNamed:@"ic_setting_acc.png"];
             break;
         }
         case eManagerDomainList:{
-            cell.lbName.text = @"Quản lý tên miền";
+            cell.lbName.text = text_domains_management;
             cell.imgType.image = [UIImage imageNamed:@"ic_manager_domain"];
             break;
         }
         case eCustomnerSupport:{
             cell.imgType.image = [UIImage imageNamed:@"ic_support"];
-            cell.lbName.text = @"Hỗ trợ khách hàng";
+            cell.lbName.text = text_customers_support;
             break;
         }
         case eBankInfo:{
             cell.imgType.image = [UIImage imageNamed:@"ic_bank_info"];
-            cell.lbName.text = @"Thông tin tài khoản ngân hàng";
+            cell.lbName.text = text_bank_account_info;
             break;
         }
         case eApplicationInfo:{
             cell.imgType.image = [UIImage imageNamed:@"ic_about"];
-            cell.lbName.text = @"Thông tin ứng dụng";
+            cell.lbName.text = text_app_info;
             break;
         }
         case eSignOut:{
             cell.imgType.image = [UIImage imageNamed:@"ic_signout"];
-            cell.lbName.text = @"Đăng xuất";
+            cell.lbName.text = text_sign_out;
             break;
         }
             
@@ -250,9 +254,31 @@
             break;
         }
         case eSignOut:{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Bạn có muốn đăng xuất khỏi ứng dụng hay không?" delegate:self cancelButtonTitle:@"Không" otherButtonTitles:@"Đăng xuất", nil];
-            alertView.tag = 1;
-            [alertView show];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+                
+                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:text_confirm_sign_out];
+                [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
+                [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+                
+                UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_no style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction *action){}];
+                [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
+                
+                UIAlertAction *btnSignOut = [UIAlertAction actionWithTitle:text_sign_out style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction *action){
+                                                                       if (![AppUtils checkNetworkAvailable]) {
+                                                                           [self logoutScreen];
+                                                                       }else{
+                                                                           [self clearTokenOfUser];
+                                                                       }
+                                                                   }];
+                [btnSignOut setValue:UIColor.redColor forKey:@"titleTextColor"];
+                [alertVC addAction:btnClose];
+                [alertVC addAction:btnSignOut];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            });
+            
             break;
         }
             
@@ -262,26 +288,13 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0;
+    return hCell;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     CGPoint scrollViewOffset = scrollView.contentOffset;
     if (scrollViewOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0)];
-    }
-}
-
-#pragma mark - UIAlertview
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1) {
-        if (buttonIndex == 1) {
-            if (![AppUtils checkNetworkAvailable]) {
-                [self logoutScreen];
-            }else{
-                [self clearTokenOfUser];
-            }
-        }
     }
 }
 

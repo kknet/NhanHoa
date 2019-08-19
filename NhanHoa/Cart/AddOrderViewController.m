@@ -23,13 +23,17 @@
     float hSmallCell;
     NSString *buyingDomain;             //  Tên miền đang được mua
     OrderResultView *orderResultView;
+    
+    float hMenu;
+    float hTbConfirm;
+    float padding;
 }
 
 @end
 
 @implementation AddOrderViewController
 @synthesize viewMenu, viewContent, tbContent, btnPayment, chooseProfileView, tbConfirmProfile;
-@synthesize hMenu, hTbConfirm, padding, paymentResult;
+@synthesize paymentResult;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,10 +64,17 @@
     hCell = 115.0;  //  10 + 35 + 60 + 10
     hSmallCell = 55; //  10 + 35 + 10;
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        hMenu = 85.0;   //  10 + 35.0 + 30.0 + 10;
+        padding = 30.0;
+        hCell = 175.0;  //  20 + 45 + 90.0 + 20.0;
+        hSmallCell = 85.0;  //  20 + 45 + 20;
+    }
+    
     [self addStepMenuForView];
     
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.top.equalTo(viewMenu.mas_bottom);
         make.left.bottom.right.equalTo(self.view);
     }];
     
@@ -75,8 +86,8 @@
     btnPayment.backgroundColor = BLUE_COLOR;
     btnPayment.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewContent).offset(self.padding);
-        make.bottom.right.equalTo(self.viewContent).offset(-self.padding);
+        make.left.equalTo(viewContent).offset(padding);
+        make.bottom.right.equalTo(viewContent).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
     
@@ -85,8 +96,8 @@
     tbContent.dataSource = self;
     [tbContent registerNib:[UINib nibWithNibName:@"DomainProfileCell" bundle:nil] forCellReuseIdentifier:@"DomainProfileCell"];
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.viewContent);
-        make.bottom.equalTo(self.btnPayment.mas_top).offset(-self.padding);
+        make.top.left.right.equalTo(viewContent);
+        make.bottom.equalTo(btnPayment.mas_top).offset(-padding);
     }];
     
     [self addListProfileForChoose];
@@ -114,7 +125,7 @@
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(self.hMenu);
+        make.height.mas_equalTo(hMenu);
     }];
     [viewMenu setupUIForView];
     [viewMenu updateUIForStep: ePaymentProfile];
@@ -126,7 +137,7 @@
     tbConfirmProfile.delegate = self;
     tbConfirmProfile.dataSource = self;
     [tbConfirmProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom);
+        make.top.equalTo(viewMenu.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
     
@@ -171,7 +182,7 @@
     [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
-    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:@"Đóng" style:UIAlertActionStyleDefault
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [self startPaymentDomains];
                                                      }];

@@ -223,6 +223,7 @@
     }];
     
     lbTitle.font = [AppDelegate sharedInstance].fontBTN;
+    lbTitle.text = text_search_domains;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.viewHeader.mas_centerX);
         make.top.equalTo(self.viewHeader).offset([UIApplication sharedApplication].statusBarFrame.size.height);
@@ -241,6 +242,7 @@
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnContinue.layer.cornerRadius = hBTN/2;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnContinue setTitle:text_continue forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
@@ -272,6 +274,7 @@
     tfSearch.layer.cornerRadius = hSearch/2;
     tfSearch.layer.borderColor = [UIColor colorWithRed:(86/255.0) green:(149/255.0) blue:(228/255.0) alpha:1.0].CGColor;
     tfSearch.layer.borderWidth = 1.5;
+    tfSearch.placeholder = text_enter_domain_name;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(scvContent).offset(padding);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
@@ -389,6 +392,7 @@
     }];
     
     lbRelationDomain.font = [AppDelegate sharedInstance].fontMedium;
+    lbRelationDomain.text = text_related_domains;
     [lbRelationDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbSepaView.mas_bottom).offset(10.0);
         make.left.equalTo(scvContent).offset(padding);
@@ -559,7 +563,7 @@
             price = [AppUtils convertStringToCurrencyFormat: price];
             cell.lbPrice.text = [NSString stringWithFormat:@"%@VNĐ", price];
         }else{
-            cell.lbPrice.text = @"Liên hệ";
+            cell.lbPrice.text = text_contact_price;
         }
         [cell showPriceForDomainCell: TRUE];
         cell.btnChoose.enabled = TRUE;
@@ -596,7 +600,7 @@
         [cell showPriceForDomainCell: FALSE];
     }else{
         cell.btnChoose.enabled = TRUE;
-        [cell.btnChoose setTitle:@"Xem thông tin" forState:UIControlStateNormal];
+        [cell.btnChoose setTitle:text_view_info forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
         cell.lbPrice.text = @"";
         
