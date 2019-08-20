@@ -16,6 +16,17 @@
     UIColor *signInColor;
     float hHeader;
     float padding;
+    
+    CAGradientLayer *gradientLayer;
+    CAGradientLayer *bottomGradientLayer;
+    float hCurve;
+    float hButton;
+    float offsetSignInBTN;
+    float wLogo;
+    float paddingTop;
+    float paddingY;
+    float hLabelCompany;
+    float hToBeTheBest;
 }
 @end
 
@@ -52,6 +63,12 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                      name:UIKeyboardWillHideNotification object:nil];
+        
+        if (!IS_IPHONE && !IS_IPOD) {
+            [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                         name:UIDeviceOrientationDidChangeNotification object:nil];
+        }
     }
     
     //  fill username
@@ -96,7 +113,7 @@
 }
 
 - (IBAction)btnForgotPassPress:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_forgot_password]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: link_forgot_password] options:[[NSDictionary alloc] init] completionHandler:nil];
 }
 
 - (IBAction)btnSignInPress:(UIButton *)sender {
@@ -107,11 +124,9 @@
 
 //  Hiển thị bàn phím
 - (void)keyboardWillShow:(NSNotification *)notif {
-    CGSize keyboardSize = [[[notif userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.bottom.equalTo(self.view).offset(-keyboardSize.height);
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-keyboardHeight);
     }];
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
@@ -120,9 +135,8 @@
 
 //  Ẩn bàn phím
 - (void)keyboardDidHide: (NSNotification *) notif{
-    [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.view);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view);
     }];
     [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
@@ -134,7 +148,7 @@
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     if ([AppUtils isNullOrEmpty: tfAccount.text] || [AppUtils isNullOrEmpty: tfPassword.text]) {
-        [self.view makeToast:@"Vui lòng nhập đầy đủ thông tin!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:pls_fill_full_informations duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
         return;
     }
     
@@ -146,7 +160,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
+    [ProgressHUD show:text_signing Interaction:NO];
     
     NSString *password = [AppUtils getMD5StringOfString:tfPassword.text];
     [[WebServiceUtils getInstance] loginWithUsername:tfAccount.text password:password];
@@ -161,13 +175,13 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang đăng nhập..." Interaction:NO];
+    [ProgressHUD show:text_signing Interaction:NO];
     
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"[%s]", __FUNCTION__]];
+    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     RegisterAccountViewController *registerVC = [[RegisterAccountViewController alloc] initWithNibName:@"RegisterAccountViewController" bundle:nil];
     [self.navigationController pushViewController:registerVC animated:YES];
@@ -178,20 +192,21 @@
 }
 
 - (void)setupUIForView {
-    float hCurve = 30.0;
     float hTextfield = 44.0;
-    float hButton = 48.0;
     float paddingY = 15.0;
-    float wLogo = 100.0;
+    wLogo = 100.0;
     float hLabelCompany = 30.0;
     float hToBeTheBest = 25.0;
     float radius = 15.0;
+    
+    hCurve = 30.0;
+    hButton = 48.0;
     
     hHeader = SCREEN_HEIGHT * 7/9;
     padding = 30.0;
     signInColor = [UIColor colorWithRed:(240/255.0) green:(138/255.0) blue:(38/255.0) alpha:1.0];
     
-    float offsetSignInBTN = hHeader-hButton/2-20.0;
+    offsetSignInBTN = hHeader-hButton/2-20.0;
     UIFont *textFont = [UIFont fontWithName:RobotoBold size:30.0];
     
     if (!IS_IPHONE && !IS_IPOD) {
@@ -200,12 +215,16 @@
         hButton = 55.0;
         padding = 60.0;
         paddingY = 30.0;
-        wLogo = 150.0;
         hLabelCompany = 50.0;
         hToBeTheBest = 35.0;
         radius = 30.0;
         offsetSignInBTN = hHeader-hButton/2-hCurve/2;
         textFont = [UIFont fontWithName:RobotoBold size:50.0];
+        if ([DeviceUtils isLandscapeMode]) {
+            wLogo = 100;
+        }else{
+            wLogo = 150.0;
+        }
     }
     
     //  view top
@@ -219,7 +238,10 @@
     float originY = (hHeader/2 - (hTextfield + 15 + hTextfield + hTextfield))/2;
     
     //
-    float paddingTop = (hHeader/2 - (wLogo + paddingY + hLabelCompany + hToBeTheBest))/2;
+    paddingTop = (hHeader/2 - (wLogo + paddingY + hLabelCompany + hToBeTheBest))/2;
+    if ([DeviceUtils isLandscapeMode]) {
+        paddingTop = 50.0;
+    }
     imgLogo.layer.cornerRadius = radius;
     imgLogo.clipsToBounds = TRUE;
     [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -231,7 +253,7 @@
     lbCompany.font = textFont;
     [lbCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgLogo.mas_bottom).offset(paddingY);
-        make.left.equalTo(scvContent).offset(padding);
+        make.centerX.equalTo(scvContent.mas_centerX);
         make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
         make.height.mas_equalTo(hLabelCompany);
     }];
@@ -242,7 +264,6 @@
         make.left.right.equalTo(lbCompany);
         make.height.mas_equalTo(hToBeTheBest);
     }];
-    
     
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint: CGPointMake(0, 0)];
@@ -257,7 +278,7 @@
     shapeLayer.path = path.CGPath;
     //  shapeLayer.fillColor = UIColor.clearColor.CGColor;
 
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, hHeader+2*hCurve);
     gradientLayer.startPoint = CGPointMake(0, 1);
     gradientLayer.endPoint = CGPointMake(1, 0);
@@ -270,11 +291,11 @@
     
     viewBottom.backgroundColor = UIColor.clearColor;
     [viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewTop.mas_bottom).offset(-hCurve);
+        make.top.equalTo(viewTop.mas_bottom).offset(-hCurve);
         make.bottom.left.right.equalTo(self.view);
     }];
     
-    CAGradientLayer *bottomGradientLayer = [CAGradientLayer layer];
+    bottomGradientLayer = [CAGradientLayer layer];
     bottomGradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-hHeader+2*hCurve);
     bottomGradientLayer.startPoint = CGPointMake(0, 0);
     bottomGradientLayer.endPoint = CGPointMake(1, 1);
@@ -295,6 +316,7 @@
     btnSignIn.layer.borderColor = signInColor.CGColor;
     btnSignIn.layer.cornerRadius = hButton/2;
     btnSignIn.layer.borderWidth = 1.0;
+    [btnSignIn setTitle:text_sign_in forState:UIControlStateNormal];
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(scvContent).offset(offsetSignInBTN);
         make.left.equalTo(scvContent).offset(padding);
@@ -305,6 +327,7 @@
     btnForgotPass.titleLabel.font = [AppDelegate sharedInstance].fontItalic;
     btnForgotPass.backgroundColor = UIColor.clearColor;
     [btnForgotPass setTitleColor:BORDER_COLOR forState:UIControlStateNormal];
+    [btnForgotPass setTitle:text_forgot_password forState:UIControlStateNormal];
     [btnForgotPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(btnSignIn);
         make.bottom.equalTo(btnSignIn.mas_top).offset(-10.0);
@@ -320,7 +343,7 @@
         make.bottom.equalTo(btnForgotPass.mas_top).offset(-paddingY);
         make.height.mas_equalTo(hTextfield);
     }];
-    [AppUtils setPlaceholder:@"Mật khẩu" textfield:tfPassword color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
+    [AppUtils setPlaceholder:text_password textfield:tfPassword color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
     
     tfPassword.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfPassword.leftViewMode = UITextFieldViewModeAlways;
@@ -351,7 +374,7 @@
         make.bottom.equalTo(tfPassword.mas_top).offset(-paddingY);
         make.height.mas_equalTo(hTextfield);
     }];
-    [AppUtils setPlaceholder:@"Tài khoản đăng nhập" textfield:tfAccount color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
+    [AppUtils setPlaceholder:text_signin_account textfield:tfAccount color:[UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]];
     
     tfAccount.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfAccount.leftViewMode = UITextFieldViewModeAlways;
@@ -372,8 +395,8 @@
     tfPassword.font = tfAccount.font = [AppDelegate sharedInstance].fontRegular;
     
     //  footer
-    CGSize sizeText = [AppUtils getSizeWithText:@"Bạn chưa có tài khoản?" withFont:[AppDelegate sharedInstance].fontRegular];
-    CGSize sizeText2 = [AppUtils getSizeWithText:@"ĐĂNG KÝ" withFont:[AppDelegate sharedInstance].fontRegular];
+    CGSize sizeText = [AppUtils getSizeWithText:you_have_not_account withFont:[AppDelegate sharedInstance].fontRegular];
+    CGSize sizeText2 = [AppUtils getSizeWithText:[text_sign_up uppercaseString] withFont:[AppDelegate sharedInstance].fontRegular];
     
     float hFooter = (SCREEN_HEIGHT - hHeader - hCurve/2);
     
@@ -382,18 +405,20 @@
     
     lbNotAccount.font = [AppDelegate sharedInstance].fontRegular;
     lbNotAccount.textColor = BORDER_COLOR;
+    lbNotAccount.text = you_have_not_account;
     [lbNotAccount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnSignIn.mas_bottom).offset(originY);
+        make.top.equalTo(btnSignIn.mas_bottom).offset(originY);
         make.height.mas_equalTo(30.0);
-        make.left.equalTo(self.scvContent).offset(originX);
+        make.left.equalTo(scvContent).offset(originX);
         make.width.mas_equalTo(sizeText.width);
     }];
     
     btnRegister.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
     [btnRegister setTitleColor:signInColor forState:UIControlStateNormal];
+    [btnRegister setTitle:[text_sign_up uppercaseString] forState:UIControlStateNormal];
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbNotAccount);
-        make.left.equalTo(self.lbNotAccount.mas_right).offset(10.0);
+        make.top.bottom.equalTo(lbNotAccount);
+        make.left.equalTo(lbNotAccount.mas_right).offset(10.0);
         make.width.mas_equalTo(sizeText2.width);
     }];
 }
@@ -425,15 +450,13 @@
 - (void)showWarningWhenCurrentVersionNotAccept {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Phiên bản quý khách đang sử dụng đã cũ.\nVui lòng cập nhật phiên bản mới để trải nghiệm tốt hơn."];
-    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:17.0] range:NSMakeRange(0, attrTitle.string.length)];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:your_version_is_old_please_update_new_version];
+    [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [attrTitle addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
     UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction *action){
-                                                         
-                                                     }];
+                                                     handler:^(UIAlertAction *action){}];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     
     UIAlertAction *btnGoStore = [UIAlertAction actionWithTitle:text_update style:UIAlertActionStyleDefault
@@ -450,7 +473,7 @@
 - (void)checkAndGotoAppStore {
     NSString *linkToAppStore = [self checkNewVersionOnAppStore];
     if (![AppUtils isNullOrEmpty: linkToAppStore]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore] options:[[NSDictionary alloc] init] completionHandler:nil];
     }
     [WriteLogsUtils writeLogContent:SFM(@"[%s] linkToAppStore: %@", __FUNCTION__, linkToAppStore)];
 }
@@ -459,7 +482,7 @@
     NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString* appID = infoDictionary[@"CFBundleIdentifier"];
     if (appID.length > 0) {
-        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", appID]];
+        NSURL* url = [NSURL URLWithString:SFM(@"http://itunes.apple.com/lookup?bundleId=%@", appID)];
         NSData* data = [NSData dataWithContentsOfURL:url];
         
         if (data) {
@@ -474,6 +497,81 @@
     return @"";
 }
 
+- (void) orientationChanged
+{
+    float screenWidth = [DeviceUtils getWidthOfScreen];
+    float screenHeight = [DeviceUtils getHeightOfScreen];
+    
+    scvContent.contentSize = CGSizeMake(screenWidth, screenHeight);
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(screenWidth);
+    }];
+    
+    hHeader = screenHeight * 7/9;
+    offsetSignInBTN = hHeader-hButton/2-20.0;
+    wLogo = 100.0;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        if ([DeviceUtils isLandscapeMode]) {
+            hHeader = screenHeight * 8/9;
+            offsetSignInBTN = hHeader-hButton/2-30.0;
+            wLogo = 130.0;
+        }else{
+            wLogo = 150.0;
+        }
+    }
+    
+    [viewTop mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(hHeader);
+    }];
+    
+    [gradientLayer removeFromSuperlayer];
+    
+    UIBezierPath *path = [UIBezierPath new];
+    [path moveToPoint: CGPointMake(0, 0)];
+    [path addLineToPoint: CGPointMake(0, hHeader-hCurve)];
+    [path addQuadCurveToPoint:CGPointMake(screenWidth, hHeader-hCurve) controlPoint:CGPointMake(screenWidth/2, hHeader+hCurve)];
+    [path addLineToPoint: CGPointMake(screenWidth, 0)];
+    [path closePath];
+    
+    //Add gradient layer to top view
+    CAShapeLayer *shapeLayer = [CAShapeLayer new];
+    shapeLayer.path = path.CGPath;
+    gradientLayer.mask = shapeLayer;
+    
+    gradientLayer.frame = CGRectMake(0, 0, screenWidth, hHeader+2*hCurve);
+    [viewTop.layer insertSublayer:gradientLayer atIndex:0];
+    
+    paddingTop = (hHeader/2 - (wLogo + paddingY + hLabelCompany + hToBeTheBest))/2;
+    if ([DeviceUtils isLandscapeMode]) {
+        paddingTop = 20.0;
+    }
+    [imgLogo mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(scvContent).offset(paddingTop + 30.0);
+        make.width.height.mas_equalTo(wLogo);
+    }];
+    
+    //  footer
+    CGSize sizeText = [AppUtils getSizeWithText:lbNotAccount.text withFont:lbNotAccount.font];
+    CGSize sizeText2 = [AppUtils getSizeWithText:btnRegister.currentTitle withFont:btnRegister.titleLabel.font];
+    
+    float hFooter = (screenHeight - hHeader - hCurve/2);
+    
+    float originX = (screenWidth - (sizeText.width + 10.0 + sizeText2.width))/2;
+    float originY = (hFooter - 30.0)/2;
+    
+    [lbNotAccount mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(btnSignIn.mas_bottom).offset(originY);
+        make.left.equalTo(scvContent).offset(originX);
+    }];
+    
+    bottomGradientLayer.frame = CGRectMake(0, 0, screenWidth, screenHeight-hHeader+2*hCurve);
+    
+    [btnSignIn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(scvContent).offset(offsetSignInBTN);
+        make.width.mas_equalTo(screenWidth-2*padding);
+    }];
+}
 
 #pragma mark - UITextfield Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -495,8 +593,24 @@
     if ([error isKindOfClass:[NSDictionary class]]) {
         NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
         if ([errorCode isEqualToString:@"005"]) {
-            UIAlertView *alv = [[UIAlertView alloc] initWithTitle:nil message:@"Tài khoản của bạn chưa được kích hoạt?" delegate:self cancelButtonTitle:text_close otherButtonTitles:@"Kích hoạt", nil];
-            [alv show];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:your_account_have_not_actived_yet];
+            [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
+            [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+            
+            UIAlertAction *btnClose = [UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction *action){}];
+            [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+            
+            UIAlertAction *btnActive = [UIAlertAction actionWithTitle:text_actived style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action){
+                                                                   [self addViewActiveAccountIfNeed];
+                                                               }];
+            [btnActive setValue:BLUE_COLOR forKey:@"titleTextColor"];
+            [alertVC addAction:btnClose];
+            [alertVC addAction:btnActive];
+            [self presentViewController:alertVC animated:YES completion:nil];
         }else{
             NSString *message = [AppUtils getErrorContentFromData: error];
             [self.view makeToast:message duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
@@ -595,13 +709,6 @@
     [self goToHomeScreen];
 }
 
-#pragma mark - Alertview delegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [self addViewActiveAccountIfNeed];
-    }
-}
-
 - (void)addViewActiveAccountIfNeed {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
@@ -619,7 +726,7 @@
         headerView.backgroundColor = BLUE_COLOR;
         [activeAccView addSubview: headerView];
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.equalTo(self.activeAccView);
+            make.top.left.right.equalTo(activeAccView);
             make.height.mas_equalTo([AppDelegate sharedInstance].hStatusBar + hNav);
         }];
         
@@ -636,7 +743,7 @@
         
         UILabel *lbHeader = [[UILabel alloc] init];
         lbHeader.textAlignment = NSTextAlignmentCenter;
-        lbHeader.text = @"Kích hoạt tài khoản";
+        lbHeader.text = text_active_account;
         lbHeader.font = [AppDelegate sharedInstance].fontBTN;
         lbHeader.textColor = UIColor.whiteColor;
         [headerView addSubview: lbHeader];
@@ -660,7 +767,7 @@
         
         [otpView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(headerView.mas_bottom);
-            make.left.right.bottom.equalTo(self.activeAccView);
+            make.left.right.bottom.equalTo(activeAccView);
         }];
         [otpView setupUIForView];
     }
@@ -693,7 +800,7 @@
         [[WebServiceUtils getInstance] checkOTPForUsername:tfAccount.text password:[AppUtils getMD5StringOfString: tfPassword.text] andOTPCode:code];
         
         [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:@"Tài khoản đang được kích hoạt..." Interaction:NO];
+        [ProgressHUD show:your_acc_is_being_actived Interaction:NO];
     }
 }
 
@@ -709,7 +816,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     if (activeAccView != nil) {
-        [activeAccView makeToast:@"Mã OTP đã được gửi đến số điện thoại của bạn" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+        [activeAccView makeToast:otp_code_has_been_sent_to_your_phone_number duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     }
 }
 
@@ -725,7 +832,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Tài khoản của bạn đã được kích hoạt thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:your_account_has_been_activated_successfully duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
 }
 

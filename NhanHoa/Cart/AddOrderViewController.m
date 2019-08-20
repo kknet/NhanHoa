@@ -27,6 +27,7 @@
     float hMenu;
     float hTbConfirm;
     float padding;
+    float hBTN;
 }
 
 @end
@@ -59,6 +60,7 @@
 }
 
 - (void)setupUIForView {
+    hBTN = 45.0;
     padding = 15.0;
     hMenu = 60.0;
     hCell = 115.0;  //  10 + 35 + 60 + 10
@@ -69,8 +71,8 @@
         padding = 30.0;
         hCell = 175.0;  //  20 + 45 + 90.0 + 20.0;
         hSmallCell = 85.0;  //  20 + 45 + 20;
+        hBTN = 55.0;
     }
-    
     [self addStepMenuForView];
     
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,13 +80,13 @@
         make.left.bottom.right.equalTo(self.view);
     }];
     
-    float hBTN = 45.0;
     [btnPayment setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnPayment.layer.cornerRadius = hBTN/2;
     btnPayment.layer.borderWidth = 1.0;
     btnPayment.layer.borderColor = BLUE_COLOR.CGColor;
     btnPayment.backgroundColor = BLUE_COLOR;
     btnPayment.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnPayment setTitle:text_continue forState:UIControlStateNormal];
     [btnPayment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewContent).offset(padding);
         make.bottom.right.equalTo(viewContent).offset(-padding);
@@ -150,11 +152,11 @@
     footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     footerView.backgroundColor = UIColor.whiteColor;
     
-    UIButton *btnConfirm = [[UIButton alloc] initWithFrame:CGRectMake(padding, footerView.frame.size.height-padding-45.0, footerView.frame.size.width-2*padding, 45.0)];
+    UIButton *btnConfirm = [[UIButton alloc] initWithFrame:CGRectMake(padding, (hFooter - hBTN)/2, footerView.frame.size.width-2*padding, hBTN)];
     [btnConfirm setTitle:@"Thông tin đúng, thanh toán ngay" forState:UIControlStateNormal];
     btnConfirm.backgroundColor = BLUE_COLOR;
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    btnConfirm.layer.cornerRadius = 45.0/2;
+    btnConfirm.layer.cornerRadius = hBTN/2;
     btnConfirm.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [footerView addSubview: btnConfirm];
     [btnConfirm addTarget:self
@@ -178,7 +180,7 @@
 - (void)showPopupConfirmForPayment {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Số tiền thanh toán sẽ được trừ vào ví của bạn.\nBấm Xác nhận để tiến hành thanh toán."];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:confirm_payment_when_register_domains];
     [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
@@ -188,10 +190,10 @@
                                                      }];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     
-    UIAlertAction *btnAccept = [UIAlertAction actionWithTitle:@"Xác nhận" style:UIAlertActionStyleDefault
+    UIAlertAction *btnAccept = [UIAlertAction actionWithTitle:text_confirm style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
-                                                         [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+                                                         [ProgressHUD show:text_processing Interaction:FALSE];
                                                          
                                                          self.paymentResult = [[NSMutableDictionary alloc] init];
                                                          
@@ -439,6 +441,7 @@
         cell.lbDomain.text = domain;
         
         [cell showProfileDetailWithDomainView];
+        [cell tryToUpdateUIWithAddress];
         
         NSDictionary *profile = [domainInfo objectForKey:profile_cart];
         [cell displayProfileInfo: profile];
@@ -462,18 +465,41 @@
             return hCell;
         }
     }else {
-        return [self getHeightProfileTableViewCell];
+        return [self getHeightProfileTableViewCell: indexPath];
     }
 }
 
-- (float)getHeightProfileTableViewCell {
-    float hItem = 30.0;
-    
-    float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
-    float hPassport = wPassport * 2/3;
-    float hDetailView = 15 + 9 * hItem + hPassport + hItem + 15;
-    
-    return 40 + hDetailView + 1;
+- (float)getHeightProfileTableViewCell: (NSIndexPath *)indexPath {
+    NSDictionary *domainInfo = [[CartModel getInstance].listDomain objectAtIndex: indexPath.row];
+    NSDictionary *profile = [domainInfo objectForKey:profile_cart];
+    if (profile != nil) {
+        NSString *cus_contract_address = [profile objectForKey:@"cus_contract_address"];
+        if ([AppUtils isNullOrEmpty: cus_contract_address]) {
+            cus_contract_address = [profile objectForKey:@"cus_address"];
+        }
+        
+        float wSmallItem = [AppUtils getSizeWithText:@"Họ tên đầy đủ:" withFont:[AppDelegate sharedInstance].fontRegular].width + 5;
+        float hText = [AppUtils getSizeWithText:cus_contract_address withFont:[AppDelegate sharedInstance].fontMediumDesc andMaxWidth:(SCREEN_WIDTH - 2*padding - wSmallItem)].height + 10.0;
+        
+        float hItem = 30.0;
+        float hHeader = 40.0;
+        
+        if (!IS_IPHONE && !IS_IPOD) {
+            hItem = 40.0;
+            hHeader = 60.0;
+        }
+        
+        if (hText < hItem) {
+            hText = hItem;
+        }
+        
+        float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
+        float hPassport = wPassport * 2/3;
+        float hDetailView = 15 + 7 * hItem + hText + hPassport + hItem + 15;
+        
+        return hHeader + hDetailView + 1;
+    }
+    return 0;
 }
 
 - (IBAction)btnPaymentPress:(UIButton *)sender {

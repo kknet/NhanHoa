@@ -28,6 +28,7 @@
     float hBanner;
     UITextField *tfNumber;
     float hMenu;
+    int numOfLine;
 }
 @end
 
@@ -40,8 +41,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setupUIForView];
+    numOfLine = 3;
     [self createDataForMenuView];
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -60,6 +62,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCallTokenResult:)
                                                  name:@"updateCallTokenResult" object:nil];
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -146,6 +152,19 @@
     }
 }
 
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    if (device.orientation == UIDeviceOrientationLandscapeRight) {
+        
+    }else if (device.orientation == UIDeviceOrientationLandscapeLeft){
+       
+    }else if (device.orientation == UIDeviceOrientationPortrait){
+        
+    }else {
+        
+    }
+}
 
 #pragma mark - UICollectionview menu
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -163,9 +182,9 @@
     cell.lbName.text = menu.menuName;
     cell.imgType.image = [UIImage imageNamed: menu.menuIcon];
     
-    if (indexPath.row == eSearchDomain || indexPath.row == eManagerDomain || indexPath.row == eSupport) {
+    if ((indexPath.row + 1) % numOfLine == 0) {
         cell.lbSepaRight.hidden = TRUE;
-    }else {
+    }else{
         cell.lbSepaRight.hidden = FALSE;
     }
     
@@ -240,7 +259,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(SCREEN_WIDTH/3, hMenu);
+    return CGSizeMake(SCREEN_WIDTH/numOfLine, hMenu);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -254,7 +273,11 @@
 #pragma mark - Other functions
 
 - (void)createDataForMenuView {
-    listMenu = [[NSMutableArray alloc] init];
+    if (listMenu == nil) {
+        listMenu = [[NSMutableArray alloc] init];
+    }else{
+        [listMenu removeAllObjects];
+    }
     
     HomeMenuObject *regDomain = [[HomeMenuObject alloc] initWithName:text_register_domains icon:@"menu_domain" type:eRegisterDomain];
     [listMenu addObject: regDomain];
@@ -268,8 +291,14 @@
     HomeMenuObject *recharge = [[HomeMenuObject alloc] initWithName:text_top_up_into_account icon:@"menu_recharge" type:eRecharge];
     [listMenu addObject: recharge];
     
-    HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:text_bonus_account icon:@"menu_bonus" type:eRewardsPoints];
-    [listMenu addObject: rewardsPoints];
+    if (![DeviceUtils isLandscapeMode]) {
+        numOfLine = 3;
+        HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:text_bonus_account icon:@"menu_bonus" type:eRewardsPoints];
+        [listMenu addObject: rewardsPoints];
+        
+    }else{
+        numOfLine = 4;
+    }
     
     HomeMenuObject *managerDomains = [[HomeMenuObject alloc] initWithName:text_domains_management icon:@"menu_list_domain" type:eManagerDomain];
     [listMenu addObject: managerDomains];
@@ -340,10 +369,12 @@
     hBanner = SCREEN_WIDTH * banner.size.height / banner.size.width;
     
     if (!IS_IPHONE && !IS_IPOD) {
+        //  banner cho portrait mode
         hBanner = (SCREEN_HEIGHT - hSearch - hTabbar)/2;
     }
     
-    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/3;
+    int numLine = [self getNumLineForMenuList];
+    hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/numLine;
     if (hMenu < 100 && (IS_IPHONE || IS_IPOD)) {
         if ([DeviceUtils isScreen320]) {
             hMenu = 80.0;
@@ -355,6 +386,12 @@
         paddingY = 5.0;
         hBanner = SCREEN_HEIGHT - (hTabbar + 3*hMenu + hWallet + 2*paddingY + hSearch);
     }
+    
+    if (!IS_IPHONE && !IS_IPOD && [DeviceUtils isLandscapeMode]) {
+        hMenu = 100.0;
+        hBanner = SCREEN_HEIGHT - (hSearch + paddingY + hWallet + paddingY + hTabbar + numLine*hMenu);
+    }
+    
     [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(viewSearch.mas_bottom);
@@ -374,7 +411,7 @@
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-hTabbar);
-        make.height.mas_equalTo(3*hMenu);
+        make.height.mas_equalTo(numLine*hMenu);
     }];
     
     //  wallet info view
@@ -485,6 +522,15 @@
             make.top.equalTo(viewRewards.mas_centerY);
         }];
     }
+}
+
+- (int)getNumLineForMenuList {
+    int result = (int)(listMenu.count / numOfLine);
+    int plus = listMenu.count % numOfLine;
+    if (plus > 0) {
+        result += 1;
+    }
+    return result;
 }
 
 - (void)whenTapOnMainWallet {

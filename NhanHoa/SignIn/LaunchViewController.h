@@ -23,6 +23,4 @@
 - (IBAction)btnSignInPress:(UIButton *)sender;
 - (IBAction)btnRegisterPress:(UIButton *)sender;
 
-@property (nonatomic, assign) float padding;
-
 @end

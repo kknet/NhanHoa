@@ -88,10 +88,10 @@
 
 //  Hiển thị bàn phím
 - (void)keyboardWillShow:(NSNotification *)notif {
-    CGSize keyboardSize = [[[notif userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     [tbContent mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-keyboardSize.height);
+        make.bottom.equalTo(self.view).offset(-keyboardHeight);
     }];
 }
 

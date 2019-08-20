@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
-@property (weak, nonatomic) IBOutlet UIImageView *imgProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeName;
 @property (weak, nonatomic) IBOutlet UILabel *lbTypeNameValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbProfileName;
@@ -62,9 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float sizeType;
 @property (nonatomic, assign) float sizeProfile;
+@property (nonatomic, assign) float hLabel;
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hHeaderItem;
+@property (nonatomic, assign) int profileType;
 
 @property (nonatomic, strong) NSDictionary *profile;
 - (IBAction)btnChoosePress:(UIButton *)sender;
+- (void)tryToUpdateUIWithAddress;
 
 @end
 

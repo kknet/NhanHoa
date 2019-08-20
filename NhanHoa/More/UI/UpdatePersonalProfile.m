@@ -501,7 +501,7 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
     
     ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, realHeight-100)];
     popupView.delegate = self;
-    [popupView showInView:self animated:TRUE];
+    [popupView showInView:[AppDelegate sharedInstance].window animated:TRUE];
 }
 
 - (void)displayPersonalInformation

@@ -188,4 +188,47 @@
     return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 }
 
++ (BOOL)isLandscapeMode {
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
++ (float)getWidthOfScreen {
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft)
+    {
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            return SCREEN_WIDTH;
+        }else{
+            return SCREEN_HEIGHT;
+        }
+    }else{
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            return SCREEN_HEIGHT;
+        }else{
+            return SCREEN_WIDTH;
+        }
+    }
+}
+
++ (float)getHeightOfScreen {
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft)
+    {
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            return SCREEN_HEIGHT;
+        }else{
+            return SCREEN_WIDTH;
+        }
+    }else{
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            return SCREEN_WIDTH;
+        }else{
+            return SCREEN_HEIGHT;
+        }
+    }
+}
+
 @end

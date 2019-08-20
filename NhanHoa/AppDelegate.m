@@ -63,6 +63,9 @@ AppDelegate      *app;
     [FIRApp configure];
     [FIRMessaging messaging].delegate = self;
     
+    //  setup for Fabric
+    [Fabric with:@[[Crashlytics class]]];
+    
     if ([UNUserNotificationCenter class] != nil) {
         // iOS 10 or later
         // For iOS 10 display notification (sent via APNS)
@@ -221,9 +224,6 @@ AppDelegate      *app;
 //    app = self;
 //    [self startPjsuaForApp];
 //    current_call_id = -1;
-    
-    //  setup for Fabric
-    [Fabric with:@[[Crashlytics class]]];
     
     return YES;
 }

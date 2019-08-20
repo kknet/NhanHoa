@@ -101,7 +101,7 @@
     UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:@"Gia hạn" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
-                                                         [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+                                                         [ProgressHUD show:text_processing Interaction:FALSE];
                                                          
                                                          [WebServiceUtils getInstance].delegate = self;
                                                          [[WebServiceUtils getInstance] renewOrderForDomain:self.domain contactId:self.cus_id ord_id:self.ord_id years:self.yearsForRenew];

@@ -105,7 +105,11 @@
         }
         return size;
     }else{
-        return 50.0;
+        if ([DeviceUtils isLandscapeMode]) {
+            return 40.0;
+        }else{
+            return 50.0;
+        }
     }
 }
 

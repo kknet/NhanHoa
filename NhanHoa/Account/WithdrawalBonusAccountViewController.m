@@ -132,7 +132,7 @@
     UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:@"Đồng ý" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
-                                                         [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+                                                         [ProgressHUD show:text_processing Interaction:FALSE];
                                                          
                                                          [WebServiceUtils getInstance].delegate = self;
                                                          [[WebServiceUtils getInstance] withdrawWithAmout: self.withdrawMoney];

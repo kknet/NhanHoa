@@ -14,15 +14,23 @@
 @implementation SelectProfileView
 @synthesize viewHeader, icAdd, lbTitle, tbProfile, icClose, icBack, lbNoData, tfSearch, icClear;
 @synthesize hHeader, delegate, selectedRow, cartIndexItemSelect, cusIdSelected, searching, searchTimer, listSearch;
-
-@synthesize webService, listProfiles;
+@synthesize webService, listProfiles, hCell, padding, hSmallCell;
 
 - (void)setupUIForView {
-    float padding = 15.0;
     float hSearch = [AppDelegate sharedInstance].hTextfield;
+    padding = 15.0;
+    hSmallCell = 70.0;  //  10.0 + 25.0 * 2 + 10.0;
+    hCell = 95.0;       //  10.0 + 25 * 3 + 10.0
+    
+    if ([DeviceUtils isScreen320] || [DeviceUtils isScreen375]) {
+        padding = 5.0;
+    }
+    
     if (!IS_IPHONE && !IS_IPOD) {
         padding = 30.0;
         hSearch = 45.0;
+        hSmallCell = 80.0;  //  10.0 + 30.0 * 2 + 10.0;
+        hCell = 110.0;       //  10.0 + 30 * 3 + 10.0
     }
     
     if (listSearch == nil) {
@@ -314,6 +322,8 @@
     if ([type isEqualToString:@"0"]) {
         cell.lbTypeNameValue.text = text_personal;
         [cell updateUIForBusinessProfile: FALSE];
+        
+        cell.profileType  = type_personal;
     }else{
         cell.lbTypeNameValue.text = text_business;
         
@@ -322,6 +332,8 @@
             cell.lbProfileNameValue.text = cell.lbCompanyValue.text = cus_company;
         }
         [cell updateUIForBusinessProfile: TRUE];
+        
+        cell.profileType  = type_business;
     }
     
     //  Show profile name
@@ -387,6 +399,9 @@
         selectedRow = (int)indexPath.row;
         [tableView beginUpdates];
         [tableView endUpdates];
+        
+        ProfileDetailCell *cell = [tableView cellForRowAtIndexPath: indexPath];
+        [cell tryToUpdateUIWithAddress];
     }else{
         selectedRow = -1;
         [tableView beginUpdates];
@@ -396,22 +411,47 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == selectedRow) {
-        return [self getHeightProfileTableViewCell: (int)indexPath.row];
+        return [self getHeightProfileTableViewCell: indexPath];
     }else{
-        return 75.0;
+        NSDictionary *profileInfo;
+        if (searching) {
+            profileInfo = [listSearch objectAtIndex: indexPath.row];
+        }else{
+            profileInfo = [listProfiles objectAtIndex: indexPath.row];
+        }
+        
+        NSString *type = [profileInfo objectForKey:@"cus_own_type"];
+        if ([type isEqualToString:@"0"]) {
+            return hSmallCell;
+        }else{
+            return hCell;
+        }
     }
 }
 
-- (float)getHeightProfileTableViewCell: (int)row {
-    float hItem = 30.0;
+- (float)getHeightProfileTableViewCell: (NSIndexPath *)indexPath {
+    ProfileDetailCell *cell = [tbProfile cellForRowAtIndexPath: indexPath];
     
-    ssssss
+    float wSmallItem = [AppUtils getSizeWithText:@"Họ tên đầy đủ:" withFont:[AppDelegate sharedInstance].fontRegular].width + 5;
+    float hText = [AppUtils getSizeWithText:cell.lbAddressValue.text withFont:cell.lbAddressValue.font andMaxWidth:(SCREEN_WIDTH - 2*padding - wSmallItem)].height + 10.0;
+    
+    float hItem = 30.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hItem = 40.0;
+    }
+    if (hText < hItem) {
+        hText = hItem;
+    }
     
     float wPassport = (SCREEN_WIDTH - 3*15.0)/2;
     float hPassport = wPassport * 2/3;
-    float hDetailView = 15 + 9 * hItem + hPassport + hItem + 15;
+    float hDetailView = 15 + 7 * hItem + hText + hPassport + hItem + 15;
     
-    return 75.0 + hDetailView;
+    if (cell.profileType == type_personal){
+        return hSmallCell + hDetailView;
+    }else{
+        return hCell + hDetailView;
+    }
 }
 
 #pragma mark - UITextfield delegate

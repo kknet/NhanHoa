@@ -693,7 +693,7 @@
 - (void)startUploadPassportPictures
 {
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý. Vui lòng chờ trong giây lát" Interaction:NO];
+    [ProgressHUD show:text_processing Interaction:FALSE];
     
     if ([AppDelegate sharedInstance].editCMND_a != nil) {
         [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];

@@ -68,7 +68,7 @@
     topupMoney = money;
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý..." Interaction:NO];
+    [ProgressHUD show:text_processing Interaction:FALSE];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getAddfunWithAmout:[NSString stringWithFormat:@"%ld", topupMoney] type:typePaymentMethod];

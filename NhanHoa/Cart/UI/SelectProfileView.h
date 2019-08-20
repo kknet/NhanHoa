@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icClear;
 
 @property (nonatomic, assign) float hHeader;
+@property (nonatomic, assign) float hCell;
+@property (nonatomic, assign) float hSmallCell;
+@property (nonatomic, assign) float padding;
 @property (nonatomic, assign) int selectedRow;
 @property (nonatomic, strong) NSString *cusIdSelected;
 

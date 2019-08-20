@@ -273,12 +273,12 @@
 }
 
 - (void)keyboardDidShow:(NSNotification *)notif {
-    CGSize keyboardSize = [[[notif userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
         make.left.equalTo(self);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.bottom.equalTo(self).offset(-keyboardSize.height);
+        make.bottom.equalTo(self).offset(-keyboardHeight);
     }];
 }
 

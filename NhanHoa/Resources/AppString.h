@@ -250,7 +250,7 @@
 #define text_business   @"Doanh nghiệp"
 
 #define not_access_camera   @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
-#define no_internet         @"Không có kết nối internet. Vui lòng kiểm tra lại!"
+
 
 #define text_close      @"Đóng"
 #define text_choose     @"Chọn"
@@ -261,7 +261,7 @@
 #define text_gallery    @"Thư viện ảnh"
 #define text_remove     @"Xóa"
 #define text_no_data    @"Không có dữ liệu"
-#define topup_now       @"Nạp ngay"
+
 
 #define text_not_support    @"Tính năng đang được phát triển"
 
@@ -289,10 +289,6 @@
 #define text_enter_domains_to_check         @"Vui lòng nhập tên miền muốn kiểm tra!"
 #define text_register_to_protect_brand      @"Đăng ký ngay để bảo vệ thương hiệu của bạn."
 
-#define text_welcome_to         @"Chào mừng đến với"
-#define text_have_not_account   @"Bạn chưa có tài khoản?"
-#define text_have_account       @"Bạn đã có tài khoản?"
-#define text_sign_up            @"Đăng ký"
 
 #define text_main_account       @"Tài khoản chính"
 #define text_bonus_money        @"Tiền thưởng"
@@ -323,8 +319,9 @@
 #define text_select     @"Chọn"
 #define text_unselect   @"Bỏ chọn"
 #define text_loading    @"Đang tải..."
-
-
+#define text_later      @"Để sau"
+#define topup_now       @"Nạp ngay"
+#define text_processing @"Đang xử lý..."
 
 #define you_are_using_newest_version    @"Bạn đang sử dụng phiên bản mới nhất."
 #define text_update_version_now         @"Phiên bản hiện tại trên AppStore là %@. Bạn có muốn cập nhật ngay không?"
@@ -335,7 +332,6 @@
 #define pls_enter_current_password      @"Vui lòng nhập mật khẩu hiện tại!"
 #define pls_enter_new_password          @"Bạn chưa nhập mật khẩu mới!"
 #define pls_enter_confirm_password      @"Bạn chưa nhập mật khẩu xác nhận!"
-#define confirm_pass_is_incorrect       @"Xác nhận mật khẩu không chính xác. Vui lòng kiểm tra lại!"
 #define current_pass_is_incorrect       @"Mật khẩu hiện tại bạn nhập không chính xác. Vui lòng kiểm tra lại!"
 #define password_must_be_at_least       @"Mật khẩu phải có độ dài tối thiểu %d kí tự"
 #define password_has_been_updated       @"Mật khẩu đã được cập nhật thành công. Vui lòng đăng nhập lại với mật khẩu bạn vừa cập nhật."
@@ -345,6 +341,8 @@
 #define text_at_least_characters        @"Tối thiểu %d ký tự"
 #define text_hide_info_when_whois       @"Ẩn thông tin của quý khách khi whois tên miền."
 
+#define not_enough_money_to_register_domains    @"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?"
+#define confirm_payment_when_register_domains   @"Số tiền thanh toán sẽ được trừ vào ví của bạn.\nBấm Xác nhận để tiến hành thanh toán."
 
 #define text_home               @"Trang chủ"
 #define text_account            @"Tài khoản"
@@ -378,7 +376,7 @@
 
 #define text_current_password   @"Mật khẩu hiện tại"
 #define text_new_password       @"Mật khẩu mới"
-#define text_confirm_password   @"Xác nhận mật khẩu"
+
 
 #define enter_current_password  @"Nhập mật khẩu hiện tại"
 #define enter_new_password      @"Nhập mật khẩu mới"
@@ -394,7 +392,7 @@
 #define text_address            @"Địa chỉ"
 #define text_country            @"Quốc gia"
 #define text_city               @"Tỉnh/thành phố"
-#define text_email              @"Email"
+
 
 #define text_business_info      @"Phần thông tin doanh nghiệp"
 #define text_business_name      @"Tên doanh nghiệp"
@@ -428,7 +426,7 @@
 #define pls_enter_registrant_phone      @"Vui lòng nhập số điện thoại người đăng ký!"
 #define pls_enter_registrant_address    @"Vui lòng nhập địa chỉ người đăng ký!"
 #define pls_enter_registrant_email      @"Vui lòng nhập email người đăng ký!"
-#define pls_fill_full_informations      @"Vui lòng nhập đầy đủ thông tin của bạn"
+
 
 #define have_not_found_issue_yet    @"Bạn vẫn chưa tìm thấy vấn đề?"
 #define text_call_hotline           @"Gọi tổng đài"
@@ -465,5 +463,43 @@
 #define proceed_to_register     @"Tiến hành đăng ký"
 #define continue_shopping       @"Tiếp tục mua hàng"
 #define text_select_profile     @"Chọn hồ sơ"
+
+
+//  SIGN IN & SIGN UP SCREEN
+#define one_of_the_largest_domain_registrars_in_Vietnam @"Một trong những nhà đăng ký tên miền lớn nhất Việt Nam"
+#define your_account_have_not_actived_yet               @"Tài khoản của bạn chưa được kích hoạt"
+#define pls_fill_full_informations                      @"Vui lòng nhập đầy đủ thông tin"
+#define your_version_is_old_please_update_new_version   @"Phiên bản quý khách đang sử dụng đã cũ.\nVui lòng cập nhật phiên bản mới để trải nghiệm tốt hơn."
+#define do_you_already_have_an_account                  @"Bạn đã có tài khoản?"
+#define otp_code_has_been_sent_to_your_phone_number     @"Mã OTP đã được gửi đến số điện thoại của bạn"
+#define your_account_has_been_activated_successfully    @"Tài khoản của bạn đã được kích hoạt thành công"
+
+#define no_internet             @"Không có kết nối internet. Vui lòng kiểm tra lại!"
+#define text_welcome_to         @"Chào mừng đến với"
+#define text_sign_in            @"Đăng nhập"
+#define text_sign_up            @"Đăng ký"
+#define text_signin_account     @"Tài khoản đăng nhập"
+#define text_password           @"Mật khẩu"
+#define text_forgot_password    @"Quên mật khẩu"
+#define you_have_not_account    @"Bạn chưa có tài khoản?"
+#define text_actived            @"Kích hoạt"
+#define text_signing            @"Đang đăng nhập..."
+#define text_account_info       @"Thông tin tài khoản"
+#define text_email              @"Email"
+#define text_confirm_password   @"Xác nhận mật khẩu"
+#define enter_account_info      @"Nhập thông tin tài khoản"
+#define enter_email_address     @"Nhập địa chỉ email"
+#define enter_password          @"Nhập mật khẩu"
+#define enter_confirm_password  @"Nhập xác nhận mật khẩu"
+#define text_active_account     @"Kích hoạt tài khoản"
+#define text_enter_confirm_code @"Nhập mã xác nhận"
+#define text_confirm            @"Xác nhận"
+#define text_resend             @"Gửi lại"
+
+#define email_format_is_incorrect   @"Định dạng email không chính xác!"
+#define confirm_pass_is_incorrect   @"Xác nhận mật khẩu không chính xác!"
+#define your_acc_is_being_actived   @"Tài khoản đang được kích hoạt..."
+#define did_not_receive_otp_code    @"Không nhận được mã OTP?"
+#define pls_enter_confirm_code      @"Vui lòng nhập mã xác nhận"
 
 #endif /* AppString_t */

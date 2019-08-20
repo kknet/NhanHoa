@@ -27,6 +27,7 @@
     
     lbTitle.textColor = TITLE_COLOR;
     lbTitle.font = [AppDelegate sharedInstance].fontBTN;
+    lbTitle.text = text_enter_confirm_code;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(50.0);
         make.left.right.equalTo(self);
@@ -36,7 +37,7 @@
     //  char 2
     tfChar2.returnKeyType = UIReturnKeyNext;
     [tfChar2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitle.mas_bottom).offset(padding);
+        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
         make.width.height.mas_equalTo(sizeBox);
     }];
@@ -47,9 +48,9 @@
     //  char 1
     tfChar1.returnKeyType = UIReturnKeyNext;
     [tfChar1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.tfChar2);
-        make.right.equalTo(self.tfChar2.mas_left).offset(-padding);
-        make.width.equalTo(self.tfChar2.mas_width);
+        make.top.bottom.equalTo(tfChar2);
+        make.right.equalTo(tfChar2.mas_left).offset(-padding);
+        make.width.equalTo(tfChar2.mas_width);
     }];
     [tfChar1 addTarget:self
                 action:@selector(onTextfieldDidChange:)
@@ -58,9 +59,9 @@
     //  char 3
     tfChar3.returnKeyType = UIReturnKeyNext;
     [tfChar3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.tfChar2);
-        make.left.equalTo(self.tfChar2.mas_right).offset(padding);
-        make.width.equalTo(self.tfChar2.mas_width);
+        make.top.bottom.equalTo(tfChar2);
+        make.left.equalTo(tfChar2.mas_right).offset(padding);
+        make.width.equalTo(tfChar2.mas_width);
     }];
     [tfChar3 addTarget:self
                 action:@selector(onTextfieldDidChange:)
@@ -69,9 +70,9 @@
     //  char 4
     tfChar4.returnKeyType = UIReturnKeyDone;
     [tfChar4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.tfChar3);
-        make.left.equalTo(self.tfChar3.mas_right).offset(padding);
-        make.width.equalTo(self.tfChar3.mas_width);
+        make.top.bottom.equalTo(tfChar3);
+        make.left.equalTo(tfChar3.mas_right).offset(padding);
+        make.width.equalTo(tfChar3.mas_width);
     }];
     [tfChar4 addTarget:self
                 action:@selector(onTextfieldDidChange:)
@@ -81,21 +82,23 @@
     btnConfirm.layer.cornerRadius = 5.0;
     btnConfirm.backgroundColor = BLUE_COLOR;
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnConfirm setTitle:text_confirm forState:UIControlStateNormal];
     [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfChar3.mas_bottom).offset(2*padding);
+        make.top.equalTo(tfChar3.mas_bottom).offset(2*padding);
         make.centerX.equalTo(self.mas_centerX);
         make.width.mas_equalTo(wBTN);
         make.height.mas_equalTo(hBTN);
     }];
     
-    float widthText = [AppUtils getSizeWithText:@"Không nhận được mã?" withFont:[AppDelegate sharedInstance].fontRegular].width + 5;
-    float widthBTN = [AppUtils getSizeWithText:@"Gửi lại" withFont:[AppDelegate sharedInstance].fontRegular].width;
+    float widthText = [AppUtils getSizeWithText:did_not_receive_otp_code withFont:[AppDelegate sharedInstance].fontRegular].width + 5;
+    float widthBTN = [AppUtils getSizeWithText:text_resend withFont:[AppDelegate sharedInstance].fontRegular].width;
     float originX = (SCREEN_WIDTH - widthText - widthBTN)/2;
     
     lbNotReceived.textColor = UIColor.grayColor;
     lbNotReceived.font = [AppDelegate sharedInstance].fontBTN;
+    lbNotReceived.text = did_not_receive_otp_code;
     [lbNotReceived mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnConfirm.mas_bottom).offset(padding);
+        make.top.equalTo(btnConfirm.mas_bottom).offset(padding);
         make.left.equalTo(self).offset(originX);
         make.width.mas_equalTo(widthText);
         make.height.mas_equalTo(40.0);
@@ -103,9 +106,10 @@
     
     [btnResend setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnResend.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnResend setTitle:text_resend forState:UIControlStateNormal];
     [btnResend mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.lbNotReceived);
-        make.left.equalTo(self.lbNotReceived.mas_right);
+        make.top.bottom.equalTo(lbNotReceived);
+        make.left.equalTo(lbNotReceived.mas_right);
         make.width.mas_equalTo(widthBTN);
     }];
     
@@ -146,12 +150,12 @@
     
     if ([AppUtils isNullOrEmpty: tfChar1.text] || [AppUtils isNullOrEmpty: tfChar2.text] || [AppUtils isNullOrEmpty: tfChar3.text] || [AppUtils isNullOrEmpty: tfChar4.text])
     {
-        [self makeToast:@"Bạn chưa nhập đầy đủ mã xác nhận" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:pls_enter_confirm_code duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([delegate respondsToSelector:@selector(confirmOTPWithCode:)]) {
-        NSString *code = [NSString stringWithFormat:@"%@%@%@%@", tfChar1.text, tfChar2.text, tfChar3.text, tfChar4.text];
+        NSString *code = SFM(@"%@%@%@%@", tfChar1.text, tfChar2.text, tfChar3.text, tfChar4.text);
         [delegate confirmOTPWithCode: code];
     }
 }

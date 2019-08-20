@@ -26,6 +26,7 @@
     float hResultView;
     float hContent;
     float hTitle;
+    float marginX;
 }
 
 @end
@@ -130,7 +131,7 @@
         sizeText = 60.0;
     }
     [btnChoose mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewDomain).offset(-padding);
+        make.right.equalTo(viewDomain).offset(-marginX);
         make.centerY.equalTo(viewDomain.mas_centerY);
         make.height.mas_equalTo(36.0);
         make.width.mas_equalTo(sizeText);
@@ -199,7 +200,7 @@
     float paddingSearch = 1.0;
     float hEmoji = 45.0;
     hTitle = 20.0;
-    float marginX = 15.0;
+    marginX = 15.0;
     float hBTN = 45.0;
     hContent = 65.0;
     

@@ -69,16 +69,22 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 //  Hiển thị bàn phím
 - (void)keyboardWillShow:(NSNotification *)notif {
-    CGSize keyboardSize = [[[notif userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
         make.left.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.bottom.equalTo(self.view).offset(-keyboardSize.height);
+        make.bottom.equalTo(self.view).offset(-keyboardHeight);
     }];
 }
 
@@ -88,6 +94,20 @@
         make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
         make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
+    }];
+}
+
+- (void) orientationChanged
+{
+    float screenWidth = [DeviceUtils getWidthOfScreen];
+    float screenHeight = [DeviceUtils getHeightOfScreen];
+    
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(screenWidth);
+    }];
+    
+    [personalProfile mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(screenWidth);
     }];
 }
 
@@ -253,7 +273,7 @@
         return;
     }
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
+    [ProgressHUD show:text_processing Interaction:FALSE];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
     [jsonDict setObject:register_account_mod forKey:@"mod"];
@@ -272,7 +292,7 @@
         return;
     }
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang xử lý.\nVui lòng chờ trong giây lát..." Interaction:NO];
+    [ProgressHUD show:text_processing Interaction:FALSE];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
     [jsonDict setObject:register_account_mod forKey:@"mod"];
@@ -378,7 +398,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] code = %@", __FUNCTION__, code)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Tài khoản đang được kích hoạt..." Interaction:NO];
+    [ProgressHUD show:your_acc_is_being_actived Interaction:NO];
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:check_otp_mod forKey:@"mod"];

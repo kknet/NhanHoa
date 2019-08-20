@@ -14,7 +14,7 @@
 #import "CartModel.h"
 #import "AccountModel.h"
 
-@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WebServiceUtilsDelegate>{
+@interface CartViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
     float hCell;
     float hProtectCell;
     int selectedIndex;
@@ -82,8 +82,25 @@
         [self.navigationController pushViewController:addOrderVC animated:TRUE];
         
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?" delegate:self cancelButtonTitle:@"Để sau" otherButtonTitles:topup_now, nil];
-        [alert show];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:not_enough_money_to_register_domains];
+        [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
+        [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+        
+        UIAlertAction *btnLater = [UIAlertAction actionWithTitle:text_later style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action){}];
+        [btnLater setValue:BLUE_COLOR forKey:@"titleTextColor"];
+        
+        UIAlertAction *btnTopup = [UIAlertAction actionWithTitle:topup_now style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action){
+                                                               TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+                                                               [self.navigationController pushViewController: topupVC animated:YES];
+                                                           }];
+        [btnTopup setValue:BLUE_COLOR forKey:@"titleTextColor"];
+        [alertVC addAction:btnLater];
+        [alertVC addAction:btnTopup];
+        [self presentViewController:alertVC animated:YES completion:nil];
     }
 }
 
@@ -509,16 +526,6 @@
         tbSelectYear.delegate = self;
         tbSelectYear.dataSource = self;
         [scvContent addSubview: tbSelectYear];
-    }
-}
-
-#pragma mark - Alertview Delegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *title = [alertView buttonTitleAtIndex: buttonIndex];
-    if ([title isEqualToString:topup_now]) {
-        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-        [self.navigationController pushViewController: topupVC animated:YES];
     }
 }
 
