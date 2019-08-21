@@ -64,6 +64,7 @@
         make.right.equalTo(lbPrice.mas_left).offset(-10.0);
     }];
     
+    lbFirstYear.text = text_first_year;
     [lbFirstYear mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPrice.mas_bottom);
         make.left.right.equalTo(lbPrice);

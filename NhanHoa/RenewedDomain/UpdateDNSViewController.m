@@ -40,7 +40,7 @@
     tfDNS1.text = tfDNS2.text = tfDNS3.text = tfDNS4.text = @"";
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
+    [ProgressHUD show:text_checking Interaction:FALSE];
     
     [self getDNSValueForDomain: domain];
 }

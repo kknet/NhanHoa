@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Thông tin hồ sơ";
+    self.title = text_profile_info;
     [self setupUIForView];
     
     [self addPersonalProfileView];
@@ -81,7 +81,7 @@
 - (void)keyboardWillShow:(NSNotification *)notif {
     float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
+        make.top.equalTo(viewMenu.mas_bottom).offset(10.0);
         make.left.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.bottom.equalTo(self.view).offset(-keyboardHeight);
@@ -91,7 +91,7 @@
 //  Ẩn bàn phím
 - (void)keyboardDidHide: (NSNotification *) notif{
     [scvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
+        make.top.equalTo(viewMenu.mas_bottom).offset(10.0);
         make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
@@ -121,33 +121,14 @@
     }
     personalProfile.delegate = self;
     [scvContent addSubview: personalProfile];
-    
-    float mTop = 10.0;
-    float hLabel = 30.0;
-    float padding = 15.0;
-    float hTitle = 40.0;
-    float hBTN = 45.0;
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-    }
-    
-    if (!IS_IPHONE && !IS_IPOD) {
-        hLabel = 40.0;
-        hTitle = 60.0;
-        padding = 30.0;
-        hBTN = 55.0;
-    }
-    
-    float hView = hTitle + 30 + 5.0 + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hBTN + 2*padding;
-    personalProfile.contentSize = hView;
+    [personalProfile setupUIForView];
     
     [personalProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hView);
+        make.height.mas_equalTo(personalProfile.contentHeight);
     }];
-    [personalProfile setupUIForView];
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, personalProfile.contentHeight);
 }
 
 - (void)addBusinessProfileView {
@@ -159,31 +140,16 @@
         }
     }
     businessProfile.delegate = self;
-    [self.scvContent addSubview: businessProfile];
-    
-    float mTop = 10.0;
-    float hLabel = 30.0;
-    float padding = 15.0;
-    float hTitle = 40.0;
-    float hBTN = 45.0;
-    
-    if (!IS_IPHONE && !IS_IPOD) {
-        hLabel = 40.0;
-        hTitle = 60.0;
-        hBTN = 55.0;
-        padding = 30.0;
-    }
-    
-    float hView = hTitle + 30 + 5.0 + hLabel + padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hBTN + 2*padding;
-    businessProfile.contentSize = hView;
+    [scvContent addSubview: businessProfile];
+    [businessProfile setupUIForView];
     
     [businessProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.scvContent);
+        make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hView);
+        make.height.mas_equalTo(businessProfile.contentHeight);
     }];
-    [businessProfile setupUIForView];
-    self.scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hView);
+    
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, businessProfile.contentHeight);
 }
 
 - (void)setupUIForView {
@@ -221,6 +187,7 @@
         make.right.equalTo(lbSepa.mas_left);
     }];
     
+    lbAccount.text = text_account_info;
     [lbAccount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewAccInfo);
         make.right.equalTo(viewAccInfo).offset(-2.0);
@@ -238,14 +205,15 @@
     }];
     
     [lbNumTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.viewProfileInfo).offset(2.0);
-        make.centerY.equalTo(self.viewProfileInfo.mas_centerY);
+        make.left.equalTo(viewProfileInfo).offset(2.0);
+        make.centerY.equalTo(viewProfileInfo.mas_centerY);
         make.width.height.mas_equalTo(sizeMenu);
     }];
     
+    lbProfile.text = text_profile_info;
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbNumTwo.mas_right).offset(paddingX);
-        make.top.bottom.equalTo(self.viewProfileInfo);
+        make.left.equalTo(lbNumTwo.mas_right).offset(paddingX);
+        make.top.bottom.equalTo(viewProfileInfo);
     }];
     
     lbNumOne.clipsToBounds = lbNumTwo.clipsToBounds = TRUE;
@@ -254,7 +222,7 @@
     scvContent.delegate = self;
     scvContent.backgroundColor = UIColor.whiteColor;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.viewMenu.mas_bottom).offset(10.0);
+        make.top.equalTo(viewMenu.mas_bottom).offset(10.0);
         make.left.bottom.equalTo(self.view);
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
@@ -344,7 +312,7 @@
     if (businessProfile == nil) {
         [self addBusinessProfileView];
     }else{
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, businessProfile.contentSize);
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, businessProfile.contentHeight);
     }
     personalProfile.hidden = TRUE;
     businessProfile.hidden = FALSE;
@@ -354,7 +322,7 @@
     if (personalProfile == nil) {
         [self addPersonalProfileView];
     }else{
-        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, personalProfile.contentSize);
+        scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, personalProfile.contentHeight);
     }
     personalProfile.hidden = FALSE;
     businessProfile.hidden = TRUE;

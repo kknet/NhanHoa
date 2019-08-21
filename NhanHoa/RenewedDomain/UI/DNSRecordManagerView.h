@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icClose;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *lbTop;
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showDNSRecordContentWithInfo: (NSDictionary *)info;
 - (void)resetAllValue;
+- (void)reUpdateLayoutForView;
 
 @end
 

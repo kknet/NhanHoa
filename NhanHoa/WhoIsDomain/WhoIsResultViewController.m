@@ -19,13 +19,13 @@
 @end
 
 @implementation WhoIsResultViewController
-@synthesize scvContent, listSearch, whoisView, noResultView, btnContinue;
+@synthesize scvContent, listSearch, whoisView, noResultView, btnContinue, lbTop;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupUIForView];
-    self.title = @"Kết quả tra cứu";
+    self.title = text_search_results;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
@@ -37,7 +37,6 @@
     
     [listSearch removeObject:@""];
     
-    
     //  prepare result array
     if (listResults == nil) {
         listResults = [[NSMutableArray alloc] init];
@@ -47,12 +46,9 @@
     [self registerObservers];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang kiểm tra..." Interaction:NO];
+    [ProgressHUD show:text_checking Interaction:FALSE];
     
     [self checkWhoIsForListDomains];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUIWhenSelectOrRemoveDomainFormCart)
-                                                 name:@"selectedOrRemoveDomainFromCart" object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -63,6 +59,15 @@
 - (void)registerObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
                                                  name:@"afterAddOrderSuccessfully" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUIWhenSelectOrRemoveDomainFormCart)
+                                                 name:@"selectedOrRemoveDomainFromCart" object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 - (void)popToRootView {
@@ -86,20 +91,27 @@
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnContinue.layer.cornerRadius = hBTN/2;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnContinue setTitle:text_continue forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.right.equalTo(self.view).offset(-padding);
         make.bottom.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
     
     self.view.backgroundColor = GRAY_235;
+    scvContent.showsVerticalScrollIndicator = FALSE;
     scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view);
-        make.bottom.equalTo(self.btnContinue.mas_top).offset(-padding);
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(btnContinue.mas_top).offset(-padding);
+    }];
+    
+    [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(0);
     }];
 }
 
@@ -111,6 +123,18 @@
         btnContinue.enabled = FALSE;
         btnContinue.backgroundColor = OLD_PRICE_COLOR;
     }
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    float screenWidth = [DeviceUtils getWidthOfScreen];
+    [lbTop mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(screenWidth);
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
@@ -143,9 +167,8 @@
     float hView = [whoisView showContentOfDomainWithInfo: info];
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
+        make.left.right.equalTo(lbTop);
         make.top.equalTo(scvContent).offset(scvContent.contentSize.height+mTop);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);
@@ -175,9 +198,8 @@
     float hView = [whoisView showContentOfDomainWithInfo: info];
     
     [whoisView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
+        make.left.right.equalTo(lbTop);
         make.top.equalTo(scvContent).offset(scvContent.contentSize.height + mTop);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hView);
     }];
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH,  scvContent.contentSize.height + hView + mTop);

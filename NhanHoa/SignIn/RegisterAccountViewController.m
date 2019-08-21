@@ -182,6 +182,7 @@
         make.width.height.mas_equalTo(sizeMenu);
     }];
     
+    lbProfile.text = text_profile_info;
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbNumTwo.mas_right).offset(paddingX);
         make.top.bottom.equalTo(viewProfileInfo);

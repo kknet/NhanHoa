@@ -26,7 +26,7 @@
     
     tfDomain.font = [AppDelegate sharedInstance].fontRegular;
     tfDomain.textColor = TITLE_COLOR;
-    tfDomain.placeholder = @"nhập tên miền";
+    tfDomain.placeholder = [text_enter_domain_name lowercaseString];
     tfDomain.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     tfDomain.layer.borderColor = GRAY_200.CGColor;
     tfDomain.layer.borderWidth = 1.0;
@@ -45,7 +45,7 @@
     lbWWW.font = [AppDelegate sharedInstance].fontMediumDesc;
     lbWWW.textColor = BLUE_COLOR;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.tfDomain);
+        make.top.left.bottom.equalTo(tfDomain);
         make.width.mas_equalTo(sizeText);
     }];
     
@@ -53,9 +53,9 @@
     icRemove.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     icRemove.layer.cornerRadius = 6.0;
     [icRemove mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfDomain).offset(3);
-        make.bottom.equalTo(self.tfDomain).offset(-3);
-        make.right.equalTo(self.tfDomain).offset(-3);
+        make.top.equalTo(tfDomain).offset(3);
+        make.bottom.equalTo(tfDomain).offset(-3);
+        make.right.equalTo(tfDomain).offset(-3);
         make.width.mas_equalTo(hTextfield-6);
     }];
 }

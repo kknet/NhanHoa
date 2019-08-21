@@ -29,7 +29,7 @@
     [lbNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.bottom.equalTo(self.mas_centerY).offset(-2.0);
-        make.width.mas_equalTo(30.0);
+        make.width.mas_equalTo(40.0);
     }];
     
     lbName.textColor = TITLE_COLOR;
@@ -89,16 +89,16 @@
             lbState.textColor = UIColor.orangeColor;
         }
     }else{
-        lbState.text = @"Chưa xác định";
+        lbState.text = text_undefined;
         lbState.textColor = NEW_PRICE_COLOR;
     }
     
     NSString *endTime = [info objectForKey:@"ord_end_time"];
     if (endTime != nil && ![endTime isEqualToString:@""] && [endTime isKindOfClass:[NSString class]]) {
         NSString *expireDate = [AppUtils getDateStringFromTimerInterval:[endTime longLongValue]];
-        lbDate.text = [NSString stringWithFormat:@"Hết hạn: %@", expireDate];
+        lbDate.text = SFM(@"%@: %@", text_expires_on, expireDate);
     }else{
-        lbDate.text = @"Hết hạn ngày: Đang cập nhật";
+        lbDate.text = SFM(@"%@: %@", text_expires_on, text_price_updating);
     }
 }
 

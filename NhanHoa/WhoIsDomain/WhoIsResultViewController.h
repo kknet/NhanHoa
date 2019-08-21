@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WhoIsResultViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
+@property (weak, nonatomic) IBOutlet UILabel *lbTop;
 
 @property (nonatomic, strong) NSMutableArray *listSearch;
 @property (nonatomic, strong) WhoIsDomainView *whoisView;

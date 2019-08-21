@@ -12,7 +12,7 @@
 @implementation DNSRecordManagerView
 @synthesize viewHeader, lbHeader, icClose;
 @synthesize scvContent, lbTitle, lbName, tfName, lbType, tfType, btnType, imgArrow, lbMX, tfMX, lbValue, tfValue, lbTTL, tfTTL, btnAddRecord, btnReset, lbWarning;
-@synthesize domain, margin, tbType, listType, delegate, curType, curInfo;
+@synthesize domain, margin, tbType, listType, delegate, curType, curInfo, lbTop;
 
 - (void)setupUIForViewWithType: (DNSRecordType)type
 {
@@ -63,11 +63,16 @@
     }];
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-[AppDelegate sharedInstance].hStatusBar - [AppDelegate sharedInstance].hNav);
     
+    [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(scvContent);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(0);
+    }];
     
     lbTitle.numberOfLines = 10;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH - 2*padding);
+        make.top.left.equalTo(lbTop).offset(padding);
+        make.right.equalTo(lbTop).offset(-padding);
     }];
     
     lbName.textColor = lbType.textColor = lbValue.textColor = lbMX.textColor = lbTTL.textColor = TITLE_COLOR;
@@ -621,6 +626,10 @@
     if ([delegate respondsToSelector:@selector(reloadDNSRecordListAfterAndOrEdit)]) {
         [delegate reloadDNSRecordListAfterAndOrEdit];
     }
+}
+
+- (void)reUpdateLayoutForView {
+    here
 }
 
 @end

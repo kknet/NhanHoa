@@ -17,6 +17,8 @@
     float hCell;
     float padding;
     float hBanner;
+    float backagePadding;
+    float hItemView;
 }
 
 @end
@@ -36,11 +38,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"RegisterDomainViewController"];
-    [self reUpdateLayoutForView];
     
     //  show banner image
     UIImage *bannerPhoto = [AccountModel getBannerPhotoFromUser];
     imgBanner.image = bannerPhoto;
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -49,6 +56,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,21 +72,6 @@
     }
 }
 
-- (void)reUpdateLayoutForView {
-    float hTableView = listData.count * hCell;
-    [tbContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbManyOptions.mas_bottom).offset(padding);
-        make.left.equalTo(self.scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTableView);
-    }];
-}
-
-- (void)viewDidLayoutSubviews {
-    float contentSize = tbContent.frame.origin.y + listData.count * hCell + padding;
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentSize);
-}
-
 - (void)setupUIForView
 {
     self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
@@ -88,7 +81,7 @@
     float searchPadding = 1.0;
     padding = 15.0;
     hCell = 90.0;
-    float backagePadding = 5.0;
+    backagePadding = 5.0;
     float wItemImg = 50.0;
     float radius = [AppDelegate sharedInstance].radius;
     
@@ -112,9 +105,9 @@
     }
     
     scvContent.delegate = self;
+    scvContent.showsVerticalScrollIndicator = FALSE;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.view);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.top.left.bottom.right.equalTo(self.view);
     }];
     
     [self getHeightBannerForView];
@@ -135,8 +128,8 @@
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.delegate = self;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.left.equalTo(imgBanner).offset(padding);
+        make.right.equalTo(imgBanner).offset(-padding);
         make.centerY.equalTo(imgBanner.mas_bottom);
         make.height.mas_equalTo(hSearch);
     }];
@@ -168,12 +161,11 @@
     UIImage *itemImg = [UIImage imageNamed:@"search_multi_domain"];
     float hItemImg = wItemImg * itemImg.size.height / itemImg.size.width;
     
-    float hItemView = (hSearch/2 + 10.0) + 10.0 + hItemImg + 50.0 + 5.0;
+    hItemView = (hSearch/2 + 10.0) + 10.0 + hItemImg + 50.0 + 5.0;
     viewInfo.backgroundColor = UIColor.clearColor;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
+        make.left.right.equalTo(imgBanner);
         make.top.equalTo(imgBanner.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hItemView);
     }];
     
@@ -259,8 +251,8 @@
     lbManyOptions.textColor = [UIColor colorWithRed:(57/255.0) green:(65/255.0) blue:(86/255.0) alpha:1.0];
     [lbManyOptions mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewInfo.mas_bottom).offset(20.0);
-        make.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
+        make.left.right.equalTo(imgBanner);
+        make.height.mas_equalTo(40.0);
     }];
     
     [tbContent registerNib:[UINib nibWithNibName:@"SuggestDomainCell" bundle:nil] forCellReuseIdentifier:@"SuggestDomainCell"];
@@ -269,12 +261,15 @@
     tbContent.delegate = self;
     tbContent.dataSource = self;
     tbContent.scrollEnabled = NO;
+    float hTableView = listData.count * hCell;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbManyOptions.mas_bottom).offset(padding);
-        make.left.equalTo(scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.bottom.equalTo(scvContent).offset(-5.0);
+        make.top.equalTo(lbManyOptions.mas_bottom).offset(20.0);
+        make.left.right.equalTo(imgBanner);
+        make.height.mas_equalTo(hTableView);
     }];
+    
+    float contentHeight = hBanner + hItemView + 20.0 + 40.0 + 20.0 + hTableView + padding;
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, contentHeight);
 }
 
 - (void)getHeightBannerForView {
@@ -282,8 +277,8 @@
         float hNavBar = [AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav;
         hBanner = (SCREEN_HEIGHT - hNavBar)/2;
     }else{
-        UIImage *imgBanner = [AccountModel getBannerPhotoFromUser];
-        hBanner = SCREEN_WIDTH * imgBanner.size.height / imgBanner.size.width;
+        UIImage *bannerPhoto = [AccountModel getBannerPhotoFromUser];
+        hBanner = SCREEN_WIDTH * bannerPhoto.size.height / bannerPhoto.size.width;
     }
 }
 
@@ -310,6 +305,42 @@
 - (void)tapToRenewDomains {
     RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
     [self.navigationController pushViewController: renewedVC animated:TRUE];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    float wScreen = [DeviceUtils getWidthOfScreen];
+    
+    UIImage *banner = [AccountModel getBannerPhotoFromUser];
+    hBanner = wScreen * banner.size.height / banner.size.width;
+    
+    [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(wScreen);
+        make.height.mas_equalTo(hBanner);
+    }];
+    
+    float sizeItem = (wScreen - 2*padding - 2*backagePadding)/3;
+    [viewRenew mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(sizeItem);
+    }];
+    
+    [viewSearch mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(sizeItem);
+    }];
+    
+    [viewTransferDomain mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(sizeItem);
+    }];
+
+    if ([DeviceUtils isLandscapeMode]) {
+        scvContent.contentOffset = CGPointMake(0, hBanner/2);
+    }
+    
+    float contentHeight = hBanner + hItemView + 20.0 + 40.0 + 20.0 + listData.count * hCell + padding;
+    scvContent.contentSize = CGSizeMake(wScreen, contentHeight);
 }
 
 #pragma mark - UITableview

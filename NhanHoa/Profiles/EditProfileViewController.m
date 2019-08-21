@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Cập nhật hồ sơ";
+    self.title = text_update_profile;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -245,22 +245,15 @@
 #define unknown         @"Chưa xác định"
 #define not_support_yet @"Chưa hỗ trợ"
 
-#define text_vietnam    @"Việt Nam"
-#define text_personal   @"Cá nhân"
-#define text_business   @"Doanh nghiệp"
-
 #define not_access_camera   @"Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
 
 
 #define text_close      @"Đóng"
 #define text_choose     @"Chọn"
-#define text_year       @"năm"
-#define text_years      @"năm"
 
-#define text_capture    @"Chụp ảnh"
-#define text_gallery    @"Thư viện ảnh"
-#define text_remove     @"Xóa"
-#define text_no_data    @"Không có dữ liệu"
+
+
+
 
 
 #define text_not_support    @"Tính năng đang được phát triển"
@@ -282,11 +275,7 @@
 #define CALL_INV_STATE_CONFIRMED    @"PJSIP_INV_STATE_CONFIRMED"
 #define CALL_INV_STATE_DISCONNECTED @"PJSIP_INV_STATE_DISCONNECTED"
 
-
-
-#define many_options_with_attractive_offers @"Nhiều lựa chọn với ưu đãi hấp dẫn"
 #define text_checking_please_wait           @"Đang kiểm tra. Vui lòng chờ trong giây lát..."
-#define text_enter_domains_to_check         @"Vui lòng nhập tên miền muốn kiểm tra!"
 #define text_register_to_protect_brand      @"Đăng ký ngay để bảo vệ thương hiệu của bạn."
 
 
@@ -316,11 +305,8 @@
 #define text_transfer_to        @"Chuyển về"
 #define text_free               @"Miễn phí"
 
-#define text_select     @"Chọn"
-#define text_unselect   @"Bỏ chọn"
+
 #define text_loading    @"Đang tải..."
-#define text_later      @"Để sau"
-#define topup_now       @"Nạp ngay"
 #define text_processing @"Đang xử lý..."
 
 #define you_are_using_newest_version    @"Bạn đang sử dụng phiên bản mới nhất."
@@ -382,50 +368,11 @@
 #define enter_new_password      @"Nhập mật khẩu mới"
 #define enter_confirm_password  @"Nhập xác nhận mật khẩu"
 
-#define text_fullname           @"Họ tên"
-#define text_gender             @"Giới tính"
-#define text_birthday           @"Ngày sinh"
-#define text_male               @"Nam"
-#define text_female             @"Nữ"
-#define text_passport           @"CMND"
-#define text_phonenumber        @"Phone number"
-#define text_address            @"Địa chỉ"
-#define text_country            @"Quốc gia"
-#define text_city               @"Tỉnh/thành phố"
 
 
-#define text_business_info      @"Phần thông tin doanh nghiệp"
-#define text_business_name      @"Tên doanh nghiệp"
-#define text_business_tax_code  @"Mã số thuế"
-#define text_business_address   @"Địa chỉ doanh nghiệp"
-#define text_business_phone     @"Số điện thoại doanh nghiệp"
-#define text_registrar_info     @"Phần thông tin người đăng ký"
-#define text_registrant_name    @"Họ tên người đăng ký"
-#define text_postition          @"Chức vụ"
 
-#define enter_business_name     @"Nhập tên doanh nghiệp"
-#define enter_business_tax_code @"Nhập mã số thuế"
-#define enter_business_address  @"Nhập địa chỉ doanh nghiệp"
-#define enter_business_phone    @"Nhập số điện thoại doanh nghiệp"
-#define enter_registrant_name   @"Nhập tên người đăng ký"
-#define enter_postition         @"Nhập chức vụ"
-#define enter_passport          @"Nhập CMND"
-#define enter_phone_number      @"Nhập số điện thoại"
-#define enter_address           @"Nhập địa chỉ"
-#define enter_email             @"Nhập địa chỉ email"
 
-#define pls_enter_business_name         @"Vui lòng nhập tên doanh nghiệp!"
-#define pls_enter_business_tax_code     @"Vui lòng nhập mã số thuế doanh nghiệp!"
-#define pls_enter_business_address      @"Vui lòng nhập địa chỉ doanh nghiệp!"
-#define pls_enter_business_phone        @"Vui lòng nhập số điện thoại doanh nghiệp!"
-#define pls_choose_business_city        @"Vui lòng chọn tỉnh/thành phố cho doanh nghiệp!"
-#define pls_enter_registrant_name       @"Vui lòng nhập tên người đăng ký!"
-#define pls_enter_registrant_dob        @"Vui lòng nhập ngày sinh người đăng ký!"
-#define pls_enter_registrant_postition  @"Vui lòng nhập chức vụ người đăng ký!"
-#define pls_enter_registrant_passport   @"Vui lòng nhập CMND người đăng ký!"
-#define pls_enter_registrant_phone      @"Vui lòng nhập số điện thoại người đăng ký!"
-#define pls_enter_registrant_address    @"Vui lòng nhập địa chỉ người đăng ký!"
-#define pls_enter_registrant_email      @"Vui lòng nhập email người đăng ký!"
+
 
 
 #define have_not_found_issue_yet    @"Bạn vẫn chưa tìm thấy vấn đề?"
@@ -453,7 +400,6 @@
 #define text_DNSSEC             @"DNSSEC"
 #define text_related_domains    @"Tên miền liên quan"
 #define text_continue           @"Tiếp tục"
-#define text_enter_domain_name  @"Nhập tên miền"
 #define text_contact_price      @"Giá liên hệ"
 
 #define text_shopping_cart      @"Giỏ hàng"
@@ -485,6 +431,7 @@
 #define text_actived            @"Kích hoạt"
 #define text_signing            @"Đang đăng nhập..."
 #define text_account_info       @"Thông tin tài khoản"
+#define text_profile_info       @"Thông tin hồ sơ"
 #define text_email              @"Email"
 #define text_confirm_password   @"Xác nhận mật khẩu"
 #define enter_account_info      @"Nhập thông tin tài khoản"
@@ -495,11 +442,139 @@
 #define text_enter_confirm_code @"Nhập mã xác nhận"
 #define text_confirm            @"Xác nhận"
 #define text_resend             @"Gửi lại"
+#define text_update_profile     @"Cập nhật hồ sơ"
 
 #define email_format_is_incorrect   @"Định dạng email không chính xác!"
 #define confirm_pass_is_incorrect   @"Xác nhận mật khẩu không chính xác!"
 #define your_acc_is_being_actived   @"Tài khoản đang được kích hoạt..."
 #define did_not_receive_otp_code    @"Không nhận được mã OTP?"
 #define pls_enter_confirm_code      @"Vui lòng nhập mã xác nhận"
+
+#define text_registration_purpose       @"Mục đích đăng ký"
+#define text_enter_permanent_address    @"Nhập địa chỉ thường trú"
+
+#define text_fullname           @"Họ tên"
+#define text_enter_fullname     @"Nhập họ tên"
+#define text_birthday           @"Ngày sinh"
+#define text_gender             @"Giới tính"
+#define text_male               @"Nam"
+#define text_female             @"Nữ"
+#define text_passport           @"CMND"
+#define text_enter_passport     @"Nhập CMND"
+#define text_phonenumber        @"Số điện thoại"
+#define text_enter_phonenumber  @"Nhập số điện thoại"
+#define text_address            @"Địa chỉ"
+#define text_permanent_address  @"Địa chỉ thường trú"
+#define text_country            @"Quốc gia"
+#define text_city               @"Tỉnh/thành phố"
+#define text_choose_city        @"Chọn tỉnh/thành phố"
+
+#define pls_enter_fullname          @"Vui lòng nhập họ tên"
+#define pls_choose_birthday         @"Vui lòng chọn ngày sinh"
+#define pls_enter_birthday          @"Vui lòng nhập CMND"
+#define pls_enter_phone_number      @"Vui lòng nhập Số điện thoại"
+#define pls_enter_permanent_address @"Vui lòng nhập địa chỉ thường trú"
+#define pls_choose_city             @"Vui lòng chọn Tỉnh/Thành phố"
+
+#define text_unselect           @"Bỏ chọn"
+#define text_select             @"Chọn"
+#define text_vietnam            @"Việt Nam"
+#define text_personal           @"Cá nhân"
+#define text_business           @"Doanh nghiệp"
+
+#define text_business_info      @"Phần thông tin doanh nghiệp"
+#define text_business_name      @"Tên doanh nghiệp"
+#define text_business_tax_code  @"Mã số thuế"
+#define text_business_address   @"Địa chỉ doanh nghiệp"
+#define text_business_phone     @"Số điện thoại doanh nghiệp"
+#define text_registrar_info     @"Phần thông tin người đăng ký"
+#define text_registrant_name    @"Họ tên người đăng ký"
+#define text_postition          @"Chức vụ"
+
+#define enter_business_name     @"Nhập tên doanh nghiệp"
+#define enter_business_tax_code @"Nhập mã số thuế"
+#define enter_business_address  @"Nhập địa chỉ doanh nghiệp"
+#define enter_business_phone    @"Nhập số điện thoại doanh nghiệp"
+#define enter_registrant_name   @"Nhập tên người đăng ký (CMND)"
+#define enter_postition         @"Nhập chức vụ"
+#define enter_passport          @"Nhập CMND"
+#define enter_phone_number      @"Nhập số điện thoại"
+#define enter_address           @"Nhập địa chỉ"
+#define enter_email             @"Nhập địa chỉ email"
+
+#define pls_enter_business_name         @"Vui lòng nhập tên doanh nghiệp!"
+#define pls_enter_business_tax_code     @"Vui lòng nhập mã số thuế doanh nghiệp!"
+#define pls_enter_business_address      @"Vui lòng nhập địa chỉ doanh nghiệp!"
+#define pls_enter_business_phone        @"Vui lòng nhập số điện thoại doanh nghiệp!"
+#define pls_choose_business_city        @"Vui lòng chọn tỉnh/thành phố cho doanh nghiệp!"
+#define pls_enter_registrant_name       @"Vui lòng nhập tên người đăng ký!"
+#define pls_enter_registrant_dob        @"Vui lòng nhập ngày sinh người đăng ký!"
+#define pls_enter_registrant_postition  @"Vui lòng nhập chức vụ người đăng ký!"
+#define pls_enter_registrant_passport   @"Vui lòng nhập CMND người đăng ký!"
+#define pls_enter_registrant_phone      @"Vui lòng nhập số điện thoại người đăng ký!"
+#define pls_enter_registrant_address    @"Vui lòng nhập địa chỉ người đăng ký!"
+#define pls_enter_registrant_email      @"Vui lòng nhập email người đăng ký!"
+
+#define many_options_with_attractive_offers         @"Nhiều lựa chọn với ưu đãi hấp dẫn"
+#define enter_one_or_more_domains_you_want_to_check @"Nhập một hay nhiều tên miền bạn muốn kiểm tra"
+
+#define you_can_check_x_domains_at_time @"Bạn chỉ có thể tìm kiếm %d tên miền cùng lúc"
+#define text_add_more_domains           @"Thêm tên miền"
+#define text_enter_domains_to_check     @"Vui lòng nhập tên miền muốn kiểm tra!"
+
+#define text_enter_domain_name  @"Nhập tên miền"
+#define text_check              @"Kiểm tra"
+#define text_search_results     @"Kết quả tra cứu"
+#define text_checking           @"Đang kiểm tra..."
+#define text_enter_to_search    @"Nhập để tìm kiếm..."
+#define text_all_domains        @"Tất cả"
+#define text_about_to_expire    @"Sắp hết hạn"
+#define text_expires_on         @"Hết hạn ngày"
+#define text_price_updating     @"Đang cập nhật"
+#define text_undefined          @"Không xác định"
+
+#define text_activated          @"Đã kích hoạt"
+#define text_cancelled          @"Đã hủy"
+#define text_in_process         @"Đang xử lý"
+#define text_waiting            @"Đang chờ"
+#define text_renewing           @"Đang gia hạn"
+#define text_waiting_for_renewal @"Đang chờ gia hạn"
+#define text_expired            @"Đã hết hạn"
+#define text_suspending         @"Đang suspend"
+#define text_suspended          @"Đã suspend"
+
+#define text_proceed_renewals   @"Tiến hành gia hạn"
+#define text_total              @"Tổng cộng"
+#define text_total_payment      @"Thành tiền"
+#define text_VAT                @"Thuế VAT"
+#define text_later              @"Để sau"
+#define topup_now               @"Nạp ngay"
+#define text_renewals           @"Gia hạn"
+#define text_year               @"năm"
+#define text_years              @"năm"
+#define text_first_year         @"1 năm đầu"
+
+#define text_not_enough_money_to_renewals           @"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?"
+#define text_do_you_want_to_renewals_this_domain    @"Bạn chắc chắn muốn gia hạn tên miền này?"
+#define text_data_is_invalid                        @"Dữ liệu không hợp lệ. Vui lòng thử lại sau!"
+#define text_your_domain_was_renewed_successfully   @"Tên miền đã được gia hạn thành công."
+#define text_can_not_get_renewal_informations       @"Không thể lấy thông tin gia hạn."
+#define pls_choose_photo_to_update                  @"Vui lòng chọn hình ảnh để cập nhật"
+#define failed_to_upload_passport_photo             @"Tải ảnh CMND thất bại!"
+
+#define text_data_is_invalidate     @"Dữ liệu không hợp lệ!"
+#define text_birth_certificate      @"Bản khai"
+#define text_front                  @"Mặt trước"
+#define text_backside               @"Mặt sau"
+#define text_update_passport        @"Cập nhật CMND"
+#define text_change_name_server     @"Thay đổi Name Server"
+#define text_dns_record_management  @"Quản lý DNS Records"
+#define text_no_data                @"Không có dữ liệu"
+#define text_edit                   @"Sửa"
+#define text_capture                @"Chụp ảnh"
+#define text_gallery                @"Thư viện ảnh"
+#define text_remove                 @"Xóa"
+#define text_TTL                    @"TTL"
+#define text_MX                     @"MX"
 
 #endif /* AppString_t */

@@ -187,6 +187,7 @@ typedef enum TypeSelectDomain{
     [btnAllDomain setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnAllDomain.backgroundColor = BLUE_COLOR;
     btnAllDomain.layer.cornerRadius = hMenu/2;
+    [btnAllDomain setTitle:text_all_domains forState:UIControlStateNormal];
     [btnAllDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(viewMenu);
         make.right.equalTo(viewMenu.mas_centerX);
@@ -195,6 +196,7 @@ typedef enum TypeSelectDomain{
     [btnExpireDomain setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnExpireDomain.backgroundColor = UIColor.clearColor;
     btnExpireDomain.layer.cornerRadius = hMenu/2;
+    [btnExpireDomain setTitle:text_about_to_expire forState:UIControlStateNormal];
     [btnExpireDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewMenu.mas_centerX);
         make.right.top.bottom.equalTo(viewMenu);
@@ -204,7 +206,7 @@ typedef enum TypeSelectDomain{
     tfSearch.delegate = self;
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hTextfield)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
-    tfSearch.placeholder = @"Nhập để tìm kiếm...";
+    tfSearch.placeholder = text_enter_to_search;
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.layer.cornerRadius = hTextfield/2;
@@ -238,6 +240,7 @@ typedef enum TypeSelectDomain{
     tbDomain.separatorStyle = UITableViewCellSelectionStyleNone;
     tbDomain.delegate = self;
     tbDomain.dataSource = self;
+    tbDomain.showsVerticalScrollIndicator = FALSE;
     [tbDomain registerNib:[UINib nibWithNibName:@"ExpireDomainCell" bundle:nil] forCellReuseIdentifier:@"ExpireDomainCell"];
     [tbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);

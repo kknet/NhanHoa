@@ -29,6 +29,11 @@
     UITextField *tfNumber;
     float hMenu;
     int numOfLine;
+    float hTabbar;
+    float hSearch;
+    float paddingY;
+    float padding;
+    float hWallet;
 }
 @end
 
@@ -63,9 +68,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCallTokenResult:)
                                                  name:@"updateCallTokenResult" object:nil];
     
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -152,17 +159,33 @@
     }
 }
 
-- (void) orientationChanged:(NSNotification *)note
+- (void) orientationChanged
 {
-    UIDevice * device = note.object;
-    if (device.orientation == UIDeviceOrientationLandscapeRight) {
-        
-    }else if (device.orientation == UIDeviceOrientationLandscapeLeft){
-       
-    }else if (device.orientation == UIDeviceOrientationPortrait){
-        
-    }else {
-        
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    [self createDataForMenuView];
+    [self getHeightBannerForIPAD];
+    [clvMenu reloadData];
+    
+    int numLine = [self getNumLineForMenuList];
+    [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-hTabbar);
+        make.height.mas_equalTo(numLine*hMenu);
+    }];
+}
+
+- (void)getHeightBannerForIPAD {
+    int numLine = [self getNumLineForMenuList];
+    float heightScreen = [DeviceUtils getHeightOfScreen];
+    
+    if ([DeviceUtils isLandscapeMode]) {
+        hMenu = 100.0;
+        hBanner = heightScreen - (hSearch + paddingY + hWallet + paddingY + hTabbar + numLine*hMenu);
+    }else{
+        hBanner = (heightScreen - hSearch - hTabbar)/2;
+        hMenu = (heightScreen - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/numLine;
     }
 }
 
@@ -317,10 +340,10 @@
 - (void)setupUIForView {
     self.view.backgroundColor = [UIColor colorWithRed:(242/255.0) green:(242/255.0) blue:(242/255.0) alpha:1.0];
     //  self.edgesForExtendedLayout = UIRectEdgeNone;
-    float hTabbar = self.tabBarController.tabBar.frame.size.height;
-    float paddingY = 10.0;
-    float padding = 20.0;
-    float hWallet = 55.0;
+    hTabbar = self.tabBarController.tabBar.frame.size.height;
+    paddingY = 10.0;
+    padding = 20.0;
+    hWallet = 55.0;
     if ([DeviceUtils isiPhoneXAndNewer]) {
         hWallet = 70.0;
     }
@@ -328,7 +351,7 @@
     float hStatusBar = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hTextfield = 34.0;
     float hNav = self.navigationController.navigationBar.frame.size.height;
-    float hSearch = hStatusBar + hNav;
+    hSearch = hStatusBar + hNav;
     
     [viewSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);

@@ -141,12 +141,12 @@
         BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: domainInfo];
         if (exists) {
             [[CartModel getInstance] removeDomainFromCart: domainInfo];
-            [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+            [btnChoose setTitle:text_select forState:UIControlStateNormal];
             btnChoose.backgroundColor = BLUE_COLOR;
             
         }else{
             [[CartModel getInstance] addDomainToCart: domainInfo];
-            [btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+            [btnChoose setTitle:text_unselect forState:UIControlStateNormal];
             btnChoose.backgroundColor = ORANGE_COLOR;
         }
         [self updateFrameWithContentOfButton];

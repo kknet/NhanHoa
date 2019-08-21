@@ -11,7 +11,7 @@
 @implementation BusinessProfileView
 
 @synthesize lbTitle, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbInfoBusiness, lbBusinessName, tfBusinessName, lbTaxCode, tfTaxCode, lbBusinessAddress, tfBusinessAddress, lbBusinessPhone, tfBusinessPhone, lbCountry, tfCountry, lbCity, tfCity, btnCity, imgCity, lbInfoRegister, lbRegisterName, tfRegisterName, lbSex, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, lbPosition, tfPosition, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbPerCountry, tfPerCountry, lbPerCity, tfPerCity, imgPerCityArrow, btnPerCity, btnRegister, lbPerAddress, tfPerAddress, btnBOD;
-@synthesize delegate, businessCityCode, cityCode, gender, typeCity, contentSize;
+@synthesize delegate, businessCityCode, cityCode, gender, typeCity, contentHeight;
 @synthesize transparentView, datePicker, toolBar;
 
 - (void)selectPersonalProfile {
@@ -42,6 +42,7 @@
     //  title
     lbTitle.font = [AppDelegate sharedInstance].fontBold;
     lbTitle.textColor = [UIColor colorWithRed:(55/255.0) green:(67/255.0) blue:(83/255.0) alpha:1.0];
+    lbTitle.text = SFM(@"2. %@", text_update_profile);
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(padding);
@@ -50,24 +51,23 @@
     }];
     //  vision
     lbVision.font = [AppDelegate sharedInstance].fontMedium;
-    lbVision.textColor = lbTitle.textColor;
+    lbVision.text = text_registration_purpose;
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbTitle.mas_bottom).offset(5.0);
+        make.top.equalTo(lbTitle.mas_bottom).offset(5.0);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
         make.height.mas_equalTo(30.0);
     }];
     
     //  Choose type profile
-    icPersonal.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    icPersonal.imageEdgeInsets = icBusiness.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [icPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbVision.mas_bottom).offset(5.0);
         make.left.equalTo(lbVision).offset(-4.0);
         make.width.height.mas_equalTo(hLabel);
     }];
     
-    lbPersonal.textColor = lbVision.textColor;
-    lbPersonal.font = [AppDelegate sharedInstance].fontRegular;
+    lbPersonal.text = text_personal;
     [lbPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icPersonal);
         make.left.equalTo(icPersonal.mas_right).offset(3.0);
@@ -78,15 +78,13 @@
     lbPersonal.userInteractionEnabled = TRUE;
     [lbPersonal addGestureRecognizer: tapOnPersonal];
     
-    icBusiness.imageEdgeInsets = icPersonal.imageEdgeInsets;
     [icBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icPersonal);
         make.left.equalTo(self.mas_centerX);
         make.width.equalTo(icPersonal.mas_width);
     }];
     
-    lbBusiness.textColor = lbVision.textColor;
-    lbBusiness.font = lbPersonal.font;
+    lbBusiness.text = text_business;
     [lbBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbPersonal);
         make.left.equalTo(icBusiness.mas_right).offset(3.0);
@@ -94,8 +92,7 @@
     }];
     
     //  info for business
-    lbInfoBusiness.font = [AppDelegate sharedInstance].fontBold;
-    lbInfoBusiness.textColor = BLUE_COLOR;
+    lbInfoBusiness.text = text_business_info;
     [lbInfoBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPersonal.mas_bottom).offset(padding);
         make.left.right.equalTo(lbTitle);
@@ -103,8 +100,7 @@
     }];
     
     //  business name
-    lbBusinessName.font = lbVision.font;
-    lbBusinessName.textColor = lbVision.textColor;
+    lbBusinessName.text = text_business_name;
     [lbBusinessName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbInfoBusiness.mas_bottom).offset(mTop);
         make.left.right.equalTo(lbInfoBusiness);
@@ -112,7 +108,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfBusinessName borderColor:BORDER_COLOR];
-    tfBusinessName.font = [AppDelegate sharedInstance].fontRegular;
+    tfBusinessName.placeholder = enter_business_name;
     [tfBusinessName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessName.mas_bottom);
         make.left.right.equalTo(lbBusinessName);
@@ -122,8 +118,7 @@
     tfBusinessName.delegate = self;
     
     //  business tax code
-    lbTaxCode.font = lbVision.font;
-    lbTaxCode.textColor = lbVision.textColor;
+    lbTaxCode.text = text_business_tax_code;
     [lbTaxCode mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfBusinessName.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfBusinessName);
@@ -131,7 +126,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfTaxCode borderColor:BORDER_COLOR];
-    tfTaxCode.font = tfBusinessName.font;
+    tfTaxCode.placeholder = enter_business_tax_code;
     [tfTaxCode mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTaxCode.mas_bottom);
         make.left.right.equalTo(lbTaxCode);
@@ -141,8 +136,7 @@
     tfTaxCode.delegate = self;
     
     //  business address
-    lbBusinessAddress.font = lbVision.font;
-    lbBusinessAddress.textColor = lbVision.textColor;
+    lbBusinessAddress.text = text_business_address;
     [lbBusinessAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfTaxCode.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfTaxCode);
@@ -150,7 +144,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfBusinessAddress borderColor:BORDER_COLOR];
-    tfBusinessAddress.font = tfTaxCode.font;
+    tfBusinessAddress.placeholder = enter_business_address;
     [tfBusinessAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessAddress.mas_bottom);
         make.left.right.equalTo(lbBusinessAddress);
@@ -160,8 +154,7 @@
     tfBusinessAddress.delegate = self;
     
     //  business phone
-    lbBusinessPhone.font = lbVision.font;
-    lbBusinessPhone.textColor = lbVision.textColor;
+    lbBusinessPhone.text = text_business_phone;
     [lbBusinessPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfBusinessAddress.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfBusinessAddress);
@@ -169,7 +162,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfBusinessPhone borderColor:BORDER_COLOR];
-    tfBusinessPhone.font = tfBusinessName.font;
+    tfBusinessPhone.placeholder = enter_business_phone;
     [tfBusinessPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessPhone.mas_bottom);
         make.left.right.equalTo(lbBusinessPhone);
@@ -179,8 +172,7 @@
     tfBusinessPhone.delegate = self;
     
     //  country and city
-    lbCountry.font = lbVision.font;
-    lbCountry.textColor = lbVision.textColor;
+    lbCountry.text = text_country;
     [lbCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfBusinessPhone.mas_bottom).offset(mTop);
         make.left.equalTo(self).offset(padding);
@@ -189,9 +181,9 @@
     }];
     
     [AppUtils setBorderForTextfield:tfCountry borderColor:BORDER_COLOR];
-    tfCountry.font = tfBusinessName.font;
     tfCountry.backgroundColor = LIGHT_GRAY_COLOR;
     tfCountry.enabled = FALSE;
+    tfCountry.text = text_vietnam;
     [tfCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbCountry.mas_bottom);
         make.left.right.equalTo(lbCountry);
@@ -199,8 +191,7 @@
     }];
     
     //  city
-    lbCity.font = lbVision.font;
-    lbCity.textColor = lbVision.textColor;
+    lbCity.text = text_city;
     [lbCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbCountry);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
@@ -208,7 +199,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfCity borderColor:BORDER_COLOR];
-    tfCity.font = tfBusinessName.font;
+    tfCity.placeholder = text_choose_city;
     [tfCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbCity.mas_bottom);
         make.left.right.equalTo(lbCity);
@@ -227,8 +218,7 @@
     }];
     
     //  register infor
-    lbInfoRegister.font = lbInfoBusiness.font;
-    lbInfoRegister.textColor = BLUE_COLOR;
+    lbInfoRegister.text = text_registrar_info;
     [lbInfoRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfCountry.mas_bottom).offset(2*padding);
         make.left.right.equalTo(lbTitle);
@@ -236,8 +226,7 @@
     }];
     
     //  business name
-    lbRegisterName.font = lbVision.font;
-    lbRegisterName.textColor = lbVision.textColor;
+    lbRegisterName.text = text_registrant_name;
     [lbRegisterName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbInfoRegister.mas_bottom).offset(mTop);
         make.left.right.equalTo(lbInfoRegister);
@@ -245,7 +234,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfRegisterName borderColor:BORDER_COLOR];
-    tfRegisterName.font = [AppDelegate sharedInstance].fontRegular;
+    tfRegisterName.placeholder = enter_registrant_name;
     [tfRegisterName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbRegisterName.mas_bottom);
         make.left.right.equalTo(lbRegisterName);
@@ -255,8 +244,7 @@
     tfRegisterName.delegate = self;
     
     //  birth day and sex
-    lbBOD.font = lbRegisterName.font;
-    lbBOD.textColor = lbRegisterName.textColor;
+    lbBOD.text = text_birthday;
     [lbBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfRegisterName.mas_bottom).offset(mTop);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
@@ -265,7 +253,6 @@
     }];
     
     [AppUtils setBorderForTextfield:tfBOD borderColor:BORDER_COLOR];
-    tfBOD.font = tfBusinessName.font;
     [tfBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBOD.mas_bottom);
         make.left.right.equalTo(lbBOD);
@@ -277,8 +264,7 @@
         make.top.left.bottom.right.equalTo(tfBOD);
     }];
     
-    lbSex.font = lbRegisterName.font;
-    lbSex.textColor = lbRegisterName.textColor;
+    lbSex.text = text_gender;
     [lbSex mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbBOD);
         make.left.equalTo(self).offset(padding);
@@ -301,8 +287,7 @@
         make.width.equalTo(icMale.mas_width);
     }];
     
-    lbMale.font = lbPersonal.font;
-    lbMale.textColor = lbPersonal.textColor;
+    lbMale.text = text_male;
     [lbMale mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icMale);
         make.left.equalTo(icMale.mas_right).offset(5.0);
@@ -312,8 +297,7 @@
     lbMale.userInteractionEnabled = TRUE;
     [lbMale addGestureRecognizer: tapOnMale];
     
-    lbFemale.font = lbMale.font;
-    lbFemale.textColor = lbMale.textColor;
+    lbFemale.text = text_female;
     [lbFemale mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icFemale);
         make.left.equalTo(icFemale.mas_right).offset(5.0);
@@ -325,8 +309,7 @@
     [lbFemale addGestureRecognizer: tapOnFemale];
     
     //  position
-    lbPosition.font = lbRegisterName.font;
-    lbPosition.textColor = lbRegisterName.textColor;
+    lbPosition.text = text_postition;
     [lbPosition mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfBOD.mas_bottom).offset(mTop);
         make.left.right.equalTo(lbRegisterName);
@@ -334,7 +317,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPosition borderColor:BORDER_COLOR];
-    tfPosition.font = [AppDelegate sharedInstance].fontRegular;
+    tfPosition.placeholder = enter_postition;
     [tfPosition mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPosition.mas_bottom);
         make.left.right.equalTo(lbPosition);
@@ -344,8 +327,7 @@
     tfPosition.delegate = self;
     
     //  Passport
-    lbPassport.font = lbRegisterName.font;
-    lbPassport.textColor = lbRegisterName.textColor;
+    lbPassport.text = text_passport;
     [lbPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfPosition.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfPosition);
@@ -353,7 +335,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPassport borderColor:BORDER_COLOR];
-    tfPassport.font = [AppDelegate sharedInstance].fontRegular;
+    tfPassport.placeholder = enter_passport;
     [tfPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPassport.mas_bottom);
         make.left.right.equalTo(lbPassport);
@@ -363,8 +345,7 @@
     tfPassport.delegate = self;
     
     //  Phone
-    lbPhone.font = lbRegisterName.font;
-    lbPhone.textColor = lbRegisterName.textColor;
+    lbPhone.text = text_phonenumber;
     [lbPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfPassport.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfPassport);
@@ -372,26 +353,25 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPhone borderColor:BORDER_COLOR];
-    tfPhone.font = [AppDelegate sharedInstance].fontRegular;
+    tfPhone.placeholder = enter_phone_number;
     [tfPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lbPhone.mas_bottom);
-        make.left.right.equalTo(self.lbPhone);
+        make.top.equalTo(lbPhone.mas_bottom);
+        make.left.right.equalTo(lbPhone);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
     tfPhone.returnKeyType = UIReturnKeyNext;
     tfPhone.delegate = self;
     
     //  Email
-    lbEmail.font = lbRegisterName.font;
-    lbEmail.textColor = lbRegisterName.textColor;
+    lbEmail.text = text_email;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.tfPhone.mas_bottom).offset(mTop);
-        make.left.right.equalTo(self.tfPhone);
+        make.top.equalTo(tfPhone.mas_bottom).offset(mTop);
+        make.left.right.equalTo(tfPhone);
         make.height.mas_equalTo(hLabel);
     }];
     
     [AppUtils setBorderForTextfield:tfEmail borderColor:BORDER_COLOR];
-    tfEmail.font = [AppDelegate sharedInstance].fontRegular;
+    tfEmail.placeholder = enter_email_address;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbEmail.mas_bottom);
         make.left.right.equalTo(lbEmail);
@@ -401,8 +381,7 @@
     tfEmail.delegate = self;
     
     //  personal address
-    lbPerAddress.font = lbEmail.font;
-    lbPerAddress.textColor = lbEmail.textColor;
+    lbPerAddress.text = text_address;
     [lbPerAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfEmail);
@@ -410,7 +389,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPerAddress borderColor:BORDER_COLOR];
-    tfPerAddress.font = [AppDelegate sharedInstance].fontRegular;
+    tfPerAddress.placeholder = enter_address;
     [tfPerAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPerAddress.mas_bottom);
         make.left.right.equalTo(lbPerAddress);
@@ -419,8 +398,7 @@
     tfPerAddress.returnKeyType = UIReturnKeyNext;
     tfPerAddress.delegate = self;
     
-    lbPerCountry.font = lbCountry.font;
-    lbPerCountry.textColor = lbCountry.textColor;
+    lbPerCountry.text = text_country;
     [lbPerCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfPerAddress.mas_bottom).offset(mTop);
         make.left.equalTo(self).offset(padding);
@@ -429,9 +407,9 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPerCountry borderColor:BORDER_COLOR];
-    tfPerCountry.font = tfBusinessName.font;
     tfPerCountry.backgroundColor = LIGHT_GRAY_COLOR;
     tfPerCountry.enabled = FALSE;
+    tfPerCountry.text = text_vietnam;
     [tfPerCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPerCountry.mas_bottom);
         make.left.right.equalTo(lbPerCountry);
@@ -439,8 +417,7 @@
     }];
     
     //  city
-    lbPerCity.font = lbVision.font;
-    lbPerCity.textColor = lbVision.textColor;
+    lbPerCity.text = text_city;
     [lbPerCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbPerCountry);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
@@ -448,7 +425,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPerCity borderColor:BORDER_COLOR];
-    tfPerCity.font = tfBusinessName.font;
+    tfPerCity.placeholder = text_choose_city;
     [tfPerCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPerCity.mas_bottom);
         make.left.right.equalTo(lbPerCity);
@@ -473,15 +450,26 @@
     btnRegister.layer.borderColor = BLUE_COLOR.CGColor;
     btnRegister.layer.borderWidth = 1.0;
     btnRegister.layer.cornerRadius = hBTN/2;
+    [btnRegister setTitle:text_sign_up forState:UIControlStateNormal];
     [btnRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(tfPerCity.mas_bottom).offset(2*padding);
+        make.top.equalTo(tfPerCity.mas_bottom).offset(padding);
         make.height.mas_equalTo(hBTN);
     }];
     
+    lbTitle.font = lbInfoBusiness.font = lbInfoRegister.font = [AppDelegate sharedInstance].fontBold;
+    lbVision.font = lbBusinessName.font = lbTaxCode.font = lbBusinessAddress.font = lbBusinessPhone.font = lbCountry.font = lbCity.font = lbRegisterName.font = lbSex.font = lbBOD.font = lbPosition.font = lbPassport.font = lbPhone.font = lbEmail.font = lbPerAddress.font = lbPerCountry.font = lbPerCity.font = [AppDelegate sharedInstance].fontMedium;
+    
+    lbPersonal.font = lbBusiness.font = tfBusinessName.font = tfTaxCode.font = tfBusinessAddress.font = tfBusinessPhone.font = tfCountry.font = tfCity.font = tfRegisterName.font = lbFemale.font = lbMale.font = tfBOD.font = tfPosition.font = tfPassport.font = tfPhone.font = tfEmail.font = tfPerAddress.font = tfPerCountry.font = tfPerCity.font = [AppDelegate sharedInstance].fontRegular;
+    
+    lbInfoBusiness.textColor = lbInfoRegister.textColor = BLUE_COLOR;
+    lbTitle.textColor = lbVision.textColor = lbPersonal.textColor = lbBusiness.textColor = lbBusinessName.textColor = tfBusinessName.textColor = lbTaxCode.textColor = tfTaxCode.textColor = lbBusinessAddress.textColor = tfBusinessAddress.textColor = lbBusinessPhone.textColor = tfBusinessPhone.textColor = lbCountry.textColor = tfCountry.textColor = lbCity.textColor = tfCity.textColor = lbRegisterName.textColor = tfRegisterName.textColor = lbSex.textColor = lbMale.textColor = lbFemale.textColor = lbBOD.textColor = tfBOD.textColor = lbPosition.textColor = tfPosition.textColor = lbPassport.textColor = tfPassport.textColor = lbPhone.textColor = tfPhone.textColor = lbEmail.textColor = tfEmail.textColor = lbPerAddress.textColor = tfPerAddress.textColor = lbPerCountry.textColor = tfPerCountry.textColor = lbPerAddress.textColor = tfPerAddress.textColor = TITLE_COLOR;
+    
     //  Add datepicker
     [self addDatePickerForView];
+    
+    contentHeight = hTitle + 30 + 5.0 + hLabel + padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hLabel + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + padding + hBTN + padding;
 }
 
 - (IBAction)chooseBusinessCityPress:(UIButton *)sender {
@@ -513,62 +501,62 @@
 
 - (IBAction)btnRegisterPress:(UIButton *)sender {
     if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Tên doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_business_name duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfTaxCode.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Mã số thuế" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_business_tax_code duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfBusinessAddress.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Địa chỉ doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_business_address duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfBusinessPhone.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Số điện thoại doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_business_phone duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: businessCityCode]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa chọn Tỉnh/thành phố cho doanh nghiệp" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_choose_business_city duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfRegisterName.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Tên người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_name duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfBOD.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Ngày sinh người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_dob duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfPosition.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Chức vụ của người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_postition duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfPassport.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập CMND người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_passport duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfPhone.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Điện thoại người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_phone duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfEmail.text]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa nhập Email người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_email duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: tfPerAddress.text] || [AppUtils isNullOrEmpty: cityCode]) {
-        [[AppDelegate sharedInstance].window makeToast:@"Bạn chưa cung cấp đầy đủ Địa chỉ người đăng ký" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:pls_enter_registrant_address duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -708,7 +696,7 @@
     }];
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo([AppDelegate sharedInstance].window);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(hToolbar);
     }];
     
@@ -722,7 +710,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
-        self.datePicker.maximumDate = [NSDate date];
+        datePicker.maximumDate = [NSDate date];
     }];
 }
 
@@ -743,7 +731,7 @@
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [[AppDelegate sharedInstance].window addSubview: datePicker];
     [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.transparentView);
+        make.left.right.bottom.equalTo(transparentView);
         make.height.mas_equalTo(0);
     }];
     
@@ -752,8 +740,8 @@
     toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
     [[AppDelegate sharedInstance].window addSubview: toolBar];
     [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.transparentView);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.left.right.equalTo(transparentView);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
     
@@ -767,13 +755,13 @@
        forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview: btnClose];
     [btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.toolBar).offset(15.0);
-        make.bottom.top.equalTo(self.toolBar);
+        make.left.equalTo(toolBar).offset(15.0);
+        make.bottom.top.equalTo(toolBar);
         make.width.mas_equalTo(100);
     }];
     
     UIButton *btnChoose = [[UIButton alloc] init];
-    [btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+    [btnChoose setTitle:text_select forState:UIControlStateNormal];
     btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:18.0];
     [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -782,8 +770,8 @@
         forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview: btnChoose];
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.toolBar).offset(-15.0);
-        make.bottom.top.equalTo(self.toolBar);
+        make.right.equalTo(toolBar).offset(-15.0);
+        make.bottom.top.equalTo(toolBar);
         make.width.mas_equalTo(100);
     }];
 }
@@ -796,12 +784,12 @@
     
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo([AppDelegate sharedInstance].window);
-        make.bottom.equalTo(self.datePicker.mas_top);
+        make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(0);
     }];
     
     [UIView animateWithDuration:0.2 animations:^{
-        self.transparentView.hidden = TRUE;
+        transparentView.hidden = TRUE;
         [self layoutIfNeeded];
     }];
 }

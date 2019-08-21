@@ -122,7 +122,7 @@
     tfSearch.delegate = self;
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hSearch)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
-    tfSearch.placeholder = @"Nhập để tìm kiếm...";
+    tfSearch.placeholder = text_enter_to_search;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.layer.cornerRadius = hSearch/2;
@@ -220,7 +220,7 @@
     
     if ([data isKindOfClass:[NSArray class]]) {
         if (data == nil || [(NSArray *)data count] == 0) {
-            lbNoData.text = @"Không có dữ liệu";
+            lbNoData.text = text_no_data;
             lbNoData.hidden = FALSE;
             tbProfiles.hidden = TRUE;
             

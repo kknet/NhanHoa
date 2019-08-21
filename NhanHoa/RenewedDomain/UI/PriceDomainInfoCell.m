@@ -19,6 +19,10 @@
         padding = 5.0;
     }
     
+    if (!IS_IPHONE && !IS_IPOD) {
+        padding = 30.0;
+    }
+    
     float smallPadding = 7.5;
     float sizeItem = (SCREEN_WIDTH - 2*padding - 3*smallPadding)/4;
     
@@ -34,19 +38,19 @@
     }];
     
     [lbRenew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbName.mas_right).offset(smallPadding);
+        make.left.equalTo(lbName.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
         make.width.mas_equalTo(sizeItem+5);
     }];
     
     [lbSetup mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbRenew.mas_right).offset(smallPadding);
+        make.left.equalTo(lbRenew.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
         make.width.mas_equalTo(sizeItem+5);
     }];
     
     [lbTransfer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lbSetup.mas_right).offset(smallPadding);
+        make.left.equalTo(lbSetup.mas_right).offset(smallPadding);
         make.top.bottom.equalTo(self);
         make.right.equalTo(self).offset(-padding);
     }];

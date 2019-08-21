@@ -78,7 +78,7 @@
     tfSearch.delegate = self;
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hSearch)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
-    tfSearch.placeholder = @"Nhập để tìm kiếm...";
+    tfSearch.placeholder = text_enter_to_search;
     tfSearch.textColor = TITLE_COLOR;
     tfSearch.font = [AppDelegate sharedInstance].fontRegular;
     tfSearch.layer.cornerRadius = hSearch/2;
@@ -192,7 +192,7 @@
 - (void)displayInformationWithData: (id)data {
     if ([data isKindOfClass:[NSArray class]]) {
         if (data == nil || [(NSArray *)data count] == 0) {
-            lbNoData.text = @"Không có dữ liệu";
+            lbNoData.text = text_no_data;
             lbNoData.hidden = FALSE;
             tbProfile.hidden = TRUE;
             
@@ -311,10 +311,10 @@
     
     NSString *cusId = [profileInfo objectForKey:@"cus_id"];
     if (cusId != nil && ![AppUtils isNullOrEmpty: cusId] && [cusId isEqualToString: cusIdSelected]) {
-        [cell.btnChoose setTitle:@"Bỏ chọn" forState:UIControlStateNormal];
+        [cell.btnChoose setTitle:text_unselect forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
     }else{
-        [cell.btnChoose setTitle:@"Chọn" forState:UIControlStateNormal];
+        [cell.btnChoose setTitle:text_select forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = BLUE_COLOR;
     }
     

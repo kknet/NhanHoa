@@ -27,6 +27,7 @@
     float hContent;
     float hTitle;
     float marginX;
+    float hEmoji;
 }
 
 @end
@@ -143,37 +144,25 @@
 }
 
 - (void)reUpdateLayoutForView {
-    float hResult = hResultView;
-    if (firstDomainInfo == nil) {
-        hResult = hResultView - (hContent + hTitle + 15.0 + 15.0);
-    }
-    [viewResult mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
-        make.top.equalTo(tfSearch.mas_bottom).offset(15.0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hResult);
-    }];
-    
-    [lbSepaView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewResult.mas_bottom).offset(5.0);
-        make.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
-        make.height.mas_equalTo(1.0);
-    }];
-    
     //  layout for choose button
+    if (firstDomainInfo == nil) {
+        hResultView = hEmoji + 5.0 + hTitle + (hTitle + 10.0) + hTitle;
+    }else{
+        hResultView = hEmoji + 5.0 + hTitle + (hTitle + 10.0) + hTitle + 15.0 + hContent + 15.0;
+    }
     [self updateLayoutForChooseMainDomain: btnChoose];
+    
+    [viewResult mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(hResultView);
+    }];
     
     //  get height of tableview
     hTableView = [self getHeightTableView];
-    [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbRelationDomain.mas_bottom);
-        make.left.equalTo(scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+    [tbDomains mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(hTableView);
     }];
     
-    float contentHeight = hSearch + 15.0 + hResult + padding + 1.0 + padding + hTableView + padding;
+    float contentHeight = hSearch + hResultView + 5.0 + 1.0 + 10.0 + 40.0 + hTableView;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hSearch + contentHeight);
 }
 
@@ -183,6 +172,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChoosedDomainList)
                                                  name:@"reloadChoosedDomainList" object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 - (void)popToRootView {
@@ -198,7 +193,7 @@
     hSmallCell = 65.0;
     hSearch = 38.0;
     float paddingSearch = 1.0;
-    float hEmoji = 45.0;
+    hEmoji = 45.0;
     hTitle = 20.0;
     marginX = 15.0;
     float hBTN = 45.0;
@@ -211,6 +206,7 @@
         hEmoji = 70.0;
         hTitle = 30.0;
         hCell = 100;
+        hSmallCell = 85.0;
         hContent = 80.0;
         hBTN = 55.0;
     }
@@ -254,10 +250,9 @@
     scvContent.delegate = self;
     scvContent.showsVerticalScrollIndicator = FALSE;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.bottom.equalTo(btnContinue.mas_top).offset(-padding);
         make.top.equalTo(viewHeader.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(btnContinue.mas_top).offset(-padding);
     }];
     
     lbTop.backgroundColor = viewHeader.backgroundColor;
@@ -277,9 +272,9 @@
     tfSearch.layer.borderWidth = 1.5;
     tfSearch.placeholder = text_enter_domain_name;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-2*padding);
         make.top.equalTo(scvContent);
+        make.left.equalTo(lbTop).offset(padding);
+        make.right.equalTo(lbTop).offset(-padding);
         make.height.mas_equalTo(hSearch);
     }];
     tfSearch.returnKeyType = UIReturnKeyDone;
@@ -308,9 +303,8 @@
     hResultView = hEmoji + 5.0 + hTitle + (hTitle + 10.0) + hTitle + 15.0 + hContent + 15.0;
     
     [viewResult mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
         make.top.equalTo(tfSearch.mas_bottom).offset(15.0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.right.equalTo(lbTop);
         make.height.mas_equalTo(hResultView);
     }];
     
@@ -351,8 +345,8 @@
     viewDomain.layer.borderColor = [UIColor colorWithRed:(250/255.0) green:(157/255.0) blue:(26/255.0) alpha:1.0].CGColor;
     [viewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBottomTitle.mas_bottom).offset(15.0);
-        make.left.equalTo(self.viewResult).offset(padding);
-        make.right.equalTo(self.viewResult).offset(-padding);
+        make.left.equalTo(viewResult).offset(padding);
+        make.right.equalTo(viewResult).offset(-padding);
         make.height.mas_equalTo(hContent);
     }];
     
@@ -408,8 +402,8 @@
     tbDomains.dataSource = self;
     [tbDomains mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbRelationDomain.mas_bottom);
-        make.left.bottom.equalTo(scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.left.right.equalTo(lbTop);
+        make.height.mas_equalTo(0);
     }];
 }
 
@@ -512,6 +506,18 @@
 
 - (void)reloadChoosedDomainList {
     [self prepareDataToDisplay];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    float wScreen = [DeviceUtils getWidthOfScreen];
+    [lbTop mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(wScreen);
+    }];
+    
 }
 
 #pragma mark - WebServicesUtilDelegate
@@ -683,8 +689,12 @@
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
     
     float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[AppDelegate sharedInstance].fontRegular heightItem:28.0 maxSize:maxSize];
-    float wPopup = (SCREEN_WIDTH-10.0);
-    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(5.0, (SCREEN_HEIGHT - hPopup)/2, wPopup, hPopup)];
+    
+    float marginX = 5.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        marginX = 40.0;
+    }
+    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
     popupView.domain = domain;
     [popupView showInView:self.view animated:TRUE];
 }

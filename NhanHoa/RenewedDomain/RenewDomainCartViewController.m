@@ -73,22 +73,38 @@
             {
                 [self confirmRenewOrderView];
             }else{
-                [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+                [self.view makeToast:text_data_is_invalid duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
             }
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Số tiền hiện tại trong ví của bạn không đủ để thanh toán.\nBạn có muốn nạp tiền ngay?" delegate:self cancelButtonTitle:@"Để sau" otherButtonTitles:topup_now, nil];
-            alert.tag = 2;
-            [alert show];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:text_not_enough_money_to_renewals];
+            [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
+            [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+            
+            UIAlertAction *btnLater = [UIAlertAction actionWithTitle:text_later style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction *action){}];
+            [btnLater setValue:BLUE_COLOR forKey:@"titleTextColor"];
+            
+            UIAlertAction *btnTopup = [UIAlertAction actionWithTitle:topup_now style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction *action){
+                                                                   TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+                                                                   [self.navigationController pushViewController: topupVC animated:YES];
+                                                               }];
+            [btnTopup setValue:UIColor.redColor forKey:@"titleTextColor"];
+            [alertVC addAction:btnLater];
+            [alertVC addAction:btnTopup];
+            [self presentViewController:alertVC animated:YES completion:nil];
         }
     }else{
-        [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:text_data_is_invalid duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 
 - (void)confirmRenewOrderView {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn gia hạn tên miền này?"];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:text_do_you_want_to_renewals_this_domain];
     [attrTitle addAttribute:NSFontAttributeName value:[AppDelegate sharedInstance].fontRegular range:NSMakeRange(0, attrTitle.string.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     
@@ -98,7 +114,7 @@
                                                      }];
     [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
     
-    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:@"Gia hạn" style:UIAlertActionStyleDefault
+    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:text_renewals style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action){
                                                          [ProgressHUD backgroundColor: ProgressHUD_BG];
                                                          [ProgressHUD show:text_processing Interaction:FALSE];
@@ -151,6 +167,7 @@
     btnContinue.layer.cornerRadius = hBTN/2;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnContinue setTitle:text_proceed_renewals forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.bottom.equalTo(self.view).offset(-padding);
@@ -160,9 +177,8 @@
     //  footer view
     float hFooter = padding + 3*hLabel + padding;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
+        make.left.right.equalTo(self.view);
         make.top.equalTo(lbSepa.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hFooter);
     }];
     
@@ -172,6 +188,7 @@
     lbDomainPrice.font = lbDomainPriceValue.font = lbVAT.font = lbVATValue.font = [AppDelegate sharedInstance].fontRegular;
     lbTotalPrice.font = lbTotalPriceValue.font = [AppDelegate sharedInstance].fontMedium;
     
+    lbDomainPrice.text = text_total;
     [lbDomainPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(viewFooter).offset(padding);
         make.right.equalTo(viewFooter.mas_centerX).offset(-padding/2);
@@ -185,6 +202,7 @@
     }];
     
     //  VAT
+    lbVAT.text = text_VAT;
     [lbVAT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbDomainPrice.mas_bottom);
         make.left.right.equalTo(lbDomainPrice);
@@ -197,6 +215,7 @@
     }];
     
     //  Total price
+    lbTotalPrice.text = text_total_payment;
     [lbTotalPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbVAT.mas_bottom);
         make.left.right.equalTo(lbVAT);
@@ -256,7 +275,7 @@
         SelectYearsCell *cell = (SelectYearsCell *)[tableView dequeueReusableCellWithIdentifier:@"SelectYearsCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.lbContent.text = [NSString stringWithFormat:@"%d năm", (int)indexPath.row + 1];
+        cell.lbContent.text = SFM(@"%d %@", (int)indexPath.row + 1, text_year);
         return cell;
         
     }else{
@@ -266,9 +285,9 @@
         
         NSString *domainName = domain;
         
-        cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
+        cell.lbNum.text = SFM(@"%d.", (int)indexPath.row + 1);
         cell.lbName.text = domainName;
-        cell.tfYears.text = [NSString stringWithFormat:@"%d năm", yearsForRenew];
+        cell.tfYears.text = SFM(@"%d %@", yearsForRenew, text_year);
         
         [cell displayDataWithInfo: domainInfo forYear: yearsForRenew];
         
@@ -398,7 +417,7 @@
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:text_your_domain_was_renewed_successfully duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
@@ -406,7 +425,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     
     [ProgressHUD dismiss];
-    [self.view makeToast:@"Tên miền đã được gia hạn thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:text_your_domain_was_renewed_successfully duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
@@ -420,7 +439,7 @@
         }
         [tbDomain reloadData];
     }else{
-        [self.view makeToast:@"Lấy thông tin gia hạn thất bại. Vui lòng thử lại sau." duration:2.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:text_can_not_get_renewal_informations duration:2.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.5];
     }
     //  get price for renew domain
@@ -456,15 +475,6 @@
         vatValue = [vat floatValue];
     }
     return vatValue;
-}
-
-#pragma mark - Alerview Delegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [alertView buttonTitleAtIndex: buttonIndex];
-    if ([title isEqualToString:topup_now]) {
-        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-        [self.navigationController pushViewController: topupVC animated:YES];
-    }
 }
 
 @end

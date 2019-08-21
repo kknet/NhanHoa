@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Tra cứu tên miền";
+    self.title = text_search_domains;
     [self setupUIForView];
 }
 
@@ -128,6 +128,7 @@
     btnSearch.layer.borderColor = BLUE_COLOR.CGColor;
     btnSearch.layer.borderWidth = 1.0;
     btnSearch.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    [btnSearch setTitle:text_check forState:UIControlStateNormal];
     [btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.bottom.right.equalTo(self.view).offset(-padding);
@@ -144,27 +145,37 @@
     }];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hHeader)];
-    
-    UILabel *lbTbHeader = [[UILabel alloc] initWithFrame:CGRectMake(padding, 0, headerView.frame.size.width-2*padding, headerView.frame.size.height)];
+    UILabel *lbTbHeader = [[UILabel alloc] init];
     lbTbHeader.numberOfLines = 5;
     lbTbHeader.textAlignment = NSTextAlignmentCenter;
-    lbTbHeader.text = @"Nhập một hay nhiều tên miền bạn muốn tra cứu";
+    lbTbHeader.text = enter_one_or_more_domains_you_want_to_check;
     lbTbHeader.font = [AppDelegate sharedInstance].fontRegular;
     lbTbHeader.textColor = TITLE_COLOR;
     [headerView addSubview: lbTbHeader];
+    [lbTbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headerView).offset(padding);
+        make.right.equalTo(headerView).offset(-padding);
+        make.top.bottom.equalTo(headerView);
+    }];
     tbContent.tableHeaderView = headerView;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
+    
     UIButton *btnTbFooter = [UIButton buttonWithType: UIButtonTypeCustom];
-    btnTbFooter.frame = CGRectMake(padding, (hFooter-hBTN)/2, footerView.frame.size.width-2*padding, hBTN);
     btnTbFooter.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnTbFooter.backgroundColor = [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(202/255.0) alpha:1.0];
     btnTbFooter.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    [btnTbFooter setTitle:@"Thêm tên miền" forState:UIControlStateNormal];
+    [btnTbFooter setTitle:text_add_more_domains forState:UIControlStateNormal];
     [btnTbFooter addTarget:self
                     action:@selector(addNewRowForDomain)
           forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview: btnTbFooter];
+    [btnTbFooter mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(footerView).offset(padding);
+        make.right.equalTo(footerView).offset(-padding);
+        make.centerY.equalTo(footerView.mas_centerY);
+        make.height.mas_equalTo(hBTN);
+    }];
     
     tbContent.tableFooterView = footerView;
 }
@@ -176,7 +187,7 @@
 - (void)addNewRowForDomain {
     if (listDomain.count == 5 || listDomain.count > 5) {
         self.view.clipsToBounds = NO;
-        [self.view makeToast:@"Vượt quá số lượng tìm kiếm" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        [self.view makeToast:SFM(you_can_check_x_domains_at_time, 5) duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
     }else{
         [listDomain addObject:@""];
         [tbContent reloadData];

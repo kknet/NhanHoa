@@ -41,6 +41,13 @@
                     <rect key="frame" x="0.0" y="44" width="320" height="531"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OX-gj-GBB">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5t-BD-hAc">
                             <rect key="frame" x="143" y="0.0" width="34" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -168,6 +175,7 @@
                 <outlet property="lbName" destination="HdG-xK-hZO" id="0wH-Nu-gt6"/>
                 <outlet property="lbTTL" destination="TMC-tI-Sqa" id="4LW-85-Afm"/>
                 <outlet property="lbTitle" destination="s5t-BD-hAc" id="nme-XN-8rx"/>
+                <outlet property="lbTop" destination="7OX-gj-GBB" id="pb5-20-TgZ"/>
                 <outlet property="lbType" destination="wvy-7P-oCs" id="ivI-iy-ViA"/>
                 <outlet property="lbValue" destination="Xgk-f9-gXj" id="GuB-Kz-cYz"/>
                 <outlet property="lbWarning" destination="xtN-ia-db6" id="fzO-tR-Li2"/>

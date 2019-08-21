@@ -17,6 +17,8 @@
 {
     UIImagePickerController *imagePickerController;
     int type;
+    float padding;
+    float hLabel;
 }
 @end
 
@@ -27,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Cập nhật CMND";
+    self.title = text_update_passport;
     [self setupUIForView];
     [self addRightBarButtonForNavigationBar];
     
@@ -38,10 +40,18 @@
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
     
     [self showCurrentPassportForDomain];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
     if ([self isMovingFromParentViewController])
     {
         imagePickerController = nil;
@@ -84,12 +94,12 @@
 
 - (void)saveInfo {
     if ([AppDelegate sharedInstance].editCMND_a == nil && [AppDelegate sharedInstance].editCMND_b == nil && [AppDelegate sharedInstance].editBanKhai == nil) {
-        [self.view makeToast:@"Vui lòng chọn hình ảnh để cập nhật!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:pls_choose_photo_to_update duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     if ([AppUtils isNullOrEmpty: cusId]) {
-        [self.view makeToast:@"Không thể lấy được cusId. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:text_data_is_invalidate duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
@@ -111,10 +121,10 @@
             [btnCMND_a sd_setImageWithURL:[NSURL URLWithString:curCMND_a] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
             {
                 if (image == nil) {
-                    [self.btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
+                    [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
                 }
-                self.imgWaitCMND_a.hidden = TRUE;
-                [self.imgWaitCMND_a stopAnimating];
+                imgWaitCMND_a.hidden = TRUE;
+                [imgWaitCMND_a stopAnimating];
             }];
         }else{
             [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
@@ -131,10 +141,10 @@
             [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
              {
                  if (image == nil) {
-                     [self.btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+                     [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
                  }
-                 self.imgWaitCMND_b.hidden = TRUE;
-                 [self.imgWaitCMND_b stopAnimating];
+                 imgWaitCMND_b.hidden = TRUE;
+                 [imgWaitCMND_b stopAnimating];
              }];
         }else{
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
@@ -151,10 +161,10 @@
             [btnBanKhai sd_setImageWithURL:[NSURL URLWithString:curBanKhai] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
              {
                  if (image == nil) {
-                     [self.btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+                     [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
                  }
-                 [self.imgWaitBanKhai stopAnimating];
-                 self.imgWaitBanKhai.hidden = TRUE;
+                 [imgWaitBanKhai stopAnimating];
+                 imgWaitBanKhai.hidden = TRUE;
              }];
         }else{
             [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
@@ -166,9 +176,9 @@
     type = 1;
     
     if ([AppDelegate sharedInstance].editCMND_a == nil) {
-        [self showActionSheetChooseWithRemove: FALSE];
+        [self showActionSheetChooseWithRemove: FALSE withSender: sender];
     }else{
-        [self showActionSheetChooseWithRemove: TRUE];
+        [self showActionSheetChooseWithRemove: TRUE withSender: sender];
     }
 }
 
@@ -176,9 +186,9 @@
     type = 2;
     
     if ([AppDelegate sharedInstance].editCMND_b == nil) {
-        [self showActionSheetChooseWithRemove: FALSE];
+        [self showActionSheetChooseWithRemove: FALSE withSender: sender];
     }else{
-        [self showActionSheetChooseWithRemove: TRUE];
+        [self showActionSheetChooseWithRemove: TRUE withSender: sender];
     }
 }
 
@@ -186,29 +196,10 @@
     type = 3;
     
     if ([AppDelegate sharedInstance].editBanKhai == nil) {
-        [self showActionSheetChooseWithRemove: FALSE];
+        [self showActionSheetChooseWithRemove: FALSE withSender: sender];
     }else{
-        [self showActionSheetChooseWithRemove: TRUE];
+        [self showActionSheetChooseWithRemove: TRUE withSender: sender];
     }
-}
-
-- (IBAction)btnCancelPress:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated: TRUE];
-}
-
-- (IBAction)btnSavePress:(UIButton *)sender {
-    if ([AppDelegate sharedInstance].editCMND_a == nil && [AppDelegate sharedInstance].editCMND_b == nil) {
-        [self.view makeToast:@"Bạn chưa chọn CMND để cập nhật!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: cusId]) {
-        [self.view makeToast:@"Không thể lấy được cusId. Vui lòng thử lại sau!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang cập nhật. Vui lòng chờ trong giây lát" Interaction:NO];
 }
 
 - (void)uploadBanKhaiPicture {
@@ -231,12 +222,12 @@
                         if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
                             [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was not uploaded successful", __FUNCTION__)];
                             
-                            self.linkBanKhai = @"";
+                            linkBanKhai = @"";
                             
                         }else{
                             [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was uploaded successful", __FUNCTION__)];
                             
-                            self.linkBanKhai = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                            linkBanKhai = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
                         [self uploadPassportFrontPicture];
                     });
@@ -268,13 +259,11 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
                             [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was not uploaded successful", __FUNCTION__)];
-                            
-                            self.linkCMND_a = @"";
+                            linkCMND_a = @"";
                             
                         }else{
                             [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_a was uploaded successful", __FUNCTION__)];
-                            
-                            self.linkCMND_a = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                            linkCMND_a = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                         }
                         
                         [self uploadPassportBehindPicture];
@@ -301,11 +290,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
                         [WriteLogsUtils writeLogContent:SFM(@"[%s] CMND_b was not uploaded successful", __FUNCTION__)];
-                        
-                        self.linkCMND_b = @"";
+                        linkCMND_b = @"";
                         
                     }else{
-                        self.linkCMND_b = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
+                        linkCMND_b = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
                     }
                     [self updateCMNDPhotoForDomain];
                 });
@@ -321,29 +309,80 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if ([AppUtils isNullOrEmpty: linkCMND_a] && [AppUtils isNullOrEmpty: linkCMND_b] && [AppUtils isNullOrEmpty: linkBanKhai]) {
-        [self.view makeToast:@"CMND của bạn chưa được tải thành công. Vui lòng thử lại!" duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:failed_to_upload_passport_photo duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId domainName:domain domainType:domainType domainId:domainId banKhai:linkBanKhai];
 }
 
-- (void)showActionSheetChooseWithRemove: (BOOL)remove {
+- (void)showActionSheetChooseWithRemove: (BOOL)remove withSender: (UIButton *)sender {
     if (remove) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, text_remove, nil];
-        [actionSheet showInView: self.view];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [self dismissViewControllerAnimated:TRUE completion:nil];
+            }]];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_capture style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                    {
+                                        [self requestToAccessYourCamera];
+                                    }]];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_gallery style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                    {
+                                        [self onSelectPhotosGallery];
+                                    }]];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_remove style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                    {
+                                        [self removeCurrentPhotos];
+                                    }]];
+            
+            // Present action sheet.
+            [actionSheet setModalPresentationStyle:UIModalPresentationPopover];
+            
+            UIPopoverPresentationController *popPresenter = [actionSheet popoverPresentationController];
+            popPresenter.sourceView = sender;
+            popPresenter.sourceRect = sender.bounds;
+            [self presentViewController:actionSheet animated:YES completion:nil];
+        });
         
     }else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:text_close destructiveButtonTitle:nil otherButtonTitles:text_capture, text_gallery, nil];
-        [actionSheet showInView: self.view];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_close style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [self dismissViewControllerAnimated:TRUE completion:nil];
+            }]];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_capture style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                    {
+                                        [self requestToAccessYourCamera];
+                                    }]];
+            
+            [actionSheet addAction:[UIAlertAction actionWithTitle:text_gallery style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                    {
+                                        [self onSelectPhotosGallery];
+                                    }]];
+            
+            // Present action sheet.
+            [actionSheet setModalPresentationStyle:UIModalPresentationPopover];
+            
+            UIPopoverPresentationController *popPresenter = [actionSheet popoverPresentationController];
+            popPresenter.sourceView = sender;
+            popPresenter.sourceRect = sender.bounds;
+            [self presentViewController:actionSheet animated:YES completion:nil];
+        });
     }
 }
 
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    float padding = 15.0;
-    float hLabel = 25.0;
+    padding = 15.0;
+    hLabel = 25.0;
     btnBanKhai.imageEdgeInsets = btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
 
     btnBanKhai.imageView.contentMode = btnCMND_a.imageView.contentMode = btnCMND_b.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -496,12 +535,19 @@
         }else{
             [btnCMND_a setImage:FRONT_EMPTY_IMG forState:UIControlStateNormal];
         }
-    }else{
+    }else if (type == 2){
         [AppDelegate sharedInstance].editCMND_b = nil;
         if (![AppUtils isNullOrEmpty: curCMND_b]) {
             [btnCMND_b sd_setImageWithURL:[NSURL URLWithString:curCMND_b] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
         }else{
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
+        }
+    }else{
+        [AppDelegate sharedInstance].editBanKhai = nil;
+        if (![AppUtils isNullOrEmpty: curBanKhai]) {
+            [btnBanKhai sd_setImageWithURL:[NSURL URLWithString:curBanKhai] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
+        }else{
+            [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
         }
     }
 }
@@ -513,17 +559,56 @@
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
-#pragma mark - ActionSheet Delegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [actionSheet buttonTitleAtIndex: buttonIndex];
-    if ([title isEqualToString: text_capture]) {
-        [self requestToAccessYourCamera];
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    float heightScreen = [DeviceUtils getHeightOfScreen];
+    if ([DeviceUtils isLandscapeMode]) {
+        float hBTN = (heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 2*padding + 2*hLabel))/2;
         
-    }else if ([title isEqualToString: text_gallery]) {
-        [self onSelectPhotosGallery];
+        [btnBanKhai mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(padding);
+            make.left.equalTo(self.view).offset(2*padding);
+            make.right.equalTo(self.view.mas_centerX).offset(-padding);
+            make.height.mas_equalTo(hBTN);
+        }];
         
-    }else if ([title isEqualToString: text_remove]) {
-        [self removeCurrentPhotos];
+        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(btnBanKhai);
+            make.left.equalTo(btnBanKhai.mas_right).offset(2*padding);
+            make.right.equalTo(self.view).offset(-padding);
+        }];
+        
+        [btnCMND_b mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lbCMND_a.mas_bottom).offset(padding);
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.width.equalTo(btnCMND_a.mas_width);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }else{
+        float hBTN = (heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 3*padding + 3*hLabel))/3;
+        
+        [btnBanKhai mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(padding);
+            make.left.equalTo(self.view).offset(2*padding);
+            make.right.equalTo(self.view).offset(-2*padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+        
+        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lbBanKhai.mas_bottom).offset(padding);
+            make.left.right.equalTo(btnBanKhai);
+            make.height.mas_equalTo(hBTN);
+        }];
+        
+        [btnCMND_b mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lbCMND_a.mas_bottom).offset(padding);
+            make.left.right.equalTo(lbCMND_a);
+            make.height.mas_equalTo(hBTN);
+        }];
     }
 }
 

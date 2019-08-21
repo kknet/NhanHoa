@@ -154,8 +154,12 @@
             
             [whoisView showContentOfDomainWithInfo: data];
             
+            float marginX = 5.0;
+            if (!IS_IPHONE && !IS_IPOD) {
+                marginX = 40.0;
+            }
             [UIView animateWithDuration:0.1 animations:^{
-                self.frame = CGRectMake(5.0, (SCREEN_HEIGHT-hPopup)/2, SCREEN_WIDTH-10.0, hPopup);
+                self.frame = CGRectMake(marginX, (SCREEN_HEIGHT-hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup);
             }];
         }
     }

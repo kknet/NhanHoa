@@ -73,6 +73,9 @@
     
     float hContent = SCREEN_HEIGHT;
     wContent = UIScreen.mainScreen.bounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (!IS_IPHONE && !IS_IPOD) {
+        wContent = SCREEN_WIDTH;
+    }
     
     [tbRecords registerNib:[UINib nibWithNibName:@"DNSDetailCell" bundle:nil] forCellReuseIdentifier:@"DNSDetailCell"];
     tbRecords.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -87,7 +90,7 @@
     
     scvContent.contentSize = CGSizeMake(wContent, hContent);
     
-    lbNoData.text = @"Không có dữ liệu";
+    lbNoData.text = text_no_data;
     lbNoData.textColor = TITLE_COLOR;
     lbNoData.font = [AppDelegate sharedInstance].fontBTN;
     lbNoData.hidden = TRUE;
@@ -126,6 +129,32 @@
 
 - (void) orientationChanged:(NSNotification *)note
 {
+    if (!IS_IPHONE && !IS_IPOD) {
+        float widthScreen = [DeviceUtils getWidthOfScreen];
+        [tbRecords mas_updateConstraints:^(MASConstraintMaker *make) {
+            //  make.top.left.equalTo(scvContent);
+            make.width.mas_equalTo(widthScreen);
+            //  make.height.mas_equalTo(hContent);
+        }];
+        [tbRecords reloadData];
+        
+        if (addDNSRecordView != nil) {
+            float heightScreen = [DeviceUtils getHeightOfScreen];
+            [addDNSRecordView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(heightScreen);
+            }];
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                [self.view layoutIfNeeded];
+            }completion:^(BOOL finished) {
+                self.navigationController.navigationBarHidden = TRUE;
+            }];
+        }
+        
+        return;
+    }
+    
+    
     //  nếu đang show popup xem thông tin thì không cho xoay
     if (popupView != nil || addDNSRecordView != nil || editDNSRecordView != nil) {
         return;
@@ -360,6 +389,8 @@
     }else{
         cell.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     }
+    [cell refreshLayoutForView];
+    cell.lbTTL.text = @"86400";
     
     return cell;
 }
@@ -469,6 +500,134 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (!IS_IPHONE && !IS_IPOD) {
+        float widthMX = 50.0;
+        float widthTTL = 70.0;
+        float widthBTN = 60.0;
+        float widthType = [AppUtils getSizeWithText:@"URL Redirect" withFont:[AppDelegate sharedInstance].fontDesc].width + 10.0;
+        
+        float widthValue = (SCREEN_WIDTH - (widthBTN + widthBTN + widthTTL + widthMX + widthType + 6.0))/2;
+        
+        UIView *viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0)];
+        viewSection.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
+        
+        UILabel *lbHost = [[UILabel alloc] init];
+        lbHost.text = @"Tên";
+        [viewSection addSubview: lbHost];
+        [lbHost mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(viewSection);
+            make.width.mas_equalTo(widthValue);
+        }];
+        
+        UILabel *lbSepa1 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa1];
+        [lbSepa1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbHost.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+        
+        UILabel *lbType = [[UILabel alloc] init];
+        lbType.text = @"Loại";
+        [viewSection addSubview: lbType];
+        [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbSepa1.mas_right);
+            make.width.height.mas_equalTo(widthType);
+        }];
+        
+        UILabel *lbSepa2 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa2];
+        [lbSepa2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbType.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+        
+        UILabel *lbValue = [[UILabel alloc] init];
+        lbValue.text = @"Giá trị";
+        [viewSection addSubview: lbValue];
+        [lbValue mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbSepa2.mas_right);
+            make.width.mas_equalTo(widthValue);
+        }];
+        
+        UILabel *lbSepa3 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa3];
+        [lbSepa3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbValue.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+        
+        UILabel *lbMX = [[UILabel alloc] init];
+        lbMX.text = text_MX;
+        [viewSection addSubview: lbMX];
+        [lbMX mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbSepa3.mas_right);
+            make.width.mas_equalTo(widthMX);
+        }];
+        
+        UILabel *lbSepa4 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa4];
+        [lbSepa4 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbMX.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+    
+        UILabel *lbTTL = [[UILabel alloc] init];
+        lbTTL.text = text_TTL;
+        [viewSection addSubview: lbTTL];
+        [lbTTL mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbSepa4.mas_right);
+            make.width.mas_equalTo(widthTTL);
+        }];
+        
+        UILabel *lbSepa5 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa5];
+        [lbSepa5 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbTTL.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+        
+        UILabel *lbEdit = [[UILabel alloc] init];
+        lbEdit.text = text_edit;
+        [viewSection addSubview: lbEdit];
+        [lbEdit mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbSepa5.mas_right);
+            make.width.mas_equalTo(widthBTN);
+        }];
+        
+        UILabel *lbSepa6 = [[UILabel alloc] init];
+        [viewSection addSubview: lbSepa6];
+        [lbSepa6 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(viewSection);
+            make.left.equalTo(lbEdit.mas_right);
+            make.width.mas_equalTo(1.0);
+        }];
+        
+        UILabel *lbRemove = [[UILabel alloc] init];
+        lbRemove.text = text_remove;
+        [viewSection addSubview: lbRemove];
+        [lbRemove mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbSepa6.mas_right);
+            make.top.right.bottom.equalTo(viewSection);
+        }];
+        
+        lbSepa1.backgroundColor = lbSepa2.backgroundColor = lbSepa3.backgroundColor = lbSepa4.backgroundColor = lbSepa5.backgroundColor = lbSepa6.backgroundColor = GRAY_200;
+        lbRemove.textAlignment = lbEdit.textAlignment = lbTTL.textAlignment = lbMX.textAlignment = lbValue.textAlignment = lbType.textAlignment = lbHost.textAlignment = NSTextAlignmentCenter;
+        
+        return viewSection;
+    }
+    
+    
+    
     float wHost = 100.0;
     float widthMX = 60.0;
     float widthTTL = 60.0;

@@ -28,6 +28,7 @@
     float padding;
     float paddingY;
     float hItem;
+    float hBTN;
     BOOL zonedns;
 }
 
@@ -356,19 +357,63 @@
     if (![AppUtils isNullOrEmpty: domainType] && [domainType isEqualToString:domainvn_type]) {
         btnUpdatePassport.hidden = btnSigning.hidden = FALSE;
         
-        [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(btnManagerDNS);
-            make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
-            make.height.equalTo(btnManagerDNS.mas_height);
-        }];
+        if (IS_IPHONE || IS_IPOD) {
+            [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(btnManagerDNS);
+                make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
+                make.height.equalTo(btnManagerDNS.mas_height);
+            }];
+        }else{
+            [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(btnManagerDNS);
+                make.right.equalTo(self.view.mas_centerX).offset(-paddingY/2);
+                make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
+                make.height.mas_equalTo(hBTN);
+            }];
+            
+            [btnUpdatePassport mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_centerX).offset(paddingY/2);
+                make.right.equalTo(btnManagerDNS);
+                make.top.bottom.equalTo(btnChangeDNS);
+            }];
+            
+            [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(btnChangeDNS);
+                make.bottom.equalTo(btnChangeDNS.mas_top).offset(-paddingY);
+                make.height.mas_equalTo(hBTN);
+            }];
+            
+            [btnSigning mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(btnUpdatePassport);
+                make.top.bottom.equalTo(btnRenewDomain);
+            }];
+        }
     }else{
         btnUpdatePassport.hidden = btnSigning.hidden = TRUE;
         
-        [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(btnChangeDNS);
-            make.bottom.equalTo(btnChangeDNS.mas_top).offset(-paddingY);
-            make.height.equalTo(btnChangeDNS.mas_height);
-        }];
+        if (IS_IPHONE || IS_IPOD) {
+            [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(btnChangeDNS);
+                make.bottom.equalTo(btnChangeDNS.mas_top).offset(-paddingY);
+                make.height.equalTo(btnChangeDNS.mas_height);
+            }];
+            
+        }else{
+            [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(btnManagerDNS);
+                make.right.equalTo(self.view.mas_centerX).offset(-paddingY/2);
+                make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
+                make.height.mas_equalTo(hBTN);
+            }];
+            
+            [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_centerX).offset(paddingY/2);
+                make.right.equalTo(btnManagerDNS);
+                make.top.bottom.equalTo(btnRenewDomain);
+            }];
+        }
+        
+        
     }
 }
 
@@ -376,7 +421,7 @@
     padding = 15.0;
     hItem = 40.0;
     float hTop = 40.0;
-    float hBTN = 45.0;
+    hBTN = 45.0;
     paddingY = padding;
     
     if (IS_IPHONE || IS_IPOD) {
@@ -529,19 +574,21 @@
     btnChangeDNS.layer.borderColor = btnUpdatePassport.layer.borderColor = btnSigning.layer.borderColor = btnRenewDomain.layer.borderColor = btnManagerDNS.layer.borderColor = BLUE_COLOR.CGColor;
     btnChangeDNS.layer.borderWidth = btnUpdatePassport.layer.borderWidth = btnSigning.layer.borderWidth = btnRenewDomain.layer.borderWidth = btnManagerDNS.layer.borderWidth = 1.0;
 
+    [btnManagerDNS setTitle:text_dns_record_management forState:UIControlStateNormal];
     [btnManagerDNS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view).offset(-padding);
+        make.bottom.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
     
+    [btnChangeDNS setTitle:text_change_name_server forState:UIControlStateNormal];
     [btnChangeDNS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(btnManagerDNS);
         make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
         make.height.equalTo(btnManagerDNS.mas_height);
     }];
     
+    [btnUpdatePassport setTitle:text_update_passport forState:UIControlStateNormal];
     [btnUpdatePassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(btnChangeDNS);
         make.bottom.equalTo(btnChangeDNS.mas_top).offset(-paddingY);
@@ -554,6 +601,7 @@
         make.height.equalTo(btnUpdatePassport.mas_height);
     }];
     
+    [btnRenewDomain setTitle:text_renew_domains forState:UIControlStateNormal];
     [btnRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(btnSigning);
         make.bottom.equalTo(btnSigning.mas_top).offset(-paddingY);

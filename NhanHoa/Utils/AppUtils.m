@@ -684,37 +684,34 @@
 
 + (NSString *)getStatusValueWithCode: (NSString *)status {
     if ([status isEqualToString:@"0"]) {
-        return @"Đang chờ";
+        return text_waiting;
         
-    }else if ([status isEqualToString:@"1"]) {
-        return @"Đang xử lý";
+    }else if ([status isEqualToString:@"1"] || [status isEqualToString:@"7"]) {
+        return text_in_process;
         
     }else if ([status isEqualToString:@"2"]) {
-        return @"Đã kích hoạt";
+        return text_actived;
         
     }else if ([status isEqualToString:@"3"]) {
-        return @"Đã hủy";
+        return text_cancelled;
         
     }else if ([status isEqualToString:@"4"]) {
-        return @"Đang gia hạn";
+        return text_renewing;
         
     }else if ([status isEqualToString:@"5"]) {
-        return @"Đang chờ gia hạn";
+        return text_waiting_for_renewal;
         
     }else if ([status isEqualToString:@"6"]) {
-        return @"Đã hết hạn";
-        
-    }else if ([status isEqualToString:@"7"]) {
-        return @"Đang xử lý";
+        return text_expired;
         
     }else if ([status isEqualToString:@"8"]) {
-        return @"Đang suspend";
+        return text_suspending;
         
     }else if ([status isEqualToString:@"9"]) {
-        return @"Đã suspend";
+        return text_suspended;
         
     }else{
-        return @"Chưa xác định";
+        return text_undefined;
     }
 }
 

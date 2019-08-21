@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, assign) int typeCity;
-@property (nonatomic, assign) float contentSize;
+@property (nonatomic, assign) float contentHeight;
 
 @property (nonatomic, strong) UIView *transparentView;
 @property (nonatomic, strong) UIDatePicker *datePicker;
