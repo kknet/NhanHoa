@@ -36,6 +36,12 @@
     }
     
     [self displayProfileInformation];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -117,6 +123,20 @@
     }];
     businessProfileView.delegate = self;
     [businessProfileView setupUIForViewForAddProfile:FALSE update:TRUE];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    if (personalProfileView != nil) {
+        [personalProfileView reUpdateLayoutForView];
+    }
+    
+    if (businessProfileView != nil) {
+        [businessProfileView reUpdateLayoutForView];
+    }
 }
 
 

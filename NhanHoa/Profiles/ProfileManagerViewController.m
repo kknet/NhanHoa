@@ -152,6 +152,7 @@
     tbProfiles.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbProfiles.delegate = self;
     tbProfiles.dataSource = self;
+    tbProfiles.showsVerticalScrollIndicator = FALSE;
     [tbProfiles mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.left.bottom.right.equalTo(self.view);

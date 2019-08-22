@@ -105,6 +105,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float hVision;
 @property (nonatomic, assign) float hBTN;
 
+@property (nonatomic, assign) float wPassport;
+@property (nonatomic, assign) float hPassport;
+@property (nonatomic, assign) float hViewPassport;
+@property (nonatomic, assign) float hContent;
+
 @property (nonatomic, strong) NSString *linkFrontPassport;
 @property (nonatomic, strong) NSString *linkBehindPassport;
 
@@ -117,6 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info;
 - (void)saveAllValueBeforeChangeView;
+- (void)reUpdateLayoutForView;
 
 @end
 

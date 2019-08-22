@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UITextField *tfTTL;
 @property (strong, nonatomic) UIButton *btnEdit;
 @property (strong, nonatomic) UIButton *btnDelete;
+@property (strong, nonatomic) UIView *viewBackground;
 
 - (void)showInView:(UIView *)aView animated:(BOOL)animated;
 - (void)fadeOut;

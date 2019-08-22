@@ -15,7 +15,7 @@
 
 @synthesize scvPersonal, lbVision, icPersonal, lbPersonal, icBusiness, lbBusiness, lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbEmail, tfEmail, lbAddress, tfAddress, lbCountry, tfCountry, btnCountry, lbCity, tfCity, imgArrCity, btnCity, imgPassport, lbTitlePassport, imgPassportFront, lbPassportFront, imgPassportBehind, lbPassportBehind, btnSave, btnCancel, viewPassport;
 
-@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, linkFrontPassport, linkBehindPassport, mode, cusId, btnEdit, hVision, hBTN;
+@synthesize delegate, datePicker, toolBar, gender, cityCode, padding, mTop, hLabel, linkFrontPassport, linkBehindPassport, mode, cusId, btnEdit, hVision, hBTN, wPassport, hPassport, hViewPassport, hContent;
 
 - (void)setupForAddProfileUIForAddNew: (BOOL)isAddNew isUpdate: (BOOL)isUpdate {
     //  setup for add profile
@@ -64,6 +64,7 @@
         icPersonal.hidden = lbPersonal.hidden = icBusiness.hidden = lbBusiness.hidden = FALSE;
     }
     
+    lbVision.text = text_registration_purpose;
     [lbVision mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(scvPersonal);
         make.left.equalTo(scvPersonal).offset(padding);
@@ -79,6 +80,7 @@
         make.width.height.mas_equalTo(hGender);
     }];
     
+    lbPersonal.text = text_personal;
     [lbPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icPersonal);
         make.left.equalTo(icPersonal.mas_right).offset(3.0);
@@ -95,6 +97,7 @@
                    action:@selector(whenTapOnBusiness)
          forControlEvents:UIControlEventTouchUpInside];
     
+    lbBusiness.text = text_business;
     [lbBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbPersonal);
         make.left.equalTo(icBusiness.mas_right).offset(3.0);
@@ -106,6 +109,7 @@
     [lbBusiness addGestureRecognizer: tapOnBusiness];
     
     //  Name
+    lbName.text = text_fullname;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusiness.mas_bottom).offset(mTop);
         make.left.right.equalTo(lbVision);
@@ -113,6 +117,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfName borderColor:BORDER_COLOR];
+    tfName.placeholder = text_enter_fullname;
     [tfName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbName.mas_bottom);
         make.left.right.equalTo(lbVision);
@@ -122,6 +127,7 @@
     tfName.delegate = self;
     
     //  gender and birth of day
+    lbBOD.text = text_birthday;
     [lbBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfName.mas_bottom).offset(mTop);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
@@ -140,6 +146,7 @@
         make.top.left.right.bottom.equalTo(tfBOD);
     }];
     
+    lbGender.text  = text_gender;
     [lbGender mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfName.mas_bottom).offset(5.0);
         make.left.equalTo(self).offset(padding);
@@ -166,6 +173,7 @@
     lbMale.userInteractionEnabled = TRUE;
     [lbMale addGestureRecognizer: tapOnMale];
     
+    lbMale.text = text_male;
     [lbMale mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icMale);
         make.left.equalTo(icMale.mas_right).offset(5.0);
@@ -177,6 +185,7 @@
     lbFemale.userInteractionEnabled = TRUE;
     [lbFemale addGestureRecognizer: tapOnFemale];
     
+    lbFemale.text = text_female;
     [lbFemale mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(icFemale);
         make.left.equalTo(icFemale.mas_right).offset(5.0);
@@ -184,6 +193,7 @@
     }];
     
     //  CMND
+    lbPassport.text = text_passport;
     [lbPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfBOD.mas_bottom).offset(mTop);
         make.left.right.equalTo(lbVision);
@@ -191,6 +201,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPassport borderColor:BORDER_COLOR];
+    tfPassport.placeholder = text_enter_passport;
     [tfPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPassport.mas_bottom);
         make.left.right.equalTo(lbPassport);
@@ -200,6 +211,7 @@
     tfPassport.delegate = self;
     
     //  Phone
+    lbPhone.text = text_phonenumber;
     [lbPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfPassport.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfPassport);
@@ -207,6 +219,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfPhone borderColor:BORDER_COLOR];
+    tfPhone.placeholder = text_enter_phonenumber;
     [tfPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPhone.mas_bottom);
         make.left.right.equalTo(lbVision);
@@ -216,6 +229,7 @@
     tfPhone.delegate = self;
     
     //  Email
+    lbEmail.text = text_email_address;
     [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfPhone.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfPhone);
@@ -223,6 +237,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfEmail borderColor:BORDER_COLOR];
+    tfEmail.placeholder = enter_email_address;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbEmail.mas_bottom);
         make.left.right.equalTo(lbEmail);
@@ -233,6 +248,7 @@
     tfEmail.delegate = self;
     
     //  address
+    lbAddress.text = text_permanent_address;
     [lbAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom).offset(mTop);
         make.left.right.equalTo(tfEmail);
@@ -240,6 +256,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfAddress borderColor:BORDER_COLOR];
+    tfAddress.placeholder = text_enter_permanent_address;
     [tfAddress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbAddress.mas_bottom);
         make.left.right.equalTo(lbVision);
@@ -249,6 +266,7 @@
     tfAddress.delegate = self;
     
     //  country, district
+    lbCountry.text = text_country;
     [lbCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfAddress.mas_bottom).offset(mTop);
         make.left.equalTo(self).offset(padding);
@@ -270,6 +288,7 @@
         make.top.left.bottom.right.equalTo(tfCountry);
     }];
     
+    lbCity.text = text_city;
     [lbCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbCountry);
         make.left.equalTo(self.mas_centerX).offset(padding/2);
@@ -277,6 +296,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfCity borderColor:BORDER_COLOR];
+    tfCity.placeholder = text_choose_city;
     [tfCity mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(tfCountry);
         make.left.right.equalTo(lbCity);
@@ -294,9 +314,15 @@
     }];
     
     //  view passport
-    float wPassport = (SCREEN_WIDTH-3*padding)/2;
-    float hPassport = wPassport * 2/3;
-    float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
+    if (IS_IPHONE || IS_IPOD) {
+        wPassport = (SCREEN_WIDTH-3*padding)/2;
+        hPassport = wPassport * 2/3;
+    }else{
+        wPassport = 339.0;
+        hPassport = 226.0;
+    }
+    
+    hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
     
     [viewPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(scvPersonal);
@@ -305,6 +331,7 @@
         make.height.mas_equalTo(hViewPassport);
     }];
     
+    lbTitlePassport.text = text_passport_photos;
     [lbTitlePassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewPassport).offset(padding + 20.0 + 10);
         make.top.right.equalTo(viewPassport).offset(mTop);
@@ -322,7 +349,7 @@
     imgPassportFront.clipsToBounds = TRUE;
     [imgPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTitlePassport.mas_bottom);
-        make.left.equalTo(viewPassport).offset(padding);
+        make.left.equalTo(viewPassport).offset((SCREEN_WIDTH/2 - wPassport)/2);
         make.width.mas_equalTo(wPassport);
         make.height.mas_equalTo(hPassport);
     }];
@@ -330,6 +357,7 @@
     UITapGestureRecognizer *tapOnFrontImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnFrontImage)];
     [imgPassportFront addGestureRecognizer: tapOnFrontImg];
     
+    lbPassportFront.text = text_front;
     [lbPassportFront mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(imgPassportFront);
         make.top.equalTo(imgPassportFront.mas_bottom);
@@ -340,13 +368,14 @@
     imgPassportBehind.clipsToBounds = TRUE;
     [imgPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(imgPassportFront);
-        make.left.equalTo(imgPassportFront.mas_right).offset(padding);
+        make.left.equalTo(viewPassport.mas_centerX).offset((SCREEN_WIDTH/2 - wPassport)/2);
         make.width.equalTo(imgPassportFront.mas_width);
     }];
     imgPassportBehind.userInteractionEnabled = TRUE;
     UITapGestureRecognizer *tapOnBehindImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBehindImage)];
     [imgPassportBehind addGestureRecognizer: tapOnBehindImg];
     
+    lbPassportBehind.text = text_backside;
     [lbPassportBehind mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(imgPassportBehind);
         make.top.equalTo(imgPassportBehind.mas_bottom);
@@ -357,16 +386,20 @@
     
     btnCancel.layer.cornerRadius = hBTN/2;
     btnCancel.backgroundColor = [UIColor colorWithRed:(130/255.0) green:(146/255.0) blue:(169/255.0) alpha:1.0];
+    [btnCancel setTitle:text_cancel forState:UIControlStateNormal];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(imgPassportFront);
+        make.left.equalTo(lbName);
+        make.right.equalTo(scvPersonal.mas_centerX).offset(-padding/2);
         make.top.equalTo(viewPassport.mas_bottom).offset(padding);
         make.height.mas_equalTo(hBTN);
     }];
     
     btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius;
     btnSave.backgroundColor = BLUE_COLOR;
+    [btnSave setTitle:text_save_profile forState:UIControlStateNormal];
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(imgPassportBehind);
+        make.left.equalTo(scvPersonal.mas_centerX).offset(padding/2);
+        make.right.equalTo(lbName);
         make.top.bottom.equalTo(btnCancel);
     }];
     
@@ -375,14 +408,14 @@
     btnEdit.backgroundColor = BLUE_COLOR;
     btnEdit.layer.borderWidth = 1.0;
     btnEdit.layer.borderColor = BLUE_COLOR.CGColor;
+    [btnEdit setTitle:text_update_profile forState:UIControlStateNormal];
     [btnEdit mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(btnCancel);
-        make.right.equalTo(btnSave);
+        make.left.right.equalTo(lbName);
         make.top.bottom.equalTo(btnCancel);
     }];
     
-    float hScrollView = hVision + hGender + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
-    scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
+    hContent = hVision + hGender + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
+    scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hContent);
     
     lbVision.font = lbName.font = lbGender.font = lbBOD.font = lbPassport.font = lbPhone.font = lbEmail.font = lbAddress.font = lbCountry.font = lbCity.font = lbTitlePassport.font = [AppDelegate sharedInstance].fontMedium;
     
@@ -449,13 +482,9 @@
 }
 
 - (void)setupViewForAddNewProfileView {
-    float wPassport = (SCREEN_WIDTH-3*padding)/2;
-    float hPassport = wPassport * 2/3;
-    float hViewPassport = mTop + [AppDelegate sharedInstance].hTextfield + hPassport + hLabel;
+    hContent = hVision + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
     
-    float hScrollView = hVision + (mTop + hLabel) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + hViewPassport + padding + hBTN + padding;
-    
-    scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hScrollView);
+    scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hContent);
 }
 
 - (void)closePickerView {
@@ -1007,6 +1036,31 @@
         [self endEditing: TRUE];
     }
     return TRUE;
+}
+
+- (void)reUpdateLayoutForView {
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    [lbVision mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen-2*padding);
+    }];
+    
+    [viewPassport mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen);
+    }];
+    
+    [viewPassport mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen);
+    }];
+    
+    [imgPassportFront mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewPassport).offset((widthScreen/2 - wPassport)/2);
+    }];
+    
+    [imgPassportBehind mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewPassport.mas_centerX).offset((widthScreen/2 - wPassport)/2);
+    }];
+    
+    scvPersonal.contentSize = CGSizeMake(widthScreen, hContent);
 }
 
 @end

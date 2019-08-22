@@ -60,6 +60,7 @@
     [super viewWillDisappear: animated];
     [AppDelegate sharedInstance].cartView.hidden = FALSE;
     [btnAddNew removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)setupUIForView {
@@ -119,10 +120,13 @@
     btnChange.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnChange.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnChange setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [btnChange setTitle:text_change_name_server forState:UIControlStateNormal];
+    
+    float sizeBTN = [AppUtils getSizeWithText:btnChange.currentTitle withFont:btnChange.titleLabel.font].width + 20.0;
     [btnChange mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewNotSupport.mas_centerY).offset(10.0);
         make.centerX.equalTo(viewNotSupport.mas_centerX);
-        make.width.mas_equalTo(220.0);
+        make.width.mas_equalTo(sizeBTN);
         make.height.mas_equalTo(45.0);
     }];
 }
@@ -143,6 +147,7 @@
             [addDNSRecordView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(heightScreen);
             }];
+            [addDNSRecordView reUpdateLayoutForView];
             
             [UIView animateWithDuration:0.2 animations:^{
                 [self.view layoutIfNeeded];
@@ -151,6 +156,16 @@
             }];
         }
         
+        if (popupView != nil) {
+            float wPopupView = (widthScreen - 2*15.0);
+            float hPopupView = popupView.frame.size.height;
+            [popupView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view.mas_centerX);
+                make.centerY.equalTo(self.view.mas_centerY);
+                make.width.mas_equalTo(wPopupView);
+                make.height.mas_equalTo(hPopupView);
+            }];
+        }
         return;
     }
     
@@ -423,7 +438,7 @@
             if (![AppUtils isNullOrEmpty: record_id]) {
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
                 
-                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn xoá record này?"];
+                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:do_you_want_to_delete_this_record];
                 [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
                 [alertVC setValue:attrTitle forKey:@"attributedTitle"];
                 
@@ -433,10 +448,10 @@
                                                                  }];
                 [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
                 
-                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:@"Xóa" style:UIAlertActionStyleDefault
+                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:text_remove style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action){
                                                                       [ProgressHUD backgroundColor: ProgressHUD_BG];
-                                                                      [ProgressHUD show:@"Đang xoá..." Interaction:NO];
+                                                                      [ProgressHUD show:text_deleting Interaction:NO];
                                                                       
                                                                       [[WebServiceUtils getInstance] deleteDNSRecordForDomain:domainName record_id: record_id];
                                                                   }];
@@ -463,7 +478,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait){
+    if ([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait && (IS_IPHONE || IS_IPOD)){
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIDeviceOrientationPortrait] forKey:@"orientation"];
     }
     
@@ -472,7 +487,12 @@
     if ([DeviceUtils isScreen320]) {
         padding = 5.0;
     }
-    float hPopup = [AppDelegate sharedInstance].hNav + 20.0 + 4*[AppDelegate sharedInstance].hTextfield + 4*margin + 45.0 + 20.0;
+    float hBTN = 45.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        hBTN = 55.0;
+    }
+    
+    float hPopup = [AppDelegate sharedInstance].hNav + 20.0 + 4*[AppDelegate sharedInstance].hTextfield + 4*margin + hBTN + 20.0;
     BOOL hasMX = FALSE;
     
     NSDictionary *info = [recordList objectAtIndex: (int)indexPath.row];
@@ -512,7 +532,7 @@
         viewSection.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
         
         UILabel *lbHost = [[UILabel alloc] init];
-        lbHost.text = @"Tên";
+        lbHost.text = text_name;
         [viewSection addSubview: lbHost];
         [lbHost mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(viewSection);
@@ -528,7 +548,7 @@
         }];
         
         UILabel *lbType = [[UILabel alloc] init];
-        lbType.text = @"Loại";
+        lbType.text = text_type;
         [viewSection addSubview: lbType];
         [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(viewSection);
@@ -545,7 +565,7 @@
         }];
         
         UILabel *lbValue = [[UILabel alloc] init];
-        lbValue.text = @"Giá trị";
+        lbValue.text = text_value;
         [viewSection addSubview: lbValue];
         [lbValue mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(viewSection);
@@ -694,7 +714,7 @@
     }];
     
     UILabel *lbType = [[UILabel alloc] init];
-    lbType.text = @"Loại";
+    lbType.text = text_type;
     [viewSection addSubview: lbType];
     [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewSection);
@@ -711,7 +731,7 @@
     }];
     
     UILabel *lbValue = [[UILabel alloc] init];
-    lbValue.text = @"Giá trị";
+    lbValue.text = text_value;
     [viewSection addSubview: lbValue];
     [lbValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewSection);
@@ -728,7 +748,7 @@
     }];
     
     UILabel *lbMX = [[UILabel alloc] init];
-    lbMX.text = @"MX";
+    lbMX.text = text_MX;
     [viewSection addSubview: lbMX];
     [lbMX mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewSection);
@@ -745,7 +765,7 @@
     }];
     
     UILabel *lbTTL = [[UILabel alloc] init];
-    lbTTL.text = @"TTL";
+    lbTTL.text = text_TTL;
     [viewSection addSubview: lbTTL];
     [lbTTL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewSection);
@@ -762,7 +782,7 @@
     }];
     
     UILabel *lbEdit = [[UILabel alloc] init];
-    lbEdit.text = @"Sửa";
+    lbEdit.text = text_edit;
     [viewSection addSubview: lbEdit];
     [lbEdit mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbSepa5.mas_right).offset(padding);
@@ -779,7 +799,7 @@
     }];
     
     UILabel *lbRemove = [[UILabel alloc] init];
-    lbRemove.text = @"Xóa";
+    lbRemove.text = text_remove;
     [viewSection addSubview: lbRemove];
     [lbRemove mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbSepa6.mas_right).offset(padding);
@@ -881,7 +901,7 @@
             if (![AppUtils isNullOrEmpty: record_id]) {
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
                 
-                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn xoá record này?"];
+                NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:do_you_want_to_delete_this_record];
                 [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:16.0] range:NSMakeRange(0, attrTitle.string.length)];
                 [alertVC setValue:attrTitle forKey:@"attributedTitle"];
                 
@@ -891,13 +911,13 @@
                                                                  }];
                 [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
                 
-                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:@"Xóa" style:UIAlertActionStyleDefault
+                UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:text_remove style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action){
                                                                       if (popupView != nil) {
                                                                           [popupView closePopupView];
                                                                       }
                                                                       [ProgressHUD backgroundColor: ProgressHUD_BG];
-                                                                      [ProgressHUD show:@"Đang xoá..." Interaction:NO];
+                                                                      [ProgressHUD show:text_deleting Interaction:NO];
                                                                       
                                                                       [[WebServiceUtils getInstance] deleteDNSRecordForDomain:domainName record_id: record_id];
                                                                   }];

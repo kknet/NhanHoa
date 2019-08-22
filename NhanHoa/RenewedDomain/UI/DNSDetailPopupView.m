@@ -10,7 +10,7 @@
 
 @implementation DNSDetailPopupView
 
-@synthesize viewHeader, lbHeader, icClose, lbName, tfName, lbType, tfType, lbMX, tfMX, lbValue, tfValue, lbTTL, tfTTL, btnEdit, btnDelete;
+@synthesize viewHeader, lbHeader, icClose, lbName, tfName, lbType, tfType, lbMX, tfMX, lbValue, tfValue, lbTTL, tfTTL, btnEdit, btnDelete, viewBackground;
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame hasMXValue: (BOOL)hasMX {
@@ -18,8 +18,13 @@
     if (self) {
         // Initialization code
         self.backgroundColor =  UIColor.whiteColor;
-        self.clipsToBounds = YES;
+        self.clipsToBounds = TRUE;
         self.layer.cornerRadius = [AppDelegate sharedInstance].radius;
+        
+        float hBTN = 45.0;
+        if (!IS_IPHONE && !IS_IPOD) {
+            hBTN = 55.0;
+        }
         
         viewHeader = [[UIView alloc] init];
         viewHeader.backgroundColor = BLUE_COLOR;
@@ -31,7 +36,7 @@
         
         lbHeader = [[UILabel alloc] init];
         lbHeader.textAlignment = NSTextAlignmentCenter;
-        lbHeader.text = @"Thông tin Record";
+        lbHeader.text = text_record_information;
         lbHeader.font = [AppDelegate sharedInstance].fontBTN;
         lbHeader.textColor = UIColor.whiteColor;
         [viewHeader addSubview: lbHeader];
@@ -63,12 +68,10 @@
             SCREEN_WIDTH - 2*paddingSub;
         }
         
-        float leftSize = [AppUtils getSizeWithText:@"Giá trị record" withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:SCREEN_WIDTH].width + 5.0;
-        float wSize = SCREEN_WIDTH - 2*paddingSub;
-        
-        
+        float leftSize = [AppUtils getSizeWithText:text_record_value withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:SCREEN_WIDTH].width + 5.0;
+
         lbName = [[UILabel alloc] init];
-        lbName.text = @"Tên record";
+        lbName.text = text_record_name;
         [self addSubview: lbName];
         [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(viewHeader.mas_bottom).offset(20.0);
@@ -85,12 +88,12 @@
         [tfName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(lbName);
             make.left.equalTo(lbName.mas_right).offset(padding);
-            make.width.mas_equalTo(wSize-(3*padding + leftSize));
+            make.right.equalTo(self).offset(-padding);
         }];
         
         //  type value
         lbType = [[UILabel alloc] init];
-        lbType.text = @"Loại record";
+        lbType.text = text_record_type;
         [self addSubview: lbType];
         [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(lbName.mas_bottom).offset(margin);
@@ -110,7 +113,7 @@
         //  mx value
         if (hasMX) {
             lbMX = [[UILabel alloc] init];
-            lbMX.text = @"Giá trị MX";
+            lbMX.text = text_MX_value;
             [self addSubview: lbMX];
             [lbMX mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(lbType.mas_bottom).offset(margin);
@@ -130,7 +133,7 @@
         
         //  value
         lbValue = [[UILabel alloc] init];
-        lbValue.text = @"Giá trị record";
+        lbValue.text = text_record_value;
         [self addSubview: lbValue];
         
         if (hasMX) {
@@ -158,7 +161,7 @@
         
         //  TTL
         lbTTL = [[UILabel alloc] init];
-        lbTTL.text = @"Giá trị TTL";
+        lbTTL.text = text_TTL_value;
         [self addSubview: lbTTL];
         [lbTTL mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(lbValue.mas_bottom).offset(margin);
@@ -177,7 +180,7 @@
         
         btnEdit = [[UIButton alloc] init];
         [btnEdit setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        [btnEdit setTitle:@"Sửa Record" forState:UIControlStateNormal];
+        [btnEdit setTitle:[text_edit_record capitalizedString] forState:UIControlStateNormal];
         [btnEdit addTarget:self
                     action:@selector(clickOnEditButton:)
           forControlEvents:UIControlEventTouchUpInside];
@@ -186,11 +189,11 @@
             make.top.equalTo(tfTTL.mas_bottom).offset(margin);
             make.left.equalTo(tfTTL);
             make.right.equalTo(tfTTL.mas_centerX).offset(-5.0);
-            make.height.mas_equalTo(45.0);
+            make.height.mas_equalTo(hBTN);
         }];
         
         btnDelete = [[UIButton alloc] init];
-        [btnDelete setTitle:@"Xóa Record" forState:UIControlStateNormal];
+        [btnDelete setTitle:[text_delete_record capitalizedString] forState:UIControlStateNormal];
         [btnDelete addTarget:self
                       action:@selector(clickOnDeleteButton:)
             forControlEvents:UIControlEventTouchUpInside];
@@ -218,11 +221,14 @@
 
 - (void)showInView:(UIView *)aView animated:(BOOL)animated {
     //Add transparent
-    UIView *viewBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    viewBackground = [[UIView alloc] init];
     viewBackground.backgroundColor = UIColor.blackColor;
     viewBackground.alpha = 0.5;
     viewBackground.tag = 20;
     [aView addSubview:viewBackground];
+    [viewBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(aView);
+    }];
     
     [aView addSubview:self];
     if (animated) {

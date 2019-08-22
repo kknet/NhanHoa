@@ -46,10 +46,18 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
     if ([self isMovingFromParentViewController])
     {
         imagePickerController = nil;
@@ -127,6 +135,20 @@
     }];
     businessProfile.delegate = self;
     [businessProfile setupUIForViewForAddProfile:TRUE update:FALSE];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    if (personalProfile != nil) {
+        [personalProfile reUpdateLayoutForView];
+    }
+    
+    if (businessProfile != nil) {
+        [businessProfile reUpdateLayoutForView];
+    }
 }
 
 #pragma NewProfileView delegate & buniness

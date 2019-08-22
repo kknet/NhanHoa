@@ -55,9 +55,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Foh-ua-ptN">
-                            <rect key="frame" x="84" y="225" width="152" height="30"/>
+                            <rect key="frame" x="87" y="225" width="146" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Thay đổi Name Server"/>
+                            <state key="normal" title="Change Name Server"/>
                             <connections>
                                 <action selector="btnChangePress:" destination="-1" eventType="touchUpInside" id="oRc-Ey-mbc"/>
                             </connections>

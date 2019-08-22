@@ -23,10 +23,15 @@
     [self addGestureRecognizer: tapOnScreen];
     
     float padding = 15.0;
+    float hBTN = 45.0;
     margin = 15.0;
     
     if ([DeviceUtils isScreen320]) {
         padding = 7.5;
+    }
+    if (!IS_IPHONE && IS_IPOD) {
+        padding = 30.0;
+        hBTN = 55.0;
     }
     
     viewHeader.backgroundColor = BLUE_COLOR;
@@ -37,9 +42,9 @@
     
     lbHeader.font = [AppDelegate sharedInstance].fontBTN;
     if (type == DNSRecordAddNew) {
-        lbHeader.text = @"Thêm mới record";
+        lbHeader.text = text_add_new_record;
     }else{
-        lbHeader.text = @"Cập nhật record";
+        lbHeader.text = text_update_record;
     }
     
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,12 +85,14 @@
     tfName.font = tfType.font = tfValue.font = tfMX.font = tfTTL.font = [AppDelegate sharedInstance].fontRegular;
     
     lbWarning.font = [AppDelegate sharedInstance].fontRegular;
-    lbWarning.text = @"Nếu là A record thì sau khi tạo, đợi 1 phút sau hãy truy cập để tránh bị dính cache DNS.";
+    lbWarning.text = text_record_notify;
     
-    float leftSize = [AppUtils getSizeWithText:@"Giá trị record" withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:SCREEN_WIDTH].width + 5.0;
+    float leftSize = [AppUtils getSizeWithText:text_record_value withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:SCREEN_WIDTH].width + 5.0;
+    
+    lbName.text = text_record_name;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTitle.mas_bottom).offset(20.0);
-        make.left.equalTo(scvContent).offset(padding);
+        make.left.equalTo(lbTop).offset(padding);
         make.width.mas_equalTo(leftSize);
         make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
     }];
@@ -96,10 +103,11 @@
     [tfName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(lbName);
         make.left.equalTo(lbName.mas_right).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH-(3*padding + leftSize));
+        make.right.equalTo(lbTop).offset(-padding);
     }];
     
     //  type value
+    lbType.text = text_record_type;
     [lbType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbName.mas_bottom).offset(margin);
         make.left.right.equalTo(lbName);
@@ -107,7 +115,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfType borderColor:BORDER_COLOR];
-    tfType.placeholder = @"Chọn loại record";
+    tfType.placeholder = text_choose_record_type;
     tfType.returnKeyType = UIReturnKeyNext;
     tfType.delegate = self;
     tfType.enabled = FALSE;
@@ -128,6 +136,7 @@
     }];
     
     //  mx value
+    lbMX.text = text_MX_value;
     [lbMX mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbType.mas_bottom).offset(margin);
         make.left.right.equalTo(lbType);
@@ -144,6 +153,7 @@
     }];
     
     //  value
+    lbValue.text = text_record_value;
     [lbValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbMX.mas_bottom).offset(margin);
         make.left.right.equalTo(lbMX);
@@ -159,6 +169,7 @@
     }];
     
     //  TTL
+    lbTTL.text = text_TTL_value;
     [lbTTL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbValue.mas_bottom).offset(margin);
         make.left.right.equalTo(lbValue);
@@ -166,7 +177,7 @@
     }];
     
     [AppUtils setBorderForTextfield:tfTTL borderColor:BORDER_COLOR];
-    tfTTL.text = [NSString stringWithFormat:@"%d]", TTL_MIN];
+    tfTTL.text = SFM(@"%d", TTL_MIN);
     tfTTL.keyboardType = UIKeyboardTypeNumberPad;
     tfTTL.returnKeyType = UIReturnKeyNext;
     tfTTL.delegate = self;
@@ -175,11 +186,12 @@
         make.left.right.equalTo(tfValue);
     }];
     
+    [btnAddRecord setTitle:[text_create_record capitalizedString] forState:UIControlStateNormal];
     [btnAddRecord mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfTTL.mas_bottom).offset(margin);
         make.left.equalTo(tfTTL);
         make.right.equalTo(tfTTL.mas_centerX).offset(-5.0);
-        make.height.mas_equalTo(45.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [btnReset setTitle:text_reset forState:UIControlStateNormal];
@@ -190,11 +202,19 @@
     }];
     
     lbWarning.textColor = UIColor.redColor;
-    [lbWarning mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(scvContent).offset(SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + padding));
-        make.left.equalTo(scvContent).offset(padding);
-        make.width.mas_equalTo(SCREEN_WIDTH - 2*padding);
-    }];
+    if (IS_IPHONE || IS_IPOD) {
+        [lbWarning mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(scvContent).offset(SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + padding));
+            make.left.equalTo(scvContent).offset(padding);
+            make.width.mas_equalTo(SCREEN_WIDTH - 2*padding);
+        }];
+    }else{
+        [lbWarning mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lbTop).offset(padding);
+            make.right.equalTo(lbTop).offset(-padding);
+            make.bottom.equalTo(self).offset(-padding);
+        }];
+    }
     
     btnAddRecord.layer.cornerRadius = btnReset.layer.cornerRadius = [AppDelegate sharedInstance].radius;
     btnAddRecord.backgroundColor = btnReset.backgroundColor = BLUE_COLOR;
@@ -210,20 +230,20 @@
 
 - (void)showContentForView {
     if ([AppUtils isNullOrEmpty: domain]) {
-        lbTitle.text = @"Không tìm thấy tên miền!";
+        lbTitle.text = text_not_found_your_domain;
         return;
     }
     
     NSString *content;
     if (curType == DNSRecordAddNew) {
-        content = [NSString stringWithFormat:@"Bạn đang thêm record cho tên miền:\n %@", domain];
+        content = SFM(@"%@:\n %@", you_are_adding_record_for_domains, domain);
         lbWarning.hidden = FALSE;
-        [btnAddRecord setTitle:@"Tạo Record" forState:UIControlStateNormal];
+        [btnAddRecord setTitle:[text_create_record capitalizedString] forState:UIControlStateNormal];
         
     }else{
-        content = [NSString stringWithFormat:@"Bạn đang cập nhật record cho tên miền:\n %@", domain];
+        content = SFM(@"%@:\n %@", you_are_updating_record_for_domains, domain);
         lbWarning.hidden = TRUE;
-        [btnAddRecord setTitle:@"Sửa Record" forState:UIControlStateNormal];
+        [btnAddRecord setTitle:[text_edit_record capitalizedString] forState:UIControlStateNormal];
     }
     
     NSRange range = [content rangeOfString: domain];
@@ -629,7 +649,13 @@
 }
 
 - (void)reUpdateLayoutForView {
-    here
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    float heightScreen = [DeviceUtils getHeightOfScreen];
+    
+    [lbTop mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen);
+    }];
+    scvContent.contentSize = CGSizeMake(widthScreen, heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav));
 }
 
 @end

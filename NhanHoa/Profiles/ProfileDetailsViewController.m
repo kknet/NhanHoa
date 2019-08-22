@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Chi tiết hồ sơ";
+    self.title = text_profile_detail;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,6 +37,8 @@
             [personalProfileView setupUIForOnlyView];
             personalProfileView.mode = eViewProfile;
             
+            bị change layout khi xoay ở màn hình khác
+            
         }else{
             [self addUpdateBusinessProfileViewIfNeed];
             [businessProfileView displayInfoForProfileWithInfo: profileInfo];
@@ -44,6 +46,17 @@
             businessProfileView.mode = eViewBusinessProfile;
         }
     }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +98,20 @@
         make.top.left.bottom.right.equalTo(self.view);
     }];
     [businessProfileView setupUIForViewForAddProfile:FALSE update:TRUE];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    if (personalProfileView != nil) {
+        [personalProfileView reUpdateLayoutForView];
+    }
+    
+    if (businessProfileView != nil) {
+        [businessProfileView reUpdateLayoutForView];
+    }
 }
 
 #pragma mark - ProfileView Delegate

@@ -107,6 +107,10 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *businessCity;
 @property (nonatomic, assign) int gender;
+@property (nonatomic, assign) float wPassport;
+@property (nonatomic, assign) float hPassport;
+@property (nonatomic, assign) float hViewPassport;
+@property (nonatomic, assign) float hContent;
 
 @property (nonatomic, strong) NSString *linkFrontPassport;
 @property (nonatomic, strong) NSString *linkBehindPassport;
@@ -117,5 +121,6 @@ typedef enum {
 - (void)displayInfoForProfileWithInfo: (NSDictionary *)info;
 
 - (void)saveAllValueBeforeChangeView;
+- (void)reUpdateLayoutForView;
 
 @end

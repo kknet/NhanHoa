@@ -490,6 +490,8 @@
 #define text_registrar_info     @"Phần thông tin người đăng ký"
 #define text_registrant_name    @"Họ tên người đăng ký"
 #define text_postition          @"Chức vụ"
+#define registrant_phone_number @"Số điện thoại người đăng ký"
+#define registrant_address      @"Địa chỉ người đăng ký"
 
 #define enter_business_name     @"Nhập tên doanh nghiệp"
 #define enter_business_tax_code @"Nhập mã số thuế"
@@ -502,6 +504,7 @@
 #define enter_address           @"Nhập địa chỉ"
 #define enter_email             @"Nhập địa chỉ email"
 
+#define enter_registrant_address        @"Nhập địa chỉ người đăng ký"
 #define pls_enter_business_name         @"Vui lòng nhập tên doanh nghiệp!"
 #define pls_enter_business_tax_code     @"Vui lòng nhập mã số thuế doanh nghiệp!"
 #define pls_enter_business_address      @"Vui lòng nhập địa chỉ doanh nghiệp!"
@@ -576,5 +579,35 @@
 #define text_remove                 @"Xóa"
 #define text_TTL                    @"TTL"
 #define text_MX                     @"MX"
+
+
+//  #define text_record_notify          @"If it is A record, after creating it, wait 1 minute later to access it to prevent DNS cache."
+#define text_record_notify          @"Nếu là A record thì sau khi tạo, đợi 1 phút sau hãy truy cập để tránh bị dính cache DNS."
+#define text_add_new_record         @"Thêm mới record"
+#define text_update_record          @"Cập nhật record"
+#define text_record_value           @"Giá trị record"
+#define text_record_name            @"Tên record"
+#define text_record_type            @"Loại record"
+#define text_choose_record_type     @"Chọn loại record"
+#define text_MX_value               @"Giá trị MX"
+#define text_TTL_value              @"Giá trị TTL"
+#define text_create_record          @"Tạo record"
+#define text_edit_record            @"Sửa record"
+#define text_delete_record          @"Xóa record"
+#define text_record_information     @"Thông tin Record"
+#define text_not_found_your_domain  @"Không tìm thấy tên miền"
+#define text_deleting               @"Đang xoá..."
+#define text_type                   @"Loại"
+#define text_value                  @"Giá trị"
+#define text_name                   @"Tên"
+
+#define you_are_adding_record_for_domains   @"Bạn đang thêm record cho tên miền"
+#define you_are_updating_record_for_domains @"Bạn đang cập nhật record cho tên miền"
+#define do_you_want_to_delete_this_record   @"Bạn chắc chắn muốn xoá record này?"
+
+#define text_passport_photos        @"Ảnh CMND 2 mặt"
+#define text_cancel                 @"Hủy"
+#define text_save_profile           @"Lưu hồ sơ"
+#define text_profile_detail         @"Chi tiết hồ sơ"
 
 #endif /* AppString_t */
