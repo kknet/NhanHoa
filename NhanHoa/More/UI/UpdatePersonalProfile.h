@@ -58,9 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *toolBar;
 @property (nonatomic, strong) UIView *viewPicker;
 @property (nonatomic, strong) NSString *cityCode;
+@property (nonatomic, assign) float padding;
 
 - (void)setupUIForView;
 - (void)displayPersonalInformation;
+- (void)reUpdateLayoutForView;
 
 @property (nonatomic, assign) float hContent;
 

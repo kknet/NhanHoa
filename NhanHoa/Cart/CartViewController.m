@@ -22,6 +22,7 @@
     float hInfo;
     float hItem;
     float hBTN;
+    float padding;
 }
 
 @end
@@ -58,10 +59,17 @@
     }
 
     [self updateAllPriceForView];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
@@ -138,13 +146,10 @@
 }
 
 - (void)rechangeLayoutForView {
-    float padding = 15.0;
-    
     float hTableView =  [self getHeightForTableView];
     [tbDomains mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
+        make.left.right.equalTo(viewInfo);
         make.top.equalTo(viewInfo.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTableView);
     }];
     
@@ -153,17 +158,15 @@
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(scvContent);
+            make.left.right.equalTo(viewInfo);
             make.top.equalTo(scvContent).offset(hInfo+hTableView);
-            make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hInfo + hTableView + hFooter);
     }else{
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(scvContent);
+            make.left.right.equalTo(viewInfo);
             make.top.equalTo(scvContent).offset(maxHeightScroll - hFooter);
-            make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
         scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, maxHeightScroll);
@@ -212,7 +215,7 @@
 
 - (void)setupUIForView {
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    float padding = 15.0;
+    padding = 15.0;
     hItem = 30.0;
     hBTN = 45.0;
     
@@ -255,8 +258,7 @@
     
     //  scroll view content
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.view);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.top.left.bottom.right.equalTo(self.view);
     }];
     
     //  view top
@@ -287,9 +289,8 @@
     tbDomains.dataSource = self;
     tbDomains.scrollEnabled = FALSE;
     [tbDomains mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvContent);
+        make.left.right.equalTo(viewInfo);
         make.top.equalTo(viewInfo.mas_bottom);
-        make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTableView);
     }];
     
@@ -298,16 +299,14 @@
     float maxHeightScroll = SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
     if (hInfo + hTableView + hFooter > maxHeightScroll) {
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(scvContent);
+            make.left.right.equalTo(viewInfo);
             make.top.equalTo(scvContent).offset(hInfo+hTableView);
-            make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
     }else{
         [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(scvContent);
+            make.left.right.equalTo(viewInfo);
             make.top.equalTo(scvContent).offset(maxHeightScroll - hFooter);
-            make.width.mas_equalTo(SCREEN_WIDTH);
             make.height.mas_equalTo(hFooter);
         }];
     }
@@ -401,6 +400,42 @@
             scvContent.hidden = TRUE;
         }
         
+    }
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    [viewInfo mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen);
+    }];
+    [self resizeLayoutForScrollView];
+}
+
+- (void)resizeLayoutForScrollView {
+    float heightScreen = [DeviceUtils getHeightOfScreen];
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    
+    float hTableView = [self getHeightForTableView];
+    float hFooter = padding + 3*hItem + 2*padding + hBTN + padding + hBTN + padding;
+    float maxHeightScroll = heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav);
+    
+    if (hInfo + hTableView + hFooter > maxHeightScroll) {
+        [viewFooter mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(scvContent).offset(hInfo+hTableView);
+            make.height.mas_equalTo(hFooter);
+        }];
+        scvContent.contentSize = CGSizeMake(widthScreen, hInfo + hTableView + hFooter);
+    }else{
+        [viewFooter mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(scvContent).offset(maxHeightScroll - hFooter);
+            make.height.mas_equalTo(hFooter);
+        }];
+        scvContent.contentSize = CGSizeMake(widthScreen, maxHeightScroll);
     }
 }
 

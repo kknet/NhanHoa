@@ -23,6 +23,8 @@
     float padding;
     AccountInfoView *accInfoView;
     float hCell;
+    CAGradientLayer *bottomGradientLayer;
+    float hHeader;
 }
 @end
 
@@ -43,6 +45,16 @@
     
     [self addAccountInfoView];
     [accInfoView displayInformation];
+    
+    if (bottomGradientLayer != nil) {
+        bottomGradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, hHeader);
+    }
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -52,6 +64,7 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     self.navigationController.navigationBarHidden = FALSE;
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,9 +89,9 @@
     
     self.view.backgroundColor = GRAY_235;
     
-    float hHeader = hAccount/2 + 2*[AppDelegate sharedInstance].hStatusBar;
+    hHeader = hAccount/2 + 2*[AppDelegate sharedInstance].hStatusBar;
     
-    viewHeader.backgroundColor = UIColor.orangeColor;
+    viewHeader.backgroundColor = UIColor.whiteColor;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hHeader);
@@ -95,7 +108,7 @@
         make.left.right.bottom.equalTo(self.view);
     }];
     
-    CAGradientLayer *bottomGradientLayer = [CAGradientLayer layer];
+    bottomGradientLayer = [CAGradientLayer layer];
     bottomGradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, hHeader);
     bottomGradientLayer.startPoint = CGPointMake(0, 0);
     bottomGradientLayer.endPoint = CGPointMake(1, 1);
@@ -131,7 +144,7 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:@"Đang đang xuất. Vui lòng chờ trong giây lát" Interaction:NO];
+    [ProgressHUD show:@"Đang đăng xuất. Vui lòng chờ trong giây lát" Interaction:NO];
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateTokenWithValue:@""];
@@ -156,6 +169,15 @@
     LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
     UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
     [self presentViewController:launchNav animated:TRUE completion:nil];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    bottomGradientLayer.frame = CGRectMake(0, 0, [DeviceUtils getWidthOfScreen], hHeader);
 }
 
 #pragma mark - UITableview

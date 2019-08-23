@@ -68,6 +68,7 @@
             [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
                                                          name:UIDeviceOrientationDidChangeNotification object:nil];
+            [self reUpdateLayoutForIpadView];
         }
     }
     
@@ -571,6 +572,10 @@
         make.top.equalTo(scvContent).offset(offsetSignInBTN);
         make.width.mas_equalTo(screenWidth-2*padding);
     }];
+}
+
+- (void)reUpdateLayoutForIpadView {
+    [self orientationChanged];
 }
 
 #pragma mark - UITextfield Delegate

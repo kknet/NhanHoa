@@ -109,9 +109,9 @@
     cell.lbDomain.text = [info objectForKey:@"domain"];
     
     NSString *price = [AppUtils convertStringToCurrencyFormat:[info objectForKey:@"price"]];
-    cell.lbMoney.text = [NSString stringWithFormat:@"%@ đ", price];
+    cell.lbMoney.text = SFM(@"%@ đ", price);
     
-    cell.lbTime.text = [NSString stringWithFormat:@"[%@ - %@]", [info objectForKey:@"create_date"], [info objectForKey:@"end_date"]];
+    cell.lbTime.text = SFM(@"[%@ - %@]", [info objectForKey:@"create_date"], [info objectForKey:@"end_date"]);
     
     cell.lbStatus.attributedText = [AppUtils generateTextWithContent:@"Đã kích hoạt" font:[AppDelegate sharedInstance].fontRegular color:GREEN_COLOR image:[UIImage imageNamed:@"tick_green"] size:16.0 imageFirst:TRUE];
     

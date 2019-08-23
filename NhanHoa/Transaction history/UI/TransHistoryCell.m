@@ -90,18 +90,18 @@
         NSString *type = [info objectForKey:@"type"];
         if ([type isKindOfClass:[NSString class]]) {
             if ([type isEqualToString:@"0"]) {
-                lbMoney.text = [NSString stringWithFormat:@"+%@VNĐ", strAmount];
+                lbMoney.text = SFM(@"+%@VNĐ", strAmount);
                 lbMoney.textColor = GREEN_COLOR;
             }else{
-                lbMoney.text = [NSString stringWithFormat:@"-%@VNĐ", strAmount];
+                lbMoney.text = SFM(@"-%@VNĐ", strAmount);
                 lbMoney.textColor = NEW_PRICE_COLOR;
             }
         }else if ([type isKindOfClass:[NSNumber class]]) {
             if ([type intValue] == 0) {
-                lbMoney.text = [NSString stringWithFormat:@"+%@VNĐ", strAmount];
+                lbMoney.text = SFM(@"+%@VNĐ", strAmount);
                 lbMoney.textColor = GREEN_COLOR;
             }else{
-                lbMoney.text = [NSString stringWithFormat:@"-%@VNĐ", strAmount];
+                lbMoney.text = SFM(@"-%@VNĐ", strAmount);
                 lbMoney.textColor = NEW_PRICE_COLOR;
             }
         }

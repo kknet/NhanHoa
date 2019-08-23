@@ -75,20 +75,20 @@
     
     id renew = [info objectForKey:@"renew"];
     if (renew != nil && [renew isKindOfClass:[NSNumber class]]) {
-        NSString *renewValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [renew longValue]]];
-        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
+        NSString *renewValue = [AppUtils convertStringToCurrencyFormat:SFM(@"%ld", [renew longValue])];
+        lbSetup.text = SFM(@"%@VNĐ", renewValue);
         
     }else if (renew != nil && [renew isKindOfClass:[NSString class]]) {
         NSString *renewValue = [AppUtils convertStringToCurrencyFormat:renew];
-        lbSetup.text = [NSString stringWithFormat:@"%@VNĐ", renewValue];
+        lbSetup.text = SFM(@"%@VNĐ", renewValue);
     }else{
         lbSetup.text = @"";
     }
     
     id setup = [info objectForKey:@"setup"];
     if (setup != nil && [setup isKindOfClass:[NSNumber class]]) {
-        NSString *setupValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [setup longValue]]];
-        lbRenew.text = [NSString stringWithFormat:@"%@VNĐ", setupValue];
+        NSString *setupValue = [AppUtils convertStringToCurrencyFormat:SFM(@"%ld", [setup longValue])];
+        lbRenew.text = SFM(@"%@VNĐ", setupValue);
         
     }else if (setup != nil && [setup isKindOfClass:[NSString class]]) {
         lbRenew.text = setup;
@@ -98,8 +98,8 @@
     
     id transfer = [info objectForKey:@"transfer"];
     if (transfer != nil && [transfer isKindOfClass:[NSNumber class]]) {
-        NSString *transferValue = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%ld", [transfer longValue]]];
-        lbTransfer.text = [NSString stringWithFormat:@"%@VNĐ", transferValue];
+        NSString *transferValue = [AppUtils convertStringToCurrencyFormat:SFM(@"%ld", [transfer longValue])];
+        lbTransfer.text = SFM(@"%@VNĐ", transferValue);
         
     }else if (transfer != nil && [transfer isKindOfClass:[NSString class]]) {
         lbTransfer.text = transfer;

@@ -16,13 +16,10 @@
     unsigned char result[16];
     CC_MD5(cstr, (int)strlen(cstr), result);
     
-    return [NSString stringWithFormat:
-            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
+    return SFM(@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", result[0], result[1], result[2], result[3],
+               result[4], result[5], result[6], result[7],
+               result[8], result[9], result[10], result[11],
+               result[12], result[13], result[14], result[15]);
 }
 @end
 
@@ -70,8 +67,7 @@
     
     NSMutableAttributedString *result;
     if (imageFirst) {
-        NSString *content = [NSString stringWithFormat:@" %@", string];
-        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:content];
+        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:SFM(@" %@", string)];
         
         [contentString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, contentString.length)];
         [contentString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, contentString.length)];
@@ -80,8 +76,7 @@
         [result appendAttributedString: contentString];
         
     }else{
-        NSString *content = [NSString stringWithFormat:@"%@ ", string];
-        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:content];
+        NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:SFM(@"%@ ", string)];
         
         [contentString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, contentString.length)];
         [contentString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, contentString.length)];
@@ -249,7 +244,7 @@
     NSString *curDate = [dateFormatter stringFromDate:[NSDate date]];
     
     NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%@_%f", curDate, time];
+    return SFM(@"%@_%f", curDate, time);
 }
 
 + (NSString *)getPaymentResultWithResponseCode: (NSString *)responseCode
@@ -310,7 +305,7 @@
 + (BOOL)checkValidCurrency: (NSString *)money {
     for (int index=0; index<money.length; index++) {
         char character = [money characterAtIndex: index];
-        NSString *str = [NSString stringWithFormat:@"%c", character];
+        NSString *str = SFM(@"%c", character);
         if (![[AppDelegate sharedInstance].listNumber containsObject: str]) {
             return FALSE;
         }
@@ -562,14 +557,14 @@
     if (!showBuildVersion) {
         version = [info objectForKey:@"CFBundleShortVersionString"];
     }else{
-        version = [NSString stringWithFormat:@"%@ (%@)", [info objectForKey:@"CFBundleShortVersionString"], [info objectForKey:@"CFBundleVersion"]];
+        version = SFM(@"%@ (%@)", [info objectForKey:@"CFBundleShortVersionString"], [info objectForKey:@"CFBundleVersion"]);
     }
     return version;
 }
 
 + (NSString *)getBuildDate
 {
-    NSString *dateStr = [NSString stringWithFormat:@"%@ %@", [NSString stringWithUTF8String:__DATE__], [NSString stringWithUTF8String:__TIME__]];
+    NSString *dateStr = SFM(@"%@ %@", [NSString stringWithUTF8String:__DATE__], [NSString stringWithUTF8String:__TIME__]);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"LLL d yyyy HH:mm:ss"];
@@ -645,7 +640,7 @@
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *pathFile = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", fileName]];
+    NSString *pathFile = [documentsDirectory stringByAppendingPathComponent:SFM(@"%@", fileName)];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath: pathFile];
     
     if (!fileExists) {
@@ -725,10 +720,10 @@
 + (NSString *)durationToString:(int)duration {
     NSMutableString *result = [[NSMutableString alloc] init];
     if (duration / 3600 > 0) {
-        [result appendString:[NSString stringWithFormat:@"%02i:", duration / 3600]];
+        [result appendString:SFM(@"%02i:", duration / 3600)];
         duration = duration % 3600;
     }
-    return [result stringByAppendingString:[NSString stringWithFormat:@"%02i:%02i", (duration / 60), (duration % 60)]];
+    return [result stringByAppendingString:SFM(@"%02i:%02i", (duration / 60), (duration % 60))];
 }
 
 + (NSArray *)bluetoothRoutes {
@@ -741,7 +736,7 @@
     
     for (int index=0; index<string.length; index++) {
         char c = [string characterAtIndex: index];
-        NSString *character = [NSString stringWithFormat:@"%c", c];
+        NSString *character = SFM(@"%c", c);
         if (![numbers containsObject: character]) {
             return FALSE;
         }

@@ -99,7 +99,7 @@
     }
     [self updateFrameWithContentOfButton];
     
-    NSString *content = [NSString stringWithFormat:@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain];
+    NSString *content = SFM(@"Hiện tại tên miền %@ chưa được đăng ký!\nBạn có muốn đăng ký tên miền này không?", domain);
     NSRange range = [content rangeOfString: domain];
     if (range.location != NSNotFound) {
         UIFont *regular = [AppDelegate sharedInstance].fontRegular;
@@ -121,12 +121,12 @@
     id price_first_year = [info objectForKey:@"price_first_year"];
     if ([price_first_year isKindOfClass:[NSString class]]) {
         NSString *amount = [AppUtils convertStringToCurrencyFormat: price_first_year];
-        lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ/năm", amount];
+        lbPrice.text = SFM(@"%@ VNĐ/%@", amount, text_year);
         
     }else if ([price_first_year isKindOfClass:[NSNumber class]]) {
-        NSString *amount = [NSString stringWithFormat:@"%ld", [price_first_year longValue]];
+        NSString *amount = SFM(@"%ld", [price_first_year longValue]);
         NSString *strAmount = [AppUtils convertStringToCurrencyFormat: amount];
-        lbPrice.text = [NSString stringWithFormat:@"%@ VNĐ/năm", strAmount];
+        lbPrice.text = SFM(@"%@ VNĐ/%@", strAmount, text_year);
     }else{
         lbPrice.text = @"Liên hệ";
     }

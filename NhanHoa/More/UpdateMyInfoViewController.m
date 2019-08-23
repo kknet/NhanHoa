@@ -36,6 +36,8 @@
     [WriteLogsUtils writeForGoToScreen:@"UpdateMyInfoViewController"];
     
     int type = [AccountModel getCusOwnType];
+    type = type_business;
+    
     if (type == type_personal) {
         [self addUpdatePersonalProfileView];
         [editPersonalView displayPersonalInformation];
@@ -49,7 +51,14 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
 }
@@ -158,6 +167,29 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
     }];
 }
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    if (editPersonalView != nil) {
+        [editPersonalView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(widthScreen);
+        }];
+        scvContent.contentSize = CGSizeMake(widthScreen, editPersonalView.hContent);
+    }
+    
+    if (editBusinessView != nil) {
+        [editBusinessView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(widthScreen);
+        }];
+        scvContent.contentSize = CGSizeMake(widthScreen, editBusinessView.hContent);
+    }
+}
+
 
 - (void)tryLoginToUpdateInformation {
     

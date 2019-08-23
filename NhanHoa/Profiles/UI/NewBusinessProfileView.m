@@ -275,7 +275,7 @@
     [lbBOD mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfRegisterName.mas_bottom).offset(mTop);
         make.left.equalTo(lbTitle.mas_centerX).offset(padding/2);
-        make.right.equalTo(lbTitle).offset(-padding);
+        make.right.equalTo(lbTitle);
         make.height.mas_equalTo(hLabel);
     }];
     

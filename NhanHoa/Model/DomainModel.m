@@ -14,7 +14,7 @@
     NSString *result = @"";
     id price = [info objectForKey:@"price_first_year"];
     if ([price isKindOfClass:[NSNumber class]]) {
-        result = [NSString stringWithFormat:@"%d", [price intValue]];
+        result = SFM(@"%d", [price intValue]);
         
     }else if ([price isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: price]) {
         result = price;

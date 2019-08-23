@@ -195,9 +195,9 @@
     }else if (sender.tag == 11) {
         value = @"#";
     }else{
-        value = [NSString stringWithFormat:@"%d", (int)sender.tag];
+        value = SFM(@"%d", (int)sender.tag);
     }
-    tfNumber.text = [NSString stringWithFormat:@"%@%@", tfNumber.text, value];
+    tfNumber.text = SFM(@"%@%@", tfNumber.text, value);
     BOOL result = [[AppDelegate sharedInstance] sendDtmfWithValue: value];
     if (!result) {
         [self makeToast:@"Gửi thất bại" duration:1.0 position:CSToastPositionCenter];

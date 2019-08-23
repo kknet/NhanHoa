@@ -48,8 +48,7 @@
     [jsonDict setObject:update_token_mod forKey:@"mod"];
     [jsonDict setObject:USERNAME forKey:@"username"];
     [jsonDict setObject:PASSWORD forKey:@"password"];
-    [jsonDict setObject:[NSString stringWithFormat:@"ios-%@", token] forKey:@"token"];
-    
+    [jsonDict setObject:SFM(@"ios-%@", token) forKey:@"token"];
     [webService callWebServiceWithLink:update_token_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
@@ -633,7 +632,7 @@
     [info setObject:UpdateTokenAction forKey:@"action"];
     [info setObject:token forKey:@"token"];
     
-    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *total = SFM(@"/cskhvoip%@", password);
     NSString *key = [AppUtils getMD5StringOfString: total];
     [info setObject:key forKey:@"key"];
     
@@ -650,7 +649,7 @@
     
     [info setObject:GetAccVoipAction forKey:@"action"];
     
-    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *total = SFM(@"/cskhvoip%@", password);
     NSString *key = [AppUtils getMD5StringOfString: total];
     [info setObject:key forKey:@"key"];
     
@@ -667,7 +666,7 @@
     
     [info setObject:GetListCSKHAction forKey:@"action"];
     
-    NSString *total = [NSString stringWithFormat:@"/cskhvoip%@", password];
+    NSString *total = SFM(@"/cskhvoip%@", password);
     NSString *key = [AppUtils getMD5StringOfString: total];
     [info setObject:key forKey:@"key"];
     

@@ -49,8 +49,8 @@
         [self getDNSRecordListForDomain];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:)
-                                                     name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
     }else{
         viewNotSupport.hidden = FALSE;
     }
@@ -131,7 +131,7 @@
     }];
 }
 
-- (void) orientationChanged:(NSNotification *)note
+- (void) orientationChanged
 {
     if (!IS_IPHONE && !IS_IPOD) {
         float widthScreen = [DeviceUtils getWidthOfScreen];
@@ -175,7 +175,7 @@
         return;
     }
     
-    UIDevice * device = note.object;
+    UIDevice * device = [UIDevice currentDevice];
     if (device.orientation == UIDeviceOrientationLandscapeRight) {
         [UIView animateWithDuration:0.2 delay:0.0
                             options:0 animations:^{

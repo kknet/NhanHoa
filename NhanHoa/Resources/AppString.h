@@ -610,4 +610,7 @@
 #define text_save_profile           @"Lưu hồ sơ"
 #define text_profile_detail         @"Chi tiết hồ sơ"
 
+#define right_information_pay_now   @"Thông tin đúng, thanh toán ngay"
+
+
 #endif /* AppString_t */

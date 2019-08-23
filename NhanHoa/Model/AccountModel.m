@@ -30,7 +30,7 @@
     id totalBalance = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_total_balance"];
     
     if (totalBalance != nil && [totalBalance isKindOfClass:[NSNumber class]]) {
-        return [NSString stringWithFormat:@"%ld", [totalBalance longValue]];
+        return SFM(@"%ld", [totalBalance longValue]);
         
     }else if (totalBalance != nil && [totalBalance isKindOfClass:[NSString class]]) {
         return totalBalance;
@@ -42,7 +42,7 @@
     id balance = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_balance"];
     
     if (balance != nil && [balance isKindOfClass:[NSNumber class]]) {
-        return [NSString stringWithFormat:@"%ld", [balance longValue]];
+        return SFM(@"%ld", [balance longValue]);
         
     }else if (balance != nil && [balance isKindOfClass:[NSString class]]) {
         return balance;
@@ -54,7 +54,7 @@
     id totalPoint = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_total_point"];
     
     if (totalPoint != nil && [totalPoint isKindOfClass:[NSNumber class]]) {
-        return [NSString stringWithFormat:@"%ld", [totalPoint longValue]];
+        return SFM(@"%ld", [totalPoint longValue]);
         
     }else if (totalPoint != nil && [totalPoint isKindOfClass:[NSString class]]) {
         return totalPoint;
@@ -66,7 +66,7 @@
     id point = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_point"];
     
     if (point != nil && [point isKindOfClass:[NSNumber class]]) {
-        return [NSString stringWithFormat:@"%ld", [point longValue]];
+        return SFM(@"%ld", [point longValue]);
         
     }else if (point != nil && [point isKindOfClass:[NSString class]]) {
         return point;

@@ -37,8 +37,6 @@
             [personalProfileView setupUIForOnlyView];
             personalProfileView.mode = eViewProfile;
             
-            bị change layout khi xoay ở màn hình khác
-            
         }else{
             [self addUpdateBusinessProfileViewIfNeed];
             [businessProfileView displayInfoForProfileWithInfo: profileInfo];
@@ -57,6 +55,16 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
+    if (personalProfileView != nil) {
+        [personalProfileView removeFromSuperview];
+        personalProfileView = nil;
+    }
+    
+    if (businessProfileView != nil) {
+        [businessProfileView removeFromSuperview];
+        businessProfileView = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

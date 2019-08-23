@@ -62,7 +62,7 @@
 
 - (void)displayCartInfoWithView: (UILabel *)lbCount {
     if ([self countItemInCart] > 0) {
-        lbCount.text = [NSString stringWithFormat:@"%d", [self countItemInCart]];
+        lbCount.text = SFM(@"%d", [self countItemInCart]);
         lbCount.hidden = FALSE;
     }else{
         lbCount.hidden = TRUE;

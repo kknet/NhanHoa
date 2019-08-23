@@ -469,7 +469,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         NSString *time = [listTimes objectAtIndex: indexPath.row];
-        cell.lbContent.text = [NSString stringWithFormat:@"%@ THÁNG", time];
+        cell.lbContent.text = SFM(@"%@ THÁNG", time);
         if ([time isEqualToString:transferTime]) {
             cell.imgTick.hidden = FALSE;
         }else{

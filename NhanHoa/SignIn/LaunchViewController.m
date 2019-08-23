@@ -46,6 +46,16 @@
         [self.navigationController pushViewController:signInVC animated:YES];
     }
     
+    float screenWidth = [DeviceUtils getWidthOfScreen];
+    float screenHeight = [DeviceUtils getHeightOfScreen];
+    
+    if (gradientLayer != nil) {
+        gradientLayer.frame = CGRectMake(0, 0, screenWidth, hTopView+2*hCurve);
+    }
+    if (bottomGradientLayer != nil) {
+        bottomGradientLayer.frame = CGRectMake(0, 0, screenWidth, screenHeight-hTopView+2*hCurve);
+    }
+    
     if (!IS_IPHONE && !IS_IPOD) {
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)

@@ -399,7 +399,7 @@ typedef enum TypeSelectDomain{
         
         [cell showContentWithDomainInfo:domain withExpire:TRUE];
     }
-    cell.lbNum.text = [NSString stringWithFormat:@"%d.", (int)indexPath.row + 1];
+    cell.lbNum.text = SFM(@"%d.", (int)indexPath.row + 1);
     return cell;
 }
 
@@ -429,7 +429,7 @@ typedef enum TypeSelectDomain{
         domainDetailVC.cusId = cus_id;
         [self.navigationController pushViewController: domainDetailVC animated:YES];
     }else{
-        [self.view makeToast:[NSString stringWithFormat:@"ord_id không tồn tại"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self.view makeToast:@"ord_id không tồn tại" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
 }
 

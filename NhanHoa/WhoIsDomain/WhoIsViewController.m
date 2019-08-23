@@ -52,6 +52,12 @@
         [listDomain addObject:@""];
         [listDomain addObject:@""];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -221,6 +227,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WhoIsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WhoIsCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.tfDomain.delegate = self;
     cell.tfDomain.returnKeyType = UIReturnKeyDone;
     
@@ -245,11 +252,11 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.view endEditing: YES];
-    CGPoint scrollViewOffset = scrollView.contentOffset;
-    if (scrollViewOffset.y < 0) {
-        [scrollView setContentOffset:CGPointMake(0, 0)];
-    }
+//    [self.view endEditing: YES];
+//    CGPoint scrollViewOffset = scrollView.contentOffset;
+//    if (scrollViewOffset.y < 0) {
+//        [scrollView setContentOffset:CGPointMake(0, 0)];
+//    }
 }
 
 #pragma mark - UITextfield delegate

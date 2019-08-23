@@ -47,10 +47,18 @@
     [WriteLogsUtils writeForGoToScreen:@"AddOrderViewController"];
     
     [self setupUIForView];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     
     [viewMenu removeFromSuperview];
     viewMenu = nil;
@@ -152,13 +160,20 @@
     footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     footerView.backgroundColor = UIColor.whiteColor;
     
-    UIButton *btnConfirm = [[UIButton alloc] initWithFrame:CGRectMake(padding, (hFooter - hBTN)/2, footerView.frame.size.width-2*padding, hBTN)];
-    [btnConfirm setTitle:@"Thông tin đúng, thanh toán ngay" forState:UIControlStateNormal];
+    //  UIButton *btnConfirm = [[UIButton alloc] initWithFrame:CGRectMake(padding, (hFooter - hBTN)/2, footerView.frame.size.width-2*padding, hBTN)];
+    UIButton *btnConfirm = [[UIButton alloc] init];
+    [btnConfirm setTitle:right_information_pay_now forState:UIControlStateNormal];
     btnConfirm.backgroundColor = BLUE_COLOR;
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnConfirm.layer.cornerRadius = hBTN/2;
     btnConfirm.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [footerView addSubview: btnConfirm];
+    [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(footerView).offset(padding);
+        make.right.equalTo(footerView).offset(-padding);
+        make.centerY.equalTo(footerView.mas_centerY);
+        make.height.mas_equalTo(hBTN);
+    }];
     [btnConfirm addTarget:self
                    action:@selector(btnConfirmProfilePress)
          forControlEvents:UIControlEventTouchUpInside];
@@ -303,6 +318,18 @@
     }];
 }
 
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    float widthScreen = [DeviceUtils getWidthOfScreen];
+    [viewMenu mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(widthScreen);
+    }];
+}
+
 #pragma mark - SelectProfileViewDelegate
 
 - (void)showProfileList: (BOOL)show withTag: (int)tag {
@@ -337,8 +364,8 @@
     }else{
         self.navigationController.navigationBarHidden = show;
         [chooseProfileView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
             make.left.bottom.right.equalTo(self.view);
+            make.height.mas_equalTo(0);
         }];
         [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
@@ -367,8 +394,9 @@
     chooseProfileView.hHeader = [AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav;
     [self.view addSubview: chooseProfileView];
     [chooseProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        //  make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
         make.left.bottom.right.equalTo(self.view);
+        make.height.mas_equalTo(0);
     }];
     [chooseProfileView setupUIForView];
 }

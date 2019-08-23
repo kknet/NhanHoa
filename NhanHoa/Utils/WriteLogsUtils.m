@@ -35,7 +35,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *url = [paths objectAtIndex:0];
     
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", url, fileName];
+    NSString *filePath = SFM(@"%@/%@", url, fileName);
     return filePath;
 }
 
@@ -43,7 +43,7 @@
     if (!isFullPath) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *url = [paths objectAtIndex:0];
-        filePath = [NSString stringWithFormat:@"%@/%@", url, filePath];
+        filePath = SFM(@"%@/%@", url, filePath);
     }
     
     if ([[NSFileManager defaultManager] fileExistsAtPath: filePath]) {
@@ -62,7 +62,7 @@
     NSArray *pFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:pathDir error:NULL];
     for (int count = 0; count < (int)[pFiles count]; count++)
     {
-        NSString *filePath = [NSString stringWithFormat:@"%@/%@", pathDir, [pFiles objectAtIndex: count]];
+        NSString *filePath = SFM(@"%@/%@", pathDir, [pFiles objectAtIndex: count]);
         NSDictionary* fileAttribs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
         NSDate *createdDate = [fileAttribs objectForKey:NSFileCreationDate]; //or NSFileModificationDate
         if (createdDate != nil) {
@@ -96,13 +96,13 @@
 }
 
 + (void)writeForGoToScreen: (NSString *)screen {
-    NSString *content = [NSString stringWithFormat:@"\n\n>>>>>>>>>>>>>>> GO TO SCREEN %@ <<<<<<<<<<<<<<<", screen];
+    NSString *content = SFM(@"\n\n>>>>>>>>>>>>>>> GO TO SCREEN %@ <<<<<<<<<<<<<<<", screen);
     DDLogInfo(@"%@", content);
 }
 
 + (void)writeLogContent: (NSString *)logContent
 {
-    NSString *content = [NSString stringWithFormat:@"%@", logContent];
+    NSString *content = SFM(@"%@", logContent);
     DDLogInfo(@"%@", content);
 }
 

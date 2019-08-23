@@ -32,7 +32,6 @@
     self.title = text_update_passport;
     [self setupUIForView];
     [self addRightBarButtonForNavigationBar];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -40,6 +39,7 @@
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
     
     [self showCurrentPassportForDomain];
+    [self orientationChanged];
     
     if (!IS_IPHONE && !IS_IPOD) {
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];

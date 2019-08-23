@@ -11,14 +11,14 @@
 
 @implementation UpdatePersonalProfile
 @synthesize lbName, tfName, lbGender, icMale, lbMale, icFemale, lbFemale, lbBOD, tfBOD, btnBOD, lbPassport, tfPassport, lbPhone, tfPhone, lbAddress, tfAddress, lbCountry, tfCountry, lbCity, tfCity, btnCity, btnSave, btnReset, imgArrCity;
-@synthesize gender, datePicker, toolBar, viewPicker, cityCode, delegate, hContent;
+@synthesize gender, datePicker, toolBar, viewPicker, cityCode, delegate, hContent, padding;
 
 - (void)closeKeyboard {
     [self endEditing: TRUE];
 }
 
 - (void)setupUIForView {
-    float padding = 15.0;
+    padding = 15.0;
     float hLabel = 30.0;
     float mTop = 10.0;
     float hBTN = 45.0;
@@ -230,7 +230,7 @@
         [btnReset mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(padding);
             make.right.equalTo(self.mas_centerX).offset(-padding/2);
-            make.top.equalTo(btnCity.mas_bottom).offset(2*padding);
+            make.top.equalTo(btnCity.mas_bottom).offset(padding);
             make.height.mas_equalTo(hBTN);
         }];
     }
@@ -258,7 +258,7 @@
     //  Add datepicker
     [self addDatePickerForView];
     
-    hContent = (padding + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + 2*padding + hBTN + 2*padding;
+    hContent = (padding + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + (mTop + hLabel + [AppDelegate sharedInstance].hTextfield) + padding + hBTN + padding;
 }
 
 - (void)selectMale {
@@ -362,16 +362,6 @@
     tfBOD.text = [dateFormatter stringFromDate:datePicker.date];
 }
 
-/*
-cn_name: Họ và tên (string)
-cn_sex: number (1: nam | 0: nữ)
-cn_birthday: dd/mm/yyyy (ngày tháng năm sinh)
-cn_cmnd: string / number (Số CMND / Passport)
-cn_phone: string / number (Số ĐT)
-cn_address: string (địa chỉ)
-cn_country: 231 (cố định: Viêt Nam [231])
-cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
-*/
 - (IBAction)icMaleClick:(UIButton *)sender {
     [self selectMale];
 }
@@ -528,6 +518,10 @@ cn_city: number (mã tỉnh / thành theo danh sách anh đã gửi).
     }else{
         tfCity.text = cityName;
     }
+}
+
+- (void)reUpdateLayoutForView {
+    lbName.backgroundColor = UIColor.orangeColor;
 }
 
 #pragma mark - Choose city delegate

@@ -113,4 +113,12 @@
     }
 }
 
+- (void)reUpdateLayoutForCell {
+    float sizeIcon = [self getSizeIconForDevice];
+    [imgType mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(sizeIcon);
+    }];
+}
+
+
 @end

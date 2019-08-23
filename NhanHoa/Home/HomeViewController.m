@@ -47,8 +47,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     numOfLine = 3;
-    [self createDataForMenuView];
-    [self setupUIForView];
+    if (IS_IPHONE || IS_IPOD) {
+        [self createDataForMenuView];
+        [self setupUIForView];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -58,6 +60,11 @@
     [WriteLogsUtils writeForGoToScreen: @"HomeViewController"];
     
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [self createDataForMenuView];
+        [self setupUIForView];
+    }
     
     [self showUserWalletView];
     [self createCartViewIfNeed];
@@ -168,12 +175,16 @@
     [self getHeightBannerForIPAD];
     [clvMenu reloadData];
     
-    int numLine = [self getNumLineForMenuList];
-    [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-hTabbar);
-        make.height.mas_equalTo(numLine*hMenu);
+    [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(hBanner);
     }];
+    
+//    int numLine = [self getNumLineForMenuList];
+//    [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self.view);
+//        make.bottom.equalTo(self.view).offset(-hTabbar);
+//        make.height.mas_equalTo(numLine*hMenu);
+//    }];
 }
 
 - (void)getHeightBannerForIPAD {
@@ -210,6 +221,7 @@
     }else{
         cell.lbSepaRight.hidden = FALSE;
     }
+    [cell reUpdateLayoutForCell];
     
     return cell;
 }
@@ -218,65 +230,61 @@
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
-    switch (indexPath.row) {
-        case eRegisterDomain:{
-            RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-            registerDomainVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: registerDomainVC animated:TRUE];
-            
-            break;
-        }
-        case ePricingDomain:{
-            PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
-            pricingVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: pricingVC animated:TRUE];
-            break;
-        }
-        case eSearchDomain:{
-            WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-            whoIsVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: whoIsVC animated:TRUE];
-            break;
-        }
-        case eRecharge:{
-            TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-            topupVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: topupVC animated:TRUE];
-            break;
-        }
-        case eRewardsPoints:{
-            BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-            bonusAccVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: bonusAccVC animated:TRUE];
-            break;
-        }
-        case eManagerDomain:{
-            RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-            renewedVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: renewedVC animated:TRUE];
-            break;
-        }
-        case eWithdrawal:{
-            WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-            withdrawVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: withdrawVC animated:TRUE];
-            break;
-        }
-        case eProfile:{
-            ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
-            profileVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: profileVC animated:TRUE];
-            break;
-        }
-        case eSupport:{
-            SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
-            supportVC.hidesBottomBarWhenPushed = TRUE;
-            [self.navigationController pushViewController: supportVC animated:TRUE];
-            
-            break;
-        }
-        default:
-            break;
+    HomeMenuCell *cell = (HomeMenuCell *)[collectionView cellForItemAtIndexPath: indexPath];
+    
+    NSString *title = cell.lbName.text;
+    if ([title isEqualToString: text_register_domains]) {
+        RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
+        registerDomainVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: registerDomainVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_domains_pricing_list])
+    {
+        PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
+        pricingVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: pricingVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_search_domains])
+    {
+        WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
+        whoIsVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: whoIsVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_top_up_into_account])
+    {
+        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+        topupVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: topupVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_bonus_account])
+    {
+        BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
+        bonusAccVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: bonusAccVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_domains_management])
+    {
+        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+        renewedVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: renewedVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_draw_bonuses])
+    {
+        WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
+        withdrawVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: withdrawVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_profiles_list])
+    {
+        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
+        profileVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: profileVC animated:TRUE];
+        
+    }else if ([title isEqualToString: text_customers_support])
+    {
+        SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
+        supportVC.hidesBottomBarWhenPushed = TRUE;
+        [self.navigationController pushViewController: supportVC animated:TRUE];
     }
 }
 
@@ -415,31 +423,16 @@
         hBanner = SCREEN_HEIGHT - (hSearch + paddingY + hWallet + paddingY + hTabbar + numLine*hMenu);
     }
     
-    [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
+    [imgBanner mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(viewSearch.mas_bottom);
-        make.bottom.equalTo(viewWallet.mas_top).offset(-paddingY);
-    }];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumLineSpacing = 10.0;
-    layout.minimumInteritemSpacing = 0;
-    clvMenu.collectionViewLayout = layout;
-    
-    clvMenu.delegate = self;
-    clvMenu.dataSource = self;
-    clvMenu.backgroundColor = UIColor.whiteColor;
-    [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuCell"];
-    
-    [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-hTabbar);
-        make.height.mas_equalTo(numLine*hMenu);
+        //  make.bottom.equalTo(viewWallet.mas_top).offset(-paddingY);
+        make.height.mas_equalTo(hBanner);
     }];
     
     //  wallet info view
     [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(clvMenu.mas_top).offset(-paddingY);
+        make.top.equalTo(imgBanner.mas_bottom).offset(paddingY);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(hWallet);
     }];
@@ -545,6 +538,23 @@
             make.top.equalTo(viewRewards.mas_centerY);
         }];
     }
+    
+    //  collection view
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 10.0;
+    layout.minimumInteritemSpacing = 0;
+    clvMenu.collectionViewLayout = layout;
+    
+    clvMenu.delegate = self;
+    clvMenu.dataSource = self;
+    clvMenu.backgroundColor = UIColor.whiteColor;
+    [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuCell"];
+    [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewWallet.mas_bottom).offset(paddingY);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-hTabbar);
+        //  make.height.mas_equalTo(numLine*hMenu);
+    }];
 }
 
 - (int)getNumLineForMenuList {

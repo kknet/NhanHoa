@@ -487,7 +487,7 @@
 
 - (void)resetAllValue {
     tfName.text = tfType.text = tfMX.text = tfValue.text = @"";
-    tfTTL.text = [NSString stringWithFormat:@"%d", TTL_MIN];
+    tfTTL.text = SFM(@"%d", TTL_MIN);
 }
 
 #pragma mark - UITableview Delegate

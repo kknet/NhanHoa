@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepaBottom;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepaRight;
 
+- (void)reUpdateLayoutForCell;
+
 @end
 
 NS_ASSUME_NONNULL_END

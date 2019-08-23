@@ -256,6 +256,8 @@
 		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
 		4CFCBCA322FD31A500427B86 /* SelectAmountClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */; };
 		4CFCBCA422FD31A500427B86 /* SelectAmountClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */; };
+		4CFDBBF9230FE8D100D21490 /* LaunchScreen~iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFDBBF8230FE8D100D21490 /* LaunchScreen~iPad.storyboard */; };
+		4CFDBBFB230FEBF000D21490 /* new_launch_not_company.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFDBBFA230FEBF000D21490 /* new_launch_not_company.png */; };
 		5600E8F522A5E9FD00F7DECE /* support_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F322A5E9FC00F7DECE /* support_message.png */; };
 		5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */ = {isa = PBXBuildFile; fileRef = 5600E8F422A5E9FC00F7DECE /* support_call.png */; };
 		5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5600E8FA22A5EEC700F7DECE /* SendMessageView.m */; };
@@ -827,6 +829,8 @@
 		4CFCBCA022FD31A500427B86 /* SelectAmountClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectAmountClvCell.h; sourceTree = "<group>"; };
 		4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectAmountClvCell.m; sourceTree = "<group>"; };
 		4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAmountClvCell.xib; sourceTree = "<group>"; };
+		4CFDBBF8230FE8D100D21490 /* LaunchScreen~iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen~iPad.storyboard"; sourceTree = "<group>"; };
+		4CFDBBFA230FEBF000D21490 /* new_launch_not_company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_launch_not_company.png; sourceTree = "<group>"; };
 		5600E8F322A5E9FC00F7DECE /* support_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_message.png; sourceTree = "<group>"; };
 		5600E8F422A5E9FC00F7DECE /* support_call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = support_call.png; sourceTree = "<group>"; };
 		5600E8F922A5EEC700F7DECE /* SendMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageView.h; sourceTree = "<group>"; };
@@ -1243,6 +1247,7 @@
 				150845F8226EBF2400428514 /* Main.storyboard */,
 				150845FB226EBF2900428514 /* Assets.xcassets */,
 				150845FD226EBF2900428514 /* LaunchScreen.storyboard */,
+				4CFDBBF8230FE8D100D21490 /* LaunchScreen~iPad.storyboard */,
 				15084600226EBF2900428514 /* Info.plist */,
 				5601BE0122BD40820011E73D /* GoogleService-Info.plist */,
 				15084601226EBF2900428514 /* main.m */,
@@ -1585,6 +1590,7 @@
 				56D0294D22B3F88D00280127 /* order_failed.png */,
 				56FDEB5B22B66486001A14AE /* launch.jpg */,
 				56A878A322CB504400300705 /* new_launch.jpg */,
+				4CFDBBFA230FEBF000D21490 /* new_launch_not_company.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -2601,6 +2607,7 @@
 				4C765F0E22F81EB6002AFEC8 /* LinuxHostingCell.xib in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				4C00790922F144E800C19492 /* dns_del.png in Resources */,
+				4CFDBBF9230FE8D100D21490 /* LaunchScreen~iPad.storyboard in Resources */,
 				4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
@@ -2676,6 +2683,7 @@
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
 				4C041EC022E843E400DA7405 /* numpad_six_default.png in Resources */,
 				15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */,
+				4CFDBBFB230FEBF000D21490 /* new_launch_not_company.png in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
 				4C041ED322E8443100DA7405 /* numpad_hash_default.png in Resources */,

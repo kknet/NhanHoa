@@ -46,7 +46,7 @@
     }
     
     [UIView animateWithDuration:0.25 animations:^{
-        self.sendMsgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        sendMsgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
 }
 
@@ -130,6 +130,8 @@
 -(void)closeSendMessageView {
     [UIView animateWithDuration:0.25 animations:^{
         sendMsgView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+    }completion:^(BOOL finished) {
+        sendMsgView = nil;
     }];
 }
 

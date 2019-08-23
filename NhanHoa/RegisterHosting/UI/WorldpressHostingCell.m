@@ -167,7 +167,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectAmountClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SelectAmountClvCell" forIndexPath:indexPath];
     
-    cell.lbNum.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+    cell.lbNum.text = SFM(@"%d", (int)(indexPath.row) + 1);
     
     return cell;
 }
@@ -181,7 +181,7 @@
         [self layoutIfNeeded];
     }];
     
-    tfAmount.text = [NSString stringWithFormat:@"%d", (int)(indexPath.row) + 1];
+    tfAmount.text = SFM(@"%d", (int)(indexPath.row) + 1);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

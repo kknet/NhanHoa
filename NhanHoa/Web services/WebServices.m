@@ -15,7 +15,7 @@
 {
     receivedData = [[NSMutableData alloc] init];
     
-    NSString *strURL = [NSString stringWithFormat:@"%@/%@", link_api, linkService];
+    NSString *strURL = SFM(@"%@/%@", link_api, linkService);
     NSURL *URL = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
     [request setHTTPMethod:@"POST"];
@@ -28,8 +28,7 @@
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:SFM(@"%d", (int)[requestData length]) forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
 //    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError)
@@ -53,7 +52,7 @@
 {
     receivedData = [[NSMutableData alloc] init];
     
-    NSString *strURL = [NSString stringWithFormat:@"%@/%@?%@", link_api, function, params];
+    NSString *strURL = SFM(@"%@/%@?%@", link_api, function, params);
     NSURL *URL = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
     [request setHTTPMethod:@"GET"];
@@ -73,7 +72,7 @@
 
 - (void)callWebServiceWithLink: (NSString *)linkService withParams: (NSDictionary *)paramsDict inBackgroundMode: (BOOL)isBackgroundMode
 {
-    NSString *strURL = [NSString stringWithFormat:@"%@/%@", link_api, linkService];
+    NSString *strURL = SFM(@"%@/%@", link_api, linkService);
     NSURL *URL = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
     [request setHTTPMethod:@"POST"];
@@ -87,7 +86,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:SFM(@"%d", (int)[requestData length]) forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
@@ -306,7 +305,7 @@
 #pragma mark - API FOR DNS RECORDS OF DOMAIN
 - (void)apiWSForRecordDNSWithParams: (NSDictionary *)paramsDict andAction: (NSString *)action
 {
-    NSString *strURL = [NSString stringWithFormat:@"%@/%@", link_api, DNSRecord_func];
+    NSString *strURL = SFM(@"%@/%@", link_api, DNSRecord_func);
     NSURL *URL = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: URL];
     [request setHTTPMethod:@"POST"];
@@ -319,8 +318,7 @@
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    [request setValue:[NSString stringWithFormat:@"%d", (int)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:SFM(@"%d", (int)[requestData length]) forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
