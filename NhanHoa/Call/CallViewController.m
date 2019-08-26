@@ -65,7 +65,6 @@
             [self startToUpdateDurationForCall];
         }
     }
-    
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
                                                name:AVAudioSessionRouteChangeNotification object:nil];
 }
@@ -191,7 +190,7 @@
         wIconEndCall = 80.0;
         wSmallIcon = 60.0;
         margin = 45.0;
-        marginIcon = 10.0;
+        marginIcon = 20.0;
     }
     
     [imgBackground mas_remakeConstraints:^(MASConstraintMaker *make) {
