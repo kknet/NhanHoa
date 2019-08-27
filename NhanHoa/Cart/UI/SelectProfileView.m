@@ -191,24 +191,18 @@
 
 - (void)displayInformationWithData: (id)data {
     if ([data isKindOfClass:[NSArray class]]) {
-        if (data == nil || [(NSArray *)data count] == 0) {
-            lbNoData.text = text_no_data;
-            lbNoData.hidden = FALSE;
-            tbProfile.hidden = TRUE;
-            
-        }else{
-            if (listProfiles == nil) {
-                listProfiles = [[NSMutableArray alloc] initWithArray: data];
-            }else{
-                [listProfiles removeAllObjects];
-                [listProfiles addObjectsFromArray: data];
-            }
-            [listProfiles insertObject:[AppDelegate sharedInstance].userInfo atIndex:0];
-            
-            lbNoData.hidden = TRUE;
-            tbProfile.hidden = FALSE;
-            [tbProfile reloadData];
+        if (listProfiles == nil) {
+            listProfiles = [[NSMutableArray alloc] init];
         }
+        [listProfiles removeAllObjects];
+        [listProfiles addObject: [AppDelegate sharedInstance].userInfo];
+        
+        if (data != nil && [(NSArray *)data count] > 0) {
+            [listProfiles addObjectsFromArray: data];
+        }
+        lbNoData.hidden = TRUE;
+        tbProfile.hidden = FALSE;
+        [tbProfile reloadData];
     }
 }
 
