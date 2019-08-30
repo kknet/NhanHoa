@@ -500,6 +500,10 @@
 
 - (void) orientationChanged
 {
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
     float screenWidth = [DeviceUtils getWidthOfScreen];
     float screenHeight = [DeviceUtils getHeightOfScreen];
     

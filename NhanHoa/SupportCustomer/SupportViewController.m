@@ -51,6 +51,10 @@
 }
 
 - (IBAction)btnCallPress:(UIButton *)sender {
+    if (!IS_IPHONE && !IS_IPOD) {
+        [self.view makeToast:this_func_not_support_on_ipad duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
     if ([AppDelegate sharedInstance].supportCall) {

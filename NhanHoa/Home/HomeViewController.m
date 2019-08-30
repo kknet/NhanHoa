@@ -47,10 +47,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     numOfLine = 3;
-    if (IS_IPHONE || IS_IPOD) {
-        [self createDataForMenuView];
-        [self setupUIForView];
-    }
+    
+    [self createDataForMenuView];
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -62,8 +61,7 @@
     [[FIRMessaging messaging] subscribeToTopic:@"/topics/global"];
     
     if (!IS_IPHONE && !IS_IPOD) {
-        [self createDataForMenuView];
-        [self setupUIForView];
+        [self reupdateLayoutForIpadView];
     }
     
     [self showUserWalletView];
@@ -171,20 +169,21 @@
     if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
         return;
     }
-    [self createDataForMenuView];
     [self getHeightBannerForIPAD];
     [clvMenu reloadData];
     
     [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(hBanner);
     }];
+}
+
+- (void)reupdateLayoutForIpadView {
+    [self getHeightBannerForIPAD];
+    [clvMenu reloadData];
     
-//    int numLine = [self getNumLineForMenuList];
-//    [clvMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.equalTo(self.view);
-//        make.bottom.equalTo(self.view).offset(-hTabbar);
-//        make.height.mas_equalTo(numLine*hMenu);
-//    }];
+    [imgBanner mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(hBanner);
+    }];
 }
 
 - (void)getHeightBannerForIPAD {
@@ -196,7 +195,7 @@
         hBanner = heightScreen - (hSearch + paddingY + hWallet + paddingY + hTabbar + numLine*hMenu);
     }else{
         hBanner = (heightScreen - hSearch - hTabbar)/2;
-        hMenu = (heightScreen - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/numLine;
+        hMenu = (int)((heightScreen - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/numLine);
     }
 }
 
@@ -322,14 +321,8 @@
     HomeMenuObject *recharge = [[HomeMenuObject alloc] initWithName:text_top_up_into_account icon:@"menu_recharge" type:eRecharge];
     [listMenu addObject: recharge];
     
-    if (![DeviceUtils isLandscapeMode]) {
-        numOfLine = 3;
-        HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:text_bonus_account icon:@"menu_bonus" type:eRewardsPoints];
-        [listMenu addObject: rewardsPoints];
-        
-    }else{
-        numOfLine = 4;
-    }
+    HomeMenuObject *rewardsPoints = [[HomeMenuObject alloc] initWithName:text_bonus_account icon:@"menu_bonus" type:eRewardsPoints];
+    [listMenu addObject: rewardsPoints];
     
     HomeMenuObject *managerDomains = [[HomeMenuObject alloc] initWithName:text_domains_management icon:@"menu_list_domain" type:eManagerDomain];
     [listMenu addObject: managerDomains];
@@ -399,11 +392,6 @@
     imgBanner.image = banner;
     hBanner = SCREEN_WIDTH * banner.size.height / banner.size.width;
     
-    if (!IS_IPHONE && !IS_IPOD) {
-        //  banner cho portrait mode
-        hBanner = (SCREEN_HEIGHT - hSearch - hTabbar)/2;
-    }
-    
     int numLine = [self getNumLineForMenuList];
     hMenu = (SCREEN_HEIGHT - (hSearch + hBanner + paddingY + hWallet + paddingY + hTabbar))/numLine;
     if (hMenu < 100 && (IS_IPHONE || IS_IPOD)) {
@@ -417,10 +405,8 @@
         paddingY = 5.0;
         hBanner = SCREEN_HEIGHT - (hTabbar + 3*hMenu + hWallet + 2*paddingY + hSearch);
     }
-    
-    if (!IS_IPHONE && !IS_IPOD && [DeviceUtils isLandscapeMode]) {
-        hMenu = 100.0;
-        hBanner = SCREEN_HEIGHT - (hSearch + paddingY + hWallet + paddingY + hTabbar + numLine*hMenu);
+    if (!IS_IPHONE && !IS_IPOD) {
+        [self getHeightBannerForIPAD];
     }
     
     [imgBanner mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -553,7 +539,6 @@
         make.top.equalTo(viewWallet.mas_bottom).offset(paddingY);
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-hTabbar);
-        //  make.height.mas_equalTo(numLine*hMenu);
     }];
 }
 

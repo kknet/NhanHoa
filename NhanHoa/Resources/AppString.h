@@ -12,6 +12,12 @@
 #define SFM(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -309,6 +315,7 @@
 #define text_loading    @"Đang tải..."
 #define text_processing @"Đang xử lý..."
 
+#define this_func_not_support_on_ipad   @"Chức năng này không hỗ trợ trên iPad"
 #define you_are_using_newest_version    @"Bạn đang sử dụng phiên bản mới nhất."
 #define text_update_version_now         @"Phiên bản hiện tại trên AppStore là %@. Bạn có muốn cập nhật ngay không?"
 #define text_confirm_sign_out           @"Bạn có muốn đăng xuất khỏi ứng dụng hay không?"

@@ -34,8 +34,6 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"SupportListViewController"];
     
-    [self registerObserveres];
-    
     if (datas == nil) {
         datas = [[NSMutableArray alloc] init];
     }else{
@@ -92,6 +90,8 @@
         if ([state isKindOfClass:[NSNumber class]]) {
             [WriteLogsUtils writeLogContent:SFM(@"[%s] VALUE >>>>>>>>>> %d", __FUNCTION__, [state intValue])];
             
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            
             int value = [state intValue];
             if (value == 1) {
                 if ([AppDelegate sharedInstance].accCallInfo != nil && ![AppUtils isNullOrEmpty: extenCall]) {
@@ -128,8 +128,10 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     
     if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
-        [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
         
+        [self registerObserveres];
+        
+        [AppDelegate sharedInstance].accCallInfo = [[NSDictionary alloc] initWithDictionary: data];
         [[AppDelegate sharedInstance] registerSIPAccountWithInfo: data];
         
     }else{

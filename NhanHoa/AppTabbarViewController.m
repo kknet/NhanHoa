@@ -121,6 +121,10 @@
     
     if (!IS_IPHONE && !IS_IPOD) {
         UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        if(SYSTEM_VERSION_LESS_THAN(@"10.0")){
+            [[UITabBar appearance] setItemWidth: 250];
+            textFont = [UIFont fontWithName:RobotoRegular size:17.0];
+        }
         
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
@@ -149,5 +153,6 @@
     tabBarController.tabBar.barTintColor = UIColor.whiteColor;
     tabBarController.tabBar.backgroundColor = UIColor.whiteColor;
 }
+
 
 @end

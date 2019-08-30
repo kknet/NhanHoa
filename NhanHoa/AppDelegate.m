@@ -13,7 +13,6 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "JSONKit.h"
 
-//  comment for call
 #include "pjsip_sources/pjlib/include/pjlib.h"
 #include "pjsip_sources/pjsip/include/pjsua.h"
 #include "pjsip_sources/pjsua/pjsua_app.h"
@@ -220,7 +219,6 @@ AppDelegate      *app;
     }
     [self registerForNotifications:[UIApplication sharedApplication]];
     
-    //  comment for call
     app = self;
     [self startPjsuaForApp];
     current_call_id = -1;
@@ -1570,7 +1568,7 @@ static void on_reg_state(pjsua_acc_id acc_id)
 
 - (void)answerCallWithCallID: (int)call_id {
     pjsua_call_answer(call_id, 200, NULL, NULL);
-    
+
     //  show call screen
     [[AppDelegate sharedInstance] showCallViewWithDirection: IncomingCall remote: self.remoteName];
 }
