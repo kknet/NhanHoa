@@ -519,6 +519,7 @@
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    [self endEditing: TRUE];
     
     if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
         [self makeToast:@"Bạn chưa nhập Tên doanh nghiệp!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];

@@ -518,6 +518,8 @@
 }
 
 - (IBAction)btnSavePress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     if ([AppUtils isNullOrEmpty: tfName.text]) {
         [self makeToast:@"Bạn chưa nhập Họ tên!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
