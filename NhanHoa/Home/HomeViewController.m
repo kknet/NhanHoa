@@ -50,6 +50,43 @@
     
     [self createDataForMenuView];
     [self setupUIForView];
+    
+    UIButton *btnMOMO = [[UIButton alloc] init];
+    [btnMOMO setImage:[UIImage imageNamed:@"logo-momo"] forState:UIControlStateNormal];
+    [self.view addSubview: btnMOMO];
+    [btnMOMO mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+        make.width.height.mas_equalTo(100);
+    }];
+    [btnMOMO addTarget:self
+                action:@selector(clickOnMoMoButton)
+      forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)clickOnMoMoButton {
+    //  https://github.com/momo-wallet/mobile-sdk
+    //  https://business.momo.vn/assets//docs/api/MoMo-Payment-APIs-v2.1.5.pdf?version=16
+    //  https://developers.momo.vn/#/docs/app_in_app?id=m%e1%bb%9f-%e1%bb%a9ng-d%e1%bb%a5ng-momo
+    
+    NSString *customURL = @"momo://";
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:@"momo://?action=gettoken&merchantcode=CGV01&merchantname=CGV Cinemas&amount=99000&orderId=012345XXX&description=Buy ticket&fee=0&ipaddress=192.168.1.154&username=username_accountId@yahoo.com&sdkversion=2.0&appScheme=partnerSchemeId"];
+    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)])
+    {
+        [application openURL:URL options:@{}
+           completionHandler:^(BOOL success) {
+               NSLog(@"Open %@: %d",customURL,success);
+           }];
+    }
+    else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"No Custom URL is defined" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
+    //  momo://?action=gettoken&merchantcode=CGV01&merchantname=CGV Cinemas&amount=99000&orderId=012345XXX&description=Buy ticket&fee=0&ipaddress=192.168.1.154&username=username_accountId@yahoo.com&sdkversion=2.0&appScheme=partnerSchemeId
 }
 
 -(void)viewWillAppear:(BOOL)animated {
