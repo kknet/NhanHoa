@@ -36,8 +36,6 @@
     [WriteLogsUtils writeForGoToScreen:@"UpdateMyInfoViewController"];
     
     int type = [AccountModel getCusOwnType];
-    type = type_business;
-    
     if (type == type_personal) {
         [self addUpdatePersonalProfileView];
         [editPersonalView displayPersonalInformation];

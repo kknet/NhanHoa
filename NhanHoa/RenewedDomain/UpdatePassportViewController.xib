@@ -11,13 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdatePassportViewController">
             <connections>
-                <outlet property="btnBanKhai" destination="D0J-Xj-zLe" id="TJk-Nw-PNG"/>
                 <outlet property="btnCMND_a" destination="ACe-BU-vtv" id="X0Z-D4-su2"/>
                 <outlet property="btnCMND_b" destination="9Cq-gd-YPD" id="2yc-At-O8x"/>
-                <outlet property="imgWaitBanKhai" destination="BGJ-Ng-2qb" id="NzQ-d7-nOk"/>
                 <outlet property="imgWaitCMND_a" destination="7bz-Uw-L8V" id="X1d-2f-MgE"/>
                 <outlet property="imgWaitCMND_b" destination="w5A-C9-Q7H" id="L4x-ff-OM2"/>
-                <outlet property="lbBanKhai" destination="SpJ-ED-ahq" id="X5f-Jb-dPs"/>
                 <outlet property="lbCMND_a" destination="TuO-px-TBN" id="6gB-DU-Xaa"/>
                 <outlet property="lbCMND_b" destination="GRs-Tg-xxL" id="Gcb-zi-j66"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -64,25 +61,6 @@
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w5A-C9-Q7H">
                     <rect key="frame" x="146" y="488" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Birth certificate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpJ-ED-ahq">
-                    <rect key="frame" x="108" y="172" width="119" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0J-Xj-zLe">
-                    <rect key="frame" x="31" y="10" width="248" height="164"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button" image="passport_empty_front.png"/>
-                    <connections>
-                        <action selector="btnBanKhaiPress:" destination="-1" eventType="touchUpInside" id="JLM-FN-M9U"/>
-                    </connections>
-                </button>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BGJ-Ng-2qb">
-                    <rect key="frame" x="123" y="82" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
             </subviews>

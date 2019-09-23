@@ -23,7 +23,7 @@
 @end
 
 @implementation UpdatePassportViewController
-@synthesize btnBanKhai, imgWaitBanKhai, lbBanKhai, btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b;
+@synthesize btnCMND_a,imgWaitCMND_a, lbCMND_a, btnCMND_b, imgWaitCMND_b, lbCMND_b;
 @synthesize linkCMND_a, linkCMND_b, cusId, curCMND_a, curCMND_b, linkBanKhai, curBanKhai, domain, domainId, domainType;
 
 - (void)viewDidLoad {
@@ -37,6 +37,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"UpdatePassportViewController"];
+    
+    lbCMND_a.text = text_front;
+    lbCMND_b.text = text_backside;
     
     [self showCurrentPassportForDomain];
     [self orientationChanged];
@@ -106,7 +109,7 @@
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:text_updating Interaction:NO];
     
-    [self uploadBanKhaiPicture];
+    [self uploadPassportFrontPicture];
 }
 
 - (void)showCurrentPassportForDomain {
@@ -150,26 +153,6 @@
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
         }
     }
-    
-    if ([AppDelegate sharedInstance].editBanKhai != nil) {
-        [btnBanKhai setImage:[AppDelegate sharedInstance].editBanKhai forState:UIControlStateNormal];
-    }else{
-        if (![AppUtils isNullOrEmpty: curBanKhai]) {
-            imgWaitBanKhai.hidden = FALSE;
-            [imgWaitBanKhai startAnimating];
-            
-            [btnBanKhai sd_setImageWithURL:[NSURL URLWithString:curBanKhai] forState:UIControlStateNormal completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
-             {
-                 if (image == nil) {
-                     [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
-                 }
-                 [imgWaitBanKhai stopAnimating];
-                 imgWaitBanKhai.hidden = TRUE;
-             }];
-        }else{
-            [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
-        }
-    }
 }
 
 - (IBAction)btnCMND_a_Press:(UIButton *)sender {
@@ -199,44 +182,6 @@
         [self showActionSheetChooseWithRemove: FALSE withSender: sender];
     }else{
         [self showActionSheetChooseWithRemove: TRUE withSender: sender];
-    }
-}
-
-- (void)uploadBanKhaiPicture {
-    if ([AppDelegate sharedInstance].editBanKhai != nil) {
-        //  resize image to reduce quality
-        [AppDelegate sharedInstance].editBanKhai = [AppUtils resizeImage: [AppDelegate sharedInstance].editBanKhai];
-        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editBanKhai);
-        
-        if (uploadData == nil) {
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] ERROR: >>>>>>>>>> Can not get data from editBanKhai image, continue get data for CMND_a", __FUNCTION__)];
-            [self uploadPassportFrontPicture];
-            
-        }else{
-            NSString *imageName = [NSString stringWithFormat:@"%@_bankhai_%@.PNG", [AccountModel getCusIdOfUser], [AppUtils getCurrentDateTime]];
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                UploadPicture *session = [[UploadPicture alloc] init];
-                [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was not uploaded successful", __FUNCTION__)];
-                            
-                            linkBanKhai = @"";
-                            
-                        }else{
-                            [WriteLogsUtils writeLogContent:SFM(@"[%s] BanKhai was uploaded successful", __FUNCTION__)];
-                            
-                            linkBanKhai = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
-                        }
-                        [self uploadPassportFrontPicture];
-                    });
-                }];
-            });
-        }
-    }else{
-        self.linkBanKhai = curBanKhai;
-        [self uploadPassportFrontPicture];
     }
 }
 
@@ -312,6 +257,16 @@
         [self.view makeToast:failed_to_upload_passport_photo duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
+    if (linkCMND_a == nil) {
+        linkCMND_a = @"";
+    }
+    if (linkCMND_b == nil) {
+        linkCMND_b = @"";
+    }
+    if (linkBanKhai == nil) {
+        linkBanKhai = @"";
+    }
+    
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateCMNDPhotoForDomainWithCMND_a:linkCMND_a CMND_b:linkCMND_b cusId:cusId domainName:domain domainType:domainType domainId:domainId banKhai:linkBanKhai];
 }
@@ -383,49 +338,31 @@
     
     padding = 15.0;
     hLabel = 25.0;
-    btnBanKhai.imageEdgeInsets = btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
-
-    btnBanKhai.imageView.contentMode = btnCMND_a.imageView.contentMode = btnCMND_b.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(7.5, 20, 7.5, 20);
+    btnCMND_a.imageView.contentMode = btnCMND_b.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (!IS_IPHONE && !IS_IPOD) {
-        btnBanKhai.imageEdgeInsets = btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(45, 120, 45, 120);
+        btnCMND_a.imageEdgeInsets = btnCMND_b.imageEdgeInsets = UIEdgeInsetsMake(45, 120, 45, 120);
         hLabel = 50.0;
     }
     
-    float hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 3*padding + 3*hLabel))/3;
+    float hBTN = (SCREEN_HEIGHT - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 2*padding + 2*hLabel))/2;
     
-    imgWaitBanKhai.backgroundColor = imgWaitCMND_a.backgroundColor = imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
-    imgWaitBanKhai.alpha = imgWaitCMND_a.alpha = imgWaitCMND_b.alpha = 0.5;
-    imgWaitBanKhai.hidden = imgWaitCMND_a.hidden = imgWaitCMND_b.hidden = TRUE;
+    imgWaitCMND_a.backgroundColor = imgWaitCMND_b.backgroundColor = UIColor.whiteColor;
+    imgWaitCMND_a.alpha = imgWaitCMND_b.alpha = 0.5;
+    imgWaitCMND_a.hidden = imgWaitCMND_b.hidden = TRUE;
     
-    //  Ban khai
-    btnBanKhai.layer.borderWidth = btnCMND_a.layer.borderWidth = btnCMND_b.layer.borderWidth = 1.0;
-    btnBanKhai.layer.borderColor = btnCMND_a.layer.borderColor = btnCMND_b.layer.borderColor = BORDER_COLOR.CGColor;
+    //  CMND_a
+    btnCMND_a.layer.borderWidth = btnCMND_b.layer.borderWidth = 1.0;
+    btnCMND_a.layer.borderColor = btnCMND_b.layer.borderColor = BORDER_COLOR.CGColor;
     
-    [btnBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
+    [btnCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(padding);
         make.left.equalTo(self.view).offset(2*padding);
         make.right.equalTo(self.view).offset(-2*padding);
         make.height.mas_equalTo(hBTN);
     }];
     
-    [imgWaitBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(btnBanKhai);
-    }];
-    
-    [lbBanKhai mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(btnBanKhai.mas_bottom);
-        make.left.right.equalTo(btnBanKhai);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
-    //  CMND_a
-    [btnCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbBanKhai.mas_bottom).offset(padding);
-        make.left.right.equalTo(btnBanKhai);
-        make.height.mas_equalTo(hBTN);
-    }];
-
     [imgWaitCMND_a mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(btnCMND_a);
     }];
@@ -453,8 +390,8 @@
         make.height.mas_equalTo(hLabel);
     }];
 
-    lbBanKhai.font = lbCMND_a.font = lbCMND_b.font = [AppDelegate sharedInstance].fontRegular;
-    lbBanKhai.textColor = lbCMND_a.textColor = lbCMND_b.textColor = TITLE_COLOR;
+    lbCMND_a.font = lbCMND_b.font = [AppDelegate sharedInstance].fontRegular;
+    lbCMND_a.textColor = lbCMND_b.textColor = TITLE_COLOR;
 }
 
 - (void)requestToAccessYourCamera {
@@ -542,13 +479,6 @@
         }else{
             [btnCMND_b setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
         }
-    }else{
-        [AppDelegate sharedInstance].editBanKhai = nil;
-        if (![AppUtils isNullOrEmpty: curBanKhai]) {
-            [btnBanKhai sd_setImageWithURL:[NSURL URLWithString:curBanKhai] forState:UIControlStateNormal placeholderImage:BEHIND_EMPTY_IMG];
-        }else{
-            [btnBanKhai setImage:BEHIND_EMPTY_IMG forState:UIControlStateNormal];
-        }
     }
 }
 
@@ -567,46 +497,33 @@
     
     float heightScreen = [DeviceUtils getHeightOfScreen];
     if ([DeviceUtils isLandscapeMode]) {
-        float hBTN = (heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 2*padding + 2*hLabel))/2;
+        float hBTN = heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + padding + hLabel);
         
-        [btnBanKhai mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(padding);
             make.left.equalTo(self.view).offset(2*padding);
             make.right.equalTo(self.view.mas_centerX).offset(-padding);
             make.height.mas_equalTo(hBTN);
         }];
         
-        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(btnBanKhai);
-            make.left.equalTo(btnBanKhai.mas_right).offset(2*padding);
+        [btnCMND_b mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(btnCMND_a);
+            make.left.equalTo(btnCMND_a.mas_right).offset(2*padding);
             make.right.equalTo(self.view).offset(-padding);
         }];
-        
-        [btnCMND_b mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(lbCMND_a.mas_bottom).offset(padding);
-            make.centerX.equalTo(self.view.mas_centerX);
-            make.width.equalTo(btnCMND_a.mas_width);
-            make.height.mas_equalTo(hBTN);
-        }];
     }else{
-        float hBTN = (heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 3*padding + 3*hLabel))/3;
+        float hBTN = (heightScreen - ([AppDelegate sharedInstance].hStatusBar + [AppDelegate sharedInstance].hNav + 2*padding + 2*hLabel))/2;
         
-        [btnBanKhai mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(padding);
             make.left.equalTo(self.view).offset(2*padding);
             make.right.equalTo(self.view).offset(-2*padding);
             make.height.mas_equalTo(hBTN);
         }];
         
-        [btnCMND_a mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(lbBanKhai.mas_bottom).offset(padding);
-            make.left.right.equalTo(btnBanKhai);
-            make.height.mas_equalTo(hBTN);
-        }];
-        
         [btnCMND_b mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(lbCMND_a.mas_bottom).offset(padding);
-            make.left.right.equalTo(lbCMND_a);
+            make.left.right.equalTo(btnCMND_a);
             make.height.mas_equalTo(hBTN);
         }];
     }
@@ -635,10 +552,6 @@
         [AppDelegate sharedInstance].editCMND_b = [UIImage imageWithData:pngData];
         [btnCMND_b setImage:[AppDelegate sharedInstance].editCMND_b forState:UIControlStateNormal];
         
-    }else if (type == 3){
-        NSData *pngData = UIImagePNGRepresentation(image);
-        [AppDelegate sharedInstance].editBanKhai = [UIImage imageWithData:pngData];
-        [btnBanKhai setImage:[AppDelegate sharedInstance].editBanKhai forState:UIControlStateNormal];
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
