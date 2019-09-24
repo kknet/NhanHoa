@@ -9,6 +9,7 @@
 #import "AppUtils.h"
 #import "CustomTextAttachment.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation NSString (MD5)
 - (NSString *)MD5String {
@@ -742,6 +743,41 @@
         }
     }
     return TRUE;
+}
+
++ (NSString *)urlencode: (NSString *)string {
+    NSMutableString *output = [NSMutableString string];
+    const unsigned char *source = (const unsigned char *)[string UTF8String];
+    unsigned long sourceLen = strlen((const char *)source);
+    for (int i = 0; i < sourceLen; ++i) {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' '){
+            [output appendString:@"+"];
+        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
+                   (thisChar >= 'a' && thisChar <= 'z') ||
+                   (thisChar >= 'A' && thisChar <= 'Z') ||
+                   (thisChar >= '0' && thisChar <= '9')) {
+            [output appendFormat:@"%c", thisChar];
+        } else {
+            [output appendFormat:@"%%%02X", thisChar];
+        }
+    }
+    return output;
+}
+
++ (NSString *)getHashHmacSHA256OfString:(NSString *)data key:(NSString *)key
+{
+    const char *secretKey  = [key cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *plainData = [data cStringUsingEncoding:NSUTF8StringEncoding];
+    unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA256, secretKey, strlen(secretKey), plainData, strlen(plainData), cHMAC);
+    NSData *HMACData = [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
+    const unsigned char *bufferChar = (const unsigned char *)[HMACData bytes];
+    NSMutableString *hmacString = [NSMutableString stringWithCapacity:HMACData.length * 2];
+    for (int i = 0; i < HMACData.length; ++i){
+        [hmacString appendFormat:@"%02x", bufferChar[i]];
+    }
+    return hmacString;
 }
 
 

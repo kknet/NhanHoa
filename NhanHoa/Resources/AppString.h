@@ -18,6 +18,22 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#define MoMo_Merchant_ID    @"MOMOIQA420180417"
+#define MoMo_Partner_Code   @"MOMOIQA420180417"
+#define MoMo_IOS_SCHEME_ID  @"momoiqa420180417"
+#define MoMo_PublicKey      @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa+qMXS6O11x7jBGo9W3yxeHEsAdyDE40UoXhoQf9K6attSIclTZMEGfq6gmJm2BogVJtPkjvri5/j9mBntA8qKMzzanSQaBEbr8FyByHnf226dsLt1RbJSMLjCd3UC1n0Yq8KKvfHhvmvVbGcWfpgfo7iQTVmL0r1eQxzgnSq31EL1yYNMuaZjpHmQuT24Hmxl9W9enRtJyVTUhwKhtjOSOsR03sMnsckpFT9pn1/V9BE2Kf3rFGqc6JukXkqK6ZW9mtmGLSq3K+JRRq2w8PVmcbcvTr/adW4EL2yc1qk9Ec4HtiDhtSYd6/ov8xLVkKAQjLVt7Ex3/agRPfPrNwIDAQAB"
+#define MoMo_SecretKey      @"PPuDXq1KowPT1ftR8DvlQTHhC03aul17"
+#define MoMo_AccessKey      @"TNWFx9JWayevKPiB8LyTgODiCSrjstXN"
+
+#define MoMo_Request_Type_Confirm   @"capture"
+#define MoMo_Request_Type_Cancel    @"revertAuthorize"
+
+//  #define MoMo_AccessKey      @"SvDmj2cOTYZmQQ3H"
+//Access key: SvDmj2cOTYZmQQ3H
+//Secret key: PPuDXq1KowPT1ftR8DvlQTHhC03aul17
+
+#define APP_NAME        @"Nhân Hòa"
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -63,7 +79,7 @@
 
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  10
-#define MIN_MONEY_TOPUP     200000
+#define MIN_MONEY_TOPUP     1000
 #define phone_support       @"19006680"
 
 #define type_na             2

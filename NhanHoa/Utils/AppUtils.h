@@ -63,5 +63,7 @@ typedef enum {
 + (NSString *)durationToString:(int)duration;
 + (NSArray *)bluetoothRoutes;
 + (BOOL)stringContainsOnlyNumber: (NSString *)string;
++ (NSString *)urlencode: (NSString *)string;
++ (NSString *)getHashHmacSHA256OfString:(NSString *)data key:(NSString *)key;
 
 @end

@@ -210,7 +210,6 @@
 		4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */; };
 		4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */; };
 		4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */; };
-		4C60B8B92338D23600AF42A6 /* logo-momo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C60B8B82338D23600AF42A6 /* logo-momo.png */; };
 		4C6580E522F92BA600F38087 /* VPSTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6580E322F92BA600F38087 /* VPSTbvCell.m */; };
 		4C6580E622F92BA600F38087 /* VPSTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E422F92BA600F38087 /* VPSTbvCell.xib */; };
 		4C6580E822F937FD00F38087 /* checked_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E722F937FD00F38087 /* checked_blue.png */; };
@@ -237,6 +236,8 @@
 		4C65812222FC2B2D00F38087 /* HostingDetailSelectTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C65812022FC2B2D00F38087 /* HostingDetailSelectTbvCell.m */; };
 		4C65812322FC2B2D00F38087 /* HostingDetailSelectTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C65812122FC2B2D00F38087 /* HostingDetailSelectTbvCell.xib */; };
 		4C65812622FC2C1300F38087 /* PaddingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C65812522FC2C1300F38087 /* PaddingLabel.m */; };
+		4C6DDD0F2339A8C0009FE41C /* momo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6DDD0E2339A8C0009FE41C /* momo_icon.png */; };
+		4C6DDD132339C82B009FE41C /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DDD122339C82B009FE41C /* RSA.m */; };
 		4C765EF922F7E89A002AFEC8 /* OrderTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C765EF722F7E89A002AFEC8 /* OrderTbvCell.m */; };
 		4C765EFA22F7E89A002AFEC8 /* OrderTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C765EF822F7E89A002AFEC8 /* OrderTbvCell.xib */; };
 		4C765EFD22F8153F002AFEC8 /* worldpress.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C765EFB22F8153D002AFEC8 /* worldpress.png */; };
@@ -799,7 +800,6 @@
 		4C28B93022F5987800910F54 /* RegisterCloudServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterCloudServerViewController.h; sourceTree = "<group>"; };
 		4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterCloudServerViewController.m; sourceTree = "<group>"; };
 		4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterCloudServerViewController.xib; sourceTree = "<group>"; };
-		4C60B8B82338D23600AF42A6 /* logo-momo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-momo.png"; sourceTree = "<group>"; };
 		4C6580E222F92BA600F38087 /* VPSTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPSTbvCell.h; sourceTree = "<group>"; };
 		4C6580E322F92BA600F38087 /* VPSTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPSTbvCell.m; sourceTree = "<group>"; };
 		4C6580E422F92BA600F38087 /* VPSTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPSTbvCell.xib; sourceTree = "<group>"; };
@@ -837,6 +837,9 @@
 		4C65812122FC2B2D00F38087 /* HostingDetailSelectTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HostingDetailSelectTbvCell.xib; sourceTree = "<group>"; };
 		4C65812422FC2C1300F38087 /* PaddingLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaddingLabel.h; sourceTree = "<group>"; };
 		4C65812522FC2C1300F38087 /* PaddingLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaddingLabel.m; sourceTree = "<group>"; };
+		4C6DDD0E2339A8C0009FE41C /* momo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = momo_icon.png; sourceTree = "<group>"; };
+		4C6DDD112339C82B009FE41C /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
+		4C6DDD122339C82B009FE41C /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
 		4C765EF622F7E89A002AFEC8 /* OrderTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTbvCell.h; sourceTree = "<group>"; };
 		4C765EF722F7E89A002AFEC8 /* OrderTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTbvCell.m; sourceTree = "<group>"; };
 		4C765EF822F7E89A002AFEC8 /* OrderTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderTbvCell.xib; sourceTree = "<group>"; };
@@ -1733,6 +1736,7 @@
 		15224F082272EDCC00A45C3B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4C6DDD102339C81A009FE41C /* RSA */,
 				15224F092272EDDF00A45C3B /* AppUtils.h */,
 				15224F0A2272EDDF00A45C3B /* AppUtils.m */,
 				56078BEA22E7F1540009A3AF /* DeviceUtils.h */,
@@ -1810,7 +1814,7 @@
 			isa = PBXGroup;
 			children = (
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
-				4C60B8B82338D23600AF42A6 /* logo-momo.png */,
+				4C6DDD0E2339A8C0009FE41C /* momo_icon.png */,
 				4C01687A23064A8700C43D5F /* banner.png */,
 				4C6580EC22FBC42E00F38087 /* email_hosting_act.png */,
 				4C6580EB22FBC42E00F38087 /* email_hosting.png */,
@@ -2214,6 +2218,15 @@
 				4C6580F922FBCFA400F38087 /* EmailServerCell.xib */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		4C6DDD102339C81A009FE41C /* RSA */ = {
+			isa = PBXGroup;
+			children = (
+				4C6DDD112339C82B009FE41C /* RSA.h */,
+				4C6DDD122339C82B009FE41C /* RSA.m */,
+			);
+			path = RSA;
 			sourceTree = "<group>";
 		};
 		4C765EF522F7E70B002AFEC8 /* UI */ = {
@@ -3646,6 +3659,7 @@
 				5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */,
 				4C01687B23064A8800C43D5F /* banner.png in Resources */,
 				4C041EC122E843E400DA7405 /* numpad_seven_default.png in Resources */,
+				4C6DDD0F2339A8C0009FE41C /* momo_icon.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
@@ -3692,7 +3706,6 @@
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				56B5685022B153A300AB8F29 /* tick_white.png in Resources */,
 				4C00B3F822F2C7750087479C /* DNSRecordTypeCell.xib in Resources */,
-				4C60B8B92338D23600AF42A6 /* logo-momo.png in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
 				153035F122868056005E7DB2 /* CityCell.xib in Resources */,
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
@@ -3928,6 +3941,7 @@
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */,
+				4C6DDD132339C82B009FE41C /* RSA.m in Sources */,
 				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,
 				56E477EA22F9A20800296A55 /* SSLTbvCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,

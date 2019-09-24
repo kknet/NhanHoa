@@ -29,7 +29,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1LW-f5-oUh">
                     <rect key="frame" x="16" y="441" width="288" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Tiếp tục"/>
+                    <state key="normal" title="Continue"/>
                     <connections>
                         <action selector="btnContinuePress:" destination="-1" eventType="touchUpInside" id="CCD-Hp-Zsa"/>
                     </connections>
@@ -37,7 +37,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-296" y="1"/>
+            <point key="canvasLocation" x="52" y="-11"/>
         </view>
     </objects>
 </document>

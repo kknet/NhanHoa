@@ -18,6 +18,8 @@
 #include "pjsip_sources/pjsua/pjsua_app.h"
 #include "pjsip_sources/pjsua/pjsua_app_config.h"
 
+#import "MoMoPayment.h"
+
 #define THIS_FILE    "AppDelegate.m"
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -284,6 +286,12 @@ AppDelegate      *app;
 {
     
 }
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [[MoMoPayment shareInstant] handleOpenUrl:url];
+    return TRUE;
+}
+
 
 +(AppDelegate *)sharedInstance{
     return ((AppDelegate*) [[UIApplication sharedApplication] delegate]);

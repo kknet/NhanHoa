@@ -11,6 +11,7 @@
 
 #ifdef __OBJC__
 #import "Masonry.h"
+#import "JSONKit.h"
 #import "AppString.h"
 #import "AppUtils.h"
 #import "PaddingLabel.h"

@@ -50,43 +50,6 @@
     
     [self createDataForMenuView];
     [self setupUIForView];
-    
-    UIButton *btnMOMO = [[UIButton alloc] init];
-    [btnMOMO setImage:[UIImage imageNamed:@"logo-momo"] forState:UIControlStateNormal];
-    [self.view addSubview: btnMOMO];
-    [btnMOMO mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.centerY.equalTo(self.view.mas_centerY);
-        make.width.height.mas_equalTo(100);
-    }];
-    [btnMOMO addTarget:self
-                action:@selector(clickOnMoMoButton)
-      forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)clickOnMoMoButton {
-    //  https://github.com/momo-wallet/mobile-sdk
-    //  https://business.momo.vn/assets//docs/api/MoMo-Payment-APIs-v2.1.5.pdf?version=16
-    //  https://developers.momo.vn/#/docs/app_in_app?id=m%e1%bb%9f-%e1%bb%a9ng-d%e1%bb%a5ng-momo
-    
-    NSString *customURL = @"momo://";
-    UIApplication *application = [UIApplication sharedApplication];
-    NSURL *URL = [NSURL URLWithString:@"momo://?action=gettoken&merchantcode=CGV01&merchantname=CGV Cinemas&amount=99000&orderId=012345XXX&description=Buy ticket&fee=0&ipaddress=192.168.1.154&username=username_accountId@yahoo.com&sdkversion=2.0&appScheme=partnerSchemeId"];
-    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)])
-    {
-        [application openURL:URL options:@{}
-           completionHandler:^(BOOL success) {
-               NSLog(@"Open %@: %d",customURL,success);
-           }];
-    }
-    else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"No Custom URL is defined" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    
-    //  momo://?action=gettoken&merchantcode=CGV01&merchantname=CGV Cinemas&amount=99000&orderId=012345XXX&description=Buy ticket&fee=0&ipaddress=192.168.1.154&username=username_accountId@yahoo.com&sdkversion=2.0&appScheme=partnerSchemeId
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -128,6 +91,30 @@
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
+
+- (NSString*)base64forData:(NSData*)theData {
+    const uint8_t* input = (const uint8_t*)[theData bytes];
+    NSInteger length = [theData length];
+    
+    static char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    
+    NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
+    uint8_t* output = (uint8_t*)data.mutableBytes;
+    
+    NSInteger i;
+    for (i=0; i < length; i += 3) {
+        NSInteger value = 0;
+        NSInteger j;
+        for (j = i; j < (i + 3); j++) {
+            value <<= 8;
+            
+            if (j < length) {  value |= (0xFF & input[j]);  }  }  NSInteger theIndex = (i / 3) * 4;  output[theIndex + 0] = table[(value >> 18) & 0x3F];
+        output[theIndex + 1] = table[(value >> 12) & 0x3F];
+        output[theIndex + 2] = (i + 1) < length ? table[(value >> 6) & 0x3F] : '=';
+        output[theIndex + 3] = (i + 2) < length ? table[(value >> 0) & 0x3F] : '=';
+    }
+    
+    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]; }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];

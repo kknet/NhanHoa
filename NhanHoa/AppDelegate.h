@@ -43,6 +43,7 @@ typedef enum TypeHomeMenu{
 typedef enum PaymentMethod{
     ePaymentWithATM,
     ePaymentWithVisaMaster,
+    ePaymentWithMoMo,
 }PaymentMethod;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate>
