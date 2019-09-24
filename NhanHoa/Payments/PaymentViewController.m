@@ -405,40 +405,11 @@
                 
             }else{
                 NSString *message = [responseObject objectForKey:@"message"];
-                NSLog(@"status: %@ - message: %@", status, message);
-                NSLog(@"----DONE");
+                [self.view makeToast:message duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
             }
-            
-            /*
-            {
-                amount = 10000;
-                message = "Giao d\U1ecbch \U0111\U00e3 \U0111\U01b0\U1ee3c x\U1eed l\U00fd. Qu\U00fd kh\U00e1ch vui l\U00f2ng ki\U1ec3m tra l\U1ea1i. Xin c\U1ea3m \U01a1n!";
-                signature = eeb44ae8a6cc3a6b71c30499b31ab5851a8eda999da9ca160aba63fa46f67ecd;
-                status = 2132;
-                transid = 15693099908823;
-            }
-            */
-            
         }else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NoficationCenterCreateOrderReceived" object:err.description];
+            [self.view makeToast:err.localizedDescription duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
         }
-                
-        
-//         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//             NSURLResponse *response;
-//             NSError *err;
-//             NSData *GETReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-//             dispatch_async(dispatch_get_main_queue(), ^(void){
-//                 if (!err) {
-//                     NSError *errJson;
-//                     id responseObject = [NSJSONSerialization JSONObjectWithData:GETReply options:0 error:&errJson];
-//                     [[NSNotificationCenter defaultCenter] postNotificationName:@"NoficationCenterCreateOrderReceived" object:responseObject];
-//
-//                 }else {
-//                     [[NSNotificationCenter defaultCenter] postNotificationName:@"NoficationCenterCreateOrderReceived" object:err.description];
-//                 }
-//             });
-//         });
     }else
     {
         if ([status isEqualToString:@"1"]) {
