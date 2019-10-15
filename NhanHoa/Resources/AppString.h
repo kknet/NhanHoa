@@ -34,6 +34,11 @@
 
 #define APP_NAME        @"Nhân Hòa"
 
+//  define for language
+#define language_key            @"language_key"
+#define key_en                  @"en"
+#define key_vi                  @"vi"
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -79,7 +84,7 @@
 
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  10
-#define MIN_MONEY_TOPUP     1000
+#define MIN_MONEY_TOPUP     200000
 #define phone_support       @"19006680"
 
 #define type_na             2

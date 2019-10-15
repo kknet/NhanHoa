@@ -1,0 +1,8 @@
+"Domains"           =   "Domains"
+"Cloud server"      =   "Cloud server"
+"Vfone"             =   "Vfone"
+"Invoices"          =   "Invoices"
+"Profiles"          =   "Profiles"
+"Register email"    =   "Register email"
+"Hosting"           =   "Hosting"
+"More"              =   "More"

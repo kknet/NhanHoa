@@ -55,6 +55,7 @@
 @synthesize supportCall, ringbackPlayer, beepPlayer, newHomeLayout;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName, needChangeDNS;
+@synthesize localization;
 
 AppDelegate      *app;
 
@@ -66,6 +67,10 @@ AppDelegate      *app;
     
     //  setup for Fabric
     [Fabric with:@[[Crashlytics class]]];
+    
+    //  setup language
+    localization = [[HMLocalization alloc] init];
+    [localization setLanguage: key_vi];
     
     if ([UNUserNotificationCenter class] != nil) {
         // iOS 10 or later
@@ -114,7 +119,7 @@ AppDelegate      *app;
     
     //  setup logs folder
     supportCall = TRUE;
-    newHomeLayout = FALSE;
+    newHomeLayout = TRUE;
     
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];

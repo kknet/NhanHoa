@@ -21,6 +21,7 @@
 #import <UserNotificationsUI/UserNotificationsUI.h>
 
 #import "CallViewController.h"
+#import "HMLocalization.h"
 
 typedef enum TypeHomeMenu{
     eRegisterDomain,
@@ -49,6 +50,8 @@ typedef enum PaymentMethod{
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WebServiceUtilsDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, strong) HMLocalization *localization;
 
 @property (strong, nonatomic) CSToastStyle *errorStyle;
 @property (strong, nonatomic) CSToastStyle *warningStyle;
