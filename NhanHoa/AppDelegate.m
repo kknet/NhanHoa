@@ -52,7 +52,7 @@
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
-@synthesize supportCall, ringbackPlayer, beepPlayer, newHomeLayout;
+@synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName, needChangeDNS;
 @synthesize localization;
@@ -119,7 +119,6 @@ AppDelegate      *app;
     
     //  setup logs folder
     supportCall = TRUE;
-    newHomeLayout = TRUE;
     
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];

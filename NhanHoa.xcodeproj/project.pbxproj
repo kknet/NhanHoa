@@ -24,7 +24,6 @@
 		1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB4A227446500044E878 /* menu_search_domain.png */; };
 		1517FB5F2274465B0044E878 /* menu_support.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB4D227446520044E878 /* menu_support.png */; };
 		1517FB602274465B0044E878 /* menu_recharge.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB4E227446530044E878 /* menu_recharge.png */; };
-		1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB50227446540044E878 /* menu_withdrawal.png */; };
 		1517FB642274465B0044E878 /* menu_list_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB52227446560044E878 /* menu_list_domain.png */; };
 		1517FB6B227446980044E878 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1517FB69227446980044E878 /* HomeViewController.m */; };
 		1517FB6C227446980044E878 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB6A227446980044E878 /* HomeViewController.xib */; };
@@ -208,6 +207,42 @@
 		4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B92C22F5985900910F54 /* RegisterVPSViewController.xib */; };
 		4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */; };
 		4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */; };
+		4C49FA302356BDAE001D0EEF /* HomePromotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA2F2356BDAE001D0EEF /* HomePromotionView.m */; };
+		4C49FA322356BEA9001D0EEF /* HomePromotionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA312356BEA9001D0EEF /* HomePromotionView.xib */; };
+		4C49FA362356C366001D0EEF /* HomeSliderClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA342356C365001D0EEF /* HomeSliderClvCell.m */; };
+		4C49FA372356C366001D0EEF /* HomeSliderClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA352356C366001D0EEF /* HomeSliderClvCell.xib */; };
+		4C49FA3A2356C72A001D0EEF /* promotion_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA382356C729001D0EEF /* promotion_1.png */; };
+		4C49FA3B2356C72A001D0EEF /* promotion_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA392356C72A001D0EEF /* promotion_2.png */; };
+		4C49FA3F2356C7A4001D0EEF /* HomePromotionClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA3D2356C7A4001D0EEF /* HomePromotionClvCell.m */; };
+		4C49FA402356C7A4001D0EEF /* HomePromotionClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA3E2356C7A4001D0EEF /* HomePromotionClvCell.xib */; };
+		4C49FA422356D71D001D0EEF /* menu_topup.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA412356D71D001D0EEF /* menu_topup.png */; };
+		4C49FA452356DAE3001D0EEF /* menu_withdraw.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA442356DAE2001D0EEF /* menu_withdraw.png */; };
+		4C49FA482356DB5A001D0EEF /* menu_trans.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA462356DB59001D0EEF /* menu_trans.png */; };
+		4C49FA492356DB5A001D0EEF /* menu_promotions.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA472356DB59001D0EEF /* menu_promotions.png */; };
+		4C49FA4E2356F106001D0EEF /* InvoicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA4C2356F106001D0EEF /* InvoicesViewController.m */; };
+		4C49FA4F2356F106001D0EEF /* InvoicesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA4D2356F106001D0EEF /* InvoicesViewController.xib */; };
+		4C49FA542356F172001D0EEF /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA522356F172001D0EEF /* NotificationsViewController.m */; };
+		4C49FA552356F172001D0EEF /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA532356F172001D0EEF /* NotificationsViewController.xib */; };
+		4C49FA5C2356F3B7001D0EEF /* tabbar_invoices_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA562356F3B4001D0EEF /* tabbar_invoices_act@2x.png */; };
+		4C49FA5D2356F3B7001D0EEF /* tabbar_invoices_act@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA572356F3B5001D0EEF /* tabbar_invoices_act@3x.png */; };
+		4C49FA5E2356F3B7001D0EEF /* tabbar_invoices_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA582356F3B5001D0EEF /* tabbar_invoices_act.png */; };
+		4C49FA5F2356F3B7001D0EEF /* tabbar_invoices_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA592356F3B6001D0EEF /* tabbar_invoices_def.png */; };
+		4C49FA602356F3B7001D0EEF /* tabbar_invoices_def@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA5A2356F3B6001D0EEF /* tabbar_invoices_def@3x.png */; };
+		4C49FA612356F3B7001D0EEF /* tabbar_invoices_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA5B2356F3B7001D0EEF /* tabbar_invoices_def@2x.png */; };
+		4C49FA682356F5C7001D0EEF /* tabbar_notif_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA622356F5C5001D0EEF /* tabbar_notif_act.png */; };
+		4C49FA692356F5C7001D0EEF /* tabbar_notif_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA632356F5C5001D0EEF /* tabbar_notif_def.png */; };
+		4C49FA6A2356F5C7001D0EEF /* tabbar_notif_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA642356F5C6001D0EEF /* tabbar_notif_act@2x.png */; };
+		4C49FA6B2356F5C7001D0EEF /* tabbar_notif_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA652356F5C6001D0EEF /* tabbar_notif_def@2x.png */; };
+		4C49FA6C2356F5C7001D0EEF /* tabbar_notif_act@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA662356F5C6001D0EEF /* tabbar_notif_act@3x.png */; };
+		4C49FA6D2356F5C7001D0EEF /* tabbar_notif_def@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA672356F5C7001D0EEF /* tabbar_notif_def@3x.png */; };
+		4C49FA722356F89C001D0EEF /* SearchDomainsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA702356F89C001D0EEF /* SearchDomainsViewController.m */; };
+		4C49FA732356F89C001D0EEF /* SearchDomainsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA712356F89C001D0EEF /* SearchDomainsViewController.xib */; };
+		4C49FA752356F9D5001D0EEF /* search_domains.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA742356F9D5001D0EEF /* search_domains.png */; };
+		4C49FA8123570559001D0EEF /* slider_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA8023570558001D0EEF /* slider_2.png */; };
+		4C49FA83235705A9001D0EEF /* slider_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA82235705A8001D0EEF /* slider_3.png */; };
+		4C49FA86235711A1001D0EEF /* HomeExploreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49FA85235711A1001D0EEF /* HomeExploreView.m */; };
+		4C49FA88235711AB001D0EEF /* HomeExploreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA87235711AB001D0EEF /* HomeExploreView.xib */; };
+		4C49FA8A23572285001D0EEF /* line_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C49FA8923572283001D0EEF /* line_gray.png */; };
 		4C6580E522F92BA600F38087 /* VPSTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6580E322F92BA600F38087 /* VPSTbvCell.m */; };
 		4C6580E622F92BA600F38087 /* VPSTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E422F92BA600F38087 /* VPSTbvCell.xib */; };
 		4C6580E822F937FD00F38087 /* checked_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6580E722F937FD00F38087 /* checked_blue.png */; };
@@ -260,7 +295,6 @@
 		4CD7A63B2355AA8D00044E1A /* HomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7A63A2355AA8D00044E1A /* HomeHeaderView.m */; };
 		4CD7A63D2355AAA300044E1A /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A63C2355AAA300044E1A /* HomeHeaderView.xib */; };
 		4CD7A63F2355ABE400044E1A /* next_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A63E2355ABE400044E1A /* next_blue.png */; };
-		4CD7A6412355AC6500044E1A /* header_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6402355AC6400044E1A /* header_icon.png */; };
 		4CD7A6432355AD0100044E1A /* call_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6422355AD0100044E1A /* call_green.png */; };
 		4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7A6452355BB8700044E1A /* HomeMenuClvCell.m */; };
 		4CD7A6482355BB8700044E1A /* HomeMenuClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6462355BB8700044E1A /* HomeMenuClvCell.xib */; };
@@ -276,7 +310,7 @@
 		4CD7A6602355CAA200044E1A /* HomeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7A65F2355CAA200044E1A /* HomeSliderView.m */; };
 		4CD7A6622355CAB000044E1A /* HomeSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6612355CAB000044E1A /* HomeSliderView.xib */; };
 		4CD7A6642355CC3000044E1A /* bg_banner_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6632355CC2F00044E1A /* bg_banner_item.png */; };
-		4CD7A6662355D54C00044E1A /* slider1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6652355D54C00044E1A /* slider1.png */; };
+		4CD7A6662355D54C00044E1A /* slider_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6652355D54C00044E1A /* slider_1.png */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */; };
 		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
@@ -582,7 +616,6 @@
 		1517FB4A227446500044E878 /* menu_search_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_search_domain.png; sourceTree = "<group>"; };
 		1517FB4D227446520044E878 /* menu_support.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_support.png; sourceTree = "<group>"; };
 		1517FB4E227446530044E878 /* menu_recharge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_recharge.png; sourceTree = "<group>"; };
-		1517FB50227446540044E878 /* menu_withdrawal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_withdrawal.png; sourceTree = "<group>"; };
 		1517FB52227446560044E878 /* menu_list_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_list_domain.png; sourceTree = "<group>"; };
 		1517FB68227446980044E878 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		1517FB69227446980044E878 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -820,6 +853,49 @@
 		4C28B93022F5987800910F54 /* RegisterCloudServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterCloudServerViewController.h; sourceTree = "<group>"; };
 		4C28B93122F5987800910F54 /* RegisterCloudServerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterCloudServerViewController.m; sourceTree = "<group>"; };
 		4C28B93222F5987800910F54 /* RegisterCloudServerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterCloudServerViewController.xib; sourceTree = "<group>"; };
+		4C49FA2E2356BDAE001D0EEF /* HomePromotionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePromotionView.h; sourceTree = "<group>"; };
+		4C49FA2F2356BDAE001D0EEF /* HomePromotionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePromotionView.m; sourceTree = "<group>"; };
+		4C49FA312356BEA9001D0EEF /* HomePromotionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePromotionView.xib; sourceTree = "<group>"; };
+		4C49FA332356C365001D0EEF /* HomeSliderClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSliderClvCell.h; sourceTree = "<group>"; };
+		4C49FA342356C365001D0EEF /* HomeSliderClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSliderClvCell.m; sourceTree = "<group>"; };
+		4C49FA352356C366001D0EEF /* HomeSliderClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSliderClvCell.xib; sourceTree = "<group>"; };
+		4C49FA382356C729001D0EEF /* promotion_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promotion_1.png; sourceTree = "<group>"; };
+		4C49FA392356C72A001D0EEF /* promotion_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promotion_2.png; sourceTree = "<group>"; };
+		4C49FA3C2356C7A4001D0EEF /* HomePromotionClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePromotionClvCell.h; sourceTree = "<group>"; };
+		4C49FA3D2356C7A4001D0EEF /* HomePromotionClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePromotionClvCell.m; sourceTree = "<group>"; };
+		4C49FA3E2356C7A4001D0EEF /* HomePromotionClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePromotionClvCell.xib; sourceTree = "<group>"; };
+		4C49FA412356D71D001D0EEF /* menu_topup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_topup.png; sourceTree = "<group>"; };
+		4C49FA442356DAE2001D0EEF /* menu_withdraw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_withdraw.png; sourceTree = "<group>"; };
+		4C49FA462356DB59001D0EEF /* menu_trans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_trans.png; sourceTree = "<group>"; };
+		4C49FA472356DB59001D0EEF /* menu_promotions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_promotions.png; sourceTree = "<group>"; };
+		4C49FA4B2356F106001D0EEF /* InvoicesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoicesViewController.h; sourceTree = "<group>"; };
+		4C49FA4C2356F106001D0EEF /* InvoicesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoicesViewController.m; sourceTree = "<group>"; };
+		4C49FA4D2356F106001D0EEF /* InvoicesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvoicesViewController.xib; sourceTree = "<group>"; };
+		4C49FA512356F172001D0EEF /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		4C49FA522356F172001D0EEF /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		4C49FA532356F172001D0EEF /* NotificationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		4C49FA562356F3B4001D0EEF /* tabbar_invoices_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_invoices_act@2x.png"; sourceTree = "<group>"; };
+		4C49FA572356F3B5001D0EEF /* tabbar_invoices_act@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_invoices_act@3x.png"; sourceTree = "<group>"; };
+		4C49FA582356F3B5001D0EEF /* tabbar_invoices_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_invoices_act.png; sourceTree = "<group>"; };
+		4C49FA592356F3B6001D0EEF /* tabbar_invoices_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_invoices_def.png; sourceTree = "<group>"; };
+		4C49FA5A2356F3B6001D0EEF /* tabbar_invoices_def@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_invoices_def@3x.png"; sourceTree = "<group>"; };
+		4C49FA5B2356F3B7001D0EEF /* tabbar_invoices_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_invoices_def@2x.png"; sourceTree = "<group>"; };
+		4C49FA622356F5C5001D0EEF /* tabbar_notif_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_notif_act.png; sourceTree = "<group>"; };
+		4C49FA632356F5C5001D0EEF /* tabbar_notif_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_notif_def.png; sourceTree = "<group>"; };
+		4C49FA642356F5C6001D0EEF /* tabbar_notif_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_notif_act@2x.png"; sourceTree = "<group>"; };
+		4C49FA652356F5C6001D0EEF /* tabbar_notif_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_notif_def@2x.png"; sourceTree = "<group>"; };
+		4C49FA662356F5C6001D0EEF /* tabbar_notif_act@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_notif_act@3x.png"; sourceTree = "<group>"; };
+		4C49FA672356F5C7001D0EEF /* tabbar_notif_def@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_notif_def@3x.png"; sourceTree = "<group>"; };
+		4C49FA6F2356F89C001D0EEF /* SearchDomainsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchDomainsViewController.h; sourceTree = "<group>"; };
+		4C49FA702356F89C001D0EEF /* SearchDomainsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchDomainsViewController.m; sourceTree = "<group>"; };
+		4C49FA712356F89C001D0EEF /* SearchDomainsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchDomainsViewController.xib; sourceTree = "<group>"; };
+		4C49FA742356F9D5001D0EEF /* search_domains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_domains.png; sourceTree = "<group>"; };
+		4C49FA8023570558001D0EEF /* slider_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_2.png; sourceTree = "<group>"; };
+		4C49FA82235705A8001D0EEF /* slider_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_3.png; sourceTree = "<group>"; };
+		4C49FA84235711A1001D0EEF /* HomeExploreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeExploreView.h; sourceTree = "<group>"; };
+		4C49FA85235711A1001D0EEF /* HomeExploreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeExploreView.m; sourceTree = "<group>"; };
+		4C49FA87235711AB001D0EEF /* HomeExploreView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeExploreView.xib; sourceTree = "<group>"; };
+		4C49FA8923572283001D0EEF /* line_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_gray.png; sourceTree = "<group>"; };
 		4C6580E222F92BA600F38087 /* VPSTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPSTbvCell.h; sourceTree = "<group>"; };
 		4C6580E322F92BA600F38087 /* VPSTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPSTbvCell.m; sourceTree = "<group>"; };
 		4C6580E422F92BA600F38087 /* VPSTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPSTbvCell.xib; sourceTree = "<group>"; };
@@ -891,7 +967,6 @@
 		4CD7A63A2355AA8D00044E1A /* HomeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderView.m; sourceTree = "<group>"; };
 		4CD7A63C2355AAA300044E1A /* HomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
 		4CD7A63E2355ABE400044E1A /* next_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_blue.png; sourceTree = "<group>"; };
-		4CD7A6402355AC6400044E1A /* header_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_icon.png; sourceTree = "<group>"; };
 		4CD7A6422355AD0100044E1A /* call_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_green.png; sourceTree = "<group>"; };
 		4CD7A6442355BB8700044E1A /* HomeMenuClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeMenuClvCell.h; sourceTree = "<group>"; };
 		4CD7A6452355BB8700044E1A /* HomeMenuClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeMenuClvCell.m; sourceTree = "<group>"; };
@@ -910,7 +985,7 @@
 		4CD7A65F2355CAA200044E1A /* HomeSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSliderView.m; sourceTree = "<group>"; };
 		4CD7A6612355CAB000044E1A /* HomeSliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSliderView.xib; sourceTree = "<group>"; };
 		4CD7A6632355CC2F00044E1A /* bg_banner_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_banner_item.png; sourceTree = "<group>"; };
-		4CD7A6652355D54C00044E1A /* slider1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider1.png; sourceTree = "<group>"; };
+		4CD7A6652355D54C00044E1A /* slider_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_1.png; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingPackageCell.h; sourceTree = "<group>"; };
@@ -1656,6 +1731,9 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				4C49FA6E2356F881001D0EEF /* SearchDomains */,
+				4C49FA502356F165001D0EEF /* Notifications */,
+				4C49FA4A2356F0EE001D0EEF /* Invoices */,
 				4CD7A62C23558B0C00044E1A /* NewHome */,
 				4CFECE96231621360091C3D1 /* pjsip_sources */,
 				4C28B92F22F5986100910F54 /* RegisterCloudServer */,
@@ -1863,7 +1941,29 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
-				4CD7A6652355D54C00044E1A /* slider1.png */,
+				4C49FA582356F3B5001D0EEF /* tabbar_invoices_act.png */,
+				4C49FA562356F3B4001D0EEF /* tabbar_invoices_act@2x.png */,
+				4C49FA572356F3B5001D0EEF /* tabbar_invoices_act@3x.png */,
+				4C49FA592356F3B6001D0EEF /* tabbar_invoices_def.png */,
+				4C49FA5B2356F3B7001D0EEF /* tabbar_invoices_def@2x.png */,
+				4C49FA5A2356F3B6001D0EEF /* tabbar_invoices_def@3x.png */,
+				4C49FA622356F5C5001D0EEF /* tabbar_notif_act.png */,
+				4C49FA642356F5C6001D0EEF /* tabbar_notif_act@2x.png */,
+				4C49FA662356F5C6001D0EEF /* tabbar_notif_act@3x.png */,
+				4C49FA632356F5C5001D0EEF /* tabbar_notif_def.png */,
+				4C49FA652356F5C6001D0EEF /* tabbar_notif_def@2x.png */,
+				4C49FA672356F5C7001D0EEF /* tabbar_notif_def@3x.png */,
+				4C49FA742356F9D5001D0EEF /* search_domains.png */,
+				4C49FA8923572283001D0EEF /* line_gray.png */,
+				4C49FA412356D71D001D0EEF /* menu_topup.png */,
+				4C49FA472356DB59001D0EEF /* menu_promotions.png */,
+				4C49FA462356DB59001D0EEF /* menu_trans.png */,
+				4C49FA442356DAE2001D0EEF /* menu_withdraw.png */,
+				4CD7A6652355D54C00044E1A /* slider_1.png */,
+				4C49FA8023570558001D0EEF /* slider_2.png */,
+				4C49FA82235705A8001D0EEF /* slider_3.png */,
+				4C49FA382356C729001D0EEF /* promotion_1.png */,
+				4C49FA392356C72A001D0EEF /* promotion_2.png */,
 				4CD7A6632355CC2F00044E1A /* bg_banner_item.png */,
 				4CD7A6522355C4B500044E1A /* menu_domains.png */,
 				4CD7A6542355C4B600044E1A /* menu_invoices.png */,
@@ -1873,7 +1973,6 @@
 				4CD7A6572355C4B700044E1A /* menu_vfone.png */,
 				4CD7A63E2355ABE400044E1A /* next_blue.png */,
 				4CD7A6422355AD0100044E1A /* call_green.png */,
-				4CD7A6402355AC6400044E1A /* header_icon.png */,
 				4CD7A63323558C1900044E1A /* home_banner.png */,
 				4CD7A63423558C1A00044E1A /* home_banner@2x.png */,
 				4CD7A63223558C1900044E1A /* home_banner@3x.png */,
@@ -1952,7 +2051,6 @@
 				1517FB472274464B0044E878 /* menu_reorder_domain.png */,
 				1517FB4A227446500044E878 /* menu_search_domain.png */,
 				1517FB4D227446520044E878 /* menu_support.png */,
-				1517FB50227446540044E878 /* menu_withdrawal.png */,
 				4C28B90522F58CF600910F54 /* mene_order_list.png */,
 				4C28B90722F5900400910F54 /* menu_hosting.png */,
 				4C28B90922F5917300910F54 /* menu_ssl.png */,
@@ -2261,6 +2359,36 @@
 			path = RegisterCloudServer;
 			sourceTree = "<group>";
 		};
+		4C49FA4A2356F0EE001D0EEF /* Invoices */ = {
+			isa = PBXGroup;
+			children = (
+				4C49FA4B2356F106001D0EEF /* InvoicesViewController.h */,
+				4C49FA4C2356F106001D0EEF /* InvoicesViewController.m */,
+				4C49FA4D2356F106001D0EEF /* InvoicesViewController.xib */,
+			);
+			path = Invoices;
+			sourceTree = "<group>";
+		};
+		4C49FA502356F165001D0EEF /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				4C49FA512356F172001D0EEF /* NotificationsViewController.h */,
+				4C49FA522356F172001D0EEF /* NotificationsViewController.m */,
+				4C49FA532356F172001D0EEF /* NotificationsViewController.xib */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		4C49FA6E2356F881001D0EEF /* SearchDomains */ = {
+			isa = PBXGroup;
+			children = (
+				4C49FA6F2356F89C001D0EEF /* SearchDomainsViewController.h */,
+				4C49FA702356F89C001D0EEF /* SearchDomainsViewController.m */,
+				4C49FA712356F89C001D0EEF /* SearchDomainsViewController.xib */,
+			);
+			path = SearchDomains;
+			sourceTree = "<group>";
+		};
 		4C6580E122F92B9400F38087 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2363,6 +2491,18 @@
 				4CD7A65E2355CAA200044E1A /* HomeSliderView.h */,
 				4CD7A65F2355CAA200044E1A /* HomeSliderView.m */,
 				4CD7A6612355CAB000044E1A /* HomeSliderView.xib */,
+				4C49FA332356C365001D0EEF /* HomeSliderClvCell.h */,
+				4C49FA342356C365001D0EEF /* HomeSliderClvCell.m */,
+				4C49FA352356C366001D0EEF /* HomeSliderClvCell.xib */,
+				4C49FA2E2356BDAE001D0EEF /* HomePromotionView.h */,
+				4C49FA2F2356BDAE001D0EEF /* HomePromotionView.m */,
+				4C49FA312356BEA9001D0EEF /* HomePromotionView.xib */,
+				4C49FA3C2356C7A4001D0EEF /* HomePromotionClvCell.h */,
+				4C49FA3D2356C7A4001D0EEF /* HomePromotionClvCell.m */,
+				4C49FA3E2356C7A4001D0EEF /* HomePromotionClvCell.xib */,
+				4C49FA84235711A1001D0EEF /* HomeExploreView.h */,
+				4C49FA85235711A1001D0EEF /* HomeExploreView.m */,
+				4C49FA87235711AB001D0EEF /* HomeExploreView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3522,6 +3662,7 @@
 			files = (
 				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
 				4C6580E822F937FD00F38087 /* checked_blue.png in Resources */,
+				4C49FA88235711AB001D0EEF /* HomeExploreView.xib in Resources */,
 				4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */,
 				1517FBBA22745D9B0044E878 /* wallet.png in Resources */,
 				84A1646E2284EA5C0001B833 /* visa.png in Resources */,
@@ -3531,12 +3672,15 @@
 				4C041ECC22E8440A00DA7405 /* numpad_eight_default.png in Resources */,
 				4CD7A6642355CC3000044E1A /* bg_banner_item.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
+				4C49FA3B2356C72A001D0EEF /* promotion_2.png in Resources */,
 				56FDEB5C22B66486001A14AE /* launch.jpg in Resources */,
 				5612F8AE22E6CA0A00ECBBB1 /* state_audio_call.png in Resources */,
+				4C49FA402356C7A4001D0EEF /* HomePromotionClvCell.xib in Resources */,
 				159F7D99227AC93800A64586 /* PaymentStepView.xib in Resources */,
 				8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */,
 				560B16EB22B2AAFE0004DD29 /* AddOrderViewController.xib in Resources */,
 				4C041EB022E8439600DA7405 /* numpad_three_default.png in Resources */,
+				4C49FA6A2356F5C7001D0EEF /* tabbar_notif_act@2x.png in Resources */,
 				5612F8BE22E6CAC900ECBBB1 /* mute_normal.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
 				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
@@ -3561,6 +3705,7 @@
 				56A878A622CB50AF00300705 /* app-icon.jpg in Resources */,
 				1517FBA022745D810044E878 /* tabbar_BO_act.png in Resources */,
 				8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */,
+				4C49FA6D2356F5C7001D0EEF /* tabbar_notif_def@3x.png in Resources */,
 				4C041EA922E8437500DA7405 /* numpad_one_default.png in Resources */,
 				1517FB9D22745D810044E878 /* tabbar_home_def.png in Resources */,
 				5612F8CD22E7094700ECBBB1 /* hold_dis.png in Resources */,
@@ -3572,6 +3717,8 @@
 				846AACBC2276CAFE005BC87E /* cart.png in Resources */,
 				4CD7A6622355CAB000044E1A /* HomeSliderView.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
+				4C49FA5D2356F3B7001D0EEF /* tabbar_invoices_act@3x.png in Resources */,
+				4C49FA5C2356F3B7001D0EEF /* tabbar_invoices_act@2x.png in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
 				157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */,
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
@@ -3595,6 +3742,7 @@
 				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				4C765F0622F81756002AFEC8 /* windows_act.png in Resources */,
 				4C65810522FC085400F38087 /* OrderDetailView.xib in Resources */,
+				4C49FA5E2356F3B7001D0EEF /* tabbar_invoices_act.png in Resources */,
 				4CFECF88231623560091C3D1 /* config_auto.h.in in Resources */,
 				4C6580EE22FBC42F00F38087 /* email_server.png in Resources */,
 				4C65811E22FC2AF500F38087 /* HostingDetailTbvCell.xib in Resources */,
@@ -3606,6 +3754,7 @@
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
 				4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */,
+				4C49FA5F2356F3B7001D0EEF /* tabbar_invoices_def.png in Resources */,
 				56D0295522B3F90400280127 /* OrderResultView.xib in Resources */,
 				4CD7A65D2355C4B700044E1A /* menu_vfone.png in Resources */,
 				4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */,
@@ -3627,12 +3776,14 @@
 				1517FB7822744EE40044E878 /* TransHistoryViewController.xib in Resources */,
 				4C041EA822E8437500DA7405 /* numpad_one_hover.png in Resources */,
 				841486002277EB0600CC58AF /* WhoIsResultViewController.xib in Resources */,
+				4C49FA6C2356F5C7001D0EEF /* tabbar_notif_act@3x.png in Resources */,
 				15543EB522B1F764007E5966 /* ShoppingCartView.xib in Resources */,
 				8460F64D227A686C00A185B0 /* CartDomainItemCell.xib in Resources */,
 				562362E022E2DF03001AE97A /* SupportCustomerCell.xib in Resources */,
 				8446F4B62277C55E008F4EE9 /* add.png in Resources */,
 				15C1A8D2228AB0F0002F4F0F /* PaymentResultView.xib in Resources */,
 				15C1A8C3228A76B4002F4F0F /* nhanhoa.sqlite in Resources */,
+				4C49FA3A2356C72A001D0EEF /* promotion_1.png in Resources */,
 				15865BD722803AE9004A8575 /* SettingMenuCell.xib in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
 				4C041EBE22E843E400DA7405 /* numpad_seven_hover.png in Resources */,
@@ -3640,7 +3791,6 @@
 				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */,
 				4C041ED222E8443100DA7405 /* numpad_star_hover.png in Resources */,
-				4CD7A6412355AC6500044E1A /* header_icon.png in Resources */,
 				56D0295A22B3FAA500280127 /* DomainResultView.xib in Resources */,
 				4C6580F622FBC70700F38087 /* EmailHostingCell.xib in Resources */,
 				5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */,
@@ -3660,6 +3810,7 @@
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
 				4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */,
+				4C49FA752356F9D5001D0EEF /* search_domains.png in Resources */,
 				4C28B90E22F5957000910F54 /* menu_vps.png in Resources */,
 				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
@@ -3671,6 +3822,7 @@
 				4CD7A6592355C4B700044E1A /* menu_more.png in Resources */,
 				1517FBA622745D810044E878 /* tabbar_BO_def@3x.png in Resources */,
 				4C041ECD22E8440A00DA7405 /* numpad_nine_default.png in Resources */,
+				4C49FA552356F172001D0EEF /* NotificationsViewController.xib in Resources */,
 				4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */,
 				841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */,
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
@@ -3695,12 +3847,14 @@
 				15362864227C0688006827F9 /* picture.png in Resources */,
 				15CD147722B9E17B009CBE86 /* releaseck.pem in Resources */,
 				15865BD922803D36004A8575 /* right-arrow.png in Resources */,
+				4C49FA4F2356F106001D0EEF /* InvoicesViewController.xib in Resources */,
 				157A01BE22A7733200A0B11F /* PEPhotoCropEditor.bundle in Resources */,
 				1579ABCA2289524A00B92E04 /* NewBusinessProfileView.xib in Resources */,
 				849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */,
 				4C6580E622F92BA600F38087 /* VPSTbvCell.xib in Resources */,
 				849E311C2280647B003A8813 /* photo-camera.png in Resources */,
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
+				4C49FA492356DB5A001D0EEF /* menu_promotions.png in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
 				4C28B92822F5983C00910F54 /* RegisterEmailViewController.xib in Resources */,
 				4C041EB822E843C600DA7405 /* numpad_five_default.png in Resources */,
@@ -3710,6 +3864,7 @@
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
 				56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */,
 				1517FBAE22745D810044E878 /* tabbar_home_act.png in Resources */,
+				4C49FA732356F89C001D0EEF /* SearchDomainsViewController.xib in Resources */,
 				56E477EB22F9A20800296A55 /* SSLTbvCell.xib in Resources */,
 				563B8DC622B9B6D6004A037D /* ck.pem in Resources */,
 				4C65810F22FC1DEA00F38087 /* OrderDetailDescriptionView.xib in Resources */,
@@ -3730,6 +3885,7 @@
 				8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */,
 				56D0295022B3F88D00280127 /* order_completed.png in Resources */,
 				4C6580EF22FBC42F00F38087 /* email_hosting.png in Resources */,
+				4C49FA482356DB5A001D0EEF /* menu_trans.png in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
 				15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
@@ -3737,6 +3893,7 @@
 				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
+				4C49FA422356D71D001D0EEF /* menu_topup.png in Resources */,
 				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
 				4CD7A65B2355C4B700044E1A /* menu_register_email.png in Resources */,
 				56E477ED22F9A4D100296A55 /* email_ssl.png in Resources */,
@@ -3752,7 +3909,7 @@
 				4C041EB922E843C600DA7405 /* numpad_five_hover.png in Resources */,
 				5612F8BF22E6CAC900ECBBB1 /* mute_enable.png in Resources */,
 				849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */,
-				4CD7A6662355D54C00044E1A /* slider1.png in Resources */,
+				4CD7A6662355D54C00044E1A /* slider_1.png in Resources */,
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
 				4C65811922FC28F300F38087 /* HostingUpgradeViewController.xib in Resources */,
 				84A63C4022839E9100C52B8A /* BonusAccountViewController.xib in Resources */,
@@ -3776,21 +3933,26 @@
 				4CFDBBF9230FE8D100D21490 /* LaunchScreen~iPad.storyboard in Resources */,
 				4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
+				4C49FA372356C366001D0EEF /* HomeSliderClvCell.xib in Resources */,
 				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
+				4C49FA83235705A9001D0EEF /* slider_3.png in Resources */,
 				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
 				5612F8C022E6CAC900ECBBB1 /* mute_dis.png in Resources */,
 				5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */,
 				4C01687B23064A8800C43D5F /* banner.png in Resources */,
 				4C041EC122E843E400DA7405 /* numpad_seven_default.png in Resources */,
+				4C49FA8123570559001D0EEF /* slider_2.png in Resources */,
 				4C6DDD0F2339A8C0009FE41C /* momo_icon.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
+				4C49FA602356F3B7001D0EEF /* tabbar_invoices_def@3x.png in Resources */,
 				845D32B72279335C0047B196 /* hide_pass_white.png in Resources */,
 				84A1646D2284EA5C0001B833 /* atm.png in Resources */,
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */,
+				4C49FA682356F5C7001D0EEF /* tabbar_notif_act.png in Resources */,
 				56FA23AE22B00AD9003F89CB /* BankInfoViewController.xib in Resources */,
 				566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
@@ -3805,12 +3967,14 @@
 				4C65812322FC2B2D00F38087 /* HostingDetailSelectTbvCell.xib in Resources */,
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
 				5612F8CB22E7094700ECBBB1 /* hold_enable.png in Resources */,
+				4C49FA452356DAE3001D0EEF /* menu_withdraw.png in Resources */,
 				4C00790622F143B300C19492 /* DNSDetailCell.xib in Resources */,
 				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
-				1517FB622274465B0044E878 /* menu_withdrawal.png in Resources */,
 				4C765EFD22F8153F002AFEC8 /* worldpress.png in Resources */,
+				4C49FA692356F5C7001D0EEF /* tabbar_notif_def.png in Resources */,
 				56FED7C422AD050F00FAD541 /* ic_headset.png in Resources */,
+				4C49FA612356F3B7001D0EEF /* tabbar_invoices_def@2x.png in Resources */,
 				849827852285D51900201ED7 /* NewProfileView.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
@@ -3842,6 +4006,7 @@
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
 				5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */,
 				840F5DE922770848005BFC57 /* DomainCell.xib in Resources */,
+				4C49FA8A23572285001D0EEF /* line_gray.png in Resources */,
 				4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */,
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
 				4CD7A63F2355ABE400044E1A /* next_blue.png in Resources */,
@@ -3849,12 +4014,14 @@
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				4CFECEC5231621860091C3D1 /* os_auto.h.in in Resources */,
 				5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */,
+				4C49FA322356BEA9001D0EEF /* HomePromotionView.xib in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
 				4C041EC022E843E400DA7405 /* numpad_six_default.png in Resources */,
 				15D1BD762283CA31004C0452 /* ProfileManagerViewController.xib in Resources */,
+				4C49FA6B2356F5C7001D0EEF /* tabbar_notif_def@2x.png in Resources */,
 				4CFDBBFB230FEBF000D21490 /* new_launch_not_company.png in Resources */,
 				4CD7A64D2355BE9100044E1A /* en.txt in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
@@ -3933,6 +4100,7 @@
 			files = (
 				4CFED016231626140091C3D1 /* pjsua_app_cli.c in Sources */,
 				8446F4B02277C16B008F4EE9 /* WhoIsCell.m in Sources */,
+				4C49FA4E2356F106001D0EEF /* InvoicesViewController.m in Sources */,
 				841E7C602284E2E80074DDF5 /* PaymentMethodCell.m in Sources */,
 				840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */,
 				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
@@ -3950,6 +4118,7 @@
 				15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
 				4CD7A6602355CAA200044E1A /* HomeSliderView.m in Sources */,
+				4C49FA3F2356C7A4001D0EEF /* HomePromotionClvCell.m in Sources */,
 				84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */,
 				4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */,
 				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
@@ -3964,6 +4133,7 @@
 				4C00B3F722F2C7750087479C /* DNSRecordTypeCell.m in Sources */,
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				4C65810322FC084800F38087 /* OrderDetailView.m in Sources */,
+				4C49FA542356F172001D0EEF /* NotificationsViewController.m in Sources */,
 				4CD7A6512355BF1C00044E1A /* HMLocalization.m in Sources */,
 				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
 				4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */,
@@ -3972,6 +4142,7 @@
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
 				4C6580F522FBC70700F38087 /* EmailHostingCell.m in Sources */,
+				4C49FA362356C366001D0EEF /* HomeSliderClvCell.m in Sources */,
 				56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
@@ -3983,9 +4154,11 @@
 				84999C15227C86CB0006C80A /* JSONKit.m in Sources */,
 				8460F641227A644300A185B0 /* CartViewController.m in Sources */,
 				157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */,
+				4C49FA722356F89C001D0EEF /* SearchDomainsViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
 				4C65811D22FC2AF500F38087 /* HostingDetailTbvCell.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
+				4C49FA302356BDAE001D0EEF /* HomePromotionView.m in Sources */,
 				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
 				4C8B835522F82ED2009D441A /* WindowsHostingCell.m in Sources */,
@@ -4010,6 +4183,7 @@
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
 				4C0078F622F1310200C19492 /* DomainDNSViewController.m in Sources */,
+				4C49FA86235711A1001D0EEF /* HomeExploreView.m in Sources */,
 				4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				56FA23B522B0191F003F89CB /* BankCell.m in Sources */,

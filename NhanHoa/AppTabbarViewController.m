@@ -7,8 +7,12 @@
 //
 
 #import "AppTabbarViewController.h"
-#import "HomeViewController.h"
 #import "NewHomeViewController.h"
+#import "InvoicesViewController.h"
+#import "NotificationsViewController.h"
+#import "SearchDomainViewController.h"
+
+#import "HomeViewController.h"
 #import "BOViewController.h"
 #import "TransHistoryViewController.h"
 #import "MoreViewController.h"
@@ -34,19 +38,10 @@
     [self setupUIForView];
     
     
-    //  Tabbar home
-    //  HelveticaNeue-Medium
     UIFont *itemFont = [UIFont fontWithName:@"HelveticaNeue" size:12.5];
-    
-    UINavigationController *homeNav;
-    if ([AppDelegate sharedInstance].newHomeLayout) {
-        NewHomeViewController *homeVC = [[NewHomeViewController alloc] initWithNibName:@"NewHomeViewController" bundle:nil];
-        homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
-        
-    }else{
-        HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-        homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
-    }
+    //  Tabbar home
+    NewHomeViewController *homeVC = [[NewHomeViewController alloc] initWithNibName:@"NewHomeViewController" bundle:nil];
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController: homeVC];
     
     UIImage *imgHome = [UIImage imageNamed:@"tabbar_home_def"];
     imgHome = [imgHome imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -54,27 +49,51 @@
     UIImage *imgHomeAct = [UIImage imageNamed:@"tabbar_home_act"];
     imgHomeAct = [imgHomeAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:text_home image:imgHome selectedImage:imgHomeAct];
+    UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Home"] image:imgHome selectedImage:imgHomeAct];
     [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     homeNav.tabBarItem = homeItem;
     
-    //  Tabbar BO
-//    BOViewController *boVC = [[BOViewController alloc] initWithNibName:@"BOViewController" bundle:nil];
-//    UINavigationController *boNav = [[UINavigationController alloc] initWithRootViewController: boVC];
-//    
-//    UIImage *imgBO = [UIImage imageNamed:@"tabbar_BO_def"];
-//    imgBO = [imgBO imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    UIImage *imgBOAct = [UIImage imageNamed:@"tabbar_BO_act"];
-//    imgBOAct = [imgBOAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    UITabBarItem *boItem = [[UITabBarItem alloc] initWithTitle:@"Đấu giá" image:imgBO selectedImage:imgBOAct];
-//    [boItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
-//    
-//    boNav.tabBarItem = boItem;
+    //  Tabbar Invoices
+    InvoicesViewController *invoicesVC = [[InvoicesViewController alloc] initWithNibName:@"InvoicesViewController" bundle:nil];
+    UINavigationController *invoicesNav = [[UINavigationController alloc] initWithRootViewController: invoicesVC];
+    
+    UIImage *imgInvoices = [UIImage imageNamed:@"tabbar_invoices_def"];
+    imgInvoices = [imgInvoices imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UIImage *imgInvoicesAct = [UIImage imageNamed:@"tabbar_invoices_act"];
+    imgInvoicesAct = [imgInvoicesAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UITabBarItem *invoicesItem = [[UITabBarItem alloc] initWithTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Invoices"] image:imgInvoices selectedImage:imgInvoicesAct];
+    [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+    
+    invoicesNav.tabBarItem = invoicesItem;
+    
+    //  search domains
+    SearchDomainViewController *searchDomainsVC = [[SearchDomainViewController alloc] initWithNibName:@"SearchDomainViewController" bundle:nil];
+    UINavigationController *searchDomainsNav = [[UINavigationController alloc] initWithRootViewController: searchDomainsVC];
+    
+    UITabBarItem *searchItem = [[UITabBarItem alloc] initWithTitle:@"" image:nil selectedImage:nil];
+    searchDomainsNav.tabBarItem = searchItem;
+    
+    //  notifications tabbar
+    NotificationsViewController *notifVC = [[NotificationsViewController alloc] initWithNibName:@"NotificationsViewController" bundle:nil];
+    UINavigationController *notifNav = [[UINavigationController alloc] initWithRootViewController: notifVC];
+    
+    
+    UIImage *imgNotif = [UIImage imageNamed:@"tabbar_notif_def"];
+    imgNotif = [imgNotif imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UIImage *imgNotifAct = [UIImage imageNamed:@"tabbar_notif_act"];
+    imgNotifAct = [imgNotifAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UITabBarItem *notifItem = [[UITabBarItem alloc] initWithTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Notifications"] image:imgNotif selectedImage:imgNotifAct];
+    [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+    
+    notifNav.tabBarItem = notifItem;
     
     //  Tabbar transaction history
+    /*
     TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
     UINavigationController *transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
     
@@ -89,6 +108,7 @@
     [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     transHisNav.tabBarItem = transHisItem;
+    */
     
     //  Tabbar account
     MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
@@ -100,18 +120,17 @@
     UIImage *imgAccAct = [UIImage imageNamed:@"tabbar_acc_act"];
     imgAccAct = [imgAccAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *accItem = [[UITabBarItem alloc] initWithTitle:text_account image:imgAcc selectedImage:imgAccAct];
+    UITabBarItem *accItem = [[UITabBarItem alloc] initWithTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Account"] image:imgAcc selectedImage:imgAccAct];
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     moreNav.tabBarItem = accItem;
     
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
-    tabBarController.viewControllers = @[homeNav, transHisNav, moreNav];
+    tabBarController.viewControllers = @[homeNav, invoicesNav, searchDomainsNav, notifNav, moreNav];
     [self.view addSubview: tabBarController.view];
     
     UIView *lbTop = [[UILabel alloc] init];
     lbTop.backgroundColor = BORDER_COLOR;
-    lbTop.hidden = TRUE;
     [tabBarController.view addSubview: lbTop];
     [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(tabBarController.view);
@@ -129,8 +148,8 @@
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
         
-        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
-        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
+        [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+        [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
         
         [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
         [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
@@ -140,12 +159,33 @@
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
         [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
         
-        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-        [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+        [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+        [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+        
+        [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+        [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
         
         [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
         [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     }
+    
+    //  size button
+    float sizeIcon = self.tabBarController.tabBar.frame.size.height - 3.0;
+    
+    UIButton* btnSearch = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSearch.frame = CGRectMake(0.0, 0.0, sizeIcon, sizeIcon);
+    [btnSearch setImage:[UIImage imageNamed:@"search_domains"] forState:UIControlStateNormal];
+    
+    CGFloat heightDifference = sizeIcon - self.tabBarController.tabBar.frame.size.height;
+    if (heightDifference < 0)
+        btnSearch.center = self.tabBarController.tabBar.center;
+    else
+    {
+        CGPoint center = self.tabBarController.tabBar.center;
+        center.y = center.y - heightDifference/2.0;
+        btnSearch.center = center;
+    }
+    [self.tabBarController.view addSubview: btnSearch];
 }
 
 - (void)setupUIForView {

@@ -23,12 +23,10 @@ typedef enum{
 
 @interface NewHomeViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIView *viewBanner;
-@property (weak, nonatomic) IBOutlet UIImageView *imgBanner;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTop;
 @property (weak, nonatomic) IBOutlet UICollectionView *clvMenu;
+@property (weak, nonatomic) IBOutlet UILabel *lbCopyRight;
 
 
 @end

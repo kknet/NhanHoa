@@ -15,6 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="269"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_banner.png" id="woG-tX-HjY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chào Khải Lê!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PWu-Dp-v9q">
                     <rect key="frame" x="16" y="19" width="106" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,36 +80,60 @@
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </view>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gzH-qb-JeA">
-                    <rect key="frame" x="26" y="163" width="50" height="50"/>
+                    <rect key="frame" x="16" y="163" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="header_icon.png"/>
+                    <state key="normal" image="menu_topup.png"/>
+                    <connections>
+                        <action selector="icTopupClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Iau-mX-9ms"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nạp tiền" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fUz-78-bjd">
-                    <rect key="frame" x="27" y="221" width="55" height="17"/>
+                    <rect key="frame" x="17" y="221" width="55" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lRB-PT-aTq">
+                    <rect key="frame" x="96" y="163" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="menu_withdraw.png"/>
+                    <connections>
+                        <action selector="icWithdrawClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="D4K-Vf-Ixu"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rút tiền" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sn6-pT-GJ3">
+                    <rect key="frame" x="99" y="221" width="50" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vmD-LS-NSH">
-                    <rect key="frame" x="133" y="163" width="55" height="50"/>
+                    <rect key="frame" x="180" y="163" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="header_icon.png"/>
+                    <state key="normal" image="menu_promotions.png"/>
+                    <connections>
+                        <action selector="icPromotionsClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="A41-Zw-wuq"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khuyến mãi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U6k-Pr-1M4">
-                    <rect key="frame" x="123" y="221" width="76" height="17"/>
+                    <rect key="frame" x="170" y="221" width="76" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qm3-rq-Go4">
-                    <rect key="frame" x="238" y="163" width="55" height="50"/>
+                    <rect key="frame" x="256" y="163" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="header_icon.png"/>
+                    <state key="normal" image="menu_trans.png"/>
+                    <connections>
+                        <action selector="icTransactionClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="rAN-et-I9G"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giao dịch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5nB-vz-GOs">
-                    <rect key="frame" x="236" y="221" width="61" height="17"/>
+                    <rect key="frame" x="254" y="221" width="61" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,6 +154,8 @@
                 <outlet property="icPromotion" destination="vmD-LS-NSH" id="Wvg-nG-bhK"/>
                 <outlet property="icTopup" destination="gzH-qb-JeA" id="WhZ-hp-RX9"/>
                 <outlet property="icTrans" destination="Qm3-rq-Go4" id="scb-Mz-6bf"/>
+                <outlet property="icWithdraw" destination="lRB-PT-aTq" id="NTI-2U-on5"/>
+                <outlet property="imgBanner" destination="woG-tX-HjY" id="gO6-H7-rLx"/>
                 <outlet property="lbBonusMoney" destination="z9Q-bl-QDi" id="1S3-uQ-Dna"/>
                 <outlet property="lbBonusWallet" destination="2Rd-no-rF2" id="Koc-er-pBQ"/>
                 <outlet property="lbHello" destination="PWu-Dp-v9q" id="Zet-gQ-bcJ"/>
@@ -135,14 +165,19 @@
                 <outlet property="lbSepa" destination="4y2-yz-ZZJ" id="pwo-76-dba"/>
                 <outlet property="lbTopup" destination="fUz-78-bjd" id="gPL-aT-6Pq"/>
                 <outlet property="lbTrans" destination="5nB-vz-GOs" id="fVC-ha-RoI"/>
+                <outlet property="lbWithdraw" destination="Sn6-pT-GJ3" id="wA9-qL-aYF"/>
                 <outlet property="viewWallet" destination="r2B-rn-fvZ" id="ydD-oY-rJm"/>
             </connections>
-            <point key="canvasLocation" x="-99" y="49"/>
+            <point key="canvasLocation" x="-288" y="-149"/>
         </view>
     </objects>
     <resources>
         <image name="call_green.png" width="140" height="140"/>
-        <image name="header_icon.png" width="210" height="189"/>
+        <image name="home_banner.png" width="750" height="349.5"/>
+        <image name="menu_promotions.png" width="33.5" height="33.5"/>
+        <image name="menu_topup.png" width="41" height="41"/>
+        <image name="menu_trans.png" width="85" height="85"/>
+        <image name="menu_withdraw.png" width="70" height="70"/>
         <image name="next_blue.png" width="108" height="108"/>
     </resources>
 </document>

@@ -7,31 +7,32 @@
 //
 
 #import "NewHomeViewController.h"
+#import "TopupViewController.h"
+
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
+#import "HomePromotionView.h"
 #import "HomeMenuClvCell.h"
+#import "HomeExploreView.h"
 
 #define NUM_OF_MENU 8
 
-@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate>{
-    float hStatus;
+@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, HomeExploreViewDelegate, HomeHeaderViewDelegate>
+{
+    AppDelegate *appDelegate;
     float padding;
-    float hCurve;
-    CAGradientLayer *gradientLayer;
     
     HomeHeaderView *viewHomeHeader;
     HomeSliderView *viewHomeSlider;
+    HomePromotionView *viewPromotion;
+    HomeExploreView *viewExplore;
     float hMenuCell;
-    
-    AppDelegate *appDelegate;
-    
-    CGFloat lastContentOffset;
 }
 
 @end
 
 @implementation NewHomeViewController
-@synthesize viewBanner, imgBanner, scvContent, lbTop, clvMenu;
+@synthesize scvContent, lbTop, clvMenu, lbCopyRight;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,12 +44,14 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    
+    [viewHomeHeader displayAccountInformation];
 }
 
 - (void)setupUIForView
 {
-    hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
+    float hTabbar = self.tabBarController.tabBar.frame.size.height;
     
     //  setup content
     if (@available(iOS 11.0, *)) {
@@ -58,7 +61,8 @@
     }
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-hTabbar);
     }];
     
     [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,6 +80,7 @@
     layout.minimumInteritemSpacing = 0;
     clvMenu.collectionViewLayout = layout;
     
+    clvMenu.scrollEnabled = FALSE;
     clvMenu.delegate = self;
     clvMenu.dataSource = self;
     clvMenu.backgroundColor = UIColor.clearColor;
@@ -89,32 +94,30 @@
     
     //  add slider view
     [self addHomeSliderViewIfNeed];
+    [self addHomePromotionsViewIfNeed];
     
-    //  scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hStatus + 20.0 + viewHomeHeader.hContentView + 2*hMenuCell + viewHomeSlider.hContentView);
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
-    //  add curver path
-    [self setupForBannerViewWithHeight: viewHomeHeader.hContentView];
-}
-
-- (void)addHomeHeaderViewIfNeed {
-    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HomeHeaderView" owner:nil options:nil];
-    for(id currentObject in toplevelObject){
-        if ([currentObject isKindOfClass:[HomeHeaderView class]]) {
-            viewHomeHeader = (HomeHeaderView *) currentObject;
-            break;
-        }
+    NSMutableAttributedString *copyright = [[NSMutableAttributedString alloc] initWithString:@"Copyright ® 2002 – 2019 Nhan Hoa Software Company. All Rights Reserved."];
+    [copyright addAttribute:NSFontAttributeName value:appDelegate.fontDesc range:NSMakeRange(0, copyright.length)];
+    [copyright addAttribute:NSForegroundColorAttributeName value:UIColor.darkGrayColor range:NSMakeRange(0, copyright.length)];
+    NSRange range = [copyright.string rangeOfString:@"Nhan Hoa Software Company"];
+    if (range.location != NSNotFound) {
+        [copyright addAttribute:NSForegroundColorAttributeName value:BLUE_COLOR range:range];
     }
-    [scvContent addSubview: viewHomeHeader];
-    [viewHomeHeader setupUIForView];
     
-    [viewHomeHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(hStatus + 20.0);
+    lbCopyRight.backgroundColor = viewPromotion.backgroundColor;
+    lbCopyRight.attributedText = copyright;
+    [lbCopyRight mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewPromotion.mas_bottom);
         make.left.right.equalTo(lbTop);
-        make.height.mas_equalTo(viewHomeHeader.hContentView);
+        make.height.mas_equalTo(70.0);
     }];
+    
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, viewHomeHeader.hContentView + 2*hMenuCell + viewHomeSlider.hContentView + viewPromotion.hContentView + 70.0);
 }
 
 - (void)addHomeSliderViewIfNeed {
+    NSArray *listPhotos = @[[UIImage imageNamed:@"slider_1"], [UIImage imageNamed:@"slider_2"], [UIImage imageNamed:@"slider_3"]];
+    
     NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HomeSliderView" owner:nil options:nil];
     for(id currentObject in toplevelObject){
         if ([currentObject isKindOfClass:[HomeSliderView class]]) {
@@ -123,7 +126,7 @@
         }
     }
     [scvContent addSubview: viewHomeSlider];
-    [viewHomeSlider setupUIForView];
+    [viewHomeSlider setupUIForViewWithList:listPhotos];
     
     [viewHomeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(clvMenu.mas_bottom);
@@ -132,47 +135,22 @@
     }];
 }
 
-- (void)setupForBannerViewWithHeight: (float)height
-{
-    hCurve = 30.0;
+- (void)addHomePromotionsViewIfNeed {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HomePromotionView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[HomePromotionView class]]) {
+            viewPromotion = (HomePromotionView *) currentObject;
+            break;
+        }
+    }
+    [scvContent addSubview: viewPromotion];
+    [viewPromotion setupUIForView];
     
-    UIImage *banner = [UIImage imageNamed:@"home_banner"];
-    float hBanner = SCREEN_WIDTH*banner.size.height / banner.size.width;
-    
-    viewBanner.backgroundColor = UIColor.clearColor;
-    viewBanner.clipsToBounds = TRUE;
-    [viewBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(height + hCurve);
+    [viewPromotion mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewHomeSlider.mas_bottom);
+        make.left.right.equalTo(lbTop);
+        make.height.mas_equalTo(viewPromotion.hContentView);
     }];
-    
-    [imgBanner mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewBanner).offset(hStatus);
-        make.left.right.equalTo(viewBanner);
-        make.height.mas_equalTo(hBanner);
-    }];
-    
-    UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint: CGPointMake(0, 0)];
-    [path addLineToPoint: CGPointMake(0, height)];
-    [path addQuadCurveToPoint:CGPointMake(SCREEN_WIDTH, height) controlPoint:CGPointMake(SCREEN_WIDTH/2, height+hCurve)];
-    [path addLineToPoint: CGPointMake(SCREEN_WIDTH, 0)];
-    [path closePath];
-    
-    //Add gradient layer to top view
-    
-    CAShapeLayer *shapeLayer = [CAShapeLayer new];
-    shapeLayer.path = path.CGPath;
-    
-    gradientLayer = [CAGradientLayer layer];
-    gradientLayer.backgroundColor = UIColor.greenColor.CGColor;
-    gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height+hCurve);
-    gradientLayer.startPoint = CGPointMake(1, 1);
-    gradientLayer.endPoint = CGPointMake(0, 0);
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:1.0].CGColor, (id)[UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:1.0].CGColor];
-    
-    [viewBanner.layer insertSublayer:gradientLayer atIndex:0];
-    gradientLayer.mask = shapeLayer;
 }
 
 #pragma mark - UICollectionview menu
@@ -238,6 +216,13 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
+    
+    if (indexPath.row == eMenuDomain) {
+        
+        
+    }else if (indexPath.row == eMenuMore) {
+        [self showExploreMenuForView];
+    }
     
 //    HomeMenuCell *cell = (HomeMenuCell *)[collectionView cellForItemAtIndexPath: indexPath];
 //
@@ -310,66 +295,85 @@
     return UIEdgeInsetsZero;
 }
 
+- (void)showExploreMenuForView {
+    if (viewExplore == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HomeExploreView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[HomeExploreView class]]) {
+                viewExplore = (HomeExploreView *) currentObject;
+                break;
+            }
+        }
+        [appDelegate.window addSubview: viewExplore];
+        viewExplore.delegate = self;
+        [viewExplore setupUIForView];
+        
+        viewExplore.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    [self performSelector:@selector(startShowExploreView) withObject:nil afterDelay:0.2];
+}
+
+- (void)startShowExploreView {
+    [UIView animateWithDuration:0.2 animations:^{
+        viewExplore.viewContent.frame = CGRectMake(5, SCREEN_HEIGHT-viewExplore.hContent, SCREEN_WIDTH-10, viewExplore.hContent);
+    }];
+}
+
+- (void)closeExploreView {
+    viewExplore.lbTransparent.hidden = TRUE;
+    [UIView animateWithDuration:0.3 animations:^{
+        viewExplore.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewExplore.hContent);
+        
+    }completion:^(BOOL finished) {
+        [viewExplore removeFromSuperview];
+        viewExplore = nil;
+    }];
+}
+
 #pragma mark - UIScrollView
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (lastContentOffset > scrollView.contentOffset.y) {
-        NSLog(@"UPPPPP");
-    } else {
-        //  NSLog(@"%f", scrollView.contentOffset.y);
-        
-        hCurve = 30.0;
-        
-        UIImage *banner = [UIImage imageNamed:@"home_banner"];
-        
-        float height = viewHomeHeader.hContentView - scrollView.contentOffset.y;
-        NSLog(@"height: %f", height);
-        
-        [viewBanner mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(height + hCurve);
-        }];
-        [self.view layoutIfNeeded];
-        
-        [gradientLayer removeFromSuperlayer];
-        
-        UIBezierPath *path = [UIBezierPath new];
-        [path moveToPoint: CGPointMake(0, 0)];
-        [path addLineToPoint: CGPointMake(0, height)];
-        [path addQuadCurveToPoint:CGPointMake(SCREEN_WIDTH, height) controlPoint:CGPointMake(SCREEN_WIDTH/2, height+hCurve)];
-        [path addLineToPoint: CGPointMake(SCREEN_WIDTH, 0)];
-        [path closePath];
-        
-        //Add gradient layer to top view
-        
-        CAShapeLayer *shapeLayer = [CAShapeLayer new];
-        shapeLayer.path = path.CGPath;
-        
-        gradientLayer = [CAGradientLayer layer];
-        gradientLayer.backgroundColor = UIColor.greenColor.CGColor;
-        gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height+hCurve);
-        gradientLayer.startPoint = CGPointMake(1, 1);
-        gradientLayer.endPoint = CGPointMake(0, 0);
-        gradientLayer.colors = @[(id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:1.0].CGColor, (id)[UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:1.0].CGColor];
-        
-        [viewBanner.layer insertSublayer:gradientLayer atIndex:0];
-        gradientLayer.mask = shapeLayer;
-        
-        
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
     }
+}
+
+#pragma mark - HomeHeader Delegate
+- (void)addHomeHeaderViewIfNeed {
+    NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"HomeHeaderView" owner:nil options:nil];
+    for(id currentObject in toplevelObject){
+        if ([currentObject isKindOfClass:[HomeHeaderView class]]) {
+            viewHomeHeader = (HomeHeaderView *) currentObject;
+            break;
+        }
+    }
+    viewHomeHeader.delegate = self;
+    [scvContent addSubview: viewHomeHeader];
+    [viewHomeHeader setupUIForView];
     
-    lastContentOffset = scrollView.contentOffset.y;
-//
-//    NSLog(@"%f", scrollView.contentOffset.y);
-//    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-//    if(translation.y > 0)
-//    {
-//        NSLog(@"down");
-//        // react to dragging down
-//    } else
-//    {
-//        NSLog(@"up");
-//        // react to dragging up
-//    }
+    [viewHomeHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(scvContent);
+        make.left.right.equalTo(lbTop);
+        make.height.mas_equalTo(viewHomeHeader.hContentView);
+    }];
+}
+
+-(void)selectOnTopupHeaderMenu {
+    TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+    topupVC.hidesBottomBarWhenPushed = TRUE;
+    [self.navigationController pushViewController: topupVC animated:TRUE];
+}
+
+-(void)selectOnWithdrawHeaderMenu {
+    
+}
+
+-(void)selectOnPromotionHeaderMenu {
+    
+}
+
+-(void)selectOnTransactionHeaderMenu {
+    
 }
 
 @end

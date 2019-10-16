@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeSliderView : UIView
+@interface HomeSliderView : UIView<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *clvBanner;
 @property (weak, nonatomic) IBOutlet UIView *viewInfo;
@@ -20,8 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icNext;
 
 @property (nonatomic, assign) float hContentView;
+@property (nonatomic, assign) float hCollectionView;
+@property (nonatomic, assign) float padding;
+@property (nonatomic, strong) NSArray *listImages;
 
-- (void)setupUIForView;
+- (void)setupUIForViewWithList: (NSArray *)contentList;
 
 @end
 
