@@ -141,16 +141,18 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pEV-5j-Tfm">
-                    <rect key="frame" x="256" y="9" width="48" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SNN-fJ-ALa">
+                    <rect key="frame" x="267" y="24" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" image="cart.png"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LTZ-vd-y91">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LTZ-vd-y91">
                     <rect key="frame" x="287" y="9" width="28" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -158,13 +160,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="icBonusMoney" destination="evS-cK-ffb" id="tbb-T0-LDF"/>
+                <outlet property="icCart" destination="SNN-fJ-ALa" id="4N3-U1-ZDs"/>
                 <outlet property="icMainMoney" destination="3lT-vm-Va3" id="g9P-YK-ye2"/>
                 <outlet property="icPromotion" destination="vmD-LS-NSH" id="Wvg-nG-bhK"/>
                 <outlet property="icTopup" destination="gzH-qb-JeA" id="WhZ-hp-RX9"/>
                 <outlet property="icTrans" destination="Qm3-rq-Go4" id="scb-Mz-6bf"/>
                 <outlet property="icWithdraw" destination="lRB-PT-aTq" id="NTI-2U-on5"/>
                 <outlet property="imgBanner" destination="woG-tX-HjY" id="gO6-H7-rLx"/>
-                <outlet property="imgCart" destination="pEV-5j-Tfm" id="JAo-8q-f3k"/>
                 <outlet property="lbBonusMoney" destination="z9Q-bl-QDi" id="1S3-uQ-Dna"/>
                 <outlet property="lbBonusWallet" destination="2Rd-no-rF2" id="Koc-er-pBQ"/>
                 <outlet property="lbCount" destination="LTZ-vd-y91" id="H1E-ql-U5S"/>
@@ -178,7 +180,7 @@
                 <outlet property="lbWithdraw" destination="Sn6-pT-GJ3" id="wA9-qL-aYF"/>
                 <outlet property="viewWallet" destination="r2B-rn-fvZ" id="ydD-oY-rJm"/>
             </connections>
-            <point key="canvasLocation" x="-513" y="-157"/>
+            <point key="canvasLocation" x="-513.04347826086962" y="-157.03125"/>
         </view>
     </objects>
     <resources>

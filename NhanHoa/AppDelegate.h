@@ -12,7 +12,7 @@
 #import "CityObject.h"
 #import "CartViewController.h"
 #import "ShoppingCartView.h"
-#import "LaunchViewController.h"
+#import "NewLaunchViewController.h"
 #import "AudioSessionUtils.h"
 #import "WebServiceUtils.h"
 #import "ProviderDelegate.h"
@@ -120,8 +120,6 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSMutableDictionary *errorMsgDict;
 @property (nonatomic, strong) NSMutableArray *listPricingVN;
 @property (nonatomic, strong) NSMutableArray *listPricingQT;
-
-@property(strong, nonatomic) LaunchViewController *launchVC;
 
 @property(strong, nonatomic) AudioSessionUtils *notiAudio;
 

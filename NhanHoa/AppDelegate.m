@@ -315,7 +315,7 @@ AppDelegate      *app;
 }
 
 - (void)showStartLoginView {
-    LaunchViewController *launchVC = [[LaunchViewController alloc] initWithNibName:@"LaunchViewController" bundle:nil];
+    NewLaunchViewController *launchVC = [[NewLaunchViewController alloc] initWithNibName:@"NewLaunchViewController" bundle:nil];
     UINavigationController *launchNav = [[UINavigationController alloc] initWithRootViewController:launchVC];
     
     [self.window setRootViewController:launchNav];

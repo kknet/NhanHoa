@@ -356,6 +356,13 @@
     }else{
         lbBgStatus.hidden = TRUE;
     }
+    
+    if (scrollView.contentOffset.y > (viewHomeHeader.icCart.frame.origin.y + viewHomeHeader.icCart.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height))
+    {
+        
+    }else{
+        NSLog(@"SHOW");
+    }
 }
 
 #pragma mark - HomeHeader Delegate

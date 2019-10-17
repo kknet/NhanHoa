@@ -319,6 +319,8 @@
 		4CEA116D23584D7700762C45 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA116B23584D7700762C45 /* TransactionsViewController.m */; };
 		4CEA116E23584D7700762C45 /* TransactionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEA116C23584D7700762C45 /* TransactionsViewController.xib */; };
 		4CEA117023585B1700762C45 /* ic_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEA116F23585B1700762C45 /* ic_bg.png */; };
+		4CEA11752358737E00762C45 /* NewLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA11732358737E00762C45 /* NewLaunchViewController.m */; };
+		4CEA11762358737E00762C45 /* NewLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEA11742358737E00762C45 /* NewLaunchViewController.xib */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */; };
 		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
@@ -972,6 +974,9 @@
 		4CEA116B23584D7700762C45 /* TransactionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransactionsViewController.m; sourceTree = "<group>"; };
 		4CEA116C23584D7700762C45 /* TransactionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionsViewController.xib; sourceTree = "<group>"; };
 		4CEA116F23585B1700762C45 /* ic_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bg.png; sourceTree = "<group>"; };
+		4CEA11722358737E00762C45 /* NewLaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLaunchViewController.h; sourceTree = "<group>"; };
+		4CEA11732358737E00762C45 /* NewLaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewLaunchViewController.m; sourceTree = "<group>"; };
+		4CEA11742358737E00762C45 /* NewLaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewLaunchViewController.xib; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingPackageCell.h; sourceTree = "<group>"; };
@@ -1358,6 +1363,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				4CEA1171235872F400762C45 /* NewSignIn */,
 				4CEA116923584D6200762C45 /* Transactions */,
 				4CEA116223584C1E00762C45 /* Promotions */,
 				4C49FA6E2356F881001D0EEF /* SearchDomains */,
@@ -2177,6 +2183,16 @@
 			path = Transactions;
 			sourceTree = "<group>";
 		};
+		4CEA1171235872F400762C45 /* NewSignIn */ = {
+			isa = PBXGroup;
+			children = (
+				4CEA11722358737E00762C45 /* NewLaunchViewController.h */,
+				4CEA11732358737E00762C45 /* NewLaunchViewController.m */,
+				4CEA11742358737E00762C45 /* NewLaunchViewController.xib */,
+			);
+			path = NewSignIn;
+			sourceTree = "<group>";
+		};
 		5600E8F822A5EEAD00F7DECE /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2724,6 +2740,7 @@
 				56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */,
 				157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */,
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
+				4CEA11762358737E00762C45 /* NewLaunchViewController.xib in Resources */,
 				4C041ECA22E8440A00DA7405 /* numpad_eight_hover.png in Resources */,
 				4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */,
 				150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */,
@@ -3284,6 +3301,7 @@
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
 				5610492122B4FE9000463378 /* Constant.m in Sources */,
 				566A159A22AEBCB400604FE8 /* TransHistoryCell.m in Sources */,
+				4CEA11752358737E00762C45 /* NewLaunchViewController.m in Sources */,
 				56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */,
 				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 				4C00B3FC22F2E7520087479C /* DNSRecordManagerView.m in Sources */,

@@ -121,7 +121,6 @@
 - (void)goToNextSlide {
     if (curIndex < listImages.count-1) {
         curIndex++;
-        NSLog(@"go to index: %d", curIndex);
         [clvBanner scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:curIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:TRUE];
         
     }else if (curIndex == listImages.count-1){

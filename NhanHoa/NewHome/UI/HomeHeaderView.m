@@ -10,7 +10,7 @@
 
 @implementation HomeHeaderView
 
-@synthesize lbHello, imgCart, lbCount, viewWallet, lbMainWallet, lbMainMoney, icMainMoney, lbSepa, lbBonusWallet, lbBonusMoney, icBonusMoney, lbTopup, icTopup, lbPromotion, icPromotion, lbTrans, icTrans, icWithdraw, lbWithdraw, imgBanner;
+@synthesize lbHello, icCart, lbCount, viewWallet, lbMainWallet, lbMainMoney, icMainMoney, lbSepa, lbBonusWallet, lbBonusMoney, icBonusMoney, lbTopup, icTopup, lbPromotion, icPromotion, lbTrans, icTrans, icWithdraw, lbWithdraw, imgBanner;
 @synthesize hContentView, delegate;
 
 - (void)setupUIForView {
@@ -92,19 +92,29 @@
         make.height.mas_equalTo(hBanner);
     }];
     
-    icCall.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
-    [icCall mas_makeConstraints:^(MASConstraintMaker *make) {
+    icCart.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgBanner).offset(5.0);
         make.right.equalTo(self).offset(-padding);
         make.width.height.mas_equalTo(hIcon);
+    }];
+    
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.text = @"1";
+    lbCount.layer.cornerRadius = 20.0/2;
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(20.0);
     }];
     
     lbHello.textColor = UIColor.whiteColor;
     lbHello.font = titleFont;
     [lbHello mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.top.bottom.equalTo(icCall);
-        make.right.equalTo(icCall.mas_left).offset(-padding);
+        make.top.bottom.equalTo(icCart);
+        make.right.equalTo(icCart.mas_left).offset(-padding);
     }];
     
     //  view wallet
