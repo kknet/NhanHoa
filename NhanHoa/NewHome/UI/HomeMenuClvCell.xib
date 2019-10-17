@@ -35,7 +35,7 @@
                 <outlet property="imgType" destination="wse-1k-k9V" id="Jbh-jG-wX0"/>
                 <outlet property="lbMenu" destination="gW2-36-dKD" id="bAG-nY-5NY"/>
             </connections>
-            <point key="canvasLocation" x="-275.36231884057975" y="33.482142857142854"/>
+            <point key="canvasLocation" x="-445" y="40"/>
         </collectionViewCell>
     </objects>
 </document>

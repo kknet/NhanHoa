@@ -1,26 +1,22 @@
 //
-//  InvoicesViewController.m
+//  TransactionsViewController.m
 //  NhanHoa
 //
-//  Created by OS on 10/16/19.
+//  Created by OS on 10/17/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "InvoicesViewController.h"
+#import "TransactionsViewController.h"
 
-@interface InvoicesViewController ()
+@interface TransactionsViewController ()
 
 @end
 
-@implementation InvoicesViewController
+@implementation TransactionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear: animated];
 }
 
 /*

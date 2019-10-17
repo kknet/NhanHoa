@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgBanner;
 @property (weak, nonatomic) IBOutlet UILabel *lbHello;
-@property (weak, nonatomic) IBOutlet UIButton *icCall;
+@property (weak, nonatomic) IBOutlet UIButton *imgCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
 @property (weak, nonatomic) IBOutlet UIView *viewWallet;
 @property (weak, nonatomic) IBOutlet UILabel *lbMainWallet;

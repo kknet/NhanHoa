@@ -51,7 +51,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iFh-jG-W7q">
                             <rect key="frame" x="265" y="16" width="29" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="next_blue.png"/>
                         </button>
                     </subviews>
@@ -72,7 +72,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_banner_item.png" width="726" height="136"/>
+        <image name="bg_banner_item.png" width="2082" height="308"/>
         <image name="next_blue.png" width="108" height="108"/>
     </resources>
 </document>

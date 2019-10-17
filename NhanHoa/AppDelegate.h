@@ -60,6 +60,7 @@ typedef enum PaymentMethod{
 +(AppDelegate *) sharedInstance;
 @property (nonatomic, assign) float hStatusBar;
 @property (nonatomic, assign) float hNav;
+@property (nonatomic, assign) float safeAreaBottomPadding;
 
 @property (nonatomic, strong) NSDictionary *userInfo;
 
@@ -97,6 +98,7 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSString *token;
 @property (nonatomic, strong) NSString *hashKey;
 
+
 - (NSString *)findCityObjectWithCityCode: (NSString *)code;
 @property(strong, nonatomic) UIWindow *cartWindow;
 
@@ -112,6 +114,8 @@ typedef enum PaymentMethod{
 - (void)hideCartView;
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
+@property (nonatomic, strong) UIButton *btnSearchBar;
+@property (nonatomic, strong) UILabel *lbTopTabbar;
 
 @property (nonatomic, strong) NSMutableDictionary *errorMsgDict;
 @property (nonatomic, strong) NSMutableArray *listPricingVN;
@@ -162,6 +166,8 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) NSString *remoteName;
 - (void)showCallViewWithDirection: (CallDirection)direction remote: (NSString *)remote;
 - (void)hideCallView;
+
+- (void)hideTabbarCustomSubviews: (BOOL)hide withDuration: (BOOL)duration;
 
 @end
 

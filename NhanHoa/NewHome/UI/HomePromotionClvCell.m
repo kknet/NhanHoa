@@ -16,31 +16,17 @@
     // Initialization code
     self.clipsToBounds = TRUE;
     
-    UIFont *textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-    
+    UIFont *textFont = [UIFont fontWithName:RobotoMedium size:18.0];
     if (IS_IPHONE || IS_IPOD) {
-        NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
-        if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
-        {
-            textFont = [UIFont systemFontOfSize:15.0 weight:UIFontWeightMedium];
+        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+            textFont = [UIFont fontWithName:RobotoMedium size:15.0];
             
-        }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
-        {
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
+            textFont = [UIFont fontWithName:RobotoMedium size:16.0];
             
-        }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
-        {
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-            
-        }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator])
-        {
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-            
-        }else{
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
+            textFont = [UIFont fontWithName:RobotoMedium size:17.0];
         }
-    }else{
-        textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
     }
     
     viewContent.layer.cornerRadius = 10.0;
@@ -53,7 +39,7 @@
     }];
     
     lbTitle.font = textFont;
-    lbTitle.textColor = [UIColor colorWithRed:(48/255.0) green:(48/255.0) blue:(48/255.0) alpha:1.0];
+    lbTitle.textColor = GRAY_80;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewContent).offset(5.0);
         make.right.equalTo(viewContent).offset(-5.0);
@@ -66,9 +52,7 @@
         make.bottom.equalTo(lbTitle.mas_top);
     }];
     
-    [self addBoxShadowForView:self color:[UIColor colorWithRed:(150/255.0) green:(150/255.0)
-                                                          blue:(150/255.0) alpha:0.8]
-                      opacity:1.0 offsetX:1 offsetY:1];
+    [self addBoxShadowForView:self color:GRAY_80 opacity:0.8 offsetX:1 offsetY:1];
 }
 
 - (void)addBoxShadowForView: (UIView *)view color: (UIColor *)color opacity: (float)opacity offsetX: (float)x offsetY:(float)y

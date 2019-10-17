@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = text_search_domains;
+    self.navigationItem.title = text_search_domains;
     [self setupUIForView];
 }
 

@@ -39,6 +39,8 @@
     
     [WriteLogsUtils writeForGoToScreen: @"ProfileManagerViewController"];
     
+    self.navigationController.navigationBarHidden = FALSE;
+    
     if (listSearch == nil) {
         listSearch = [[NSMutableArray alloc] init];
     }else{

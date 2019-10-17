@@ -21,3 +21,6 @@
 "Pricing domains"       =   "Pricing domains"
 "Search domains"        =   "Search domains"
 "Explore"               =   "Explore"
+
+"Renew domains"     =   "Renew domains"
+"All"               =   "All"

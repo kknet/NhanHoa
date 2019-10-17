@@ -38,6 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"RegisterDomainViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
     //  show banner image
     UIImage *bannerPhoto = [AccountModel getBannerPhotoFromUser];

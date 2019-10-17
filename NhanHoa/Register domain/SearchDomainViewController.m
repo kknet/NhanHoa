@@ -87,13 +87,15 @@
 }
 
 - (void)startSearchDomainValue {
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:text_checking_please_wait Interaction:NO];
-    [self hideUIForSearch: TRUE];
-    
-    firstDomainInfo = nil;
-    [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
+    if (![AppUtils isNullOrEmpty: strSearch]) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:text_checking_please_wait Interaction:NO];
+        [self hideUIForSearch: TRUE];
+        
+        firstDomainInfo = nil;
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
+    }
 }
 
 - (IBAction)btnChoosePress:(UIButton *)sender {

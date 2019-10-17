@@ -32,6 +32,8 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"TopupViewController"];
     
+    self.navigationController.navigationBarHidden = FALSE;
+    
     [self showUserWalletView];
     topupMoney = 0;
     
@@ -315,7 +317,7 @@
     btnTopup.backgroundColor = BLUE_COLOR;;
     btnTopup.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnTopup mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-padding);
+        make.bottom.equalTo(self.view).offset(-padding-[AppDelegate sharedInstance].safeAreaBottomPadding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hItem);

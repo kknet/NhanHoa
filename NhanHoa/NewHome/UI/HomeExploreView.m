@@ -25,19 +25,28 @@
         make.top.left.bottom.right.equalTo(self);
     }];
     
-    hCell = 70.0;
-    wCell = 60.0;
-    
     float padding = 15.0;
     float hTitle = 50.0;
     
-    hContent = 10.0 + hTitle + 10.0 + (hCell*3 + 2*15.0) + 10.0;
+    wCell = (SCREEN_WIDTH - 2*padding)/4;
+    hCell = 100.0;
+    if (IS_IPHONE || IS_IPOD)
+    {
+        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+            hCell = 80.0;
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
+            hCell = 80.0;
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
+            hCell = 90.0;
+        }
+    }
     
-    viewContent.layer.cornerRadius = 10.0;
+    hContent = 10.0 + hTitle + 10.0 + (hCell*3 + 2*15.0) + 10.0 + [AppDelegate sharedInstance].safeAreaBottomPadding;
+    
+    viewContent.layer.cornerRadius = 15.0;
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_bottom);
-        make.left.equalTo(self).offset(5.0);
-        make.right.equalTo(self).offset(-5.0);
+        make.left.right.equalTo(self);
         make.height.mas_equalTo(hContent);
     }];
     
@@ -51,7 +60,7 @@
     }];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumLineSpacing = 10.0;
+    layout.minimumLineSpacing = 0.0;
     layout.minimumInteritemSpacing = 0;
     clvMenu.collectionViewLayout = layout;
     
@@ -62,9 +71,9 @@
     [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuClvCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuClvCell"];
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTitle.mas_bottom).offset(10.0);
-        make.left.equalTo(viewContent).offset(padding+5.0);
-        make.right.equalTo(viewContent).offset(-padding-5.0);
-        make.bottom.equalTo(viewContent).offset(-10.0);
+        make.left.equalTo(viewContent).offset(padding);
+        make.right.equalTo(viewContent).offset(-padding);
+        make.bottom.equalTo(viewContent).offset(-10.0-[AppDelegate sharedInstance].safeAreaBottomPadding);
     }];
     
     lbBottom.backgroundColor = viewContent.backgroundColor;
@@ -202,12 +211,6 @@
     //        renewedVC.hidesBottomBarWhenPushed = TRUE;
     //        [self.navigationController pushViewController: renewedVC animated:TRUE];
     //
-    //    }else if ([title isEqualToString: text_draw_bonuses])
-    //    {
-    //        WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-    //        withdrawVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: withdrawVC animated:TRUE];
-    //
     //    }else if ([title isEqualToString: text_profiles_list])
     //    {
     //        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
@@ -228,7 +231,7 @@
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 15;
+    return 0;
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

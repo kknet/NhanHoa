@@ -29,6 +29,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"TransHistoryViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
     lbNoData.hidden = TRUE;
     

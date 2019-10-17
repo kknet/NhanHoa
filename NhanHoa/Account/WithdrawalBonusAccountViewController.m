@@ -28,6 +28,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeLogContent:@"WithdrawalBonusAccountViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
      [self displayCusPoints];
 }
@@ -295,7 +296,7 @@
     btnWithdrawal.layer.borderWidth = 1.0;
     btnWithdrawal.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     [btnWithdrawal mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-padding);
+        make.bottom.equalTo(self.view).offset(-padding-[AppDelegate sharedInstance].safeAreaBottomPadding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
         make.height.mas_equalTo(hItem);

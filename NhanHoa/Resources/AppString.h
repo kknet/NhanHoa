@@ -39,6 +39,10 @@
 #define key_en                  @"en"
 #define key_vi                  @"vi"
 
+#define SCREEN_WIDTH_IPHONE_5       320
+#define SCREEN_WIDTH_IPHONE_6       375
+#define SCREEN_WIDTH_IPHONE_6PLUS   414
+
 #define simulator       @"x86_64"
 #define Iphone4s        @"iPhone4,1"
 #define Iphone5_1       @"iPhone5,1"
@@ -258,6 +262,9 @@
 #define GRAY_215 [UIColor colorWithRed:(215/255.0) green:(215/255.0) blue:(215/255.0) alpha:1.0]
 #define GRAY_210 [UIColor colorWithRed:(210/255.0) green:(210/255.0) blue:(210/255.0) alpha:1.0]
 #define GRAY_200 [UIColor colorWithRed:(200/255.0) green:(200/255.0) blue:(200/255.0) alpha:1.0]
+#define GRAY_50 [UIColor colorWithRed:(50/255.0) green:(50/255.0) blue:(50/255.0) alpha:1.0]
+#define GRAY_80 [UIColor colorWithRed:(80/255.0) green:(80/255.0) blue:(80/255.0) alpha:1.0]
+#define GRAY_100 [UIColor colorWithRed:(100/255.0) green:(100/255.0) blue:(100/255.0) alpha:1.0]
 
 #define ProgressHUD_BG [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
 

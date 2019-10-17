@@ -127,7 +127,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qm3-rq-Go4">
                     <rect key="frame" x="256" y="163" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="menu_trans.png"/>
+                    <state key="normal" image="menu_trans.png">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
                     <connections>
                         <action selector="icTransactionClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="rAN-et-I9G"/>
                     </connections>
@@ -139,25 +141,33 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sNH-xa-K6w">
-                    <rect key="frame" x="264" y="9" width="40" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pEV-5j-Tfm">
+                    <rect key="frame" x="256" y="9" width="48" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="call_green.png"/>
+                    <state key="normal" image="cart.png"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LTZ-vd-y91">
+                    <rect key="frame" x="287" y="9" width="28" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="icBonusMoney" destination="evS-cK-ffb" id="tbb-T0-LDF"/>
-                <outlet property="icCall" destination="sNH-xa-K6w" id="Ii5-WE-WBe"/>
                 <outlet property="icMainMoney" destination="3lT-vm-Va3" id="g9P-YK-ye2"/>
                 <outlet property="icPromotion" destination="vmD-LS-NSH" id="Wvg-nG-bhK"/>
                 <outlet property="icTopup" destination="gzH-qb-JeA" id="WhZ-hp-RX9"/>
                 <outlet property="icTrans" destination="Qm3-rq-Go4" id="scb-Mz-6bf"/>
                 <outlet property="icWithdraw" destination="lRB-PT-aTq" id="NTI-2U-on5"/>
                 <outlet property="imgBanner" destination="woG-tX-HjY" id="gO6-H7-rLx"/>
+                <outlet property="imgCart" destination="pEV-5j-Tfm" id="JAo-8q-f3k"/>
                 <outlet property="lbBonusMoney" destination="z9Q-bl-QDi" id="1S3-uQ-Dna"/>
                 <outlet property="lbBonusWallet" destination="2Rd-no-rF2" id="Koc-er-pBQ"/>
+                <outlet property="lbCount" destination="LTZ-vd-y91" id="H1E-ql-U5S"/>
                 <outlet property="lbHello" destination="PWu-Dp-v9q" id="Zet-gQ-bcJ"/>
                 <outlet property="lbMainMoney" destination="v62-OH-gby" id="y2k-93-UND"/>
                 <outlet property="lbMainWallet" destination="aSu-vM-135" id="JCo-Hu-roQ"/>
@@ -168,11 +178,11 @@
                 <outlet property="lbWithdraw" destination="Sn6-pT-GJ3" id="wA9-qL-aYF"/>
                 <outlet property="viewWallet" destination="r2B-rn-fvZ" id="ydD-oY-rJm"/>
             </connections>
-            <point key="canvasLocation" x="-288" y="-149"/>
+            <point key="canvasLocation" x="-513" y="-157"/>
         </view>
     </objects>
     <resources>
-        <image name="call_green.png" width="140" height="140"/>
+        <image name="cart.png" width="100" height="100"/>
         <image name="home_banner.png" width="750" height="349.5"/>
         <image name="menu_promotions.png" width="33.5" height="33.5"/>
         <image name="menu_topup.png" width="41" height="41"/>

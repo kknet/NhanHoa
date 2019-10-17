@@ -18,8 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float hCollectionView;
 @property (nonatomic, assign) float hContentView;
+@property (nonatomic, assign) float padding;
 
-- (void)setupUIForView;
+@property (nonatomic, strong) NSArray *listImages;
+- (void)setupUIForViewWithList:(NSArray *)photos;
 
 @end
 

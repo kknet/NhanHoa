@@ -1,26 +1,28 @@
 //
-//  InvoicesViewController.m
+//  PromotionsViewController.m
 //  NhanHoa
 //
-//  Created by OS on 10/16/19.
+//  Created by OS on 10/17/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "InvoicesViewController.h"
+#import "PromotionsViewController.h"
 
-@interface InvoicesViewController ()
+@interface PromotionsViewController ()
 
 @end
 
-@implementation InvoicesViewController
+@implementation PromotionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Promotions"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = FALSE;
 }
 
 /*

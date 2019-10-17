@@ -11,34 +11,21 @@
 
 @implementation HomeSliderView
 @synthesize clvBanner, viewInfo, bgInfo, lbTitle, lbContent, icNext;
-@synthesize hContentView, padding, hCollectionView, listImages;
+@synthesize hContentView, padding, hCollectionView, listImages, slideTimer, curIndex;
 
 - (void)setupUIForViewWithList: (NSArray *)contentList
 {
-    UIFont *textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     if (IS_IPHONE || IS_IPOD) {
-        NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
-        if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
-        {
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
+        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+            textFont = [UIFont fontWithName:RobotoRegular size:14.0];
             
-        }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
-        {
-            textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+            textFont = [UIFont fontWithName:RobotoRegular size:16.0];
             
-        }else if ([deviceMode isEqualToString: Iphone6_Plus] || [deviceMode isEqualToString: Iphone6s_Plus] || [deviceMode isEqualToString: Iphone7_Plus1] || [deviceMode isEqualToString: Iphone7_Plus2] || [deviceMode isEqualToString: Iphone8_Plus1] || [deviceMode isEqualToString: Iphone8_Plus2])
-        {
-            textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
-            
-        }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator])
-        {
-            textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
-            
-        }else{
-            textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+            textFont = [UIFont fontWithName:RobotoRegular size:17.0];
         }
-    }else{
-        textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
     }
     
     padding = 15.0;
@@ -88,6 +75,9 @@
     }];
     
     float wTitle = (SCREEN_WIDTH - 6*padding)/3;
+    lbTitle.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Renew domains"];
+    lbTitle.textColor = GRAY_50;
+    lbTitle.font = textFont;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewInfo);
         make.left.equalTo(viewInfo).offset(padding);
@@ -101,6 +91,12 @@
         make.width.height.mas_equalTo(35.0);
     }];
     
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"www.khaile.vn\nsẽ hết hạn sau 20 ngày"];
+    [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, attr.string.length)];
+    [attr addAttribute:NSForegroundColorAttributeName value:GRAY_50 range:NSMakeRange(0, attr.string.length)];
+    [attr addAttribute:NSForegroundColorAttributeName value:NEW_PRICE_COLOR range:NSMakeRange(0, 13)];
+    
+    lbContent.attributedText = attr;
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(viewInfo);
         make.left.equalTo(lbTitle.mas_right).offset(2*padding);
@@ -108,6 +104,30 @@
     }];
     
     hContentView = 7.5 + hCollectionView + 10.0 + hImage + 7.5;
+    
+    //  timer for slider
+    if (slideTimer) {
+        [slideTimer invalidate];
+        slideTimer = nil;
+    }
+    
+    curIndex = -1;
+    if (listImages.count > 1) {
+        curIndex = 0;
+        slideTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(goToNextSlide) userInfo:nil repeats:TRUE];
+    }
+}
+
+- (void)goToNextSlide {
+    if (curIndex < listImages.count-1) {
+        curIndex++;
+        NSLog(@"go to index: %d", curIndex);
+        [clvBanner scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:curIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:TRUE];
+        
+    }else if (curIndex == listImages.count-1){
+        curIndex = 0;
+        [clvBanner scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:curIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:TRUE];
+    }
 }
 
 #pragma mark - UICollectionview menu

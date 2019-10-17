@@ -7,7 +7,12 @@
 //
 
 #import "NewHomeViewController.h"
+#import "RegisterDomainViewController.h"
+#import "WithdrawalBonusAccountViewController.h"
 #import "TopupViewController.h"
+#import "PromotionsViewController.h"
+#import "TransHistoryViewController.h"
+#import "ProfileManagerViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -27,6 +32,8 @@
     HomePromotionView *viewPromotion;
     HomeExploreView *viewExplore;
     float hMenuCell;
+    
+    UILabel *lbBgStatus;
 }
 
 @end
@@ -44,6 +51,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
     
     [viewHomeHeader displayAccountInformation];
 }
@@ -52,6 +60,18 @@
 {
     padding = 15.0;
     float hTabbar = self.tabBarController.tabBar.frame.size.height;
+    
+    hMenuCell = 100.0;
+    if (IS_IPHONE || IS_IPOD)
+    {
+        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+            hMenuCell = 80.0;
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
+            hMenuCell = 80.0;
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
+            hMenuCell = 90.0;
+        }
+    }
     
     //  setup content
     if (@available(iOS 11.0, *)) {
@@ -74,7 +94,7 @@
     [self addHomeHeaderViewIfNeed];
     
     //  collection view
-    hMenuCell = 80.0;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 10.0;
     layout.minimumInteritemSpacing = 0;
@@ -86,7 +106,7 @@
     clvMenu.backgroundColor = UIColor.clearColor;
     [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuClvCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuClvCell"];
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHomeHeader.mas_bottom);
+        make.top.equalTo(viewHomeHeader.mas_bottom).offset(10.0);
         make.left.equalTo(lbTop).offset(padding);
         make.right.equalTo(lbTop).offset(-padding);
         make.height.mas_equalTo(2*hMenuCell);
@@ -97,7 +117,7 @@
     [self addHomePromotionsViewIfNeed];
     
     NSMutableAttributedString *copyright = [[NSMutableAttributedString alloc] initWithString:@"Copyright ® 2002 – 2019 Nhan Hoa Software Company. All Rights Reserved."];
-    [copyright addAttribute:NSFontAttributeName value:appDelegate.fontDesc range:NSMakeRange(0, copyright.length)];
+    [copyright addAttribute:NSFontAttributeName value:viewHomeHeader.lbMainWallet.font range:NSMakeRange(0, copyright.length)];
     [copyright addAttribute:NSForegroundColorAttributeName value:UIColor.darkGrayColor range:NSMakeRange(0, copyright.length)];
     NSRange range = [copyright.string rangeOfString:@"Nhan Hoa Software Company"];
     if (range.location != NSNotFound) {
@@ -112,7 +132,7 @@
         make.height.mas_equalTo(70.0);
     }];
     
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, viewHomeHeader.hContentView + 2*hMenuCell + viewHomeSlider.hContentView + viewPromotion.hContentView + 70.0);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, viewHomeHeader.hContentView + 2*hMenuCell + viewHomeSlider.hContentView + viewPromotion.hContentView + 70.0 + 20.0);
 }
 
 - (void)addHomeSliderViewIfNeed {
@@ -144,7 +164,7 @@
         }
     }
     [scvContent addSubview: viewPromotion];
-    [viewPromotion setupUIForView];
+    [viewPromotion setupUIForViewWithList:@[[UIImage imageNamed:@"promotion_1"], [UIImage imageNamed:@"promotion_2"], [UIImage imageNamed:@"promotion_3"], [UIImage imageNamed:@"promotion_4"]]];
     
     [viewPromotion mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHomeSlider.mas_bottom);
@@ -218,21 +238,26 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
     if (indexPath.row == eMenuDomain) {
+        RegisterDomainViewController *regDomainsVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
+        regDomainsVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController: regDomainsVC animated:TRUE];
         
+    }else if (indexPath.row == eMenuProfiles){
+        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
+        profileVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController: profileVC animated:TRUE];
         
-    }else if (indexPath.row == eMenuMore) {
+    }
+    else if (indexPath.row == eMenuMore) {
         [self showExploreMenuForView];
     }
     
 //    HomeMenuCell *cell = (HomeMenuCell *)[collectionView cellForItemAtIndexPath: indexPath];
 //
 //    NSString *title = cell.lbName.text;
-//    if ([title isEqualToString: text_register_domains]) {
-//        RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-//        registerDomainVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: registerDomainVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_domains_pricing_list])
+//    if ([title isEqualToString: text_domains_pricing_list])
 //    {
 //        PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
 //        pricingVC.hidesBottomBarWhenPushed = TRUE;
@@ -240,9 +265,6 @@
 //
 //    }else if ([title isEqualToString: text_search_domains])
 //    {
-//        WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-//        whoIsVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: whoIsVC animated:TRUE];
 //
 //    }else if ([title isEqualToString: text_top_up_into_account])
 //    {
@@ -261,18 +283,6 @@
 //        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
 //        renewedVC.hidesBottomBarWhenPushed = TRUE;
 //        [self.navigationController pushViewController: renewedVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_draw_bonuses])
-//    {
-//        WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-//        withdrawVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: withdrawVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_profiles_list])
-//    {
-//        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
-//        profileVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: profileVC animated:TRUE];
 //
 //    }else if ([title isEqualToString: text_customers_support])
 //    {
@@ -315,7 +325,7 @@
 
 - (void)startShowExploreView {
     [UIView animateWithDuration:0.2 animations:^{
-        viewExplore.viewContent.frame = CGRectMake(5, SCREEN_HEIGHT-viewExplore.hContent, SCREEN_WIDTH-10, viewExplore.hContent);
+        viewExplore.viewContent.frame = CGRectMake(0, SCREEN_HEIGHT-viewExplore.hContent, SCREEN_WIDTH, viewExplore.hContent);
     }];
 }
 
@@ -335,6 +345,16 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < 0) {
         scrollView.contentOffset = CGPointZero;
+        
+    }else if (scrollView.contentOffset.y > 5.0){
+        if (lbBgStatus == nil) {
+            lbBgStatus = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, [UIApplication sharedApplication].statusBarFrame.size.height)];
+            lbBgStatus.backgroundColor = [UIColor colorWithRed:(23/255.0) green:(92/255.0) blue:(188/255.0) alpha:1.0];
+            [self.view addSubview: lbBgStatus];
+        }
+        lbBgStatus.hidden = FALSE;
+    }else{
+        lbBgStatus.hidden = TRUE;
     }
 }
 
@@ -356,24 +376,43 @@
         make.left.right.equalTo(lbTop);
         make.height.mas_equalTo(viewHomeHeader.hContentView);
     }];
+    
+    //  add target
+    [viewHomeHeader.icMainMoney addTarget:self
+                                   action:@selector(selectOnTopupHeaderMenu)
+                         forControlEvents:UIControlEventTouchUpInside];
+    
+    [viewHomeHeader.icBonusMoney addTarget:self
+                                    action:@selector(selectOnWithdrawHeaderMenu)
+                          forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)selectOnTopupHeaderMenu {
     TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
     topupVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController: topupVC animated:TRUE];
 }
 
 -(void)selectOnWithdrawHeaderMenu {
-    
+    WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
+    withdrawVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: withdrawVC animated:TRUE];
 }
 
 -(void)selectOnPromotionHeaderMenu {
-    
+    PromotionsViewController *promotionsVC = [[PromotionsViewController alloc] initWithNibName:@"PromotionsViewController" bundle:nil];
+    promotionsVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: promotionsVC animated:TRUE];
 }
 
 -(void)selectOnTransactionHeaderMenu {
-    
+    TransHistoryViewController *transactionsVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
+    transactionsVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: transactionsVC animated:TRUE];
 }
 
 @end

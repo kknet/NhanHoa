@@ -19,6 +19,7 @@
 #import "AccountInfoView.h"
 
 @interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
+    AppDelegate *appDelegate;
     float hAccount;
     float padding;
     AccountInfoView *accInfoView;
@@ -34,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self setupUIForView];
 }
 
@@ -42,6 +44,8 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     [WriteLogsUtils writeForGoToScreen:@"MoreViewController"];
+    
+    [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
     
     [self addAccountInfoView];
     [accInfoView displayInformation];
@@ -248,30 +252,35 @@
         case eSettingAccount:{
             AccountSettingViewController *accSettingVC = [[AccountSettingViewController alloc] initWithNibName:@"AccountSettingViewController" bundle:nil];
             accSettingVC.hidesBottomBarWhenPushed = TRUE;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
             [self.navigationController pushViewController:accSettingVC animated:TRUE];
             break;
         }
         case eManagerDomainList:{
             RenewedDomainViewController *renewedDomainVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
             renewedDomainVC.hidesBottomBarWhenPushed = TRUE;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
             [self.navigationController pushViewController:renewedDomainVC animated:TRUE];
             break;
         }
         case eCustomnerSupport:{
             SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
             supportVC.hidesBottomBarWhenPushed = YES;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
             [self.navigationController pushViewController: supportVC animated:YES];
             break;
         }
         case eBankInfo:{
             BankInfoViewController *bankInfoVC = [[BankInfoViewController alloc] initWithNibName:@"BankInfoViewController" bundle:nil];
             bankInfoVC.hidesBottomBarWhenPushed = YES;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
             [self.navigationController pushViewController: bankInfoVC animated:YES];
             break;
         }
         case eApplicationInfo:{
             AboutViewController *aboutVC = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
             aboutVC.hidesBottomBarWhenPushed = YES;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
             [self.navigationController pushViewController: aboutVC animated:YES];
             break;
         }

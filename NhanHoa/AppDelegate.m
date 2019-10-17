@@ -13,10 +13,13 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "JSONKit.h"
 
+//  PJSIP COMMENT
+/*
 #include "pjsip_sources/pjlib/include/pjlib.h"
 #include "pjsip_sources/pjsip/include/pjsua.h"
 #include "pjsip_sources/pjsua/pjsua_app.h"
 #include "pjsip_sources/pjsua/pjsua_app_config.h"
+*/
 
 #import "MoMoPayment.h"
 
@@ -55,7 +58,7 @@
 @synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName, needChangeDNS;
-@synthesize localization;
+@synthesize localization, safeAreaBottomPadding, btnSearchBar, lbTopTabbar;
 
 AppDelegate      *app;
 
@@ -91,6 +94,13 @@ AppDelegate      *app;
     [application registerForRemoteNotifications];
     
     [self setupFontForApp];
+    
+    safeAreaBottomPadding = 0;
+    if (@available(iOS 11.0, *)) {
+        //  UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        //  CGFloat topPadding = window.safeAreaInsets.top;
+        safeAreaBottomPadding = self.window.safeAreaInsets.bottom;
+    }
     
     //  Register remote notifications
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")){
@@ -223,11 +233,14 @@ AppDelegate      *app;
         self.del = [[ProviderDelegate alloc] init];
         [self.del config];
     }
-    [self registerForNotifications:[UIApplication sharedApplication]];
     
+    //  PJSIP COMMENT
+    /*
+    [self registerForNotifications:[UIApplication sharedApplication]];
     app = self;
     [self startPjsuaForApp];
     current_call_id = -1;
+    */
     
     return YES;
 }
@@ -598,7 +611,7 @@ AppDelegate      *app;
             hTextfield = 40.0;
             
         }else if ([deviceMode isEqualToString: IphoneX_1] || [deviceMode isEqualToString: IphoneX_2] || [deviceMode isEqualToString: IphoneXR] || [deviceMode isEqualToString: IphoneXS] || [deviceMode isEqualToString: IphoneXS_Max1] || [deviceMode isEqualToString: IphoneXS_Max2] || [deviceMode isEqualToString: simulator]){
-            //  Screen width: 375.000000 - Screen height: 812.000000
+            //  Screen width: 414.000000 - Screen height: 812.000000
             fontBold = [UIFont fontWithName:RobotoBold size:18.0];
             fontMedium = [UIFont fontWithName:RobotoMedium size:18.0];
             fontRegular = [UIFont fontWithName:RobotoRegular size:18.0];
@@ -834,6 +847,22 @@ AppDelegate      *app;
 
 -(void)loginSucessfulWithData:(NSDictionary *)data {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadBalanceInfo" object:nil];
+}
+
+- (void)hideTabbarCustomSubviews: (BOOL)hide withDuration: (BOOL)duration {
+    if (duration) {
+        if (hide) {
+            [UIView animateWithDuration:0.05 animations:^{
+                lbTopTabbar.alpha = btnSearchBar.alpha = 0;
+            }];
+        }else{
+            [UIView animateWithDuration:0.05 animations:^{
+                lbTopTabbar.alpha = btnSearchBar.alpha = 1;
+            }];
+        }
+    }else{
+        lbTopTabbar.alpha = btnSearchBar.alpha = (hide) ? 0 : 1;
+    }
 }
 
 #pragma mark PJSIP
@@ -1143,7 +1172,8 @@ AppDelegate      *app;
 }
 
 #pragma mark - functions for PJSIP
-
+//  PJSIP COMMENT
+/*
 - (void)startPjsuaForApp {
     pjsua_create();
 
@@ -1665,5 +1695,7 @@ static void on_reg_state(pjsua_acc_id acc_id)
         [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
     }
 }
+*/
+
 
 @end

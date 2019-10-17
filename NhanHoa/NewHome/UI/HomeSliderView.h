@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupUIForViewWithList: (NSArray *)contentList;
 
+@property (nonatomic, strong) NSTimer *slideTimer;
+@property (nonatomic, assign) int curIndex;
+
 @end
 
 NS_ASSUME_NONNULL_END
