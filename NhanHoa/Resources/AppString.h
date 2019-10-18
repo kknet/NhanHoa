@@ -84,6 +84,14 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
+#define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
+
+
+
+
+
+
+
 #define HEADER_ICON_WIDTH 35.0
 
 #define PASSWORD_MIN_CHARS  6
@@ -153,7 +161,6 @@
 #define link_api_call           @"https://api.vfone.vn:51100/cskhvoip"
 
 #define link_support            @"https://tongdai.vfone.vn/callnew.php"
-#define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define link_upload_photo       @"https://api.websudo.xyz"
 #define return_url              @"https://nhanhoa.com/app-awk/onepay.php"
 #define link_api                @"https://nhanhoa.com/app-awk"
@@ -245,8 +252,9 @@
 
 #define NAV_COLOR [UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:1.0]
 #define ORANGE_COLOR [UIColor colorWithRed:(249/255.0) green:(157/255.0) blue:(28/255.0) alpha:1.0]
+#define YELLOW_COLOR [UIColor colorWithRed:(253/255.0) green:(169/255.0) blue:(70/255.0) alpha:1.0]
 #define TITLE_COLOR [UIColor colorWithRed:(61/255.0) green:(77/255.0) blue:(103/255.0) alpha:1.0]
-#define BLUE_COLOR [UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:1.0]
+#define BLUE_COLOR [UIColor colorWithRed:(29/255.0) green:(104/255.0) blue:(209/255.0) alpha:1.0]
 #define GREEN_COLOR [UIColor colorWithRed:(28/255.0) green:(189/255.0) blue:(92/255.0) alpha:1.0]
 #define NEW_PRICE_COLOR [UIColor colorWithRed:(213/255.0) green:(53/255.0) blue:(93/255.0) alpha:1.0]
 #define OLD_PRICE_COLOR [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(204/255.0) alpha:1.0]

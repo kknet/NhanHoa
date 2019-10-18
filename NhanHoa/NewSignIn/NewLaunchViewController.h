@@ -17,6 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
 @property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
 
+@property (weak, nonatomic) IBOutlet UIView *viewPageControl;
+@property (weak, nonatomic) IBOutlet UILabel *lbDot1;
+@property (weak, nonatomic) IBOutlet UILabel *lbDot2;
+@property (weak, nonatomic) IBOutlet UILabel *lbDot3;
+
+- (IBAction)btnSignInPress:(UIButton *)sender;
+- (IBAction)btnSignUpPress:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

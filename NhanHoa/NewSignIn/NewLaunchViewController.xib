@@ -15,7 +15,11 @@
                 <outlet property="btnSignUp" destination="Z09-bR-fD8" id="Bd9-d1-pmf"/>
                 <outlet property="clvDesc" destination="dce-Rn-Ac4" id="qth-46-GwW"/>
                 <outlet property="imgLogo" destination="bk3-mL-s21" id="YHq-g7-e63"/>
+                <outlet property="lbDot1" destination="QMA-VW-hLl" id="d1o-YF-Agc"/>
+                <outlet property="lbDot2" destination="imd-Hs-54B" id="5CL-xj-fCs"/>
+                <outlet property="lbDot3" destination="RSO-Cd-RwK" id="DhW-pB-uZj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewPageControl" destination="oJr-OX-TYD" id="AYl-bV-GSv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="544"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" id="bk3-mL-s21">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signin_logo.png" id="bk3-mL-s21">
                     <rect key="frame" x="53" y="0.0" width="214" height="89"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -31,11 +35,17 @@
                     <rect key="frame" x="16" y="497" width="135" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Đăng nhập"/>
+                    <connections>
+                        <action selector="btnSignInPress:" destination="-1" eventType="touchUpInside" id="ax7-1Y-eWb"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Z09-bR-fD8">
                     <rect key="frame" x="169" y="497" width="135" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Đăng ký"/>
+                    <connections>
+                        <action selector="btnSignUpPress:" destination="-1" eventType="touchUpInside" id="5e2-SJ-0qx"/>
+                    </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" id="dce-Rn-Ac4">
                     <rect key="frame" x="40" y="82" width="240" height="323"/>
@@ -48,13 +58,44 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" id="oJr-OX-TYD">
+                    <rect key="frame" x="40" y="413" width="240" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QMA-VW-hLl">
+                            <rect key="frame" x="89" y="11" width="30" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="imd-Hs-54B">
+                            <rect key="frame" x="124" y="11" width="10" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RSO-Cd-RwK">
+                            <rect key="frame" x="142" y="11" width="10" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="118.84057971014494" y="115.17857142857142"/>
+            <point key="canvasLocation" x="64" y="48"/>
         </view>
     </objects>
     <resources>
-        <image name="logo.png" width="1025" height="225"/>
+        <image name="signin_logo.png" width="1150" height="252"/>
     </resources>
 </document>

@@ -97,8 +97,6 @@ AppDelegate      *app;
     
     safeAreaBottomPadding = 0;
     if (@available(iOS 11.0, *)) {
-        //  UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        //  CGFloat topPadding = window.safeAreaInsets.top;
         safeAreaBottomPadding = self.window.safeAreaInsets.bottom;
     }
     

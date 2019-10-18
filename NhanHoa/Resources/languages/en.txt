@@ -1,3 +1,21 @@
+"Sign In"                   =   "Sign In"
+"Sign Up"                   =   "Sign Up"
+"Forgot password?"          =   "Forgot password?"
+"Enter password"            =   "Enter password"
+"Enter confirm password"    =   "Enter confirm password"
+"Enter email"               =   "Enter email"
+"Sign up new account"       =   "Sign up new account"
+"Continue"                  =   "Continue"
+
+"Haven't you had an account yet?"   =   "Haven't you had an account yet?"
+"Do you already have an account?"   =   "Do you already have an account?"
+
+"Welcome to"                =   "Welcome to"
+"Personal"                  =   "Personal"
+"Business"                  =   "Business"
+"Additional full records to experience the services"    =   "Additional full records to experience the services"
+"Choose account type"       =   "Choose account type"
+
 "Home"              =   "Home"
 "Invoices"          =   "Invoices"
 "Notifications"     =   "Notifications"

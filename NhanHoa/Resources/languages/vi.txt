@@ -1,3 +1,21 @@
+"Sign In"                   =   "Đăng nhập"
+"Sign Up"                   =   "Đăng ký"
+"Forgot password?"          =   "Quên mật khẩu?"
+"Enter password"            =   "Nhập mật khẩu"
+"Enter confirm password"    =   "Nhập xác nhận mật khẩu"
+"Enter email"               =   "Nhập địa chỉ email"
+"Sign up new account"       =   "Đăng ký tài khoản"
+"Continue"                  =   "Tiếp tục"
+
+"Haven't you had an account yet?"   =   "Bạn chưa có tài khoản?"
+"Do you already have an account?"   =   "Bạn đã có tài khoản?"
+
+"Welcome to"                =   "Chào mừng đến"
+"Personal"                  =   "Cá nhân"
+"Business"                  =   "Doanh nghiệp"
+"Additional full records to experience the services"    =   "Bổ sung đầy đủ hồ sơ để trải nghiệm dịch vụ"
+"Choose account type"       =   "Chọn loại tài khoản"
+
 "Home"              =   "Trang chủ"
 "Invoices"          =   "Hóa đơn"
 "Notifications"     =   "Thông báo"
