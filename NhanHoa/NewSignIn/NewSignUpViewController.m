@@ -7,19 +7,27 @@
 //
 
 #import "NewSignUpViewController.h"
+#import "NewPersonalProfileView.h"
+#import "SignUpBusinessProfileView.h"
 
-@interface NewSignUpViewController (){
+@interface NewSignUpViewController ()<NewPersonalProfileViewDelegate, SignUpBusinessProfileViewDelegate, UITextFieldDelegate, WebServiceUtilsDelegate>{
     AppDelegate *appDelegate;
     float padding;
     UIFont *boldFont;
     UIFont *textFont;
+    
+    ProfileType typeProfile;
+    NewPersonalProfileView *personalView;
+    SignUpBusinessProfileView *businessView;
+    
+    WebServices *webService;
 }
 @end
 
 @implementation NewSignUpViewController
 
 @synthesize scvContent, lbTop, lbTitle, imgEmail, tfEmail, lbBotEmail, imgPassword, tfPassword, lbBotPass, icShowPass, imgConfirmPass, tfConfirmPass, lbBotConfirmPass, icShowConfirmPass, btnContinue, btnHaveAccount;
-@synthesize viewType, lbWelcome, lbDescription, lbChooseType, viewPersonal, imgPersonal, lbPersonal, viewBusiness, imgBusiness, lbBusiness, btnChooseTypeContinue, imgBackground;
+@synthesize viewType, btnBack, lbWelcome, lbDescription, lbChooseType, viewPersonal, imgPersonal, lbPersonal, viewBusiness, imgBusiness, lbBusiness, btnChooseTypeContinue, imgBackground;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,13 +39,23 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self showContentForCurrentLanguage];
+    
+    tfEmail.text = @"lekhai0212@gmail.com";
+    tfPassword.text = tfConfirmPass.text = @"123456";
+    
     [self setupTextfieldForView];
+    typeProfile = ePersonalProfile;
+    
+    if (webService == nil) {
+        webService = [[WebServices alloc] init];
+        webService.delegate = self;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
     
-    //  [tfEmail becomeFirstResponder];
+    [tfEmail becomeFirstResponder];
 }
 
 - (void)showContentForCurrentLanguage {
@@ -46,6 +64,7 @@
     tfPassword.placeholder = [appDelegate.localization localizedStringForKey:@"Enter password"];
     tfConfirmPass.placeholder = [appDelegate.localization localizedStringForKey:@"Enter confirm password"];
     [btnContinue setTitle:[appDelegate.localization localizedStringForKey:@"Continue"] forState:UIControlStateNormal];
+    [btnBack setTitle:[appDelegate.localization localizedStringForKey:@"Back"] forState:UIControlStateNormal];
     
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:SFM(@"%@ %@", [appDelegate.localization localizedStringForKey:@"Do you already have an account?"], [appDelegate.localization localizedStringForKey:@"Sign In"])];
     [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, attr.string.length)];
@@ -132,7 +151,8 @@
     tfEmail.textColor = tfPassword.textColor = tfConfirmPass.textColor = GRAY_80;
     tfEmail.font = tfPassword.font = tfConfirmPass.font = textFont;
     tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
-    tfEmail.borderStyle = UITextBorderStyleNone;
+    tfEmail.returnKeyType = UIReturnKeyNext;
+    tfEmail.delegate = self;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgEmail.mas_right).offset(10.0);
         make.right.equalTo(lbTop).offset(-padding);
@@ -153,7 +173,8 @@
     
     //  password
     tfPassword.secureTextEntry = TRUE;
-    tfPassword.borderStyle = UITextBorderStyleNone;
+    tfPassword.returnKeyType = UIReturnKeyNext;
+    tfPassword.delegate = self;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(tfEmail);
         make.top.equalTo(tfEmail.mas_bottom).offset(paddingY);
@@ -186,7 +207,8 @@
     
     //  confirm password
     tfConfirmPass.secureTextEntry = TRUE;
-    tfConfirmPass.borderStyle = UITextBorderStyleNone;
+    tfConfirmPass.returnKeyType = UIReturnKeyDone;
+    tfConfirmPass.delegate = self;
     [tfConfirmPass mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(tfPassword);
         make.top.equalTo(tfPassword.mas_bottom).offset(paddingY);
@@ -241,7 +263,10 @@
     //  for choose type view
     float largePadding = 30.0;
     [viewType mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(self.view);
+        //  make.top.left.bottom.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(SCREEN_HEIGHT);
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
     }];
     
     [imgBackground mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,24 +303,24 @@
     viewPersonal.layer.cornerRadius = viewBusiness.layer.cornerRadius = 10.0;
     
     viewPersonal.layer.borderColor = BLUE_COLOR.CGColor;
-    viewPersonal.layer.borderWidth = 2.0;
+    viewPersonal.layer.borderWidth = 2.5;
     [viewPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewType).offset(largePadding);
         make.top.equalTo(lbChooseType.mas_bottom);
         make.width.height.mas_equalTo(sizeItem);
     }];
-    [AppUtils addBoxShadowForView:viewPersonal color:GRAY_220 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewPersonal color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     UITapGestureRecognizer *tapPersonal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnPersonalView)];
     viewPersonal.userInteractionEnabled = TRUE;
     [viewPersonal addGestureRecognizer: tapPersonal];
     
-    imgPersonal.backgroundColor = UIColor.redColor;
+    imgPersonal.backgroundColor = UIColor.clearColor;
     [imgPersonal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewPersonal).offset(10.0);
         make.centerX.equalTo(viewPersonal.mas_centerX);
-        make.width.mas_equalTo(viewPersonal.mas_width).multipliedBy(1.0/2.0);
-        make.height.mas_equalTo(viewPersonal.mas_height).multipliedBy(1.0/2.0);
+        make.width.mas_equalTo(viewPersonal.mas_width).multipliedBy(2.0/3.0);
+        make.height.mas_equalTo(viewPersonal.mas_height).multipliedBy(2.0/3.0);
     }];
     
     lbPersonal.textColor = GRAY_100;
@@ -308,20 +333,20 @@
     
     //  BUSINESS VIEW
     viewBusiness.layer.borderColor = UIColor.clearColor.CGColor;
-    viewBusiness.layer.borderWidth = 2.0;
+    viewBusiness.layer.borderWidth = 2.5;
     [viewBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewType).offset(-largePadding);
         make.top.equalTo(viewPersonal);
         make.width.height.mas_equalTo(sizeItem);
     }];
-    [AppUtils addBoxShadowForView:viewBusiness color:GRAY_220 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewBusiness color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
-    imgBusiness.backgroundColor = UIColor.redColor;
+    imgBusiness.backgroundColor = UIColor.clearColor;
     [imgBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewBusiness).offset(10.0);
         make.centerX.equalTo(viewBusiness.mas_centerX);
-        make.width.mas_equalTo(viewBusiness.mas_width).multipliedBy(1.0/2.0);
-        make.height.mas_equalTo(viewBusiness.mas_height).multipliedBy(1.0/2.0);
+        make.width.mas_equalTo(viewBusiness.mas_width).multipliedBy(2.0/3.0);
+        make.height.mas_equalTo(viewBusiness.mas_height).multipliedBy(2.0/3.0);
     }];
     
     lbBusiness.textColor = GRAY_100;
@@ -335,7 +360,14 @@
     viewBusiness.userInteractionEnabled = TRUE;
     [viewBusiness addGestureRecognizer: tapBusiness];
     
-    
+    btnBack.titleLabel.font = [UIFont fontWithName:RobotoItalic size:textFont.pointSize];
+    [btnBack setTitleColor:ORANGE_COLOR forState:UIControlStateNormal];
+    [btnBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewType).offset(largePadding/2);
+        make.right.equalTo(viewType).offset(-largePadding/2);
+        make.bottom.equalTo(viewType).offset(-appDelegate.safeAreaBottomPadding);
+        make.height.mas_equalTo(hBTN);
+    }];
     
     btnChooseTypeContinue.layer.cornerRadius = 8.0;
     btnChooseTypeContinue.backgroundColor = BLUE_COLOR;
@@ -344,7 +376,7 @@
     [btnChooseTypeContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewType).offset(largePadding/2);
         make.right.equalTo(viewType).offset(-largePadding/2);
-        make.bottom.equalTo(viewType).offset(-largePadding-appDelegate.safeAreaBottomPadding);
+        make.bottom.equalTo(btnBack.mas_top).offset(-10.0);
         make.height.mas_equalTo(hBTN);
     }];
 }
@@ -385,6 +417,8 @@
 }
 
 - (void)whenTapOnPersonalView {
+    typeProfile = ePersonalProfile;
+    
     viewPersonal.layer.borderWidth = 2.0;
     viewPersonal.layer.borderColor = BLUE_COLOR.CGColor;
     
@@ -393,6 +427,8 @@
 }
 
 - (void)whenTapOnBusinessView {
+    typeProfile = eBusinessProfile;
+    
     viewPersonal.layer.borderWidth = 0;
     viewPersonal.layer.borderColor = UIColor.clearColor.CGColor;
     
@@ -421,12 +457,164 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    if ([AppUtils isNullOrEmpty: tfEmail.text] || [AppUtils isNullOrEmpty: tfPassword.text] || [AppUtils isNullOrEmpty: tfConfirmPass.text])
+    {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter full informations"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
     
+    if (![AppUtils validateEmailWithString: tfEmail.text]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"The email's format is incorrect"] duration:3.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if (![tfPassword.text isEqualToString:tfConfirmPass.text]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"The password confirmation does not match"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    [self.view endEditing: TRUE];
+    [viewType mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view);
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (IBAction)btnHaveAccountPress:(UIButton *)sender {
 }
 
-- (IBAction)btnChooseTypeContinuePress:(UIButton *)sender {
+- (IBAction)btnChooseTypeContinuePress:(UIButton *)sender
+{
+    if (typeProfile == ePersonalProfile) {
+        if (personalView == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"NewPersonalProfileView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[NewPersonalProfileView class]]) {
+                    personalView = (NewPersonalProfileView *) currentObject;
+                    break;
+                }
+            }
+            [self.view addSubview: personalView];
+        }
+        personalView.delegate = self;
+        [personalView setupUIForViewWithHeightNav: self.navigationController.navigationBar.frame.size.height];
+        [personalView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.view);
+            make.left.equalTo(self.view).offset(SCREEN_WIDTH);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+        }];
+        
+        [self performSelector:@selector(showPersonalProfileView) withObject:nil afterDelay:0.1];
+    }else{
+        if (businessView == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"SignUpBusinessProfileView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[SignUpBusinessProfileView class]]) {
+                    businessView = (SignUpBusinessProfileView *) currentObject;
+                    break;
+                }
+            }
+            [self.view addSubview: businessView];
+        }
+        businessView.delegate = self;
+        [businessView setupUIForViewWithHeightNav: self.navigationController.navigationBar.frame.size.height];
+        [businessView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.view);
+            make.left.equalTo(self.view).offset(SCREEN_WIDTH);
+            make.width.mas_equalTo(SCREEN_WIDTH);
+        }];
+        
+        [self performSelector:@selector(showBusinessProfileView) withObject:nil afterDelay:0.1];
+    }
 }
+
+- (IBAction)btnBackPress:(UIButton *)sender {
+    [tfEmail becomeFirstResponder];
+    
+    [viewType mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfEmail) {
+        [tfPassword becomeFirstResponder];
+        
+    }else if (textField == tfPassword) {
+        [tfConfirmPass becomeFirstResponder];
+        
+    }
+    return TRUE;
+}
+
+#pragma mark - Personal profile view
+- (void)showPersonalProfileView {
+    [personalView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)onPersonalViewBackClicked {
+    [personalView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(SCREEN_WIDTH);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)readyToRegisterPersonalAccount:(NSDictionary *)info {
+    if ([AppUtils isNullOrEmpty: tfEmail.text] || [AppUtils isNullOrEmpty: tfPassword.text]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Email or password doesn't exists"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:FALSE];
+    
+    if (info != nil && [info isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
+        [jsonDict setObject:register_account_mod forKey:@"mod"];
+        [jsonDict setObject:tfEmail.text forKey:@"email"];
+        [jsonDict setObject:[AppUtils getMD5StringOfString: tfPassword.text] forKey:@"password"];
+        [jsonDict setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] registerNewAccountWithInfo: jsonDict];
+    }
+}
+
+#pragma mark - Business profile view
+- (void)showBusinessProfileView {
+    [businessView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)onBusinessViewBackClicked {
+    [businessView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(SCREEN_WIDTH);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+
+
 @end

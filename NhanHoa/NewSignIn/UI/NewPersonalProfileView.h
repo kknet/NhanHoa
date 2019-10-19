@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewPersonalProfileView : UIView
+@protocol NewPersonalProfileViewDelegate <NSObject>
+
+@optional
+- (void)onPersonalViewBackClicked;
+- (void)readyToRegisterPersonalAccount: (NSDictionary *)info;
+@end
+
+
+@interface NewPersonalProfileView : UIView<UITextViewDelegate, UITextFieldDelegate, ChooseCityPopupViewDelegate>
+
+@property (nonatomic, strong) id<NewPersonalProfileViewDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
@@ -32,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbBirthday;
 @property (weak, nonatomic) IBOutlet UITextField *tfBirthday;
 @property (weak, nonatomic) IBOutlet UILabel *lbBotBirthday;
+@property (weak, nonatomic) IBOutlet UIButton *btnChooseDOB;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbPassport;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassport;
@@ -55,9 +67,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *tvPolicy;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 
+@property (nonatomic, strong) UIView *transparentView;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+
 @property (nonatomic, assign) float hContentView;
+@property (nonatomic, assign) int gender;
+@property (nonatomic, strong) NSString *cityCode;
 
 - (void)setupUIForViewWithHeightNav: (float)hNav;
+- (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icMaleClick:(UIButton *)sender;
+- (IBAction)icFemaleClick:(UIButton *)sender;
+- (IBAction)btnChooseCityPress:(UIButton *)sender;
+- (IBAction)btnChooseDOBPress:(UIButton *)sender;
+- (IBAction)btnRegisterPress:(UIButton *)sender;
+
 
 @end
 

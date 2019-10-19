@@ -41,12 +41,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbBusiness;
 @property (weak, nonatomic) IBOutlet UIButton *btnChooseTypeContinue;
 @property (weak, nonatomic) IBOutlet UIImageView *imgBackground;
+@property (weak, nonatomic) IBOutlet UIButton *btnBack;
 
 - (IBAction)icShowPassClick:(UIButton *)sender;
 - (IBAction)icShowConfirmPassClick:(UIButton *)sender;
 - (IBAction)btnContinuePress:(UIButton *)sender;
 - (IBAction)btnHaveAccountPress:(UIButton *)sender;
 - (IBAction)btnChooseTypeContinuePress:(UIButton *)sender;
+- (IBAction)icCloseViewTypeClick:(UIButton *)sender;
+- (IBAction)btnBackPress:(UIButton *)sender;
 
 @end
 

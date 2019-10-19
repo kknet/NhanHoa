@@ -47,7 +47,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3lT-vm-Va3">
                             <rect key="frame" x="251" y="9" width="34" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="next_blue.png"/>
+                            <state key="normal" image="arrow_right.png"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4y2-yz-ZZJ">
                             <rect key="frame" x="0.0" y="50" width="288" height="1"/>
@@ -74,7 +74,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="evS-cK-ffb">
                             <rect key="frame" x="251" y="59" width="34" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="next_blue.png"/>
+                            <state key="normal" image="arrow_right.png"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -184,12 +184,12 @@
         </view>
     </objects>
     <resources>
+        <image name="arrow_right.png" width="90" height="90"/>
         <image name="cart.png" width="100" height="100"/>
         <image name="home_banner.png" width="750" height="349.5"/>
         <image name="menu_promotions.png" width="33.5" height="33.5"/>
         <image name="menu_topup.png" width="41" height="41"/>
         <image name="menu_trans.png" width="85" height="85"/>
         <image name="menu_withdraw.png" width="70" height="70"/>
-        <image name="next_blue.png" width="108" height="108"/>
     </resources>
 </document>

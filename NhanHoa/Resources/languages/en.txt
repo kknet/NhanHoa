@@ -15,6 +15,66 @@
 "Business"                  =   "Business"
 "Additional full records to experience the services"    =   "Additional full records to experience the services"
 "Choose account type"       =   "Choose account type"
+"Personal profile"          =   "Personal profile"
+"Business profile"          =   "Business profile"
+"Enter personal info"       =   "Enter personal info"
+"Enter business info"       =   "Enter business info"
+
+"Fullname"          =   "Fullname"
+"Gender"            =   "Gender"
+"Male"              =   "Male"
+"Female"            =   "Female"
+"Date of birth"     =   "Date of birth"
+"Passport"          =   "Passport"
+"Phone number"      =   "Phone number"
+"Permanent address" =   "Permanent address"
+"Country"           =   "Country"
+"Province/ City"    =   "Province/ City"
+
+"Enter fullname"            =   "Enter fullname"
+"Enter passport"            =   "Enter passport"
+"Enter phone number"        =   "Enter phone number"
+"Enter permanent address"   =   "Enter permanent address"
+"Choose province/ city"     =   "Choose province/ city"
+
+"Press on 'Register', the default you will agree with"  =   "Press on 'Register', the default you will agree with"
+"Terms of service"          =   "Terms of service"
+"Privacy policy"            =   "Privacy policy"
+"and"                       =   "and"
+"of Nhan Hoa"               =   "of Nhan Hoa"
+
+"Please enter full informations"            =   "Please enter full informations"
+"The email's format is incorrect"           =   "The email's format is incorrect"
+"The password confirmation does not match"  =   "The password confirmation does not match"
+
+"Business name"         =   "Business name"
+"Tax code"              =   "Tax code"
+"Business address"      =   "Business address"
+"Business phone number" =   "Business phone number"
+"Registrant name"       =   "Registrant name"
+"Postition"             =   "Postition"
+"Back"                  =   "Back"
+
+"Enter business informations"   =   "Enter business informations"
+"Enter business name"           =   "Enter business name"
+"Enter tax code"                =   "Enter tax code"
+"Enter business address"        =   "Enter business address"
+"Enter business phone number"   =   "Enter business phone number"
+"Enter registrant name"         =   "Enter registrant name"
+"Enter postition"               =   "Enter postition"
+
+"Please enter fullname"             =   "Please enter fullname"
+"Please choose your birthday"       =   "Please choose your birthday"
+"Please enter passport"             =   "Please enter passport"
+"Please enter phone number"         =   "Please enter phone number"
+"Please enter permanent address"    =   "Please enter permanent address"
+"Please choose province or city"    =   "Please choose province or city"
+"Email or password doesn't exists"  =   "Email or password doesn't exists"
+
+"Processing..."         =   "Processing..."
+
+
+
 
 "Home"              =   "Home"
 "Invoices"          =   "Invoices"

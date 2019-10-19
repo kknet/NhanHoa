@@ -22,6 +22,12 @@
     return webServiceUtil;
 }
 
+//  register functions
+- (void)registerNewAccountWithInfo: (NSDictionary *)accInfo
+{
+    [webService callWebServiceWithLink:register_account_func withParams:accInfo inBackgroundMode:TRUE];
+}
+
 //  login function
 - (void)loginWithUsername: (NSString *)username password: (NSString *)password
 {
@@ -373,6 +379,11 @@
     if ([link isEqualToString:login_func]) {
         if ([delegate respondsToSelector:@selector(failedToLoginWithError:)]) {
             [delegate failedToLoginWithError: error];
+        }
+        
+    }else if ([link isEqualToString: register_account_func]) {
+        if ([delegate respondsToSelector:@selector(failedToRegisterAccountWithError:)]) {
+            [delegate failedToRegisterAccountWithError:<#(nonnull NSString *)#>];
         }
         
     }else if ([link isEqualToString: update_token_func]) {

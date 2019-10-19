@@ -23,6 +23,11 @@
 #import "CallViewController.h"
 #import "HMLocalization.h"
 
+typedef enum ProfileType{
+    ePersonalProfile,
+    eBusinessProfile,
+}ProfileType;
+
 typedef enum TypeHomeMenu{
     eRegisterDomain,
     ePricingDomain,

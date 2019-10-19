@@ -1227,4 +1227,8 @@
     scvContent.contentSize = CGSizeMake(widthScreen, hContent);
 }
 
+- (IBAction)btnChooseBusinessCityPress:(UIButton *)sender {
+}
+- (IBAction)btnContinuePress:(UIButton *)sender {
+}
 @end

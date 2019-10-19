@@ -189,6 +189,12 @@
 		4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED122E8443100DA7405 /* numpad_star_default.png */; };
 		4C041ED722E8444800DA7405 /* button-endcall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED622E8444800DA7405 /* button-endcall.png */; };
 		4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED822E8505C00DA7405 /* beep.mp3 */; };
+		4C178583235AA89500943E14 /* flag_vietnam.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178582235AA89400943E14 /* flag_vietnam.png */; };
+		4C178585235AB7C200943E14 /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178584235AB7C200943E14 /* arrow_right.png */; };
+		4C178588235ABF7500943E14 /* ic_business.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178586235ABF7400943E14 /* ic_business.png */; };
+		4C178589235ABF7500943E14 /* ic_personal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178587235ABF7400943E14 /* ic_personal.png */; };
+		4C178591235AC55C00943E14 /* SignUpBusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C178590235AC55C00943E14 /* SignUpBusinessProfileView.m */; };
+		4C178593235AC56900943E14 /* SignUpBusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C178592235AC56900943E14 /* SignUpBusinessProfileView.xib */; };
 		4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90522F58CF600910F54 /* mene_order_list.png */; };
 		4C28B90822F5900400910F54 /* menu_hosting.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90722F5900400910F54 /* menu_hosting.png */; };
 		4C28B90A22F5917300910F54 /* menu_ssl.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C28B90922F5917300910F54 /* menu_ssl.png */; };
@@ -297,7 +303,6 @@
 		4CD7A63723558C1A00044E1A /* home_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A63423558C1A00044E1A /* home_banner@2x.png */; };
 		4CD7A63B2355AA8D00044E1A /* HomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7A63A2355AA8D00044E1A /* HomeHeaderView.m */; };
 		4CD7A63D2355AAA300044E1A /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A63C2355AAA300044E1A /* HomeHeaderView.xib */; };
-		4CD7A63F2355ABE400044E1A /* next_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A63E2355ABE400044E1A /* next_blue.png */; };
 		4CD7A6432355AD0100044E1A /* call_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6422355AD0100044E1A /* call_green.png */; };
 		4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7A6452355BB8700044E1A /* HomeMenuClvCell.m */; };
 		4CD7A6482355BB8700044E1A /* HomeMenuClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD7A6462355BB8700044E1A /* HomeMenuClvCell.xib */; };
@@ -832,6 +837,13 @@
 		4C041ED122E8443100DA7405 /* numpad_star_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_default.png; sourceTree = "<group>"; };
 		4C041ED622E8444800DA7405 /* button-endcall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-endcall.png"; sourceTree = "<group>"; };
 		4C041ED822E8505C00DA7405 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		4C178582235AA89400943E14 /* flag_vietnam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_vietnam.png; sourceTree = "<group>"; };
+		4C178584235AB7C200943E14 /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
+		4C178586235ABF7400943E14 /* ic_business.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_business.png; sourceTree = "<group>"; };
+		4C178587235ABF7400943E14 /* ic_personal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_personal.png; sourceTree = "<group>"; };
+		4C17858F235AC55C00943E14 /* SignUpBusinessProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpBusinessProfileView.h; sourceTree = "<group>"; };
+		4C178590235AC55C00943E14 /* SignUpBusinessProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpBusinessProfileView.m; sourceTree = "<group>"; };
+		4C178592235AC56900943E14 /* SignUpBusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpBusinessProfileView.xib; sourceTree = "<group>"; };
 		4C28B90522F58CF600910F54 /* mene_order_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mene_order_list.png; sourceTree = "<group>"; };
 		4C28B90722F5900400910F54 /* menu_hosting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_hosting.png; sourceTree = "<group>"; };
 		4C28B90922F5917300910F54 /* menu_ssl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_ssl.png; sourceTree = "<group>"; };
@@ -972,7 +984,6 @@
 		4CD7A6392355AA8D00044E1A /* HomeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeHeaderView.h; sourceTree = "<group>"; };
 		4CD7A63A2355AA8D00044E1A /* HomeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderView.m; sourceTree = "<group>"; };
 		4CD7A63C2355AAA300044E1A /* HomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
-		4CD7A63E2355ABE400044E1A /* next_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_blue.png; sourceTree = "<group>"; };
 		4CD7A6422355AD0100044E1A /* call_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_green.png; sourceTree = "<group>"; };
 		4CD7A6442355BB8700044E1A /* HomeMenuClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeMenuClvCell.h; sourceTree = "<group>"; };
 		4CD7A6452355BB8700044E1A /* HomeMenuClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeMenuClvCell.m; sourceTree = "<group>"; };
@@ -1629,6 +1640,10 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4C178586235ABF7400943E14 /* ic_business.png */,
+				4C178587235ABF7400943E14 /* ic_personal.png */,
+				4C178584235AB7C200943E14 /* arrow_right.png */,
+				4C178582235AA89400943E14 /* flag_vietnam.png */,
 				4CEFDCF52359BFAC00CE9451 /* ic_dropdow.png */,
 				4CEFDCF22359BE4800CE9451 /* ic_tick_active.png */,
 				4CEFDCF12359BE4800CE9451 /* ic_tick.png */,
@@ -1679,7 +1694,6 @@
 				4CD7A6562355C4B700044E1A /* menu_profiles.png */,
 				4CD7A6552355C4B600044E1A /* menu_register_email.png */,
 				4CD7A6572355C4B700044E1A /* menu_vfone.png */,
-				4CD7A63E2355ABE400044E1A /* next_blue.png */,
 				4CD7A6422355AD0100044E1A /* call_green.png */,
 				4CD7A63323558C1900044E1A /* home_banner.png */,
 				4CEA116F23585B1700762C45 /* ic_bg.png */,
@@ -2280,6 +2294,9 @@
 				4CEFDCC62359AC2900CE9451 /* NewPersonalProfileView.h */,
 				4CEFDCC72359AC2900CE9451 /* NewPersonalProfileView.m */,
 				4CEFDCEB2359AD8000CE9451 /* NewPersonalProfileView.xib */,
+				4C17858F235AC55C00943E14 /* SignUpBusinessProfileView.h */,
+				4C178590235AC55C00943E14 /* SignUpBusinessProfileView.m */,
+				4C178592235AC56900943E14 /* SignUpBusinessProfileView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2874,6 +2891,7 @@
 				4CEFDCAF2359671C00CE9451 /* login_desc_3.png in Resources */,
 				4CD7A6432355AD0100044E1A /* call_green.png in Resources */,
 				4C00790A22F144E800C19492 /* dns_edit.png in Resources */,
+				4C178589235ABF7500943E14 /* ic_personal.png in Resources */,
 				4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */,
 				4C017AE0230A38B7000E2780 /* tabbar_acc_act.png in Resources */,
 				4CEFDCA62359534A00CE9451 /* signin_logo.png in Resources */,
@@ -2929,6 +2947,7 @@
 				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */,
 				4C041ED222E8443100DA7405 /* numpad_star_hover.png in Resources */,
+				4C178583235AA89500943E14 /* flag_vietnam.png in Resources */,
 				56D0295A22B3FAA500280127 /* DomainResultView.xib in Resources */,
 				4C6580F622FBC70700F38087 /* EmailHostingCell.xib in Resources */,
 				5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */,
@@ -3155,6 +3174,7 @@
 				4CD7A63723558C1A00044E1A /* home_banner@2x.png in Resources */,
 				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
+				4C178593235AC56900943E14 /* SignUpBusinessProfileView.xib in Resources */,
 				1517FBA922745D810044E878 /* tabbar_history_def.png in Resources */,
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
 				5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */,
@@ -3163,12 +3183,13 @@
 				4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */,
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
 				4CEFDCF32359BE4900CE9451 /* ic_tick.png in Resources */,
-				4CD7A63F2355ABE400044E1A /* next_blue.png in Resources */,
 				4CD7A6582355C4B700044E1A /* menu_domains.png in Resources */,
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */,
+				4C178585235AB7C200943E14 /* arrow_right.png in Resources */,
 				4C49FA322356BEA9001D0EEF /* HomePromotionView.xib in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
+				4C178588235ABF7500943E14 /* ic_business.png in Resources */,
 				15E92AD52272A2F3004AB658 /* show_pass_act.png in Resources */,
 				15D1BD912283E9D8004C0452 /* NotificationCell.xib in Resources */,
 				150845FA226EBF2400428514 /* Main.storyboard in Resources */,
@@ -3395,6 +3416,7 @@
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
+				4C178591235AC55C00943E14 /* SignUpBusinessProfileView.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,

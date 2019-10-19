@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewSignUpViewController">
             <connections>
+                <outlet property="btnBack" destination="LLn-4C-goJ" id="dSt-aQ-hdd"/>
                 <outlet property="btnChooseTypeContinue" destination="dhG-th-iqI" id="fTR-S1-dnU"/>
                 <outlet property="btnContinue" destination="xBs-db-8ic" id="YW5-tQ-ul1"/>
                 <outlet property="btnHaveAccount" destination="2VP-Q4-Jak" id="DvJ-SF-cxa"/>
@@ -69,7 +70,7 @@
                             <rect key="frame" x="8" y="52" width="27" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="WZe-ES-mfl">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="WZe-ES-mfl">
                             <rect key="frame" x="43" y="51" width="269" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
@@ -88,7 +89,7 @@
                             <rect key="frame" x="8" y="116" width="27" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="QzR-S2-9HG">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="QzR-S2-9HG">
                             <rect key="frame" x="43" y="115" width="242" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
@@ -115,7 +116,7 @@
                             <rect key="frame" x="12" y="187" width="27" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="eNr-bq-Xwq">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="eNr-bq-Xwq">
                             <rect key="frame" x="43" y="187" width="242" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
@@ -189,7 +190,7 @@
                             <rect key="frame" x="9" y="180" width="125" height="123"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="qJs-3p-zGT">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_personal.png" id="qJs-3p-zGT">
                                     <rect key="frame" x="27" y="8" width="70" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -207,7 +208,7 @@
                             <rect key="frame" x="187" y="180" width="125" height="123"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="pxU-nY-Ek1">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_business.png" id="pxU-nY-Ek1">
                                     <rect key="frame" x="27" y="8" width="70" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -229,18 +230,28 @@
                                 <action selector="btnChooseTypeContinuePress:" destination="-1" eventType="touchUpInside" id="akz-0L-1k4"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LLn-4C-goJ">
+                            <rect key="frame" x="151" y="446" width="34" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Back"/>
+                            <connections>
+                                <action selector="btnBackPress:" destination="-1" eventType="touchUpInside" id="gzM-ne-ARI"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-128" y="44"/>
+            <point key="canvasLocation" x="-307" y="40"/>
         </view>
     </objects>
     <resources>
+        <image name="ic_business.png" width="409.60000610351562" height="409.60000610351562"/>
         <image name="ic_email.png" width="111" height="84"/>
         <image name="ic_password.png" width="87" height="129"/>
+        <image name="ic_personal.png" width="409.60000610351562" height="409.60000610351562"/>
         <image name="show_pass.png" width="80" height="80"/>
     </resources>
 </document>
