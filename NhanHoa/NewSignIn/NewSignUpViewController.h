@@ -48,7 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnContinuePress:(UIButton *)sender;
 - (IBAction)btnHaveAccountPress:(UIButton *)sender;
 - (IBAction)btnChooseTypeContinuePress:(UIButton *)sender;
-- (IBAction)icCloseViewTypeClick:(UIButton *)sender;
 - (IBAction)btnBackPress:(UIButton *)sender;
 
 @end

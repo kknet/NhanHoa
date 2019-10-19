@@ -71,9 +71,10 @@
 "Please choose province or city"    =   "Vui lòng chọn tỉnh hoặc thành phố"
 "Email or password doesn't exists"  =   "Email hay mật khẩu không tồn tại"
 
-"Processing..."         =   "Đang xử lý..."
-
-
+"Processing..."             =   "Đang xử lý..."
+"Enter confirm code"        =   "Nhập mã xác nhận"
+"Did not receive OTP code?" =   "Không nhận được mã xác nhận?"
+"Resend"                    =   "Gửi lại"
 
 
 

@@ -666,6 +666,8 @@
                 return message;
             }
         }
+    }else if ([data isKindOfClass:[NSString class]]){
+        return data;
     }
     return @"Đã có lỗi xảy ra. Vui lòng kiểm tra lại!";
 }

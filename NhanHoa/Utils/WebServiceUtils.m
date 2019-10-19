@@ -383,9 +383,8 @@
         
     }else if ([link isEqualToString: register_account_func]) {
         if ([delegate respondsToSelector:@selector(failedToRegisterAccountWithError:)]) {
-            [delegate failedToRegisterAccountWithError:<#(nonnull NSString *)#>];
+            [delegate failedToRegisterAccountWithError: error];
         }
-        
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(failedToUpdateToken)]) {
             [delegate failedToUpdateToken];
@@ -511,6 +510,10 @@
         
         if ([delegate respondsToSelector:@selector(loginSucessfulWithData:)]) {
             [delegate loginSucessfulWithData: data];
+        }
+    }else if ([link isEqualToString: register_account_func]) {
+        if ([delegate respondsToSelector:@selector(registerAccountSuccessfulWithData:)]) {
+            [delegate registerAccountSuccessfulWithData: data];
         }
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(updateTokenSuccessful)]) {

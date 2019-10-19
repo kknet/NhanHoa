@@ -71,9 +71,10 @@
 "Please choose province or city"    =   "Please choose province or city"
 "Email or password doesn't exists"  =   "Email or password doesn't exists"
 
-"Processing..."         =   "Processing..."
-
-
+"Processing..."             =   "Processing..."
+"Enter confirm code"        =   "Enter confirm code"
+"Did not receive OTP code?" =   "Did not receive OTP code?"
+"Resend"                    =   "Resend"
 
 
 "Home"              =   "Home"

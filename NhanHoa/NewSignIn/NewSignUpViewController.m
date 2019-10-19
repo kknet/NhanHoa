@@ -9,8 +9,10 @@
 #import "NewSignUpViewController.h"
 #import "NewPersonalProfileView.h"
 #import "SignUpBusinessProfileView.h"
+#import "OTPConfirmView.h"
 
-@interface NewSignUpViewController ()<NewPersonalProfileViewDelegate, SignUpBusinessProfileViewDelegate, UITextFieldDelegate, WebServiceUtilsDelegate>{
+@interface NewSignUpViewController ()<NewPersonalProfileViewDelegate, SignUpBusinessProfileViewDelegate, UITextFieldDelegate, WebServiceUtilsDelegate, OTPConfirmViewDelegate>
+{
     AppDelegate *appDelegate;
     float padding;
     UIFont *boldFont;
@@ -20,7 +22,7 @@
     NewPersonalProfileView *personalView;
     SignUpBusinessProfileView *businessView;
     
-    WebServices *webService;
+    OTPConfirmView *otpView;
 }
 @end
 
@@ -45,11 +47,6 @@
     
     [self setupTextfieldForView];
     typeProfile = ePersonalProfile;
-    
-    if (webService == nil) {
-        webService = [[WebServices alloc] init];
-        webService.delegate = self;
-    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -592,6 +589,62 @@
         [WebServiceUtils getInstance].delegate = self;
         [[WebServiceUtils getInstance] registerNewAccountWithInfo: jsonDict];
     }
+}
+
+- (void)showConfirmOTPView {
+    if (otpView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OTPConfirmView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OTPConfirmView class]]) {
+                otpView = (OTPConfirmView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: otpView];
+    }
+    [otpView setupUIForView];
+    otpView.delegate = self;
+    [otpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    [self.navigationItem setHidesBackButton: TRUE];
+}
+
+-(void)onResendOTPPress {
+    if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
+    }
+}
+
+-(void)confirmOTPWithCode:(NSString *)code
+{
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:your_acc_is_being_actived Interaction:NO];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:check_otp_mod forKey:@"mod"];
+    [jsonDict setObject:email forKey:@"username"];
+    [jsonDict setObject:[AppUtils getMD5StringOfString:password] forKey:@"password"];
+    [jsonDict setObject:code forKey:@"code"];
+    
+    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
+}
+
+#pragma mark - Webservice delegate
+-(void)failedToRegisterAccountWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error: %@", __FUNCTION__, @[error])];
+    [ProgressHUD dismiss];
+    
+    NSString *msgError = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:msgError duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    
+    [self showConfirmOTPView];
+}
+
+-(void)registerAccountSuccessfulWithData:(NSDictionary *)data {
+    [self showConfirmOTPView];
 }
 
 #pragma mark - Business profile view
