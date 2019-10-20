@@ -782,5 +782,56 @@
     return hmacString;
 }
 
++ (BOOL)checkVersionAppToAcceptLogin: (NSString *)requireVersion {
+    NSArray *requireArr = [requireVersion componentsSeparatedByString:@"."];
+    
+    NSString *curVersion = [AppUtils getAppVersionWithBuildVersion: FALSE];
+    NSArray *currentArr = [curVersion componentsSeparatedByString:@"."];
+    
+    if (requireArr.count == currentArr.count) {
+        for (int i=0; i<currentArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]) {
+                return TRUE;
+            }
+        }
+        //  version hiện tại giống version tối thiểu đc yêu cầu
+        return TRUE;
+        
+    }else if (requireArr.count > currentArr.count) {
+        for (int i=0; i<currentArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]) {
+                return TRUE;
+            }
+        }
+        //  version hiện tại nhỏ hơn version được yêu cầu
+        return FALSE;
+    }else {
+        for (int i=0; i<requireArr.count; i++) {
+            NSString *require = [requireArr objectAtIndex: i];
+            NSString *current = [currentArr objectAtIndex: i];
+            
+            if ([require intValue] > [current intValue]) {
+                return FALSE;
+                
+            }else if ([current intValue] > [require intValue]){
+                return TRUE;
+            }
+        }
+        //  version hiện tại lớn hơn version được yêu cầu
+        return TRUE;
+    }
+}
 
 @end

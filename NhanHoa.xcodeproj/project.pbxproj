@@ -397,6 +397,7 @@
 		5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8CF22E70DDB00ECBBB1 /* keypad_enable.png */; };
 		5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */; };
 		5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */; };
+		56158E34235C4AA900220A38 /* bg_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 56158E33235C4AA900220A38 /* bg_intro.png */; };
 		562362D722E2D815001AE97A /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243422CDA3DD006AE4AA /* CallKit.framework */; };
 		562362D822E2D81A001AE97A /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243622CDA3F8006AE4AA /* PushKit.framework */; };
 		562362DB22E2D89C001AE97A /* ProviderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 562362DA22E2D89C001AE97A /* ProviderDelegate.m */; };
@@ -1102,6 +1103,7 @@
 		5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keypad_normal.png; sourceTree = "<group>"; };
 		5612F8D522E7112D00ECBBB1 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
+		56158E33235C4AA900220A38 /* bg_intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_intro.png; sourceTree = "<group>"; };
 		562362D922E2D89B001AE97A /* ProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProviderDelegate.h; sourceTree = "<group>"; };
 		562362DA22E2D89C001AE97A /* ProviderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProviderDelegate.m; sourceTree = "<group>"; };
 		562362DC22E2DF03001AE97A /* SupportCustomerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportCustomerCell.h; sourceTree = "<group>"; };
@@ -1640,6 +1642,7 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				56158E33235C4AA900220A38 /* bg_intro.png */,
 				4C178586235ABF7400943E14 /* ic_business.png */,
 				4C178587235ABF7400943E14 /* ic_personal.png */,
 				4C178584235AB7C200943E14 /* arrow_right.png */,
@@ -2909,6 +2912,7 @@
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
 				4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */,
+				56158E34235C4AA900220A38 /* bg_intro.png in Resources */,
 				4C49FA5F2356F3B7001D0EEF /* tabbar_invoices_def.png in Resources */,
 				56D0295522B3F90400280127 /* OrderResultView.xib in Resources */,
 				4CEFDCC523599E6F00CE9451 /* NewSignUpViewController.xib in Resources */,

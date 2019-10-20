@@ -53,7 +53,7 @@
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
         make.centerX.equalTo(viewHeader.mas_centerX);
-        make.width.mas_equalTo(200);
+        make.width.mas_equalTo(250);
         make.height.mas_equalTo(hNav);
     }];
     
@@ -322,10 +322,11 @@
     
     tvPolicy.editable = FALSE;
     tvPolicy.delegate = self;
+    tvPolicy.scrollEnabled = FALSE;
     [tvPolicy mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBotCity.mas_bottom).offset(paddingY);
         make.left.right.equalTo(lbBotCity);
-        make.height.mas_equalTo(80.0);
+        make.height.mas_equalTo(90.0);
     }];
     
     btnRegister.titleLabel.font = mediumFont;
@@ -363,15 +364,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
-    
-    
-    tfFullname.text = @"Lê Quang Khải";
-    tfBirthday.text = @"02/12/1991";
-    tfPassport.text = @"212756687";
-    tfPhoneNumber.text = @"0363430737";
-    tfPermanentAddr.text = @"1020 Phạm Văn Đồng, P.Hiệp Bình Chánh, Q.Thủ Đức";
-    tfCity.text = @"Hồ Chí Minh";
-    cityCode = @"1";
 }
 
 - (void)keyboardWillShow:(NSNotification *)notif {

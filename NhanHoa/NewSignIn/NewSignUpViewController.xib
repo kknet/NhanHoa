@@ -161,7 +161,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ifM-UE-8IO">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro.png" id="ifM-UE-8IO">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -244,14 +244,15 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-307" y="40"/>
+            <point key="canvasLocation" x="57" y="33"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_business.png" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="bg_intro.png" width="750" height="1334"/>
+        <image name="ic_business.png" width="500" height="500"/>
         <image name="ic_email.png" width="111" height="84"/>
         <image name="ic_password.png" width="87" height="129"/>
-        <image name="ic_personal.png" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="ic_personal.png" width="500" height="500"/>
         <image name="show_pass.png" width="80" height="80"/>
     </resources>
 </document>

@@ -70,11 +70,34 @@
 "Please enter permanent address"    =   "Vui lòng nhập địa chỉ thường trú"
 "Please choose province or city"    =   "Vui lòng chọn tỉnh hoặc thành phố"
 "Email or password doesn't exists"  =   "Email hay mật khẩu không tồn tại"
+"Please enter email or password"    =   "Vui lòng nhập email hoặc mật khẩu"
+"Please enter business name"        =   "Vui lòng nhập tên doanh nghiệp"
+"Please enter business tax code"    =   "Vui lòng nhập mã số thuế"
+"Please enter business address"     =   "Vui lòng nhập địa chỉ doanh nghiệp"
+"Please enter business phone number"=   "Vui lòng nhập số điện thoại doanh nghiệp"
+"Please choose city for business"   =   "Vui lòng chọn thành phố cho doanh nghiệp"
 
 "Processing..."             =   "Đang xử lý..."
 "Enter confirm code"        =   "Nhập mã xác nhận"
 "Did not receive OTP code?" =   "Không nhận được mã xác nhận?"
 "Resend"                    =   "Gửi lại"
+
+"Your account is being actived..."  =   "Tài khoản đang được kích hoạt..."
+"Please enter confirm code"         =   "Vui lòng nhập mã xác nhận"
+
+"No network connection. Please check again!"    =   "Không có kết nối internet. Vui lòng kiểm tra lại!"
+"Your account have not actived yet"             =   "Tài khoản của bạn chưa được kích hoạt"
+"OTP code has been sent to your phone number"   =   "Mã OTP đã được gửi đến số điện thoại của bạn"
+"Your account has been actived successfully"    =   "Tài khoản của bạn đã được kích hoạt thành công"
+
+"Your version was old. Please update new version to use."    =   "Phiên bản quý khách đang sử dụng đã cũ. Vui lòng cập nhật phiên bản mới để trải nghiệm tốt hơn."
+
+"Signing..."        =   "Đang đăng nhập..."
+"Close"             =   "Đóng"
+"Update"            =   "Cập nhật"
+"Activated"         =   "Kích hoạt"
+
+
 
 
 

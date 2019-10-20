@@ -73,18 +73,6 @@
     }
     
     //  fill username
-    if ([AppDelegate sharedInstance].registerAccSuccess) {
-        if (![AppUtils isNullOrEmpty: [AppDelegate sharedInstance].registerAccount]) {
-            tfAccount.text = [AppDelegate sharedInstance].registerAccount;
-        }
-        [AppDelegate sharedInstance].registerAccSuccess = FALSE;
-        [AppDelegate sharedInstance].registerAccount = @"";
-    }else{
-        if (![AppUtils isNullOrEmpty: USERNAME]) {
-            tfAccount.text = USERNAME;
-        }
-    }
-    
     icClearAcc.hidden = (tfAccount.text.length > 0)? FALSE : TRUE;
 }
 

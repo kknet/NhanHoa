@@ -70,11 +70,36 @@
 "Please enter permanent address"    =   "Please enter permanent address"
 "Please choose province or city"    =   "Please choose province or city"
 "Email or password doesn't exists"  =   "Email or password doesn't exists"
+"Please enter email or password"    =   "Please enter email or password"
+"Please enter business name"        =   "Please enter business name"
+"Please enter business tax code"    =   "Please enter business tax code"
+"Please enter business address"     =   "Please enter business address"
+"Please enter business phone number"=   "Please enter business phone number"
+"Please choose city for business"   =   "Please choose city for business"
 
 "Processing..."             =   "Processing..."
 "Enter confirm code"        =   "Enter confirm code"
 "Did not receive OTP code?" =   "Did not receive OTP code?"
 "Resend"                    =   "Resend"
+
+"Your account is being actived..."  =   "Your account is being actived..."
+"Please enter confirm code"         =   "Please enter confirm code"
+
+"No network connection. Please check again!"    =   "No network connection. Please check again!"
+"Your account have not actived yet"             =   "Your account have not actived yet"
+"OTP code has been sent to your phone number"   =   "OTP code has been sent to your phone number"
+"Your account has been actived successfully"    =   "Tài khoản của bạn đã được kích hoạt thành công"
+
+"Your version was old. Please update new version to use."    =   "Your version is old. Please update new version to use."
+
+"Signing..."        =   "Signing..."
+"Close"             =   "Close"
+"Update"            =   "Update"
+"Activated"         =   "Activated"
+
+
+
+
 
 
 "Home"              =   "Home"

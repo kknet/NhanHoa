@@ -88,8 +88,6 @@ typedef enum PaymentMethod{
 @property (nonatomic, strong) UIFont *fontBTN;
 @property (nonatomic, assign) float hTextfield;
 @property (nonatomic, assign) float radius;
-@property (nonatomic, assign) float registerAccSuccess;
-@property (nonatomic, strong) NSString *registerAccount;
 
 @property (nonatomic, assign) BOOL needReloadListProfile;
 

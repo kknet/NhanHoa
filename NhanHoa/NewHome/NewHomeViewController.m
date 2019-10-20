@@ -361,7 +361,7 @@
     {
         
     }else{
-        NSLog(@"SHOW");
+        //  NSLog(@"SHOW");
     }
 }
 

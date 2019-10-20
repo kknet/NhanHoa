@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppTabbarViewController.h"
-#import "SignInViewController.h"
+#import "NewSignInViewController.h"
 #import "CartModel.h"
 #import <AVFoundation/AVAudioPlayer.h>
 #import "JSONKit.h"
@@ -52,7 +52,7 @@
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
-@synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice, registerAccSuccess, registerAccount;
+@synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice;
 @synthesize cropAvatar, dataCrop, token, hashKey;
 @synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall, ringbackPlayer, beepPlayer;
@@ -194,6 +194,7 @@ AppDelegate      *app;
     internetReachable = [Reachability reachabilityForInternetConnection];
     [internetReachable startNotifier];
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:)
                                                  name:kReachabilityChangedNotification object:nil];
     
@@ -202,7 +203,7 @@ AppDelegate      *app;
         [self showStartLoginView];
         
     }else{
-        SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+        NewSignInViewController *signInVC = [[NewSignInViewController alloc] initWithNibName:@"NewSignInViewController" bundle:nil];
         UINavigationController *signInNav = [[UINavigationController alloc] initWithRootViewController:signInVC];
         
         [self.window setRootViewController:signInNav];

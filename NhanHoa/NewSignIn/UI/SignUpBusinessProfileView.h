@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onBusinessViewBackClicked;
 @end
 
-@interface SignUpBusinessProfileView : UIView
+@interface SignUpBusinessProfileView : UIView<ChooseCityPopupViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) id<SignUpBusinessProfileViewDelegate, NSObject> delegate;
 
@@ -103,6 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnChooseDOBPress:(UIButton *)sender;
 
 - (void)setupUIForViewWithHeightNav: (float)hNav;
+
+@property (nonatomic, strong) NSString *businessCityCode;
 
 @end
 

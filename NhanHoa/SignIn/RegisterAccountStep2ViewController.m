@@ -259,8 +259,6 @@
 }
 
 - (void)afterRegisterAccountSuccess {
-    [AppDelegate sharedInstance].registerAccSuccess = TRUE;
-    [AppDelegate sharedInstance].registerAccount = email;
     [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 

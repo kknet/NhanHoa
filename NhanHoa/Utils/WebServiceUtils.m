@@ -267,6 +267,18 @@
     [webService callWebServiceWithLink:resend_otp_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
+- (void)confirmOTPCodeWithEmail:(NSString *)email password:(NSString *)password code:(NSString *)code {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:check_otp_mod forKey:@"mod"];
+    [jsonDict setObject:email forKey:@"username"];
+    [jsonDict setObject:[AppUtils getMD5StringOfString:password] forKey:@"password"];
+    [jsonDict setObject:code forKey:@"code"];
+    
+    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict inBackgroundMode:TRUE];
+    
+    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
+}
+
 - (void)getTransactionsHistory {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     

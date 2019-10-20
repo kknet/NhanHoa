@@ -65,5 +65,6 @@ typedef enum {
 + (BOOL)stringContainsOnlyNumber: (NSString *)string;
 + (NSString *)urlencode: (NSString *)string;
 + (NSString *)getHashHmacSHA256OfString:(NSString *)data key:(NSString *)key;
++ (BOOL)checkVersionAppToAcceptLogin: (NSString *)requireVersion;
 
 @end

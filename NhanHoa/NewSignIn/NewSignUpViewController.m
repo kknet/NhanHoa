@@ -7,6 +7,7 @@
 //
 
 #import "NewSignUpViewController.h"
+#import "NewSignInViewController.h"
 #import "NewPersonalProfileView.h"
 #import "SignUpBusinessProfileView.h"
 #import "OTPConfirmView.h"
@@ -42,8 +43,8 @@
     [super viewWillAppear: animated];
     [self showContentForCurrentLanguage];
     
-    tfEmail.text = @"lekhai0212@gmail.com";
-    tfPassword.text = tfConfirmPass.text = @"123456";
+    tfEmail.text = @"khailq@nhanhoa.com.vn";
+    tfPassword.text = tfConfirmPass.text = @"12345678";
     
     [self setupTextfieldForView];
     typeProfile = ePersonalProfile;
@@ -131,7 +132,7 @@
     lbTitle.textColor = GRAY_50;
     lbTitle.font = boldFont;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent);
+        make.top.equalTo(scvContent).offset([UIApplication sharedApplication].statusBarFrame.size.height);
         make.left.equalTo(lbTop).offset(padding);
         make.right.equalTo(lbTop).offset(-padding);
         make.height.mas_equalTo(100);
@@ -480,6 +481,18 @@
 }
 
 - (IBAction)btnHaveAccountPress:(UIButton *)sender {
+    [self.view endEditing: TRUE];
+    
+    NSArray *controllers = self.navigationController.viewControllers;
+    if (controllers.count >= 2) {
+        UIViewController *prevController = [controllers objectAtIndex: (controllers.count - 2)];
+        if ([[prevController class] isEqual:[NewSignInViewController class]]) {
+            [self.navigationController popToViewController:prevController animated:TRUE];
+            return;
+        }
+    }
+    NewSignInViewController *signInVC = [[NewSignInViewController alloc] initWithNibName:@"NewSignInViewController" bundle:nil];
+    [self.navigationController pushViewController:signInVC animated:TRUE];
 }
 
 - (IBAction)btnChooseTypeContinuePress:(UIButton *)sender
@@ -619,17 +632,29 @@
 -(void)confirmOTPWithCode:(NSString *)code
 {
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:your_acc_is_being_actived Interaction:NO];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Your account is being actived..."] Interaction:NO];
     
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:check_otp_mod forKey:@"mod"];
-    [jsonDict setObject:email forKey:@"username"];
-    [jsonDict setObject:[AppUtils getMD5StringOfString:password] forKey:@"password"];
-    [jsonDict setObject:code forKey:@"code"];
+    if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] confirmOTPCodeWithEmail:tfEmail.text password:tfPassword.text code:code];
+    }
+}
+
+-(void)failedToCheckOTPWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
     
-    [webService callWebServiceWithLink:check_otp_func withParams:jsonDict];
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Your account has been actived successfully"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
     
-    [WriteLogsUtils writeLogContent:SFM(@"jSonDict = %@", @[jsonDict])];
+    [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
+}
+
+- (void)afterActivedAccount {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 #pragma mark - Webservice delegate
@@ -639,11 +664,16 @@
     
     NSString *msgError = [AppUtils getErrorContentFromData: error];
     [self.view makeToast:msgError duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
-    
-    [self showConfirmOTPView];
 }
 
 -(void)registerAccountSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    
+    //  store user's email for fill when login
+    [[NSUserDefaults standardUserDefaults] setObject:tfEmail.text forKey:key_login];
+    [[NSUserDefaults standardUserDefaults] setObject:tfPassword.text forKey:key_password];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self showConfirmOTPView];
 }
 

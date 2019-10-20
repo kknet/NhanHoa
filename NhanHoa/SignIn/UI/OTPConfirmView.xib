@@ -86,7 +86,7 @@
                 <outlet property="tfChar3" destination="KGu-a8-Hxu" id="B3D-iE-vwo"/>
                 <outlet property="tfChar4" destination="YoK-FM-VKO" id="1ru-lK-ckq"/>
             </connections>
-            <point key="canvasLocation" x="-135" y="21"/>
+            <point key="canvasLocation" x="-84" y="14"/>
         </view>
     </objects>
 </document>

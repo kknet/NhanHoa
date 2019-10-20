@@ -109,7 +109,7 @@
     
     lbNotReceived.textColor = UIColor.grayColor;
     lbNotReceived.font = textFont;
-    lbNotReceived.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Did not receive OTP code"];
+    lbNotReceived.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Did not receive OTP code?"];
     [lbNotReceived mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(btnConfirm.mas_bottom).offset(padding);
         make.left.equalTo(self).offset(padding);
@@ -164,7 +164,7 @@
     
     if ([AppUtils isNullOrEmpty: tfChar1.text] || [AppUtils isNullOrEmpty: tfChar2.text] || [AppUtils isNullOrEmpty: tfChar3.text] || [AppUtils isNullOrEmpty: tfChar4.text])
     {
-        [self makeToast:pls_enter_confirm_code duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter confirm code"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     

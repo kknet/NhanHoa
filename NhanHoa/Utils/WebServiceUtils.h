@@ -142,6 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass;
 - (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code;
 - (void)resendOTPForUsername: (NSString *)username password: (NSString *)password;
+- (void)confirmOTPCodeWithEmail:(NSString *)email password:(NSString *)password code:(NSString *)code;
 - (void)getTransactionsHistory;
 - (void)getRenewInfoForDomain: (NSString *)domain;
 - (void)renewOrderForDomain: (NSString *)domain contactId: (NSString *)contact_id ord_id:(NSString *)ord_id years: (int)years;

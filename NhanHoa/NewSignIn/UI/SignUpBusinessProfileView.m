@@ -13,7 +13,7 @@
 
 @synthesize scvPersonal, viewPersonalTitle, lbPersonalTitle, lbFullname, tfFullname, lbBotFullname, lbGender, icMale, lbMale, icFemale, lbFemale, lbDOB, tfDOB, lbBotDOB, btnChooseDOB, lbPostition, tfPostition, lbBotPPostition, lbPassport, tfPassport, lbBotPassport, lbPhoneNumber, tfPhoneNumber, lbBotPhoneNumber, lbEmail, tfEmail, lbBotEmail, lbCountry, tfCountry, lbBotCountry, lbCity, tfCity, lbBotCity, tvPolicy, btnChooseCity, btnRegister, imgCityArr;
 
-@synthesize delegate;
+@synthesize delegate, businessCityCode;
 
 - (void)setupUIForViewWithHeightNav: (float)hNav
 {
@@ -26,8 +26,10 @@
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     float padding = 15.0;
-    float paddingY = 20.0;
+    float paddingY = 25.0;
     float hBTN = 55.0;
+    float hLabel = 25.0;
+    float hTextfield = 50.0;
     
     UIFont *mediumFont = [UIFont fontWithName:RobotoMedium size:20.0];
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
@@ -35,14 +37,20 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         mediumFont = [UIFont fontWithName:RobotoMedium size:16.0];
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        hTextfield = 40.0;
+        paddingY = 20.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         mediumFont = [UIFont fontWithName:RobotoMedium size:18.0];
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        hTextfield = 40.0;
+        paddingY = 20.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         mediumFont = [UIFont fontWithName:RobotoMedium size:20.0];
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        hTextfield = 50.0;
+        paddingY = 25.0;
     }
     
     //  header view
@@ -56,7 +64,7 @@
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
         make.centerX.equalTo(viewHeader.mas_centerX);
-        make.width.mas_equalTo(200);
+        make.width.mas_equalTo(250);
         make.height.mas_equalTo(hNav);
     }];
     
@@ -70,9 +78,6 @@
     [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     //  scrollview content
-    float hLabel = 25.0;
-    float hTextfield = 40.0;
-    
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(2.0);
         make.left.right.bottom.equalTo(self);
@@ -103,6 +108,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfBusinessName.returnKeyType = UIReturnKeyNext;
+    tfBusinessName.delegate = self;
     tfBusinessName.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter business name"];
     [tfBusinessName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessName.mas_bottom);
@@ -124,6 +131,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfTaxCode.returnKeyType = UIReturnKeyNext;
+    tfTaxCode.delegate = self;
     tfTaxCode.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter tax code"];
     [tfTaxCode mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTaxCode.mas_bottom);
@@ -145,6 +154,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfBusinessAddr.returnKeyType = UIReturnKeyNext;
+    tfBusinessAddr.delegate = self;
     tfBusinessAddr.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter business address"];
     [tfBusinessAddr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessAddr.mas_bottom);
@@ -166,6 +177,9 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfBusinessPhone.returnKeyType = UIReturnKeyDone;
+    tfBusinessPhone.delegate = self;
+    tfBusinessPhone.keyboardType = UIKeyboardTypePhonePad;
     tfBusinessPhone.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter business phone number"];
     [tfBusinessPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBusinessPhone.mas_bottom);
@@ -247,7 +261,7 @@
     btnContinue.titleLabel.font = mediumFont;
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.layer.cornerRadius = 8.0;
-    [btnContinue setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Sign Up"]
+    [btnContinue setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Continue"]
                  forState:UIControlStateNormal];
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -299,6 +313,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfFullname.returnKeyType = UIReturnKeyNext;
+    tfFullname.delegate = self;
     tfFullname.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter registrant name"];
     [tfFullname mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbFullname.mas_bottom);
@@ -379,6 +395,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfPostition.returnKeyType = UIReturnKeyNext;
+    tfPostition.delegate = self;
     tfPostition.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter postition"];
     [tfPostition mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPostition.mas_bottom);
@@ -400,6 +418,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfPassport.returnKeyType = UIReturnKeyNext;
+    tfPassport.delegate = self;
     tfPassport.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter passport"];
     [tfPassport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPassport.mas_bottom);
@@ -421,6 +441,9 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfPhoneNumber.keyboardType = UIKeyboardTypePhonePad;
+    tfPhoneNumber.returnKeyType = UIReturnKeyNext;
+    tfPhoneNumber.delegate = self;
     tfPhoneNumber.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter phone number"];
     [tfPhoneNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPhoneNumber.mas_bottom);
@@ -442,6 +465,8 @@
         make.height.mas_equalTo(hLabel);
     }];
     
+    tfEmail.returnKeyType = UIReturnKeyNext;
+    tfEmail.delegate = self;
     tfEmail.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter Email"];
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbEmail.mas_bottom);
@@ -524,11 +549,12 @@
     [self setContentForTextViewPolicyWithFont: [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2]];
     
     tvPolicy.editable = FALSE;
+    tvPolicy.scrollEnabled = FALSE;
     tvPolicy.delegate = self;
     [tvPolicy mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBotCity.mas_bottom).offset(paddingY);
         make.left.right.equalTo(lbBotCity);
-        make.height.mas_equalTo(80.0);
+        make.height.mas_equalTo(90.0);
     }];
     
     btnRegister.titleLabel.font = mediumFont;
@@ -553,6 +579,33 @@
     float hPersonal = 60.0 + padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + 80.0 + paddingY + hBTN + paddingY;
     
     scvPersonal.contentSize = CGSizeMake(SCREEN_WIDTH, hPersonal);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notif {
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-keyboardHeight);
+    }];
+    
+    [scvPersonal mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-keyboardHeight);
+    }];
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+    }];
+    
+    [scvPersonal mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+    }];
 }
 
 - (void)setContentForTextViewPolicyWithFont: (UIFont *)font {
@@ -586,6 +639,8 @@
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
     if (scvPersonal.frame.origin.x == 0) {
         [scvPersonal mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(SCREEN_WIDTH);
@@ -601,9 +656,46 @@
 }
 
 - (IBAction)btnChooseBusinessCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    float wPopup = 300.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        wPopup = 500;
+    }
+    
+    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, SCREEN_HEIGHT-100)];
+    popupView.delegate = self;
+    [popupView showInView:[AppDelegate sharedInstance].window animated:TRUE];
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business name"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfTaxCode.text]) {
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business tax code"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessAddr.text]) {
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business address"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessPhone.text]) {
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business phone number"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: businessCityCode]) {
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please choose city for business"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
     [scvPersonal mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
     }];
@@ -620,4 +712,48 @@
 
 - (IBAction)btnChooseDOBPress:(UIButton *)sender {
 }
+
+#pragma mark - City popup delegate
+-(void)choosedCity:(CityObject *)city {
+    tfBusinessCity.text = city.name;
+    businessCityCode = city.code;
+}
+
+#pragma mark - UITextfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfBusinessName) {
+        [tfTaxCode becomeFirstResponder];
+        
+    }else if (textField == tfTaxCode) {
+        [tfBusinessAddr becomeFirstResponder];
+        
+    }else if (textField == tfBusinessAddr) {
+        [tfBusinessPhone becomeFirstResponder];
+        
+    }else if (textField == tfBusinessPhone) {
+        [self endEditing: TRUE];
+        
+    }
+    else if (textField == tfFullname) {
+        [tfPostition becomeFirstResponder];
+
+    }else if (textField == tfPostition) {
+        [tfPassport becomeFirstResponder];
+
+    }else if (textField == tfPassport) {
+        [tfPhoneNumber becomeFirstResponder];
+
+    }else if (textField == tfPhoneNumber) {
+        [tfEmail becomeFirstResponder];
+
+    }
+//    else if (textField == tfEmail) {
+//        [tfPerAddress becomeFirstResponder];
+//
+//    }else if (textField == tfPerAddress) {
+//        [self closeKyboard];
+//    }
+    return TRUE;
+}
+
 @end

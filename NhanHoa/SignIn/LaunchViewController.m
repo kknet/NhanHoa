@@ -41,11 +41,6 @@
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = YES;
     
-    if ([AppDelegate sharedInstance].registerAccSuccess) {
-        SignInViewController *signInVC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-        [self.navigationController pushViewController:signInVC animated:YES];
-    }
-    
     float screenWidth = [DeviceUtils getWidthOfScreen];
     float screenHeight = [DeviceUtils getHeightOfScreen];
     

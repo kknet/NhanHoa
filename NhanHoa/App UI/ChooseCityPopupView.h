@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CityObject.h"
 
-@protocol ChooseCityPopupViewDelegate
+@protocol ChooseCityPopupViewDelegate<NSObject>
+@optional
 - (void)choosedCity: (CityObject *)city;
 @end
 
 @interface ChooseCityPopupView : UIView<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) <NSObject, ChooseCityPopupViewDelegate> delegate;
+@property (nonatomic, strong) id <NSObject, ChooseCityPopupViewDelegate> delegate;
 @property (nonatomic, strong) UIView *viewHeader;
 @property (nonatomic, strong) UIButton *icClose;
 @property (nonatomic, strong) UILabel *lbTitle;

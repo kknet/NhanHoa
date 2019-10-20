@@ -7,11 +7,17 @@
 //
 
 #import "NewSignInViewController.h"
+#import "AppTabbarViewController.h"
+#import "NewSignUpViewController.h"
+#import "OTPConfirmView.h"
 
-@interface NewSignInViewController (){
+@interface NewSignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, OTPConfirmViewDelegate>{
     AppDelegate *appDelegate;
     float padding;
     UIFont *boldFont;
+    UIFont *textFont;
+    
+    OTPConfirmView *otpView;
 }
 @end
 
@@ -27,20 +33,37 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = TRUE;
     
+    //  fill content for email & password if exists
+    NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:key_login];
+    tfEmail.text = (![AppUtils isNullOrEmpty: email])? email : @"";
+    
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey: key_password];
+    tfPassword.text = (![AppUtils isNullOrEmpty: password]) ? password : @"";
     tfPassword.secureTextEntry = TRUE;
+    
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+    if (loginState != nil && ![loginState isEqualToString:@"NO"] && ![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD])
+    {
+        [self autoSignInWithSavedInformation];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self registerObservers];
+    }
+    
+    [WebServiceUtils getInstance].delegate = self;
+    
     [self showContentWithCurrentLanguage];
-    
     [self setupTextfieldForView];
-    
-    [self registerObservers];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
-
 
 - (void)registerObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
@@ -116,7 +139,6 @@
     }
 }
 
-
 - (void)setupUIForView
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -128,7 +150,7 @@
     float wPhoto = (SCREEN_WIDTH/2) + 50.0;
     float tfPadding = 25.0;
     
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:21.0];
+    textFont = [UIFont fontWithName:RobotoRegular size:21.0];
     boldFont = [UIFont fontWithName:RobotoBold size:21.0];
     
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
@@ -205,8 +227,11 @@
     
     tfEmail.textColor = tfPassword.textColor = GRAY_80;
     
-    tfEmail.text = @"lehoangson.gmail";
+    //  tfEmail.text = @"khailq@nhanhoa.com.vn";
+    tfEmail.text = @"lehoangson@gmail.com";
     tfEmail.font = boldFont;
+    tfEmail.returnKeyType = UIReturnKeyNext;
+    tfEmail.delegate = self;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgEmail.mas_right).offset(padding);
         make.right.equalTo(imgEmailState.mas_left).offset(-padding);
@@ -227,6 +252,8 @@
     
     //  password
     tfPassword.font = boldFont;
+    tfPassword.returnKeyType = UIReturnKeyDone;
+    tfPassword.delegate = self;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom).offset(tfPadding);
         make.left.right.equalTo(tfEmail);
@@ -295,6 +322,18 @@
     [self.view endEditing: TRUE];
 }
 
+- (void)autoSignInWithSavedInformation {
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"No network connection. Please check again!"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Signing..."] Interaction:NO];
+    
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
 - (IBAction)icCloseClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
@@ -315,13 +354,274 @@
 }
 
 - (IBAction)btnSignInPress:(UIButton *)sender {
+    [self.view endEditing: TRUE];
+    
+    if ([AppUtils isNullOrEmpty: tfEmail.text] || [AppUtils isNullOrEmpty: tfPassword.text]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter full informations"] duration:2.0 position:CSToastPositionCenter style:appDelegate.warningStyle];
+        return;
+    }
+    
+    if (![AppUtils checkNetworkAvailable]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"No network connection. Please check again!"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Signing..."] Interaction:NO];
+    
+    NSString *password = [AppUtils getMD5StringOfString:tfPassword.text];
+    [[WebServiceUtils getInstance] loginWithUsername:tfEmail.text password:password];
 }
 
 - (IBAction)btnSignUpPress:(UIButton *)sender {
+    NSArray *controllers = self.navigationController.viewControllers;
+    if (controllers.count >= 2) {
+        UIViewController *prevController = [controllers objectAtIndex: (controllers.count - 2)];
+        if ([[prevController class] isEqual:[NewSignUpViewController class]]) {
+            [self.navigationController popToViewController:prevController animated:TRUE];
+            return;
+        }
+    }
+    
+    NewSignUpViewController *signUpVC = [[NewSignUpViewController alloc] initWithNibName:@"NewSignUpViewController" bundle:nil];
+    [self.navigationController pushViewController:signUpVC animated:TRUE];
 }
 
 - (void)onTextfieldDidChanged {
     [self setupTextfieldForView];
+}
+
+#pragma mark - UITextfield Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == tfEmail) {
+        [tfPassword becomeFirstResponder];
+        
+    }else if (textField == tfPassword) {
+        [self.view endEditing: TRUE];
+    }
+    return TRUE;
+}
+
+#pragma mark - WebServiceUtilDelegate
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
+    [ProgressHUD dismiss];
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSString *errorCode = [(NSDictionary *)error objectForKey:@"errorCode"];
+        if ([errorCode isEqualToString:@"005"]) {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:[appDelegate.localization localizedStringForKey:@"Your account have not actived yet"]];
+            [attrTitle addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, attrTitle.string.length)];
+            [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+            
+            UIAlertAction *btnClose = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Close"] style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction *action){}];
+            [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+            
+            UIAlertAction *btnActive = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Activated"] style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction *action){
+                                                                  [self tryToResendOTPToActivedCurrentAccount];
+                                                              }];
+            
+            [btnActive setValue:BLUE_COLOR forKey:@"titleTextColor"];
+            [alertVC addAction:btnClose];
+            [alertVC addAction:btnActive];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }else{
+            NSString *message = [AppUtils getErrorContentFromData: error];
+            [self.view makeToast:message duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+        }
+    }
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    //  set username for Fabric
+    if (![AppUtils isNullOrEmpty: tfEmail.text]) {
+        [[Crashlytics sharedInstance] setUserName:tfEmail.text];
+    }
+    
+    NSString *min_ios_version = [data objectForKey:@"min_ios_version"];
+    if (![AppUtils isNullOrEmpty: min_ios_version]) {
+        BOOL versionReady = [AppUtils checkVersionAppToAcceptLogin: min_ios_version];
+        if (!versionReady) {
+            [ProgressHUD dismiss];
+            [self showWarningWhenCurrentVersionNotAccept];
+
+            return;
+        }
+    }
+
+    [self processForLoginSuccessful];
+    if (![AppUtils isNullOrEmpty:appDelegate.token]) {
+        [[WebServiceUtils getInstance] updateTokenWithValue: appDelegate.token];
+    }else{
+        [ProgressHUD dismiss];
+        [self goToHomeScreen];
+    }
+}
+
+-(void)failedToResendOTPWithError:(NSString *)error {
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)resendOTPSuccessfulWithData:(NSDictionary *)data {
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"OTP code has been sent to your phone number"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+    
+    [self addViewActiveAccountIfNeed];
+}
+
+-(void)failedToCheckOTPWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Your account has been actived successfully"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+    [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
+}
+
+-(void)failedToUpdateToken {
+    [ProgressHUD dismiss];
+    [self goToHomeScreen];
+}
+
+-(void)updateTokenSuccessful {
+    [ProgressHUD dismiss];
+    [self goToHomeScreen];
+}
+
+- (void)showWarningWhenCurrentVersionNotAccept {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:[appDelegate.localization localizedStringForKey:@"Your version was old. Please update new version to use."]];
+    [attrTitle addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, attrTitle.string.length)];
+    [attrTitle addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attrTitle.string.length)];
+    [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+    
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Close"] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    UIAlertAction *btnGoStore = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Update"] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self checkAndGotoAppStore];
+    }];
+    [btnGoStore setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnClose];
+    [alertVC addAction:btnGoStore];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (void)checkAndGotoAppStore {
+    NSString *linkToAppStore = [self checkNewVersionOnAppStore];
+    if (![AppUtils isNullOrEmpty: linkToAppStore]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore] options:[[NSDictionary alloc] init] completionHandler:nil];
+    }
+    [WriteLogsUtils writeLogContent:SFM(@"[%s] linkToAppStore: %@", __FUNCTION__, linkToAppStore)];
+}
+
+- (NSString *)checkNewVersionOnAppStore {
+    NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString* appID = infoDictionary[@"CFBundleIdentifier"];
+    if (appID.length > 0) {
+        NSURL* url = [NSURL URLWithString:SFM(@"http://itunes.apple.com/lookup?bundleId=%@", appID)];
+        NSData* data = [NSData dataWithContentsOfURL:url];
+        
+        if (data) {
+            NSDictionary* lookup = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
+            if ([lookup[@"resultCount"] integerValue] == 1){
+                // app needs to be updated
+                return lookup[@"results"][0][@"trackViewUrl"] ? lookup[@"results"][0][@"trackViewUrl"] : @"";
+            }
+        }
+    }
+    return @"";
+}
+
+- (void)processForLoginSuccessful {
+    NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
+    if (loginState == nil || [loginState isEqualToString:@"NO"])
+    {
+        NSString *password = [AppUtils getMD5StringOfString:tfPassword.text];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:login_state];
+        [[NSUserDefaults standardUserDefaults] setObject:tfEmail.text forKey:key_login];
+        [[NSUserDefaults standardUserDefaults] setObject:password forKey:key_password];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+- (void)goToHomeScreen {
+    AppTabbarViewController *tabbarVC = [[AppTabbarViewController alloc] init];
+    [self presentViewController:tabbarVC animated:YES completion:nil];
+}
+
+- (void)tryToResendOTPToActivedCurrentAccount {
+    if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
+    }else{
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter email or password"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    }
+}
+
+- (void)addViewActiveAccountIfNeed {
+    if (otpView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"OTPConfirmView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[OTPConfirmView class]]) {
+                otpView = (OTPConfirmView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: otpView];
+    }
+    otpView.delegate = self;
+    [otpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    [otpView setupUIForView];
+}
+
+- (void)afterActivedAccount {
+    if (otpView != nil) {
+        [otpView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        }];
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.view layoutIfNeeded];
+        }completion:^(BOOL finished) {
+            [otpView removeFromSuperview];
+            otpView = nil;
+        }];
+    }
+}
+
+#pragma mark - OTPConfirmViewDelegate
+
+-(void)confirmOTPWithCode:(NSString *)code {
+    if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text])
+    {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Your account is being actived..."] Interaction:NO];
+        
+        [[WebServiceUtils getInstance] checkOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text] andOTPCode:code];
+    }else{
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter email or password"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    }
+}
+
+-(void)onResendOTPPress {
+    if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
+    }else{
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter email or password"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    }
 }
 
 @end
