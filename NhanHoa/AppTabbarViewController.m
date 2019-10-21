@@ -10,7 +10,7 @@
 #import "NewHomeViewController.h"
 #import "InvoicesViewController.h"
 #import "NotificationsViewController.h"
-#import "WhoIsViewController.h"
+#import "SearchDomainsViewController.h"
 
 #import "HomeViewController.h"
 #import "BOViewController.h"
@@ -71,11 +71,11 @@
     invoicesNav.tabBarItem = invoicesItem;
     
     //  search domains
-    WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-    UINavigationController *whoIsNav = [[UINavigationController alloc] initWithRootViewController: whoIsVC];
+    SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
+    UINavigationController *searchDomainsNav = [[UINavigationController alloc] initWithRootViewController: searchDomainsVC];
     
-    UITabBarItem *whoisItem = [[UITabBarItem alloc] initWithTitle:@"" image:nil selectedImage:nil];
-    whoIsNav.tabBarItem = whoisItem;
+    UITabBarItem *searchItem = [[UITabBarItem alloc] initWithTitle:@"" image:nil selectedImage:nil];
+    searchDomainsNav.tabBarItem = searchItem;
     
     //  notifications tabbar
     NotificationsViewController *notifVC = [[NotificationsViewController alloc] initWithNibName:@"NotificationsViewController" bundle:nil];
@@ -127,7 +127,7 @@
     moreNav.tabBarItem = accItem;
     
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
-    tabBarController.viewControllers = @[homeNav, invoicesNav, whoIsNav, notifNav, moreNav];
+    tabBarController.viewControllers = @[homeNav, invoicesNav, searchDomainsNav, notifNav, moreNav];
     [self.view addSubview: tabBarController.view];
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];

@@ -299,7 +299,6 @@
     lbTotal.textColor = lbTotalMoney.textColor = lbVAT.textColor = lbVATMoney.textColor = GRAY_80;
     
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hStatus + hNav + hTableView + viewMoreInfo.hCollectionView + hPriceView);
-    cho nay
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

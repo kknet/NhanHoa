@@ -470,6 +470,9 @@
 		56FC5DD022CF04C200254F25 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FC5DCF22CF04C200254F25 /* info.png */; };
 		56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FCA44522CC8F88005C173E /* SupportListViewController.m */; };
 		56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FCA44622CC8F88005C173E /* SupportListViewController.xib */; };
+		56FCB6F8235E04E700CD9D5F /* bg_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6F7235E04E600CD9D5F /* bg_header.png */; };
+		56FCB6FA235E083B00CD9D5F /* top_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6F9235E083B00CD9D5F /* top_header.png */; };
+		56FCB6FC235E092600CD9D5F /* bottom_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6FB235E092600CD9D5F /* bottom_header.png */; };
 		56FD5ADA22B064B800955964 /* ic_bank_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FD5AD922B064B800955964 /* ic_bank_info.png */; };
 		56FDEB5C22B66486001A14AE /* launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB5B22B66486001A14AE /* launch.jpg */; };
 		56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */; };
@@ -1213,6 +1216,9 @@
 		56FCA44422CC8F88005C173E /* SupportListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportListViewController.h; sourceTree = "<group>"; };
 		56FCA44522CC8F88005C173E /* SupportListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportListViewController.m; sourceTree = "<group>"; };
 		56FCA44622CC8F88005C173E /* SupportListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportListViewController.xib; sourceTree = "<group>"; };
+		56FCB6F7235E04E600CD9D5F /* bg_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header.png; sourceTree = "<group>"; };
+		56FCB6F9235E083B00CD9D5F /* top_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_header.png; sourceTree = "<group>"; };
+		56FCB6FB235E092600CD9D5F /* bottom_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_header.png; sourceTree = "<group>"; };
 		56FD5AD922B064B800955964 /* ic_bank_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bank_info.png; sourceTree = "<group>"; };
 		56FDEB5B22B66486001A14AE /* launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpg; sourceTree = "<group>"; };
 		56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PricingDomainViewController.h; sourceTree = "<group>"; };
@@ -1675,6 +1681,8 @@
 			isa = PBXGroup;
 			children = (
 				56158E33235C4AA900220A38 /* bg_intro.png */,
+				56FCB6F9235E083B00CD9D5F /* top_header.png */,
+				56FCB6FB235E092600CD9D5F /* bottom_header.png */,
 				4C8B4589235D93EE00D54F0F /* circle_green.png */,
 				4C8B457F235D54E500D54F0F /* photo_empty_cart_en.png */,
 				4C8B4581235D5ABD00D54F0F /* photo_empty_cart_vi.png */,
@@ -1735,6 +1743,7 @@
 				4CD7A6422355AD0100044E1A /* call_green.png */,
 				4CD7A63323558C1900044E1A /* home_banner.png */,
 				4CEA116F23585B1700762C45 /* ic_bg.png */,
+				56FCB6F7235E04E600CD9D5F /* bg_header.png */,
 				4CD7A63423558C1A00044E1A /* home_banner@2x.png */,
 				4CD7A63223558C1900044E1A /* home_banner@3x.png */,
 				5612F8AB22E6C8FD00ECBBB1 /* call-bg.png */,
@@ -2980,6 +2989,7 @@
 				4CEFDCC523599E6F00CE9451 /* NewSignUpViewController.xib in Resources */,
 				4CD7A65D2355C4B700044E1A /* menu_vfone.png in Resources */,
 				4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */,
+				56FCB6F8235E04E700CD9D5F /* bg_header.png in Resources */,
 				849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */,
 				1517FBA422745D810044E878 /* tababr_acc_act@2x.png in Resources */,
 				4CD7A63523558C1A00044E1A /* home_banner@3x.png in Resources */,
@@ -3090,6 +3100,7 @@
 				4CEFDCBE2359774000CE9451 /* ic_active.png in Resources */,
 				15CD147922B9E2E9009CBE86 /* push.php in Resources */,
 				842F81B8227561ED00D6DE6D /* Roboto-Italic.ttf in Resources */,
+				56FCB6FA235E083B00CD9D5F /* top_header.png in Resources */,
 				56FC243D22CDBCE8006AE4AA /* chirtmas.mp3 in Resources */,
 				8460F642227A644300A185B0 /* CartViewController.xib in Resources */,
 				56FCA44822CC8F88005C173E /* SupportListViewController.xib in Resources */,
@@ -3132,6 +3143,7 @@
 				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
 				4CD7A65B2355C4B700044E1A /* menu_register_email.png in Resources */,
 				56E477ED22F9A4D100296A55 /* email_ssl.png in Resources */,
+				56FCB6FC235E092600CD9D5F /* bottom_header.png in Resources */,
 				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */,

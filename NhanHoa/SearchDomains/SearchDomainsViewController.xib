@@ -11,25 +11,193 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchDomainsViewController">
             <connections>
+                <outlet property="bgHeader" destination="Els-dh-0V7" id="10s-be-Pm5"/>
+                <outlet property="bgTop" destination="8td-nl-zM4" id="2RL-Nh-CUT"/>
+                <outlet property="clvPosts" destination="Mzc-kU-95E" id="4F5-px-70X"/>
+                <outlet property="clvSlider" destination="4wf-km-Cl1" id="z3e-Kw-6KX"/>
+                <outlet property="icCart" destination="lYE-Zg-e0L" id="btt-i6-YJx"/>
+                <outlet property="icClose" destination="b57-zf-2zK" id="SaE-hC-dIX"/>
+                <outlet property="icSearch" destination="USm-1K-1q6" id="Mba-7a-Law"/>
+                <outlet property="imgCheckMultiDomains" destination="Prb-IX-jve" id="cis-Bt-A7V"/>
+                <outlet property="imgRenewDomain" destination="vQp-Cm-5Eh" id="Bdh-me-tYd"/>
+                <outlet property="imgTransferDomain" destination="5by-zu-D5r" id="has-oe-92i"/>
+                <outlet property="lbCheckMultiDomains" destination="4L3-fc-tw0" id="AbP-se-qoC"/>
+                <outlet property="lbHeader" destination="Dkb-JU-7AS" id="PNZ-1J-O5t"/>
+                <outlet property="lbRenewDomain" destination="LaH-ea-z9w" id="xXz-Q4-nAO"/>
+                <outlet property="lbTransferDomain" destination="Y1I-h9-2iv" id="U9u-7J-vPs"/>
+                <outlet property="scvContent" destination="lPH-Q8-V8p" id="0o1-dS-3Ib"/>
+                <outlet property="tbDomainsType" destination="Pv9-6r-Liu" id="kRB-ix-VWU"/>
+                <outlet property="tfSearch" destination="kkz-4c-fZU" id="XAs-q1-PgJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewCheckMultiDomains" destination="5xh-SJ-2Bn" id="sWX-oh-0El"/>
+                <outlet property="viewHeader" destination="PnB-jL-bf7" id="RnX-kk-75j"/>
+                <outlet property="viewRenewDomain" destination="zbQ-n8-YIf" id="34I-yR-19q"/>
+                <outlet property="viewTop" destination="wih-7k-q81" id="HYh-IW-CPc"/>
+                <outlet property="viewTransferDomains" destination="cL1-W3-XxM" id="TGt-Ki-qZO"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="723"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search domains" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lAS-W8-kbA">
-                    <rect key="frame" x="99" y="230" width="123" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="lPH-Q8-V8p">
+                    <rect key="frame" x="0.0" y="44" width="320" height="679"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_header.png" id="8td-nl-zM4">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" id="wih-7k-q81">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="kkz-4c-fZU">
+                                    <rect key="frame" x="8" y="8" width="304" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="USm-1K-1q6">
+                                    <rect key="frame" x="266" y="8" width="46" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="icSearchClick:" destination="-1" eventType="touchUpInside" id="CLR-mk-pLW"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="5xh-SJ-2Bn">
+                            <rect key="frame" x="0.0" y="50" width="100" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Prb-IX-jve">
+                                    <rect key="frame" x="35" y="8" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiểm tra nhiều tên miền" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4L3-fc-tw0">
+                                    <rect key="frame" x="0.0" y="46" width="100" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="zbQ-n8-YIf">
+                            <rect key="frame" x="110" y="50" width="100" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vQp-Cm-5Eh">
+                                    <rect key="frame" x="35" y="8" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gia hạn tên miền" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LaH-ea-z9w">
+                                    <rect key="frame" x="4" y="46" width="93" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="cL1-W3-XxM">
+                            <rect key="frame" x="218" y="50" width="100" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5by-zu-D5r">
+                                    <rect key="frame" x="35" y="8" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chuyển tên miền về Nhân Hòa" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y1I-h9-2iv">
+                                    <rect key="frame" x="0.0" y="46" width="100" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" id="4wf-km-Cl1">
+                            <rect key="frame" x="8" y="165" width="304" height="108"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D98-SU-vC1">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" id="Mzc-kU-95E">
+                            <rect key="frame" x="8" y="291" width="304" height="108"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sBu-Dq-NJS">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pv9-6r-Liu">
+                            <rect key="frame" x="0.0" y="422" width="318" height="257"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
+                    </subviews>
+                </scrollView>
+                <view contentMode="scaleToFill" id="PnB-jL-bf7">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_header.png" id="Els-dh-0V7">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b57-zf-2zK">
+                            <rect key="frame" x="8" y="10" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="close.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="-1" eventType="touchUpInside" id="CLi-Ig-ush"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search domains" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dkb-JU-7AS">
+                            <rect key="frame" x="99" y="12" width="123" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lYE-Zg-e0L">
+                            <rect key="frame" x="284" y="8" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cart.png"/>
+                            <connections>
+                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="Do3-Lh-HJv"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-33" y="17"/>
+            <point key="canvasLocation" x="-383" y="73"/>
         </view>
     </objects>
+    <resources>
+        <image name="bottom_header.png" width="2253" height="1659"/>
+        <image name="cart.png" width="100" height="100"/>
+        <image name="close.png" width="100" height="100"/>
+        <image name="top_header.png" width="2253" height="484"/>
+    </resources>
 </document>

@@ -180,7 +180,7 @@
                 <outlet property="lbWithdraw" destination="Sn6-pT-GJ3" id="wA9-qL-aYF"/>
                 <outlet property="viewWallet" destination="r2B-rn-fvZ" id="ydD-oY-rJm"/>
             </connections>
-            <point key="canvasLocation" x="-513.04347826086962" y="-157.03125"/>
+            <point key="canvasLocation" x="-106" y="-157"/>
         </view>
     </objects>
     <resources>
