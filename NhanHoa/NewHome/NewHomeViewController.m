@@ -53,7 +53,10 @@
     self.navigationController.navigationBarHidden = TRUE;
     [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
     
-    [viewHomeHeader displayAccountInformation];
+    if (viewHomeHeader != nil) {
+        [viewHomeHeader displayAccountInformation];
+        [viewHomeHeader updateShoppingCartCount];
+    }
 }
 
 - (void)setupUIForView
@@ -359,9 +362,9 @@
     
     if (scrollView.contentOffset.y > (viewHomeHeader.icCart.frame.origin.y + viewHomeHeader.icCart.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height))
     {
-        
+        NSLog(@"HIDE");
     }else{
-        //  NSLog(@"SHOW");
+        NSLog(@"SHOW");
     }
 }
 
@@ -392,6 +395,10 @@
     [viewHomeHeader.icBonusMoney addTarget:self
                                     action:@selector(selectOnWithdrawHeaderMenu)
                           forControlEvents:UIControlEventTouchUpInside];
+    
+    [viewHomeHeader.icCart addTarget:self
+                              action:@selector(onIconCartClicked)
+                    forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)selectOnTopupHeaderMenu {
@@ -420,6 +427,10 @@
     transactionsVC.hidesBottomBarWhenPushed = TRUE;
     [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController: transactionsVC animated:TRUE];
+}
+
+- (void)onIconCartClicked {
+    [appDelegate showCartScreenContent];
 }
 
 @end

@@ -54,7 +54,7 @@
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice;
 @synthesize cropAvatar, dataCrop, token, hashKey;
-@synthesize cartWindow, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
+@synthesize cartWindow, shoppingCartVC, shoppingCartNavVC, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName, needChangeDNS;
@@ -219,12 +219,22 @@ AppDelegate      *app;
         self.cartWindow.tag = 2;
     }
     
+    /*
     if (self.cartViewController == nil) {
         self.cartViewController = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
         self.cartNavViewController = [[UINavigationController alloc] initWithRootViewController:self.cartViewController];
         self.cartNavViewController.navigationBarHidden = YES;
     }
     cartWindow.rootViewController = cartNavViewController;
+    */
+    
+    if (shoppingCartVC == nil) {
+        shoppingCartVC = [[ShoppingCartViewController alloc] initWithNibName:@"ShoppingCartViewController" bundle:nil];
+        shoppingCartNavVC = [[UINavigationController alloc] initWithRootViewController: shoppingCartVC];
+        shoppingCartNavVC.navigationBarHidden = TRUE;
+    }
+    cartWindow.rootViewController = shoppingCartNavVC;
+    
     cartWindow.alpha = 0;
     
     //  for callkit
@@ -675,6 +685,7 @@ AppDelegate      *app;
 
 - (void)showCartScreenContent
 {
+    /*
     if (self.cartWindow == nil) {
         //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -697,18 +708,38 @@ AppDelegate      *app;
         [self.cartWindow makeKeyAndVisible];
     }completion:^(BOOL finished) {
         
-    }];
+    }]; */
+    if (cartWindow == nil) {
+        //  self.cartWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        cartWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        cartWindow.backgroundColor = UIColor.redColor;
+        cartWindow.windowLevel = UIWindowLevelNormal;
+        cartWindow.tag = 2;
+    }
+    if (shoppingCartVC == nil) {
+        shoppingCartVC = [[ShoppingCartViewController alloc] initWithNibName:@"ShoppingCartViewController" bundle:nil];
+        shoppingCartNavVC = [[UINavigationController alloc] initWithRootViewController: shoppingCartVC];
+        shoppingCartNavVC.navigationBarHidden = TRUE;
+    }
+    [ProgressHUD updateCurrentWindowWithNewWindow: cartWindow];
+    cartWindow.rootViewController = shoppingCartNavVC;
+    cartWindow.alpha = 0;
     
-    //  SF(@"iOS_%@_%@",bundleIdentifier,version)
+    [UIView animateWithDuration:0.2 animations:^{
+        cartWindow.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        cartWindow.alpha = 1;
+        [cartWindow makeKeyAndVisible];
+    }];
 }
 
 - (void)hideCartView {
     [ProgressHUD updateCurrentWindowWithNewWindow: self.window];
-    if( [self.cartWindow isKeyWindow] ) {
+    if( [cartWindow isKeyWindow] ) {
         
-        [UIView animateWithDuration:0.0 animations:^{
-            self.cartWindow.alpha = 0;
+        [UIView animateWithDuration:0.2 animations:^{
+            cartWindow.alpha = 0;
         } completion:^(BOOL finished) {
+            /*
             if (self.cartViewController != nil) {
                 [self.cartViewController.view removeFromSuperview];
                 self.cartViewController = nil;
@@ -718,7 +749,17 @@ AppDelegate      *app;
                 [self.cartNavViewController.view removeFromSuperview];
                 self.cartNavViewController = nil;
             }
-            [self.cartWindow removeFromSuperview];
+            */
+            if (shoppingCartVC != nil) {
+                [shoppingCartVC.view removeFromSuperview];
+                shoppingCartVC = nil;
+            }
+            
+            if (shoppingCartNavVC != nil) {
+                [shoppingCartNavVC.view removeFromSuperview];
+                shoppingCartNavVC = nil;
+            }
+            [cartWindow removeFromSuperview];
             [self.window makeKeyAndVisible];
         }];
         

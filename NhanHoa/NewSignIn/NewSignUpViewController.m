@@ -43,9 +43,6 @@
     [super viewWillAppear: animated];
     [self showContentForCurrentLanguage];
     
-    tfEmail.text = @"khailq@nhanhoa.com.vn";
-    tfPassword.text = tfConfirmPass.text = @"12345678";
-    
     [self setupTextfieldForView];
     typeProfile = ePersonalProfile;
 }
@@ -625,6 +622,9 @@
 
 -(void)onResendOTPPress {
     if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:NO];
+        
         [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
     }
 }
@@ -637,20 +637,6 @@
     if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
         [[WebServiceUtils getInstance] confirmOTPCodeWithEmail:tfEmail.text password:tfPassword.text code:code];
     }
-}
-
--(void)failedToCheckOTPWithError:(NSString *)error {
-    [ProgressHUD dismiss];
-    NSString *content = [AppUtils getErrorContentFromData: error];
-    [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
-}
-
--(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
-    [ProgressHUD dismiss];
-    
-    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Your account has been actived successfully"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
-    
-    [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
 }
 
 - (void)afterActivedAccount {
@@ -677,6 +663,33 @@
     [self showConfirmOTPView];
 }
 
+-(void)failedToResendOTPWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)resendOTPSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"OTP code has been sent to your phone number"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+}
+
+-(void)failedToCheckOTPWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:3.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)checkOTPSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Your account has been actived successfully"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+    
+    [self performSelector:@selector(afterActivedAccount) withObject:nil afterDelay:2.0];
+}
+
 #pragma mark - Business profile view
 - (void)showBusinessProfileView {
     [businessView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -698,6 +711,26 @@
     }];
 }
 
+-(void)readyToRegisterBusinessAccount:(NSDictionary *)info {
+    if ([AppUtils isNullOrEmpty: tfEmail.text] || [AppUtils isNullOrEmpty: tfPassword.text]) {
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Email or password doesn't exists"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:FALSE];
+    
+    if (info != nil && [info isKindOfClass:[NSDictionary class]])
+    {
+        NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithDictionary: info];
+        [jsonDict setObject:register_account_mod forKey:@"mod"];
+        [jsonDict setObject:tfEmail.text forKey:@"email"];
+        [jsonDict setObject:[AppUtils getMD5StringOfString: tfPassword.text] forKey:@"password"];
+        [jsonDict setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
+        
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] registerNewAccountWithInfo: jsonDict];
+    }
+}
 
 
 @end

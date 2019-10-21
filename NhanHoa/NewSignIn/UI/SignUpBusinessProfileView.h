@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)onBusinessViewBackClicked;
+- (void)readyToRegisterBusinessAccount: (NSDictionary *)info;
 @end
 
 @interface SignUpBusinessProfileView : UIView<ChooseCityPopupViewDelegate, UITextFieldDelegate>
@@ -84,6 +85,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 @property (weak, nonatomic) IBOutlet UILabel *lbBotEmail;
+
+@property (weak, nonatomic) IBOutlet UILabel *lbAddress;
+@property (weak, nonatomic) IBOutlet UITextField *tfAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lbBotAddress;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UITextField *tfCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbBotCountry;
@@ -102,10 +108,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnRegisterPress:(UIButton *)sender;
 - (IBAction)btnChooseCityPress:(UIButton *)sender;
 - (IBAction)btnChooseDOBPress:(UIButton *)sender;
+- (IBAction)icMaleClick:(UIButton *)sender;
+- (IBAction)icFemaleClick:(UIButton *)sender;
 
 - (void)setupUIForViewWithHeightNav: (float)hNav;
 
 @property (nonatomic, strong) NSString *businessCityCode;
+@property (nonatomic, strong) NSString *registrantCityCode;
+
+@property (nonatomic, strong) UIView *transparentView;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIView *toolBar;
+@property (nonatomic, assign) int gender;
 
 @end
 

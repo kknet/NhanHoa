@@ -7,6 +7,7 @@
 //
 
 #import "HomeHeaderView.h"
+#import "CartModel.h"
 
 @implementation HomeHeaderView
 
@@ -287,6 +288,15 @@
         lbBonusMoney.text = [NSString stringWithFormat:@"%@VNĐ", points];
     }else{
         lbBonusMoney.text = @"0VNĐ";
+    }
+}
+
+- (void)updateShoppingCartCount {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
     }
 }
 

@@ -54,6 +54,7 @@
 "Registrant name"       =   "Họ tên người đăng ký"
 "Postition"             =   "Chức vụ"
 "Back"                  =   "Quay lại"
+"Address"               =   "Địa chỉ"
 
 "Enter business informations"   =   "Nhập thông tin doanh nghiệp"
 "Enter business name"           =   "Nhập tên doanh nghiệp"
@@ -62,6 +63,7 @@
 "Enter business phone number"   =   "Nhập số điện thoại doanh nghiệp"
 "Enter registrant name"         =   "Nhập họ tên người đăng ký"
 "Enter postition"               =   "Nhập chức vụ"
+"Enter registrant's address"    =   "Nhập địa chỉ người đăng ký"
 
 "Please enter fullname"             =   "Vui lòng nhập họ tên"
 "Please choose your birthday"       =   "Vui lòng chọn ngày sinh"
@@ -76,6 +78,16 @@
 "Please enter business address"     =   "Vui lòng nhập địa chỉ doanh nghiệp"
 "Please enter business phone number"=   "Vui lòng nhập số điện thoại doanh nghiệp"
 "Please choose city for business"   =   "Vui lòng chọn thành phố cho doanh nghiệp"
+"Please enter registrant name"      =   "Vui lòng nhập tên người đăng ký"
+
+"Please choose registrant's date of birth"  =   "Vui lòng nhập ngày sinh người đăng ký"
+"Please enter registrant phone number"      =   "Vui lòng nhập số điện thoại người đăng ký"
+
+"Please enter registrant postition" =   "Vui lòng nhập chức vụ người đăng ký"
+"Please enter registrant passport"  =   "Vui lòng nhập CMND người đăng ký"
+"Please enter registrant email"     =   "Vui lòng nhập email người đăng ký"
+"Please enter registrant address"   =   "Vui lòng nhập địa chỉ người đăng ký"
+"Please choose registrant's city"   =   "Vui lòng chọn thành phố của người đăng ký"
 
 "Processing..."             =   "Đang xử lý..."
 "Enter confirm code"        =   "Nhập mã xác nhận"
@@ -89,15 +101,27 @@
 "Your account have not actived yet"             =   "Tài khoản của bạn chưa được kích hoạt"
 "OTP code has been sent to your phone number"   =   "Mã OTP đã được gửi đến số điện thoại của bạn"
 "Your account has been actived successfully"    =   "Tài khoản của bạn đã được kích hoạt thành công"
+"Not enough money to payment"                   =   "Không đủ tiền để thanh toán"
 
 "Your version was old. Please update new version to use."    =   "Phiên bản quý khách đang sử dụng đã cũ. Vui lòng cập nhật phiên bản mới để trải nghiệm tốt hơn."
+
 
 "Signing..."        =   "Đang đăng nhập..."
 "Close"             =   "Đóng"
 "Update"            =   "Cập nhật"
 "Activated"         =   "Kích hoạt"
+"Shopping cart"     =   "Giỏ hàng"
+"Cart"              =   "Giỏ hàng"
+"items"             =   "Sản phẩm"
+"item"              =   "Sản phẩm"
 
-
+"Order's informations"  =   "Thông tin đơn hàng"
+"Buy more"              =   "Mua thêm"
+"Price for first year"  =   "Giá năm đầu tiên"
+"Free"                  =   "Miễn phí"
+"Topup now"             =   "Nạp tiền ngay"
+"Later"                 =   "Để sau"
+"Register more"         =   "Đăng ký thêm"
 
 
 

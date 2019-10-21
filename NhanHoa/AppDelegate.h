@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "CityObject.h"
 #import "CartViewController.h"
+#import "ShoppingCartViewController.h"
 #import "ShoppingCartView.h"
 #import "NewLaunchViewController.h"
 #import "AudioSessionUtils.h"
@@ -107,6 +108,9 @@ typedef enum PaymentMethod{
 
 @property(strong, nonatomic) CartViewController *cartViewController;
 @property(strong, nonatomic) UINavigationController *cartNavViewController;
+
+@property(strong, nonatomic) ShoppingCartViewController *shoppingCartVC;
+@property(strong, nonatomic) UINavigationController *shoppingCartNavVC;
 
 @property(strong, nonatomic) NSMutableArray *listBank;
 @property(strong, nonatomic) NSMutableArray *listAllDomains;

@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupUIForView;
 - (void)displayAccountInformation;
+- (void)updateShoppingCartCount;
 
 - (IBAction)icTopupClick:(UIButton *)sender;
 - (IBAction)icWithdrawClick:(UIButton *)sender;

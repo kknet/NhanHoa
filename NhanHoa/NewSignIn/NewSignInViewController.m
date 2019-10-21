@@ -39,10 +39,6 @@
     NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:key_login];
     tfEmail.text = (![AppUtils isNullOrEmpty: email])? email : @"";
     
-    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey: key_password];
-    tfPassword.text = (![AppUtils isNullOrEmpty: password]) ? password : @"";
-    tfPassword.secureTextEntry = TRUE;
-    
     NSString *loginState = [[NSUserDefaults standardUserDefaults] objectForKey:login_state];
     if (loginState != nil && ![loginState isEqualToString:@"NO"] && ![AppUtils isNullOrEmpty: USERNAME] && ![AppUtils isNullOrEmpty:PASSWORD])
     {
@@ -464,11 +460,15 @@
 }
 
 -(void)failedToResendOTPWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
     NSString *content = [AppUtils getErrorContentFromData: error];
     [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
 }
 
 -(void)resendOTPSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    
     [self.view makeToast:[appDelegate.localization localizedStringForKey:@"OTP code has been sent to your phone number"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
     
     [self addViewActiveAccountIfNeed];
@@ -564,6 +564,9 @@
 
 - (void)tryToResendOTPToActivedCurrentAccount {
     if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:NO];
+        
         [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
     }else{
         [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter email or password"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
@@ -618,6 +621,9 @@
 
 -(void)onResendOTPPress {
     if (![AppUtils isNullOrEmpty: tfEmail.text] && ![AppUtils isNullOrEmpty: tfPassword.text]) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:NO];
+        
         [[WebServiceUtils getInstance] resendOTPForUsername:tfEmail.text password:[AppUtils getMD5StringOfString: tfPassword.text]];
     }else{
         [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter email or password"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];

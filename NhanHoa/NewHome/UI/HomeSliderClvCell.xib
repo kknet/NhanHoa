@@ -28,7 +28,7 @@
             <connections>
                 <outlet property="imgPicture" destination="s0g-4J-ybF" id="WDa-cg-Zch"/>
             </connections>
-            <point key="canvasLocation" x="-283" y="93"/>
+            <point key="canvasLocation" x="-188" y="77"/>
         </collectionViewCell>
     </objects>
     <resources>

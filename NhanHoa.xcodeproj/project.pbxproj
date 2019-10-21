@@ -291,6 +291,18 @@
 		4C765F0822F81AE6002AFEC8 /* down_arrow_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C765F0722F81AE6002AFEC8 /* down_arrow_blue.png */; };
 		4C765F0D22F81EB6002AFEC8 /* LinuxHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C765F0B22F81EB6002AFEC8 /* LinuxHostingCell.m */; };
 		4C765F0E22F81EB6002AFEC8 /* LinuxHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C765F0C22F81EB6002AFEC8 /* LinuxHostingCell.xib */; };
+		4C8B457D235D543400D54F0F /* ShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B457B235D543400D54F0F /* ShoppingCartViewController.m */; };
+		4C8B457E235D543400D54F0F /* ShoppingCartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B457C235D543400D54F0F /* ShoppingCartViewController.xib */; };
+		4C8B4580235D54E500D54F0F /* photo_empty_cart_en.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B457F235D54E500D54F0F /* photo_empty_cart_en.png */; };
+		4C8B4582235D5ABE00D54F0F /* photo_empty_cart_vi.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4581235D5ABD00D54F0F /* photo_empty_cart_vi.png */; };
+		4C8B4587235D69D800D54F0F /* CartDomainTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B4585235D69D800D54F0F /* CartDomainTbvCell.m */; };
+		4C8B4588235D69D800D54F0F /* CartDomainTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4586235D69D800D54F0F /* CartDomainTbvCell.xib */; };
+		4C8B458A235D93EE00D54F0F /* circle_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4589235D93EE00D54F0F /* circle_green.png */; };
+		4C8B458D235D94BE00D54F0F /* KLCustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B458C235D94BE00D54F0F /* KLCustomSwitch.m */; };
+		4C8B4590235DB25200D54F0F /* CartMoreInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B458F235DB25200D54F0F /* CartMoreInfoView.m */; };
+		4C8B4592235DB25F00D54F0F /* CartMoreInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4591235DB25F00D54F0F /* CartMoreInfoView.xib */; };
+		4C8B4596235DB30E00D54F0F /* CartMoreInfoClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B4594235DB30E00D54F0F /* CartMoreInfoClvCell.m */; };
+		4C8B4597235DB30E00D54F0F /* CartMoreInfoClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4595235DB30E00D54F0F /* CartMoreInfoClvCell.xib */; };
 		4C8B835522F82ED2009D441A /* WindowsHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B835322F82ED2009D441A /* WindowsHostingCell.m */; };
 		4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */; };
 		4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */; };
@@ -968,6 +980,23 @@
 		4C765F0A22F81EB6002AFEC8 /* LinuxHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxHostingCell.h; sourceTree = "<group>"; };
 		4C765F0B22F81EB6002AFEC8 /* LinuxHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinuxHostingCell.m; sourceTree = "<group>"; };
 		4C765F0C22F81EB6002AFEC8 /* LinuxHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinuxHostingCell.xib; sourceTree = "<group>"; };
+		4C8B457A235D543400D54F0F /* ShoppingCartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingCartViewController.h; sourceTree = "<group>"; };
+		4C8B457B235D543400D54F0F /* ShoppingCartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartViewController.m; sourceTree = "<group>"; };
+		4C8B457C235D543400D54F0F /* ShoppingCartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingCartViewController.xib; sourceTree = "<group>"; };
+		4C8B457F235D54E500D54F0F /* photo_empty_cart_en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_empty_cart_en.png; sourceTree = "<group>"; };
+		4C8B4581235D5ABD00D54F0F /* photo_empty_cart_vi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_empty_cart_vi.png; sourceTree = "<group>"; };
+		4C8B4584235D69D800D54F0F /* CartDomainTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartDomainTbvCell.h; sourceTree = "<group>"; };
+		4C8B4585235D69D800D54F0F /* CartDomainTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartDomainTbvCell.m; sourceTree = "<group>"; };
+		4C8B4586235D69D800D54F0F /* CartDomainTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartDomainTbvCell.xib; sourceTree = "<group>"; };
+		4C8B4589235D93EE00D54F0F /* circle_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_green.png; sourceTree = "<group>"; };
+		4C8B458B235D94BE00D54F0F /* KLCustomSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLCustomSwitch.h; sourceTree = "<group>"; };
+		4C8B458C235D94BE00D54F0F /* KLCustomSwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLCustomSwitch.m; sourceTree = "<group>"; };
+		4C8B458E235DB25200D54F0F /* CartMoreInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartMoreInfoView.h; sourceTree = "<group>"; };
+		4C8B458F235DB25200D54F0F /* CartMoreInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartMoreInfoView.m; sourceTree = "<group>"; };
+		4C8B4591235DB25F00D54F0F /* CartMoreInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartMoreInfoView.xib; sourceTree = "<group>"; };
+		4C8B4593235DB30E00D54F0F /* CartMoreInfoClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartMoreInfoClvCell.h; sourceTree = "<group>"; };
+		4C8B4594235DB30E00D54F0F /* CartMoreInfoClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartMoreInfoClvCell.m; sourceTree = "<group>"; };
+		4C8B4595235DB30E00D54F0F /* CartMoreInfoClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartMoreInfoClvCell.xib; sourceTree = "<group>"; };
 		4C8B835222F82ED2009D441A /* WindowsHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowsHostingCell.h; sourceTree = "<group>"; };
 		4C8B835322F82ED2009D441A /* WindowsHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowsHostingCell.m; sourceTree = "<group>"; };
 		4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowsHostingCell.xib; sourceTree = "<group>"; };
@@ -1430,6 +1459,7 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				4C8B4579235D541100D54F0F /* ShoppingCart */,
 				4CEA1171235872F400762C45 /* NewSignIn */,
 				4CEA116923584D6200762C45 /* Transactions */,
 				4CEA116223584C1E00762C45 /* Promotions */,
@@ -1603,6 +1633,8 @@
 				4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */,
 				4C65812422FC2C1300F38087 /* PaddingLabel.h */,
 				4C65812522FC2C1300F38087 /* PaddingLabel.m */,
+				4C8B458B235D94BE00D54F0F /* KLCustomSwitch.h */,
+				4C8B458C235D94BE00D54F0F /* KLCustomSwitch.m */,
 			);
 			path = "App UI";
 			sourceTree = "<group>";
@@ -1643,6 +1675,9 @@
 			isa = PBXGroup;
 			children = (
 				56158E33235C4AA900220A38 /* bg_intro.png */,
+				4C8B4589235D93EE00D54F0F /* circle_green.png */,
+				4C8B457F235D54E500D54F0F /* photo_empty_cart_en.png */,
+				4C8B4581235D5ABD00D54F0F /* photo_empty_cart_vi.png */,
 				4C178586235ABF7400943E14 /* ic_business.png */,
 				4C178587235ABF7400943E14 /* ic_personal.png */,
 				4C178584235AB7C200943E14 /* arrow_right.png */,
@@ -2190,6 +2225,33 @@
 				4CFCBCA022FD31A500427B86 /* SelectAmountClvCell.h */,
 				4CFCBCA122FD31A500427B86 /* SelectAmountClvCell.m */,
 				4CFCBCA222FD31A500427B86 /* SelectAmountClvCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4C8B4579235D541100D54F0F /* ShoppingCart */ = {
+			isa = PBXGroup;
+			children = (
+				4C8B4583235D699100D54F0F /* UI */,
+				4C8B457A235D543400D54F0F /* ShoppingCartViewController.h */,
+				4C8B457B235D543400D54F0F /* ShoppingCartViewController.m */,
+				4C8B457C235D543400D54F0F /* ShoppingCartViewController.xib */,
+			);
+			path = ShoppingCart;
+			sourceTree = "<group>";
+		};
+		4C8B4583235D699100D54F0F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C8B4584235D69D800D54F0F /* CartDomainTbvCell.h */,
+				4C8B4585235D69D800D54F0F /* CartDomainTbvCell.m */,
+				4C8B4586235D69D800D54F0F /* CartDomainTbvCell.xib */,
+				4C8B458E235DB25200D54F0F /* CartMoreInfoView.h */,
+				4C8B458F235DB25200D54F0F /* CartMoreInfoView.m */,
+				4C8B4591235DB25F00D54F0F /* CartMoreInfoView.xib */,
+				4C8B4593235DB30E00D54F0F /* CartMoreInfoClvCell.h */,
+				4C8B4594235DB30E00D54F0F /* CartMoreInfoClvCell.m */,
+				4C8B4595235DB30E00D54F0F /* CartMoreInfoClvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2970,6 +3032,7 @@
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				4CEFDCF62359BFAC00CE9451 /* ic_dropdow.png in Resources */,
 				4C765F0422F81756002AFEC8 /* windows.png in Resources */,
+				4C8B4597235DB30E00D54F0F /* CartMoreInfoClvCell.xib in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
 				4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */,
@@ -2993,6 +3056,7 @@
 				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
 				56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */,
 				4C28B90C22F5948500910F54 /* menu_email.png in Resources */,
+				4C8B4588235D69D800D54F0F /* CartDomainTbvCell.xib in Resources */,
 				4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */,
 				4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
@@ -3060,8 +3124,10 @@
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
 				159F7D8F227AAC4800A64586 /* trash.png in Resources */,
 				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
+				4C8B4582235D5ABE00D54F0F /* photo_empty_cart_vi.png in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
 				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
+				4C8B4592235DB25F00D54F0F /* CartMoreInfoView.xib in Resources */,
 				4C49FA422356D71D001D0EEF /* menu_topup.png in Resources */,
 				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
 				4CD7A65B2355C4B700044E1A /* menu_register_email.png in Resources */,
@@ -3087,6 +3153,7 @@
 				15E92AD32272A2F3004AB658 /* graphic.png in Resources */,
 				842F81B3227561ED00D6DE6D /* Roboto-Black.ttf in Resources */,
 				8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */,
+				4C8B4580235D54E500D54F0F /* photo_empty_cart_en.png in Resources */,
 				84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */,
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
 				4C00B3FE22F2E75F0087479C /* DNSRecordManagerView.xib in Resources */,
@@ -3120,6 +3187,7 @@
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				4CEFDCAA2359545200CE9451 /* dot.png in Resources */,
+				4C8B458A235D93EE00D54F0F /* circle_green.png in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
 				4C49FA602356F3B7001D0EEF /* tabbar_invoices_def@3x.png in Resources */,
 				845D32B72279335C0047B196 /* hide_pass_white.png in Resources */,
@@ -3152,6 +3220,7 @@
 				4C49FA612356F3B7001D0EEF /* tabbar_invoices_def@2x.png in Resources */,
 				849827852285D51900201ED7 /* NewProfileView.xib in Resources */,
 				842F81CE2275BEF300D6DE6D /* info_red.png in Resources */,
+				4C8B457E235D543400D54F0F /* ShoppingCartViewController.xib in Resources */,
 				841966912276077400C14516 /* vn.png in Resources */,
 				4CEFDCBB235976DC00CE9451 /* ic_password_active.png in Resources */,
 				56FC5DD022CF04C200254F25 /* info.png in Resources */,
@@ -3295,6 +3364,7 @@
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				4CEFDC9F23594C7F00CE9451 /* SignInDescClvCell.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
+				4C8B4587235D69D800D54F0F /* CartDomainTbvCell.m in Sources */,
 				4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */,
 				15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */,
 				8477A5A0227B4DAE003194E8 /* SelectProfileView.m in Sources */,
@@ -3323,6 +3393,7 @@
 				4C28B92722F5983C00910F54 /* RegisterEmailViewController.m in Sources */,
 				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				1508460D226EC9A400428514 /* RegisterDomainViewController.m in Sources */,
+				4C8B4590235DB25200D54F0F /* CartMoreInfoView.m in Sources */,
 				4C6580F522FBC70700F38087 /* EmailHostingCell.m in Sources */,
 				4C49FA362356C366001D0EEF /* HomeSliderClvCell.m in Sources */,
 				4CEFDCC423599E6F00CE9451 /* NewSignUpViewController.m in Sources */,
@@ -3344,6 +3415,7 @@
 				4C49FA302356BDAE001D0EEF /* HomePromotionView.m in Sources */,
 				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
+				4C8B4596235DB30E00D54F0F /* CartMoreInfoClvCell.m in Sources */,
 				4C8B835522F82ED2009D441A /* WindowsHostingCell.m in Sources */,
 				56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
@@ -3400,6 +3472,7 @@
 				56D5761822A287EA00F6ADAD /* PriceDomainInfoCell.m in Sources */,
 				4C6580FA22FBCFA400F38087 /* EmailServerCell.m in Sources */,
 				560F82EF22BA8962004BF3FE /* AudioSessionUtils.m in Sources */,
+				4C8B457D235D543400D54F0F /* ShoppingCartViewController.m in Sources */,
 				4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */,
 				4C6580FF22FC06E800F38087 /* OrderDetailViewController.m in Sources */,
 				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
@@ -3419,6 +3492,7 @@
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
+				4C8B458D235D94BE00D54F0F /* KLCustomSwitch.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,
 				4C178591235AC55C00943E14 /* SignUpBusinessProfileView.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,

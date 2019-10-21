@@ -54,6 +54,7 @@
 "Registrant name"       =   "Registrant name"
 "Postition"             =   "Postition"
 "Back"                  =   "Back"
+"Address"               =   "Address"
 
 "Enter business informations"   =   "Enter business informations"
 "Enter business name"           =   "Enter business name"
@@ -62,6 +63,7 @@
 "Enter business phone number"   =   "Enter business phone number"
 "Enter registrant name"         =   "Enter registrant name"
 "Enter postition"               =   "Enter postition"
+"Enter registrant's address"    =   "Enter registrant's address"
 
 "Please enter fullname"             =   "Please enter fullname"
 "Please choose your birthday"       =   "Please choose your birthday"
@@ -76,6 +78,16 @@
 "Please enter business address"     =   "Please enter business address"
 "Please enter business phone number"=   "Please enter business phone number"
 "Please choose city for business"   =   "Please choose city for business"
+"Please enter registrant name"      =   "Please enter registrant name"
+
+"Please choose registrant's date of birth"  =   "Please choose registrant's date of birth"
+"Please enter registrant phone number"      =   "Please enter registrant phone number"
+
+"Please enter registrant postition" =   "Please enter registrant postition"
+"Please enter registrant passport"  =   "Please enter registrant passport"
+"Please enter registrant email"     =   "Please enter registrant email"
+"Please enter registrant address"   =   "Please enter registrant address"
+"Please choose registrant's city"   =   "Please choose registrant's city"
 
 "Processing..."             =   "Processing..."
 "Enter confirm code"        =   "Enter confirm code"
@@ -88,7 +100,8 @@
 "No network connection. Please check again!"    =   "No network connection. Please check again!"
 "Your account have not actived yet"             =   "Your account have not actived yet"
 "OTP code has been sent to your phone number"   =   "OTP code has been sent to your phone number"
-"Your account has been actived successfully"    =   "Tài khoản của bạn đã được kích hoạt thành công"
+"Your account has been actived successfully"    =   "Your account has been actived successfully"
+"Not enough money to payment"                   =   "Not enough money to payment"
 
 "Your version was old. Please update new version to use."    =   "Your version is old. Please update new version to use."
 
@@ -96,8 +109,18 @@
 "Close"             =   "Close"
 "Update"            =   "Update"
 "Activated"         =   "Activated"
+"Shopping cart"     =   "Shopping cart"
+"Cart"              =   "Cart"
+"items"             =   "items"
+"item"              =   "item"
 
-
+"Order's informations"  =   "Order's informations"
+"Buy more"              =   "Buy more"
+"Price for first year"  =   "Price for first year"
+"Free"                  =   "Free"
+"Topup now"             =   "Topup now"
+"Later"                 =   "Later"
+"Register more"         =   "Register more"
 
 
 
