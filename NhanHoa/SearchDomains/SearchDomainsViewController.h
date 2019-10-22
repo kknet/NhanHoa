@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
-@property (weak, nonatomic) IBOutlet UIImageView *bgTop;
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
+@property (weak, nonatomic) IBOutlet UILabel *lbWWW;
 @property (weak, nonatomic) IBOutlet UIButton *icSearch;
 @property (weak, nonatomic) IBOutlet UIView *viewCheckMultiDomains;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCheckMultiDomains;

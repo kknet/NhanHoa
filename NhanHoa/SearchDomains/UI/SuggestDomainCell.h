@@ -16,15 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbOldPrice;
-@property (weak, nonatomic) IBOutlet UILabel *lbPriceLine;
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float paddingX;
 @property (nonatomic, assign) float hItem;
-
-- (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;
-- (void)showOldPriceForCell: (BOOL)show ;
 
 @end
 

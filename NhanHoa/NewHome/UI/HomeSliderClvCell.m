@@ -9,12 +9,18 @@
 #import "HomeSliderClvCell.h"
 
 @implementation HomeSliderClvCell
-@synthesize imgPicture;
+@synthesize imgPicture, icWaiting;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
     [imgPicture mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self);
+    }];
+    
+    icWaiting.hidden = TRUE;
+    [icWaiting mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
 }

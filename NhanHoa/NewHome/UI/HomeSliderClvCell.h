@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeSliderClvCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgPicture;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 @end
 
 NS_ASSUME_NONNULL_END

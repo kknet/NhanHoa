@@ -31,6 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"WhoIsViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
     if (listDomain == nil) {
         listDomain = [[NSMutableArray alloc] init];

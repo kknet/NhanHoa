@@ -1,26 +1,22 @@
 //
-//  InvoicesViewController.m
+//  OrderDetailsViewController.m
 //  NhanHoa
 //
-//  Created by OS on 10/16/19.
+//  Created by OS on 10/22/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "InvoicesViewController.h"
+#import "OrderDetailsViewController.h"
 
-@interface InvoicesViewController ()
+@interface OrderDetailsViewController ()
 
 @end
 
-@implementation InvoicesViewController
+@implementation OrderDetailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear: animated];
 }
 
 /*

@@ -121,12 +121,36 @@
 "Topup now"             =   "Topup now"
 "Later"                 =   "Later"
 "Register more"         =   "Register more"
+"Search domains"        =   "Search domains"
+"enter domain name"     =   "enter domain name"
 
+"Many options with attractive offers"   =   "Many options with attractive offers"
+"Orders management"     =   "Orders management"
+"Search domains or IP"  =   "Search domains or IP"
 
+"All"               =   "All"
+"Pending"           =   "Pending"
+"Creating"          =   "Creating"
+"Using"             =   "Using"
+"About to expire"   =   "About to expire"
+"Expired"           =   "Expired"
 
+"All orders"        =   "All orders"
+"Pending orders"    =   "Pending orders"
+"Creating orders"   =   "Creating orders"
+"Using orders"      =   "Using orders"
+"About to expire orders"    =   "About to expire orders"
+"Expired orders"    =   "Expired orders"
+
+"All orders"        =   "Tất cả đơn hàng"
+"Pending orders"    =   "Đơn hàng chờ duyệt"
+"Creating orders"   =   "Đang khởi tạo"
+"Using orders"      =   "Đang sử dụng"
+"About to expire orders"    =   "Đơn hàng sắp hết hạn"
+"Expired orders"    =   "Đơn hàng đã hết hạn"
 
 "Home"              =   "Home"
-"Invoices"          =   "Invoices"
+"Orders"            =   "Orders"
 "Notifications"     =   "Notifications"
 "Account"           =   "Account"
 
@@ -146,8 +170,8 @@
 "VPS"                   =   "VPS"
 "Domains management"    =   "Domains management"
 "Pricing domains"       =   "Pricing domains"
-"Search domains"        =   "Search domains"
+"Check domains"         =   "Check domains"
 "Explore"               =   "Explore"
 
 "Renew domains"     =   "Renew domains"
-"All"               =   "All"
+

@@ -122,11 +122,26 @@
 "Topup now"             =   "Nạp tiền ngay"
 "Later"                 =   "Để sau"
 "Register more"         =   "Đăng ký thêm"
+"Search domains"        =   "Tìm kiếm tên miền"
+"enter domain name"     =   "nhập tên miền"
+
+"Many options with attractive offers"   =   "Nhiều lựa chọn với ưu đãi hấp dẫn"
+"Orders management"     =   "Quản lý đơn hàng"
+"Search domains or IP"  =   "Tìm tên miền hoặc IP"
+
+"All"               =   "Tất cả"
+"Pending"           =   "Chờ duyệt"
+"Creating"          =   "Đang tạo"
+"Using"             =   "Đang dùng"
+"About to expire"   =   "Sắp hết hạn"
+"Expired"           =   "Hết hạn"
+
+
 
 
 
 "Home"              =   "Trang chủ"
-"Invoices"          =   "Hóa đơn"
+"Orders"            =   "Đơn hàng"
 "Notifications"     =   "Thông báo"
 "Account"           =   "Tài khoản"
 
@@ -146,8 +161,7 @@
 "VPS"                   =   "Đ.ký VPS"
 "Domains management"    =   "Q.lý tên miền"
 "Pricing domains"       =   "Bảng giá"
-"Search domains"        =   "K.tra tên miền"
+"Check domains"         =   "K.tra tên miền"
 "Explore"               =   "Khám phá"
 
 "Renew domains"     =   "Gia hạn tên miền"
-"All"               =   "Tất cả"

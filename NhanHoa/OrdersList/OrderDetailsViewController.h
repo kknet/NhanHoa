@@ -1,8 +1,8 @@
 //
-//  InvoicesViewController.h
+//  OrderDetailsViewController.h
 //  NhanHoa
 //
-//  Created by OS on 10/16/19.
+//  Created by OS on 10/22/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InvoicesViewController : UIViewController
+@interface OrderDetailsViewController : UIViewController
 
 @end
 

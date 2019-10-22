@@ -223,8 +223,6 @@
     
     tfEmail.textColor = tfPassword.textColor = GRAY_80;
     
-    //  tfEmail.text = @"khailq@nhanhoa.com.vn";
-    tfEmail.text = @"lehoangson@gmail.com";
     tfEmail.font = boldFont;
     tfEmail.returnKeyType = UIReturnKeyNext;
     tfEmail.delegate = self;
@@ -250,6 +248,7 @@
     tfPassword.font = boldFont;
     tfPassword.returnKeyType = UIReturnKeyDone;
     tfPassword.delegate = self;
+    tfPassword.secureTextEntry = TRUE;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom).offset(tfPadding);
         make.left.right.equalTo(tfEmail);

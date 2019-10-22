@@ -8,7 +8,7 @@
 
 #import "AppTabbarViewController.h"
 #import "NewHomeViewController.h"
-#import "InvoicesViewController.h"
+#import "OrdersListViewController.h"
 #import "NotificationsViewController.h"
 #import "SearchDomainsViewController.h"
 
@@ -56,19 +56,19 @@
     homeNav.tabBarItem = homeItem;
     
     //  Tabbar Invoices
-    InvoicesViewController *invoicesVC = [[InvoicesViewController alloc] initWithNibName:@"InvoicesViewController" bundle:nil];
-    UINavigationController *invoicesNav = [[UINavigationController alloc] initWithRootViewController: invoicesVC];
+    OrdersListViewController *ordersVC = [[OrdersListViewController alloc] initWithNibName:@"OrdersListViewController" bundle:nil];
+    UINavigationController *ordersNav = [[UINavigationController alloc] initWithRootViewController: ordersVC];
     
-    UIImage *imgInvoices = [UIImage imageNamed:@"tabbar_invoices_def"];
-    imgInvoices = [imgInvoices imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imgOrders = [UIImage imageNamed:@"tabbar_invoices_def"];
+    imgOrders = [imgOrders imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIImage *imgInvoicesAct = [UIImage imageNamed:@"tabbar_invoices_act"];
-    imgInvoicesAct = [imgInvoicesAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imgOrdersAct = [UIImage imageNamed:@"tabbar_invoices_act"];
+    imgOrdersAct = [imgOrdersAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *invoicesItem = [[UITabBarItem alloc] initWithTitle:[appDelegate.localization localizedStringForKey:@"Invoices"] image:imgInvoices selectedImage:imgInvoicesAct];
-    [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+    UITabBarItem *ordersItem = [[UITabBarItem alloc] initWithTitle:[appDelegate.localization localizedStringForKey:@"Orders"] image:imgOrders selectedImage:imgOrdersAct];
+    [ordersItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
-    invoicesNav.tabBarItem = invoicesItem;
+    ordersNav.tabBarItem = ordersItem;
     
     //  search domains
     SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
@@ -127,7 +127,7 @@
     moreNav.tabBarItem = accItem;
     
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
-    tabBarController.viewControllers = @[homeNav, invoicesNav, searchDomainsNav, notifNav, moreNav];
+    tabBarController.viewControllers = @[homeNav, ordersNav, searchDomainsNav, notifNav, moreNav];
     [self.view addSubview: tabBarController.view];
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
@@ -145,8 +145,8 @@
     [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
     
-    [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
-    [invoicesItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
+    [ordersItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
+    [ordersItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
     
     [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     [notifItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
@@ -187,6 +187,11 @@
     }];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    tabBarController.navigationController.navigationBarHidden = TRUE;
+}
+
 - (void)setupUIForView {
     tabBarController.tabBar.tintColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
     tabBarController.tabBar.barTintColor = UIColor.whiteColor;
@@ -194,8 +199,16 @@
 }
 
 - (void)onButtonSearchTabbarPress {
-    [tabBarController setSelectedIndex: 2];
-    NSLog(@"onButtonSearchTabbarPress");
+    UIViewController *selectedVC = tabBarController.selectedViewController;
+    
+    SearchDomainsViewController *searchVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
+    if ([selectedVC isKindOfClass:[UINavigationController class]]) {
+        searchVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [(UINavigationController *)selectedVC pushViewController:searchVC animated:FALSE];
+    }
+    
+    //  [tabBarController setSelectedIndex: 2];
 }
 
 @end

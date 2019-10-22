@@ -7,8 +7,9 @@
 //
 
 #import "NewHomeViewController.h"
-#import "RegisterDomainViewController.h"
+#import "SearchDomainsViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
+#import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
 #import "TransHistoryViewController.h"
@@ -205,7 +206,7 @@
             break;
         }
         case eMenuOrders:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Invoices"];
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Orders"];
             cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
             break;
         }
@@ -241,10 +242,10 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
     if (indexPath.row == eMenuDomain) {
-        RegisterDomainViewController *regDomainsVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-        regDomainsVC.hidesBottomBarWhenPushed = TRUE;
+        SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
+        searchDomainsVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: regDomainsVC animated:TRUE];
+        [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
         
     }else if (indexPath.row == eMenuProfiles){
         ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
@@ -362,9 +363,9 @@
     
     if (scrollView.contentOffset.y > (viewHomeHeader.icCart.frame.origin.y + viewHomeHeader.icCart.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height))
     {
-        NSLog(@"HIDE");
+        //  NSLog(@"HIDE");
     }else{
-        NSLog(@"SHOW");
+        //  NSLog(@"SHOW");
     }
 }
 

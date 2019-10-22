@@ -118,7 +118,7 @@
             break;
         }
         case eExploreOrders:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Invoices"];
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Orders"];
             cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
             break;
         }
@@ -158,7 +158,7 @@
             break;
         }
         case eExploreCheckDomains:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Search domains"];
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Check domains"];
             cell.imgType.image = [UIImage imageNamed:@"menu_more"];
             break;
         }

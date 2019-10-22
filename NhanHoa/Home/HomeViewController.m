@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-#import "RegisterDomainViewController.h"
+#import "SearchDomainsViewController.h"
 #import "WhoIsViewController.h"
 #import "RenewedDomainViewController.h"
 #import "TopupViewController.h"
@@ -257,7 +257,7 @@
     
     NSString *title = cell.lbName.text;
     if ([title isEqualToString: text_register_domains]) {
-        RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
+        SearchDomainsViewController *registerDomainVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
         registerDomainVC.hidesBottomBarWhenPushed = TRUE;
         [self.navigationController pushViewController: registerDomainVC animated:TRUE];
         

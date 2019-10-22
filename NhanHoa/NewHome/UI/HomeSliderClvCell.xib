@@ -22,13 +22,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="xgk-t4-vj7">
+                        <rect key="frame" x="150" y="48" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
                 </subviews>
             </view>
             <size key="customSize" width="320" height="117"/>
             <connections>
+                <outlet property="icWaiting" destination="xgk-t4-vj7" id="uqF-QB-5WY"/>
                 <outlet property="imgPicture" destination="s0g-4J-ybF" id="WDa-cg-Zch"/>
             </connections>
-            <point key="canvasLocation" x="-188" y="77"/>
+            <point key="canvasLocation" x="-119" y="33"/>
         </collectionViewCell>
     </objects>
     <resources>
