@@ -15,7 +15,6 @@
 #import "WithdrawalBonusAccountViewController.h"
 #import "ProfileManagerViewController.h"
 #import "SupportViewController.h"
-#import "SearchDomainViewController.h"
 #import "PricingDomainViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
@@ -600,18 +599,7 @@
 }
 
 - (IBAction)btnSearchPress:(UIButton *)sender {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] search text = %@", __FUNCTION__, tfSearch.text)];
     
-    [self.view endEditing: TRUE];
-    
-    if ([AppUtils isNullOrEmpty: tfSearch.text]) {
-        return;
-    }
-    
-    SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
-    searchDomainVC.strSearch = tfSearch.text;
-    searchDomainVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchDomainVC animated:YES];
 }
 
 #pragma mark - Webservice Delegate

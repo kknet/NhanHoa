@@ -136,6 +136,22 @@
 "About to expire"   =   "Sắp hết hạn"
 "Expired"           =   "Hết hạn"
 
+"All orders"        =   "Tất cả đơn hàng"
+"Pending orders"    =   "Đơn hàng chờ duyệt"
+"Creating orders"   =   "Đang khởi tạo"
+"Using orders"      =   "Đang sử dụng"
+"About to expire orders"    =   "Đơn hàng sắp hết hạn"
+"Expired orders"    =   "Đơn hàng đã hết hạn"
+
+"Seaching..."               =   "Đang tìm kiếm..."
+"Congratulations"           =   "Chúc mừng"
+"You can use this domain"   =   "Bạn có thể sử dụng tên miền"
+"first year"                =   "năm đầu"
+"Contact price"             =   "Giá liên hệ"
+"Unselect"                  =   "Bỏ chọn"
+"Select"                    =   "Chọn"
+"Related domains"           =   "Tên miền liên quan"
+
 
 
 

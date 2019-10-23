@@ -9,7 +9,7 @@
 #import "SearchDomainsViewController.h"
 #import "SuggestDomainCell.h"
 #import "HomeSliderClvCell.h"
-#import "SearchDomainViewController.h"
+#import "SearchResultsViewController.h"
 #import "RenewedDomainViewController.h"
 #import "WhoIsViewController.h"
 
@@ -33,7 +33,7 @@
 
 @implementation SearchDomainsViewController
 @synthesize viewHeader, icClose, lbHeader, icCart, bgHeader;
-@synthesize scvContent, viewTop, tfSearch, lbWWW, icSearch, viewCheckMultiDomains, imgCheckMultiDomains, lbCheckMultiDomains, viewRenewDomain, imgRenewDomain, lbRenewDomain, viewTransferDomains, imgTransferDomain, lbTransferDomain, clvSlider, clvPosts, tbDomainsType;
+@synthesize scvContent, viewTop, tfSearch, lbWWW, icClear, viewCheckMultiDomains, imgCheckMultiDomains, lbCheckMultiDomains, viewRenewDomain, imgRenewDomain, lbRenewDomain, viewTransferDomains, imgTransferDomain, lbTransferDomain, clvSlider, clvPosts, tbDomainsType, imgSearch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,16 +50,11 @@
     
     [self displayBannerPhotosIfNeed];
     [self createListDomainPriceIfNeed];
-    
-    [self reUpdateLayoutAfterPreparedData];
-    
+    [self reUpdateLayoutAfterPreparedDataWithAnimation: FALSE];
+
     [self registerObservers];
-    
-    if (tfSearch.text.length > 0) {
-        icSearch.backgroundColor = [UIColor colorWithRed:(47/255.0) green:(124/255.0) blue:(215/255.0) alpha:1.0];
-    }else{
-        icSearch.backgroundColor = GRAY_200;
-    }
+
+    icClear.hidden = (tfSearch.text.length > 0)? FALSE : TRUE;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -115,12 +110,17 @@
         if ([info isKindOfClass:[NSDictionary class]]) {
             NSString *link = [info objectForKey:@"image"];
             if (![AppUtils isNullOrEmpty: link]) {
-                NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString: link]];
-                UIImage *image = [UIImage imageWithData:imgData];
-                if (image != nil) {
-                    hSliderView = (SCREEN_WIDTH - 2*padding) * image.size.height / image.size.width;
-                    return;
-                }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString: link]];
+                    UIImage *image = [UIImage imageWithData:imgData];
+                    if (image != nil) {
+                        hSliderView = (SCREEN_WIDTH - 2*padding) * image.size.height / image.size.width;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self reUpdateLayoutAfterPreparedDataWithAnimation: TRUE];
+                        });
+                        return;
+                    }
+                });
             }
         }
     }
@@ -140,7 +140,7 @@
     }
 }
 
-- (void)reUpdateLayoutAfterPreparedData {
+- (void)reUpdateLayoutAfterPreparedDataWithAnimation: (BOOL)animation {
     [tbDomainsType mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(listData.count * hCell + hSection);
     }];
@@ -168,6 +168,12 @@
         }];
     }
     
+    if (animation) {
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+    
     hContent += padding + (hSection + listData.count * hCell) + padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hContent);
 }
@@ -179,16 +185,10 @@
 - (IBAction)icCartClick:(UIButton *)sender {
 }
 
-- (IBAction)icSearchClick:(UIButton *)sender {
+- (IBAction)icClearClick:(UIButton *)sender {
     [self.view endEditing: TRUE];
-    
-    if (tfSearch.text.length == 0) {
-        return;
-    }
-    
-    SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
-    searchDomainVC.strSearch = tfSearch.text;
-    [self.navigationController pushViewController:searchDomainVC animated:YES];
+    icClear.hidden = TRUE;
+    tfSearch.text = @"";
 }
 
 - (void)closeKeyboard {
@@ -285,9 +285,10 @@
     viewTop.backgroundColor = UIColor.clearColor;
     
     tfSearch.font = searchFont;
-    tfSearch.layer.cornerRadius = hTextfield/2;
+    tfSearch.layer.cornerRadius = 8.0;
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeySearch;
+    tfSearch.textColor = GRAY_80;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewTop).offset(padding);
         make.right.equalTo(viewTop).offset(-padding);
@@ -298,29 +299,32 @@
                  action:@selector(searchTextfieldDidChange)
        forControlEvents:UIControlEventEditingChanged];
     
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60.0, hTextfield)];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, (10.0 + 20.0 + 55.0), hTextfield)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
     
     tfSearch.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hTextfield, hTextfield)];
     tfSearch.rightViewMode = UITextFieldViewModeAlways;
     
-    float searchPadding = 3.0;
-    icSearch.layer.cornerRadius = (hTextfield - 2*searchPadding)/2;
-    icSearch.backgroundColor = [UIColor colorWithRed:(47/255.0) green:(124/255.0) blue:(215/255.0) alpha:1.0];
-    icSearch.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
-    [icSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(tfSearch).offset(-searchPadding);
-        make.top.equalTo(tfSearch).offset(searchPadding);
-        make.bottom.equalTo(tfSearch).offset(-searchPadding);
-        make.width.mas_equalTo(hTextfield-2*searchPadding);
+    
+    [imgSearch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(tfSearch).offset(10.0);
+        make.centerY.equalTo(tfSearch.mas_centerY);
+        make.width.height.mas_equalTo(20.0);
+    }];
+    
+    icClear.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    [icClear mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(tfSearch);
+        make.top.bottom.equalTo(tfSearch);
+        make.width.mas_equalTo(hTextfield);
     }];
     
     lbWWW.font = searchFont;
     lbWWW.textColor = BLUE_COLOR;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(tfSearch);
+        make.left.equalTo(imgSearch.mas_right);
         make.top.bottom.equalTo(tfSearch);
-        make.width.mas_equalTo(60.0);
+        make.width.mas_equalTo(55.0);
     }];
     
     //  three top views
@@ -431,7 +435,8 @@
     tbDomainsType.scrollEnabled = NO;
     [tbDomainsType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(clvPosts.mas_bottom).offset(padding);
-        make.left.right.equalTo(viewTop);
+        make.left.equalTo(viewTop).offset(padding);
+        make.right.equalTo(viewTop).offset(-padding);
         make.height.mas_equalTo(0.0);
     }];
     
@@ -464,11 +469,7 @@
 }
 
 - (void)searchTextfieldDidChange {
-    if (tfSearch.text.length > 0) {
-        icSearch.backgroundColor = [UIColor colorWithRed:(47/255.0) green:(124/255.0) blue:(215/255.0) alpha:1.0];
-    }else{
-        icSearch.backgroundColor = GRAY_200;
-    }
+    icClear.hidden = (tfSearch.text.length > 0)? FALSE : TRUE;
 }
 
 #pragma mark - UIScrollView Delegate
@@ -599,9 +600,9 @@
         [tfSearch resignFirstResponder];
         
         if (tfSearch.text.length > 0) {
-            SearchDomainViewController *searchDomainVC = [[SearchDomainViewController alloc] init];
-            searchDomainVC.strSearch = tfSearch.text;
-            [self.navigationController pushViewController:searchDomainVC animated:YES];
+            SearchResultsViewController *searchResultsVC = [[SearchResultsViewController alloc] init];
+            searchResultsVC.strSearch = tfSearch.text;
+            [self.navigationController pushViewController:searchResultsVC animated:YES];
         }
     }
     return TRUE;

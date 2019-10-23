@@ -834,4 +834,25 @@
     }
 }
 
++ (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view withColor: (UIColor *)color heightCurve: (float)hCurve
+{
+    UIBezierPath *path = [UIBezierPath new];
+    [path moveToPoint: CGPointMake(0, 0)];
+    [path addLineToPoint: CGPointMake(0, height-hCurve)];
+    [path addQuadCurveToPoint:CGPointMake(SCREEN_WIDTH, height-hCurve) controlPoint:CGPointMake(SCREEN_WIDTH/2, height+hCurve)];
+    [path addLineToPoint: CGPointMake(SCREEN_WIDTH, 0)];
+    [path closePath];
+    
+    //Add gradient layer to top view
+    CAShapeLayer *shapeLayer = [CAShapeLayer new];
+    shapeLayer.path = path.CGPath;
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.backgroundColor = color.CGColor;
+    gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+    
+    [view.layer insertSublayer:gradientLayer atIndex:0];
+    gradientLayer.mask = shapeLayer;
+}
+
 @end

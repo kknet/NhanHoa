@@ -273,7 +273,7 @@
 #define GRAY_50 [UIColor colorWithRed:(50/255.0) green:(50/255.0) blue:(50/255.0) alpha:1.0]
 #define GRAY_80 [UIColor colorWithRed:(80/255.0) green:(80/255.0) blue:(80/255.0) alpha:1.0]
 #define GRAY_100 [UIColor colorWithRed:(100/255.0) green:(100/255.0) blue:(100/255.0) alpha:1.0]
-
+#define GRAY_150 [UIColor colorWithRed:(150/255.0) green:(150/255.0) blue:(150/255.0) alpha:1.0]
 #define ProgressHUD_BG [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
 
 

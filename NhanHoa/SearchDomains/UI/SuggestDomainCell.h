@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SuggestDomainCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *viewParent;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgType;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;

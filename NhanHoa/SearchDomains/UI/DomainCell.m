@@ -19,33 +19,43 @@
     
     marginX = 15.0;
     padding = 15.0;
-    if (!IS_IPHONE && !IS_IPOD) {
-        padding = 30.0;
+    
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     }
     
-    parentView.layer.borderColor = GRAY_230.CGColor;
-    parentView.layer.borderWidth = 1.0;
     [parentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(padding);
-        make.right.equalTo(self).offset(-padding);
-        make.top.equalTo(self).offset(7.5);
-        make.bottom.equalTo(self).offset(-7.5);
+        make.top.left.equalTo(self);
+        make.right.equalTo(self).offset(-2.0);
+        make.bottom.equalTo(self).offset(-padding);
     }];
     
-    btnChoose.backgroundColor = BLUE_COLOR;
-    btnChoose.titleLabel.font = [AppDelegate sharedInstance].fontRegular;
-    btnChoose.layer.cornerRadius = 36.0/2;
+    btnChoose.titleLabel.font = textFont;
+    btnChoose.layer.cornerRadius = 8.0;
+    btnChoose.layer.borderWidth = 1.0;
+    btnChoose.layer.borderColor = [UIColor colorWithRed:(176/255.0) green:(181/255.0)
+                                                   blue:(193/255.0) alpha:1.0].CGColor;
+    [btnChoose setTitleColor:[UIColor colorWithRed:(176/255.0) green:(181/255.0)
+                                              blue:(193/255.0) alpha:1.0]
+                    forState:UIControlStateNormal];
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(parentView.mas_centerY);
         make.right.equalTo(parentView).offset(-marginX);
         make.width.mas_equalTo(60.0);
-        make.height.mas_equalTo(36.0);
+        make.height.mas_equalTo(40.0);
     }];
     
-    lbDomain.textColor = TITLE_COLOR;
-    lbDomain.font = [AppDelegate sharedInstance].fontMedium;
+    lbDomain.textColor = GRAY_50;
+    lbDomain.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(parentView).offset(marginX);
+        make.left.equalTo(parentView).offset(padding);
         make.bottom.equalTo(parentView.mas_centerY).offset(-2.0);
     }];
     
@@ -56,8 +66,8 @@
         make.width.height.mas_equalTo(35.0);
     }];
     
-    lbPrice.textColor = NEW_PRICE_COLOR;
-    lbPrice.font = [AppDelegate sharedInstance].fontMediumDesc;
+    lbPrice.textColor = ORANGE_COLOR;
+    lbPrice.font = [UIFont fontWithName:RobotoThin size:textFont.pointSize];
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(parentView).offset(padding);
         make.top.equalTo(parentView.mas_centerY).offset(2.0);
@@ -68,14 +78,6 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-}
-
-- (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color
-{
-    view.layer.masksToBounds = NO;
-    view.layer.shadowOffset = CGSizeMake(0, 0);
-    view.layer.shadowColor = color.CGColor;
-    view.layer.shadowOpacity = 0.4;
 }
 
 - (void)updateSizeButtonWithContent: (NSString *)content {

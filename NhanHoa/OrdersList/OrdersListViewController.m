@@ -90,7 +90,6 @@
     hCell = 125;    //  5 + 25*4 + 5 + 15.0
     hSection = 40.0;
     curMenu = eMenuAll;
-    cho nay
     
     padding = 15.0;
     textFont = [UIFont fontWithName:RobotoRegular size:20.0];

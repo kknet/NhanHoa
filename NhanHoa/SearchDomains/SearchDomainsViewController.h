@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
 @property (weak, nonatomic) IBOutlet UILabel *lbWWW;
-@property (weak, nonatomic) IBOutlet UIButton *icSearch;
+@property (weak, nonatomic) IBOutlet UIButton *icClear;
+
 @property (weak, nonatomic) IBOutlet UIView *viewCheckMultiDomains;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCheckMultiDomains;
 @property (weak, nonatomic) IBOutlet UILabel *lbCheckMultiDomains;
@@ -41,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)icCloseClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;
-- (IBAction)icSearchClick:(UIButton *)sender;
+- (IBAction)icClearClick:(UIButton *)sender;
 
 @end
 

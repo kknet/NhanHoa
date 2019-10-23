@@ -142,12 +142,20 @@
 "About to expire orders"    =   "About to expire orders"
 "Expired orders"    =   "Expired orders"
 
-"All orders"        =   "Tất cả đơn hàng"
-"Pending orders"    =   "Đơn hàng chờ duyệt"
-"Creating orders"   =   "Đang khởi tạo"
-"Using orders"      =   "Đang sử dụng"
-"About to expire orders"    =   "Đơn hàng sắp hết hạn"
-"Expired orders"    =   "Đơn hàng đã hết hạn"
+"Seaching..."               =   "Seaching..."
+"Congratulations"           =   "Congratulations"
+"You can use this domain"   =   "You can use this domain"
+"first year"                =   "first year"
+"Contact price"             =   "Contact price"
+"Unselect"                  =   "Unselect"
+"Select"                    =   "Select"
+"Related domains"           =   "Related domains"
+
+
+
+
+
+
 
 "Home"              =   "Home"
 "Orders"            =   "Orders"

@@ -15,10 +15,11 @@
                 <outlet property="clvPosts" destination="Mzc-kU-95E" id="4F5-px-70X"/>
                 <outlet property="clvSlider" destination="4wf-km-Cl1" id="z3e-Kw-6KX"/>
                 <outlet property="icCart" destination="lYE-Zg-e0L" id="btt-i6-YJx"/>
+                <outlet property="icClear" destination="wCY-SW-Gtn" id="Tia-ZF-UFz"/>
                 <outlet property="icClose" destination="b57-zf-2zK" id="SaE-hC-dIX"/>
-                <outlet property="icSearch" destination="USm-1K-1q6" id="Mba-7a-Law"/>
                 <outlet property="imgCheckMultiDomains" destination="Prb-IX-jve" id="cis-Bt-A7V"/>
                 <outlet property="imgRenewDomain" destination="vQp-Cm-5Eh" id="Bdh-me-tYd"/>
+                <outlet property="imgSearch" destination="fSo-Lt-OIj" id="pf2-Se-fqh"/>
                 <outlet property="imgTransferDomain" destination="5by-zu-D5r" id="has-oe-92i"/>
                 <outlet property="lbCheckMultiDomains" destination="4L3-fc-tw0" id="AbP-se-qoC"/>
                 <outlet property="lbHeader" destination="Dkb-JU-7AS" id="PNZ-1J-O5t"/>
@@ -91,13 +92,16 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="USm-1K-1q6">
-                                    <rect key="frame" x="274" y="9" width="29" height="29"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_gray.png" id="fSo-Lt-OIj">
+                                    <rect key="frame" x="8" y="8" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" image="search.png"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wCY-SW-Gtn">
+                                    <rect key="frame" x="275" y="10" width="28" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="close_round.png"/>
                                     <connections>
-                                        <action selector="icSearchClick:" destination="-1" eventType="touchUpInside" id="CLR-mk-pLW"/>
+                                        <action selector="icClearClick:" destination="-1" eventType="touchUpInside" id="FwN-xh-7ER"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1er-Oq-ljo">
@@ -196,16 +200,17 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-893" y="48"/>
+            <point key="canvasLocation" x="-1110.144927536232" y="6.3616071428571423"/>
         </view>
     </objects>
     <resources>
         <image name="cart.png" width="100" height="100"/>
         <image name="close.png" width="100" height="100"/>
-        <image name="ic_renew.png" width="96" height="96"/>
-        <image name="ic_search_domains.png" width="96" height="96"/>
-        <image name="ic_transfer.png" width="96" height="96"/>
-        <image name="search.png" width="96" height="96"/>
+        <image name="close_round.png" width="97.5" height="97.5"/>
+        <image name="ic_renew.png" width="204" height="207"/>
+        <image name="ic_search_domains.png" width="220" height="199"/>
+        <image name="ic_transfer.png" width="204" height="207"/>
+        <image name="search_gray.png" width="96" height="96"/>
         <image name="top_header.png" width="2247" height="481"/>
     </resources>
 </document>

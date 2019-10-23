@@ -88,10 +88,8 @@
 		157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 157F0C192282E80400DCB7D4 /* SelectYearsCell.m */; };
 		157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */; };
 		1581745D2281406E00DD8EC9 /* DomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1581745C2281406E00DD8EC9 /* DomainModel.m */; };
-		158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */; };
 		158174642281854700DD8EC9 /* close_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 158174622281854500DD8EC9 /* close_gray.png */; };
 		158174652281854700DD8EC9 /* close_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 158174632281854600DD8EC9 /* close_blue.png */; };
-		158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */; };
 		15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BCF227FDFA5004A8575 /* AccountInfoView.m */; };
 		15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15865BD1227FDFB7004A8575 /* AccountInfoView.xib */; };
 		15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15865BD422803AE9004A8575 /* SettingMenuCell.m */; };
@@ -370,6 +368,14 @@
 		4CEFDCF32359BE4900CE9451 /* ic_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCF12359BE4800CE9451 /* ic_tick.png */; };
 		4CEFDCF42359BE4900CE9451 /* ic_tick_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCF22359BE4800CE9451 /* ic_tick_active.png */; };
 		4CEFDCF62359BFAC00CE9451 /* ic_dropdow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFDCF52359BFAC00CE9451 /* ic_dropdow.png */; };
+		4CF862E2236008B6008B69EF /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862E0236008B6008B69EF /* SearchResultsViewController.m */; };
+		4CF862E3236008B6008B69EF /* SearchResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862E1236008B6008B69EF /* SearchResultsViewController.xib */; };
+		4CF862E523600C4C008B69EF /* close_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862E423600C4B008B69EF /* close_round.png */; };
+		4CF862E723600E5A008B69EF /* search_domain_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862E623600E5A008B69EF /* search_domain_ok.png */; };
+		4CF862EB23604DF6008B69EF /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862E923604DF6008B69EF /* DomainCell.m */; };
+		4CF862EC23604DF6008B69EF /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862EA23604DF6008B69EF /* DomainCell.xib */; };
+		4CF862F123604E1B008B69EF /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */; };
+		4CF862F223604E1B008B69EF /* WhoisDomainPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */; };
 		4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */; };
 		4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */; };
 		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
@@ -489,8 +495,6 @@
 		56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */; };
 		56FED7D122AD2DAA00FAD541 /* OTPConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FED7D022AD2DAA00FAD541 /* OTPConfirmView.xib */; };
 		6840265F8DF1824BB4EADF04 /* libPods-NhanHoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */; };
-		840F5DE822770848005BFC57 /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DE622770848005BFC57 /* DomainCell.m */; };
-		840F5DE922770848005BFC57 /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DE722770848005BFC57 /* DomainCell.xib */; };
 		840F5DF322770962005BFC57 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DED22770962005BFC57 /* warning.png */; };
 		840F5DFA2277328B005BFC57 /* WhoIsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F5DF82277328B005BFC57 /* WhoIsViewController.m */; };
 		840F5DFB2277328B005BFC57 /* WhoIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840F5DF92277328B005BFC57 /* WhoIsViewController.xib */; };
@@ -573,8 +577,6 @@
 		8464D743227BBC8A00381DE5 /* passport_empty_behind.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73B227BBC8900381DE5 /* passport_empty_behind.png */; };
 		8464D744227BBC8A00381DE5 /* passport_behind.png in Resources */ = {isa = PBXBuildFile; fileRef = 8464D73C227BBC8900381DE5 /* passport_behind.png */; };
 		846A41932275C759003C5D87 /* search_multi_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 846A41912275C758003C5D87 /* search_multi_domain.png */; };
-		846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846AACB22276C96A005BC87E /* SearchDomainViewController.m */; };
-		846AACB52276C96A005BC87E /* SearchDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846AACB32276C96A005BC87E /* SearchDomainViewController.xib */; };
 		846AACB92276CAC1005BC87E /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 846AACB72276CAC0005BC87E /* back.png */; };
 		846AACBC2276CAFE005BC87E /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 846AACBA2276CAFE005BC87E /* cart.png */; };
 		846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 846EA9092276E95C00F1D7DB /* search_smile.png */; };
@@ -729,12 +731,8 @@
 		157F0C1A2282E80400DCB7D4 /* SelectYearsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectYearsCell.xib; sourceTree = "<group>"; };
 		1581745B2281406E00DD8EC9 /* DomainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainModel.h; sourceTree = "<group>"; };
 		1581745C2281406E00DD8EC9 /* DomainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainModel.m; sourceTree = "<group>"; };
-		1581745F2281825C00DD8EC9 /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
-		158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDescriptionPoupView.m; sourceTree = "<group>"; };
 		158174622281854500DD8EC9 /* close_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_gray.png; sourceTree = "<group>"; };
 		158174632281854600DD8EC9 /* close_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_blue.png; sourceTree = "<group>"; };
-		158174672281914B00DD8EC9 /* WhoisDomainPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoisDomainPopupView.h; sourceTree = "<group>"; };
-		158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoisDomainPopupView.m; sourceTree = "<group>"; };
 		15865BCE227FDFA5004A8575 /* AccountInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountInfoView.h; sourceTree = "<group>"; };
 		15865BCF227FDFA5004A8575 /* AccountInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountInfoView.m; sourceTree = "<group>"; };
 		15865BD1227FDFB7004A8575 /* AccountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountInfoView.xib; sourceTree = "<group>"; };
@@ -1088,6 +1086,18 @@
 		4CEFDCF12359BE4800CE9451 /* ic_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_tick.png; sourceTree = "<group>"; };
 		4CEFDCF22359BE4800CE9451 /* ic_tick_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_tick_active.png; sourceTree = "<group>"; };
 		4CEFDCF52359BFAC00CE9451 /* ic_dropdow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropdow.png; sourceTree = "<group>"; };
+		4CF862DF236008B6008B69EF /* SearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
+		4CF862E0236008B6008B69EF /* SearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
+		4CF862E1236008B6008B69EF /* SearchResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsViewController.xib; sourceTree = "<group>"; };
+		4CF862E423600C4B008B69EF /* close_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_round.png; sourceTree = "<group>"; };
+		4CF862E623600E5A008B69EF /* search_domain_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_domain_ok.png; sourceTree = "<group>"; };
+		4CF862E823604DF6008B69EF /* DomainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainCell.h; sourceTree = "<group>"; };
+		4CF862E923604DF6008B69EF /* DomainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainCell.m; sourceTree = "<group>"; };
+		4CF862EA23604DF6008B69EF /* DomainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomainCell.xib; sourceTree = "<group>"; };
+		4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainDescriptionPoupView.m; sourceTree = "<group>"; };
+		4CF862EE23604E1A008B69EF /* WhoisDomainPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoisDomainPopupView.h; sourceTree = "<group>"; };
+		4CF862EF23604E1A008B69EF /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
+		4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoisDomainPopupView.m; sourceTree = "<group>"; };
 		4CFB0C4522F3F08400ED813D /* DNSDetailPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSDetailPopupView.h; sourceTree = "<group>"; };
 		4CFB0C4622F3F08400ED813D /* DNSDetailPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSDetailPopupView.m; sourceTree = "<group>"; };
 		4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingPackageCell.h; sourceTree = "<group>"; };
@@ -1243,9 +1253,6 @@
 		56FED7CE22AD2D9B00FAD541 /* OTPConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTPConfirmView.m; sourceTree = "<group>"; };
 		56FED7D022AD2DAA00FAD541 /* OTPConfirmView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OTPConfirmView.xib; sourceTree = "<group>"; };
 		666BB35E5654754FE0011A2D /* libPods-NhanHoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NhanHoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		840F5DE522770848005BFC57 /* DomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainCell.h; sourceTree = "<group>"; };
-		840F5DE622770848005BFC57 /* DomainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainCell.m; sourceTree = "<group>"; };
-		840F5DE722770848005BFC57 /* DomainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainCell.xib; sourceTree = "<group>"; };
 		840F5DED22770962005BFC57 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		840F5DF72277328B005BFC57 /* WhoIsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsViewController.h; sourceTree = "<group>"; };
 		840F5DF82277328B005BFC57 /* WhoIsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsViewController.m; sourceTree = "<group>"; };
@@ -1348,9 +1355,6 @@
 		8464D73B227BBC8900381DE5 /* passport_empty_behind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_empty_behind.png; sourceTree = "<group>"; };
 		8464D73C227BBC8900381DE5 /* passport_behind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passport_behind.png; sourceTree = "<group>"; };
 		846A41912275C758003C5D87 /* search_multi_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_multi_domain.png; sourceTree = "<group>"; };
-		846AACB12276C96A005BC87E /* SearchDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchDomainViewController.h; sourceTree = "<group>"; };
-		846AACB22276C96A005BC87E /* SearchDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchDomainViewController.m; sourceTree = "<group>"; };
-		846AACB32276C96A005BC87E /* SearchDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchDomainViewController.xib; sourceTree = "<group>"; };
 		846AACB72276CAC0005BC87E /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		846AACBA2276CAFE005BC87E /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cart.png; sourceTree = "<group>"; };
 		846EA9092276E95C00F1D7DB /* search_smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_smile.png; sourceTree = "<group>"; };
@@ -1505,7 +1509,6 @@
 				156B8C14226ECAEB0020EDCB /* Registerd domain */,
 				8490A5A02279A10500B921B7 /* RenewedDomain */,
 				1508460F226EC9A900428514 /* More */,
-				15084609226EC98A00428514 /* Register domain */,
 				8481F88922832D5100C88EB1 /* Account */,
 				8460F63D227A632900A185B0 /* Cart */,
 				15D1BD712283CA0A004C0452 /* Profiles */,
@@ -1528,17 +1531,6 @@
 				15084601226EBF2900428514 /* main.m */,
 			);
 			path = NhanHoa;
-			sourceTree = "<group>";
-		};
-		15084609226EC98A00428514 /* Register domain */ = {
-			isa = PBXGroup;
-			children = (
-				841966822276013300C14516 /* UI */,
-				846AACB12276C96A005BC87E /* SearchDomainViewController.h */,
-				846AACB22276C96A005BC87E /* SearchDomainViewController.m */,
-				846AACB32276C96A005BC87E /* SearchDomainViewController.xib */,
-			);
-			path = "Register domain";
 			sourceTree = "<group>";
 		};
 		1508460F226EC9A900428514 /* More */ = {
@@ -1686,6 +1678,8 @@
 		156B8C21226ECF740020EDCB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4CF862E623600E5A008B69EF /* search_domain_ok.png */,
+				4CF862E423600C4B008B69EF /* close_round.png */,
 				4C016A45235F044B00EBDE67 /* ic_arrow_down.png */,
 				4C787830235EA37B00F8CDA0 /* ic_renew.png */,
 				4C787831235EA37C00F8CDA0 /* ic_search_domains.png */,
@@ -2075,6 +2069,13 @@
 				4C016A3A235EDE1200EBDE67 /* SuggestDomainCell.h */,
 				4C016A39235EDE1200EBDE67 /* SuggestDomainCell.m */,
 				4C016A3B235EDE1200EBDE67 /* SuggestDomainCell.xib */,
+				4CF862E823604DF6008B69EF /* DomainCell.h */,
+				4CF862E923604DF6008B69EF /* DomainCell.m */,
+				4CF862EA23604DF6008B69EF /* DomainCell.xib */,
+				4CF862EF23604E1A008B69EF /* DomainDescriptionPoupView.h */,
+				4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */,
+				4CF862EE23604E1A008B69EF /* WhoisDomainPopupView.h */,
+				4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2170,6 +2171,9 @@
 				4C49FA6F2356F89C001D0EEF /* SearchDomainsViewController.h */,
 				4C49FA702356F89C001D0EEF /* SearchDomainsViewController.m */,
 				4C49FA712356F89C001D0EEF /* SearchDomainsViewController.xib */,
+				4CF862DF236008B6008B69EF /* SearchResultsViewController.h */,
+				4CF862E0236008B6008B69EF /* SearchResultsViewController.m */,
+				4CF862E1236008B6008B69EF /* SearchResultsViewController.xib */,
 			);
 			path = SearchDomains;
 			sourceTree = "<group>";
@@ -2492,20 +2496,6 @@
 				56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */,
 			);
 			path = WhoIsDomain;
-			sourceTree = "<group>";
-		};
-		841966822276013300C14516 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				840F5DE522770848005BFC57 /* DomainCell.h */,
-				840F5DE622770848005BFC57 /* DomainCell.m */,
-				840F5DE722770848005BFC57 /* DomainCell.xib */,
-				1581745F2281825C00DD8EC9 /* DomainDescriptionPoupView.h */,
-				158174602281825C00DD8EC9 /* DomainDescriptionPoupView.m */,
-				158174672281914B00DD8EC9 /* WhoisDomainPopupView.h */,
-				158174682281914B00DD8EC9 /* WhoisDomainPopupView.m */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		841F00862274B07D00F1B314 /* UI */ = {
@@ -3036,6 +3026,7 @@
 				4CEFDCA92359545200CE9451 /* dot_act.png in Resources */,
 				842F81C12275794C00D6DE6D /* tabbar_acc_def.png in Resources */,
 				4C041EBE22E843E400DA7405 /* numpad_seven_hover.png in Resources */,
+				4CF862E723600E5A008B69EF /* search_domain_ok.png in Resources */,
 				4C041EC922E8440A00DA7405 /* numpad_zero_hover.png in Resources */,
 				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				5600E8FD22A5EEEF00F7DECE /* SendMessageView.xib in Resources */,
@@ -3052,7 +3043,6 @@
 				846A41932275C759003C5D87 /* search_multi_domain.png in Resources */,
 				840F5DFB2277328B005BFC57 /* WhoIsViewController.xib in Resources */,
 				842F81AF227561ED00D6DE6D /* Roboto-ThinItalic.ttf in Resources */,
-				846AACB52276C96A005BC87E /* SearchDomainViewController.xib in Resources */,
 				1517FB6C227446980044E878 /* HomeViewController.xib in Resources */,
 				5612F8B522E6CA6B00ECBBB1 /* speaker_normal.png in Resources */,
 				56D0294F22B3F88D00280127 /* order_failed.png in Resources */,
@@ -3274,6 +3264,7 @@
 				15E084C622715E830010429B /* LaunchViewController.xib in Resources */,
 				4C041ED722E8444800DA7405 /* button-endcall.png in Resources */,
 				56D5762022A2C0A200F6ADAD /* UpdatePassportViewController.xib in Resources */,
+				4CF862E3236008B6008B69EF /* SearchResultsViewController.xib in Resources */,
 				4CD7A63723558C1A00044E1A /* home_banner@2x.png in Resources */,
 				157F0C1C2282E80400DCB7D4 /* SelectYearsCell.xib in Resources */,
 				846EA90E2276E95C00F1D7DB /* search_sad.png in Resources */,
@@ -3281,7 +3272,6 @@
 				1517FBA922745D810044E878 /* tabbar_history_def.png in Resources */,
 				845D32C3227940AE0047B196 /* PersonalProfileView.xib in Resources */,
 				5612F8CC22E7094700ECBBB1 /* hold_normal.png in Resources */,
-				840F5DE922770848005BFC57 /* DomainCell.xib in Resources */,
 				4C49FA8A23572285001D0EEF /* line_gray.png in Resources */,
 				4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */,
 				1517FB5A2274465B0044E878 /* menu_profile.png in Resources */,
@@ -3303,6 +3293,7 @@
 				4C49FA6B2356F5C7001D0EEF /* tabbar_notif_def@2x.png in Resources */,
 				4C787833235EA37C00F8CDA0 /* ic_renew.png in Resources */,
 				4CFDBBFB230FEBF000D21490 /* new_launch_not_company.png in Resources */,
+				4CF862E523600C4C008B69EF /* close_round.png in Resources */,
 				4CD7A64D2355BE9100044E1A /* en.txt in Resources */,
 				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				84588AA1228093F000B59E0F /* ic_about.png in Resources */,
@@ -3312,6 +3303,7 @@
 				4C6580F022FBC42F00F38087 /* email_hosting_act.png in Resources */,
 				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				4CEFDCEF2359BD1200CE9451 /* back_gray.png in Resources */,
+				4CF862EC23604DF6008B69EF /* DomainCell.xib in Resources */,
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 			);
@@ -3395,6 +3387,7 @@
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				4CEFDC9F23594C7F00CE9451 /* SignInDescClvCell.m in Sources */,
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
+				4CF862E2236008B6008B69EF /* SearchResultsViewController.m in Sources */,
 				4C8B4587235D69D800D54F0F /* CartDomainTbvCell.m in Sources */,
 				4C016A4A235F07FA00EBDE67 /* OrderDetailsViewController.m in Sources */,
 				4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */,
@@ -3404,7 +3397,6 @@
 				4C49FA3F2356C7A4001D0EEF /* HomePromotionClvCell.m in Sources */,
 				84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */,
 				4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */,
-				840F5DE822770848005BFC57 /* DomainCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
@@ -3456,13 +3448,14 @@
 				4C765F0D22F81EB6002AFEC8 /* LinuxHostingCell.m in Sources */,
 				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
+				4CF862EB23604DF6008B69EF /* DomainCell.m in Sources */,
 				15C1A8D0228AB0DC002F4F0F /* PaymentResultView.m in Sources */,
 				56D0295322B3F8F700280127 /* OrderResultView.m in Sources */,
 				4CEA116623584C3000762C45 /* PromotionsViewController.m in Sources */,
+				4CF862F223604E1B008B69EF /* WhoisDomainPopupView.m in Sources */,
 				15D1BD752283CA31004C0452 /* ProfileManagerViewController.m in Sources */,
 				157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */,
 				56D0295822B3FA9900280127 /* DomainResultView.m in Sources */,
-				846AACB42276C96A005BC87E /* SearchDomainViewController.m in Sources */,
 				4C28B93322F5987800910F54 /* RegisterCloudServerViewController.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
 				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
@@ -3518,8 +3511,6 @@
 				560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */,
 				56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */,
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
-				158174692281914B00DD8EC9 /* WhoisDomainPopupView.m in Sources */,
-				158174612281825C00DD8EC9 /* DomainDescriptionPoupView.m in Sources */,
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
@@ -3543,6 +3534,7 @@
 				4C65811222FC23C700F38087 /* OrderProcessInfoView.m in Sources */,
 				8415E5AA22788D6A0093206D /* RegisterAccountViewController.m in Sources */,
 				4C28B92122F597C000910F54 /* RegisterSSLViewController.m in Sources */,
+				4CF862F123604E1B008B69EF /* DomainDescriptionPoupView.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				4CEA116D23584D7700762C45 /* TransactionsViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
