@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UILabel *lbDomain;
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
+@property (weak, nonatomic) IBOutlet UILabel *lbHalfTop;
+@property (weak, nonatomic) IBOutlet UILabel *lbHalfBot;
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float paddingX;

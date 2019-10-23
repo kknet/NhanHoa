@@ -152,6 +152,9 @@
 "Select"                    =   "Chọn"
 "Related domains"           =   "Tên miền liên quan"
 
+"Promotions"        =   "Khuyến mãi"
+
+
 
 
 

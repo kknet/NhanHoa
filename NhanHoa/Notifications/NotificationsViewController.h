@@ -12,6 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NotificationsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icTrash;
+
+
+@property (weak, nonatomic) IBOutlet UITableView *tbContent;
+
+- (IBAction)icTrashClick:(UIButton *)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

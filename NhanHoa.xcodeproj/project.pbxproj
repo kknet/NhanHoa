@@ -422,6 +422,8 @@
 		5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8CF22E70DDB00ECBBB1 /* keypad_enable.png */; };
 		5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */; };
 		5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */; };
+		5613CC642360A0E1005A7C4C /* NotificationTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5613CC622360A0E1005A7C4C /* NotificationTbvCell.m */; };
+		5613CC652360A0E1005A7C4C /* NotificationTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5613CC632360A0E1005A7C4C /* NotificationTbvCell.xib */; };
 		56158E34235C4AA900220A38 /* bg_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 56158E33235C4AA900220A38 /* bg_intro.png */; };
 		562362D722E2D815001AE97A /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243422CDA3DD006AE4AA /* CallKit.framework */; };
 		562362D822E2D81A001AE97A /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC243622CDA3F8006AE4AA /* PushKit.framework */; };
@@ -1158,6 +1160,9 @@
 		5612F8D022E70DDB00ECBBB1 /* keypad_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keypad_normal.png; sourceTree = "<group>"; };
 		5612F8D522E7112D00ECBBB1 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
+		5613CC612360A0E1005A7C4C /* NotificationTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationTbvCell.h; sourceTree = "<group>"; };
+		5613CC622360A0E1005A7C4C /* NotificationTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationTbvCell.m; sourceTree = "<group>"; };
+		5613CC632360A0E1005A7C4C /* NotificationTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTbvCell.xib; sourceTree = "<group>"; };
 		56158E33235C4AA900220A38 /* bg_intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_intro.png; sourceTree = "<group>"; };
 		562362D922E2D89B001AE97A /* ProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProviderDelegate.h; sourceTree = "<group>"; };
 		562362DA22E2D89C001AE97A /* ProviderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProviderDelegate.m; sourceTree = "<group>"; };
@@ -2157,6 +2162,7 @@
 		4C49FA502356F165001D0EEF /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				5613CC602360A0BB005A7C4C /* UI */,
 				4C49FA512356F172001D0EEF /* NotificationsViewController.h */,
 				4C49FA522356F172001D0EEF /* NotificationsViewController.m */,
 				4C49FA532356F172001D0EEF /* NotificationsViewController.xib */,
@@ -2439,6 +2445,16 @@
 				5612F8D622E7112D00ECBBB1 /* MarqueeLabel.m */,
 			);
 			path = MarqueeLabel;
+			sourceTree = "<group>";
+		};
+		5613CC602360A0BB005A7C4C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5613CC612360A0E1005A7C4C /* NotificationTbvCell.h */,
+				5613CC622360A0E1005A7C4C /* NotificationTbvCell.m */,
+				5613CC632360A0E1005A7C4C /* NotificationTbvCell.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		563B8DC422B9B6B6004A037D /* PemFiles */ = {
@@ -2950,6 +2966,7 @@
 				846AACBC2276CAFE005BC87E /* cart.png in Resources */,
 				4CD7A6622355CAB000044E1A /* HomeSliderView.xib in Resources */,
 				8446F4B12277C16B008F4EE9 /* WhoIsCell.xib in Resources */,
+				5613CC652360A0E1005A7C4C /* NotificationTbvCell.xib in Resources */,
 				4C49FA5D2356F3B7001D0EEF /* tabbar_invoices_act@3x.png in Resources */,
 				4C49FA5C2356F3B7001D0EEF /* tabbar_invoices_act@2x.png in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
@@ -3389,6 +3406,7 @@
 				1517FB7722744EE40044E878 /* TransHistoryViewController.m in Sources */,
 				4CF862E2236008B6008B69EF /* SearchResultsViewController.m in Sources */,
 				4C8B4587235D69D800D54F0F /* CartDomainTbvCell.m in Sources */,
+				5613CC642360A0E1005A7C4C /* NotificationTbvCell.m in Sources */,
 				4C016A4A235F07FA00EBDE67 /* OrderDetailsViewController.m in Sources */,
 				4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */,
 				15FF497F22A65B180056B078 /* UpdatePersonalProfile.m in Sources */,

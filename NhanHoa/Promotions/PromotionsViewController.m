@@ -8,31 +8,39 @@
 
 #import "PromotionsViewController.h"
 
-@interface PromotionsViewController ()
-
+@interface PromotionsViewController (){
+    AppDelegate *appDelegate;
+}
 @end
 
 @implementation PromotionsViewController
+@synthesize viewHeader, icBack, lbHeader, tbPromotions;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Promotions"];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [self setupUIForView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = FALSE;
+    
+    [self showContentWithCurrentLanguage];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)icBackClick:(UIButton *)sender {
 }
-*/
+
+- (void)showContentWithCurrentLanguage {
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Promotions"];
+}
+
+- (void)setupUIForView {
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+    }];
+}
 
 @end

@@ -329,8 +329,8 @@
     
     //  three top views
     viewRenewDomain.layer.cornerRadius = viewCheckMultiDomains.layer.cornerRadius = viewTransferDomains.layer.cornerRadius = 8.0;
-    lbRenewDomain.font = [UIFont fontWithName:RobotoRegular size:searchFont.pointSize-4];
-    lbRenewDomain.textColor = GRAY_80;
+    lbRenewDomain.font = lbCheckMultiDomains.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:searchFont.pointSize-6];
+    lbRenewDomain.textColor = lbCheckMultiDomains.textColor = lbTransferDomain.textColor = GRAY_50;
     
     //  view renew domain
     UITapGestureRecognizer *tapOnRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToRenewalDomains)];
@@ -525,7 +525,7 @@
     
     cell.padding = padding;
     cell.hItem = hCell;
-    [AppUtils addBoxShadowForView:cell.viewParent color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    //  [AppUtils addBoxShadowForView:cell.viewParent color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
     return cell;
 }
 

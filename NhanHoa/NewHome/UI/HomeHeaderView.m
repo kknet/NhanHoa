@@ -18,10 +18,11 @@
     self.backgroundColor = UIColor.clearColor;
     
     float padding = 20.0;
+    float smallPadding = 10.0;
+    float sizeIcon = 25.0;
+    
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    float smallPadding = 15.0;
-    float hItem = 50.0;
-    float sizeIcon = 30.0;
+    
     float sizeButton = 50.0;
     float hLabel = 20.0;
     float marginY = 5.0;
@@ -37,52 +38,39 @@
     icPromotion.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
     icTrans.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
     
-    if (IS_IPHONE || IS_IPOD)
-    {
-        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-            textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
-            titleFont = [UIFont systemFontOfSize:19.0 weight:UIFontWeightMedium];
-            padding = 15.0;
-            
-            smallPadding = 5.0;
-            hItem = 45.0;
-            moreHeight = 25.0;
-            hIcon = 35.0;
-            
-        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
-            textFont = [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular];
-            titleFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
-            padding = 15.0;
-            
-            moreHeight = 25.0;
-            hIcon = 35.0;
-            
-        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
-            textFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightRegular];
-            titleFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
-            
-            sizeButton = 60.0;
-            hLabel = 30.0;
-            marginY = 15.0;
-            
-            icTopup.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
-            icWithdraw.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
-            icPromotion.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-            icTrans.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
-        }
-    }
+    float hWallet = 80.0;
     
-    
-    if (IS_IPHONE || IS_IPOD) {
-        NSString *deviceMode = [DeviceUtils getModelsOfCurrentDevice];
-        if ([deviceMode isEqualToString: Iphone5_1] || [deviceMode isEqualToString: Iphone5_2] || [deviceMode isEqualToString: Iphone5c_1] || [deviceMode isEqualToString: Iphone5c_2] || [deviceMode isEqualToString: Iphone5s_1] || [deviceMode isEqualToString: Iphone5s_2] || [deviceMode isEqualToString: IphoneSE])
-        {
-            hItem = 45.0;
-            
-        }else if ([deviceMode isEqualToString: Iphone6] || [deviceMode isEqualToString: Iphone6s] || [deviceMode isEqualToString: Iphone7_1] || [deviceMode isEqualToString: Iphone7_2] || [deviceMode isEqualToString: Iphone8_1] || [deviceMode isEqualToString: Iphone8_2])
-        {
-            hItem = 50.0;
-        }
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+        titleFont = [UIFont systemFontOfSize:19.0 weight:UIFontWeightMedium];
+        padding = 15.0;
+        
+        smallPadding = 5.0;
+        moreHeight = 25.0;
+        hIcon = 35.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
+        textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
+        titleFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
+        padding = 15.0;
+        smallPadding = 5.0;
+        
+        moreHeight = 25.0;
+        hIcon = 35.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
+        textFont = [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular];
+        titleFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
+        smallPadding = 10.0;
+        
+        sizeButton = 60.0;
+        hLabel = 30.0;
+        marginY = 15.0;
+        
+        icTopup.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+        icWithdraw.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        icPromotion.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+        icTrans.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
     }
     
     UIImage *banner = [UIImage imageNamed:@"ic_bg"];
@@ -134,53 +122,54 @@
         make.top.equalTo(lbHello.mas_bottom).offset(10.0);
         make.left.equalTo(self).offset(padding);
         make.right.equalTo(self).offset(-padding);
-        make.height.mas_equalTo(2*hItem + 1.0);
+        make.height.mas_equalTo(hWallet);
+    }];
+    
+    lbSepa.backgroundColor = GRAY_150;
+    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewWallet.mas_centerX);
+        make.top.equalTo(viewWallet).offset(15.0);
+        make.bottom.equalTo(viewWallet).offset(-15.0);
+        make.width.mas_equalTo(1.0);
     }];
     
     //  main wallet
+    lbMainWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Main wallet"];
+    [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewWallet).offset(smallPadding);
+        make.bottom.equalTo(viewWallet.mas_centerY).offset(-2.0);
+    }];
+    
     [icMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewWallet).offset(-smallPadding + 3.0);
-        make.top.equalTo(viewWallet).offset((hItem - sizeIcon)/2);
+        make.right.equalTo(lbSepa.mas_left).offset(-smallPadding);
+        make.centerY.equalTo(lbMainWallet.mas_centerY);
         make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(icMainMoney.mas_left).offset(-5.0);
-        make.top.bottom.equalTo(icMainMoney);
+        make.top.equalTo(viewWallet.mas_centerY).offset(2.0);
+        make.left.equalTo(lbMainWallet);
+        make.right.equalTo(lbSepa.mas_left).offset(-smallPadding);
     }];
     
-    lbMainWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Main wallet"];
-    [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewWallet).offset(smallPadding);
-        make.top.bottom.equalTo(icMainMoney);
-        make.right.equalTo(lbMainMoney.mas_left).offset(-5.0);
-    }];
-    
-    lbSepa.backgroundColor = GRAY_200;
-    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewWallet).offset(padding);
-        make.right.equalTo(viewWallet).offset(-padding);
-        make.centerY.equalTo(viewWallet.mas_centerY);
-        make.height.mas_equalTo(1.0);
-    }];
     
     //  bonus wallet
+    lbBonusWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Bonus wallet"];
+    [lbBonusWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(lbSepa.mas_right).offset(smallPadding);
+        make.bottom.equalTo(lbMainWallet);
+    }];
+    
     [icBonusMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(icMainMoney);
-        make.top.equalTo(lbSepa.mas_bottom).offset((hItem - sizeIcon)/2);
+        make.right.equalTo(viewWallet).offset(-smallPadding);
+        make.centerY.equalTo(lbBonusWallet.mas_centerY);
         make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbBonusMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(icBonusMoney.mas_left).offset(-5.0);
-        make.top.bottom.equalTo(icBonusMoney);
-    }];
-    
-    lbBonusWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Bonus wallet"];
-    [lbBonusWallet mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewWallet).offset(smallPadding);
-        make.top.bottom.equalTo(icBonusMoney);
-        make.right.equalTo(lbBonusMoney.mas_left).offset(-5.0);
+        make.top.equalTo(lbMainMoney);
+        make.left.equalTo(lbBonusWallet);
+        make.right.equalTo(icBonusMoney);
     }];
     
     //  buttons
@@ -231,7 +220,7 @@
         make.centerX.equalTo(icTrans.mas_centerX);
     }];
     
-    hContentView = hStatus + hIcon + 10.0 + (2*hItem + 1.0) + marginY + sizeButton + hLabel + moreHeight;
+    hContentView = hStatus + hIcon + 10.0 + hWallet + marginY + sizeButton + hLabel + moreHeight;
     
     [self addCurvePathForViewWithHeight: hContentView];
     
