@@ -45,7 +45,8 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Profile informations"];
-    
+    [btnUpdate setTitle:[appDelegate.localization localizedStringForKey:@"Update information"]
+               forState:UIControlStateNormal];
     [self displayProfileInformations];
 }
 
@@ -67,20 +68,32 @@
 
 - (void)setupUIForView
 {
+    self.view.backgroundColor = [UIColor colorWithRed:(241/255.0) green:(242/255.0) blue:(245/255.0) alpha:1.0];
+    
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hCell = 60.0;
-    hAvatar = 80.0;
+    hCell = 65.0;
+    hAvatar = 100.0;
+    float hFooter = 100.0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
+        hAvatar = 80.0;
+        hCell = 60.0;
+        hFooter = 80.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
+        hAvatar = 80.0;
+        hCell = 60.0;
+        hFooter = 80.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        hAvatar = 100.0;
+        hCell = 65.0;
+        hFooter = 100.0;
     }
     
     //  view header
@@ -88,7 +101,7 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
-    [AppUtils addBoxShadowForView:viewHeader color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewHeader color:GRAY_230 opacity:0.8 offsetX:1.0 offsetY:5.0];
     
     lbHeader.font = textFont;
     lbHeader.textColor = GRAY_50;
@@ -111,15 +124,16 @@
     tbInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbInfo.delegate = self;
     tbInfo.dataSource = self;
+    tbInfo.backgroundColor = UIColor.clearColor;
     [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(5.0);
         make.left.right.bottom.equalTo(self.view);
     }];
     
     
-    hTbHeader = 2*padding + hAvatar + padding + 30.0 + padding;
+    hTbHeader = 2*padding + hAvatar + 1.5*padding + 30.0 + 2*padding;
     tbHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hTbHeader)];
-    tbHeaderView.backgroundColor = GRAY_240;
+    tbHeaderView.backgroundColor = self.view.backgroundColor;
     tbInfo.tableHeaderView = tbHeaderView;
     
     imgAvatar = [[UIImageView alloc] init];
@@ -131,6 +145,9 @@
         make.centerX.equalTo(tbHeaderView.mas_centerX);
         make.width.height.mas_equalTo(hAvatar);
     }];
+    UITapGestureRecognizer *tapOnAvatar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnAvatar)];
+    imgAvatar.userInteractionEnabled = TRUE;
+    [imgAvatar addGestureRecognizer: tapOnAvatar];
     
     lbIDAcc = [[UILabel alloc] init];
     lbIDAcc.textAlignment = NSTextAlignmentCenter;
@@ -141,14 +158,14 @@
     lbIDAcc.layer.cornerRadius = 8.0;
     [tbHeaderView addSubview: lbIDAcc];
     [lbIDAcc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imgAvatar.mas_bottom).offset(padding);
+        make.top.equalTo(imgAvatar.mas_bottom).offset(1.5*padding);
         make.centerX.equalTo(tbHeaderView.mas_centerX);
         make.height.mas_equalTo(30.0);
         make.width.mas_equalTo(0);
     }];
     
     //  footer for tableview
-    tbFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80.0)];
+    tbFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     tbFooterView.backgroundColor = UIColor.whiteColor;
     tbInfo.tableFooterView = tbFooterView;
     
@@ -157,7 +174,6 @@
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnUpdate.titleLabel.font = textFont;
     btnUpdate.layer.cornerRadius = 8.0;
-    set title
     btnUpdate.clipsToBounds = TRUE;
     [tbFooterView addSubview: btnUpdate];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,6 +188,10 @@
 
 - (IBAction)icBackClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (void)whenTapOnAvatar {
+    NSLog(@"whenTapOnAvatar");
 }
 
 #pragma mark - UITableview delegate
@@ -189,6 +209,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileInfoTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileInfoTbvCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (indexPath.section == 0) {
         switch (indexPath.row) {
@@ -247,7 +268,7 @@
         return nil;
     }else{
         UILabel *lbSection = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15.0)];
-        lbSection.backgroundColor = GRAY_240;
+        lbSection.backgroundColor = self.view.backgroundColor;
         return lbSection;
     }
 }
@@ -265,7 +286,41 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        return [self getHeightContentForCell];
+    }
     return hCell;
+}
+
+- (float)getHeightContentForCell {
+    UIFont *font = [UIFont fontWithName:RobotoRegular size:19.0];
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        font = [UIFont fontWithName:RobotoRegular size:15.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        font = [UIFont fontWithName:RobotoRegular size:17.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        font = [UIFont fontWithName:RobotoRegular size:19.0];
+    }
+    
+    float maxLeftSize = [AppUtils getSizeWithText:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Permanent address"] withFont:textFont andMaxWidth:SCREEN_WIDTH].width + 5.0;
+    
+    float maxSize = (SCREEN_WIDTH - 2*padding - maxLeftSize - 5.0);
+    
+    NSString *content = [AccountModel getCusAddress];
+    float hContent = [AppUtils getSizeWithText:content withFont:font andMaxWidth:maxSize].height + 30.0;
+    if (hContent >= hCell) {
+        return hContent;
+    }
+    return hCell;
+}
+
+#pragma mark - UIScrollView delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
+    }
 }
 
 @end

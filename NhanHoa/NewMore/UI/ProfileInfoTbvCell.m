@@ -15,28 +15,33 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:15.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:17.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     }
+    
+    float maxLeftSize = [AppUtils getSizeWithText:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Permanent address"] withFont:textFont andMaxWidth:SCREEN_WIDTH].width + 5.0;
     
     lbTitle.font = lbValue.font  = textFont;
     
     lbTitle.textColor = GRAY_150;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self);
+        //  make.top.bottom.equalTo(self);
+        make.top.equalTo(self).offset(20.0);
         make.left.equalTo(self).offset(padding);
+        make.width.mas_equalTo(maxLeftSize);
     }];
     
     lbValue.textColor = GRAY_50;
     [lbValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self);
+        //  make.top.bottom.equalTo(self);
+        make.top.equalTo(self).offset(20.0);
         make.right.equalTo(self).offset(-padding);
         make.left.equalTo(lbTitle.mas_right).offset(10.0);
     }];

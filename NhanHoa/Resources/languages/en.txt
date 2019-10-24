@@ -168,6 +168,9 @@
 "Version"                   =   "Version"
 "Profile informations"      =   "Profile informations"
 "Viet Nam"                  =   "Viet Nam"
+"Update information"        =   "Update information"
+
+
 
 
 

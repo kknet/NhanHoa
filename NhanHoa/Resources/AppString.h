@@ -251,7 +251,7 @@
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 
 #define NAV_COLOR [UIColor colorWithRed:(42/255.0) green:(122/255.0) blue:(219/255.0) alpha:1.0]
-#define ORANGE_COLOR [UIColor colorWithRed:(249/255.0) green:(157/255.0) blue:(28/255.0) alpha:1.0]
+#define ORANGE_COLOR [UIColor colorWithRed:(255/255.0) green:(152/255.0) blue:(33/255.0) alpha:1.0]
 #define YELLOW_COLOR [UIColor colorWithRed:(253/255.0) green:(169/255.0) blue:(70/255.0) alpha:1.0]
 #define TITLE_COLOR [UIColor colorWithRed:(61/255.0) green:(77/255.0) blue:(103/255.0) alpha:1.0]
 #define BLUE_COLOR [UIColor colorWithRed:(29/255.0) green:(104/255.0) blue:(209/255.0) alpha:1.0]
