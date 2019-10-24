@@ -19,7 +19,7 @@
     
     float padding = 20.0;
     float smallPadding = 10.0;
-    float sizeIcon = 25.0;
+    float sizeIcon = 28.0;
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     
@@ -29,8 +29,8 @@
     float moreHeight = 40.0;
     float hIcon = 45.0;
     
-    UIFont *textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
-    UIFont *titleFont = [UIFont systemFontOfSize:23.0 weight:UIFontWeightBold];
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.5];
+    UIFont *titleFont = [UIFont fontWithName:RobotoBold size:20.0];
     
     //  edge for buttons
     icTopup.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
@@ -38,11 +38,11 @@
     icPromotion.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
     icTrans.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
     
-    float hWallet = 80.0;
+    float hWallet = 70.0;
     
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
-        titleFont = [UIFont systemFontOfSize:19.0 weight:UIFontWeightMedium];
+        textFont = [UIFont fontWithName:RobotoRegular size:14];
+        titleFont = [UIFont fontWithName:RobotoBold size:19.0];
         padding = 15.0;
         
         smallPadding = 5.0;
@@ -50,17 +50,17 @@
         hIcon = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
-        textFont = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
-        titleFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
+        textFont = [UIFont fontWithName:RobotoRegular size:15.5];
+        titleFont = [UIFont fontWithName:RobotoBold size:20.0];
         padding = 15.0;
-        smallPadding = 5.0;
+        smallPadding = 10.0;
         
         moreHeight = 25.0;
         hIcon = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
-        textFont = [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular];
-        titleFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
+        textFont = [UIFont fontWithName:RobotoRegular size:16];
+        titleFont = [UIFont fontWithName:RobotoBold size:21.0];
         smallPadding = 10.0;
         
         sizeButton = 60.0;
@@ -108,7 +108,7 @@
     
     //  view wallet
     lbMainWallet.font = lbBonusWallet.font = textFont;
-    lbMainMoney.font = lbBonusMoney.font = [UIFont systemFontOfSize:textFont.pointSize weight:UIFontWeightSemibold];
+    lbMainMoney.font = lbBonusMoney.font = [UIFont fontWithName:RobotoMedium size:(textFont.pointSize + 2)];
     
     icMainMoney.imageEdgeInsets = icBonusMoney.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     lbMainWallet.textColor = lbBonusWallet.textColor = GRAY_100;
@@ -266,17 +266,17 @@
     NSString *balance = [AccountModel getCusBalance];
     if (![AppUtils isNullOrEmpty: balance]) {
         balance = [AppUtils convertStringToCurrencyFormat: balance];
-        lbMainMoney.text = [NSString stringWithFormat:@"%@VNĐ", balance];
+        lbMainMoney.text = [NSString stringWithFormat:@"%@vnđ", balance];
     }else{
-        lbMainMoney.text = @"0VNĐ";
+        lbMainMoney.text = @"0vnđ";
     }
     
     NSString *points = [AccountModel getCusPoint];
     if (![AppUtils isNullOrEmpty: points]) {
         points = [AppUtils convertStringToCurrencyFormat: points];
-        lbBonusMoney.text = [NSString stringWithFormat:@"%@VNĐ", points];
+        lbBonusMoney.text = [NSString stringWithFormat:@"%@vnđ", points];
     }else{
-        lbBonusMoney.text = @"0VNĐ";
+        lbBonusMoney.text = @"0vnđ";
     }
 }
 

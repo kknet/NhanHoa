@@ -11,15 +11,16 @@
 #import "OrdersListViewController.h"
 #import "NotificationsViewController.h"
 #import "SearchDomainsViewController.h"
-
+#import "NewMoreViewController.h"
 #import "HomeViewController.h"
 #import "BOViewController.h"
-#import "TransHistoryViewController.h"
-#import "MoreViewController.h"
 
 @interface AppTabbarViewController (){
     AppDelegate *appDelegate;
     UIColor *actColor;
+    
+    UIButton *btnCall;
+    float sizeCall;
 }
 
 @end
@@ -93,26 +94,8 @@
     
     notifNav.tabBarItem = notifItem;
     
-    //  Tabbar transaction history
-    /*
-    TransHistoryViewController *transHisVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
-    UINavigationController *transHisNav = [[UINavigationController alloc] initWithRootViewController: transHisVC];
-    
-    
-    UIImage *imgTransHis = [UIImage imageNamed:@"tabbar_history_def"];
-    imgTransHis = [imgTransHis imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    UIImage *imgTransHisAct = [UIImage imageNamed:@"tabbar_history_act"];
-    imgTransHisAct = [imgTransHisAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    UITabBarItem *transHisItem = [[UITabBarItem alloc] initWithTitle:text_trans_history image:imgTransHis selectedImage:imgTransHisAct];
-    [transHisItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
-    
-    transHisNav.tabBarItem = transHisItem;
-    */
-    
     //  Tabbar account
-    MoreViewController *moreVC = [[MoreViewController alloc] initWithNibName:@"MoreViewController" bundle:nil];
+    NewMoreViewController *moreVC = [[NewMoreViewController alloc] initWithNibName:@"NewMoreViewController" bundle:nil];
     UINavigationController *moreNav = [[UINavigationController alloc] initWithRootViewController: moreVC];
     
     UIImage *imgAcc = [UIImage imageNamed:@"tabbar_acc_def"];
@@ -190,6 +173,54 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     tabBarController.navigationController.navigationBarHidden = TRUE;
+}
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+    
+//    float hTabbar = tabBarController.tabBar.frame.size.height;
+//    sizeCall = 70.0;
+//
+//    btnCall = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btnCall setImage:[UIImage imageNamed:@"ic_call"] forState:UIControlStateNormal];
+//    [appDelegate.window addSubview: btnCall];
+//    [btnCall mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(appDelegate.window).offset(-15.0);
+//        make.bottom.equalTo(appDelegate.window).offset(-15.0-hTabbar);
+//        make.width.height.mas_equalTo(sizeCall);
+//    }];
+//
+//
+//    UIPanGestureRecognizer* pgr = [[UIPanGestureRecognizer alloc]
+//                                   initWithTarget:self
+//                                   action:@selector(handlePan:)];
+//    [btnCall addGestureRecognizer:pgr];
+}
+
+-(void)handlePan:(UIPanGestureRecognizer*)pgr;
+{
+    if (pgr.state == UIGestureRecognizerStateChanged) {
+        CGPoint center = pgr.view.center;
+        CGPoint translation = [pgr translationInView:pgr.view];
+        center = CGPointMake(center.x + translation.x,
+                             center.y + translation.y);
+        if (center.x < sizeCall/2) {
+            center.x = sizeCall/2;
+        }else if (center.x > SCREEN_WIDTH - sizeCall/2) {
+            center.x = SCREEN_WIDTH - sizeCall/2;
+        }
+        
+        if (center.y < [UIApplication sharedApplication].statusBarFrame.size.height + sizeCall/2) {
+            center.y = sizeCall/2;
+            
+        }else if (center.y > SCREEN_HEIGHT - sizeCall/2) {
+            center.y = SCREEN_HEIGHT - tabBarController.tabBar.frame.size.height - sizeCall/2;
+        }
+        
+        pgr.view.center = center;
+        [pgr setTranslation:CGPointZero inView:pgr.view];
+    }
 }
 
 - (void)setupUIForView {

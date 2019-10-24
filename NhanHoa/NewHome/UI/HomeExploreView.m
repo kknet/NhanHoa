@@ -148,7 +148,7 @@
             break;
         }
         case eExploreManagerDomains:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Domains management"];
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Domain management"];
             cell.imgType.image = [UIImage imageNamed:@"menu_more"];
             break;
         }

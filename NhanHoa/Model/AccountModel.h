@@ -23,11 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)getCusEmail;
 + (int)getCusOwnType;
 + (int)getCusGender;
++ (NSString *)getCusGenderValue;
 + (NSString *)getCusBirthday;
 + (NSString *)getCusPassport;
 + (NSString *)getCusPhone;
 + (NSString *)getCusAddress;
 + (NSString *)getCusCityCode;
++ (NSString *)getCusCityName;
 + (NSString *)getCusPhoto;
 
 //  bussiness

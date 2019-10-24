@@ -473,13 +473,9 @@
             
         }else{
             [self hideUIForSearch: TRUE];
-            
-//            lbTopTitle.text = text_cannot_use_domains;
-//            lbSearchContent.text = strSearch;
-//            lbBottomTitle.text = @"";
-//
+
             imgResult.hidden = FALSE;
-            imgResult.image = [UIImage imageNamed:@"search_domain_ok"];
+            imgResult.image = [UIImage imageNamed:@"search_domain_notfound"];
         }
         
         [self reUpdateLayoutForView];

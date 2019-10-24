@@ -7,6 +7,7 @@
 //
 
 #import "AccountModel.h"
+#import "CityObject.h"
 
 @implementation AccountModel
 
@@ -119,6 +120,19 @@
     return type_men;
 }
 
++ (NSString *)getCusGenderValue {
+    NSString *gender = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_gender"];
+    if ([gender isKindOfClass:[NSString class]] && ![AppUtils isNullOrEmpty: gender]) {
+        if ([gender isEqualToString:@"0"]) {
+            return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Female"];
+        }else{
+            return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Male"];
+        }
+    }
+    return @"";
+}
+
+
 + (NSString *)getCusBirthday {
     NSString *birthday = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_birthday"];
     if (![AppUtils isNullOrEmpty: birthday]) {
@@ -155,6 +169,19 @@
     NSString *city = [[AppDelegate sharedInstance].userInfo objectForKey:@"cus_city"];
     if (![AppUtils isNullOrEmpty: city]) {
         return city;
+    }
+    return @"";
+}
+
++ (NSString *)getCusCityName {
+    NSString *cityCode = [self getCusCityCode];
+    if (![AppUtils isNullOrEmpty: cityCode]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code = %@", cityCode];
+        NSArray *filter = [[AppDelegate sharedInstance].listCity filteredArrayUsingPredicate: predicate];
+        if (filter.count > 0) {
+            CityObject *city = [filter firstObject];
+            return city.name;
+        }
     }
     return @"";
 }

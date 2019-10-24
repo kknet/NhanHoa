@@ -226,6 +226,7 @@
     tfEmail.font = boldFont;
     tfEmail.returnKeyType = UIReturnKeyNext;
     tfEmail.delegate = self;
+    tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
     [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgEmail.mas_right).offset(padding);
         make.right.equalTo(imgEmailState.mas_left).offset(-padding);

@@ -194,6 +194,14 @@
     return [self convertDateToString: date];
 }
 
++ (NSString *)getTimeStringFromTimerInterval: (long)timeInterval {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970: timeInterval];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *stringDate = [dateFormatter stringFromDate:date];
+    return stringDate;
+}
+
 + (NSString *)getDateTimeStringFromTimerInterval: (long)timeInterval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: timeInterval];
     return [self getDateTimeStringNotHaveSecondsFromDate: date];

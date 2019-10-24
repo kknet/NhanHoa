@@ -12,7 +12,6 @@
 #import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
-#import "TransHistoryViewController.h"
 #import "ProfileManagerViewController.h"
 
 #import "HomeHeaderView.h"
@@ -424,10 +423,10 @@
 }
 
 -(void)selectOnTransactionHeaderMenu {
-    TransHistoryViewController *transactionsVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
-    transactionsVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController: transactionsVC animated:TRUE];
+//    TransHistoryViewController *transactionsVC = [[TransHistoryViewController alloc] initWithNibName:@"TransHistoryViewController" bundle:nil];
+//    transactionsVC.hidesBottomBarWhenPushed = TRUE;
+//    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+//    [self.navigationController pushViewController: transactionsVC animated:TRUE];
 }
 
 - (void)onIconCartClicked {

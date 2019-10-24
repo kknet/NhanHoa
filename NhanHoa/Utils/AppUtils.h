@@ -32,6 +32,7 @@ typedef enum {
 + (NSString *)convertDateToString: (NSDate *)date;
 + (NSDate *)convertStringToDate: (NSString *)dateString;
 + (NSString *)getDateStringFromTimerInterval: (long)timeInterval;
++ (NSString *)getTimeStringFromTimerInterval: (long)timeInterval;
 + (NSString *)getDateTimeStringFromTimerInterval: (long)timeInterval;
 + (BOOL)checkNetworkAvailable;
 + (void)addBoxShadowForView: (UIView *)view withColor: (UIColor *)color;

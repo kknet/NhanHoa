@@ -153,8 +153,22 @@
 "Related domains"           =   "Tên miền liên quan"
 
 "Promotions"        =   "Khuyến mãi"
+"Loading..."        =   "Đang tải..."
 
+"Have not updated yet!"     =   "Chưa cập nhật!"
 
+"Nhan Hoa wallet"           =   "Ví Nhân Hòa"
+"Domains management"        =   "Quản lý tên miền"
+"Transactions history"      =   "Lịch sử giao dịch"
+"Customers support"         =   "Hỗ trợ khách hàng"
+"Bank account"              =   "Tài khoản ngân hàng"
+"Account settings"          =   "Cài đặt tài khoản"
+"Terms and policy"          =   "Điều khoản & chính sách"
+"Contact"                   =   "Liên hệ"
+"Application information"   =   "Thông tin ứng dụng"
+"Version"                   =   "Phiên bản"
+"Profile informations"      =   "Thông tin hồ sơ"
+"Viet Nam"                  =   "Việt Nam"
 
 
 
@@ -178,7 +192,7 @@
 "More"                  =   "Xem thêm"
 "SSL"                   =   "Đ.ký SSL"
 "VPS"                   =   "Đ.ký VPS"
-"Domains management"    =   "Q.lý tên miền"
+"Domain management"     =   "Q.lý tên miền"
 "Pricing domains"       =   "Bảng giá"
 "Check domains"         =   "K.tra tên miền"
 "Explore"               =   "Khám phá"

@@ -152,7 +152,22 @@
 "Related domains"           =   "Related domains"
 
 "Promotions"        =   "Promotions"
+"Loading..."        =   "Loading..."
 
+"Have not updated yet!"     =   "Have not updated yet!"
+
+"Nhan Hoa wallet"           =   "Nhan Hoa wallet"
+"Domains management"        =   "Domains management"
+"Transactions history"      =   "Transactions history"
+"Customers support"         =   "Customers support"
+"Bank account"              =   "Bank account"
+"Account settings"          =   "Account settings"
+"Terms and policy"          =   "Terms and policy"
+"Contact"                   =   "Contact"
+"Application information"   =   "Application information"
+"Version"                   =   "Version"
+"Profile informations"      =   "Profile informations"
+"Viet Nam"                  =   "Viet Nam"
 
 
 
@@ -177,7 +192,7 @@
 "More"                  =   "More"
 "SSL"                   =   "SSL"
 "VPS"                   =   "VPS"
-"Domains management"    =   "Domains management"
+"Domain management"     =   "Domain management"
 "Pricing domains"       =   "Pricing domains"
 "Check domains"         =   "Check domains"
 "Explore"               =   "Explore"
