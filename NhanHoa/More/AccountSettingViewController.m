@@ -54,7 +54,6 @@
     [super viewWillDisappear: animated];
     if (self.isMovingFromParentViewController) {
         imagePickerController = nil;
-        [AppDelegate sharedInstance].cropAvatar = nil;
         [AppDelegate sharedInstance].dataCrop = nil;
     }
 }
@@ -280,12 +279,11 @@
     [self.navigationController pushViewController:updateInfoVC animated:TRUE];
 }
 
-- (void)openEditor {
+- (void)openEditorWithPhoto: (UIImage *)image {
     PECropController = [[PECropViewController alloc] init];
     PECropController.delegate = self;
-    PECropController.image = [AppDelegate sharedInstance].cropAvatar;
+    PECropController.image = image;
     
-    UIImage *image = [AppDelegate sharedInstance].cropAvatar;
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
     CGFloat length = MIN(width, height);
@@ -339,10 +337,9 @@
     
     //You can retrieve the actual UIImage
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [AppDelegate sharedInstance].cropAvatar = image;
     [picker dismissViewControllerAnimated:YES completion:^{
         [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
-        [self openEditor];
+        [self openEditorWithPhoto: image];
     }];
 }
 

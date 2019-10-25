@@ -11,11 +11,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileInfoViewController">
             <connections>
+                <outlet property="btnBusiness" destination="uj1-L2-MH2" id="tf2-X2-EGw"/>
+                <outlet property="btnRegistrant" destination="HKR-Oj-foc" id="mF8-Fi-WTg"/>
                 <outlet property="icBack" destination="PC2-18-lxE" id="Hvl-D2-rUn"/>
                 <outlet property="lbHeader" destination="sYI-wV-bk7" id="gb2-dh-scN"/>
+                <outlet property="lbMenuActive" destination="4bC-Wc-ikH" id="aA7-kt-wIg"/>
+                <outlet property="tbBusiness" destination="9y4-i2-fuc" id="AeX-VK-iCp"/>
                 <outlet property="tbInfo" destination="pU7-xW-W97" id="xfz-sg-Azb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewHeader" destination="ktd-eV-fga" id="1Md-9c-YUY"/>
+                <outlet property="viewMenu" destination="Csc-qr-VDf" id="00d-gT-54m"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,6 +28,37 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="Csc-qr-VDf">
+                    <rect key="frame" x="0.0" y="44" width="320" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HKR-Oj-foc">
+                            <rect key="frame" x="8" y="5" width="152" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Registrant"/>
+                            <connections>
+                                <action selector="btnRegistrantPress:" destination="-1" eventType="touchUpInside" id="eeE-Ms-qWp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uj1-L2-MH2">
+                            <rect key="frame" x="160" y="5" width="152" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Business"/>
+                            <connections>
+                                <action selector="btnBusinessPress:" destination="-1" eventType="touchUpInside" id="D3j-18-CzB"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4bC-Wc-ikH">
+                            <rect key="frame" x="0.0" y="36" width="150" height="4"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" id="ktd-eV-fga">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -46,14 +82,19 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pU7-xW-W97">
-                    <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9y4-i2-fuc">
+                    <rect key="frame" x="0.0" y="84" width="320" height="396"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-90" y="-84"/>
+            <point key="canvasLocation" x="-771.01449275362324" y="-94.419642857142847"/>
         </view>
     </objects>
     <resources>

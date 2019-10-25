@@ -22,7 +22,7 @@
 
 @implementation PECropViewController
 @synthesize rotationEnabled = _rotationEnabled;
-@synthesize btnSave;
+@synthesize btnSave, btnBack;
 
 + (NSBundle *)bundle
 {
@@ -82,7 +82,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addSaveButtonForMainView];
+    [self addFooterButtonsForMainView];
     
 //    self.navigationController.navigationBar.translucent = NO;
 //    self.navigationController.toolbar.translucent = NO;
@@ -112,15 +112,13 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = TRUE;
     
     [self showContentWithCurrentLanguage];
     
     //  controller.delegate = self;
-    self.image = [AppDelegate sharedInstance].cropAvatar;
-    
-    UIImage *image = [AppDelegate sharedInstance].cropAvatar;
-    CGFloat width = image.size.width;
-    CGFloat height = image.size.height;
+    CGFloat width = self.image.size.width;
+    CGFloat height = self.image.size.height;
     CGFloat length = MIN(width, height);
     self.imageCropRect = CGRectMake((width - length) / 2,
                                           (height - length) / 2,
@@ -229,19 +227,16 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)cancel:(id)sender
 {
-    /*  Leo Kelvin
     if ([self.delegate respondsToSelector:@selector(cropViewControllerDidCancel:)]) {
         [self.delegate cropViewControllerDidCancel:self];
     }
-    */
-    [self.delegate cropViewControllerDidCancel:self];
 }
 
 - (void)done:(id)sender
 {
-    UIImage *cropImage = [AppUtils cropImageWithSize:CGSizeMake(300, 300) fromImage:self.cropView.croppedImage];
-    [AppDelegate sharedInstance].dataCrop = UIImageJPEGRepresentation(cropImage, 1);
-    [self.navigationController popViewControllerAnimated: YES];
+    if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:)]) {
+        [self.delegate cropViewController:self didFinishCroppingImage:self.cropView.croppedImage];
+    }
 }
 
 - (void)constrain:(id)sender
@@ -310,7 +305,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 #pragma mark - my functions
 
-- (void)addSaveButtonForMainView {
+- (void)addFooterButtonsForMainView {
     btnSave = [UIButton buttonWithType: UIButtonTypeCustom];
     btnSave.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
     btnSave.backgroundColor = BLUE_COLOR;
@@ -325,12 +320,29 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
         make.width.mas_equalTo(80.0);
         make.height.mas_equalTo(40.0);
     }];
+    
+    btnBack = [UIButton buttonWithType: UIButtonTypeCustom];
+    btnBack.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnBack.backgroundColor = UIColor.whiteColor;
+    [btnBack setTitleColor:GRAY_50 forState:UIControlStateNormal];
+    [btnBack addTarget:self
+                action:@selector(cancel:)
+      forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview: btnBack];
+    [btnBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(20);
+        make.bottom.equalTo(self.view).offset(-20);
+        make.width.mas_equalTo(80.0);
+        make.height.mas_equalTo(40.0);
+    }];
 }
 
 - (void)showContentWithCurrentLanguage
 {
-    self.title = @"Cắt ảnh";
-    [btnSave setTitle:@"Lưu" forState:UIControlStateNormal];
+    [btnSave setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Save"]
+             forState:UIControlStateNormal];
+    [btnBack setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Back"]
+             forState:UIControlStateNormal];
 }
 
 

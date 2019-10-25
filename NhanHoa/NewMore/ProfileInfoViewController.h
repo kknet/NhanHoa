@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    eTypeAvatarTitle,
+    eTypeViewAvatar,
+    eTypeCapture,
+    eTypeChooseGallery,
+    eTypeClearAvatar,
+}TypeOnAvatar;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileInfoViewController : UIViewController
@@ -16,9 +24,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
 
+@property (weak, nonatomic) IBOutlet UIView *viewMenu;
+@property (weak, nonatomic) IBOutlet UIButton *btnRegistrant;
+@property (weak, nonatomic) IBOutlet UIButton *btnBusiness;
+@property (weak, nonatomic) IBOutlet UILabel *lbMenuActive;
+
 @property (weak, nonatomic) IBOutlet UITableView *tbInfo;
+@property (weak, nonatomic) IBOutlet UITableView *tbBusiness;
 
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)btnRegistrantPress:(UIButton *)sender;
+- (IBAction)btnBusinessPress:(UIButton *)sender;
 
 @end
 

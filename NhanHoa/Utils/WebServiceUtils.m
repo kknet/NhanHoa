@@ -28,6 +28,14 @@
     [webService callWebServiceWithLink:register_account_func withParams:accInfo inBackgroundMode:TRUE];
 }
 
+- (void)updateAccountProfileWithInfo: (NSMutableDictionary *)info
+{
+    [info setObject:edit_profile_mod forKey:@"mod"];
+    [info setObject:USERNAME forKey:@"username"];
+    [info setObject:PASSWORD forKey:@"password"];
+    [webService callWebServiceWithLink:edit_profile_func withParams:info inBackgroundMode:TRUE];
+}
+
 //  login function
 - (void)loginWithUsername: (NSString *)username password: (NSString *)password
 {
@@ -397,6 +405,10 @@
         if ([delegate respondsToSelector:@selector(failedToRegisterAccountWithError:)]) {
             [delegate failedToRegisterAccountWithError: error];
         }
+    }else if ([link isEqualToString: edit_profile_func]) {
+        if ([delegate respondsToSelector:@selector(failedToUpdateAccountInfoWithError:)]) {
+            [delegate failedToUpdateAccountInfoWithError: error];
+        }
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(failedToUpdateToken)]) {
             [delegate failedToUpdateToken];
@@ -526,6 +538,10 @@
     }else if ([link isEqualToString: register_account_func]) {
         if ([delegate respondsToSelector:@selector(registerAccountSuccessfulWithData:)]) {
             [delegate registerAccountSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: edit_profile_func]) {
+        if ([delegate respondsToSelector:@selector(updateAccountInfoSuccessfulWithData:)]) {
+            [delegate updateAccountInfoSuccessfulWithData: data];
         }
     }else if ([link isEqualToString: update_token_func]) {
         if ([delegate respondsToSelector:@selector(updateTokenSuccessful)]) {

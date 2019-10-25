@@ -7,6 +7,7 @@
 //
 
 #import "NewMoreViewController.h"
+#import "WalletViewController.h"
 #import "RenewedDomainViewController.h"
 #import "SupportViewController.h"
 #import "BankInfoViewController.h"
@@ -39,6 +40,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
     
     [self displayAccountInfo];
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Account"];
@@ -85,7 +87,7 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
-    [AppUtils addBoxShadowForView:viewHeader color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:2.0];
     
     lbHeader.font = textFont;
     lbHeader.textColor = GRAY_50;
@@ -314,6 +316,10 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:{
+                WalletViewController *walletVC = [[WalletViewController alloc] initWithNibName:@"WalletViewController" bundle:nil];
+                walletVC.hidesBottomBarWhenPushed = TRUE;
+                [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+                [self.navigationController pushViewController:walletVC animated:TRUE];
                 break;
             }
             case 1:{

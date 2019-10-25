@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbValue;
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
+
+- (void)updateFrameWithContent;
+
 @end
 
 NS_ASSUME_NONNULL_END

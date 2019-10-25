@@ -53,7 +53,7 @@
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
 @synthesize needReloadListProfile, profileEdit, editCMND_a, editCMND_b, editBanKhai, domainsPrice;
-@synthesize cropAvatar, dataCrop, token, hashKey;
+@synthesize dataCrop, token, hashKey;
 @synthesize cartWindow, shoppingCartVC, shoppingCartNavVC, cartViewController, cartNavViewController, listBank, cartView, errorMsgDict, listPricingQT, listPricingVN, notiAudio, getInfoTimer, countLogin;
 @synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;

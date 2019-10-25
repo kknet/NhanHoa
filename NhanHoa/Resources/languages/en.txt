@@ -52,7 +52,7 @@
 "Business address"      =   "Business address"
 "Business phone number" =   "Business phone number"
 "Registrant name"       =   "Registrant name"
-"Postition"             =   "Postition"
+"Position"              =   "Position"
 "Back"                  =   "Back"
 "Address"               =   "Address"
 
@@ -62,7 +62,7 @@
 "Enter business address"        =   "Enter business address"
 "Enter business phone number"   =   "Enter business phone number"
 "Enter registrant name"         =   "Enter registrant name"
-"Enter postition"               =   "Enter postition"
+"Enter position"                =   "Enter position"
 "Enter registrant's address"    =   "Enter registrant's address"
 
 "Please enter fullname"             =   "Please enter fullname"
@@ -83,7 +83,7 @@
 "Please choose registrant's date of birth"  =   "Please choose registrant's date of birth"
 "Please enter registrant phone number"      =   "Please enter registrant phone number"
 
-"Please enter registrant postition" =   "Please enter registrant postition"
+"Please enter registrant position"  =   "Please enter registrant position"
 "Please enter registrant passport"  =   "Please enter registrant passport"
 "Please enter registrant email"     =   "Please enter registrant email"
 "Please enter registrant address"   =   "Please enter registrant address"
@@ -170,7 +170,25 @@
 "Viet Nam"                  =   "Viet Nam"
 "Update information"        =   "Update information"
 
+"Avatar"                    =   "Avatar"
+"View avatar"               =   "View avatar"
+"Capture new photo"         =   "Capture new photo"
+"Choose from gallery"       =   "Choose from gallery"
+"Save"                      =   "Save"
+"Crop photo"                =   "Crop photo"
+"Updating..."               =   "Updating..."
+"Update profile"            =   "Update profile"
+"Save update"               =   "Save update"
 
+"Can not access to your camera. Please check again your app permision!"     =   "Can not access to your camera. Please check again your app permision!"
+"Can not access to your gallery. Please check again your app permision!"    =   "Can not access to your gallery. Please check again your app permision!"
+
+"Sorry. Can not upload photo at this time!" =   "Sorry. Can not upload photo at this time!"
+"Your avatar has been updated successfully" =   "Your avatar has been updated successfully"
+"Your info has been updated successfully"   =   "Your info has been updated successfully."
+
+"Registrant"    =   "Registrant"
+"Top up"        =   "Top up"
 
 
 

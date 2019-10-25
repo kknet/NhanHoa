@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToRegisterAccountWithError:(NSString *)error;
 - (void)registerAccountSuccessfulWithData:(NSDictionary *)data;
 
+- (void)failedToUpdateAccountInfoWithError:(NSString *)error;
+- (void)updateAccountInfoSuccessfulWithData:(NSDictionary *)data;
+
 - (void)failedToLoginWithError: (NSString *)error;
 - (void)loginSucessfulWithData: (NSDictionary *)data;
 
@@ -125,6 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<WebServiceUtilsDelegate> delegate;
 
 - (void)registerNewAccountWithInfo: (NSDictionary *)accInfo;
+- (void)updateAccountProfileWithInfo: (NSMutableDictionary *)info;
 - (void)loginWithUsername: (NSString *)username password: (NSString *)password;
 - (void)updateTokenWithValue:(NSString *)token;
 - (void)searchDomainWithName: (NSString *)domain type: (int)type;

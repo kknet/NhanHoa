@@ -13,6 +13,7 @@
 @interface PECropViewController : UIViewController
 
 @property (nonatomic, strong) UIButton *btnSave;
+@property (nonatomic, strong) UIButton *btnBack;
 
 @property (nonatomic, weak) id<PECropViewControllerDelegate> delegate;
 @property (nonatomic) UIImage *image;

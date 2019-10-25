@@ -399,7 +399,7 @@
     }];
     
     //  postition
-    lbPostition.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Postition"];
+    lbPostition.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Position"];
     [lbPostition mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBotDOB.mas_bottom).offset(paddingY);
         make.left.right.equalTo(tfFullname);
@@ -408,7 +408,7 @@
     
     tfPostition.returnKeyType = UIReturnKeyNext;
     tfPostition.delegate = self;
-    tfPostition.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter postition"];
+    tfPostition.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter position"];
     [tfPostition mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbPostition.mas_bottom);
         make.left.right.equalTo(lbPostition);
@@ -756,7 +756,7 @@
     }
     
     if ([AppUtils isNullOrEmpty: tfPostition.text]) {
-        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant postition"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        [[AppDelegate sharedInstance].window makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant position"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     

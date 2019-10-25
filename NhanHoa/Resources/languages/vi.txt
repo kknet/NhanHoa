@@ -52,7 +52,7 @@
 "Business address"      =   "Địa chỉ doanh nghiệp"
 "Business phone number" =   "Số điện thoại doanh nghiệp"
 "Registrant name"       =   "Họ tên người đăng ký"
-"Postition"             =   "Chức vụ"
+"Position"             =   "Chức vụ"
 "Back"                  =   "Quay lại"
 "Address"               =   "Địa chỉ"
 
@@ -62,7 +62,7 @@
 "Enter business address"        =   "Nhập địa chỉ doanh nghiệp"
 "Enter business phone number"   =   "Nhập số điện thoại doanh nghiệp"
 "Enter registrant name"         =   "Nhập họ tên người đăng ký"
-"Enter postition"               =   "Nhập chức vụ"
+"Enter position"                =   "Nhập chức vụ"
 "Enter registrant's address"    =   "Nhập địa chỉ người đăng ký"
 
 "Please enter fullname"             =   "Vui lòng nhập họ tên"
@@ -83,7 +83,7 @@
 "Please choose registrant's date of birth"  =   "Vui lòng nhập ngày sinh người đăng ký"
 "Please enter registrant phone number"      =   "Vui lòng nhập số điện thoại người đăng ký"
 
-"Please enter registrant postition" =   "Vui lòng nhập chức vụ người đăng ký"
+"Please enter registrant position"  =   "Vui lòng nhập chức vụ người đăng ký"
 "Please enter registrant passport"  =   "Vui lòng nhập CMND người đăng ký"
 "Please enter registrant email"     =   "Vui lòng nhập email người đăng ký"
 "Please enter registrant address"   =   "Vui lòng nhập địa chỉ người đăng ký"
@@ -170,6 +170,26 @@
 "Profile informations"      =   "Thông tin hồ sơ"
 "Viet Nam"                  =   "Việt Nam"
 "Update information"        =   "Cập nhật thông tin"
+
+"Avatar"                    =   "Ảnh đại diện"
+"View avatar"               =   "Xem ảnh đại diện"
+"Capture new photo"         =   "Chụp ảnh mới"
+"Choose from gallery"       =   "Chọn ảnh từ thư viện"
+"Save"                      =   "Lưu"
+"Crop photo"                =   "Cắt ảnh"
+"Updating..."               =   "Đang cập nhật..."
+"Update profile"            =   "Cập nhật hồ sơ"
+"Save update"               =   "Lưu cập nhật"
+
+"Can not access to your camera. Please check again your app permision!"     =   "Không thể truy cập vào camera. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
+"Can not access to your gallery. Please check again your app permision!"    =   "Không thể truy cập vào ảnh của bạn. Vui lòng kiểm tra lại quyền truy cập của ứng dụng!"
+
+"Sorry. Can not upload photo at this time!" =   "Rất tiếc. Không thể tải ảnh đại diện vào lúc này!"
+"Your avatar has been updated successfully" =   "Ảnh đại diện đã được cập nhật thành công"
+"Your info has been updated successfully"   =   "Thông tin đã được cập nhật thành công."
+
+"Registrant"    =   "Người đăng ký"
+"Top up"        =   "Nạp tiền"
 
 
 
