@@ -188,11 +188,22 @@
 "Your avatar has been updated successfully" =   "Ảnh đại diện đã được cập nhật thành công"
 "Your info has been updated successfully"   =   "Thông tin đã được cập nhật thành công."
 
-"Registrant"    =   "Người đăng ký"
-"Top up"        =   "Nạp tiền"
+"Registrant"        =   "Người đăng ký"
+"Top up"            =   "Nạp tiền"
+"View more"         =   "Xem thêm"
+"Recent activity"   =   "Hoạt động gần đây"
+"Main wallet"       =   "Tài khoản chính"
+"Bonus wallet"      =   "Tài khoản thưởng"
+"Balance"           =   "Số dư"
 
+"Choose amount want to top up"      =   "Chọn số tiền muốn nạp"
+"Choose amount want to withdraw"    =   "Chọn số tiền muốn rút"
+"Enter another amount"              =   "Nhập số tiền khác"
+"Confirm"                           =   "Xác nhận"
+"Note"                              =   "Lưu ý"
 
-
+"The amount you want to withdraw must be less than the bonus balance"   =   "Số tiền muốn rút phải ít hơn số dư tiền thưởng"
+"The amount to top up must be at least"     =   "Số tiền muốn nạp phải ít nhất là"
 
 
 

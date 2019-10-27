@@ -187,8 +187,23 @@
 "Your avatar has been updated successfully" =   "Your avatar has been updated successfully"
 "Your info has been updated successfully"   =   "Your info has been updated successfully."
 
-"Registrant"    =   "Registrant"
-"Top up"        =   "Top up"
+"Registrant"        =   "Registrant"
+"Top up"            =   "Top up"
+"View more"         =   "View more"
+"Recent activity"   =   "Recent activity"
+"Main wallet"       =   "Main wallet"
+"Bonus wallet"      =   "Bonus wallet"
+"Balance"           =   "Balance"
+
+"Choose amount want to top up"      =   "Choose amount want to top up"
+"Choose amount want to withdraw"    =   "Choose amount want to withdraw"
+"Enter another amount"              =   "Enter another amount"
+"Confirm"                           =   "Confirm"
+"Note"                              =   "Note"
+
+"The amount you want to withdraw must be less than the bonus balance"   =   "The amount you want to withdraw must be less than the bonus balance"
+"The amount to top up must be at least"     =   "The amount to top up must be at least"
+
 
 
 

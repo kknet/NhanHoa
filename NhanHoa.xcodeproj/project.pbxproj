@@ -498,6 +498,9 @@
 		56A878A422CB504400300705 /* new_launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56A878A322CB504400300705 /* new_launch.jpg */; };
 		56A878A622CB50AF00300705 /* app-icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56A878A522CB50AF00300705 /* app-icon.jpg */; };
 		56B5685022B153A300AB8F29 /* tick_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B5684F22B153A300AB8F29 /* tick_white.png */; };
+		56C1F6B0236571220006C4D1 /* ChooseMoneyTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C1F6AE236571220006C4D1 /* ChooseMoneyTbvCell.m */; };
+		56C1F6B1236571220006C4D1 /* ChooseMoneyTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56C1F6AF236571220006C4D1 /* ChooseMoneyTbvCell.xib */; };
+		56C1F6B323657C060006C4D1 /* bg_wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C1F6B223657C050006C4D1 /* bg_wallet.png */; };
 		56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56CB516D22A72E8700D6D68A /* UpdateBusinessProfile.m */; };
 		56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56CB516F22A72E9100D6D68A /* UpdateBusinessProfile.xib */; };
 		56D0294F22B3F88D00280127 /* order_failed.png in Resources */ = {isa = PBXBuildFile; fileRef = 56D0294D22B3F88D00280127 /* order_failed.png */; };
@@ -529,6 +532,8 @@
 		56FCB6F8235E04E700CD9D5F /* bg_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6F7235E04E600CD9D5F /* bg_header.png */; };
 		56FCB6FA235E083B00CD9D5F /* top_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6F9235E083B00CD9D5F /* top_header.png */; };
 		56FCB6FC235E092600CD9D5F /* bottom_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FCB6FB235E092600CD9D5F /* bottom_header.png */; };
+		56FDCBE023644C9F0036A69D /* TopUpMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FDCBDF23644C9F0036A69D /* TopUpMoneyView.m */; };
+		56FDCBE423644DC20036A69D /* TopUpMoneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FDCBE323644DC20036A69D /* TopUpMoneyView.xib */; };
 		56FDEB5C22B66486001A14AE /* launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB5B22B66486001A14AE /* launch.jpg */; };
 		56FDEB6322B684C5001A14AE /* PricingDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */; };
 		56FDEB6422B684C5001A14AE /* PricingDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */; };
@@ -1282,6 +1287,10 @@
 		56A878A322CB504400300705 /* new_launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = new_launch.jpg; sourceTree = "<group>"; };
 		56A878A522CB50AF00300705 /* app-icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "app-icon.jpg"; sourceTree = "<group>"; };
 		56B5684F22B153A300AB8F29 /* tick_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_white.png; sourceTree = "<group>"; };
+		56C1F6AD236571220006C4D1 /* ChooseMoneyTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseMoneyTbvCell.h; sourceTree = "<group>"; };
+		56C1F6AE236571220006C4D1 /* ChooseMoneyTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseMoneyTbvCell.m; sourceTree = "<group>"; };
+		56C1F6AF236571220006C4D1 /* ChooseMoneyTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseMoneyTbvCell.xib; sourceTree = "<group>"; };
+		56C1F6B223657C050006C4D1 /* bg_wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_wallet.png; sourceTree = "<group>"; };
 		56C5AFC022BAA3A9005704A5 /* CertPushRelease.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPushRelease.p12; sourceTree = "<group>"; };
 		56C5AFC122BAA3AF005704A5 /* CertPush.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CertPush.p12; sourceTree = "<group>"; };
 		56C5AFC222BAB08A005704A5 /* DevelopmentCertificates.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DevelopmentCertificates.p12; sourceTree = "<group>"; };
@@ -1330,6 +1339,9 @@
 		56FCB6F7235E04E600CD9D5F /* bg_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header.png; sourceTree = "<group>"; };
 		56FCB6F9235E083B00CD9D5F /* top_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_header.png; sourceTree = "<group>"; };
 		56FCB6FB235E092600CD9D5F /* bottom_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_header.png; sourceTree = "<group>"; };
+		56FDCBDE23644C9F0036A69D /* TopUpMoneyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopUpMoneyView.h; sourceTree = "<group>"; };
+		56FDCBDF23644C9F0036A69D /* TopUpMoneyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopUpMoneyView.m; sourceTree = "<group>"; };
+		56FDCBE323644DC20036A69D /* TopUpMoneyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopUpMoneyView.xib; sourceTree = "<group>"; };
 		56FDEB5B22B66486001A14AE /* launch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpg; sourceTree = "<group>"; };
 		56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PricingDomainViewController.h; sourceTree = "<group>"; };
 		56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PricingDomainViewController.m; sourceTree = "<group>"; };
@@ -1753,6 +1765,7 @@
 			children = (
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				56C1F6B223657C050006C4D1 /* bg_wallet.png */,
 				4CB7B5742363043E008AA0BF /* money_in.png */,
 				4CB7B5752363043E008AA0BF /* money_out.png */,
 				4CD0C509236190CC007AA56A /* more_app_info.png */,
@@ -2393,6 +2406,12 @@
 				4CB7B56F236301C2008AA0BF /* WalletTransHistoryCell.h */,
 				4CB7B570236301C2008AA0BF /* WalletTransHistoryCell.m */,
 				4CB7B571236301C2008AA0BF /* WalletTransHistoryCell.xib */,
+				56FDCBDE23644C9F0036A69D /* TopUpMoneyView.h */,
+				56FDCBDF23644C9F0036A69D /* TopUpMoneyView.m */,
+				56FDCBE323644DC20036A69D /* TopUpMoneyView.xib */,
+				56C1F6AD236571220006C4D1 /* ChooseMoneyTbvCell.h */,
+				56C1F6AE236571220006C4D1 /* ChooseMoneyTbvCell.m */,
+				56C1F6AF236571220006C4D1 /* ChooseMoneyTbvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3231,8 +3250,10 @@
 				5600E8F622A5E9FD00F7DECE /* support_call.png in Resources */,
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				4CEFDCF62359BFAC00CE9451 /* ic_dropdow.png in Resources */,
+				56C1F6B323657C060006C4D1 /* bg_wallet.png in Resources */,
 				4C765F0422F81756002AFEC8 /* windows.png in Resources */,
 				4C8B4597235DB30E00D54F0F /* CartMoreInfoClvCell.xib in Resources */,
+				56FDCBE423644DC20036A69D /* TopUpMoneyView.xib in Resources */,
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4C0078FC22F1345100C19492 /* DNSManagerCell.xib in Resources */,
 				4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */,
@@ -3376,6 +3397,7 @@
 				842F81B7227561ED00D6DE6D /* Roboto-Medium.ttf in Resources */,
 				4C765F0322F81756002AFEC8 /* linux.png in Resources */,
 				4CEFDCB82359706300CE9451 /* ic_email_active.png in Resources */,
+				56C1F6B1236571220006C4D1 /* ChooseMoneyTbvCell.xib in Resources */,
 				4C765F0E22F81EB6002AFEC8 /* LinuxHostingCell.xib in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
 				4C00790922F144E800C19492 /* dns_del.png in Resources */,
@@ -3637,6 +3659,7 @@
 				4C65811D22FC2AF500F38087 /* HostingDetailTbvCell.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				4C49FA302356BDAE001D0EEF /* HomePromotionView.m in Sources */,
+				56C1F6B0236571220006C4D1 /* ChooseMoneyTbvCell.m in Sources */,
 				4CD0C4F823617E7C007AA56A /* NewMoreViewController.m in Sources */,
 				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
@@ -3725,6 +3748,7 @@
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
+				56FDCBE023644C9F0036A69D /* TopUpMoneyView.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */,
 				4C6DDD132339C82B009FE41C /* RSA.m in Sources */,

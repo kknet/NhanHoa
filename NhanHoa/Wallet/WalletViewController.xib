@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletViewController">
             <connections>
+                <outlet property="bgWallet" destination="k6A-g2-Ybx" id="9Zf-2x-iC5"/>
                 <outlet property="btnBonusWallet" destination="bca-pO-P4C" id="MNO-8z-bwf"/>
                 <outlet property="btnMainWallet" destination="kRx-dF-2ZW" id="fnt-KN-QSM"/>
                 <outlet property="btnTopUp" destination="a9I-S2-MQ5" id="byR-oj-XD2"/>
@@ -26,7 +27,6 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewFooter" destination="LRB-M4-r5E" id="u3B-F5-Xb7"/>
                 <outlet property="viewHeader" destination="fQH-Pw-pQw" id="pCZ-HN-JQg"/>
-                <outlet property="viewTop" destination="KT5-PJ-GJX" id="dpH-0X-3Gn"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,52 +34,51 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="fQH-Pw-pQw">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_wallet.png" id="k6A-g2-Ybx">
+                    <rect key="frame" x="0.0" y="190" width="320" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2yS-3g-a06">
-                            <rect key="frame" x="0.0" y="7" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="back.png"/>
-                            <connections>
-                                <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="mlu-f1-ULo"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ví Nhân Hòa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0vH-Yl-Ckv">
-                            <rect key="frame" x="113" y="12" width="95" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lf9-4Y-v6Q">
-                            <rect key="frame" x="282" y="7" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="cart.png"/>
-                            <connections>
-                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="2vj-bh-V0w"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uaU-DU-fCm">
-                            <rect key="frame" x="299" y="0.0" width="21" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96470588239999999" green="0.97254901959999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
+                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="bYd-Dj-b0f">
-                    <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="KT5-PJ-GJX">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                        <view contentMode="scaleToFill" id="fQH-Pw-pQw">
+                            <rect key="frame" x="0.0" y="196" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2yS-3g-a06">
+                                    <rect key="frame" x="0.0" y="7" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="back.png"/>
+                                    <connections>
+                                        <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="mlu-f1-ULo"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ví Nhân Hòa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0vH-Yl-Ckv">
+                                    <rect key="frame" x="113" y="12" width="95" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lf9-4Y-v6Q">
+                                    <rect key="frame" x="282" y="7" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="cart.png"/>
+                                    <connections>
+                                        <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="2vj-bh-V0w"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uaU-DU-fCm">
+                                    <rect key="frame" x="299" y="0.0" width="21" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.96470588239999999" green="0.97254901959999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kRx-dF-2ZW">
                             <rect key="frame" x="39" y="17" width="110" height="30"/>
@@ -143,11 +142,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-248" y="-96"/>
+            <point key="canvasLocation" x="-490" y="-137"/>
         </view>
     </objects>
     <resources>
         <image name="back.png" width="96" height="96"/>
+        <image name="bg_wallet.png" width="1240" height="796"/>
         <image name="cart.png" width="100" height="100"/>
     </resources>
 </document>
