@@ -13,7 +13,7 @@
 
 @implementation TopUpMoneyView
 @synthesize viewBg, viewContent, icClose, tbMoney, tfMoney, btnConfirm;
-@synthesize hCell, hBTN, textFont, hContent, padding, popupType;
+@synthesize hCell, hBTN, textFont, hContent, padding, popupType, selectedRow;
 
 - (void)setupUIForView
 {
@@ -21,6 +21,7 @@
     hCell = 60.0;
     hBTN = 50.0;
     padding = 15.0;
+    selectedRow = 0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
@@ -40,7 +41,7 @@
     }];
     
     hContent = (40.0 + hCell) + NUM_OF_ROWS*hCell + hBTN + 2*padding + hBTN + padding + padding;
-    viewContent.layer.cornerRadius = 10.0;
+    viewContent.layer.cornerRadius = 15.0;
     viewContent.backgroundColor = UIColor.whiteColor;
     viewContent.clipsToBounds = TRUE;
     [viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -51,7 +52,7 @@
     
     [tbMoney registerNib:[UINib nibWithNibName:@"ChooseMoneyTbvCell" bundle:nil] forCellReuseIdentifier:@"ChooseMoneyTbvCell"];
     tbMoney.scrollEnabled = FALSE;
-    tbMoney.separatorInset = UIEdgeInsetsMake(0, padding, 0, padding);
+    tbMoney.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbMoney.delegate = self;
     tbMoney.dataSource = self;
     [tbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,11 +72,14 @@
     tfMoney.layer.cornerRadius = 5.0;
     tfMoney.backgroundColor = GRAY_240;
     [tfMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tbMoney.mas_bottom).offset(padding);
+        make.top.equalTo(tbMoney.mas_bottom);
         make.left.equalTo(viewContent).offset(padding);
         make.right.equalTo(viewContent).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
+    [tfMoney addTarget:self
+                action:@selector(textfieldMoneyChanged:)
+      forControlEvents:UIControlEventEditingChanged];
     
     btnConfirm.titleLabel.font = textFont;
     btnConfirm.clipsToBounds = TRUE;
@@ -88,9 +92,86 @@
         make.left.right.equalTo(tfMoney);
         make.height.mas_equalTo(hBTN);
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (IBAction)btnConfirmPress:(UIButton *)sender {
+- (void)textfieldMoneyChanged:(UITextField *)textField
+{
+    if (selectedRow != -1) {
+        selectedRow = -1;
+        [tbMoney reloadData];
+    }
+    
+    NSString *cleanValue = [[textField.text componentsSeparatedByCharactersInSet: [[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSString *result = [AppUtils convertStringToCurrencyFormat: cleanValue];
+    textField.text = result;
+}
+
+- (void)keyboardDidShow:(NSNotification *)notif {
+    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+
+    [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(SCREEN_HEIGHT-hContent+padding - keyboardHeight);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide: (NSNotification *) notif{
+    [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(SCREEN_HEIGHT-hContent+padding);
+    }];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+- (IBAction)btnConfirmPress:(UIButton *)sender
+{
+    if (![AppUtils checkNetworkAvailable]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"No network connection. Please check again!"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    //  check topup money
+    NSString *strMoney = tfMoney.text;
+    strMoney = [strMoney stringByReplacingOccurrencesOfString:@"." withString:@""];
+    strMoney = [strMoney stringByReplacingOccurrencesOfString:@"," withString:@""];
+    
+    if (![AppUtils checkValidCurrency: strMoney]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"The amount you want to top up is not in the correct format. Please check again!"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: strMoney] || [strMoney isEqualToString:@"0"]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter the amount you want to top up"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    
+    long topupMoney = (long)[strMoney longLongValue];
+    if (topupMoney < MIN_MONEY_TOPUP) {
+        NSString *strMinTopup = [AppUtils convertStringToCurrencyFormat:SFM(@"%d", MIN_MONEY_TOPUP)];
+        NSString *content = SFM(@"%@ %@", [[AppDelegate sharedInstance].localization localizedStringForKey:@"The amount to top up must be at least"], strMinTopup);
+        [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
+        return;
+    }
+    
+    [self endEditing: TRUE];
+    
+    int curUnixTime = (int)[[NSDate date] timeIntervalSince1970];
+    NSString *total = [NSString stringWithFormat:@"%@%d", PASSWORD, curUnixTime];
+    [AppDelegate sharedInstance].hashKey = [AppUtils getMD5StringOfString: total];
+    
+    //  [self goToPaymentView];
+    
 }
 
 - (IBAction)icCloseClick:(UIButton *)sender {
@@ -120,6 +201,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ChooseMoneyTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseMoneyTbvCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.lbMoney.font = textFont;
     switch (indexPath.row) {
@@ -139,7 +221,17 @@
         default:
             break;
     }
+    
+    cell.lbMoney.textColor = (selectedRow == indexPath.row) ? BLUE_COLOR : GRAY_100;
+    
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != selectedRow) {
+        selectedRow = (int)indexPath.row;
+    }
+    [tbMoney reloadData];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

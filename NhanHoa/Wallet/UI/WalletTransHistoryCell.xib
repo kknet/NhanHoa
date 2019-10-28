@@ -33,17 +33,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gia hạn tên miền" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oZe-FI-r6t">
-                                <rect key="frame" x="53" y="24" width="179" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-1.200.000vnđ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Izb-j4-WDg">
+                                <rect key="frame" x="186" y="9" width="126" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-1.200.000vnđ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Izb-j4-WDg">
-                                <rect key="frame" x="186" y="17" width="126" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QXg-Rl-96j">
+                                <rect key="frame" x="200" y="32" width="112" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gia hạn tên miền" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oZe-FI-r6t">
+                                <rect key="frame" x="53" y="32" width="179" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -55,11 +62,12 @@
             <connections>
                 <outlet property="imgType" destination="gWb-uf-GfX" id="wWE-Ys-Ppf"/>
                 <outlet property="lbMoney" destination="Izb-j4-WDg" id="oi9-Am-XgW"/>
+                <outlet property="lbStatus" destination="QXg-Rl-96j" id="pHs-CY-2Yv"/>
+                <outlet property="lbTime" destination="oZe-FI-r6t" id="CXl-Lx-GQz"/>
                 <outlet property="lbTitle" destination="Duf-DN-4KH" id="UdU-Go-sAp"/>
-                <outlet property="lbValue" destination="oZe-FI-r6t" id="Rna-fB-GuT"/>
                 <outlet property="viewWrap" destination="jHx-Tc-84u" id="dLZ-s6-YEd"/>
             </connections>
-            <point key="canvasLocation" x="30" y="55"/>
+            <point key="canvasLocation" x="-191.30434782608697" y="53.571428571428569"/>
         </tableViewCell>
     </objects>
     <resources>

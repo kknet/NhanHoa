@@ -202,7 +202,48 @@
 "Note"                              =   "Note"
 
 "The amount you want to withdraw must be less than the bonus balance"   =   "The amount you want to withdraw must be less than the bonus balance"
-"The amount to top up must be at least"     =   "The amount to top up must be at least"
+"The amount you want to top up is not in the correct format. Please check again!"   =   "The amount you want to top up is not in the correct format. Please check again!"
+
+"The amount to top up must be at least"         =   "The amount to top up must be at least"
+"Please enter the amount you want to top up"    =   "Please enter the amount you want to top up"
+
+"Application info"          =   "Application info"
+"Application version"       =   "Application version"
+"Release date"              =   "Release date"
+"Check for update"          =   "Check for update"
+
+"You are using the newest version"      =   "You are using the newest version"
+"Have a new version on AppStore. Do you want to update now?"    =   "Have a new version on AppStore. Do you want to update now?"
+"Do you want to call to customer care service?"     =   "Do you want to call to customer care service?"
+
+"Customer care switchboard" =   "Customer care switchboard"
+"Call"      =   "Call"
+
+"Account settings"  =   "Account settings"
+"Change password"   =   "Change password"
+"Sign out"          =   "Sign out"
+"Save new password" =   "Save new password"
+
+"Enter current password"            =   "Enter current password"
+"Enter new password"                =   "Enter new password"
+"Enter confirm new password"        =   "Enter confirm new password"
+"Please enter current password"     =   "Please enter current password"
+"Please enter new password"         =   "Please enter new password"
+"Please enter confirm new password" =   "Please enter confirm new password"
+"The current password is incorrect" =   "The current password is incorrect"
+"The confirm password is incorrect" =   "The confirm password is incorrect"
+
+"Password must be at least"         =   "Password must be at least"
+"characters"                        =   "characters"
+"Your password has been updated"    =   "Your password has been updated"
+
+"Can not refresh info after change password"    =   "Can not refresh info after change password"
+"Do you want to sign out?"                      =   "Do you want to sign out?"
+"Please wait a moment..."                       =   "Please wait a moment..."
+
+"Yes"       =   "Yes"
+"No"        =   "No"
+
 
 
 

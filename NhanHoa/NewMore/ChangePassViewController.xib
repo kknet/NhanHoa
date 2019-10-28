@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangePassViewController">
+            <connections>
+                <outlet property="btnContinue" destination="pMe-gn-UZh" id="HnL-yG-2U8"/>
+                <outlet property="btnForgotPass" destination="ZD2-Gt-YuK" id="ORI-QQ-Hb7"/>
+                <outlet property="btnSaveNewPass" destination="kvv-Ti-BeH" id="C8l-13-vXh"/>
+                <outlet property="icBack" destination="RuO-u4-1WH" id="NAa-xz-VlS"/>
+                <outlet property="icShowConfirm" destination="K9L-7x-l71" id="CDT-Hs-xuU"/>
+                <outlet property="icShowNewPass" destination="O1c-nD-b5l" id="CrC-YE-wOh"/>
+                <outlet property="icShowPass" destination="BZT-gA-rEl" id="3xL-kG-td7"/>
+                <outlet property="imgConfirmPass" destination="ZwA-Sk-lKa" id="KZN-31-Gna"/>
+                <outlet property="imgCurPass" destination="ZVr-br-UPg" id="2Lx-d3-OKZ"/>
+                <outlet property="imgNewPass" destination="Hx9-RG-BEZ" id="Knj-by-SPd"/>
+                <outlet property="lbBotConfirmPass" destination="xZf-1E-qsm" id="Cm0-Pb-Ver"/>
+                <outlet property="lbBotNewPass" destination="jSC-pD-ceY" id="QGO-mU-mB5"/>
+                <outlet property="lbHeader" destination="Pp6-CB-ff8" id="leV-Zb-xln"/>
+                <outlet property="lbSepa" destination="IZ3-cJ-xCW" id="F5B-fh-qLK"/>
+                <outlet property="tfConfirmPass" destination="f19-bB-Rak" id="zE4-fF-TqH"/>
+                <outlet property="tfCurPass" destination="e5B-gQ-R3V" id="bFw-Yh-nLS"/>
+                <outlet property="tfNewPass" destination="dRV-Zl-dMq" id="Zzj-1L-B0G"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeader" destination="omw-r2-GPQ" id="66A-zS-R5W"/>
+                <outlet property="viewNewPass" destination="04j-xP-ITi" id="5nR-aa-RGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="omw-r2-GPQ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RuO-u4-1WH">
+                            <rect key="frame" x="8" y="6" width="32" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="back_gray.png"/>
+                            <connections>
+                                <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="4qB-6P-mWm"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pp6-CB-ff8">
+                            <rect key="frame" x="92" y="12" width="138" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="e5B-gQ-R3V">
+                    <rect key="frame" x="16" y="92" width="288" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_password.png" id="ZVr-br-UPg">
+                    <rect key="frame" x="16" y="92" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZ3-cJ-xCW">
+                    <rect key="frame" x="16" y="118" width="283" height="4"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BZT-gA-rEl">
+                    <rect key="frame" x="275" y="93" width="29" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="show_pass.png"/>
+                    <connections>
+                        <action selector="icShowPassClick:" destination="-1" eventType="touchUpInside" id="GMO-E3-2Zl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZD2-Gt-YuK">
+                    <rect key="frame" x="103" y="243" width="115" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Forgot password"/>
+                    <connections>
+                        <action selector="btnForgotPassPress:" destination="-1" eventType="touchUpInside" id="gY4-nV-lE7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pMe-gn-UZh">
+                    <rect key="frame" x="21" y="292" width="278" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Continue"/>
+                    <connections>
+                        <action selector="btnContinuePress:" destination="-1" eventType="touchUpInside" id="is1-Kt-ebz"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="04j-xP-ITi">
+                    <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="dRV-Zl-dMq">
+                            <rect key="frame" x="8" y="36" width="304" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_password.png" id="Hx9-RG-BEZ">
+                            <rect key="frame" x="8" y="36" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O1c-nD-b5l">
+                            <rect key="frame" x="283" y="37" width="29" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="show_pass.png"/>
+                            <connections>
+                                <action selector="icShowNewPassClick:" destination="-1" eventType="touchUpInside" id="8gI-MO-SAE"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jSC-pD-ceY">
+                            <rect key="frame" x="8" y="66" width="304" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="f19-bB-Rak">
+                            <rect key="frame" x="8" y="102" width="304" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_password.png" id="ZwA-Sk-lKa">
+                            <rect key="frame" x="8" y="102" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K9L-7x-l71">
+                            <rect key="frame" x="283" y="103" width="29" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="show_pass.png"/>
+                            <connections>
+                                <action selector="icShowConfirmPassClick:" destination="-1" eventType="touchUpInside" id="ybg-vC-CPY"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xZf-1E-qsm">
+                            <rect key="frame" x="8" y="132" width="304" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kvv-Ti-BeH">
+                            <rect key="frame" x="8" y="203" width="304" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Save new password"/>
+                            <connections>
+                                <action selector="btnSaveNewPassPress:" destination="-1" eventType="touchUpInside" id="IhK-Wg-acs"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-728.98550724637687" y="-113.16964285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="back_gray.png" width="96" height="96"/>
+        <image name="ic_password.png" width="87" height="129"/>
+        <image name="show_pass.png" width="80" height="80"/>
+    </resources>
+</document>

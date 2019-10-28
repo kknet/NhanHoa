@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) float hContent;
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) TypePopupMoney popupType;
+@property (nonatomic, assign) int selectedRow;
 
 @property (nonatomic, strong) UIFont *textFont;
 

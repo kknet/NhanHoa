@@ -8,7 +8,6 @@
 
 #import "AccountSettingViewController.h"
 #import "UpdateMyInfoViewController.h"
-#import "ChangePasswordViewController.h"
 #import "PECropViewController.h"
 #import "AccountModel.h"
 #import <AVFoundation/AVFoundation.h>
@@ -250,9 +249,6 @@
 - (void)goToChnagePassVC {
     btnChangePassword.backgroundColor = BLUE_COLOR;
     [btnChangePassword setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
-    ChangePasswordViewController *changePassVC = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
-    [self.navigationController pushViewController:changePassVC animated:TRUE];
 }
 
 - (IBAction)btnAvatarPress:(UIButton *)sender {

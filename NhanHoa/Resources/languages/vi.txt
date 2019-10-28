@@ -203,7 +203,48 @@
 "Note"                              =   "Lưu ý"
 
 "The amount you want to withdraw must be less than the bonus balance"   =   "Số tiền muốn rút phải ít hơn số dư tiền thưởng"
-"The amount to top up must be at least"     =   "Số tiền muốn nạp phải ít nhất là"
+"The amount you want to top up is not in the correct format. Please check again!"   =   "Số tiền bạn muốn nạp không đúng định dạng. Vui lòng kiểm tra lại!"
+
+"The amount to top up must be at least"         =   "Số tiền muốn nạp phải ít nhất là"
+"Please enter the amount you want to top up"    =   "Vui lòng nhập số tiền bạn muốn nạp"
+
+"Application info"          =   "Thông tin ứng dụng"
+"Application version"       =   "Phiên bản ứng dụng"
+"Release date"              =   "Ngày phát hành"
+"Check for update"          =   "Kiểm tra cập nhật"
+
+"You are using the newest version"      =   "Bạn đang sử dụng phiên bản mới nhất"
+"Have a new version on AppStore. Do you want to update now?"    =   "Đã có phiên bản mới trên AppStore. Bạn có muốn cập nhật ngay không?"
+"Do you want to call to customer care service?"     =   "Bạn có muốn gọi đến dịch vụ chăm sóc khách hàng?"
+
+"Customer care switchboard" =   "Tổng đài CSKH"
+"Call"      =   "Gọi"
+
+"Account settings"  =   "Cài đặt tài khoản"
+"Change password"   =   "Đổi mật khẩu"
+"Sign out"          =   "Đăng xuất"
+"Save new password" =   "Lưu mật khẩu mới"
+
+"Enter current password"            =   "Nhập mật khẩu hiện tại"
+"Enter new password"                =   "Nhập mật khẩu mới"
+"Enter confirm new password"        =   "Nhập xác nhận mật khẩu"
+"Please enter current password"     =   "Vui lòng nhập mật khẩu hiện tại"
+"Please enter new password"         =   "Vui lòng nhập mật khẩu mới"
+"Please enter confirm new password" =   "Vui lòng nhập xác nhận mật khẩu"
+"The current password is incorrect" =   "Mật khẩu hiện tại không chính xác"
+"The confirm password is incorrect" =   "Mật khẩu xác nhận không chính xác"
+"Password must be at least"         =   "Mật khẩu phải tối thiểu"
+"characters"                        =   "kí tự"
+"Your password has been updated"    =   "Mật khẩu của bạn đã được cập nhật"
+
+"Can not refresh info after change password"    =   "Không thể tải lại thông tin sau khi đổi mật khẩu"
+"Do you want to sign out?"                      =   "Bạn có muốn đăng xuất hay không?"
+"Please wait a moment..."                       =   "Vui lòng chờ trong giây lát..."
+
+"Yes"       =   "Có"
+"No"        =   "Không"
+
+
 
 
 

@@ -11,12 +11,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AboutViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIButton *btnLogo;
+
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imgInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lbVersion;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lbReleaseDate;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckUpdate;
-@property (weak, nonatomic) IBOutlet UILabel *lbCompany;
 
 - (IBAction)btnCheckUpdatePress:(UIButton *)sender;
+- (IBAction)icBackClick:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

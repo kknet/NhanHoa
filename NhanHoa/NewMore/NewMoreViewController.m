@@ -11,9 +11,10 @@
 #import "RenewedDomainViewController.h"
 #import "SupportViewController.h"
 #import "BankInfoViewController.h"
-#import "AccountSettingViewController.h"
+#import "AccSettingsViewController.h"
 #import "AboutViewController.h"
 #import "ProfileInfoViewController.h"
+#import "ContactViewController.h"
 #import "MoreTbvCell.h"
 
 #define NUM_ROW_OF_SECTION_1    5
@@ -353,17 +354,20 @@
     }else{
         switch (indexPath.row) {
             case 0:{
-                AccountSettingViewController *accSettingVC = [[AccountSettingViewController alloc] initWithNibName:@"AccountSettingViewController" bundle:nil];
+                AccSettingsViewController *accSettingVC = [[AccSettingsViewController alloc] initWithNibName:@"AccSettingsViewController" bundle:nil];
                 accSettingVC.hidesBottomBarWhenPushed = TRUE;
                 [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
                 [self.navigationController pushViewController:accSettingVC animated:TRUE];
                 break;
             }
             case 1:{
-                
                 break;
             }
             case 2:{
+                ContactViewController *contactVC = [[ContactViewController alloc] initWithNibName:@"ContactViewController" bundle:nil];
+                contactVC.hidesBottomBarWhenPushed = TRUE;
+                [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+                [self.navigationController pushViewController:contactVC animated:TRUE];
                 break;
             }
             case 3:{

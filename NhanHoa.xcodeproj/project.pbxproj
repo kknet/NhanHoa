@@ -13,8 +13,6 @@
 		150845FC226EBF2900428514 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 150845FB226EBF2900428514 /* Assets.xcassets */; };
 		150845FF226EBF2900428514 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150845FD226EBF2900428514 /* LaunchScreen.storyboard */; };
 		15084602226EBF2900428514 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15084601226EBF2900428514 /* main.m */; };
-		15084613226EC9B800428514 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15084611226EC9B800428514 /* MoreViewController.m */; };
-		15084614226EC9B800428514 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15084612226EC9B800428514 /* MoreViewController.xib */; };
 		1517FB562274465B0044E878 /* menu_bonus.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB44227446490044E878 /* menu_bonus.png */; };
 		1517FB592274465B0044E878 /* menu_reorder_domain.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB472274464B0044E878 /* menu_reorder_domain.png */; };
 		1517FB5A2274465B0044E878 /* menu_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 1517FB482274464E0044E878 /* menu_profile.png */; };
@@ -71,8 +69,6 @@
 		157A01CB22A7733D00A0B11F /* PECropRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C422A7733C00A0B11F /* PECropRectView.m */; };
 		157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C522A7733C00A0B11F /* UIImage+PECrop.m */; };
 		157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01C822A7733D00A0B11F /* PEResizeControl.m */; };
-		157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A01D122A7D37000A0B11F /* AboutViewController.m */; };
-		157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157A01D222A7D37000A0B11F /* AboutViewController.xib */; };
 		157A5F99229CF1C30095AAEF /* desc.txt in Resources */ = {isa = PBXBuildFile; fileRef = 157A5F98229CF1C20095AAEF /* desc.txt */; };
 		157E2E6A22852BDE00D1ACDA /* BannerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E6922852BDE00D1ACDA /* BannerSliderView.m */; };
 		157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */; };
@@ -193,6 +189,22 @@
 		4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED122E8443100DA7405 /* numpad_star_default.png */; };
 		4C041ED722E8444800DA7405 /* button-endcall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED622E8444800DA7405 /* button-endcall.png */; };
 		4C041ED922E8505C00DA7405 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C041ED822E8505C00DA7405 /* beep.mp3 */; };
+		4C0844D623668C8400E76F7F /* about_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844D523668C8300E76F7F /* about_photo.png */; };
+		4C0844DF2366997B00E76F7F /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0844DD2366997A00E76F7F /* ContactViewController.m */; };
+		4C0844E02366997B00E76F7F /* ContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844DE2366997A00E76F7F /* ContactViewController.xib */; };
+		4C0844E4236699F300E76F7F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844E1236699F200E76F7F /* AboutViewController.xib */; };
+		4C0844E5236699F300E76F7F /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0844E3236699F300E76F7F /* AboutViewController.m */; };
+		4C0844EC23669B2300E76F7F /* contact_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844EB23669B2200E76F7F /* contact_banner.png */; };
+		4C0844F023669BF100E76F7F /* ContactTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0844EE23669BF100E76F7F /* ContactTbvCell.m */; };
+		4C0844F123669BF100E76F7F /* ContactTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844EF23669BF100E76F7F /* ContactTbvCell.xib */; };
+		4C0844F32366A0B000E76F7F /* ic_earth.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844F22366A0AF00E76F7F /* ic_earth.png */; };
+		4C0844F52366A10400E76F7F /* ic_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844F42366A10400E76F7F /* ic_facebook.png */; };
+		4C0844F92366AF5200E76F7F /* AccSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0844F72366AF5200E76F7F /* AccSettingsViewController.m */; };
+		4C0844FA2366AF5200E76F7F /* AccSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844F82366AF5200E76F7F /* AccSettingsViewController.xib */; };
+		4C0844FC2366B0C900E76F7F /* locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844FB2366B0C800E76F7F /* locked.png */; };
+		4C0844FE2366C6D400E76F7F /* signout.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0844FD2366C6D300E76F7F /* signout.png */; };
+		4C0845022366D36100E76F7F /* ChangePassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0845002366D36100E76F7F /* ChangePassViewController.m */; };
+		4C0845032366D36100E76F7F /* ChangePassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0845012366D36100E76F7F /* ChangePassViewController.xib */; };
 		4C1566D423629E0000A3D0FF /* UpdateNewPersonalProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1566D323629E0000A3D0FF /* UpdateNewPersonalProfileView.m */; };
 		4C1566D623629E3600A3D0FF /* UpdateNewPersonalProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1566D523629E3600A3D0FF /* UpdateNewPersonalProfileView.xib */; };
 		4C178583235AA89500943E14 /* flag_vietnam.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178582235AA89400943E14 /* flag_vietnam.png */; };
@@ -319,6 +331,10 @@
 		4CB7B5762363043E008AA0BF /* money_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5742363043E008AA0BF /* money_in.png */; };
 		4CB7B5772363043E008AA0BF /* money_out.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5752363043E008AA0BF /* money_out.png */; };
 		4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC061FB232642DD00FE1F7E /* ALCommonHMAC.m */; };
+		4CC376972366F2CC0029879E /* bg_profile_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC376952366F2CB0029879E /* bg_profile_bottom.png */; };
+		4CC376982366F2CC0029879E /* bg_profile_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC376962366F2CB0029879E /* bg_profile_top.png */; };
+		4CC3769C2366F2F30029879E /* ProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC3769A2366F2F30029879E /* ProfilesViewController.m */; };
+		4CC3769D2366F2F30029879E /* ProfilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CC3769B2366F2F30029879E /* ProfilesViewController.xib */; };
 		4CD0C4CA23613CDA007AA56A /* round_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD0C4C923613CD9007AA56A /* round_orange.png */; };
 		4CD0C4CD23614673007AA56A /* no_notification_en.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD0C4CB23614672007AA56A /* no_notification_en.png */; };
 		4CD0C4CE23614673007AA56A /* no_notification_vi.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD0C4CC23614672007AA56A /* no_notification_vi.png */; };
@@ -645,8 +661,6 @@
 		849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E31172280632E003A8813 /* AccountSettingViewController.m */; };
 		849E311A2280632E003A8813 /* AccountSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E31182280632E003A8813 /* AccountSettingViewController.xib */; };
 		849E311C2280647B003A8813 /* photo-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 849E311B2280647A003A8813 /* photo-camera.png */; };
-		849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E311E22806C8E003A8813 /* ChangePasswordViewController.m */; };
-		849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */; };
 		849E312522807393003A8813 /* ContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E312322807393003A8813 /* ContactInfoViewController.m */; };
 		849E312622807393003A8813 /* ContactInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E312422807393003A8813 /* ContactInfoViewController.xib */; };
 		849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849E3128228074C5003A8813 /* ContactInfoCell.m */; };
@@ -677,9 +691,6 @@
 		150845FE226EBF2900428514 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15084600226EBF2900428514 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15084601226EBF2900428514 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		15084610226EC9B800428514 /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
-		15084611226EC9B800428514 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
-		15084612226EC9B800428514 /* MoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
 		1517FB44227446490044E878 /* menu_bonus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_bonus.png; sourceTree = "<group>"; };
 		1517FB472274464B0044E878 /* menu_reorder_domain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_reorder_domain.png; sourceTree = "<group>"; };
 		1517FB482274464E0044E878 /* menu_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_profile.png; sourceTree = "<group>"; };
@@ -750,9 +761,6 @@
 		157A01C622A7733C00A0B11F /* PECropRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropRectView.h; sourceTree = "<group>"; };
 		157A01C722A7733D00A0B11F /* PECropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropView.h; sourceTree = "<group>"; };
 		157A01C822A7733D00A0B11F /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEResizeControl.m; sourceTree = "<group>"; };
-		157A01D022A7D37000A0B11F /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
-		157A01D122A7D37000A0B11F /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		157A01D222A7D37000A0B11F /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		157A5F98229CF1C20095AAEF /* desc.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = desc.txt; sourceTree = "<group>"; };
 		157E2E6822852BDE00D1ACDA /* BannerSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerSliderView.h; sourceTree = "<group>"; };
 		157E2E6922852BDE00D1ACDA /* BannerSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerSliderView.m; sourceTree = "<group>"; };
@@ -907,6 +915,27 @@
 		4C041ED122E8443100DA7405 /* numpad_star_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = numpad_star_default.png; sourceTree = "<group>"; };
 		4C041ED622E8444800DA7405 /* button-endcall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-endcall.png"; sourceTree = "<group>"; };
 		4C041ED822E8505C00DA7405 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		4C0844D523668C8300E76F7F /* about_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about_photo.png; sourceTree = "<group>"; };
+		4C0844DC2366997A00E76F7F /* ContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		4C0844DD2366997A00E76F7F /* ContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
+		4C0844DE2366997A00E76F7F /* ContactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactViewController.xib; sourceTree = "<group>"; };
+		4C0844E1236699F200E76F7F /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		4C0844E2236699F300E76F7F /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		4C0844E3236699F300E76F7F /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		4C0844EB23669B2200E76F7F /* contact_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact_banner.png; sourceTree = "<group>"; };
+		4C0844ED23669BF100E76F7F /* ContactTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactTbvCell.h; sourceTree = "<group>"; };
+		4C0844EE23669BF100E76F7F /* ContactTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactTbvCell.m; sourceTree = "<group>"; };
+		4C0844EF23669BF100E76F7F /* ContactTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTbvCell.xib; sourceTree = "<group>"; };
+		4C0844F22366A0AF00E76F7F /* ic_earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_earth.png; sourceTree = "<group>"; };
+		4C0844F42366A10400E76F7F /* ic_facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_facebook.png; sourceTree = "<group>"; };
+		4C0844F62366AF5200E76F7F /* AccSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccSettingsViewController.h; sourceTree = "<group>"; };
+		4C0844F72366AF5200E76F7F /* AccSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccSettingsViewController.m; sourceTree = "<group>"; };
+		4C0844F82366AF5200E76F7F /* AccSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccSettingsViewController.xib; sourceTree = "<group>"; };
+		4C0844FB2366B0C800E76F7F /* locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locked.png; sourceTree = "<group>"; };
+		4C0844FD2366C6D300E76F7F /* signout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signout.png; sourceTree = "<group>"; };
+		4C0844FF2366D36100E76F7F /* ChangePassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePassViewController.h; sourceTree = "<group>"; };
+		4C0845002366D36100E76F7F /* ChangePassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePassViewController.m; sourceTree = "<group>"; };
+		4C0845012366D36100E76F7F /* ChangePassViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePassViewController.xib; sourceTree = "<group>"; };
 		4C1566D223629E0000A3D0FF /* UpdateNewPersonalProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateNewPersonalProfileView.h; sourceTree = "<group>"; };
 		4C1566D323629E0000A3D0FF /* UpdateNewPersonalProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateNewPersonalProfileView.m; sourceTree = "<group>"; };
 		4C1566D523629E3600A3D0FF /* UpdateNewPersonalProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateNewPersonalProfileView.xib; sourceTree = "<group>"; };
@@ -1070,6 +1099,11 @@
 		4CB7B5752363043E008AA0BF /* money_out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = money_out.png; sourceTree = "<group>"; };
 		4CC061FA232642DD00FE1F7E /* ALCommonHMAC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCommonHMAC.h; sourceTree = "<group>"; };
 		4CC061FB232642DD00FE1F7E /* ALCommonHMAC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCommonHMAC.m; sourceTree = "<group>"; };
+		4CC376952366F2CB0029879E /* bg_profile_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile_bottom.png; sourceTree = "<group>"; };
+		4CC376962366F2CB0029879E /* bg_profile_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile_top.png; sourceTree = "<group>"; };
+		4CC376992366F2F30029879E /* ProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilesViewController.h; sourceTree = "<group>"; };
+		4CC3769A2366F2F30029879E /* ProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilesViewController.m; sourceTree = "<group>"; };
+		4CC3769B2366F2F30029879E /* ProfilesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilesViewController.xib; sourceTree = "<group>"; };
 		4CD0C4C923613CD9007AA56A /* round_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_orange.png; sourceTree = "<group>"; };
 		4CD0C4CB23614672007AA56A /* no_notification_en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_notification_en.png; sourceTree = "<group>"; };
 		4CD0C4CC23614672007AA56A /* no_notification_vi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_notification_vi.png; sourceTree = "<group>"; };
@@ -1487,9 +1521,6 @@
 		849E31172280632E003A8813 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
 		849E31182280632E003A8813 /* AccountSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountSettingViewController.xib; sourceTree = "<group>"; };
 		849E311B2280647A003A8813 /* photo-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-camera.png"; sourceTree = "<group>"; };
-		849E311D22806C8E003A8813 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
-		849E311E22806C8E003A8813 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
-		849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		849E312222807393003A8813 /* ContactInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactInfoViewController.h; sourceTree = "<group>"; };
 		849E312322807393003A8813 /* ContactInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactInfoViewController.m; sourceTree = "<group>"; };
 		849E312422807393003A8813 /* ContactInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoViewController.xib; sourceTree = "<group>"; };
@@ -1633,24 +1664,15 @@
 			isa = PBXGroup;
 			children = (
 				15865BCD227FDF8D004A8575 /* UI */,
-				15084610226EC9B800428514 /* MoreViewController.h */,
-				15084611226EC9B800428514 /* MoreViewController.m */,
-				15084612226EC9B800428514 /* MoreViewController.xib */,
 				849E31162280632E003A8813 /* AccountSettingViewController.h */,
 				849E31172280632E003A8813 /* AccountSettingViewController.m */,
 				849E31182280632E003A8813 /* AccountSettingViewController.xib */,
-				849E311D22806C8E003A8813 /* ChangePasswordViewController.h */,
-				849E311E22806C8E003A8813 /* ChangePasswordViewController.m */,
-				849E311F22806C8E003A8813 /* ChangePasswordViewController.xib */,
 				849E312222807393003A8813 /* ContactInfoViewController.h */,
 				849E312322807393003A8813 /* ContactInfoViewController.m */,
 				849E312422807393003A8813 /* ContactInfoViewController.xib */,
 				15FF497822A659210056B078 /* UpdateMyInfoViewController.h */,
 				15FF497922A659210056B078 /* UpdateMyInfoViewController.m */,
 				15FF497A22A659220056B078 /* UpdateMyInfoViewController.xib */,
-				157A01D022A7D37000A0B11F /* AboutViewController.h */,
-				157A01D122A7D37000A0B11F /* AboutViewController.m */,
-				157A01D222A7D37000A0B11F /* AboutViewController.xib */,
 				56FA23AA22B00AD9003F89CB /* BankInfoViewController.h */,
 				56FA23AB22B00AD9003F89CB /* BankInfoViewController.m */,
 				56FA23AC22B00AD9003F89CB /* BankInfoViewController.xib */,
@@ -1765,6 +1787,14 @@
 			children = (
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				4CC376952366F2CB0029879E /* bg_profile_bottom.png */,
+				4CC376962366F2CB0029879E /* bg_profile_top.png */,
+				4C0844FD2366C6D300E76F7F /* signout.png */,
+				4C0844FB2366B0C800E76F7F /* locked.png */,
+				4C0844F22366A0AF00E76F7F /* ic_earth.png */,
+				4C0844F42366A10400E76F7F /* ic_facebook.png */,
+				4C0844EB23669B2200E76F7F /* contact_banner.png */,
+				4C0844D523668C8300E76F7F /* about_photo.png */,
 				56C1F6B223657C050006C4D1 /* bg_wallet.png */,
 				4CB7B5742363043E008AA0BF /* money_in.png */,
 				4CB7B5752363043E008AA0BF /* money_out.png */,
@@ -2110,6 +2140,9 @@
 				15CE3450229E6737001D4238 /* EditProfileViewController.h */,
 				15CE3451229E6737001D4238 /* EditProfileViewController.m */,
 				15CE3452229E6737001D4238 /* EditProfileViewController.xib */,
+				4CC376992366F2F30029879E /* ProfilesViewController.h */,
+				4CC3769A2366F2F30029879E /* ProfilesViewController.m */,
+				4CC3769B2366F2F30029879E /* ProfilesViewController.xib */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -2453,6 +2486,18 @@
 				4CD0C51423619F41007AA56A /* ProfileInfoViewController.h */,
 				4CD0C51523619F41007AA56A /* ProfileInfoViewController.m */,
 				4CD0C51623619F41007AA56A /* ProfileInfoViewController.xib */,
+				4C0844E2236699F300E76F7F /* AboutViewController.h */,
+				4C0844E3236699F300E76F7F /* AboutViewController.m */,
+				4C0844E1236699F200E76F7F /* AboutViewController.xib */,
+				4C0844DC2366997A00E76F7F /* ContactViewController.h */,
+				4C0844DD2366997A00E76F7F /* ContactViewController.m */,
+				4C0844DE2366997A00E76F7F /* ContactViewController.xib */,
+				4C0844F62366AF5200E76F7F /* AccSettingsViewController.h */,
+				4C0844F72366AF5200E76F7F /* AccSettingsViewController.m */,
+				4C0844F82366AF5200E76F7F /* AccSettingsViewController.xib */,
+				4C0844FF2366D36100E76F7F /* ChangePassViewController.h */,
+				4C0845002366D36100E76F7F /* ChangePassViewController.m */,
+				4C0845012366D36100E76F7F /* ChangePassViewController.xib */,
 			);
 			path = NewMore;
 			sourceTree = "<group>";
@@ -2469,6 +2514,9 @@
 				4C1566D223629E0000A3D0FF /* UpdateNewPersonalProfileView.h */,
 				4C1566D323629E0000A3D0FF /* UpdateNewPersonalProfileView.m */,
 				4C1566D523629E3600A3D0FF /* UpdateNewPersonalProfileView.xib */,
+				4C0844ED23669BF100E76F7F /* ContactTbvCell.h */,
+				4C0844EE23669BF100E76F7F /* ContactTbvCell.m */,
+				4C0844EF23669BF100E76F7F /* ContactTbvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3089,6 +3137,7 @@
 				4CD7A6642355CC3000044E1A /* bg_banner_item.png in Resources */,
 				15E92AD42272A2F3004AB658 /* logo.png in Resources */,
 				4CEFDCB72359706300CE9451 /* ic_email.png in Resources */,
+				4C0844E02366997B00E76F7F /* ContactViewController.xib in Resources */,
 				4C49FA3B2356C72A001D0EEF /* promotion_2.png in Resources */,
 				56FDEB5C22B66486001A14AE /* launch.jpg in Resources */,
 				5612F8AE22E6CA0A00ECBBB1 /* state_audio_call.png in Resources */,
@@ -3100,6 +3149,7 @@
 				4C49FA6A2356F5C7001D0EEF /* tabbar_notif_act@2x.png in Resources */,
 				5612F8BE22E6CAC900ECBBB1 /* mute_normal.png in Resources */,
 				841966902276077400C14516 /* net.png in Resources */,
+				4C0845032366D36100E76F7F /* ChangePassViewController.xib in Resources */,
 				4C016A4B235F07FA00EBDE67 /* OrderDetailsViewController.xib in Resources */,
 				4CEFDCF42359BE4900CE9451 /* ic_tick_active.png in Resources */,
 				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
@@ -3108,7 +3158,6 @@
 				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
 				842F81B9227561ED00D6DE6D /* Roboto-Regular.ttf in Resources */,
 				4C765F0822F81AE6002AFEC8 /* down_arrow_blue.png in Resources */,
-				15084614226EC9B800428514 /* MoreViewController.xib in Resources */,
 				4C041EAE22E8439600DA7405 /* numpad_three_hover.png in Resources */,
 				4C28B93422F5987800910F54 /* RegisterCloudServerViewController.xib in Resources */,
 				157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */,
@@ -3143,7 +3192,6 @@
 				4C49FA5D2356F3B7001D0EEF /* tabbar_invoices_act@3x.png in Resources */,
 				4C49FA5C2356F3B7001D0EEF /* tabbar_invoices_act@2x.png in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
-				157A01D422A7D37000A0B11F /* AboutViewController.xib in Resources */,
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				4C6580ED22FBC42F00F38087 /* email_server_act.png in Resources */,
 				4C017AE1230A38B7000E2780 /* tabbar_acc_act@2x.png in Resources */,
@@ -3274,6 +3322,7 @@
 				4C49FA552356F172001D0EEF /* NotificationsViewController.xib in Resources */,
 				4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */,
 				841E7C612284E2E80074DDF5 /* PaymentMethodCell.xib in Resources */,
+				4C0844D623668C8400E76F7F /* about_photo.png in Resources */,
 				1517FB7222744D8B0044E878 /* BOViewController.xib in Resources */,
 				15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */,
 				56FC243E22CDBCE8006AE4AA /* silence.mp3 in Resources */,
@@ -3283,10 +3332,13 @@
 				4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
+				4C0844FE2366C6D400E76F7F /* signout.png in Resources */,
+				4CC376972366F2CC0029879E /* bg_profile_bottom.png in Resources */,
 				4CFCBCA422FD31A500427B86 /* SelectAmountClvCell.xib in Resources */,
 				845D32B422792C540047B196 /* hide_pass.png in Resources */,
 				56D5761922A287EA00F6ADAD /* PriceDomainInfoCell.xib in Resources */,
 				8415E5AB22788D6A0093206D /* RegisterAccountViewController.xib in Resources */,
+				4CC3769D2366F2F30029879E /* ProfilesViewController.xib in Resources */,
 				4CEA116723584C3000762C45 /* PromotionsViewController.xib in Resources */,
 				4C765EFE22F8153F002AFEC8 /* worldpress_act.png in Resources */,
 				56FED7D122AD2DAA00FAD541 /* OTPConfirmView.xib in Resources */,
@@ -3322,6 +3374,7 @@
 				563B8DC622B9B6D6004A037D /* ck.pem in Resources */,
 				4C65810F22FC1DEA00F38087 /* OrderDetailDescriptionView.xib in Resources */,
 				4C28B91622F596E000910F54 /* OrdersListViewController.xib in Resources */,
+				4CC376982366F2CC0029879E /* bg_profile_top.png in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
 				157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */,
@@ -3349,7 +3402,6 @@
 				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
 				4C8B4582235D5ABE00D54F0F /* photo_empty_cart_vi.png in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
-				849E312122806C8E003A8813 /* ChangePasswordViewController.xib in Resources */,
 				4C8B4592235DB25F00D54F0F /* CartMoreInfoView.xib in Resources */,
 				4C49FA422356D71D001D0EEF /* menu_topup.png in Resources */,
 				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
@@ -3400,6 +3452,7 @@
 				56C1F6B1236571220006C4D1 /* ChooseMoneyTbvCell.xib in Resources */,
 				4C765F0E22F81EB6002AFEC8 /* LinuxHostingCell.xib in Resources */,
 				84588A9D228093F000B59E0F /* ic_contact_info.png in Resources */,
+				4C0844E4236699F300E76F7F /* AboutViewController.xib in Resources */,
 				4C00790922F144E800C19492 /* dns_del.png in Resources */,
 				4CFDBBF9230FE8D100D21490 /* LaunchScreen~iPad.storyboard in Resources */,
 				4CEFDCA023594C7F00CE9451 /* SignInDescClvCell.xib in Resources */,
@@ -3421,19 +3474,23 @@
 				4C6DDD0F2339A8C0009FE41C /* momo_icon.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
+				4C0844F52366A10400E76F7F /* ic_facebook.png in Resources */,
 				4CEFDCAA2359545200CE9451 /* dot.png in Resources */,
 				4C8B458A235D93EE00D54F0F /* circle_green.png in Resources */,
 				150845FC226EBF2900428514 /* Assets.xcassets in Resources */,
 				4C49FA602356F3B7001D0EEF /* tabbar_invoices_def@3x.png in Resources */,
 				4CD0C4F1236159E2007AA56A /* promos1.png in Resources */,
 				4CD0C510236190CD007AA56A /* more_domains_management.png in Resources */,
+				4C0844FC2366B0C900E76F7F /* locked.png in Resources */,
 				845D32B72279335C0047B196 /* hide_pass_white.png in Resources */,
 				84A1646D2284EA5C0001B833 /* atm.png in Resources */,
 				842F81C5227581A300D6DE6D /* ic_search_domain.png in Resources */,
 				1517FB9E22745D810044E878 /* tabbar_BO_def@2x.png in Resources */,
 				157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */,
+				4C0844EC23669B2300E76F7F /* contact_banner.png in Resources */,
 				4C49FA682356F5C7001D0EEF /* tabbar_notif_act.png in Resources */,
 				56FA23AE22B00AD9003F89CB /* BankInfoViewController.xib in Resources */,
+				4C0844F123669BF100E76F7F /* ContactTbvCell.xib in Resources */,
 				566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */,
 				1517FBA122745D810044E878 /* tabbar_BO_def.png in Resources */,
 				15E7380222812A2200EFB017 /* dashline.png in Resources */,
@@ -3524,8 +3581,10 @@
 				4C6580F022FBC42F00F38087 /* email_hosting_act.png in Resources */,
 				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				4CEFDCEF2359BD1200CE9451 /* back_gray.png in Resources */,
+				4C0844FA2366AF5200E76F7F /* AccSettingsViewController.xib in Resources */,
 				4CF862EC23604DF6008B69EF /* DomainCell.xib in Resources */,
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
+				4C0844F32366A0B000E76F7F /* ic_earth.png in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3608,6 +3667,7 @@
 				15E92AFC2272BB88004AB658 /* SignInViewController.m in Sources */,
 				4CEFDC9F23594C7F00CE9451 /* SignInDescClvCell.m in Sources */,
 				4CF862E2236008B6008B69EF /* SearchResultsViewController.m in Sources */,
+				4C0845022366D36100E76F7F /* ChangePassViewController.m in Sources */,
 				4C8B4587235D69D800D54F0F /* CartDomainTbvCell.m in Sources */,
 				5613CC642360A0E1005A7C4C /* NotificationTbvCell.m in Sources */,
 				4C016A4A235F07FA00EBDE67 /* OrderDetailsViewController.m in Sources */,
@@ -3705,12 +3765,12 @@
 				84999C12227C86550006C80A /* WebServices.m in Sources */,
 				4C016A3C235EDE1200EBDE67 /* SuggestDomainCell.m in Sources */,
 				845D32C1227940A20047B196 /* PersonalProfileView.m in Sources */,
+				4CC3769C2366F2F30029879E /* ProfilesViewController.m in Sources */,
 				56FA23AD22B00AD9003F89CB /* BankInfoViewController.m in Sources */,
+				4C0844E5236699F300E76F7F /* AboutViewController.m in Sources */,
 				4C28B91B22F5975100910F54 /* RegisterHostingViewController.m in Sources */,
-				157A01D322A7D37000A0B11F /* AboutViewController.m in Sources */,
 				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
-				849E312022806C8E003A8813 /* ChangePasswordViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
 				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,
 				56FA23B122B01524003F89CB /* BankObject.m in Sources */,
@@ -3731,6 +3791,7 @@
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				4CD7A63B2355AA8D00044E1A /* HomeHeaderView.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
+				4C0844F023669BF100E76F7F /* ContactTbvCell.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
 				4C00790522F143B300C19492 /* DNSDetailCell.m in Sources */,
 				84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */,
@@ -3739,6 +3800,7 @@
 				4CD0C500236189E1007AA56A /* MoreTbvCell.m in Sources */,
 				56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */,
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
+				4C0844F92366AF5200E76F7F /* AccSettingsViewController.m in Sources */,
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
 				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
@@ -3747,7 +3809,6 @@
 				4C178591235AC55C00943E14 /* SignUpBusinessProfileView.m in Sources */,
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
-				15084613226EC9B800428514 /* MoreViewController.m in Sources */,
 				56FDCBE023644C9F0036A69D /* TopUpMoneyView.m in Sources */,
 				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */,
@@ -3756,6 +3817,7 @@
 				56E477EA22F9A20800296A55 /* SSLTbvCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
 				4C016A43235EF62400EBDE67 /* OrderItemTbvCell.m in Sources */,
+				4C0844DF2366997B00E76F7F /* ContactViewController.m in Sources */,
 				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
 				4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */,
 				562362DF22E2DF03001AE97A /* SupportCustomerCell.m in Sources */,

@@ -34,6 +34,8 @@
     [super viewWillAppear: animated];
     [WriteLogsUtils writeForGoToScreen:@"BankInfoViewController"];
     
+    self.navigationController.navigationBarHidden = FALSE;
+    
     if ([AppDelegate sharedInstance].listBank == nil) {
         [self createListBank];
     }

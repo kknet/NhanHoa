@@ -16,6 +16,7 @@
     // Initialization code
     
     float padding = 15.0;
+    lbMoney.textColor = GRAY_100;
     [lbMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];

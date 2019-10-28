@@ -17,7 +17,6 @@
     UIColor *disableColor;
     float hCell;
     float hSection;
-    float hTopView;
     
     TopUpMoneyView *topupView;
     float hBgWallet;
@@ -46,16 +45,26 @@
     [self reUpdateFrameForView];
     [self showContentWithCurrentLanguage];
     
-    [self showUserMainWalletView];
+    [self showUserMainWalletView: TRUE];
 }
 
-- (void)showUserMainWalletView {
-    NSString *totalBalance = [AccountModel getCusBalance];
-    if (![AppUtils isNullOrEmpty: totalBalance]) {
-        totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
-        lbMoney.text = [NSString stringWithFormat:@"%@", totalBalance];
+- (void)showUserMainWalletView: (BOOL)showMain {
+    if (showMain) {
+        NSString *totalBalance = [AccountModel getCusBalance];
+        if (![AppUtils isNullOrEmpty: totalBalance]) {
+            totalBalance = [AppUtils convertStringToCurrencyFormat: totalBalance];
+            lbMoney.text = totalBalance;
+        }else{
+            lbMoney.text = @"0";
+        }
     }else{
-        lbMoney.text = @"0";
+        NSString *bonus = [AccountModel getCusPoint];
+        if (![AppUtils isNullOrEmpty: bonus]) {
+            bonus = [AppUtils convertStringToCurrencyFormat: bonus];
+            lbMoney.text = bonus;
+        }else{
+            lbMoney.text = @"0";
+        }
     }
 }
 
@@ -63,7 +72,7 @@
     [tbHistory mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(hCell * 6 + hSection);
     }];
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hTopView + hSection + hCell*6 + padding);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hBgWallet + hSection + hCell*6 + padding);
 }
 
 - (void)showContentWithCurrentLanguage {
@@ -76,6 +85,8 @@
 
 - (void)setupUIForView
 {
+    self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(242/255.0)
+                                                 blue:(246/255.0) alpha:1.0];
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
     float hBTN = 50.0;
@@ -114,8 +125,6 @@
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     //  scvContent.contentInset = UIEdgeInsetsMake(hBgWallet, 0, 0, 0);
-    scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(242/255.0)
-                                                  blue:(246/255.0) alpha:1.0];
     scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -166,8 +175,6 @@
         make.right.equalTo(icCart);
         make.width.height.mas_equalTo(18.0);
     }];
-    
-    hTopView = padding + hBTN + padding + 25.0 + hBTN + padding;
     
     btnMainWallet.layer.cornerRadius = btnBonusWallet.layer.cornerRadius = hBTN/2;
     btnMainWallet.titleLabel.font = btnBonusWallet.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
@@ -226,8 +233,8 @@
     tbHistory.scrollEnabled = FALSE;
     [tbHistory mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbMoney.mas_bottom).offset(originY);
-        make.left.equalTo(viewHeader).offset(padding);
-        make.right.equalTo(viewHeader).offset(-padding);
+        make.left.equalTo(viewHeader).offset(7.5);
+        make.right.equalTo(viewHeader).offset(-7.5);
         make.height.mas_equalTo(0);
     }];
 
@@ -260,9 +267,29 @@
 }
 
 - (IBAction)btnMainWalletPress:(UIButton *)sender {
+    [self activeMenuMainWallet: TRUE];
+    [self showUserMainWalletView: TRUE];
 }
 
 - (IBAction)btnBonusWalletPress:(UIButton *)sender {
+    [self activeMenuMainWallet: FALSE];
+    [self showUserMainWalletView: FALSE];
+}
+
+- (void)activeMenuMainWallet: (BOOL)active {
+    if (active) {
+        btnMainWallet.backgroundColor = UIColor.whiteColor;
+        [btnMainWallet setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+        
+        btnBonusWallet.backgroundColor = disableColor;
+        [btnBonusWallet setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    }else{
+        btnBonusWallet.backgroundColor = UIColor.whiteColor;
+        [btnBonusWallet setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
+        
+        btnMainWallet.backgroundColor = disableColor;
+        [btnMainWallet setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)btnTopUpPress:(UIButton *)sender {
@@ -309,18 +336,39 @@
     WalletTransHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WalletTransHistoryCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5) {
-        cell.lbTitle.text = @"Thanh toán";
-        cell.lbValue.text = @"Gia hạn tên miền";
-        cell.imgType.image = [UIImage imageNamed:@"money_out"];
+    cell.lbTitle.text = @"Nạp tiền vào tài khoản";
+    cell.imgType.image = [UIImage imageNamed:@"money_in"];
+    cell.lbTime.text = @"08/10/2019 14:18";
+    
+    if (indexPath.row == 0) {
+        cell.lbMoney.text = @"+ 1.000.000 VNĐ";
+        cell.lbStatus.text = @"Thành công";
+        cell.lbStatus.textColor = GREEN_COLOR;
         
-        cell.lbMoney.text = @"-1.200.000 VNĐ";
-    }else{
-        cell.lbTitle.text = @"Nạp tiền";
-        cell.lbValue.text = @"Nạp tiền vào ví";
-        cell.imgType.image = [UIImage imageNamed:@"money_in"];
+    }else if (indexPath.row == 1){
+        cell.lbMoney.text = @"+ 200.000 VNĐ";
+        cell.lbStatus.text = @"Thất bại";
+        cell.lbStatus.textColor = NEW_PRICE_COLOR;
         
+    }else if (indexPath.row == 2){
+        cell.lbMoney.text = @"+1.500.000 VNĐ";
+        cell.lbStatus.text = @"Thành công";
+        cell.lbStatus.textColor = GREEN_COLOR;
+        
+    }else if (indexPath.row == 3){
         cell.lbMoney.text = @"+500.000 VNĐ";
+        cell.lbStatus.text = @"Thành công";
+        cell.lbStatus.textColor = GREEN_COLOR;
+        
+    }else if (indexPath.row == 4){
+        cell.lbMoney.text = @"+2.000.000 VNĐ";
+        cell.lbStatus.text = @"Thành công";
+        cell.lbStatus.textColor = GREEN_COLOR;
+        
+    }else{
+        cell.lbMoney.text = @"+500.000 VNĐ";
+        cell.lbStatus.text = @"Thành công";
+        cell.lbStatus.textColor = GREEN_COLOR;
     }
     
     return cell;
@@ -371,7 +419,7 @@
 
 #pragma mark - UIScrollview Delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < 0) {
+    if (scrollView.contentOffset.y <= 0) {
         float height = hBgWallet - scrollView.contentOffset.y;
         [bgWallet mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(height);
@@ -381,7 +429,7 @@
             make.top.equalTo(self.view).offset(-scrollView.contentOffset.y);
         }];
         
-        NSLog(@"y = %f", scrollView.contentOffset.y);
+        //  NSLog(@"y = %f", scrollView.contentOffset.y);
     }
     
 //    float y = hBgWallet - (scrollView.contentOffset.y + hBgWallet);

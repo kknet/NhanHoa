@@ -85,9 +85,11 @@
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
-
-
-
+#define nhanhoa_website_link    @"https://nhanhoa.com/"
+#define nhanhoa_link            @"nhanhoa.com/"
+#define phone_support           @"19006680"
+#define email_support           @"support@nhanhoa.com"
+#define nhanhoa_facebook_link   @"https://www.facebook.com/nhanhoacom"
 
 
 
@@ -97,7 +99,7 @@
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  10
 #define MIN_MONEY_TOPUP     200000
-#define phone_support       @"19006680"
+
 
 #define type_na             2
 #define type_men            1
@@ -262,6 +264,7 @@
 #define LIGHT_GRAY_COLOR [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0]
 #define ORANGE_BUTTON   UIColorFromRGB(0xf16725)
 
+#define GRAY_245 [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0]
 #define GRAY_240 [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0]
 #define GRAY_235 [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0]
 #define GRAY_230 [UIColor colorWithRed:(230/255.0) green:(230/255.0) blue:(230/255.0) alpha:1.0]
