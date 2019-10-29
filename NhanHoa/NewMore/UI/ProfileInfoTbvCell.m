@@ -26,7 +26,8 @@
         textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     }
     
-    lbTitle.font = lbValue.font  = textFont;
+    lbTitle.font  = textFont;
+    lbValue.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
     
     lbTitle.textColor = GRAY_150;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -46,22 +46,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
-    
-    if ([self isMovingFromParentViewController])
-    {
-        imagePickerController = nil;
-        [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
-        [AppDelegate sharedInstance].profileEdit = nil;
-        [AppDelegate sharedInstance].editCMND_a = nil;
-        [AppDelegate sharedInstance].editCMND_b = nil;
-    }else {
-        if (profileType == type_personal) {
-            [personalProfileView saveAllValueBeforeChangeView];
-        }else{
-            [businessProfileView saveAllValueBeforeChangeView];
-        }
-        NSLog(@"New view controller was pushed");
-    }
 }
 
 - (void)displayProfileInformation {

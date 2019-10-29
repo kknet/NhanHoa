@@ -12,7 +12,7 @@
 #import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
-#import "ProfileManagerViewController.h"
+#import "ProfilesViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -247,7 +247,7 @@
         [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
         
     }else if (indexPath.row == eMenuProfiles){
-        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
+        ProfilesViewController *profileVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
         profileVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
         [self.navigationController pushViewController: profileVC animated:TRUE];

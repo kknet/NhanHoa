@@ -65,6 +65,7 @@
 "Enter position"                =   "Nhập chức vụ"
 "Enter registrant's address"    =   "Nhập địa chỉ người đăng ký"
 
+"Please enter email"                =   "Vui lòng nhập email"
 "Please enter fullname"             =   "Vui lòng nhập họ tên"
 "Please choose your birthday"       =   "Vui lòng chọn ngày sinh"
 "Please enter passport"             =   "Vui lòng nhập CMND"
@@ -243,6 +244,28 @@
 
 "Yes"       =   "Có"
 "No"        =   "Không"
+"Choose"    =   "Chọn"
+"Remove"    =   "Xóa"
+
+"Profiles list"                     =   "Danh sách hồ sơ"
+"Add profile"                       =   "Thêm hồ sơ"
+"Search name, phone number, ..."    =   "Tìm tên, số điện thoại, ..."
+"Loading profiles list..."          =   "Đang tải danh sách hồ sơ..."
+"Empty list"                        =   "Danh sách trống"
+"Representative"                    =   "Người đại diện"
+"Profile"                           =   "Hồ sơ"
+"Personal profile details"          =   "Chi tiết hồ sơ cá nhân"
+"Business profile details"          =   "Chi tiết hồ sơ doanh nghiệp"
+
+"Passport's front"      =   "CMND mặt trước"
+"Passport's backside"   =   "CMND mặt sau"
+
+"Edit personal profile" =   "Chỉnh sửa hồ sơ cá nhân"
+"Edit business profile" =   "Chỉnh sửa hồ sơ doanh nghiệp"
+
+"Save info"     =   "Lưu thông tin"
+
+"Profile has been updated"  =   "Hồ sơ đã được cập nhật"
 
 
 

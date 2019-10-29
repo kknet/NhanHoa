@@ -213,10 +213,7 @@
     //
     //    }else if ([title isEqualToString: text_profiles_list])
     //    {
-    //        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
-    //        profileVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: profileVC animated:TRUE];
-    //
+    
     //    }else if ([title isEqualToString: text_customers_support])
     //    {
     //        SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];

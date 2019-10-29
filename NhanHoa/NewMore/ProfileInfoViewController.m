@@ -77,6 +77,9 @@
         [viewMenu mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
         }];
+        tbInfo.hidden = FALSE;
+        tbBusiness.hidden = TRUE;
+        
     }else{
         [viewMenu mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(hMenu);
@@ -243,6 +246,7 @@
     }];
     
     //  menu view
+    viewMenu.clipsToBounds = TRUE;
     [viewMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
         make.left.right.equalTo(self.view);
@@ -365,7 +369,6 @@
     //  footer for tableview
     viewFooterTB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     viewFooterTB.backgroundColor = UIColor.whiteColor;
-    tbInfo.tableFooterView = viewFooterTB;
     
     btnUpdate = [UIButton buttonWithType: UIButtonTypeCustom];
     btnUpdate.backgroundColor = BLUE_COLOR;

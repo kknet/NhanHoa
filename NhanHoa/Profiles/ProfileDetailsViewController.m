@@ -9,8 +9,9 @@
 #import "ProfileDetailsViewController.h"
 #import "EditProfileViewController.h"
 
-@interface ProfileDetailsViewController ()
-
+@interface ProfileDetailsViewController (){
+    
+}
 @end
 
 @implementation ProfileDetailsViewController

@@ -13,7 +13,6 @@
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
-#import "ProfileManagerViewController.h"
 #import "SupportViewController.h"
 #import "PricingDomainViewController.h"
 #import "HomeMenuCell.h"
@@ -298,9 +297,7 @@
         
     }else if ([title isEqualToString: text_profiles_list])
     {
-        ProfileManagerViewController *profileVC = [[ProfileManagerViewController alloc] initWithNibName:@"ProfileManagerViewController" bundle:nil];
-        profileVC.hidesBottomBarWhenPushed = TRUE;
-        [self.navigationController pushViewController: profileVC animated:TRUE];
+        
         
     }else if ([title isEqualToString: text_customers_support])
     {

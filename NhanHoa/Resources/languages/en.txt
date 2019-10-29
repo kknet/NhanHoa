@@ -65,6 +65,7 @@
 "Enter position"                =   "Enter position"
 "Enter registrant's address"    =   "Enter registrant's address"
 
+"Please enter email"                =   "Please enter email"
 "Please enter fullname"             =   "Please enter fullname"
 "Please choose your birthday"       =   "Please choose your birthday"
 "Please enter passport"             =   "Please enter passport"
@@ -243,8 +244,28 @@
 
 "Yes"       =   "Yes"
 "No"        =   "No"
+"Choose"    =   "Choose"
+"Remove"    =   "Remove"
 
+"Profiles list"                     =   "Profiles list"
+"Add profile"                       =   "Add profile"
+"Search name, phone number, ..."    =   "Search name, phone number, ..."
+"Loading profiles list..."          =   "Loading profiles list..."
+"Empty list"                        =   "Empty list"
+"Representative"                    =   "Representative"
+"Profile"                           =   "Profile"
+"Personal profile details"          =   "Personal profile details"
+"Business profile details"          =   "Business profile details"
 
+"Passport's front"      =   "Passport's front"
+"Passport's backside"   =   "Passport's backside"
+
+"Edit personal profile" =   "Edit personal profile"
+"Edit business profile" =   "Edit business profile"
+
+"Save info"     =   "Save info"
+
+"Profile has been updated"  =   "Profile has been updated"
 
 
 
