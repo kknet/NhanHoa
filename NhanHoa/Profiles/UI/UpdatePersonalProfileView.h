@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ChooseCityPopupView.h"
 
+typedef enum {
+    eAddNewPersonalProfile,
+    eUpdatePersonalProfile,
+}TypePersonalProfileView;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol UpdatePersonalProfileViewDelegate <NSObject>
@@ -16,8 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)clickOnBacksidePersonalProfile;
 - (void)clickOnFrontPersonalProfile;
+
 - (void)updatePersonalProfileSuccessfully;
 - (void)failedToUpdatePersonalProfileWithError: (NSString *)error;
+
+- (void)addPersonalProfileSuccessfully;
+- (void)failedToAddPersonalProfileWithError: (NSString *)error;
 @end
 
 @interface UpdatePersonalProfileView : UIView<UITextFieldDelegate, WebServiceUtilsDelegate, ChooseCityPopupViewDelegate, UIGestureRecognizerDelegate>
@@ -77,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUIForView;
 - (void)displayInfoForPersonalProfileWithInfo: (NSDictionary *)info;
 
+@property (nonatomic, assign) TypePersonalProfileView typeOfView;
 @property (nonatomic, assign) int gender;
 @property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, strong) NSString *linkFrontPassport;

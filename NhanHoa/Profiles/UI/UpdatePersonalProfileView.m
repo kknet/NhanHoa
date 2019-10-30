@@ -12,7 +12,7 @@
 @implementation UpdatePersonalProfileView
 
 @synthesize scvContent, lbFullname, tfFullname, lbBotFullname, lbGender, icMale, lbMale, icFemale, lbFemale, lbDOB, tfDOB, lbBotDOB, btnChooseDOB, lbPassport, tfPassport, lbBotPassport, lbPhoneNumber, tfPhoneNumber, lbBotPhoneNumber, lbPermanentAddr, tfPermanentAddr, lbBotPermanentAddr, lbCountry, tfCountry, lbBotCountry, lbCity, tfCity, lbBotCity, imgArrCity, btnChooseCity, btnSaveInfo, lbEmail, tfEmail, lbBotEmail, lbFront, imgFront, lbBackside, imgBackside;
-@synthesize gender, cityCode, datePicker, toolBar, linkFrontPassport, linkBehindPassport, delegate;
+@synthesize gender, cityCode, datePicker, toolBar, linkFrontPassport, linkBehindPassport, delegate, typeOfView;
 
 - (void)hideKeyboard {
     [self endEditing: TRUE];
@@ -200,7 +200,7 @@
         make.height.mas_equalTo(hLabel);
     }];
     
-    tfEmail.keyboardType = UIKeyboardTypePhonePad;
+    tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
     tfEmail.returnKeyType = UIReturnKeyNext;
     tfEmail.delegate = self;
     tfEmail.placeholder = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Enter email"];
@@ -451,7 +451,6 @@
     }else{
         NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
         if (![AppUtils isNullOrEmpty: cmnd_a]) {
-            linkFrontPassport = cmnd_a;
             [imgFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
         }else{
             imgFront.image = FRONT_EMPTY_IMG;
@@ -464,7 +463,6 @@
     }else{
         NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
         if (![AppUtils isNullOrEmpty: cmnd_b]) {
-            linkBehindPassport = cmnd_b;
             [imgBackside sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
         }else{
             imgBackside.image = BEHIND_EMPTY_IMG;
@@ -592,12 +590,19 @@
         return;
     }
     
-    [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
+    if (typeOfView == eAddNewPersonalProfile) {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Adding..."] Interaction:NO];
+        
+    }else{
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
+    }
     
     if ([AppDelegate sharedInstance].editCMND_a != nil || [AppDelegate sharedInstance].editCMND_b != nil) {
         [self startUploadPassportPictures];
     }else{
+        linkFrontPassport = linkBehindPassport = @"";
         [self handlePersonalProfileProfile];
     }
 }
@@ -615,7 +620,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
                     {
-                        //  Can not upload front passport
+                        linkFrontPassport = @"";
                     }else{
                         linkFrontPassport = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
                     }
@@ -641,7 +646,7 @@
             [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"]) {
-                        //  Can not upload behind passport
+                        linkBehindPassport = @"";
                     }else{
                         linkBehindPassport = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
                     }
@@ -673,34 +678,23 @@
     [info setObject:linkFrontPassport forKey:@"cmnd_a"];
     [info setObject:linkBehindPassport forKey:@"cmnd_b"];
     
-    [info setObject:edit_contact_mod forKey:@"mod"];
-    if ([AppDelegate sharedInstance].profileEdit != nil) {
-        NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
-        [info setObject:cus_id forKey:@"contact_id"];
-        
+    if (typeOfView == eAddNewPersonalProfile) {
+        [info setObject:add_contact_mod forKey:@"mod"];
         [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] editProfileWithContent: info];
-    }else{
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__)];
+        [[WebServiceUtils getInstance] addProfileWithContent: info];
+
+    }else {
+        [info setObject:edit_contact_mod forKey:@"mod"];
+        if ([AppDelegate sharedInstance].profileEdit != nil) {
+            NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
+            [info setObject:cus_id forKey:@"contact_id"];
+
+            [WebServiceUtils getInstance].delegate = self;
+            [[WebServiceUtils getInstance] editProfileWithContent: info];
+        }else{
+            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__)];
+        }
     }
-    
-//    if (mode == eAddNewProfile) {
-//        [info setObject:add_contact_mod forKey:@"mod"];
-//        [WebServiceUtils getInstance].delegate = self;
-//        [[WebServiceUtils getInstance] addProfileWithContent: info];
-//
-//    }else if (mode == eEditProfile){
-//        [info setObject:edit_contact_mod forKey:@"mod"];
-//        if ([AppDelegate sharedInstance].profileEdit != nil) {
-//            NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
-//            [info setObject:cus_id forKey:@"contact_id"];
-//
-//            [WebServiceUtils getInstance].delegate = self;
-//            [[WebServiceUtils getInstance] editProfileWithContent: info];
-//        }else{
-//            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__)];
-//        }
-//    }
 }
 
 - (void)addDatePickerForViewWithFont: (UIFont *)textFont {
@@ -835,6 +829,23 @@
 }
 
 #pragma mark - Webservice Delegate
+-(void)failedToAddProfileWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    if ([delegate respondsToSelector:@selector(failedToAddPersonalProfileWithError:)]) {
+        [delegate failedToAddPersonalProfileWithError: content];
+    }
+}
+
+-(void)addProfileSuccessful {
+    [ProgressHUD dismiss];
+    [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
+    if ([delegate respondsToSelector:@selector(addPersonalProfileSuccessfully)]) {
+        [delegate addPersonalProfileSuccessfully];
+    }
+}
+
 -(void)failedToEditProfileWithError:(NSString *)error {
     [ProgressHUD dismiss];
     

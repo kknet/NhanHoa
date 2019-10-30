@@ -18,6 +18,7 @@ target 'NhanHoa' do
     pod 'FirebaseInstanceID'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'FLAnimatedImage', '~> 1.0'
     pod 'MoMoiOSsdkv2', :git => 'https://github.com/momodevelopment/MoMoiOSsdkv2.git',:branch => "master"
 #    pod 'MBProgressHUD', '~> 1.1.0'
 end

@@ -274,11 +274,11 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0z4-ha-Ig7">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passport_empty_front.png" id="0z4-ha-Ig7">
                             <rect key="frame" x="8" y="731" width="131" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="G0k-PU-JCG">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passport_empty_behind.png" id="G0k-PU-JCG">
                             <rect key="frame" x="173" y="731" width="131" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -327,12 +327,14 @@
                 <outlet property="tfPermanentAddr" destination="hSy-Mk-p8Z" id="ZqQ-9t-8gl"/>
                 <outlet property="tfPhoneNumber" destination="t4H-F1-rD5" id="vI8-C4-6Mf"/>
             </connections>
-            <point key="canvasLocation" x="-188.40579710144928" y="164.73214285714286"/>
+            <point key="canvasLocation" x="-396" y="166"/>
         </view>
     </objects>
     <resources>
         <image name="ic_dropdow.png" width="82" height="82"/>
         <image name="ic_tick.png" width="120" height="120"/>
         <image name="ic_tick_active.png" width="120" height="120"/>
+        <image name="passport_empty_behind.png" width="400" height="252"/>
+        <image name="passport_empty_front.png" width="400" height="252"/>
     </resources>
 </document>

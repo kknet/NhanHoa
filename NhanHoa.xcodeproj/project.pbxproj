@@ -74,8 +74,6 @@
 		157E2E6C22852BFF00D1ACDA /* BannerSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */; };
 		157E2E6F2285380800D1ACDA /* circle_full_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6D2285380700D1ACDA /* circle_full_blue.png */; };
 		157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */; };
-		157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */; };
-		157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */; };
 		157F0C122282966600DCB7D4 /* back_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C112282966300DCB7D4 /* back_medium.png */; };
 		157F0C15228297C500DCB7D4 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 157F0C14228297C500DCB7D4 /* CartModel.m */; };
 		157F0C172282C81A00DCB7D4 /* cart_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 157F0C162282C81900DCB7D4 /* cart_empty.png */; };
@@ -103,8 +101,6 @@
 		15CD147722B9E17B009CBE86 /* releaseck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147622B9E17A009CBE86 /* releaseck.pem */; };
 		15CD147922B9E2E9009CBE86 /* push.php in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147822B9E2E9009CBE86 /* push.php */; };
 		15CD147B22B9E3F7009CBE86 /* master-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 15CD147A22B9E3F6009CBE86 /* master-card.png */; };
-		15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE3451229E6737001D4238 /* EditProfileViewController.m */; };
-		15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15CE3452229E6737001D4238 /* EditProfileViewController.xib */; };
 		15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD792283CB89004C0452 /* ProfileManagerCell.m */; };
 		15D1BD7C2283CB8A004C0452 /* ProfileManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */; };
 		15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */; };
@@ -343,6 +339,11 @@
 		4CB7B5762363043E008AA0BF /* money_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5742363043E008AA0BF /* money_in.png */; };
 		4CB7B5772363043E008AA0BF /* money_out.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5752363043E008AA0BF /* money_out.png */; };
 		4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC061FB232642DD00FE1F7E /* ALCommonHMAC.m */; };
+		4CC1AE2923697F5200F59985 /* NewProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC1AE2723697F5200F59985 /* NewProfileViewController.m */; };
+		4CC1AE2A23697F5200F59985 /* NewProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1AE2823697F5200F59985 /* NewProfileViewController.xib */; };
+		4CC1AE2C23699A6800F59985 /* fruits-apple.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1AE2B23699A6700F59985 /* fruits-apple.gif */; };
+		4CC1AE2E23699E4200F59985 /* search.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1AE2D23699E4200F59985 /* search.gif */; };
+		4CC1AE3023699FB300F59985 /* bg_wallet_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC1AE2F23699FB200F59985 /* bg_wallet_small.png */; };
 		4CC376972366F2CC0029879E /* bg_profile_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC376952366F2CB0029879E /* bg_profile_bottom.png */; };
 		4CC376982366F2CC0029879E /* bg_profile_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC376962366F2CB0029879E /* bg_profile_top.png */; };
 		4CC3769C2366F2F30029879E /* ProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC3769A2366F2F30029879E /* ProfilesViewController.m */; };
@@ -779,9 +780,6 @@
 		157E2E6B22852BFF00D1ACDA /* BannerSliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerSliderView.xib; sourceTree = "<group>"; };
 		157E2E6D2285380700D1ACDA /* circle_full_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_full_blue.png; sourceTree = "<group>"; };
 		157E2E6E2285380800D1ACDA /* circle_not_full_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_not_full_blue.png; sourceTree = "<group>"; };
-		157E2E7222856EC600D1ACDA /* ProfileDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileDetailsViewController.h; sourceTree = "<group>"; };
-		157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileDetailsViewController.m; sourceTree = "<group>"; };
-		157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailsViewController.xib; sourceTree = "<group>"; };
 		157F0C112282966300DCB7D4 /* back_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_medium.png; sourceTree = "<group>"; };
 		157F0C13228297C500DCB7D4 /* CartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
 		157F0C14228297C500DCB7D4 /* CartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
@@ -819,9 +817,6 @@
 		15CD147622B9E17A009CBE86 /* releaseck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = releaseck.pem; sourceTree = "<group>"; };
 		15CD147822B9E2E9009CBE86 /* push.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; path = push.php; sourceTree = "<group>"; };
 		15CD147A22B9E3F6009CBE86 /* master-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "master-card.png"; sourceTree = "<group>"; };
-		15CE3450229E6737001D4238 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
-		15CE3451229E6737001D4238 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
-		15CE3452229E6737001D4238 /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
 		15D1BD782283CB89004C0452 /* ProfileManagerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileManagerCell.h; sourceTree = "<group>"; };
 		15D1BD792283CB89004C0452 /* ProfileManagerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileManagerCell.m; sourceTree = "<group>"; };
 		15D1BD7A2283CB89004C0452 /* ProfileManagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileManagerCell.xib; sourceTree = "<group>"; };
@@ -1129,6 +1124,12 @@
 		4CB7B5752363043E008AA0BF /* money_out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = money_out.png; sourceTree = "<group>"; };
 		4CC061FA232642DD00FE1F7E /* ALCommonHMAC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCommonHMAC.h; sourceTree = "<group>"; };
 		4CC061FB232642DD00FE1F7E /* ALCommonHMAC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCommonHMAC.m; sourceTree = "<group>"; };
+		4CC1AE2623697F5200F59985 /* NewProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewProfileViewController.h; sourceTree = "<group>"; };
+		4CC1AE2723697F5200F59985 /* NewProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewProfileViewController.m; sourceTree = "<group>"; };
+		4CC1AE2823697F5200F59985 /* NewProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewProfileViewController.xib; sourceTree = "<group>"; };
+		4CC1AE2B23699A6700F59985 /* fruits-apple.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "fruits-apple.gif"; sourceTree = "<group>"; };
+		4CC1AE2D23699E4200F59985 /* search.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = search.gif; sourceTree = "<group>"; };
+		4CC1AE2F23699FB200F59985 /* bg_wallet_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_wallet_small.png; sourceTree = "<group>"; };
 		4CC376952366F2CB0029879E /* bg_profile_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile_bottom.png; sourceTree = "<group>"; };
 		4CC376962366F2CB0029879E /* bg_profile_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile_top.png; sourceTree = "<group>"; };
 		4CC376992366F2F30029879E /* ProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilesViewController.h; sourceTree = "<group>"; };
@@ -1818,6 +1819,9 @@
 			children = (
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				4CC1AE2F23699FB200F59985 /* bg_wallet_small.png */,
+				4CC1AE2B23699A6700F59985 /* fruits-apple.gif */,
+				4CC1AE2D23699E4200F59985 /* search.gif */,
 				4CC376952366F2CB0029879E /* bg_profile_bottom.png */,
 				4CC376962366F2CB0029879E /* bg_profile_top.png */,
 				4C0844FD2366C6D300E76F7F /* signout.png */,
@@ -2159,15 +2163,9 @@
 			isa = PBXGroup;
 			children = (
 				15D1BD772283CB70004C0452 /* UI */,
-				157E2E7222856EC600D1ACDA /* ProfileDetailsViewController.h */,
-				157E2E7322856EC600D1ACDA /* ProfileDetailsViewController.m */,
-				157E2E7422856EC600D1ACDA /* ProfileDetailsViewController.xib */,
 				84555EF822863D2600FE77C1 /* AddProfileViewController.h */,
 				84555EF922863D2600FE77C1 /* AddProfileViewController.m */,
 				84555EFA22863D2600FE77C1 /* AddProfileViewController.xib */,
-				15CE3450229E6737001D4238 /* EditProfileViewController.h */,
-				15CE3451229E6737001D4238 /* EditProfileViewController.m */,
-				15CE3452229E6737001D4238 /* EditProfileViewController.xib */,
 				4CC376992366F2F30029879E /* ProfilesViewController.h */,
 				4CC3769A2366F2F30029879E /* ProfilesViewController.m */,
 				4CC3769B2366F2F30029879E /* ProfilesViewController.xib */,
@@ -2177,6 +2175,9 @@
 				4C33076723681595008DD2F0 /* UpdateProfileViewController.h */,
 				4C33076823681595008DD2F0 /* UpdateProfileViewController.m */,
 				4C33076923681595008DD2F0 /* UpdateProfileViewController.xib */,
+				4CC1AE2623697F5200F59985 /* NewProfileViewController.h */,
+				4CC1AE2723697F5200F59985 /* NewProfileViewController.m */,
+				4CC1AE2823697F5200F59985 /* NewProfileViewController.xib */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -3209,7 +3210,6 @@
 				4C0845032366D36100E76F7F /* ChangePassViewController.xib in Resources */,
 				4C016A4B235F07FA00EBDE67 /* OrderDetailsViewController.xib in Resources */,
 				4CEFDCF42359BE4900CE9451 /* ic_tick_active.png in Resources */,
-				15CE3454229E6737001D4238 /* EditProfileViewController.xib in Resources */,
 				841966942276077400C14516 /* com.png in Resources */,
 				153035E5228675B0005E7DB2 /* list_city.txt in Resources */,
 				84555EFC22863D2600FE77C1 /* AddProfileViewController.xib in Resources */,
@@ -3223,7 +3223,6 @@
 				842F81B0227561ED00D6DE6D /* Roboto-Thin.ttf in Resources */,
 				4CD0C50E236190CD007AA56A /* more_policy.png in Resources */,
 				56CB517022A72E9100D6D68A /* UpdateBusinessProfile.xib in Resources */,
-				157E2E7622856EC600D1ACDA /* ProfileDetailsViewController.xib in Resources */,
 				15E92AD62272A2F3004AB658 /* show_pass_def.png in Resources */,
 				4CEA11762358737E00762C45 /* NewLaunchViewController.xib in Resources */,
 				4C041ECA22E8440A00DA7405 /* numpad_eight_hover.png in Resources */,
@@ -3286,6 +3285,7 @@
 				4C65811E22FC2AF500F38087 /* HostingDetailTbvCell.xib in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
 				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
+				4CC1AE2C23699A6800F59985 /* fruits-apple.gif in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
@@ -3456,7 +3456,9 @@
 				56D0295022B3F88D00280127 /* order_completed.png in Resources */,
 				4C6580EF22FBC42F00F38087 /* email_hosting.png in Resources */,
 				4C49FA482356DB5A001D0EEF /* menu_trans.png in Resources */,
+				4CC1AE2A23697F5200F59985 /* NewProfileViewController.xib in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
+				4CC1AE3023699FB300F59985 /* bg_wallet_small.png in Resources */,
 				15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */,
 				4C41FE572358139D007E8BBC /* promotion_3.png in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
@@ -3641,6 +3643,7 @@
 				4CEFDCBC235976DC00CE9451 /* ic_password.png in Resources */,
 				15865BDB228047FF004A8575 /* default_avatar.png in Resources */,
 				4C6580F022FBC42F00F38087 /* email_hosting_act.png in Resources */,
+				4CC1AE2E23699E4200F59985 /* search.gif in Resources */,
 				56D5761B22A2A9DF00F6ADAD /* tick_green.png in Resources */,
 				4CEFDCEF2359BD1200CE9451 /* back_gray.png in Resources */,
 				4C0844FA2366AF5200E76F7F /* AccSettingsViewController.xib in Resources */,
@@ -3756,6 +3759,7 @@
 				4C65810322FC084800F38087 /* OrderDetailView.m in Sources */,
 				4C49FA542356F172001D0EEF /* NotificationsViewController.m in Sources */,
 				4CD7A6512355BF1C00044E1A /* HMLocalization.m in Sources */,
+				4CC1AE2923697F5200F59985 /* NewProfileViewController.m in Sources */,
 				5612F8D722E7112D00ECBBB1 /* MarqueeLabel.m in Sources */,
 				4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */,
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
@@ -3852,7 +3856,6 @@
 				4CFB0C4722F3F08400ED813D /* DNSDetailPopupView.m in Sources */,
 				4C6580FF22FC06E800F38087 /* OrderDetailViewController.m in Sources */,
 				4C016A4F235F0D6400EBDE67 /* OrderTypeTbvCell.m in Sources */,
-				15CE3453229E6737001D4238 /* EditProfileViewController.m in Sources */,
 				1517FB7122744D8B0044E878 /* BOViewController.m in Sources */,
 				157A01CD22A7733D00A0B11F /* PEResizeControl.m in Sources */,
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
@@ -3869,7 +3872,6 @@
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				4C0844F92366AF5200E76F7F /* AccSettingsViewController.m in Sources */,
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
-				157E2E7522856EC600D1ACDA /* ProfileDetailsViewController.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				4C8B458D235D94BE00D54F0F /* KLCustomSwitch.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,

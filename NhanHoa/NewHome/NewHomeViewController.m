@@ -19,6 +19,7 @@
 #import "HomePromotionView.h"
 #import "HomeMenuClvCell.h"
 #import "HomeExploreView.h"
+#import "FLAnimatedImage.h"
 
 #define NUM_OF_MENU 8
 
@@ -46,6 +47,12 @@
     // Do any additional setup after loading the view from its nib.
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self setupUIForView];
+    
+//    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif"]]];
+//    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+//    imageView.animatedImage = image;
+//    imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
+//    [self.view addSubview:imageView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

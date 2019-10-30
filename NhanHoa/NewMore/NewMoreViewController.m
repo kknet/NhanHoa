@@ -8,7 +8,7 @@
 
 #import "NewMoreViewController.h"
 #import "WalletViewController.h"
-#import "RenewedDomainViewController.h"
+#import "DomainsViewController.h"
 #import "SupportViewController.h"
 #import "BankInfoViewController.h"
 #import "AccSettingsViewController.h"
@@ -324,10 +324,10 @@
                 break;
             }
             case 1:{
-                RenewedDomainViewController *renewedDomainVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-                renewedDomainVC.hidesBottomBarWhenPushed = TRUE;
+                DomainsViewController *domainsVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
+                domainsVC.hidesBottomBarWhenPushed = TRUE;
                 [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-                [self.navigationController pushViewController:renewedDomainVC animated:TRUE];
+                [self.navigationController pushViewController:domainsVC animated:TRUE];
                 break;
             }
             case 2:{

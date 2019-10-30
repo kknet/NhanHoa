@@ -17,9 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
 @property (weak, nonatomic) IBOutlet UITableView *tbInfo;
 
+@property (weak, nonatomic) IBOutlet UIView *viewMenu;
+@property (weak, nonatomic) IBOutlet UIButton *btnRegistrant;
+@property (weak, nonatomic) IBOutlet UIButton *btnBusiness;
+@property (weak, nonatomic) IBOutlet UILabel *lbMenuActive;
+
 @property (nonatomic, strong) NSDictionary *profileInfo;
 
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)btnRegistrantPress:(UIButton *)sender;
+- (IBAction)btnBusinessPress:(UIButton *)sender;
 
 @end
 

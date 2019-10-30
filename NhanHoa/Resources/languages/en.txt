@@ -55,6 +55,7 @@
 "Position"              =   "Position"
 "Back"                  =   "Back"
 "Address"               =   "Address"
+"Province/ City"        =   "Province/ City"
 
 "Enter business informations"   =   "Enter business informations"
 "Enter business name"           =   "Enter business name"
@@ -178,6 +179,7 @@
 "Save"                      =   "Save"
 "Crop photo"                =   "Crop photo"
 "Updating..."               =   "Updating..."
+"Adding..."                 =   "Adding..."
 "Update profile"            =   "Update profile"
 "Save update"               =   "Save update"
 
@@ -266,6 +268,10 @@
 "Save info"     =   "Save info"
 
 "Profile has been updated"  =   "Profile has been updated"
+"Choose profile's type"     =   "Choose profile's type"
+
+"Your profile has been added successful"    =   "Your profile has been added successful"
+
 
 
 

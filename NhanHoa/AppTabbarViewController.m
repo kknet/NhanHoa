@@ -14,6 +14,7 @@
 #import "NewMoreViewController.h"
 #import "HomeViewController.h"
 #import "BOViewController.h"
+#import "FLAnimatedImage.h"
 
 @interface AppTabbarViewController (){
     AppDelegate *appDelegate;
@@ -145,11 +146,30 @@
         sizeIcon = self.tabBarController.tabBar.frame.size.height - 3.0;
     }
     
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"search" ofType: @"gif"];
+//    NSData *data = [NSData dataWithContentsOfFile: filePath];
+//
+//    //  FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.websudo.xyz/fruits-apple.gif"]]];
+//    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:data];
+//    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+//    imageView.animatedImage = image;
+//    imageView.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding, sizeIcon, sizeIcon);
+//    imageView.backgroundColor = BLUE_COLOR;
+//    imageView.clipsToBounds = TRUE;
+//    imageView.layer.cornerRadius = sizeIcon/2;
+//    //  imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
+//    [appDelegate.window addSubview:imageView];
+//    if (appDelegate.safeAreaBottomPadding > 0) {
+//        imageView.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y-appDelegate.safeAreaBottomPadding + 5.0);
+//    }else{
+//        imageView.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y);
+//    }
+    
     appDelegate.btnSearchBar = [UIButton buttonWithType:UIButtonTypeCustom];
     appDelegate.btnSearchBar.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding, sizeIcon, sizeIcon);
     [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_domains_100"] forState:UIControlStateNormal];
     appDelegate.btnSearchBar.alpha = 0;
-    
+
     if (appDelegate.safeAreaBottomPadding > 0) {
         appDelegate.btnSearchBar.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y-appDelegate.safeAreaBottomPadding + 5.0);
     }else{

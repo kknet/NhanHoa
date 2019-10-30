@@ -12,7 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Photos/PHAsset.h>
 
-@interface UpdateProfileViewController ()<UpdatePersonalProfileViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
+@interface UpdateProfileViewController ()<UpdatePersonalProfileViewDelegate, UpdateBusinessProfileViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
     AppDelegate *appDelegate;
     UIFont *textFont;
     UIImagePickerController *imagePickerController;
@@ -46,7 +46,7 @@
     if ([self isMovingFromParentViewController])
     {
         imagePickerController = nil;
-        [[AppDelegate sharedInstance] enableSizeForBarButtonItem: FALSE];
+        [appDelegate enableSizeForBarButtonItem: FALSE];
         appDelegate.profileEdit = nil;
         appDelegate.editCMND_a = nil;
         appDelegate.editCMND_b = nil;
@@ -54,8 +54,7 @@
         if (profileType == type_personal) {
             [personalView saveAllValueBeforeChangeView];
         }else{
-            //  Khai Le
-            //  [businessProfileView saveAllValueBeforeChangeView];
+            [businessView saveAllValueBeforeChangeView];
         }
     }
 }
@@ -71,12 +70,15 @@
             [self addUpdatePersonalProfileViewIfNeed];
             [personalView displayInfoForPersonalProfileWithInfo: appDelegate.profileEdit];
             
+            [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
         }else{
             lbHeader.text = [appDelegate.localization localizedStringForKey:@"Edit business profile"];
             profileType = type_business;
 
             [self addUpdateBusinessProfileViewIfNeed];
-//            [businessProfileView displayInfoForProfileWithInfo: [AppDelegate sharedInstance].profileEdit];
+            [businessView displayInfoForProfileWithInfo: appDelegate.profileEdit];
+            
+            [AppUtils addBoxShadowForView:businessView.viewMenu color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
         }
     }
 }
@@ -91,11 +93,12 @@
             }
         }
         [self.view addSubview: personalView];
-        [personalView setupUIForView];
     }
+    personalView.typeOfView = eUpdatePersonalProfile;
     personalView.tfFullname.enabled = FALSE;
     personalView.tfFullname.textColor = GRAY_150;
     //  personalView.tfFullname.backgroundColor = LIGHT_GRAY_COLOR;
+    [personalView setupUIForView];
     
     [personalView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
@@ -116,15 +119,15 @@
         [self.view addSubview: businessView];
         [businessView setupUIForView];
     }
+    businessView.typeOfView = eUpdateBusinessProfile;
     businessView.tfBusinessName.enabled = FALSE;
     businessView.tfBusinessName.textColor = GRAY_150;
 
     [businessView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
+        make.top.equalTo(viewHeader.mas_bottom);
         make.left.bottom.right.equalTo(self.view);
     }];
-    //  businessProfileView.delegate = self;
-    
+    businessView.delegate = self;
 }
 
 - (void)setupUIForView {
@@ -153,7 +156,6 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
-    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:2.0];
     
     lbHeader.font = textFont;
     lbHeader.textColor = GRAY_50;
@@ -164,17 +166,47 @@
         make.width.mas_equalTo(280.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewHeader).offset(5.0);
+        make.left.equalTo(viewHeader).offset(3.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
-    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+#pragma mark - UpdateBusinessProfileViewDelegate
+-(void)clickOnFrontBusinessProfile {
+    type = 1;
+    
+    if (appDelegate.editCMND_a != nil) {
+        [self showActionSheetChooseWithRemove:TRUE];
+    }else{
+        [self showActionSheetChooseWithRemove: FALSE];
+    }
+}
+
+-(void)clickOnBacksideBusinessProfile {
+    type = 2;
+    
+    if (appDelegate.editCMND_b != nil) {
+        [self showActionSheetChooseWithRemove:TRUE];
+    }else{
+        [self showActionSheetChooseWithRemove: FALSE];
+    }
+}
+
+-(void)failedToUpdateBusinessProfileWithError:(NSString *)error {
+    [self.view makeToast:error duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+    [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
+}
+
+-(void)updateBusinessProfileSuccessfully {
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Profile has been updated"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+    [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
 }
 
 #pragma mark - UpdatePersonalProfileViewDelegate
@@ -191,7 +223,7 @@
 -(void)clickOnFrontPersonalProfile {
     type = 1;
     
-    if ([AppDelegate sharedInstance].editCMND_a != nil) {
+    if (appDelegate.editCMND_a != nil) {
         [self showActionSheetChooseWithRemove:TRUE];
     }else{
         [self showActionSheetChooseWithRemove: FALSE];
@@ -199,12 +231,12 @@
 }
 
 -(void)failedToUpdatePersonalProfileWithError:(NSString *)error {
-    [self.view makeToast:error duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:error duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
     [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
 }
 
 -(void)updatePersonalProfileSuccessfully {
-    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Profile has been updated"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Profile has been updated"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
     [self performSelector:@selector(gotoListProfiles) withObject:nil afterDelay:2.0];
 }
 
@@ -396,19 +428,17 @@
         }
         
     }else{
-//        if (self.type == 1) {
-//            NSData *pngData = UIImagePNGRepresentation(image);
-//            [AppDelegate sharedInstance].editCMND_a = [UIImage imageWithData:pngData];
-//
-//            //  self.businessProfileView.imgFront = [AppDelegate sharedInstance].editCMND_a;
-//            self.businessProfileView.imgPassportFront.image = [AppDelegate sharedInstance].editCMND_a;
-//        }else{
-//            NSData *pngData = UIImagePNGRepresentation(image);
-//            [AppDelegate sharedInstance].editCMND_b = [UIImage imageWithData:pngData];
-//
-//            //  self.businessProfileView.imgBehind = [AppDelegate sharedInstance].editCMND_b;
-//            self.businessProfileView.imgPassportBehind.image = [AppDelegate sharedInstance].editCMND_b;
-//        }
+        if (type == 1) {
+            NSData *pngData = UIImagePNGRepresentation(image);
+            appDelegate.editCMND_a = [UIImage imageWithData:pngData];
+
+            businessView.imgFront.image = appDelegate.editCMND_a;
+        }else{
+            NSData *pngData = UIImagePNGRepresentation(image);
+            appDelegate.editCMND_b = [UIImage imageWithData:pngData];
+
+            businessView.imgBackside.image = appDelegate.editCMND_b;
+        }
     }
     
     [picker dismissViewControllerAnimated:YES completion:^{

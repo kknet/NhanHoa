@@ -7,6 +7,7 @@
 //
 
 #import "ProfilesViewController.h"
+#import "NewProfileViewController.h"
 #import "ProfileDetailViewController.h"
 #import "ProfileTbvCell.h"
 
@@ -198,6 +199,7 @@
     }];
     
     //  no data
+    lbNoData.textColor = GRAY_100;
     lbNoData.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize + 2];
     [lbNoData mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(padding + hTextfield);
@@ -283,6 +285,8 @@
 }
 
 - (IBAction)btnAddProfilePress:(UIButton *)sender {
+    NewProfileViewController *newProfileVC = [[NewProfileViewController alloc] initWithNibName:@"NewProfileViewController" bundle:nil];
+    [self.navigationController pushViewController:newProfileVC animated:TRUE];
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {

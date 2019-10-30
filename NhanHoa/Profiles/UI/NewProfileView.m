@@ -553,33 +553,19 @@
 
 #pragma mark - Webservice Delegate
 -(void)failedToAddProfileWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
-    
-    [ProgressHUD dismiss];
-    
-    NSString *content = [AppUtils getErrorContentFromData: error];
-    [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)addProfileSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    [ProgressHUD dismiss];
-    [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
-    [self profileWasCreatedSuccessful];
 }
 
 -(void)failedToEditProfileWithError:(NSString *)error {
-    
 }
 
 -(void)editProfileSuccessful {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    
 }
 
 - (void)profileWasCreatedSuccessful {
-    [self makeToast:@"Hồ sơ đã được tạo thành công." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
-    [self performSelector:@selector(dismissView) withObject:nil afterDelay:2.0];
 }
 
 - (void)profileWasUpdatedSuccessful {
@@ -587,7 +573,6 @@
 }
 
 - (void)gotoListProfiles {
-    
 }
 
 - (void)dismissView {

@@ -52,9 +52,10 @@
 "Business address"      =   "Địa chỉ doanh nghiệp"
 "Business phone number" =   "Số điện thoại doanh nghiệp"
 "Registrant name"       =   "Họ tên người đăng ký"
-"Position"             =   "Chức vụ"
+"Position"              =   "Chức vụ"
 "Back"                  =   "Quay lại"
 "Address"               =   "Địa chỉ"
+"Province/ City"        =   "Tỉnh/ Thành phố"
 
 "Enter business informations"   =   "Nhập thông tin doanh nghiệp"
 "Enter business name"           =   "Nhập tên doanh nghiệp"
@@ -179,6 +180,7 @@
 "Save"                      =   "Lưu"
 "Crop photo"                =   "Cắt ảnh"
 "Updating..."               =   "Đang cập nhật..."
+"Adding..."                 =   "Đang tạo..."
 "Update profile"            =   "Cập nhật hồ sơ"
 "Save update"               =   "Lưu cập nhật"
 
@@ -266,6 +268,9 @@
 "Save info"     =   "Lưu thông tin"
 
 "Profile has been updated"  =   "Hồ sơ đã được cập nhật"
+"Choose profile's type"     =   "Chọn loại hồ sơ"
+
+"Your profile has been added successful"    =   "Hồ sơ của bạn đã được thêm thành công"
 
 
 
