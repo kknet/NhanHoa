@@ -10,7 +10,7 @@
 #import "SuggestDomainCell.h"
 #import "HomeSliderClvCell.h"
 #import "SearchResultsViewController.h"
-#import "RenewedDomainViewController.h"
+#import "DomainsViewController.h"
 #import "WhoIsViewController.h"
 
 @interface SearchDomainsViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
@@ -201,8 +201,8 @@
 }
 
 - (void)goToRenewalDomains {
-    RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-    [self.navigationController pushViewController: renewedVC animated:TRUE];
+    DomainsViewController *domainsVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
+    [self.navigationController pushViewController: domainsVC animated:TRUE];
 }
 
 - (void)setupUIForView

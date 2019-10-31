@@ -11,7 +11,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DomainsViewController">
             <connections>
+                <outlet property="icBack" destination="AjY-2j-xYT" id="2eO-CE-dIf"/>
+                <outlet property="icCart" destination="HOh-nT-uyu" id="Kyh-6q-ZFQ"/>
+                <outlet property="imgSearch" destination="uw0-dQ-N4I" id="Sdh-8O-587"/>
+                <outlet property="imgTop" destination="oqS-KD-GWk" id="ooP-Bh-ed5"/>
+                <outlet property="lbCount" destination="iNM-4f-Hrd" id="zbz-lt-s5o"/>
+                <outlet property="lbHeader" destination="fvn-ac-ODs" id="ohX-ld-CbY"/>
+                <outlet property="lbNoData" destination="mSm-1P-gz5" id="Trt-fZ-wjT"/>
+                <outlet property="scvContent" destination="qDi-kv-Y9F" id="qwk-LS-eck"/>
+                <outlet property="scvMenu" destination="lG7-gK-jnl" id="Cgp-Qh-8T6"/>
+                <outlet property="tbDomains" destination="3hF-dD-SXt" id="hCV-Xi-43g"/>
+                <outlet property="tfSearch" destination="o2A-5g-iQy" id="h4M-Y2-4CK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeader" destination="5gZ-p3-bjF" id="58f-U1-NFv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,7 +46,10 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AjY-2j-xYT">
                                     <rect key="frame" x="8" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="back_gray.png"/>
+                                    <state key="normal" image="back.png"/>
+                                    <connections>
+                                        <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="y2e-Zk-1JJ"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fvn-ac-ODs">
                                     <rect key="frame" x="139" y="12" width="42" height="21"/>
@@ -43,19 +58,65 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HOh-nT-uyu">
+                                    <rect key="frame" x="282" y="7" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="cart.png"/>
+                                    <connections>
+                                        <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="UzO-9I-Aot"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iNM-4f-Hrd">
+                                    <rect key="frame" x="295" y="0.0" width="21" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="o2A-5g-iQy">
+                            <rect key="frame" x="22" y="67" width="280" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_gray.png" id="uw0-dQ-N4I">
+                            <rect key="frame" x="22" y="67" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="lG7-gK-jnl">
+                            <rect key="frame" x="8" y="105" width="304" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </scrollView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3hF-dD-SXt">
+                            <rect key="frame" x="8" y="151" width="304" height="318"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mSm-1P-gz5">
+                            <rect key="frame" x="8" y="151" width="304" height="318"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-58" y="111"/>
+            <point key="canvasLocation" x="-429" y="145"/>
         </view>
     </objects>
     <resources>
-        <image name="back_gray.png" width="96" height="96"/>
+        <image name="back.png" width="96" height="96"/>
         <image name="bg_wallet_small.png" width="1240" height="380"/>
+        <image name="cart.png" width="100" height="100"/>
+        <image name="search_gray.png" width="96" height="96"/>
     </resources>
 </document>

@@ -179,6 +179,7 @@
 "Save"                      =   "Save"
 "Crop photo"                =   "Crop photo"
 "Updating..."               =   "Updating..."
+"Updating"                  =   "Updating"
 "Adding..."                 =   "Adding..."
 "Update profile"            =   "Update profile"
 "Save update"               =   "Save update"
@@ -272,6 +273,26 @@
 
 "Your profile has been added successful"    =   "Your profile has been added successful"
 
+"Expiration date"   =   "Expiration date"
+"Status"            =   "Status"
+"Search domain..."  =   "Search domain..."
+"Domain"            =   "Domain"
+"No data"           =   "No data"
+"Expires on"        =   "Expires on"
+"Undefined"         =   "Undefined"
+
+"Can not get domains list. Please try again!"   =   "Can not get domains list. Please try again!"
+
+"Waiting"               =   "Waiting"
+"Processing"            =   "Processing"
+"Actived"               =   "Actived"
+"Cancelled"             =   "Cancelled"
+"Renewing"              =   "Renewing"
+"Waiting for renewal"   =   "Waiting for renewal"
+"Suspending"            =   "Suspending"
+"Suspended"             =   "Suspended"
+
+"ord_id does not exists"    =   "ord_id does not exists"
 
 
 

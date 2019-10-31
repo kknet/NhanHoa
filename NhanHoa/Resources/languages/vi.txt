@@ -180,6 +180,7 @@
 "Save"                      =   "Lưu"
 "Crop photo"                =   "Cắt ảnh"
 "Updating..."               =   "Đang cập nhật..."
+"Updating"                  =   "Đang cập nhật"
 "Adding..."                 =   "Đang tạo..."
 "Update profile"            =   "Cập nhật hồ sơ"
 "Save update"               =   "Lưu cập nhật"
@@ -272,6 +273,26 @@
 
 "Your profile has been added successful"    =   "Hồ sơ của bạn đã được thêm thành công"
 
+"Expiration date"   =   "Ngày hết hạn"
+"Status"            =   "Trạng thái"
+"Search domain..."  =   "Tìm tên miền..."
+"Domain"            =   "Tên miền"
+"No data"           =   "Không có dữ liệu"
+"Expires on"        =   "Hết hạn ngày"
+"Undefined"         =   "Không xác định"
+
+"Can not get domains list. Please try again!"   =   "Không thể lấy danh sách tên miền. Vui lòng thử lại!"
+
+"Waiting"               =   "Đang chờ"
+"Processing"            =   "Đang xử lý"
+"Actived"               =   "Đã kích hoạt"
+"Cancelled"             =   "Đã hủy"
+"Renewing"              =   "Đang gia hạn"
+"Waiting for renewal"   =   "Đang chờ gia hạn"
+"Suspending"            =   "Đang suspend"
+"Suspended"             =   "Đã suspend"
+
+"ord_id does not exists"    =   "ord_id không tồn tại"
 
 
 

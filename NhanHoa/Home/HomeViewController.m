@@ -9,7 +9,7 @@
 #import "HomeViewController.h"
 #import "SearchDomainsViewController.h"
 #import "WhoIsViewController.h"
-#import "RenewedDomainViewController.h"
+#import "DomainsViewController.h"
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
@@ -285,7 +285,7 @@
         
     }else if ([title isEqualToString: text_domains_management])
     {
-        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
+        DomainsViewController *renewedVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
         renewedVC.hidesBottomBarWhenPushed = TRUE;
         [self.navigationController pushViewController: renewedVC animated:TRUE];
         

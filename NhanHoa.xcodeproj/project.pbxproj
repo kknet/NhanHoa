@@ -334,6 +334,10 @@
 		4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */; };
 		4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */; };
 		4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */; };
+		4CAAFDFA236A734400C0DA57 /* DomainInfoTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAFDF8236A734400C0DA57 /* DomainInfoTbvCell.m */; };
+		4CAAFDFB236A734400C0DA57 /* DomainInfoTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAAFDF9236A734400C0DA57 /* DomainInfoTbvCell.xib */; };
+		4CAAFDFF236A8BFF00C0DA57 /* DomainDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */; };
+		4CAAFE00236A8BFF00C0DA57 /* DomainDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */; };
 		4CB7B572236301C2008AA0BF /* WalletTransHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7B570236301C2008AA0BF /* WalletTransHistoryCell.m */; };
 		4CB7B573236301C2008AA0BF /* WalletTransHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B571236301C2008AA0BF /* WalletTransHistoryCell.xib */; };
 		4CB7B5762363043E008AA0BF /* money_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5742363043E008AA0BF /* money_in.png */; };
@@ -661,10 +665,6 @@
 		847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E9AA6227EAB2D00C83F5A /* AccountModel.m */; };
 		8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481F88B22832DA100C88EB1 /* TopupViewController.m */; };
 		8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8481F88C22832DA100C88EB1 /* TopupViewController.xib */; };
-		8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5A22279A12E00B921B7 /* RenewedDomainViewController.m */; };
-		8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */; };
-		8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5A82279A74400B921B7 /* ExpireDomainCell.m */; };
-		8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */; };
 		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
 		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
 		849827832285D50C00201ED7 /* NewProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849827822285D50C00201ED7 /* NewProfileView.m */; };
@@ -1117,6 +1117,12 @@
 		4CA8E27222F90C01000BD5E5 /* WorldpressHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldpressHostingCell.h; sourceTree = "<group>"; };
 		4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldpressHostingCell.m; sourceTree = "<group>"; };
 		4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorldpressHostingCell.xib; sourceTree = "<group>"; };
+		4CAAFDF7236A734400C0DA57 /* DomainInfoTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainInfoTbvCell.h; sourceTree = "<group>"; };
+		4CAAFDF8236A734400C0DA57 /* DomainInfoTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainInfoTbvCell.m; sourceTree = "<group>"; };
+		4CAAFDF9236A734400C0DA57 /* DomainInfoTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainInfoTbvCell.xib; sourceTree = "<group>"; };
+		4CAAFDFC236A8BFF00C0DA57 /* DomainDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDetailsViewController.h; sourceTree = "<group>"; };
+		4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDetailsViewController.m; sourceTree = "<group>"; };
+		4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainDetailsViewController.xib; sourceTree = "<group>"; };
 		4CB7B56F236301C2008AA0BF /* WalletTransHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletTransHistoryCell.h; sourceTree = "<group>"; };
 		4CB7B570236301C2008AA0BF /* WalletTransHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletTransHistoryCell.m; sourceTree = "<group>"; };
 		4CB7B571236301C2008AA0BF /* WalletTransHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletTransHistoryCell.xib; sourceTree = "<group>"; };
@@ -1532,12 +1538,6 @@
 		8481F88A22832DA100C88EB1 /* TopupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopupViewController.h; sourceTree = "<group>"; };
 		8481F88B22832DA100C88EB1 /* TopupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopupViewController.m; sourceTree = "<group>"; };
 		8481F88C22832DA100C88EB1 /* TopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopupViewController.xib; sourceTree = "<group>"; };
-		8490A5A12279A12E00B921B7 /* RenewedDomainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewedDomainViewController.h; sourceTree = "<group>"; };
-		8490A5A22279A12E00B921B7 /* RenewedDomainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewedDomainViewController.m; sourceTree = "<group>"; };
-		8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewedDomainViewController.xib; sourceTree = "<group>"; };
-		8490A5A72279A74400B921B7 /* ExpireDomainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpireDomainCell.h; sourceTree = "<group>"; };
-		8490A5A82279A74400B921B7 /* ExpireDomainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpireDomainCell.m; sourceTree = "<group>"; };
-		8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpireDomainCell.xib; sourceTree = "<group>"; };
 		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
 		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
 		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
@@ -2349,9 +2349,13 @@
 		4C330771236840B9008DD2F0 /* DomainsManagement */ = {
 			isa = PBXGroup;
 			children = (
+				4CAAFDF6236A731A00C0DA57 /* UI */,
 				4C330772236842A2008DD2F0 /* DomainsViewController.h */,
 				4C330773236842A2008DD2F0 /* DomainsViewController.m */,
 				4C330774236842A2008DD2F0 /* DomainsViewController.xib */,
+				4CAAFDFC236A8BFF00C0DA57 /* DomainDetailsViewController.h */,
+				4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */,
+				4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */,
 			);
 			path = DomainsManagement;
 			sourceTree = "<group>";
@@ -2486,6 +2490,16 @@
 				4C8B4593235DB30E00D54F0F /* CartMoreInfoClvCell.h */,
 				4C8B4594235DB30E00D54F0F /* CartMoreInfoClvCell.m */,
 				4C8B4595235DB30E00D54F0F /* CartMoreInfoClvCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4CAAFDF6236A731A00C0DA57 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4CAAFDF7236A734400C0DA57 /* DomainInfoTbvCell.h */,
+				4CAAFDF8236A734400C0DA57 /* DomainInfoTbvCell.m */,
+				4CAAFDF9236A734400C0DA57 /* DomainInfoTbvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2997,9 +3011,6 @@
 			isa = PBXGroup;
 			children = (
 				8490A5A62279A72A00B921B7 /* UI */,
-				8490A5A12279A12E00B921B7 /* RenewedDomainViewController.h */,
-				8490A5A22279A12E00B921B7 /* RenewedDomainViewController.m */,
-				8490A5A32279A12E00B921B7 /* RenewedDomainViewController.xib */,
 				8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */,
 				8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */,
 				8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */,
@@ -3025,9 +3036,6 @@
 		8490A5A62279A72A00B921B7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				8490A5A72279A74400B921B7 /* ExpireDomainCell.h */,
-				8490A5A82279A74400B921B7 /* ExpireDomainCell.m */,
-				8490A5A92279A74400B921B7 /* ExpireDomainCell.xib */,
 				843F5AC7228B8E0B00DC179F /* PriceListView.h */,
 				843F5AC8228B8E0B00DC179F /* PriceListView.m */,
 				843F5ACA228B8E1600DC179F /* PriceListView.xib */,
@@ -3284,7 +3292,6 @@
 				4C787832235EA37C00F8CDA0 /* ic_transfer.png in Resources */,
 				4C65811E22FC2AF500F38087 /* HostingDetailTbvCell.xib in Resources */,
 				84A63C482283A91500C52B8A /* gift-box.png in Resources */,
-				8490A5AB2279A74400B921B7 /* ExpireDomainCell.xib in Resources */,
 				4CC1AE2C23699A6800F59985 /* fruits-apple.gif in Resources */,
 				842F81C02275794C00D6DE6D /* tabbar_acc_def@3x.png in Resources */,
 				159F7DBC227AF63300A64586 /* DomainProfileCell.xib in Resources */,
@@ -3450,7 +3457,6 @@
 				15FF497C22A659220056B078 /* UpdateMyInfoViewController.xib in Resources */,
 				156B8C19226ECB060020EDCB /* RegisteredDomainViewController.xib in Resources */,
 				4C28B90A22F5917300910F54 /* menu_ssl.png in Resources */,
-				8490A5A52279A12E00B921B7 /* RenewedDomainViewController.xib in Resources */,
 				8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */,
 				4CD0C512236190CD007AA56A /* more_app_info.png in Resources */,
 				56D0295022B3F88D00280127 /* order_completed.png in Resources */,
@@ -3466,6 +3472,7 @@
 				560F82EA22BA865B004BF3FE /* iphone_text.mp3 in Resources */,
 				4C8B4582235D5ABE00D54F0F /* photo_empty_cart_vi.png in Resources */,
 				158174642281854700DD8EC9 /* close_gray.png in Resources */,
+				4CAAFE00236A8BFF00C0DA57 /* DomainDetailsViewController.xib in Resources */,
 				4C8B4592235DB25F00D54F0F /* CartMoreInfoView.xib in Resources */,
 				4C49FA422356D71D001D0EEF /* menu_topup.png in Resources */,
 				4C0078F722F1310200C19492 /* DomainDNSViewController.xib in Resources */,
@@ -3473,6 +3480,7 @@
 				56E477ED22F9A4D100296A55 /* email_ssl.png in Resources */,
 				4C787834235EA37C00F8CDA0 /* ic_search_domains.png in Resources */,
 				56FCB6FC235E092600CD9D5F /* bottom_header.png in Resources */,
+				4CAAFDFB236A734400C0DA57 /* DomainInfoTbvCell.xib in Resources */,
 				56FA23B622B0191F003F89CB /* BankCell.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				4CD0C4CA23613CDA007AA56A /* round_orange.png in Resources */,
@@ -3802,6 +3810,7 @@
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				4C65810D22FC1DDF00F38087 /* OrderDetailDescriptionView.m in Sources */,
 				4C765F0D22F81EB6002AFEC8 /* LinuxHostingCell.m in Sources */,
+				4CAAFDFF236A8BFF00C0DA57 /* DomainDetailsViewController.m in Sources */,
 				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
 				4CF862EB23604DF6008B69EF /* DomainCell.m in Sources */,
@@ -3842,7 +3851,6 @@
 				153035EC22867C48005E7DB2 /* ChooseCityPopupView.m in Sources */,
 				849E312522807393003A8813 /* ContactInfoViewController.m in Sources */,
 				150845F4226EBF2400428514 /* AppDelegate.m in Sources */,
-				8490A5A42279A12E00B921B7 /* RenewedDomainViewController.m in Sources */,
 				56FA23B122B01524003F89CB /* BankObject.m in Sources */,
 				1579ABC82289522600B92E04 /* NewBusinessProfileView.m in Sources */,
 				562362DB22E2D89C001AE97A /* ProviderDelegate.m in Sources */,
@@ -3888,7 +3896,6 @@
 				4C016A43235EF62400EBDE67 /* OrderItemTbvCell.m in Sources */,
 				4C3307602367F2D9008DD2F0 /* ProfileDetailViewController.m in Sources */,
 				4C0844DF2366997B00E76F7F /* ContactViewController.m in Sources */,
-				8490A5AA2279A74400B921B7 /* ExpireDomainCell.m in Sources */,
 				4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */,
 				562362DF22E2DF03001AE97A /* SupportCustomerCell.m in Sources */,
 				56064F3B22C796C7003D8859 /* UIWebView+GUIFixes.m in Sources */,
@@ -3898,6 +3905,7 @@
 				4CF862F123604E1B008B69EF /* DomainDescriptionPoupView.m in Sources */,
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				4CB7B572236301C2008AA0BF /* WalletTransHistoryCell.m in Sources */,
+				4CAAFDFA236A734400C0DA57 /* DomainInfoTbvCell.m in Sources */,
 				4CEA116D23584D7700762C45 /* TransactionsViewController.m in Sources */,
 				5600E8FB22A5EEC700F7DECE /* SendMessageView.m in Sources */,
 				4CEFDCB3235969F100CE9451 /* NewSignInViewController.m in Sources */,

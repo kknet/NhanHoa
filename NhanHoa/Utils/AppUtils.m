@@ -690,34 +690,34 @@
 
 + (NSString *)getStatusValueWithCode: (NSString *)status {
     if ([status isEqualToString:@"0"]) {
-        return text_waiting;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Waiting"];
         
     }else if ([status isEqualToString:@"1"] || [status isEqualToString:@"7"]) {
-        return text_in_process;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Processing"];
         
     }else if ([status isEqualToString:@"2"]) {
-        return text_actived;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Actived"];
         
     }else if ([status isEqualToString:@"3"]) {
-        return text_cancelled;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Cancelled"];
         
     }else if ([status isEqualToString:@"4"]) {
-        return text_renewing;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Renewing"];
         
     }else if ([status isEqualToString:@"5"]) {
-        return text_waiting_for_renewal;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Waiting for renewal"];
         
     }else if ([status isEqualToString:@"6"]) {
-        return text_expired;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Expired"];
         
     }else if ([status isEqualToString:@"8"]) {
-        return text_suspending;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Suspending"];
         
     }else if ([status isEqualToString:@"9"]) {
-        return text_suspended;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Suspended"];
         
     }else{
-        return text_undefined;
+        return [[AppDelegate sharedInstance].localization localizedStringForKey:@"Undefined"];
     }
 }
 
