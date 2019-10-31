@@ -7,6 +7,12 @@
 //
 
 #import "DomainDetailsViewController.h"
+#import "SigningDomainViewController.h"
+#import "UpdatePassportViewController.h"
+#import "UpdateDNSViewController.h"
+#import "DNSRecordsViewController.h"
+//  #import "DomainDNSViewController.h"
+#import "RenewDomainCartViewController.h"
 #import "DomainDetailTbvCell.h"
 #import "KLCustomSwitch.h"
 
@@ -22,6 +28,19 @@
     BOOL zonedns;
     NSDictionary *domainInfo;
     KLCustomSwitch *swWhoIsProtect;
+    
+    NSString *domainType;
+    float hTableView;
+    
+    NSString *domain_signed_url;
+    NSString *domain_signing_url;
+    
+    NSString *domain;
+    NSString *domainId;
+    NSString *cus_id;
+    
+    BOOL supportWhoIsProtect;
+    BOOL isWhoIs;
 }
 @end
 
@@ -38,8 +57,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = TRUE;
     
     [self showContentWithCurrentLanguage];
+    supportWhoIsProtect = FALSE;
     
     if (![AppUtils isNullOrEmpty: ordId]) {
         [ProgressHUD backgroundColor: ProgressHUD_BG];
@@ -50,6 +71,13 @@
         [self.view makeToast:[appDelegate.localization localizedStringForKey:@"ord_id does not exists"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         [self performSelector:@selector(dismissViewController) withObject:nil afterDelay:2.0];
     }
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    
+    [swWhoIsProtect removeFromSuperview];
+    swWhoIsProtect = nil;
 }
 
 - (void)showContentWithCurrentLanguage {
@@ -64,8 +92,11 @@
     [btnUpdatePassport setTitle:[appDelegate.localization localizedStringForKey:@"Update passport"]
                        forState:UIControlStateNormal];
     
-    [btnChangeNameServer setTitle:[appDelegate.localization localizedStringForKey:@"DNS Records management"]
+    [btnChangeNameServer setTitle:[appDelegate.localization localizedStringForKey:@"Change Name Server"]
                          forState:UIControlStateNormal];
+    
+    [btnDNSRecordsManagement setTitle:[appDelegate.localization localizedStringForKey:@"DNS Records management"]
+                             forState:UIControlStateNormal];
 }
 
 - (void)dismissViewController {
@@ -90,7 +121,7 @@
     }
     
     //  header view
-    viewHeader.backgroundColor = UIColor.clearColor;
+    viewHeader.backgroundColor = UIColor.whiteColor;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
@@ -135,10 +166,11 @@
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
+    
     scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
+        make.top.equalTo(viewHeader.mas_bottom).offset(4.0);
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
@@ -147,7 +179,7 @@
     hCell = 15.0 + 25.0 + 15.0;
     hLargeCell = hCell + 25.0;
     
-    float hTableView = 6*hCell + hLargeCell;
+    hTableView = 6*hCell + hLargeCell;
     
     [tbContent registerNib:[UINib nibWithNibName:@"DomainDetailTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainDetailTbvCell"];
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -167,6 +199,8 @@
     btnRenewal.layer.cornerRadius = btnSignature.layer.cornerRadius = btnUpdatePassport.layer.cornerRadius = btnChangeNameServer.layer.cornerRadius = btnDNSRecordsManagement.layer.cornerRadius = 8.0;
     
     btnRenewal.titleLabel.font = btnSignature.titleLabel.font = btnUpdatePassport.titleLabel.font = btnChangeNameServer.titleLabel.font = btnDNSRecordsManagement.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
+    
+    btnRenewal.clipsToBounds = btnSignature.clipsToBounds = btnUpdatePassport.clipsToBounds = btnChangeNameServer.clipsToBounds = btnDNSRecordsManagement.clipsToBounds = TRUE;
     
     [btnRenewal setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnRenewal mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,24 +243,94 @@
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
 }
 
-- (IBAction)btnRenewalPress:(UIButton *)sender {
+- (IBAction)btnRenewalPress:(UIButton *)sender
+{
+    id cusId = [domainInfo objectForKey:@"cus_id"];
+    if (cusId != nil && [cusId isKindOfClass:[NSString class]]) {
+        cus_id = cusId;
+    }else if (cusId != nil && [cusId isKindOfClass:[NSNumber class]]) {
+        cus_id = SFM(@"%ld", [cusId longValue]);
+    }
+    
+    if (![AppUtils isNullOrEmpty: cus_id]) {
+        RenewDomainCartViewController *renewCartVC = [[RenewDomainCartViewController alloc] initWithNibName:@"RenewDomainCartViewController" bundle:nil];
+        renewCartVC.domain = domain;
+        renewCartVC.cus_id = cus_id;
+        renewCartVC.ord_id = ordId;
+        [self.navigationController pushViewController:renewCartVC animated:TRUE];
+    }
 }
 
 - (IBAction)btnSignaturePress:(UIButton *)sender {
+    SigningDomainViewController *signingVC = [[SigningDomainViewController alloc] initWithNibName:@"SigningDomainViewController" bundle:nil];
+    signingVC.domain_signing_url = signingVC.domain_signed_url = @"";
+    
+    if (![AppUtils isNullOrEmpty: domain_signed_url]) {
+        signingVC.domain_signed_url = domain_signed_url;
+        
+    }else if (![AppUtils isNullOrEmpty: domain_signing_url]) {
+        signingVC.domain_signing_url = domain_signing_url;
+        
+    }
+    [self.navigationController pushViewController:signingVC animated:TRUE];
 }
 
-- (IBAction)btnUpdatePassportPress:(UIButton *)sender {
+- (IBAction)btnUpdatePassportPress:(UIButton *)sender
+{
+    //  get CMND
+    NSString *CMND_a = [domainInfo objectForKey:@"cmnd_a"];
+    NSString *CMND_b = [domainInfo objectForKey:@"cmnd_b"];
+    NSString *ban_khai = [domainInfo objectForKey:@"bankhai"];
+    
+    NSString *domain = [domainInfo objectForKey:@"domain_name"];
+    UpdatePassportViewController *updateVC = [[UpdatePassportViewController alloc] initWithNibName:@"UpdatePassportViewController" bundle:nil];
+    updateVC.cusId = cusId;
+    updateVC.curCMND_a = CMND_a;
+    updateVC.curCMND_b = CMND_b;
+    updateVC.curBanKhai = ban_khai;
+    updateVC.domainId = domainId;
+    updateVC.domainType = domainType;
+    updateVC.domain = domain;
+    [self.navigationController pushViewController:updateVC animated:TRUE];
 }
 
 - (IBAction)btnChangeNameServerPress:(UIButton *)sender {
+    UpdateDNSViewController *updateDNSVC = [[UpdateDNSViewController alloc] initWithNibName:@"UpdateDNSViewController" bundle:nil];
+    updateDNSVC.domain = domain;
+    [self.navigationController pushViewController:updateDNSVC animated:TRUE];
 }
 
 - (IBAction)btnDNSRecordsManagement:(UIButton *)sender {
+    DNSRecordsViewController *recordsDNSVC = [[DNSRecordsViewController alloc] initWithNibName:@"DNSRecordsViewController" bundle:nil];
+    recordsDNSVC.domainName = domain;
+    recordsDNSVC.supportDNSRecords = zonedns;
+    [self.navigationController pushViewController:recordsDNSVC animated:TRUE];
+}
+
+#pragma mark - Whois Protect
+-(void)switchValueChangedOn {
+    swWhoIsProtect.enabled = FALSE;
+    [self performSelector:@selector(enableSwitchWhoisProtect) withObject:nil afterDelay:1.0];
+    
+    NSString *domain = [domainInfo objectForKey:@"domain_name"];
+    [[WebServiceUtils getInstance] updateWhoisProtectForDomain:domain domainId:domainId protectValue:TRUE];
+}
+
+-(void)switchValueChangedOff {
+    swWhoIsProtect.enabled = FALSE;
+    [self performSelector:@selector(enableSwitchWhoisProtect) withObject:nil afterDelay:1.0];
+    
+    [[WebServiceUtils getInstance] updateWhoisProtectForDomain:domain domainId:domainId protectValue:FALSE];
+}
+
+- (void)enableSwitchWhoisProtect {
+    swWhoIsProtect.enabled = TRUE;
 }
 
 #pragma mark - Webservice utils & functions
@@ -262,73 +366,70 @@
         }
     }
     domainInfo = [[NSDictionary alloc] initWithDictionary: info];
+    
+    domain = [domainInfo objectForKey:@"domain_name"];
+    domainType = [domainInfo objectForKey:@"domain_type"];
+    domainId = [domainInfo objectForKey:@"domain_id"];
+
+    isWhoIs = FALSE;
+    id isProtect = [domainInfo objectForKey:@"domain_whois_protect"];
+    if ([isProtect isKindOfClass:[NSString class]])
+    {
+        supportWhoIsProtect = TRUE;
+        if ([isProtect isEqualToString:@"1"]) {
+            isWhoIs = TRUE;
+        }else{
+            isWhoIs = FALSE;
+        }
+    }
+    
+    if (supportWhoIsProtect) {
+        hTableView = 6*hCell + hLargeCell;
+    }else{
+        hTableView = 5*hCell + hLargeCell;
+    }
+    [tbContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(hTableView);
+    }];
+    
+    [self updateFooterMenuWithDomainType: domainType];
+    
+    //  get domain_signed_url
+    domain_signed_url = [domainInfo objectForKey:@"domain_signed_url"];
+    domain_signing_url = [domainInfo objectForKey:@"domain_signing_url"];
+
+    if (![AppUtils isNullOrEmpty: domain_signed_url]) {
+        [btnSignature setTitle:[appDelegate.localization localizedStringForKey:@"Signed contract"] forState:UIControlStateNormal];
+
+    }else if (![AppUtils isNullOrEmpty: domain_signing_url]){
+        [btnSignature setTitle:[appDelegate.localization localizedStringForKey:@"Signing contract"] forState:UIControlStateNormal];
+    }
+    
     [tbContent reloadData];
+}
+
+-(void)failedToUpdateWhoisProtect:(NSString *)error {
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     
-//    domainType = [info objectForKey:@"domain_type"];
-//    [self updateFooterMenuWithDomainType: domainType];
-//
-//    domainId = [info objectForKey:@"domain_id"];
-//
-//    id cusId = [info objectForKey:@"cus_id"];
-//    if (cusId != nil && [cusId isKindOfClass:[NSString class]]) {
-//        cus_id = cusId;
-//    }else if (cusId != nil && [cusId isKindOfClass:[NSNumber class]]) {
-//        cus_id = [NSString stringWithFormat:@"%ld", [cusId longValue]];
-//    }
-//
-//    //  reupdate frame for top label
-//    float sizeText = [AppUtils getSizeWithText:domain withFont:lbTopDomain.font andMaxWidth:SCREEN_WIDTH].width;
-//    float hTop = 40.0;
-//    if ([DeviceUtils isScreen320]) {
-//        hTop = 25.0;
-//    }
-//    [lbTopDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view).offset(padding);
-//        make.centerX.equalTo(self.view.mas_centerX);
-//        make.height.mas_equalTo(hTop);
-//        make.width.mas_equalTo(sizeText + 10.0);
-//    }];
-//
-//    //  get size of content
-//    float maxSize = (SCREEN_WIDTH - 2*padding)/2 + 20;
-//    float hContent = hItem;
-//    if (![AppUtils isNullOrEmpty: serviceName]) {
-//        float hText = [AppUtils getSizeWithText:serviceName withFont:lbServiceNameValue.font andMaxWidth:maxSize].height;
-//        if (hText > hContent) {
-//            hContent = hText;
-//        }
-//    }
-//
-//    float hView = padding + hItem + hItem + (hItem/2 - 10.0) + hContent + hItem + hItem + hItem + padding;
-//    if (![AppUtils checkDomainIsNationalDomain: domain]) {
-//        hView += hItem;
-//    }
-//
-//    [viewDetail mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.lbTopDomain.mas_centerY);
-//        make.left.equalTo(self.view).offset(padding);
-//        make.right.equalTo(self.view).offset(-padding);
-//        make.height.mas_equalTo(hView);
-//    }];
-//
-//
-//    //  get CMND
-//    CMND_a = [info objectForKey:@"cmnd_a"];
-//    CMND_b = [info objectForKey:@"cmnd_b"];
-//    ban_khai = [info objectForKey:@"bankhai"];
-//
-//    //  get domain_signed_url
-//    domain_signed_url = [info objectForKey:@"domain_signed_url"];
-//    domain_signing_url = [info objectForKey:@"domain_signing_url"];
-//
-//    if (![AppUtils isNullOrEmpty: domain_signed_url]) {
-//        [btnSigning setTitle:text_signed_contract forState:UIControlStateNormal];
-//
-//    }else if (![AppUtils isNullOrEmpty: domain_signing_url]){
-//        [btnSigning setTitle:text_signing_contract forState:UIControlStateNormal];
-//    }
-//
-    
+    //  reset value if failed to update
+    BOOL state = !swWhoIsProtect.curState;
+    if (state) {
+        [swWhoIsProtect setUIForOnState];
+    }else{
+        [swWhoIsProtect setUIForOffState];
+    }
+    swWhoIsProtect.enabled = TRUE;
+}
+
+-(void)updateWhoisProtectSuccessfulWithData:(NSDictionary *)data {
+    NSString *message = [data objectForKey:@"message"];
+    if (![AppUtils isNullOrEmpty: message]) {
+        [self.view makeToast:message duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }else{
+        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Updated"] duration:1.5 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    }
+    swWhoIsProtect.enabled = TRUE;
 }
 
 -(void)failedGetDomainInfoWithError:(NSString *)error
@@ -345,13 +446,74 @@
     [self processDomainInfoWithData: data];
 }
 
+- (void)updateFooterMenuWithDomainType: (NSString *)domainType {
+    //  btnChangeDNS.hidden = btnRenewDomain.hidden = btnManagerDNS.hidden = FALSE;
+    float hContent = 0;
+    if (![AppUtils isNullOrEmpty: domainType] && [domainType isEqualToString:domainvn_type]) {
+        hContent = hTableView + 2*padding + hBTN + padding + hBTN + padding + hBTN + padding + hBTN + padding + hBTN + padding;
+        
+        //  btnUpdatePassport.hidden = btnSigning.hidden = FALSE;
+        
+//        if (IS_IPHONE || IS_IPOD) {
+//            [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.right.equalTo(btnManagerDNS);
+//                make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
+//                make.height.equalTo(btnManagerDNS.mas_height);
+//            }];
+//        }else{
+//            [btnChangeDNS mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(btnManagerDNS);
+//                make.right.equalTo(self.view.mas_centerX).offset(-paddingY/2);
+//                make.bottom.equalTo(btnManagerDNS.mas_top).offset(-paddingY);
+//                make.height.mas_equalTo(hBTN);
+//            }];
+//
+//            [btnUpdatePassport mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(self.view.mas_centerX).offset(paddingY/2);
+//                make.right.equalTo(btnManagerDNS);
+//                make.top.bottom.equalTo(btnChangeDNS);
+//            }];
+//
+//            [btnRenewDomain mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.right.equalTo(btnChangeDNS);
+//                make.bottom.equalTo(btnChangeDNS.mas_top).offset(-paddingY);
+//                make.height.mas_equalTo(hBTN);
+//            }];
+//
+//            [btnSigning mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.right.equalTo(btnUpdatePassport);
+//                make.top.bottom.equalTo(btnRenewDomain);
+//            }];
+//        }
+    }else{
+//        btnUpdatePassport.hidden = btnSigning.hidden = TRUE;
+        
+        hContent = hTableView + 2*padding + hBTN + padding + hBTN + padding + hBTN + padding;
+        
+        [btnSignature mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(btnRenewal.mas_bottom);
+            make.height.mas_equalTo(0);
+        }];
+        
+        [btnUpdatePassport mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(btnSignature.mas_bottom);
+            make.height.mas_equalTo(0);
+        }];
+    }
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hContent);
+}
+
 #pragma mark - UITableview Delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    if (supportWhoIsProtect) {
+        return 7;
+    }else{
+        return 6;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -369,8 +531,6 @@
         }
         case 1:{
             cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Domain"];
-            
-            NSString *domain = [domainInfo objectForKey:@"domain_name"];
             cell.lbValue.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
             
             break;
@@ -436,21 +596,12 @@
             cell.lbValue.text = @"";
             
             //  check whois protect
-            BOOL isWhoIs = FALSE;
-            id isProtect = [domainInfo objectForKey:@"domain_whois_protect"];
-            if ([isProtect isKindOfClass:[NSString class]])
-            {
-                if ([isProtect isEqualToString:@"1"]) {
-                    isWhoIs = TRUE;
-                }else{
-                    isWhoIs = FALSE;
-                }
+            if (swWhoIsProtect == nil) {
+                float originX = (SCREEN_WIDTH - padding - 60.0);
+                swWhoIsProtect = [[KLCustomSwitch alloc] initWithState:isWhoIs frame:CGRectMake(originX, (hCell - 30.0)/2, 60.0, 30.0)];
+                swWhoIsProtect.delegate = self;
+                [cell addSubview: swWhoIsProtect];
             }
-            
-            float originX = (SCREEN_WIDTH - padding - 60.0);
-            swWhoIsProtect = [[KLCustomSwitch alloc] initWithState:isWhoIs frame:CGRectMake(originX, (hCell - 30.0)/2, 60.0, 30.0)];
-            swWhoIsProtect.delegate = self;
-            [cell addSubview: swWhoIsProtect];
             
             break;
         }

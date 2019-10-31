@@ -32,8 +32,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [WriteLogsUtils writeForGoToScreen:@"UpdateDNSViewController"];
-    
+    self.navigationController.navigationBarHidden = FALSE;
     
     dictDNS = [[NSDictionary alloc] init];
     

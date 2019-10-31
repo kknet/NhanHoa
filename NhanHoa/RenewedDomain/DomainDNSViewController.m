@@ -38,8 +38,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    
-    [WriteLogsUtils writeForGoToScreen:@"DomainDNSViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
     //  hide cart button to show icon add new dns record
     [AppDelegate sharedInstance].cartView.hidden = TRUE;

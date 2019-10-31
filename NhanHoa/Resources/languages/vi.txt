@@ -294,9 +294,25 @@
 
 "ord_id does not exists"    =   "ord_id không tồn tại"
 
-"Service name"          =   "Tên dịch vụ"
-"Creation date"         =   "Ngày tạo"
-"Domain details"        =   "Chi tiết tên miền"
+"Service name"              =   "Tên dịch vụ"
+"Creation date"             =   "Ngày tạo"
+"Domain details"            =   "Chi tiết tên miền"
+"Renewal domain"            =   "Gia hạn tên miền"
+"Signed contract"           =   "Hợp đồng đã ký tên"
+"Signing contract"          =   "Ký tên lên hợp đồng"
+"Update passport"           =   "Cập nhật CMND"
+"Change Name Server"        =   "Thay đổi Name Server"
+"DNS Records management"    =   "Quản lý DNS Records"
+
+"Updated"                   =   "Đã cập nhật"
+"Add New Record"            =   "Thêm mới Record"
+"DNS Records management"    =   "Quản lý DNS Records"
+
+"Name"      =   "Tên"
+"Type"      =   "Loại"
+"Value"     =   "Giá trị"
+"Count"     =   "Số lượng"
+
 
 
 

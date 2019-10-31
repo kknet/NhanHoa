@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *btnOn;
 
 @property (nonatomic, assign) float sizeThumb;
+@property (nonatomic, assign) BOOL curState;
+@property (nonatomic, assign) BOOL enabled;
 
 - (void)setUIForOffState;
 - (void)setUIForOnState;

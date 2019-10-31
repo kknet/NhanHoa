@@ -294,9 +294,26 @@
 
 "ord_id does not exists"    =   "ord_id does not exists"
 
-"Service name"          =   "Service name"
-"Creation date"         =   "Creation date"
-"Domain details"        =   "Domain details"
+"Service name"              =   "Service name"
+"Creation date"             =   "Creation date"
+"Domain details"            =   "Domain details"
+"Renewal domain"            =   "Renewal domain"
+"Signed contract"           =   "Signed contract"
+"Signing contract"          =   "Signing contract"
+"Update passport"           =   "Update passport"
+"Change Name Server"        =   "Change Name Server"
+"DNS Records management"    =   "DNS Records management"
+
+"Updated"                   =   "Updated"
+"Add New Record"            =   "Add New Record"
+"DNS Records management"    =   "DNS Records management"
+
+"Name"      =   "Name"
+"Type"      =   "Type"
+"Value"     =   "Value"
+"Count"     =   "Count"
+
+
 
 
 

@@ -10,7 +10,7 @@
 
 @implementation KLCustomSwitch
 @synthesize lbSlider, lbThumb, btnOn, btnOff;
-@synthesize sizeThumb, delegate;
+@synthesize sizeThumb, delegate, curState, enabled;
 
 - (id)initWithState: (BOOL)state frame: (CGRect)frame
 {
@@ -21,6 +21,7 @@
         UIColor *bgOff = GRAY_200;
         
         sizeThumb = 24.0;
+        curState = state;
         
         lbSlider = [[UILabel alloc] init];
         lbSlider.clipsToBounds = TRUE;
@@ -78,6 +79,12 @@
 }
 
 - (void)onSwitchOff {
+    if (!enabled) {
+        return;
+    }
+    
+    curState = FALSE;
+    
     lbThumb.backgroundColor = GRAY_200;
     [lbThumb mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
@@ -95,6 +102,12 @@
 }
 
 - (void)onSwitchOn {
+    if (!enabled) {
+        return;
+    }
+    
+    curState = TRUE;
+    
     lbThumb.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(194/255.0) blue:(126/255.0) alpha:1.0];
     [lbThumb mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
@@ -112,6 +125,7 @@
 }
 
 - (void)setUIForOffState {
+    curState = FALSE;
     lbThumb.backgroundColor = GRAY_200;
     [lbThumb mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
@@ -121,13 +135,13 @@
 }
 
 - (void)setUIForOnState {
+    curState = TRUE;
     lbThumb.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(194/255.0) blue:(126/255.0) alpha:1.0];
     [lbThumb mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(lbSlider.mas_centerX);
         make.width.height.mas_equalTo(sizeThumb);
     }];
-    
 }
 
 @end

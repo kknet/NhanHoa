@@ -332,6 +332,13 @@
 		4C8B4597235DB30E00D54F0F /* CartMoreInfoClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B4595235DB30E00D54F0F /* CartMoreInfoClvCell.xib */; };
 		4C8B835522F82ED2009D441A /* WindowsHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B835322F82ED2009D441A /* WindowsHostingCell.m */; };
 		4C8B835622F82ED2009D441A /* WindowsHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */; };
+		4C9A16D2236AD5B20022CC0C /* DNSRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A16D0236AD5B20022CC0C /* DNSRecordsViewController.m */; };
+		4C9A16D3236AD5B20022CC0C /* DNSRecordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A16D1236AD5B20022CC0C /* DNSRecordsViewController.xib */; };
+		4C9A16D7236ADA3C0022CC0C /* DNSRecordsTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A16D5236ADA3C0022CC0C /* DNSRecordsTbvCell.m */; };
+		4C9A16D8236ADA3C0022CC0C /* DNSRecordsTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A16D6236ADA3C0022CC0C /* DNSRecordsTbvCell.xib */; };
+		4C9A16DA236ADBD00022CC0C /* three_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A16D9236ADBD00022CC0C /* three_vertical.png */; };
+		4C9A16DD236AE91B0022CC0C /* AddDNSRecordsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A16DC236AE91B0022CC0C /* AddDNSRecordsView.m */; };
+		4C9A16DF236AE9260022CC0C /* AddDNSRecordsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A16DE236AE9260022CC0C /* AddDNSRecordsView.xib */; };
 		4CA8E27522F90C01000BD5E5 /* WorldpressHostingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */; };
 		4CA8E27622F90C01000BD5E5 /* WorldpressHostingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */; };
 		4CAAFDFA236A734400C0DA57 /* DomainInfoTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAFDF8236A734400C0DA57 /* DomainInfoTbvCell.m */; };
@@ -667,8 +674,6 @@
 		847E9AA7227EAB2D00C83F5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E9AA6227EAB2D00C83F5A /* AccountModel.m */; };
 		8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481F88B22832DA100C88EB1 /* TopupViewController.m */; };
 		8481F88E22832DA100C88EB1 /* TopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8481F88C22832DA100C88EB1 /* TopupViewController.xib */; };
-		8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */; };
-		8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */; };
 		849827832285D50C00201ED7 /* NewProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849827822285D50C00201ED7 /* NewProfileView.m */; };
 		849827852285D51900201ED7 /* NewProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849827842285D51900201ED7 /* NewProfileView.xib */; };
 		84999C12227C86550006C80A /* WebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 84999C10227C86550006C80A /* WebServices.m */; };
@@ -1116,6 +1121,16 @@
 		4C8B835222F82ED2009D441A /* WindowsHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowsHostingCell.h; sourceTree = "<group>"; };
 		4C8B835322F82ED2009D441A /* WindowsHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowsHostingCell.m; sourceTree = "<group>"; };
 		4C8B835422F82ED2009D441A /* WindowsHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowsHostingCell.xib; sourceTree = "<group>"; };
+		4C9A16CF236AD5B20022CC0C /* DNSRecordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSRecordsViewController.h; sourceTree = "<group>"; };
+		4C9A16D0236AD5B20022CC0C /* DNSRecordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSRecordsViewController.m; sourceTree = "<group>"; };
+		4C9A16D1236AD5B20022CC0C /* DNSRecordsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSRecordsViewController.xib; sourceTree = "<group>"; };
+		4C9A16D4236ADA3C0022CC0C /* DNSRecordsTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSRecordsTbvCell.h; sourceTree = "<group>"; };
+		4C9A16D5236ADA3C0022CC0C /* DNSRecordsTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSRecordsTbvCell.m; sourceTree = "<group>"; };
+		4C9A16D6236ADA3C0022CC0C /* DNSRecordsTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DNSRecordsTbvCell.xib; sourceTree = "<group>"; };
+		4C9A16D9236ADBD00022CC0C /* three_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_vertical.png; sourceTree = "<group>"; };
+		4C9A16DB236AE91B0022CC0C /* AddDNSRecordsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDNSRecordsView.h; sourceTree = "<group>"; };
+		4C9A16DC236AE91B0022CC0C /* AddDNSRecordsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDNSRecordsView.m; sourceTree = "<group>"; };
+		4C9A16DE236AE9260022CC0C /* AddDNSRecordsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDNSRecordsView.xib; sourceTree = "<group>"; };
 		4CA8E27222F90C01000BD5E5 /* WorldpressHostingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldpressHostingCell.h; sourceTree = "<group>"; };
 		4CA8E27322F90C01000BD5E5 /* WorldpressHostingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorldpressHostingCell.m; sourceTree = "<group>"; };
 		4CA8E27422F90C01000BD5E5 /* WorldpressHostingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorldpressHostingCell.xib; sourceTree = "<group>"; };
@@ -1543,9 +1558,6 @@
 		8481F88A22832DA100C88EB1 /* TopupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopupViewController.h; sourceTree = "<group>"; };
 		8481F88B22832DA100C88EB1 /* TopupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopupViewController.m; sourceTree = "<group>"; };
 		8481F88C22832DA100C88EB1 /* TopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopupViewController.xib; sourceTree = "<group>"; };
-		8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenewDomainDetailViewController.h; sourceTree = "<group>"; };
-		8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenewDomainDetailViewController.m; sourceTree = "<group>"; };
-		8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RenewDomainDetailViewController.xib; sourceTree = "<group>"; };
 		849827812285D50C00201ED7 /* NewProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewProfileView.h; sourceTree = "<group>"; };
 		849827822285D50C00201ED7 /* NewProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewProfileView.m; sourceTree = "<group>"; };
 		849827842285D51900201ED7 /* NewProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewProfileView.xib; sourceTree = "<group>"; };
@@ -1824,6 +1836,7 @@
 			children = (
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				4C9A16D9236ADBD00022CC0C /* three_vertical.png */,
 				4CC1AE2F23699FB200F59985 /* bg_wallet_small.png */,
 				4CC1AE2B23699A6700F59985 /* fruits-apple.gif */,
 				4CC1AE2D23699E4200F59985 /* search.gif */,
@@ -2361,6 +2374,9 @@
 				4CAAFDFC236A8BFF00C0DA57 /* DomainDetailsViewController.h */,
 				4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */,
 				4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */,
+				4C9A16CF236AD5B20022CC0C /* DNSRecordsViewController.h */,
+				4C9A16D0236AD5B20022CC0C /* DNSRecordsViewController.m */,
+				4C9A16D1236AD5B20022CC0C /* DNSRecordsViewController.xib */,
 			);
 			path = DomainsManagement;
 			sourceTree = "<group>";
@@ -2508,6 +2524,12 @@
 				4CAAFE01236A986800C0DA57 /* DomainDetailTbvCell.h */,
 				4CAAFE02236A986800C0DA57 /* DomainDetailTbvCell.m */,
 				4CAAFE03236A986800C0DA57 /* DomainDetailTbvCell.xib */,
+				4C9A16D4236ADA3C0022CC0C /* DNSRecordsTbvCell.h */,
+				4C9A16D5236ADA3C0022CC0C /* DNSRecordsTbvCell.m */,
+				4C9A16D6236ADA3C0022CC0C /* DNSRecordsTbvCell.xib */,
+				4C9A16DB236AE91B0022CC0C /* AddDNSRecordsView.h */,
+				4C9A16DC236AE91B0022CC0C /* AddDNSRecordsView.m */,
+				4C9A16DE236AE9260022CC0C /* AddDNSRecordsView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3019,9 +3041,6 @@
 			isa = PBXGroup;
 			children = (
 				8490A5A62279A72A00B921B7 /* UI */,
-				8490A5AF2279B05E00B921B7 /* RenewDomainDetailViewController.h */,
-				8490A5B02279B05E00B921B7 /* RenewDomainDetailViewController.m */,
-				8490A5B12279B05E00B921B7 /* RenewDomainDetailViewController.xib */,
 				15D1BD7D2283D618004C0452 /* RenewDomainCartViewController.h */,
 				15D1BD7E2283D618004C0452 /* RenewDomainCartViewController.m */,
 				15D1BD7F2283D618004C0452 /* RenewDomainCartViewController.xib */,
@@ -3268,6 +3287,7 @@
 				4C6580ED22FBC42F00F38087 /* email_server_act.png in Resources */,
 				4C017AE1230A38B7000E2780 /* tabbar_acc_act@2x.png in Resources */,
 				4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */,
+				4C9A16D3236AD5B20022CC0C /* DNSRecordsViewController.xib in Resources */,
 				845D32CB2279624D0047B196 /* arrow_down.png in Resources */,
 				4CD0C4CE23614673007AA56A /* no_notification_vi.png in Resources */,
 				8446F4B72277C55E008F4EE9 /* close.png in Resources */,
@@ -3365,6 +3385,7 @@
 				4CD0C50F236190CD007AA56A /* more_help.png in Resources */,
 				4CD0C50C236190CD007AA56A /* more_setting.png in Resources */,
 				4CD0C50B236190CD007AA56A /* more_contact.png in Resources */,
+				4C9A16D8236ADA3C0022CC0C /* DNSRecordsTbvCell.xib in Resources */,
 				840F5DFB2277328B005BFC57 /* WhoIsViewController.xib in Resources */,
 				842F81AF227561ED00D6DE6D /* Roboto-ThinItalic.ttf in Resources */,
 				1517FB6C227446980044E878 /* HomeViewController.xib in Resources */,
@@ -3406,6 +3427,7 @@
 				4C28B90C22F5948500910F54 /* menu_email.png in Resources */,
 				4C8B4588235D69D800D54F0F /* CartDomainTbvCell.xib in Resources */,
 				4C28B91C22F5975100910F54 /* RegisterHostingViewController.xib in Resources */,
+				4C9A16DF236AE9260022CC0C /* AddDNSRecordsView.xib in Resources */,
 				4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
@@ -3474,6 +3496,7 @@
 				4CC1AE2A23697F5200F59985 /* NewProfileViewController.xib in Resources */,
 				8460F648227A651E00A185B0 /* PromotionCodeView.xib in Resources */,
 				4CC1AE3023699FB300F59985 /* bg_wallet_small.png in Resources */,
+				4C9A16DA236ADBD00022CC0C /* three_vertical.png in Resources */,
 				15FEFB3922A4CABF002A3AD3 /* round_close_white.png in Resources */,
 				4C41FE572358139D007E8BBC /* promotion_3.png in Resources */,
 				8477A5A2227B4DBD003194E8 /* SelectProfileView.xib in Resources */,
@@ -3540,7 +3563,6 @@
 				4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				4C49FA372356C366001D0EEF /* HomeSliderClvCell.xib in Resources */,
-				8490A5B32279B05E00B921B7 /* RenewDomainDetailViewController.xib in Resources */,
 				4CD0C4EB236159AD007AA56A /* promos3.png in Resources */,
 				4C49FA83235705A9001D0EEF /* slider_3.png in Resources */,
 				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
@@ -3841,6 +3863,7 @@
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				4C28B92D22F5985900910F54 /* RegisterVPSViewController.m in Sources */,
 				4C3252712362EEBA00246DEB /* WalletViewController.m in Sources */,
+				4C9A16D2236AD5B20022CC0C /* DNSRecordsViewController.m in Sources */,
 				569A0579229CA74100FD10D8 /* UploadPicture.m in Sources */,
 				8460F64C227A686C00A185B0 /* CartDomainItemCell.m in Sources */,
 				5612F8A922E6C04800ECBBB1 /* CallViewController.m in Sources */,
@@ -3878,6 +3901,7 @@
 				153035E822867773005E7DB2 /* CityObject.m in Sources */,
 				4CD7A63B2355AA8D00044E1A /* HomeHeaderView.m in Sources */,
 				156B8C18226ECB060020EDCB /* RegisteredDomainViewController.m in Sources */,
+				4C9A16D7236ADA3C0022CC0C /* DNSRecordsTbvCell.m in Sources */,
 				4C0844F023669BF100E76F7F /* ContactTbvCell.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
 				4C00790522F143B300C19492 /* DNSDetailCell.m in Sources */,
@@ -3887,6 +3911,7 @@
 				4CD0C500236189E1007AA56A /* MoreTbvCell.m in Sources */,
 				56CB516E22A72E8700D6D68A /* UpdateBusinessProfile.m in Sources */,
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
+				4C9A16DD236AE91B0022CC0C /* AddDNSRecordsView.m in Sources */,
 				4C0844F92366AF5200E76F7F /* AccSettingsViewController.m in Sources */,
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
 				4CAAFE04236A986800C0DA57 /* DomainDetailTbvCell.m in Sources */,
@@ -3922,7 +3947,6 @@
 				5610492122B4FE9000463378 /* Constant.m in Sources */,
 				4CEA11752358737E00762C45 /* NewLaunchViewController.m in Sources */,
 				56FCA44722CC8F88005C173E /* SupportListViewController.m in Sources */,
-				8490A5B22279B05E00B921B7 /* RenewDomainDetailViewController.m in Sources */,
 				4C00B3FC22F2E7520087479C /* DNSRecordManagerView.m in Sources */,
 				4CD0C4D9236156A4007AA56A /* PromotionTbvCell.m in Sources */,
 			);

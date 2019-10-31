@@ -24,8 +24,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    
-    [WriteLogsUtils writeForGoToScreen:@"SigningDomainViewController"];
+    self.navigationController.navigationBarHidden = FALSE;
     
     wvContent.hidden = TRUE;
     icWaiting.hidden = FALSE;
