@@ -294,7 +294,9 @@
 
 "ord_id does not exists"    =   "ord_id does not exists"
 
-
+"Service name"          =   "Service name"
+"Creation date"         =   "Creation date"
+"Domain details"        =   "Domain details"
 
 
 

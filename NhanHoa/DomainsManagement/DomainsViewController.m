@@ -160,10 +160,6 @@ typedef enum TypeForGetDomain{
     }];
     
     //  scrollview menu
-    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
-    scvContent.userInteractionEnabled = TRUE;
-    [scvContent addGestureRecognizer: tapOnScreen];
-    
     scvMenu.backgroundColor = UIColor.clearColor;
     [scvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgTop).offset(padding);
@@ -199,10 +195,6 @@ typedef enum TypeForGetDomain{
         make.top.equalTo(scvMenu.mas_bottom);
         make.height.mas_equalTo(hNoData);
     }];
-}
-
-- (void)closeKeyboard {
-    [self.view endEditing: TRUE];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -582,8 +574,8 @@ typedef enum TypeForGetDomain{
     if (![AppUtils isNullOrEmpty: ord_id] && ![AppUtils isNullOrEmpty: cus_id])
     {
         DomainDetailsViewController *domainDetailVC = [[DomainDetailsViewController alloc] initWithNibName:@"DomainDetailsViewController" bundle:nil];
-//        domainDetailVC.ordId = ord_id;
-//        domainDetailVC.cusId = cus_id;
+        domainDetailVC.ordId = ord_id;
+        domainDetailVC.cusId = cus_id;
         [self.navigationController pushViewController: domainDetailVC animated:YES];
     }else{
         [self.view makeToast:[appDelegate.localization localizedStringForKey:@"ord_id does not exists"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];

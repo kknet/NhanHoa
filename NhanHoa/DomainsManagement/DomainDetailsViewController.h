@@ -25,9 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnChangeNameServer;
 @property (weak, nonatomic) IBOutlet UIButton *btnDNSRecordsManagement;
 
-
-
-
 - (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;
 - (IBAction)btnRenewalPress:(UIButton *)sender;
@@ -35,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnUpdatePassportPress:(UIButton *)sender;
 - (IBAction)btnChangeNameServerPress:(UIButton *)sender;
 - (IBAction)btnDNSRecordsManagement:(UIButton *)sender;
+
+@property (nonatomic, strong) NSString *ordId;
+@property (nonatomic, strong) NSString *cusId;
 
 @end
 

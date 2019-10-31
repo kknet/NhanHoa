@@ -338,6 +338,8 @@
 		4CAAFDFB236A734400C0DA57 /* DomainInfoTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAAFDF9236A734400C0DA57 /* DomainInfoTbvCell.xib */; };
 		4CAAFDFF236A8BFF00C0DA57 /* DomainDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */; };
 		4CAAFE00236A8BFF00C0DA57 /* DomainDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */; };
+		4CAAFE04236A986800C0DA57 /* DomainDetailTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAFE02236A986800C0DA57 /* DomainDetailTbvCell.m */; };
+		4CAAFE05236A986800C0DA57 /* DomainDetailTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAAFE03236A986800C0DA57 /* DomainDetailTbvCell.xib */; };
 		4CB7B572236301C2008AA0BF /* WalletTransHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7B570236301C2008AA0BF /* WalletTransHistoryCell.m */; };
 		4CB7B573236301C2008AA0BF /* WalletTransHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B571236301C2008AA0BF /* WalletTransHistoryCell.xib */; };
 		4CB7B5762363043E008AA0BF /* money_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB7B5742363043E008AA0BF /* money_in.png */; };
@@ -1123,6 +1125,9 @@
 		4CAAFDFC236A8BFF00C0DA57 /* DomainDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDetailsViewController.h; sourceTree = "<group>"; };
 		4CAAFDFD236A8BFF00C0DA57 /* DomainDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDetailsViewController.m; sourceTree = "<group>"; };
 		4CAAFDFE236A8BFF00C0DA57 /* DomainDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainDetailsViewController.xib; sourceTree = "<group>"; };
+		4CAAFE01236A986800C0DA57 /* DomainDetailTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainDetailTbvCell.h; sourceTree = "<group>"; };
+		4CAAFE02236A986800C0DA57 /* DomainDetailTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DomainDetailTbvCell.m; sourceTree = "<group>"; };
+		4CAAFE03236A986800C0DA57 /* DomainDetailTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainDetailTbvCell.xib; sourceTree = "<group>"; };
 		4CB7B56F236301C2008AA0BF /* WalletTransHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletTransHistoryCell.h; sourceTree = "<group>"; };
 		4CB7B570236301C2008AA0BF /* WalletTransHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletTransHistoryCell.m; sourceTree = "<group>"; };
 		4CB7B571236301C2008AA0BF /* WalletTransHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletTransHistoryCell.xib; sourceTree = "<group>"; };
@@ -2500,6 +2505,9 @@
 				4CAAFDF7236A734400C0DA57 /* DomainInfoTbvCell.h */,
 				4CAAFDF8236A734400C0DA57 /* DomainInfoTbvCell.m */,
 				4CAAFDF9236A734400C0DA57 /* DomainInfoTbvCell.xib */,
+				4CAAFE01236A986800C0DA57 /* DomainDetailTbvCell.h */,
+				4CAAFE02236A986800C0DA57 /* DomainDetailTbvCell.m */,
+				4CAAFE03236A986800C0DA57 /* DomainDetailTbvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3385,6 +3393,7 @@
 				84588A9E228093F000B59E0F /* ic_signout.png in Resources */,
 				4CD7A6592355C4B700044E1A /* menu_more.png in Resources */,
 				1517FBA622745D810044E878 /* tabbar_BO_def@3x.png in Resources */,
+				4CAAFE05236A986800C0DA57 /* DomainDetailTbvCell.xib in Resources */,
 				4C41FE5923582CC0007E8BBC /* search_domains_100.png in Resources */,
 				4C041ECD22E8440A00DA7405 /* numpad_nine_default.png in Resources */,
 				4C49FA552356F172001D0EEF /* NotificationsViewController.xib in Resources */,
@@ -3880,6 +3889,7 @@
 				157F0C1B2282E80400DCB7D4 /* SelectYearsCell.m in Sources */,
 				4C0844F92366AF5200E76F7F /* AccSettingsViewController.m in Sources */,
 				157A01C922A7733D00A0B11F /* PECropViewController.m in Sources */,
+				4CAAFE04236A986800C0DA57 /* DomainDetailTbvCell.m in Sources */,
 				15D1BD862283E5EB004C0452 /* SupportViewController.m in Sources */,
 				4C8B458D235D94BE00D54F0F /* KLCustomSwitch.m in Sources */,
 				15D1BD902283E9D8004C0452 /* NotificationCell.m in Sources */,

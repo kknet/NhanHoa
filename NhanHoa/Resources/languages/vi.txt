@@ -294,6 +294,9 @@
 
 "ord_id does not exists"    =   "ord_id không tồn tại"
 
+"Service name"          =   "Tên dịch vụ"
+"Creation date"         =   "Ngày tạo"
+"Domain details"        =   "Chi tiết tên miền"
 
 
 
