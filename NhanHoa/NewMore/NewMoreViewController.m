@@ -10,7 +10,7 @@
 #import "WalletViewController.h"
 #import "DomainsViewController.h"
 #import "SupportViewController.h"
-#import "BankInfoViewController.h"
+#import "BankAccountViewController.h"
 #import "AccSettingsViewController.h"
 #import "AboutViewController.h"
 #import "ProfileInfoViewController.h"
@@ -341,7 +341,7 @@
                 break;
             }
             case 4:{
-                BankInfoViewController *bankInfoVC = [[BankInfoViewController alloc] initWithNibName:@"BankInfoViewController" bundle:nil];
+                BankAccountViewController *bankInfoVC = [[BankAccountViewController alloc] initWithNibName:@"BankAccountViewController" bundle:nil];
                 bankInfoVC.hidesBottomBarWhenPushed = YES;
                 [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
                 [self.navigationController pushViewController: bankInfoVC animated:YES];

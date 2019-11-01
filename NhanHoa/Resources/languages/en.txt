@@ -313,6 +313,53 @@
 "Value"     =   "Value"
 "Count"     =   "Count"
 
+"Add new DNS Records"       =   "Add new DNS Records"
+"Edit DNS Records"          =   "Edit DNS Records"
+"You're adding new record for domain"   =   "You're adding new record for domain"
+"You're updating record for domain"     =   "You're updating record for domain"
+
+"Record name"           =   "Record name"
+"Record type"           =   "Record type"
+"Choose record type"    =   "Choose record type"
+"Record value"          =   "Record value"
+"TTL value"             =   "TTL value"
+"MX value"              =   "MX value"
+"Reset"                 =   "Reset"
+"Save Record"           =   "Save Record"
+"From"                  =   "From"
+"To"                    =   "To"
+"Check"                 =   "Check"
+
+"If it is A record, after creating, wait 1 minute later to access to avoid DNS cache."  =   "If it is A record, after creating, wait 1 minute later to access to avoid DNS cache."
+
+"Please enter Record name"      =   "Please enter Record name"
+"Please enter Record type"      =   "Please enter Record type"
+"Please enter MX value"         =   "Please enter MX value"
+"MX's value is only number"     =   "MX's value is only number"
+"MX's is invalid"               =   "MX's is invalid"
+"Please enter Record value"     =   "Please enter Record value"
+"Please enter TTL value"        =   "Please enter TTL value"
+"TTL's value is only number"    =   "TTL's value is only number"
+"TTL's value is invalid"        =   "TTL's value is invalid"
+
+"Your Record has been added"    =   "Your Record has been added"
+"Your Record has been updated"  =   "Your Record has been updated"
+
+"Edit Record"       =   "Edit Record"
+"Delete Record"     =   "Delete Record"
+
+"Do you want to delete this record?"    =   "Do you want to delete this record?"
+"Record has been deleted successful"    =   "Record has been deleted successful"
+"Deleting..."       =   "Deleting..."
+"Enter domain name" =   "Enter domain name"
+
+"Check multi domains"   =   "Check multi domains"
+"Enter one or multi domains you want to check"  =   "Enter one or multi domains you want to check"
+"Please enter domains you want to check"        =   "Please enter domains you want to check"
+
+"Bank account"      =   "Tài khoản ngân hàng"
+
+
 
 
 

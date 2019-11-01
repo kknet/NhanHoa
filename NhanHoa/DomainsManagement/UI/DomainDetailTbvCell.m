@@ -44,6 +44,10 @@
         make.left.equalTo(lbTitle.mas_right);
     }];
     
+    lbDesc.backgroundColor = BLUE_COLOR;
+    lbDesc.clipsToBounds = TRUE;
+    lbDesc.layer.cornerRadius = 4.0;
+    lbDesc.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-1];
     [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(lbValue);
         make.top.equalTo(lbValue.mas_bottom);
@@ -76,11 +80,13 @@
     }];
     
     if (![lbDesc.text isEqualToString:@""]) {
-        float sizeDesc = [AppUtils getSizeWithText:lbDesc.text withFont:lbDesc.font andMaxWidth:SCREEN_WIDTH].width + 5.0;
+        lbDesc.hidden = FALSE;
+        float sizeDesc = [AppUtils getSizeWithText:lbDesc.text withFont:lbDesc.font andMaxWidth:SCREEN_WIDTH].width + 10.0;
         [lbDesc mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(sizeDesc);
         }];
     }else{
+        lbDesc.hidden = TRUE;
         [lbDesc mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(0);
         }];

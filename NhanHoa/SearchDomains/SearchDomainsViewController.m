@@ -11,7 +11,7 @@
 #import "HomeSliderClvCell.h"
 #import "SearchResultsViewController.h"
 #import "DomainsViewController.h"
-#import "WhoIsViewController.h"
+#import "SearchMultiDomainsViewController.h"
 
 @interface SearchDomainsViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 {
@@ -196,8 +196,8 @@
 }
 
 - (void)goToCheckMultiDomains {
-    WhoIsViewController *whoisVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-    [self.navigationController pushViewController: whoisVC animated:TRUE];
+    SearchMultiDomainsViewController *searchMultisVC = [[SearchMultiDomainsViewController alloc] initWithNibName:@"SearchMultiDomainsViewController" bundle:nil];
+    [self.navigationController pushViewController: searchMultisVC animated:TRUE];
 }
 
 - (void)goToRenewalDomains {

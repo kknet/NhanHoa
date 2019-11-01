@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) NSString *name;
-- (BankObject *)initWithName: (NSString *)name code: (NSString *)code;
+@property (nonatomic, strong) NSString *logo;
+
+- (BankObject *)initWithName: (NSString *)name code: (NSString *)code logo: (NSString *)logo;
 
 @end
 

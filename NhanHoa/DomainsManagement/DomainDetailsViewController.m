@@ -11,7 +11,6 @@
 #import "UpdatePassportViewController.h"
 #import "UpdateDNSViewController.h"
 #import "DNSRecordsViewController.h"
-//  #import "DomainDNSViewController.h"
 #import "RenewDomainCartViewController.h"
 #import "DomainDetailTbvCell.h"
 #import "KLCustomSwitch.h"
@@ -538,9 +537,26 @@
         case 2:{
             cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Service name"];
             
-            NSString *serviceName = [domainInfo objectForKey:@"service_name"];
-            cell.lbValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
-            
+            if (domainInfo != nil) {
+                NSString *serviceName = [domainInfo objectForKey:@"service_name"];
+                NSArray *tmpArr = [serviceName componentsSeparatedByString:@"."];
+                if (tmpArr.count > 0) {
+                    NSString *subStr = SFM(@".%@", [tmpArr lastObject]);
+                    NSRange range = [serviceName rangeOfString: subStr];
+                    if (range.location != NSNotFound) {
+                        cell.lbDesc.text = subStr;
+                        cell.lbValue.text = [serviceName substringToIndex:range.location];
+                    }else{
+                        cell.lbValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
+                        cell.lbDesc.text = @"";
+                    }
+                }else{
+                    cell.lbValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
+                    cell.lbDesc.text = @"";
+                }
+            }else{
+                cell.lbValue.text = @"";
+            }
             break;
         }
         case 3:{
@@ -621,6 +637,9 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) {
+        return hLargeCell;
+    }
     return hCell;
 }
 

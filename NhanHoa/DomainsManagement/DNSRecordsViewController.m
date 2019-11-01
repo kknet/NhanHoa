@@ -9,8 +9,10 @@
 #import "DNSRecordsViewController.h"
 #import "DNSRecordsTbvCell.h"
 #import "AddDNSRecordsView.h"
+#import "DNSRecordPopupView.h"
 
-@interface DNSRecordsViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
+@interface DNSRecordsViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, AddDNSRecordsViewDelegate, DNSRecordPopupViewDelegate>
+{
     AppDelegate *appDelegate;
     UIFont *textFont;
     float padding;
@@ -19,7 +21,7 @@
     
     NSMutableArray *recordList;
     
-    AddDNSRecordsView *addRecordsView;
+    AddDNSRecordsView *dnsRecordsView;
 }
 @end
 
@@ -154,7 +156,7 @@
     }];
     
     lbInfo.numberOfLines = 15;
-    lbInfo.font = [AppDelegate sharedInstance].fontBTN;
+    lbInfo.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
     lbInfo.textAlignment = NSTextAlignmentCenter;
     lbInfo.textColor = TITLE_COLOR;
     lbInfo.text = @"Tên miền của bạn đang sử dụng name server không thuộc hệ thống Nhân Hòa, bạn cần đổi name server theo thông tin bên dưới sau đó vào lại mục này.\n\nns1.zonedns.vn\nns2.zonedns.vn\nns3.zonedns.vn\nns4.zonedns.vn";
@@ -167,8 +169,8 @@
     btnChange.backgroundColor = BLUE_COLOR;
     btnChange.layer.borderWidth = 1.0;
     btnChange.layer.borderColor = BLUE_COLOR.CGColor;
-    btnChange.layer.cornerRadius = [AppDelegate sharedInstance].radius;
-    btnChange.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
+    btnChange.layer.cornerRadius = 10.0;
+    btnChange.titleLabel.font = lbInfo.font;
     [btnChange setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
     
@@ -189,19 +191,22 @@
 }
 
 - (IBAction)btnAddRecordPress:(UIButton *)sender {
-    if (addRecordsView == nil) {
+    if (dnsRecordsView == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"AddDNSRecordsView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
             if ([currentObject isKindOfClass:[AddDNSRecordsView class]]) {
-                addRecordsView = (AddDNSRecordsView *) currentObject;
+                dnsRecordsView = (AddDNSRecordsView *) currentObject;
                 break;
             }
         }
-        [self.view addSubview: addRecordsView];
+        dnsRecordsView.delegate = self;
+        [self.view addSubview: dnsRecordsView];
     }
-    [addRecordsView setupUIForViewWithHeighNav: self.navigationController.navigationBar.frame.size.height];
+    dnsRecordsView.typeView = eDNSRecordAddNew;
+    dnsRecordsView.domain = domainName;
+    [dnsRecordsView setupUIForViewWithHeighNav: self.navigationController.navigationBar.frame.size.height];
     
-    [addRecordsView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [dnsRecordsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(SCREEN_HEIGHT);
@@ -214,7 +219,7 @@
 }
 
 - (void)showAddDNSRecordsView {
-    [addRecordsView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [dnsRecordsView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
     }];
     [UIView animateWithDuration:0.1 animations:^{
@@ -222,7 +227,49 @@
     }];
 }
 
+#pragma mark - AddDNSRecordViewDelegate
+-(void)closeAddDNSRecordView {
+    [dnsRecordsView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+    }];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        [self.view layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        [dnsRecordsView removeFromSuperview];
+        dnsRecordsView = nil;
+    }];
+}
+
+- (void)addNewDNSRecordSuccessful {
+    [self closeAddDNSRecordView];
+    [self getDNSRecordListForDomain];
+}
+
 #pragma mark - WebserviceUtil Delegate
+-(void)failedToDeleteDNSRecord:(id)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:1.5 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)deleteDNSRecordsSuccessfulWithData:(NSDictionary *)data
+{
+    [ProgressHUD dismiss];
+    
+    [self getDNSRecordListForDomain];
+    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSString *message = [data objectForKey:@"message"];
+        if (![AppUtils isNullOrEmpty: message]) {
+            [self.view makeToast:message duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+            return;
+        }
+    }
+    [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Record has been deleted successful"] duration:2.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+}
+
 -(void)failedToGetDNSRecordList:(id)error {
     [ProgressHUD dismiss];
     NSString *content = [AppUtils getErrorContentFromData: error];
@@ -276,6 +323,11 @@
     NSDictionary *info = [recordList objectAtIndex: indexPath.row];
     [cell showDNSRecordContentWithInfo: info];
     
+    cell.icDetail.tag = (int)indexPath.row;
+    [cell.icDetail addTarget:self
+                      action:@selector(showDNSRecordDetailsView:)
+            forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -313,6 +365,78 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 50.0;
+}
+
+- (void)showDNSRecordDetailsView: (UIButton *)sender {
+    if ((int)sender.tag < recordList.count) {
+        NSDictionary *info = [recordList objectAtIndex: sender.tag];
+        
+        DNSRecordPopupView *popupView = [[DNSRecordPopupView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        popupView.delegate = self;
+        [popupView displayRecordContentWithInfo: info];
+        [popupView showInView:appDelegate.window animated:TRUE];
+    }
+}
+
+#pragma mark - DNSRecordPopupViewDelegate
+-(void)onButtonEditDNSRecordPressWithRecordId:(NSString *)recordId {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"record_id = %@", recordId];
+    NSArray *filter = [recordList filteredArrayUsingPredicate: predicate];
+    if (filter.count > 0) {
+        if (dnsRecordsView == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"AddDNSRecordsView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[AddDNSRecordsView class]]) {
+                    dnsRecordsView = (AddDNSRecordsView *) currentObject;
+                    break;
+                }
+            }
+            dnsRecordsView.delegate = self;
+            [self.view addSubview: dnsRecordsView];
+        }
+        dnsRecordsView.typeView = eDNSRecordEdit;
+        dnsRecordsView.domain = domainName;
+        [dnsRecordsView setupUIForViewWithHeighNav: self.navigationController.navigationBar.frame.size.height];
+        [dnsRecordsView displayContentWithDNSInfo: (NSDictionary *)[filter firstObject]];
+        
+        [dnsRecordsView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(SCREEN_HEIGHT);
+        }];
+        
+        [self performSelector:@selector(showAddDNSRecordsView) withObject:nil afterDelay:0.2];
+    }
+}
+
+-(void)onButtonDeleteDNSRecordPressWithRecordId:(NSString *)recordId {
+    if (![AppUtils isNullOrEmpty: recordId])
+    {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:[appDelegate.localization localizedStringForKey:@"Do you want to delete this record?"]];
+        [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-2] range:NSMakeRange(0, attrTitle.string.length)];
+        [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+        
+        UIAlertAction *btnClose = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Close"] style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action){
+                                                             
+                                                         }];
+        [btnClose setValue:BLUE_COLOR forKey:@"titleTextColor"];
+        
+        UIAlertAction *btnDelete = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Remove"] style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action){
+                                                              [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                              [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Deleting..."] Interaction:NO];
+                                                              
+                                                              [[WebServiceUtils getInstance] deleteDNSRecordForDomain:domainName record_id: recordId];
+                                                          }];
+        [btnDelete setValue:UIColor.redColor forKey:@"titleTextColor"];
+        
+        [alertVC addAction:btnClose];
+        [alertVC addAction:btnDelete];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
 }
 
 @end

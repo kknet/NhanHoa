@@ -10,12 +10,14 @@
 
 @implementation BankObject
 
-@synthesize code, name;
+@synthesize code, name, logo;
 
-- (BankObject *)initWithName: (NSString *)name code: (NSString *)code {
+- (BankObject *)initWithName: (NSString *)name code: (NSString *)code logo: (NSString *)logo {
     BankObject *bank = [[BankObject alloc] init];
     bank.name = name;
     bank.code = code;
+    bank.logo = logo;
+    
     return bank;
 }
 

@@ -139,14 +139,6 @@
         NSString *record_ttl = [info objectForKey:@"record_ttl"];
         lbTTLValue.text = (![AppUtils isNullOrEmpty: record_ttl]) ? record_ttl : @"";
         
-        /*
-         "record_id" = 709276;
-         "record_mx" = "<null>";
-         "record_name" = "@";
-         "record_ttl" = 3600;
-         "record_type" = A;
-         "record_value" = "172.104.55.77";
-         */
     }else{
         lbDomainValue.text = lbTypeValue.text = lbValueValue.text = lbMXValue.text = lbTTLValue.text = @"";
     }

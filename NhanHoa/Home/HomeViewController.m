@@ -8,7 +8,7 @@
 
 #import "HomeViewController.h"
 #import "SearchDomainsViewController.h"
-#import "WhoIsViewController.h"
+#import "SearchMultiDomainsViewController.h"
 #import "DomainsViewController.h"
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
@@ -267,7 +267,7 @@
         
     }else if ([title isEqualToString: text_search_domains])
     {
-        WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
+        SearchMultiDomainsViewController *whoIsVC = [[SearchMultiDomainsViewController alloc] initWithNibName:@"SearchMultiDomainsViewController" bundle:nil];
         whoIsVC.hidesBottomBarWhenPushed = TRUE;
         [self.navigationController pushViewController: whoIsVC animated:TRUE];
         

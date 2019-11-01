@@ -10,7 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddDNSRecordsView : UIView
+typedef enum {
+    eDNSRecordAddNew,
+    eDNSRecordEdit,
+}DNSRecordTypeView;
+
+@protocol AddDNSRecordsViewDelegate<NSObject>
+@optional
+- (void)closeAddDNSRecordView;
+- (void)addNewDNSRecordSuccessful;
+@end
+
+@interface AddDNSRecordsView : UIView<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, WebServiceUtilsDelegate>
+
+@property (nonatomic, strong) id<AddDNSRecordsViewDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
@@ -40,6 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)btnSaveRecordsPress:(UIButton *)sender;
 
 - (void)setupUIForViewWithHeighNav: (float)hNav;
+- (void)displayContentWithDNSInfo: (NSDictionary *)info;
+
+@property (nonatomic, strong) NSDictionary *editInfo;
+@property (nonatomic, strong) NSString *domain;
+@property (nonatomic, strong) NSArray *listType;
+@property (nonatomic, strong) UITableView *tbType;
+@property (nonatomic, assign) float paddingY;
+@property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hLabel;
+@property (nonatomic, assign) float hTextfield;
+
+@property (nonatomic, assign) DNSRecordTypeView typeView;
 
 @end
 
