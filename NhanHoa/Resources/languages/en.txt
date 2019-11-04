@@ -357,7 +357,34 @@
 "Enter one or multi domains you want to check"  =   "Enter one or multi domains you want to check"
 "Please enter domains you want to check"        =   "Please enter domains you want to check"
 
-"Bank account"      =   "Tài khoản ngân hàng"
+"Bank account"          =   "Bank account"
+"Update bank account"   =   "Update bank account"
+"Bank name"             =   "Bank name"
+"Owner name"            =   "Owner name"
+"Bank account number"   =   "Bank account number"
+"Cancel"                =   "Cancel"
+
+"Enter bank name"           =   "Enter bank name"
+"Enter owner name"          =   "Enter owner name"
+"Enter bank account number" =   "Enter bank account number"
+
+"Your bank account info has been updated successful"    =   "Your bank account info has been updated successful"
+
+"Customer support"          =   "Customer support"
+"What's can we help you?"   =   "What's can we help you?"
+"Send your question to us"  =   "Send your question to us"
+"Email address"             =   "Email address"
+"Question content"          =   "Question content"
+"Send question"             =   "Send question"
+"Call to Nhan Hoa"          =   "Call to Nhan Hoa"
+
+"Please enter your email address"       =   "Please enter your email address"
+"Please enter your question content"    =   "Please enter your question content"
+"Your question has been sent"           =   "Your question has been sent"
+"Sending..."                =   "Sending..."
+
+"This domain have not registered yet."  =   "This domain have not registered yet."
+"You can using it!"                     =   "You can using it!"
 
 
 

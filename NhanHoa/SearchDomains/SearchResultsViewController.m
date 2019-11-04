@@ -47,21 +47,17 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    self.navigationController.navigationBarHidden = TRUE;
     
-    [self showContentWithCurrentLanguage];
     
-    if (listDomains == nil) {
-        listDomains = [[NSMutableArray alloc] init];
-    }else{
-        [listDomains removeAllObjects];
-    }
+    
+    
+    
     
     tfSearch.text = strSearch;
     lbContent.text = @"";
     imgResult.hidden = TRUE;
     
-    [self startSearchDomainValue];
+    
     
     [self updateCartItemCount];
     [self checkToEnableContinueButton];
@@ -116,7 +112,7 @@
 }
 
 - (IBAction)btnContinuePress:(UIButton *)sender {
-    [[AppDelegate sharedInstance] showCartScreenContent];
+    
 }
 
 - (void)registerObservers {
@@ -362,23 +358,10 @@
     }];
 }
 
-- (void)showContentWithCurrentLanguage {
-    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Search domains"];
-    [btnContinue setTitle:[appDelegate.localization localizedStringForKey:@"Continue"]
-                 forState:UIControlStateNormal];
-}
+
 
 - (void)startSearchDomainValue {
-    if (![AppUtils isNullOrEmpty: strSearch])
-    {
-        [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Seaching..."] Interaction:NO];
-        [self hideUIForSearch: TRUE];
-        
-        firstDomainInfo = nil;
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
-    }
+    
 }
 
 - (void)hideUIForSearch: (BOOL)hide {
@@ -546,19 +529,6 @@
     }
 }
 
-#pragma mark - WebServicesUtilDelegate
--(void)failedToSearchDomainWithError:(NSString *)error {
-    [ProgressHUD dismiss];
-}
-
--(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
-    [ProgressHUD dismiss];
-    
-    if (data != nil && [data isKindOfClass:[NSArray class]]) {
-        [listDomains addObjectsFromArray: (NSArray *)data];
-        [self prepareDataToDisplay];
-    }
-}
 
 #pragma mark - UITableview Delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

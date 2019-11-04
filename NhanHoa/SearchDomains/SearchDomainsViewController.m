@@ -9,7 +9,7 @@
 #import "SearchDomainsViewController.h"
 #import "SuggestDomainCell.h"
 #import "HomeSliderClvCell.h"
-#import "SearchResultsViewController.h"
+#import "SearchResultViewController.h"
 #import "DomainsViewController.h"
 #import "SearchMultiDomainsViewController.h"
 
@@ -600,7 +600,7 @@
         [tfSearch resignFirstResponder];
         
         if (tfSearch.text.length > 0) {
-            SearchResultsViewController *searchResultsVC = [[SearchResultsViewController alloc] init];
+            SearchResultViewController *searchResultsVC = [[SearchResultViewController alloc] init];
             searchResultsVC.strSearch = tfSearch.text;
             [self.navigationController pushViewController:searchResultsVC animated:YES];
         }

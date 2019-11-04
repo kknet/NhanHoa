@@ -7,15 +7,17 @@
 //
 
 #import "BankAccountViewController.h"
+#import "UpdateBankInfoView.h"
 #import "BankObject.h"
 
-@interface BankAccountViewController ()<UIScrollViewDelegate>{
+@interface BankAccountViewController ()<UIScrollViewDelegate, UpdateBankInfoViewDelegate>{
     AppDelegate *appDelegate;
     float padding;
     float hBTN;
     UIFont *textFont;
     
     NSMutableArray *searchList;
+    UpdateBankInfoView *updateInfoView;
 }
 
 @end
@@ -48,6 +50,14 @@
     }
     
     [self displayBankInfo];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    if (updateInfoView) {
+        [updateInfoView removeFromSuperview];
+        updateInfoView = nil;
+    }
 }
 
 - (void)displayBankInfo {
@@ -336,12 +346,32 @@
 
 
 - (IBAction)icBackClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
+    if (updateInfoView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UpdateBankInfoView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[UpdateBankInfoView class]]) {
+                updateInfoView = (UpdateBankInfoView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: updateInfoView];
+    }
+    updateInfoView.delegate = self;
+    [updateInfoView setupUIForViewWithHeightNav: self.navigationController.navigationBar.frame.size.height];
+    [updateInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(SCREEN_HEIGHT);
+    }];
+    
+    [self performSelector:@selector(showUpdateBankInfoView) withObject:nil afterDelay:0.2];
 }
 
 - (void)addCurvePathForViewWithHeight: (UIView *)view withHeight: (float)height {
@@ -368,6 +398,30 @@
     
     [view.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;
+}
+
+- (void)showUpdateBankInfoView {
+    [updateInfoView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - UpdateBankInfoViewDelegate
+-(void)closeUpdateBankInfoView {
+    [updateInfoView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+    }];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)bankInfoHasBeenUpdatedSuccessful {
+    [self closeUpdateBankInfoView];
+    [self displayBankInfo];
 }
 
 @end

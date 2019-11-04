@@ -9,7 +9,7 @@
 #import "NewMoreViewController.h"
 #import "WalletViewController.h"
 #import "DomainsViewController.h"
-#import "SupportViewController.h"
+#import "SupportCustomerViewController.h"
 #import "BankAccountViewController.h"
 #import "AccSettingsViewController.h"
 #import "AboutViewController.h"
@@ -334,7 +334,7 @@
                 break;
             }
             case 3:{
-                SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
+                SupportCustomerViewController *supportVC = [[SupportCustomerViewController alloc] initWithNibName:@"SupportCustomerViewController" bundle:nil];
                 supportVC.hidesBottomBarWhenPushed = YES;
                 [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
                 [self.navigationController pushViewController: supportVC animated:YES];

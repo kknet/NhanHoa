@@ -32,7 +32,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [WriteLogsUtils writeForGoToScreen:@"SupportListViewController"];
+    
+    self.navigationController.navigationBarHidden = FALSE;
     
     if (datas == nil) {
         datas = [[NSMutableArray alloc] init];

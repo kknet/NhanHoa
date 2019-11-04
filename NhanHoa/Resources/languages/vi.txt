@@ -357,7 +357,34 @@
 "Enter one or multi domains you want to check"  =   "Nhập 1 hay nhiều tên miền bạn muốn kiểm tra"
 "Please enter domains you want to check"        =   "Vui lòng nhập tên miền bạn muốn kiểm tra"
 
-"Bank account"      =   "Tài khoản ngân hàng"
+"Bank account"          =   "Tài khoản ngân hàng"
+"Update bank account"   =   "Cập nhật tài khoản ngân hàng"
+"Bank name"             =   "Tên ngân hàng"
+"Owner name"            =   "Tên chủ sở hữu"
+"Bank account number"   =   "Số tài khoản"
+"Cancel"                =   "Hủy"
+
+"Enter bank name"           =   "Nhập tên ngân hàng"
+"Enter owner name"          =   "Nhập tên chủ sở hữu"
+"Enter bank account number" =   "Nhập số tài khoản"
+
+"Your bank account info has been updated successful"    =   "Thông tin tài khoản ngân hàng của bạn đã được cập nhật thành công"
+
+"Customer support"          =   "Hỗ trợ khách hàng"
+"What's can we help you?"   =   "Chúng tôi có thể giúp gì cho bạn?"
+"Send your question to us"  =   "Gửi câu hỏi đến chúng tôi"
+"Email address"             =   "Địa chỉ email"
+"Question content"          =   "Nội dung câu hỏi"
+"Send question"             =   "Gửi câu hỏi"
+"Call to Nhan Hoa"          =   "Gọi đến Nhân Hòa"
+
+"Please enter your email address"       =   "Vui lòng nhập địa chỉ email"
+"Please enter your question content"    =   "Vui lòng nhập nội dung câu hỏi"
+"Your question has been sent"           =   "Câu hỏi của bạn đã được gửi"
+"Sending..."                =   "Đang gửi..."
+
+"This domain have not registered yet."  =   "Tên miền này chưa được đăng ký."
+"You can using it!"                     =   "Bạn có thể sử dụng nó!"
 
 
 

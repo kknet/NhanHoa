@@ -13,7 +13,6 @@
 #import "TopupViewController.h"
 #import "BonusAccountViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
-#import "SupportViewController.h"
 #import "PricingDomainViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
@@ -301,9 +300,7 @@
         
     }else if ([title isEqualToString: text_customers_support])
     {
-        SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
-        supportVC.hidesBottomBarWhenPushed = TRUE;
-        [self.navigationController pushViewController: supportVC animated:TRUE];
+        
     }
 }
 
