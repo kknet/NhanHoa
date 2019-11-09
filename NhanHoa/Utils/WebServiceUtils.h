@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getListProfilesForAccount: (NSString *)username;
 - (void)addProfileWithContent: (NSDictionary *)data;
 - (void)editProfileWithContent: (NSDictionary *)data;
-- (void)sendMessageWithEmail:(NSString *)email content:(NSString *)content;
+- (void)sendMessageWithContent:(NSString *)content;
 - (void)updatePhotoForCustomerWithURL: (NSString *)url;
 - (void)changePasswordWithCurrentPass: (NSString *)currentPass newPass: (NSString *)newPass;
 - (void)checkOTPForUsername: (NSString *)username password: (NSString *)password andOTPCode: (NSString *)code;

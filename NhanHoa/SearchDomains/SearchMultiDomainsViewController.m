@@ -7,7 +7,7 @@
 //
 
 #import "SearchMultiDomainsViewController.h"
-#import "WhoIsResultViewController.h"
+#import "SearchResultViewController.h"
 #import "WhoIsCell.h"
 
 @interface SearchMultiDomainsViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>{
@@ -52,9 +52,9 @@
     }
     
     if (listDomain.count == 0) {
-        [listDomain addObject:@""];
-        [listDomain addObject:@""];
-        [listDomain addObject:@""];
+        [listDomain addObject:@"nhanhoa.com.vn"];
+        [listDomain addObject:@"khaile76.com.vn"];
+        [listDomain addObject:@"taolaobidao.tele"];
     }
     
     [self reUpdateLayoutForView];
@@ -240,9 +240,9 @@
         return;
     }
     
-    WhoIsResultViewController *whoIsResultVC = [[WhoIsResultViewController alloc] init];
-    whoIsResultVC.listSearch = result;
-    [self.navigationController pushViewController:whoIsResultVC animated:YES];
+    SearchResultViewController *searchResultVC = [[SearchResultViewController alloc] init];
+    searchResultVC.listSearch = result;
+    [self.navigationController pushViewController:searchResultVC animated:YES];
 }
 
 - (IBAction)btnAddPress:(UIButton *)sender {

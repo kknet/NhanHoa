@@ -9,7 +9,7 @@
 #import "SupportCustomerViewController.h"
 #import "SupportListViewController.h"
 
-@interface SupportCustomerViewController ()<UIScrollViewDelegate, UITextViewDelegate, UITextFieldDelegate, WebServiceUtilsDelegate>{
+@interface SupportCustomerViewController ()<UIScrollViewDelegate, UITextViewDelegate, WebServiceUtilsDelegate>{
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
@@ -19,7 +19,7 @@
 @end
 
 @implementation SupportCustomerViewController
-@synthesize imgBGSupport, imgBgTop, viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, lbTop, lbTitle, lbDesc, lbEmail, tfEmail, lbYourQuestion, tvYourQuestion, btnSendQuestion, viewFooter, imgFooter, lbFooter;
+@synthesize imgBGSupport, imgBgTop, viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, lbTop, lbTitle, lbDesc, lbYourQuestion, tvYourQuestion, btnSendQuestion, viewFooter, imgFooter, lbFooter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,7 +57,6 @@
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Customer support"];
     lbTitle.text = [appDelegate.localization localizedStringForKey:@"What's can we help you?"];
     lbDesc.text = [appDelegate.localization localizedStringForKey:@"Send your question to us"];
-    lbEmail.text = [appDelegate.localization localizedStringForKey:@"Email address"];
     lbYourQuestion.text = [appDelegate.localization localizedStringForKey:@"Question content"];
     [btnSendQuestion setTitle:[appDelegate.localization localizedStringForKey:@"Send question"]
                      forState:UIControlStateNormal];
@@ -80,17 +79,20 @@
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
     hBTN = 45.0;
-    float hLabel = 30.0;
+    float hLabel = 40.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hLabel = 30.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        hLabel = 40.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hLabel = 40.0;
     }
     
     //  header view
@@ -215,47 +217,27 @@
     }];
     
     //  email
-    lbEmail.font = lbYourQuestion.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
-    tfEmail.font = tvYourQuestion.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
-    lbEmail.textColor = lbYourQuestion.textColor = GRAY_100;
-    tfEmail.textColor = tvYourQuestion.textColor = GRAY_50;
+    lbYourQuestion.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    tvYourQuestion.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
+    lbYourQuestion.textColor = GRAY_100;
+    tvYourQuestion.textColor = GRAY_50;
     
-    [lbEmail mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [lbYourQuestion mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbDesc.mas_bottom);
         make.left.right.equalTo(lbDesc);
         make.height.mas_equalTo(hLabel);
     }];
     
-    tfEmail.delegate = self;
-    tfEmail.returnKeyType = UIReturnKeyNext;
-    tfEmail.layer.cornerRadius = tvYourQuestion.layer.cornerRadius = 5.0;
-    tfEmail.layer.borderWidth = tvYourQuestion.layer.borderWidth = 1.0;
-    tfEmail.layer.borderColor = tvYourQuestion.layer.borderColor = GRAY_150.CGColor;
-    [tfEmail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbEmail.mas_bottom);
-        make.left.right.equalTo(lbEmail);
-        make.height.mas_equalTo(hBTN);
-    }];
-    [tfEmail addTarget:self
-                action:@selector(whenContentValueDidChanged)
-      forControlEvents:UIControlEventTouchUpInside];
-    
-    tfEmail.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, padding, hBTN)];
-    tfEmail.leftViewMode = UITextFieldViewModeAlways;
-    
-    //  content
-    [lbYourQuestion mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tfEmail.mas_bottom).offset(padding);
-        make.left.right.equalTo(tfEmail);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
+    tvYourQuestion.layer.cornerRadius = 5.0;
+    tvYourQuestion.layer.borderWidth = 1.0;
+    tvYourQuestion.layer.borderColor = GRAY_200.CGColor;
     tvYourQuestion.returnKeyType = UIReturnKeyGo;
     tvYourQuestion.delegate = self;
     [tvYourQuestion mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbYourQuestion.mas_bottom);
         make.left.right.equalTo(lbYourQuestion);
-        make.height.mas_equalTo(2.0*hBTN);
+        make.height.mas_equalTo(3.0*hBTN);
     }];
     
     btnSendQuestion.titleLabel.font = textFont;
@@ -287,11 +269,6 @@
         return;
     }
     
-    if ([AppUtils isNullOrEmpty: tfEmail.text]) {
-        [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter your email address"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
-        return;
-    }
-    
     if ([AppUtils isNullOrEmpty: tvYourQuestion.text]) {
         [self.view makeToast:[appDelegate.localization localizedStringForKey:@"Please enter your question content"] duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
         return;
@@ -301,7 +278,7 @@
     [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Sending..."] Interaction:FALSE];
     
     [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] sendMessageWithEmail:tfEmail.text content:tvYourQuestion.text];
+    [[WebServiceUtils getInstance] sendMessageWithContent: tvYourQuestion.text];
     
 }
 
@@ -319,19 +296,11 @@
 }
 
 - (void)checkToEnableSendRequestButton {
-    if (tfEmail.text.length > 0 && tvYourQuestion.text.length > 0) {
+    if (tvYourQuestion.text.length > 0) {
         btnSendQuestion.backgroundColor = BLUE_COLOR;
     }else{
         btnSendQuestion.backgroundColor = GRAY_200;
     }
-}
-
-#pragma mark - UITextfield delegate
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == tfEmail) {
-        [tvYourQuestion becomeFirstResponder];
-    }
-    return TRUE;
 }
 
 #pragma mark - UITextview delegate

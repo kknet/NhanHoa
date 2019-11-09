@@ -76,7 +76,7 @@
     }];
     
     lbDomainBottom.textColor = GRAY_100;
-    lbDomainBottom.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
+    lbDomainBottom.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
     [lbDomainBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewBottom).offset(padding);
         make.bottom.equalTo(viewBottom.mas_centerY).offset(-2.0);
@@ -84,7 +84,7 @@
     }];
     
     lbPrice.textColor = ORANGE_COLOR;
-    lbPrice.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    lbPrice.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-3];
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbDomainBottom);
         make.top.equalTo(viewBottom.mas_centerY).offset(2.0);

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DomainUnavailableTbvCell : UITableViewCell
+@interface DomainUnavailableTbvCell : UITableViewCell<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *viewWrap;
 @property (weak, nonatomic) IBOutlet UIImageView *imgBackground;
@@ -18,6 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDesc;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbSubs;
+
+@property (nonatomic, strong) NSDictionary *domainInfo;
+@property (nonatomic, strong) UIFont *fontForGetHeight;
+@property (nonatomic, assign) float leftMaxSize;
+@property (nonatomic, assign) float padding;
+
+- (void)displayContentWithInfo: (NSDictionary *)info;
 
 @end
 

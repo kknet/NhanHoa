@@ -19,14 +19,12 @@
                 <outlet property="imgFooter" destination="V87-Ul-Iz5" id="MfA-1k-nHT"/>
                 <outlet property="lbCount" destination="34W-zp-qz7" id="f4j-cB-3gx"/>
                 <outlet property="lbDesc" destination="9BC-zd-UUG" id="vmw-KB-ViW"/>
-                <outlet property="lbEmail" destination="nAA-Z6-OIa" id="5N1-4D-LDt"/>
                 <outlet property="lbFooter" destination="Qzg-RO-tWd" id="YAp-8F-qej"/>
                 <outlet property="lbHeader" destination="Evt-Qr-qL4" id="YwX-TN-v6p"/>
                 <outlet property="lbTitle" destination="WZX-An-0Yk" id="PT3-Bm-oG1"/>
                 <outlet property="lbTop" destination="UBU-ep-lyx" id="kyh-Td-tYt"/>
                 <outlet property="lbYourQuestion" destination="Uhe-AH-EM5" id="ddI-o2-Ztk"/>
                 <outlet property="scvContent" destination="VUX-Zr-Fbt" id="a7s-eI-fFS"/>
-                <outlet property="tfEmail" destination="nnl-m7-DcY" id="S6m-Zp-fnu"/>
                 <outlet property="tvYourQuestion" destination="mhC-uh-k5z" id="OPL-Zr-ypn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewFooter" destination="kMs-QD-zXL" id="4N8-pe-ITc"/>
@@ -111,20 +109,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nAA-Z6-OIa">
-                            <rect key="frame" x="29" y="274" width="262" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="nnl-m7-DcY">
-                            <rect key="frame" x="29" y="303" width="262" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uhe-AH-EM5">
                             <rect key="frame" x="29" y="341" width="262" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

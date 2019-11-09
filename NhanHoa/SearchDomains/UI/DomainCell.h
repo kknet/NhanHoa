@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbPrice;
 @property (weak, nonatomic) IBOutlet UIButton *btnChoose;
 @property (weak, nonatomic) IBOutlet UIButton *btnWarning;
+@property (weak, nonatomic) IBOutlet UIButton *btnViewInfo;
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float marginX;

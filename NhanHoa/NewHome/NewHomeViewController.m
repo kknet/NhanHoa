@@ -13,6 +13,7 @@
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
 #import "ProfilesViewController.h"
+#import "HostingViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -258,6 +259,12 @@
         profileVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
         [self.navigationController pushViewController: profileVC animated:TRUE];
+        
+    }else if (indexPath.row == eMenuHosting){
+        HostingViewController *hostingVC = [[HostingViewController alloc] initWithNibName:@"HostingViewController" bundle:nil];
+        hostingVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController: hostingVC animated:TRUE];
         
     }
     else if (indexPath.row == eMenuMore) {

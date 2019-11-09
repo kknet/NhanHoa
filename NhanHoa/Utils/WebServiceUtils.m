@@ -212,14 +212,11 @@
     [webService callWebServiceWithLink:edit_contact_func withParams:data inBackgroundMode:TRUE];
 }
 
--(void)sendMessageWithEmail:(NSString *)email content:(NSString *)content
+-(void)sendMessageWithContent:(NSString *)content
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] email = %@, content = %@", __FUNCTION__, email, content)];
-    
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:question_mod forKey:@"mod"];
     [jsonDict setObject:USERNAME forKey:@"username"];
-    [jsonDict setObject:email forKey:@"email"];
     [jsonDict setObject:content forKey:@"content"];
     
     [webService callWebServiceWithLink:send_question_func withParams:jsonDict inBackgroundMode:TRUE];

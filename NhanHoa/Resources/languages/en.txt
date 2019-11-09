@@ -124,7 +124,6 @@
 "Later"                 =   "Later"
 "Register more"         =   "Register more"
 "Search domains"        =   "Search domains"
-"enter domain name"     =   "enter domain name"
 
 "Many options with attractive offers"   =   "Many options with attractive offers"
 "Orders management"     =   "Orders management"
@@ -385,6 +384,26 @@
 
 "This domain have not registered yet."  =   "This domain have not registered yet."
 "You can using it!"                     =   "You can using it!"
+"Sorry"                                 =   "Sorry"
+"This domain has been registered"       =   "This domain has been registered"
+"You can not use this domain"           =   "You can not use this domain"
+
+"Registration date"         =   "Registration date"
+"Owner"                     =   "Owner"
+"Registrar"                 =   "Registrar"
+"Name Servers"              =   "Name Servers"
+"DNSSEC"                    =   "DNSSEC"
+
+"View info"                 =   "View info"
+"Not support"               =   "Not support"
+
+"Search results"            =   "Search results"
+"Checking..."               =   "Checking..."
+
+"This domain name is not supported yet"     =   "This domain name is not supported yet"
+
+"Register hosting"          =   "Register hosting"
+
 
 
 

@@ -98,7 +98,7 @@
 
 #define PASSWORD_MIN_CHARS  6
 #define MAX_YEAR_FOR_RENEW  10
-#define MIN_MONEY_TOPUP     200000
+#define MIN_MONEY_TOPUP     100000
 
 
 #define type_na             2

@@ -90,7 +90,7 @@
         </view>
     </objects>
     <resources>
-        <image name="about_photo.png" width="1314" height="1451"/>
+        <image name="about_photo.png" width="1367" height="1325"/>
         <image name="back_gray.png" width="96" height="96"/>
     </resources>
 </document>

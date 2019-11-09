@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tbResult;
 
 @property (nonatomic, strong) NSString *strSearch;
+@property (nonatomic, strong) NSMutableArray *listSearch;
 
 - (IBAction)icCartClick:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;

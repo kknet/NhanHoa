@@ -329,10 +329,11 @@
     
     
     btnUpdate.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
-    btnUpdate.layer.borderColor = GRAY_100.CGColor;
+    btnUpdate.layer.borderColor = BLUE_COLOR.CGColor;
     btnUpdate.layer.borderWidth = 1.0;
-    btnUpdate.layer.cornerRadius = 10.0;
-    [btnUpdate setTitleColor:GRAY_100 forState:UIControlStateNormal];
+    btnUpdate.backgroundColor = BLUE_COLOR;
+    btnUpdate.layer.cornerRadius = 8.0;
+    [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - padding - hBTN);
         make.left.right.equalTo(viewInfo);
@@ -353,25 +354,9 @@
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {
-    if (updateInfoView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UpdateBankInfoView" owner:nil options:nil];
-        for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[UpdateBankInfoView class]]) {
-                updateInfoView = (UpdateBankInfoView *) currentObject;
-                break;
-            }
-        }
-        [self.view addSubview: updateInfoView];
-    }
-    updateInfoView.delegate = self;
-    [updateInfoView setupUIForViewWithHeightNav: self.navigationController.navigationBar.frame.size.height];
-    [updateInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(SCREEN_HEIGHT);
-    }];
-    
-    [self performSelector:@selector(showUpdateBankInfoView) withObject:nil afterDelay:0.2];
+    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    sender.backgroundColor = UIColor.whiteColor;
+    [self performSelector:@selector(startShowUpdateBankInfoView) withObject:nil afterDelay:0.1];
 }
 
 - (void)addCurvePathForViewWithHeight: (UIView *)view withHeight: (float)height {
@@ -398,6 +383,31 @@
     
     [view.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;
+}
+
+- (void)startShowUpdateBankInfoView {
+    [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    btnUpdate.backgroundColor = BLUE_COLOR;
+    
+    if (updateInfoView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UpdateBankInfoView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[UpdateBankInfoView class]]) {
+                updateInfoView = (UpdateBankInfoView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: updateInfoView];
+    }
+    updateInfoView.delegate = self;
+    [updateInfoView setupUIForViewWithHeightNav: self.navigationController.navigationBar.frame.size.height];
+    [updateInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(SCREEN_HEIGHT);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(SCREEN_HEIGHT);
+    }];
+    
+    [self performSelector:@selector(showUpdateBankInfoView) withObject:nil afterDelay:0.2];
 }
 
 - (void)showUpdateBankInfoView {

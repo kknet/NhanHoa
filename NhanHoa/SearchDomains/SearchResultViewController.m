@@ -9,23 +9,28 @@
 #import "SearchResultViewController.h"
 #import "DomainAvailableTbvCell.h"
 #import "DomainUnavailableTbvCell.h"
+#import "DomainNotSupportTbvCell.h"
+#import "CartModel.h"
 
 @interface SearchResultViewController ()<UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate>{
     AppDelegate *appDelegate;
     float padding;
     float hBTN;
     UIFont *textFont;
+    UIFont *fontForGetHeight;
     float hCell;
-    float hLargeCell;
     
-    NSMutableArray *listDomains;
+    NSMutableArray *listResults;
+    float leftMaxSize;
+    
+    float hUnavailable;
 }
 
 @end
 
 @implementation SearchResultViewController
 @synthesize viewHeader, icBack, lbHeader, icCart, lbCount, tbResult, viewFooter, btnContinue;
-@synthesize strSearch;
+@synthesize strSearch, listSearch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,22 +41,50 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    
     self.navigationController.navigationBarHidden = TRUE;
     [self showContentWithCurrentLanguage];
     
-    if (listDomains == nil) {
-        listDomains = [[NSMutableArray alloc] init];
-    }else{
-        [listDomains removeAllObjects];
+    //  prepare result array
+    if (listResults == nil) {
+        listResults = [[NSMutableArray alloc] init];
     }
+    [listResults removeAllObjects];
     
-    [self startSearchDomainValue];
+    [self checkToEnableContinueButton];
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Checking..."] Interaction:FALSE];
+    
+    [self checkWhoIsForListDomains];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popToRootView)
+                                                 name:@"afterAddOrderSuccessfully" object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear: animated];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)popToRootView {
+    [self.navigationController popToRootViewControllerAnimated: TRUE];
 }
 
 - (void)showContentWithCurrentLanguage {
-    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Search domains"];
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Search results"];
     [btnContinue setTitle:[appDelegate.localization localizedStringForKey:@"Continue"]
                  forState:UIControlStateNormal];
+}
+
+- (void)checkToEnableContinueButton {
+    if ([[CartModel getInstance] countItemInCart] > 0) {
+        btnContinue.enabled = TRUE;
+        btnContinue.backgroundColor = BLUE_COLOR;
+    }else{
+        btnContinue.enabled = FALSE;
+        btnContinue.backgroundColor = OLD_PRICE_COLOR;
+    }
 }
 
 - (void)setupUIForView
@@ -63,15 +96,21 @@
     hBTN = 45.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
+    fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
+    
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        fontForGetHeight = [UIFont fontWithName:RobotoRegular size:14.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        fontForGetHeight = [UIFont fontWithName:RobotoRegular size:15.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
     }
+    leftMaxSize = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"Registration date"] withFont:fontForGetHeight andMaxWidth:SCREEN_WIDTH].width + 10.0;
     
     //  header view
     viewHeader.backgroundColor = UIColor.whiteColor;
@@ -146,14 +185,17 @@
     UIImage *bg = [UIImage imageNamed:@"domain-search-availabel"];
     float hBG = (SCREEN_WIDTH - 2*padding) * bg.size.height / bg.size.width;
     
-    hCell = hBG + 30.0 + 30.0 + 15.0;
+    hCell = hBG + 70.0 + 15.0;
     
-    bg = [UIImage imageNamed:@"domain-search-unavailabel"];
-    hBG = (SCREEN_WIDTH - 2*padding) * bg.size.height / bg.size.width;
-    hLargeCell = hBG + 120.0;
+    bg = [UIImage imageNamed:@"domain-search-unavailable"];
+    hUnavailable = (SCREEN_WIDTH - 2*padding) * bg.size.height / bg.size.width;
     
+    tbResult.showsVerticalScrollIndicator = FALSE;
+    tbResult.clipsToBounds = TRUE;
+    tbResult.layer.cornerRadius = 12.0;
     [tbResult registerNib:[UINib nibWithNibName:@"DomainAvailableTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainAvailableTbvCell"];
     [tbResult registerNib:[UINib nibWithNibName:@"DomainUnavailableTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainUnavailableTbvCell"];
+    [tbResult registerNib:[UINib nibWithNibName:@"DomainNotSupportTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainNotSupportTbvCell"];
     tbResult.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbResult.backgroundColor = UIColor.clearColor;
     tbResult.delegate = self;
@@ -171,16 +213,16 @@
     [appDelegate showCartScreenContent];
 }
 
-- (void)startSearchDomainValue {
-    if (![AppUtils isNullOrEmpty: strSearch])
-    {
-        [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Seaching..."] Interaction:NO];
-        //  [self hideUIForSearch: TRUE];
+- (void)checkWhoIsForListDomains {
+    if (listSearch.count > 0) {
+        NSString *domain = [listSearch firstObject];
+        [listSearch removeObjectAtIndex: 0];
         
-        //  firstDomainInfo = nil;
         [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
+        [[WebServiceUtils getInstance] searchDomainWithName:domain type:1];
+    }else{
+        [ProgressHUD dismiss];
+        [tbResult reloadData];
     }
 }
 
@@ -190,13 +232,13 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return listDomains.count;
+    return listResults.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //  check available domain
-    NSDictionary *info = [listDomains objectAtIndex: indexPath.row];
+    NSDictionary *info = [listResults objectAtIndex: indexPath.row];
     id available = [info objectForKey:@"available"];
     if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
     {
@@ -205,159 +247,167 @@
         
         [cell displayContentWithInfo: info];
         
+        cell.btnBuy.tag = (int)indexPath.row;
+        [cell.btnBuy addTarget:self
+                        action:@selector(clickOnBuyDomain:)
+              forControlEvents:UIControlEventTouchUpInside];
+        
         return cell;
         
     }else if (available != nil && [available isKindOfClass:[NSString class]] && [available isEqualToString:@"not support"]){
-//        cell.btnWarning.hidden = TRUE;
-//        [cell.btnChoose setTitle:not_support_yet forState:UIControlStateNormal];
-//        cell.btnChoose.backgroundColor = OLD_PRICE_COLOR;
-//        cell.btnChoose.enabled = FALSE;
+        DomainNotSupportTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DomainNotSupportTbvCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        NSString *domain = [info objectForKey:@"domain"];
+        cell.lbDomain.text = (![AppUtils isNullOrEmpty: domain]) ? domain : @"";
+        
+        cell.lbContent.text = SFM(@"%@\n%@!", [appDelegate.localization localizedStringForKey:@"Sorry"], [appDelegate.localization localizedStringForKey:@"This domain name is not supported yet"]);
+        
+        return cell;
+
+    }else{
+        DomainUnavailableTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DomainUnavailableTbvCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell displayContentWithInfo: info];
+        
+        return cell;
+        
+        
+//        cell.btnChoose.enabled = TRUE;
+//        [cell.btnChoose setTitle:text_view_info forState:UIControlStateNormal];
+//        cell.btnChoose.backgroundColor = ORANGE_COLOR;
+//        cell.lbPrice.text = @"";
+//
 //
 //        [cell showPriceForDomainCell: FALSE];
-    }else{
-        
-        
-        cell.btnChoose.enabled = TRUE;
-        [cell.btnChoose setTitle:text_view_info forState:UIControlStateNormal];
-        cell.btnChoose.backgroundColor = ORANGE_COLOR;
-        cell.lbPrice.text = @"";
-
-
-        [cell showPriceForDomainCell: FALSE];
-
-        cell.btnWarning.hidden = TRUE;
-
-        cell.btnChoose.tag = indexPath.row;
-
-        [cell.btnChoose removeTarget:self
-                              action:@selector(chooseThisDomain:)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        [cell.btnChoose addTarget:self
-                           action:@selector(viewInfoOfDomain:)
-                 forControlEvents:UIControlEventTouchUpInside];
+//
+//        cell.btnWarning.hidden = TRUE;
+//
+//        cell.btnChoose.tag = indexPath.row;
+//
+//        [cell.btnChoose removeTarget:self
+//                              action:@selector(chooseThisDomain:)
+//                    forControlEvents:UIControlEventTouchUpInside];
+//
+//        [cell.btnChoose addTarget:self
+//                           action:@selector(viewInfoOfDomain:)
+//                 forControlEvents:UIControlEventTouchUpInside];
         
         
     }
-    
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return  hCell;
+    NSDictionary *info = [listResults objectAtIndex: indexPath.row];
+    id available = [info objectForKey:@"available"];
+    if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
+    {
+        return hCell;
+        
+    }else if (available != nil && [available isKindOfClass:[NSString class]] && [available isEqualToString:@"not support"]){
+        return (hUnavailable + 15.0);
+    }else{
+        return [self getHeightForRowWithInfo: info];
+    }
+}
+
+- (void)clickOnBuyDomain:(UIButton *)sender {
+    int index = (int)sender.tag;
+    if (listResults.count > index) {
+        NSDictionary *info = [listResults objectAtIndex: index];
+        BOOL exists = [[CartModel getInstance] checkCurrentDomainExistsInCart: info];
+        if (exists) {
+            [[CartModel getInstance] removeDomainFromCart: info];
+            [sender setTitle:[appDelegate.localization localizedStringForKey:@"Select"] forState:UIControlStateNormal];
+            sender.backgroundColor = BLUE_COLOR;
+            
+        }else{
+            [[CartModel getInstance] addDomainToCart: info];
+            [sender setTitle:[appDelegate.localization localizedStringForKey:@"Unselect"] forState:UIControlStateNormal];
+            sender.backgroundColor = ORANGE_COLOR;
+        }
+        
+        float widthBTN = [AppUtils getSizeWithText:sender.currentTitle withFont:sender.titleLabel.font].width + 20.0;
+        [sender mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(widthBTN);
+        }];
+    }
+}
+
+- (float)getHeightForRowWithInfo: (NSDictionary *)info {
+    float hItem = 45.0;
     
-//    NSDictionary *info = [listDomains objectAtIndex: indexPath.row];
-//    id available = [info objectForKey:@"available"];
-//    if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
-//    {
-//        return hResult + padding;
-//    }else{
-//        return hSmallCell;
-//    }
+    float hRow = hUnavailable + hItem*3;    //  this is height for domain rows, registration row and expiration date
+
+    float maxSzie = SCREEN_WIDTH - (2*padding + 2*padding + leftMaxSize);
+    
+    //  height for owner
+    NSString *owner = [info objectForKey:@"owner"];
+    float height = [AppUtils getSizeWithText:owner withFont:fontForGetHeight andMaxWidth:maxSzie].height + 5.0;
+    if (height < hItem) {
+        height = hItem;
+    }
+    hRow += height;
+    
+    //  height for status
+    NSString *status = [info objectForKey:@"status"];
+    status = [status stringByReplacingOccurrencesOfString:@" " withString:@""];
+    status = [status stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+    
+    height = [AppUtils getSizeWithText:status withFont:fontForGetHeight andMaxWidth:maxSzie].height + 5.0;
+    if (height < hItem) {
+        height = hItem;
+    }
+    hRow += height;
+    
+    //  height for registrar
+    NSString *registrar = [info objectForKey:@"registrar"];
+    height = [AppUtils getSizeWithText:registrar withFont:fontForGetHeight andMaxWidth:maxSzie].height + 5.0;
+    if (height < hItem) {
+        height = hItem;
+    }
+    hRow += height;
+    
+    //  height for dns
+    NSString *dns = [info objectForKey:@"dns"];
+    dns = [dns stringByReplacingOccurrencesOfString:@" " withString:@""];
+    dns = [dns stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+    height = [AppUtils getSizeWithText:dns withFont:fontForGetHeight andMaxWidth:maxSzie].height + 5.0;
+    if (height < hItem) {
+        height = hItem;
+    }
+    hRow += height;
+    
+    //  height for dns
+    NSString *dnssec = [info objectForKey:@"dnssec"];
+    dnssec = [dnssec stringByReplacingOccurrencesOfString:@" " withString:@""];
+    dnssec = [dnssec stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
+    height = [AppUtils getSizeWithText:dnssec withFont:fontForGetHeight andMaxWidth:maxSzie].height + 5.0;
+    if (height < hItem) {
+        height = hItem;
+    }
+    hRow += height;
+    
+    hRow += 15.0;   //  15.0 is padding bottom of cell
+    
+    return hRow;
 }
 
 
 #pragma mark - WebServicesUtilDelegate
--(void)failedToSearchDomainWithError:(NSString *)error {
-    [ProgressHUD dismiss];
+- (void)failedToSearchDomainWithError:(NSString *)error {
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        [listResults addObject: error];
+    }
+    [self checkWhoIsForListDomains];
 }
 
 -(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
-    [ProgressHUD dismiss];
-    
-    if (data != nil && [data isKindOfClass:[NSArray class]]) {
-        [listDomains addObjectsFromArray: (NSArray *)data];
-        [self prepareDataToDisplay];
+    if (data != nil && [data isKindOfClass:[NSDictionary class]]) {
+        [listResults addObject: data];
     }
-}
-
-- (void)prepareDataToDisplay {
-    if (listDomains.count > 0) {
-//        //  Lưu domain available khác nếu không tìm thấy domain hiện tại
-//        NSDictionary *tmpAvailable;
-//        for (int index=0; index<listDomains.count; index++)
-//        {
-//            NSDictionary *info = [listDomains objectAtIndex: index];
-//            id available = [info objectForKey:@"available"];
-//
-//            if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == TRUE || [available boolValue] == 1)
-//            {
-//                NSString *domain = [info objectForKey:@"domain"];
-//                if ([strSearch isEqualToString: domain]) {
-//                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
-//                    break;
-//                }
-//                if (tmpAvailable == nil) {
-//                    tmpAvailable = info;
-//                }
-//            }else if ([available isKindOfClass:[NSString class]] && [available isEqualToString:@"1"])
-//            {
-//                NSString *domain = [info objectForKey:@"domain"];
-//                if ([strSearch isEqualToString: domain]) {
-//                    firstDomainInfo = [[NSDictionary alloc] initWithDictionary: info];
-//                    break;
-//                }
-//                if (tmpAvailable == nil) {
-//                    tmpAvailable = info;
-//                }
-//                break;
-//            }
-//        }
-//
-//        [self hideUIForSearch: FALSE];
-//
-//        if (firstDomainInfo == nil && tmpAvailable != nil) {
-//            firstDomainInfo = [[NSDictionary alloc] initWithDictionary: tmpAvailable];
-//        }
-//
-//        if (firstDomainInfo != nil) {
-//            [listDomains removeObject: firstDomainInfo];
-//
-//            NSString *firstDomain = [firstDomainInfo objectForKey:@"domain"];
-//
-//            NSString *content = SFM(@"%@!\n%@:\n%@", [appDelegate.localization localizedStringForKey:@"Congratulations"], [appDelegate.localization localizedStringForKey:@"You can use this domain"], firstDomain);
-//            NSRange range = [content rangeOfString: firstDomain];
-//
-//            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
-//            [attr addAttribute:NSForegroundColorAttributeName value:GRAY_80 range:NSMakeRange(0, content.length)];
-//            [attr addAttribute:NSForegroundColorAttributeName value:BLUE_COLOR range:range];
-//            [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, content.length)];
-//            [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoBold size:textFont.pointSize] range:range];
-//            lbContent.attributedText = attr;
-//
-//            lbFirstDomain.text = firstDomain;
-//
-//            NSString *price = [DomainModel getPriceFromDomainInfo: firstDomainInfo];
-//            if (![AppUtils isNullOrEmpty: price]) {
-//                NSString *strPrice = [AppUtils convertStringToCurrencyFormat: price];
-//                lbFirstPrice.text = SFM(@"%@VNĐ/%@", strPrice, [appDelegate.localization localizedStringForKey:@"first year"]);
-//            }else{
-//                lbFirstPrice.text = [appDelegate.localization localizedStringForKey:@"Contact price"];
-//            }
-//
-//            if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
-//                btnChoose.backgroundColor = NEW_PRICE_COLOR;
-//                [btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Unselect"]
-//                           forState:UIControlStateNormal];
-//            }else{
-//                btnChoose.backgroundColor = BLUE_COLOR;
-//                [btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Select"]
-//                           forState:UIControlStateNormal];
-//            }
-//            imgResult.hidden = FALSE;
-//            imgResult.image = [UIImage imageNamed:@"search_domain_ok"];
-//
-//        }else{
-//            [self hideUIForSearch: TRUE];
-//
-//            imgResult.hidden = FALSE;
-//            imgResult.image = [UIImage imageNamed:@"search_domain_notfound"];
-//        }
-//
-//        [self reUpdateLayoutForView];
-        [tbResult reloadData];
-    }
+    [self checkWhoIsForListDomains];
 }
 
 @end

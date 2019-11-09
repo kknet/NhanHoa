@@ -48,16 +48,22 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
+    self.navigationController.navigationBarHidden = TRUE;
     
+    [self showContentWithCurrentLanguage];
     
-    
-    
+    if (listDomains == nil) {
+        listDomains = [[NSMutableArray alloc] init];
+    }else{
+        [listDomains removeAllObjects];
+    }
     
     tfSearch.text = strSearch;
     lbContent.text = @"";
     imgResult.hidden = TRUE;
     
-    
+    [self startSearchDomainValue];
+
     
     [self updateCartItemCount];
     [self checkToEnableContinueButton];
@@ -129,6 +135,13 @@
                                                  name:@"reloadChoosedDomainList" object:nil];
 }
 
+- (void)showContentWithCurrentLanguage {
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Search domains"];
+    [btnContinue setTitle:[appDelegate.localization localizedStringForKey:@"Continue"]
+                 forState:UIControlStateNormal];
+}
+
+
 - (void)reloadChoosedDomainList {
     [self prepareDataToDisplay];
 }
@@ -163,8 +176,8 @@
     padding = 15.0;
     hTextfield = 45.0;
     hResult = 5.0 + 30.0 + 30.0 + 5.0;
-    hSmallCell = 65.0;
-    hImgResult = 80.0;
+    hSmallCell = 80.0;
+    hImgResult = 120.0;
     hFooter = 70.0;
     hSection = 50.0;
     
@@ -175,14 +188,20 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
         hTextfield = 40.0;
+        hImgResult = 80.0;
+        hSmallCell = 70.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
         hTextfield = 42.0;
+        hImgResult = 100.0;
+        hSmallCell = 75.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
         hTextfield = 45.0;
+        hImgResult = 120.0;
+        hSmallCell = 80.0;
     }
     
     viewHeader.backgroundColor = BLUE_COLOR;
@@ -298,7 +317,8 @@
     [imgResult mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.centerX.equalTo(viewTop.mas_centerX);
-        make.width.height.mas_equalTo(hImgResult);
+        make.height.mas_equalTo(hImgResult);
+        make.width.mas_equalTo(0);
     }];
     
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -338,15 +358,15 @@
     }];
     
     lbFirstPrice.textColor = ORANGE_COLOR;
-    lbFirstPrice.font = [UIFont fontWithName:RobotoThin size:textFont.pointSize];
+    lbFirstPrice.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
     [lbFirstPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewResult.mas_centerY);
         make.left.right.equalTo(lbFirstDomain);
     }];
     
     //  tb content
-    tbRelated.backgroundColor = UIColor.clearColor;
     tbRelated.scrollEnabled = FALSE;
+    tbRelated.backgroundColor = UIColor.clearColor;
     tbRelated.separatorStyle = UITableViewCellSelectionStyleNone;
     [tbRelated registerNib:[UINib nibWithNibName:@"DomainCell" bundle:nil] forCellReuseIdentifier:@"DomainCell"];
     tbRelated.delegate = self;
@@ -361,7 +381,16 @@
 
 
 - (void)startSearchDomainValue {
-    
+    if (![AppUtils isNullOrEmpty: strSearch])
+    {
+        [ProgressHUD backgroundColor: ProgressHUD_BG];
+        [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Seaching..."] Interaction:NO];
+        [self hideUIForSearch: TRUE];
+        
+        firstDomainInfo = nil;
+        [WebServiceUtils getInstance].delegate = self;
+        [[WebServiceUtils getInstance] searchDomainWithName:strSearch type:0];
+    }
 }
 
 - (void)hideUIForSearch: (BOOL)hide {
@@ -443,22 +472,52 @@
             }
             
             if ([[CartModel getInstance] checkCurrentDomainExistsInCart: firstDomainInfo]) {
-                btnChoose.backgroundColor = NEW_PRICE_COLOR;
+                [btnChoose setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+                btnChoose.backgroundColor = unselectColor;
                 [btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Unselect"]
                            forState:UIControlStateNormal];
             }else{
-                btnChoose.backgroundColor = BLUE_COLOR;
+                [btnChoose setTitleColor:unselectColor forState:UIControlStateNormal];
+                btnChoose.backgroundColor = UIColor.whiteColor;
                 [btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Select"]
                            forState:UIControlStateNormal];
             }
             imgResult.hidden = FALSE;
-            imgResult.image = [UIImage imageNamed:@"search_domain_ok"];
             
+            UIImage *resultIMG = [UIImage imageNamed:@"search_domain_ok"];
+            imgResult.image = resultIMG;
+            float width = hImgResult * resultIMG.size.width / resultIMG.size.height;
+            [imgResult mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(width);
+            }];
         }else{
-            [self hideUIForSearch: TRUE];
-
-            imgResult.hidden = FALSE;
-            imgResult.image = [UIImage imageNamed:@"search_domain_notfound"];
+            if (listDomains.count > 0) {
+                NSDictionary *info = [listDomains objectAtIndex: 0];
+                NSString *domainName = [info objectForKey:@"domain"];
+                
+                NSString *content = SFM(@"%@!\n%@:\n%@", [appDelegate.localization localizedStringForKey:@"Sorry"], [appDelegate.localization localizedStringForKey:@"You can not use this domain"], domainName);
+                NSRange range = [content rangeOfString: domainName];
+                
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
+                [attr addAttribute:NSForegroundColorAttributeName value:GRAY_80 range:NSMakeRange(0, content.length)];
+                [attr addAttribute:NSForegroundColorAttributeName value:BLUE_COLOR range:range];
+                [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, content.length)];
+                [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoBold size:textFont.pointSize] range:range];
+                lbContent.attributedText = attr;
+                
+                lbFirstDomain.text = domainName;
+                
+                
+                [self hideUIForSearch: TRUE];
+                
+                imgResult.hidden = FALSE;
+                UIImage *resultIMG = [UIImage imageNamed:@"search_domain_notfound"];
+                imgResult.image = resultIMG;
+                float width = hImgResult * resultIMG.size.width / resultIMG.size.height;
+                [imgResult mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(width);
+                }];
+            }
         }
         
         [self reUpdateLayoutForView];
@@ -469,9 +528,12 @@
 - (void)reUpdateLayoutForView {
     //  layout for choose button
     float hContent = padding + hTextfield + padding + hImgResult;
+    
+    float hText = [AppUtils getSizeWithText:lbContent.text withFont:lbContent.font andMaxWidth:SCREEN_WIDTH].height;
+    hContent += padding + hText;
+    
     if (firstDomainInfo != nil) {
-        float hText = [AppUtils getSizeWithText:lbContent.text withFont:lbContent.font andMaxWidth:SCREEN_WIDTH].height;
-        hContent = hContent + padding + hText + padding + hResult;
+        hContent += padding + hResult;
         
         [viewResult mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(hResult);
@@ -551,6 +613,9 @@
     id available = [info objectForKey:@"available"];
     if (([available isKindOfClass:[NSNumber class]] && [available intValue] == 1) || [available boolValue] == 1)
     {
+        cell.btnChoose.hidden = FALSE;
+        cell.btnViewInfo.hidden = TRUE;
+        
         if ([[CartModel getInstance] checkCurrentDomainExistsInCart: info]) {
             [cell.btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Unselect"]
                             forState:UIControlStateNormal];
@@ -571,7 +636,6 @@
             cell.lbPrice.text = [appDelegate.localization localizedStringForKey:@"Contact price"];
         }
         [cell showPriceForDomainCell: TRUE];
-        cell.btnChoose.enabled = TRUE;
         
         //  check flag
         id flag = [info objectForKey:@"flag"];
@@ -587,44 +651,33 @@
         }
         
         cell.btnChoose.tag = indexPath.row;
-        
-        [cell.btnChoose removeTarget:self
-                              action:@selector(viewInfoOfDomain:)
-                    forControlEvents:UIControlEventTouchUpInside];
-        
         [cell.btnChoose addTarget:self
                            action:@selector(chooseThisDomain:)
                  forControlEvents:UIControlEventTouchUpInside];
         
     }else if (available != nil && [available isKindOfClass:[NSString class]] && [available isEqualToString:@"not support"]){
         cell.btnWarning.hidden = TRUE;
-        [cell.btnChoose setTitle:not_support_yet forState:UIControlStateNormal];
+        [cell.btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Not support"] forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = OLD_PRICE_COLOR;
         cell.btnChoose.enabled = FALSE;
         
         [cell showPriceForDomainCell: FALSE];
+        
     }else{
-        cell.btnChoose.enabled = TRUE;
-        [cell.btnChoose setTitle:text_view_info forState:UIControlStateNormal];
+        cell.btnWarning.hidden = TRUE;
+        cell.btnChoose.hidden = TRUE;
+        cell.btnViewInfo.hidden = FALSE;
+        
+        [cell.btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"View info"] forState:UIControlStateNormal];
         cell.btnChoose.backgroundColor = ORANGE_COLOR;
         cell.lbPrice.text = @"";
         
-        
         [cell showPriceForDomainCell: FALSE];
         
-        cell.btnWarning.hidden = TRUE;
-        
-        cell.btnChoose.tag = indexPath.row;
-        
-        [cell.btnChoose removeTarget:self
-                              action:@selector(chooseThisDomain:)
-                    forControlEvents:UIControlEventTouchUpInside];
-        
-        [cell.btnChoose addTarget:self
-                           action:@selector(viewInfoOfDomain:)
-                 forControlEvents:UIControlEventTouchUpInside];
-        
-        
+        cell.btnViewInfo.tag = indexPath.row;
+        [cell.btnViewInfo addTarget:self
+                             action:@selector(viewInfoOfDomain:)
+                   forControlEvents:UIControlEventTouchUpInside];
     }
     //[cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
@@ -744,6 +797,20 @@
         }
     }
     return TRUE;
+}
+
+#pragma mark - WebServicesUtilDelegate
+-(void)failedToSearchDomainWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+}
+
+-(void)searchDomainSuccessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    if (data != nil && [data isKindOfClass:[NSArray class]]) {
+        [listDomains removeAllObjects];
+        [listDomains addObjectsFromArray: (NSArray *)data];
+        [self prepareDataToDisplay];
+    }
 }
 
 @end

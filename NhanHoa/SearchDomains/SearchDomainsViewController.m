@@ -9,7 +9,7 @@
 #import "SearchDomainsViewController.h"
 #import "SuggestDomainCell.h"
 #import "HomeSliderClvCell.h"
-#import "SearchResultViewController.h"
+#import "SearchResultsViewController.h"
 #import "DomainsViewController.h"
 #import "SearchMultiDomainsViewController.h"
 
@@ -91,7 +91,7 @@
 
 - (void)showContentWithCurrentLanguage {
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Search domains"];
-    tfSearch.placeholder = [appDelegate.localization localizedStringForKey:@"enter domain name"];
+    tfSearch.placeholder = [[appDelegate.localization localizedStringForKey:@"Enter domain name"] lowercaseString];
 }
 
 - (void)displayBannerPhotosIfNeed {
@@ -600,7 +600,7 @@
         [tfSearch resignFirstResponder];
         
         if (tfSearch.text.length > 0) {
-            SearchResultViewController *searchResultsVC = [[SearchResultViewController alloc] init];
+            SearchResultsViewController *searchResultsVC = [[SearchResultsViewController alloc] init];
             searchResultsVC.strSearch = tfSearch.text;
             [self.navigationController pushViewController:searchResultsVC animated:YES];
         }

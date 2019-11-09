@@ -125,7 +125,6 @@
 "Later"                 =   "Để sau"
 "Register more"         =   "Đăng ký thêm"
 "Search domains"        =   "Tìm kiếm tên miền"
-"enter domain name"     =   "nhập tên miền"
 
 "Many options with attractive offers"   =   "Nhiều lựa chọn với ưu đãi hấp dẫn"
 "Orders management"     =   "Quản lý đơn hàng"
@@ -385,6 +384,31 @@
 
 "This domain have not registered yet."  =   "Tên miền này chưa được đăng ký."
 "You can using it!"                     =   "Bạn có thể sử dụng nó!"
+"Sorry"                                 =   "Xin lỗi"
+"This domain has been registered"       =   "Tên miền này đã được đăng ký"
+"You can not use this domain"           =   "Bạn không thể sử dụng tên miền"
+
+"Registration date"         =   "Ngày đăng ký"
+"Owner"                     =   "Chủ sở hữu"
+"Registrar"                 =   "Nhà đăng ký"
+"Name Servers"              =   "Name Servers"
+"DNSSEC"                    =   "DNSSEC"
+
+"View info"                 =   "Xem thông tin"
+"Not support"               =   "Chưa hỗ trợ"
+
+"Search results"            =   "Kết quả tra cứu"
+"Checking..."               =   "Đang kiểm tra..."
+
+"This domain name is not supported yet"     =   "Tên miền này chưa được hỗ trợ"
+
+"Register hosting"          =   "Đăng ký hosting"
+
+
+
+
+
+
 
 
 

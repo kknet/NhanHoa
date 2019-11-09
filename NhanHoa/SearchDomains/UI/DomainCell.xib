@@ -49,6 +49,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="warning.png"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydh-mz-sYM">
+                                <rect key="frame" x="266" y="13" width="46" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="VIEW"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -56,12 +61,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="btnChoose" destination="bxB-Ke-SPt" id="fw8-Vt-zJw"/>
+                <outlet property="btnViewInfo" destination="Ydh-mz-sYM" id="whC-Nz-GsN"/>
                 <outlet property="btnWarning" destination="k9R-iU-OdW" id="Px3-Ya-TII"/>
                 <outlet property="lbDomain" destination="dgh-Df-kV8" id="FhH-We-6bG"/>
                 <outlet property="lbPrice" destination="JR0-Q4-Bnf" id="5Pu-Qj-8JJ"/>
                 <outlet property="parentView" destination="XxQ-eZ-EQl" id="ah3-l4-bgm"/>
             </connections>
-            <point key="canvasLocation" x="227" y="-120"/>
+            <point key="canvasLocation" x="-70.400000000000006" y="-140.32983508245877"/>
         </tableViewCell>
     </objects>
     <resources>
