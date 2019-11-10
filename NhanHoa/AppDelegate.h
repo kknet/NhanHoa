@@ -24,6 +24,15 @@
 #import "CallViewController.h"
 #import "HMLocalization.h"
 
+typedef enum HostingWindowsType{
+    eWindowsHostingStudent,
+    eWindowsHostingPersonal,
+    eWindowsHostingPersonalPlus,
+    eWindowsHostingBusiness,
+    eWindowsHostingECommerce,
+    eWindowsHostingProfessional,
+}HostingWindowsType;
+
 typedef enum ProfileType{
     ePersonalProfile,
     eBusinessProfile,

@@ -7,9 +7,10 @@
 //
 
 #import "HostingTbvCell.h"
+#import "HostingDetailsTbvCell.h"
 
 @implementation HostingTbvCell
-@synthesize viewWrap, lbTitle, lbPrice, tbInfo, lbSepa, tfPackage, imgPackage, btnChoosePackage, btnBuy;
+@synthesize viewWrap, lbTitle, lbPrice, tbInfo, lbSepa, btnBuy;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -44,7 +45,7 @@
     }];
     
     lbTitle.font = textFont;
-    lbTitle.textColor = GRAY_50;
+    lbTitle.textColor = GRAY_80;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewWrap).offset(padding);
         make.left.equalTo(viewWrap).offset(padding);
@@ -52,16 +53,7 @@
         make.height.mas_equalTo(hTitle);
     }];
     
-    lbPrice.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-4];
-    lbPrice.textColor = ORANGE_COLOR;
-    [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbTitle.mas_bottom);
-        make.left.right.equalTo(lbTitle);
-        make.right.equalTo(viewWrap).offset(-padding);
-        make.height.mas_equalTo(hTitle);
-    }];
-    
-    btnBuy.backgroundColor = BLUE_COLOR;
+    btnBuy.backgroundColor = [UIColor colorWithRed:(36/255.0) green:(111/255.0) blue:(213/255.0) alpha:1.0];
     btnBuy.titleLabel.font = btnFont;
     [btnBuy setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnBuy.layer.cornerRadius = 8.0;
@@ -73,21 +65,12 @@
         make.height.mas_equalTo(hBTN);
     }];
     
-    [tfPackage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(btnBuy);
+    lbPrice.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
+    lbPrice.textColor = [UIColor colorWithRed:(240/255.0) green:(127/255.0) blue:(5/255.0) alpha:1.0];
+    [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewWrap).offset(padding);
+        make.centerY.equalTo(btnBuy.mas_centerY);
         make.right.equalTo(btnBuy.mas_left).offset(-padding);
-    }];
-    
-    [btnChoosePackage setTitle:@"" forState:UIControlStateNormal];
-    [btnChoosePackage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(btnBuy);
-    }];
-    
-    [imgPackage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(tfPackage).offset(-10.0);
-        make.centerY.equalTo(tfPackage.mas_centerY);
-        make.width.height.mas_equalTo(18.0);
     }];
     
     lbSepa.backgroundColor = GRAY_235;
@@ -98,11 +81,15 @@
         make.height.mas_equalTo(1.0);
     }];
     
+    [tbInfo registerNib:[UINib nibWithNibName:@"HostingDetailsTbvCell" bundle:nil] forCellReuseIdentifier:@"HostingDetailsTbvCell"];
     tbInfo.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbInfo.backgroundColor = ORANGE_COLOR;
+    tbInfo.backgroundColor = UIColor.whiteColor;
+    tbInfo.delegate = self;
+    tbInfo.dataSource = self;
+    tbInfo.showsVerticalScrollIndicator = FALSE;
     [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbPrice.mas_bottom).offset(padding);
-        make.left.right.equalTo(lbPrice);
+        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
+        make.left.right.equalTo(lbTitle);
         make.bottom.equalTo(lbSepa.mas_top).offset(-padding);
     }];
 }
@@ -111,6 +98,62 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - UITableview Delegate
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 9;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HostingDetailsTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HostingDetailsTbvCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (indexPath.row == 0) {
+        cell.lbTitle.text = @"Dung lượng lưu trữ:";
+        cell.lbValue.text = @"900MB";
+        
+    }else if (indexPath.row == 1){
+        cell.lbTitle.text = @"Băng thông/ tháng:";
+        cell.lbValue.text = @"20GB";
+        
+    }else if (indexPath.row == 2){
+        cell.lbTitle.text = @"FTP Account:";
+        cell.lbValue.text = @"1";
+        
+    }else if (indexPath.row == 3){
+        cell.lbTitle.text = @"MySQL:";
+        cell.lbValue.text = @"1";
+        
+    }else if (indexPath.row == 4){
+        cell.lbTitle.text = @"MSSQL 2012:";
+        cell.lbValue.text = @"1";
+        
+    }else if (indexPath.row == 5){
+        cell.lbTitle.text = @"Domains:";
+        cell.lbValue.text = @"1";
+        
+    }else if (indexPath.row == 6){
+        cell.lbTitle.text = @"Subdomain:";
+        cell.lbValue.text = @"3";
+        
+    }else if (indexPath.row == 7){
+        cell.lbTitle.text = @"Alias/Park Domain:";
+        cell.lbValue.text = @"3";
+        
+    }else{
+        cell.lbTitle.text = @"Email POP3/webmail:";
+        cell.lbValue.text = @"10";
+    }
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 35.0;
 }
 
 @end

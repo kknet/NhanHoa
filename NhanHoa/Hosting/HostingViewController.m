@@ -8,12 +8,14 @@
 
 #import "HostingViewController.h"
 #import "HostingTbvCell.h"
+#import "ChooseHostingPackgeView.h"
 
 @interface HostingViewController ()<UITableViewDelegate, UITableViewDataSource>{
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
     
+    ChooseHostingPackgeView *choosePackageView;
     float hWindowsHostingCell;
 }
 @end
@@ -53,7 +55,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
     }
-    hWindowsHostingCell = padding + 40.0*2 + padding + 25.0*9 + padding + 1.0 + padding + hBTN + padding + 15.0;
+    hWindowsHostingCell = padding + 40.0 + padding + 35.0*9 + padding + 1.0 + padding + hBTN + padding + 15.0;
     
     self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     
@@ -151,11 +153,13 @@
         make.height.mas_equalTo(5.0);
     }];
     scvMenu.contentSize = CGSizeMake(sizeContent, hMenu);
+    scvMenu.showsHorizontalScrollIndicator = FALSE;
     
     [AppUtils addBoxShadowForView:scvMenu color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     //  table content
     
+    tbContent.showsVerticalScrollIndicator = FALSE;
     tbContent.backgroundColor = UIColor.clearColor;
     [tbContent registerNib:[UINib nibWithNibName:@"HostingTbvCell" bundle:nil] forCellReuseIdentifier:@"HostingTbvCell"];
     tbContent.delegate = self;
@@ -231,24 +235,99 @@
     HostingTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HostingTbvCell"];
     
     if (indexPath.row == 0) {
+        cell.lbTitle.text = @"Sinh Viên";
+        cell.lbPrice.text = @"Chỉ với 54.000 đ/tháng";
         
     }else if (indexPath.row == 1){
+        cell.lbTitle.text = @"Cá Nhân";
+        cell.lbPrice.text = @"Chỉ với 78.000 đ/tháng";
         
     }else if (indexPath.row == 2){
+        cell.lbTitle.text = @"Cá Nhân +";
+        cell.lbPrice.text = @"Chỉ với 90.000 đ/tháng";
         
     }else if (indexPath.row == 3){
+        cell.lbTitle.text = @"Doanh Nghiệp";
+        cell.lbPrice.text = @"Chỉ với 120.000 đ/tháng";
         
     }else if (indexPath.row == 4){
+        cell.lbTitle.text = @"Thương Mại Điện Tử";
+        cell.lbPrice.text = @"Chỉ với 169.000 đ/tháng";
         
     }else if (indexPath.row == 5){
-        
+        cell.lbTitle.text = @"Chuyên Nghiệp";
+        cell.lbPrice.text = @"Chỉ với 257.000 đ/tháng";
     }
+    
+    cell.btnBuy.tag = indexPath.row;
+    [cell.btnBuy addTarget:self
+                    action:@selector(onBuyButtonPress:)
+          forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return hWindowsHostingCell;
+}
+
+- (void)onBuyButtonPress: (UIButton *)sender {
+    if (choosePackageView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseHostingPackgeView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[ChooseHostingPackgeView class]]) {
+                choosePackageView = (ChooseHostingPackgeView *) currentObject;
+                break;
+            }
+        }
+        [appDelegate.window addSubview: choosePackageView];
+    }
+    [choosePackageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(appDelegate.window);
+    }];
+    [choosePackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
+    
+    if (sender.tag == eWindowsHostingStudent) {
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Sinh viên");
+        
+    }else if (sender.tag == eWindowsHostingPersonal){
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân");
+        
+    }else if (sender.tag == eWindowsHostingPersonalPlus){
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân+");
+        
+    }else if (sender.tag == eWindowsHostingBusiness){
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Doanh nghiệp");
+        
+    }else if (sender.tag == eWindowsHostingECommerce){
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Thương mại điện tử");
+        
+    }else if (sender.tag == eWindowsHostingProfessional){
+        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Chuyên nghiệp");
+    }
+    
+    [choosePackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
+}
+
+- (NSArray *)getListTimeInfoForCurrentPackage {
+    NSMutableArray *times = [[NSMutableArray alloc] init];
+    
+    NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:@"6", @"month", @"36000", @"price", @"432000", @"total", nil];
+    [times addObject: info];
+    
+    NSDictionary *info1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"12", @"month", @"32400", @"price", @"777000", @"total", nil];
+    [times addObject: info1];
+    
+    NSDictionary *info2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"36", @"month", @"30600", @"price", @"1101600", @"total", nil];
+    [times addObject: info2];
+    
+    NSDictionary *info3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"48", @"month", @"28800", @"price", @"1382400", @"total", nil];
+    [times addObject: info3];
+    
+    NSDictionary *info4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"60", @"month", @"27000", @"price", @"1620000", @"total", nil];
+    [times addObject: info4];
+    
+    return times;
 }
 
 @end
