@@ -18,15 +18,15 @@
     float hBTN = 45.0;
     float hCell = 70.0;
     
-    UIFont *textFont = [UIFont fontWithName:RobotoMedium size:26.0];
+    UIFont *textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoMedium size:24.0];
+        textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoMedium size:26.0];
+        textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     }
     
     hContentView = padding + 50.0 + padding + infos.count * hCell + 2*padding + hBTN + 2*padding;

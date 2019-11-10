@@ -56,7 +56,7 @@
                 <outlet property="tbContent" destination="Sq2-ii-HWa" id="9Qn-iF-M1E"/>
                 <outlet property="viewContent" destination="x8G-UG-Ztk" id="Zk6-KE-jMP"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="135.9375"/>
+            <point key="canvasLocation" x="-54" y="102"/>
         </view>
     </objects>
 </document>
