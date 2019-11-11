@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChooseHostingPackgeView : UIView
+@protocol ChooseHostingPackgeViewDelegate <NSObject>
+@optional
+- (void)closeChooseHostingPackageView;
+- (void)confirmAfterChooseHostingPackageView;
+@end
+
+@interface ChooseHostingPackgeView : UIView<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) id<ChooseHostingPackgeViewDelegate, NSObject> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
@@ -20,10 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float hContentView;
 @property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hCell;
+@property (nonatomic, strong) NSArray *listData;
 
 - (void)setupUIForViewWithInfo: (NSArray *)infos;
 - (void)showContentInfoView;
 
+- (IBAction)btnConfirmPress:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

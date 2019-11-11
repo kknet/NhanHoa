@@ -13,7 +13,7 @@
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
 #import "ProfilesViewController.h"
-#import "HostingViewController.h"
+#import "IntroduceHostingViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -87,8 +87,6 @@
     //  setup content
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        
     }
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -261,7 +259,7 @@
         [self.navigationController pushViewController: profileVC animated:TRUE];
         
     }else if (indexPath.row == eMenuHosting){
-        HostingViewController *hostingVC = [[HostingViewController alloc] initWithNibName:@"HostingViewController" bundle:nil];
+        IntroduceHostingViewController *hostingVC = [[IntroduceHostingViewController alloc] initWithNibName:@"IntroduceHostingViewController" bundle:nil];
         hostingVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
         [self.navigationController pushViewController: hostingVC animated:TRUE];

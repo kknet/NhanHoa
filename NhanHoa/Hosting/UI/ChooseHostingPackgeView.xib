@@ -42,6 +42,9 @@
                             <rect key="frame" x="8" y="375" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Confirm"/>
+                            <connections>
+                                <action selector="btnConfirmPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Uj4-l7-27q"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

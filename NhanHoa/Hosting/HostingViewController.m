@@ -9,13 +9,16 @@
 #import "HostingViewController.h"
 #import "HostingTbvCell.h"
 #import "ChooseHostingPackgeView.h"
+#import "CheckDomainForRegisterHostingView.h"
 
-@interface HostingViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface HostingViewController ()<UITableViewDelegate, UITableViewDataSource, ChooseHostingPackgeViewDelegate, CheckDomainForRegisterHostingViewDelegate>
+{
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
     
     ChooseHostingPackgeView *choosePackageView;
+    CheckDomainForRegisterHostingView *checkDomainView;
     float hWindowsHostingCell;
 }
 @end
@@ -233,6 +236,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HostingTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HostingTbvCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (indexPath.row == 0) {
         cell.lbTitle.text = @"Sinh Viên";
@@ -280,6 +284,7 @@
                 break;
             }
         }
+        choosePackageView.delegate = self;
         [appDelegate.window addSubview: choosePackageView];
     }
     [choosePackageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -328,6 +333,53 @@
     [times addObject: info4];
     
     return times;
+}
+
+#pragma mark - Choose Package Hosting delegate
+-(void)closeChooseHostingPackageView {
+    if (choosePackageView) {
+        [choosePackageView removeFromSuperview];
+        choosePackageView = nil;
+    }
+}
+
+-(void)confirmAfterChooseHostingPackageView {
+    if (choosePackageView) {
+        [choosePackageView removeFromSuperview];
+        choosePackageView = nil;
+    }
+    //  show check domain view after choose hosting package
+    if (checkDomainView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"CheckDomainForRegisterHostingView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[CheckDomainForRegisterHostingView class]]) {
+                checkDomainView = (CheckDomainForRegisterHostingView *) currentObject;
+                break;
+            }
+        }
+        checkDomainView.delegate = self;
+        [appDelegate.window addSubview: checkDomainView];
+    }
+    [checkDomainView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(appDelegate.window);
+    }];
+    [checkDomainView setupUIForView];
+    [checkDomainView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
+}
+
+#pragma mark - CheckDomainViewDelegate
+-(void)closeCheckDomainView {
+    if (checkDomainView) {
+        [checkDomainView removeFromSuperview];
+        checkDomainView = nil;
+    }
+}
+
+-(void)confirmAfterCheckDomainView {
+    if (checkDomainView) {
+        [checkDomainView removeFromSuperview];
+        checkDomainView = nil;
+    }
 }
 
 @end
