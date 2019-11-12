@@ -14,7 +14,8 @@
 #import "PromotionsViewController.h"
 #import "ProfilesViewController.h"
 #import "IntroduceHostingViewController.h"
-
+#import "IntroduceEmailsViewController.h"
+#import "IntroduceServersViewController.h"
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
 #import "HomePromotionView.h"
@@ -251,12 +252,24 @@
         searchDomainsVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
         [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
+     
+    }else if (indexPath.row == eMenuCloudServer){
+        IntroduceServersViewController *serversVC = [[IntroduceServersViewController alloc] initWithNibName:@"IntroduceServersViewController" bundle:nil];
+        serversVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController: serversVC animated:TRUE];
         
     }else if (indexPath.row == eMenuProfiles){
         ProfilesViewController *profileVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
         profileVC.hidesBottomBarWhenPushed = TRUE;
         [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
         [self.navigationController pushViewController: profileVC animated:TRUE];
+        
+    }else if (indexPath.row == eMenuRegisterEmail){
+        IntroduceEmailsViewController *emailVC = [[IntroduceEmailsViewController alloc] initWithNibName:@"IntroduceEmailsViewController" bundle:nil];
+        emailVC.hidesBottomBarWhenPushed = TRUE;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController: emailVC animated:TRUE];
         
     }else if (indexPath.row == eMenuHosting){
         IntroduceHostingViewController *hostingVC = [[IntroduceHostingViewController alloc] initWithNibName:@"IntroduceHostingViewController" bundle:nil];

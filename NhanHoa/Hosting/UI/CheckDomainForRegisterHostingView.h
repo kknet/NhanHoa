@@ -23,15 +23,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UILabel *lbBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UITextField *tfDomain;
+@property (weak, nonatomic) IBOutlet UIButton *icCheck;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
 @property (weak, nonatomic) IBOutlet UIView *viewResult;
 @property (weak, nonatomic) IBOutlet UILabel *lbResult;
+@property (weak, nonatomic) IBOutlet UIImageView *imgResult;
+
 - (IBAction)btnRegisterPress:(UIButton *)sender;
+- (IBAction)icCheckClick:(UIButton *)sender;
+- (IBAction)icBackClick:(UIButton *)sender;
 
 @property (nonatomic, assign) float hContentView;
 @property (nonatomic, assign) float padding;
+@property (nonatomic, assign) float hImgResult;
 - (void)showContentInfoView;
 - (void)setupUIForView;
 

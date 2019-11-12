@@ -1,31 +1,30 @@
 //
-//  HostingViewController.m
+//  EmailsViewController.m
 //  NhanHoa
 //
-//  Created by OS on 11/9/19.
+//  Created by OS on 11/12/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "HostingViewController.h"
-#import "HostingTbvCell.h"
-#import "ChooseHostingPackgeView.h"
+#import "EmailsViewController.h"
+#import "EmailHostingTbvCell.h"
+#import "ChooseEmailPackageView.h"
 #import "CheckDomainForRegisterHostingView.h"
 
-@interface HostingViewController ()<UITableViewDelegate, UITableViewDataSource, ChooseHostingPackgeViewDelegate, CheckDomainForRegisterHostingViewDelegate>
+@interface EmailsViewController ()<UITableViewDelegate, UITableViewDataSource, ChooseEmailPackageViewDelegate, CheckDomainForRegisterHostingViewDelegate>
 {
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
+    float hEmailHostingCell;
     
-    ChooseHostingPackgeView *choosePackageView;
+    ChooseEmailPackageView *chooseEmailPackageView;
     CheckDomainForRegisterHostingView *checkDomainView;
-    float hWindowsHostingCell;
 }
 @end
 
-@implementation HostingViewController
-@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, scvMenu, btnLinuxHosting, btnWindowsHosting, btnWordpressHosting, tbContent, lbMenu;
-@synthesize curMenu;
+@implementation EmailsViewController
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, scvMenu, btnHosting, btnGoogle, btnMicrosoft, btnServer, tbContent, lbMenu;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,12 +33,16 @@
     [self setupUIForView];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear: animated];
-    
-    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Register hosting"];
-    
-    [self updateMenuStateWithCurrentMenu: curMenu];
+- (IBAction)btnHostingPress:(UIButton *)sender {
+}
+
+- (IBAction)btnGooglePress:(UIButton *)sender {
+}
+
+- (IBAction)btnMicrosoftPress:(UIButton *)sender {
+}
+
+- (IBAction)btnServerPress:(UIButton *)sender {
 }
 
 - (void)setupUIForView
@@ -60,7 +63,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
     }
-    hWindowsHostingCell = padding + 40.0 + padding + 35.0*9 + padding + 1.0 + padding + hBTN + padding + 15.0;
+    hEmailHostingCell = padding + 40.0 + padding + 35.0*4 + padding + 1.0 + padding + hBTN + padding + 15.0;
     
     self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
     
@@ -114,47 +117,58 @@
     
     float sizeContent = 0;
     
-    btnWindowsHosting.titleLabel.font = btnLinuxHosting.titleLabel.font = btnWordpressHosting.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    btnHosting.titleLabel.font = btnGoogle.titleLabel.font = btnMicrosoft.titleLabel.font = btnServer.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
     
-    float sizeText = [AppUtils getSizeWithText:@"Windows Hosting" withFont:btnWordpressHosting.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
+    float sizeText = [AppUtils getSizeWithText:@"E.Hosting" withFont:btnHosting.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
     sizeContent += padding + sizeText;
     
-    [btnWindowsHosting setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
-    [btnWindowsHosting setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    btnWindowsHosting.selected = TRUE;
-    [btnWindowsHosting mas_makeConstraints:^(MASConstraintMaker *make) {
+    [btnHosting setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
+    [btnHosting setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    btnHosting.selected = TRUE;
+    [btnHosting mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(scvMenu).offset(padding);
         make.top.equalTo(scvMenu);
         make.width.mas_equalTo(sizeText);
         make.height.mas_equalTo(hMenu-5.0);
     }];
     
-    sizeText = [AppUtils getSizeWithText:@"Linux Hosting" withFont:btnLinuxHosting.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
+    sizeText = [AppUtils getSizeWithText:@"E.Google" withFont:btnGoogle.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
     sizeContent += padding + sizeText;
     
-    [btnLinuxHosting setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
-    [btnLinuxHosting setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    [btnLinuxHosting mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(btnWindowsHosting.mas_right).offset(padding);
-        make.top.bottom.equalTo(btnWindowsHosting);
+    [btnGoogle setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
+    [btnGoogle setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    [btnGoogle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btnHosting.mas_right).offset(padding);
+        make.top.bottom.equalTo(btnHosting);
         make.width.mas_equalTo(sizeText);
     }];
     
-    sizeText = [AppUtils getSizeWithText:@"Wordpress Hosting" withFont:btnWordpressHosting.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
+    sizeText = [AppUtils getSizeWithText:@"E.Microsoft" withFont:btnMicrosoft.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
     sizeContent += padding + sizeText + padding;
     
-    [btnWordpressHosting setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
-    [btnWordpressHosting setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    [btnWordpressHosting mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(btnLinuxHosting.mas_right).offset(padding);
-        make.top.bottom.equalTo(btnLinuxHosting);
+    [btnMicrosoft setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
+    [btnMicrosoft setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    [btnMicrosoft mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btnGoogle.mas_right).offset(padding);
+        make.top.bottom.equalTo(btnGoogle);
+        make.width.mas_equalTo(sizeText);
+    }];
+    
+    sizeText = [AppUtils getSizeWithText:@"E.Server riêng" withFont:btnServer.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 3.0;
+    sizeContent += padding + sizeText + padding;
+    
+    [btnServer setTitleColor:TITLE_COLOR forState:UIControlStateSelected];
+    [btnServer setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    [btnServer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btnMicrosoft.mas_right).offset(padding);
+        make.top.bottom.equalTo(btnMicrosoft);
         make.width.mas_equalTo(sizeText);
     }];
     
     lbMenu.backgroundColor = BLUE_COLOR;
     [lbMenu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(btnWindowsHosting.mas_bottom);
-        make.left.right.equalTo(btnWindowsHosting);
+        make.top.equalTo(btnHosting.mas_bottom);
+        make.left.right.equalTo(btnHosting);
         make.height.mas_equalTo(5.0);
     }];
     scvMenu.contentSize = CGSizeMake(sizeContent, hMenu);
@@ -166,7 +180,7 @@
     
     tbContent.showsVerticalScrollIndicator = FALSE;
     tbContent.backgroundColor = UIColor.clearColor;
-    [tbContent registerNib:[UINib nibWithNibName:@"HostingTbvCell" bundle:nil] forCellReuseIdentifier:@"HostingTbvCell"];
+    [tbContent registerNib:[UINib nibWithNibName:@"EmailHostingTbvCell" bundle:nil] forCellReuseIdentifier:@"EmailHostingTbvCell"];
     tbContent.delegate = self;
     tbContent.dataSource = self;
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -178,74 +192,12 @@
     }];
 }
 
-
 - (IBAction)icBackClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
     
-}
-
-- (IBAction)btnWindowsHostingPress:(UIButton *)sender
-{
-    curMenu = eMenuWindowsHosting;
-    [self updateMenuStateWithCurrentMenu: curMenu];
-}
-
-- (IBAction)btnLinuxHostingPress:(UIButton *)sender
-{
-    curMenu = eMenuLinuxHosting;
-    [self updateMenuStateWithCurrentMenu: curMenu];
-}
-
-- (IBAction)btnWordpressHostingPress:(UIButton *)sender
-{
-    curMenu = eMenuWordpressHosting;
-    [self updateMenuStateWithCurrentMenu: curMenu];
-}
-
-- (void)updateMenuStateWithCurrentMenu: (HostingMenuType)menu {
-    if (menu == eMenuWindowsHosting) {
-        btnWindowsHosting.selected = TRUE;
-        btnLinuxHosting.selected = btnWordpressHosting.selected = FALSE;
-        
-        [lbMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(btnWindowsHosting.mas_bottom);
-            make.left.right.equalTo(btnWindowsHosting);
-            make.height.mas_equalTo(5.0);
-        }];
-    }else if (menu == eMenuLinuxHosting) {
-        btnLinuxHosting.selected = TRUE;
-        btnWindowsHosting.selected = btnWordpressHosting.selected = FALSE;
-        
-        [lbMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(btnLinuxHosting.mas_bottom);
-            make.left.right.equalTo(btnLinuxHosting);
-            make.height.mas_equalTo(5.0);
-        }];
-        
-    }else{
-        btnWordpressHosting.selected = TRUE;
-        btnLinuxHosting.selected = btnWindowsHosting.selected = FALSE;
-        
-        [lbMenu mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(btnWordpressHosting.mas_bottom);
-            make.left.right.equalTo(btnWordpressHosting);
-            make.height.mas_equalTo(5.0);
-        }];
-    }
-    
-    if (curMenu == eMenuWindowsHosting) {
-        scvMenu.contentOffset = CGPointMake(0, 0);
-        
-    }else if (curMenu == eMenuWordpressHosting){
-        scvMenu.contentOffset = CGPointMake(scvMenu.contentSize.width - SCREEN_WIDTH, 0);
-        
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
 }
 
 #pragma mark - UITableview delegate
@@ -258,32 +210,32 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HostingTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HostingTbvCell"];
+    EmailHostingTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EmailHostingTbvCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (indexPath.row == 0) {
-        cell.lbTitle.text = @"Sinh Viên";
-        cell.lbPrice.text = @"Chỉ với 54.000 đ/tháng";
+        cell.lbTitle.text = @"CLASSIC 1";
+        cell.lbPrice.text = @"50.000 đ/tháng";
         
     }else if (indexPath.row == 1){
-        cell.lbTitle.text = @"Cá Nhân";
-        cell.lbPrice.text = @"Chỉ với 78.000 đ/tháng";
+        cell.lbTitle.text = @"CLASSIC 2";
+        cell.lbPrice.text = @"100.000 đ/tháng";
         
     }else if (indexPath.row == 2){
-        cell.lbTitle.text = @"Cá Nhân +";
-        cell.lbPrice.text = @"Chỉ với 90.000 đ/tháng";
+        cell.lbTitle.text = @"CLASSIC 3";
+        cell.lbPrice.text = @"145.000 đ/tháng";
         
     }else if (indexPath.row == 3){
-        cell.lbTitle.text = @"Doanh Nghiệp";
-        cell.lbPrice.text = @"Chỉ với 120.000 đ/tháng";
+        cell.lbTitle.text = @"BASIC 1";
+        cell.lbPrice.text = @"180.000 đ/tháng";
         
     }else if (indexPath.row == 4){
-        cell.lbTitle.text = @"Thương Mại Điện Tử";
-        cell.lbPrice.text = @"Chỉ với 169.000 đ/tháng";
+        cell.lbTitle.text = @"BASIC 2";
+        cell.lbPrice.text = @"300.000 đ/tháng";
         
     }else if (indexPath.row == 5){
-        cell.lbTitle.text = @"Chuyên Nghiệp";
-        cell.lbPrice.text = @"Chỉ với 257.000 đ/tháng";
+        cell.lbTitle.text = @"BASIC 3";
+        cell.lbPrice.text = @"450.000 đ/tháng";
     }
     
     cell.btnBuy.tag = indexPath.row;
@@ -295,46 +247,46 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return hWindowsHostingCell;
+    return hEmailHostingCell;
 }
 
 - (void)onBuyButtonPress: (UIButton *)sender {
-    if (choosePackageView == nil) {
-        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseHostingPackgeView" owner:nil options:nil];
+    if (chooseEmailPackageView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseEmailPackageView" owner:nil options:nil];
         for(id currentObject in toplevelObject){
-            if ([currentObject isKindOfClass:[ChooseHostingPackgeView class]]) {
-                choosePackageView = (ChooseHostingPackgeView *) currentObject;
+            if ([currentObject isKindOfClass:[ChooseEmailPackageView class]]) {
+                chooseEmailPackageView = (ChooseEmailPackageView *) currentObject;
                 break;
             }
         }
-        choosePackageView.delegate = self;
-        [appDelegate.window addSubview: choosePackageView];
+        chooseEmailPackageView.delegate = self;
+        [appDelegate.window addSubview: chooseEmailPackageView];
     }
-    [choosePackageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [chooseEmailPackageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(appDelegate.window);
     }];
-    [choosePackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
+    [chooseEmailPackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
     
-    if (sender.tag == eWindowsHostingStudent) {
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Sinh viên");
+    if (sender.tag == 0) {
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 1");
         
-    }else if (sender.tag == eWindowsHostingPersonal){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân");
+    }else if (sender.tag == 1){
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 2");
         
-    }else if (sender.tag == eWindowsHostingPersonalPlus){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân+");
+    }else if (sender.tag == 2){
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 3");
         
-    }else if (sender.tag == eWindowsHostingBusiness){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Doanh nghiệp");
+    }else if (sender.tag == 3){
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 1");
         
-    }else if (sender.tag == eWindowsHostingECommerce){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Thương mại điện tử");
+    }else if (sender.tag == 4){
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 2");
         
-    }else if (sender.tag == eWindowsHostingProfessional){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Chuyên nghiệp");
+    }else if (sender.tag == 5){
+        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 3");
     }
     
-    [choosePackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
+    [chooseEmailPackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
 }
 
 - (NSArray *)getListTimeInfoForCurrentPackage {
@@ -358,18 +310,18 @@
     return times;
 }
 
-#pragma mark - Choose Package Hosting delegate
--(void)closeChooseHostingPackageView {
-    if (choosePackageView) {
-        [choosePackageView removeFromSuperview];
-        choosePackageView = nil;
+#pragma mark - ChooseEmailPackageViewDelegate
+-(void)closeChooseEmailPackageView {
+    if (chooseEmailPackageView) {
+        [chooseEmailPackageView removeFromSuperview];
+        chooseEmailPackageView = nil;
     }
 }
 
--(void)confirmAfterChooseHostingPackageView {
-    if (choosePackageView) {
-        [choosePackageView removeFromSuperview];
-        choosePackageView = nil;
+-(void)confirmAfterChooseEmailPackageView {
+    if (chooseEmailPackageView) {
+        [chooseEmailPackageView removeFromSuperview];
+        chooseEmailPackageView = nil;
     }
     //  show check domain view after choose hosting package
     if (checkDomainView == nil) {

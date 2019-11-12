@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbContent;
 @property (weak, nonatomic) IBOutlet UIImageView *imgDropdown;
 
+@property (nonatomic, assign) float padding;
+
+- (void)updateUIForSelected: (BOOL)selected;
+
 @end
 
 NS_ASSUME_NONNULL_END

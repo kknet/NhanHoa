@@ -1,8 +1,8 @@
 //
-//  IntroduceHostingViewController.h
+//  IntroduceServersViewController.h
 //  NhanHoa
 //
-//  Created by OS on 11/11/19.
+//  Created by OS on 11/12/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
@@ -10,9 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IntroduceHostingViewController : UIViewController
+@interface IntroduceServersViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
-@property (weak, nonatomic) IBOutlet UIImageView *bgHosting;
+@property (weak, nonatomic) IBOutlet UIImageView *bgHeader;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
@@ -20,17 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
 @property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
-@property (weak, nonatomic) IBOutlet UIView *viewWindows;
-@property (weak, nonatomic) IBOutlet UIImageView *imgWindows;
-@property (weak, nonatomic) IBOutlet UILabel *lbWindows;
+@property (weak, nonatomic) IBOutlet UIView *viewWindowsServer;
+@property (weak, nonatomic) IBOutlet UIImageView *imgWindowsServer;
+@property (weak, nonatomic) IBOutlet UILabel *lbWindowsServer;
 
-@property (weak, nonatomic) IBOutlet UIView *viewLinux;
-@property (weak, nonatomic) IBOutlet UIImageView *imgLinux;
-@property (weak, nonatomic) IBOutlet UILabel *lbLinux;
+@property (weak, nonatomic) IBOutlet UIView *viewLinuxServer;
+@property (weak, nonatomic) IBOutlet UIImageView *imgLinuxServer;
+@property (weak, nonatomic) IBOutlet UILabel *lbLinuxServer;
 
-@property (weak, nonatomic) IBOutlet UIView *viewWordpress;
-@property (weak, nonatomic) IBOutlet UIImageView *imgWordpress;
-@property (weak, nonatomic) IBOutlet UILabel *lbWordpress;
 @property (weak, nonatomic) IBOutlet UITableView *tbQuestions;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *clvPromotions;

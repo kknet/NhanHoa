@@ -9,8 +9,8 @@
 #import "CheckDomainForRegisterHostingView.h"
 
 @implementation CheckDomainForRegisterHostingView
-@synthesize lbBackground, viewContent, lbTitle, tfDomain, btnRegister, viewResult, lbResult;
-@synthesize hContentView, padding;
+@synthesize lbBackground, viewContent, lbTitle, tfDomain, btnRegister, viewResult, imgResult, lbResult, icCheck, icBack;
+@synthesize hContentView, padding, hImgResult;
 @synthesize delegate;
 
 - (void)setupUIForView
@@ -34,16 +34,17 @@
         hBTN = 50.0;
     }
     
-    UITapGestureRecognizer *tapClose = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
-    lbBackground.userInteractionEnabled = TRUE;
-    [lbBackground addGestureRecognizer: tapClose];
+    UITapGestureRecognizer *tapClose = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboardView)];
+    viewContent.userInteractionEnabled = TRUE;
+    [viewContent addGestureRecognizer: tapClose];
     
     lbBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [lbBackground mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(self);
     }];
     
-    hContentView = padding + 50.0 + padding + hBTN + padding + (2*hBTN) + padding + hBTN + 2*padding;
+    float hResultView = 300;
+    hContentView = padding + 50.0 + padding + hBTN + padding + hResultView + padding + hBTN + 2*padding;
     
     viewContent.backgroundColor = UIColor.whiteColor;
     viewContent.layer.cornerRadius = 10.0;
@@ -54,24 +55,41 @@
         make.height.mas_equalTo(hContentView);
     }];
     
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewContent).offset(padding);
+        make.left.equalTo(viewContent);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
     lbTitle.textColor = GRAY_50;
     lbTitle.font = textFont;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewContent).offset(padding);
-        make.left.equalTo(viewContent).offset(padding);
-        make.right.equalTo(viewContent).offset(-padding);
+        make.left.equalTo(icBack.mas_right).offset(5.0);
+        make.right.equalTo(viewContent).offset(-40.0 - 5.0);
         make.height.mas_equalTo(50.0);
     }];
     
-    tfDomain.textColor = GRAY_80;
+    icCheck.layer.cornerRadius = 10.0;
+    icCheck.backgroundColor = BLUE_COLOR;
+    icCheck.imageEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14);
+    [icCheck mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
+        make.right.equalTo(viewContent).offset(-padding);
+        make.width.height.mas_equalTo(hBTN);
+    }];
+    
+    tfDomain.textColor = GRAY_150;
     tfDomain.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize-2];
     tfDomain.borderStyle = UITextBorderStyleNone;
-    tfDomain.layer.borderColor = GRAY_150.CGColor;
+    tfDomain.layer.borderColor = GRAY_200.CGColor;
     tfDomain.layer.borderWidth = 1.0;
     tfDomain.layer.cornerRadius = 5.0;
     [tfDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTitle.mas_bottom).offset(padding);
-        make.left.right.equalTo(lbTitle);
+        make.left.equalTo(viewContent).offset(padding);
+        make.right.equalTo(icCheck.mas_left).offset(-10.0);
         make.height.mas_equalTo(hBTN);
     }];
     tfDomain.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hBTN)];
@@ -85,16 +103,27 @@
     viewResult.clipsToBounds = TRUE;
     viewResult.hidden = TRUE;
     [viewResult mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tfDomain.mas_bottom).offset(padding);
-        make.left.right.equalTo(tfDomain);
-        make.height.mas_equalTo(2*hBTN);
+        make.top.equalTo(tfDomain.mas_bottom);
+        make.left.equalTo(viewContent).offset(padding);
+        make.right.equalTo(viewContent).offset(-padding);
+        make.height.mas_equalTo(hResultView);
     }];
     
-    lbResult.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-4];
+    hImgResult = 80.0;
+    [imgResult mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewResult).offset(3*padding);
+        make.centerX.equalTo(viewResult.mas_centerX);
+        make.height.mas_equalTo(hImgResult);
+        make.width.mas_equalTo(0);
+    }];
+    
+    
+    lbResult.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    lbResult.textColor = GRAY_150;
     [lbResult mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imgResult.mas_bottom).offset(padding);
         make.left.equalTo(viewResult).offset(padding);
         make.right.equalTo(viewResult).offset(-padding);
-        make.centerY.equalTo(viewResult.mas_centerY);
     }];
     
     [btnRegister setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Register hosting"] forState:UIControlStateNormal];
@@ -108,47 +137,23 @@
         make.right.equalTo(viewContent).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
-    
-    //  register observers
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)closeKeyboardView {
+    [self endEditing: TRUE];
 }
 
 - (void)closeView {
-    if (tfDomain.isFirstResponder) {
-        NSLog(@"keyboard dang duoc show");
-        [self endEditing: TRUE];
-    }else{
-        [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(SCREEN_HEIGHT);
-        }];
-        [UIView animateWithDuration:0.1 animations:^{
-            [self layoutIfNeeded];
-        }completion:^(BOOL finished) {
-            lbBackground.hidden = TRUE;
-            if ([delegate respondsToSelector:@selector(closeCheckDomainView)]) {
-                [delegate closeCheckDomainView];
-            }
-        }];
-    }
-}
-
-- (void)keyboardDidShow:(NSNotification *)notif {
-    float keyboardHeight = [[[notif userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    
-    float originY = SCREEN_HEIGHT - (hContentView + keyboardHeight) + padding;
     [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(originY);
+        make.top.equalTo(self).offset(SCREEN_HEIGHT);
     }];
-}
-
-- (void)keyboardWillHide: (NSNotification *) notif{
-    float originY = SCREEN_HEIGHT - hContentView + padding;
-    [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(originY);
+    [UIView animateWithDuration:0.1 animations:^{
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        lbBackground.hidden = TRUE;
+        if ([delegate respondsToSelector:@selector(closeCheckDomainView)]) {
+            [delegate closeCheckDomainView];
+        }
     }];
 }
 
@@ -160,6 +165,8 @@
     
     [UIView animateWithDuration:0.1 animations:^{
         [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        [tfDomain becomeFirstResponder];
     }];
 }
 
@@ -167,6 +174,25 @@
     if ([delegate respondsToSelector:@selector(confirmAfterCheckDomainView)]) {
         [delegate confirmAfterCheckDomainView];
     }
+}
+
+- (IBAction)icCheckClick:(UIButton *)sender
+{
+    [self endEditing: TRUE];
+    viewResult.hidden = FALSE;
+    
+    UIImage *imgOK = [UIImage imageNamed:@"search_domain_ok"];
+    float wImage = hImgResult * imgOK.size.width / imgOK.size.height;
+    imgResult.image = imgOK;
+    [imgResult mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(wImage);
+    }];
+    
+    lbResult.text = SFM(@"%@!\n%@", @"Tên miền này đã được đăng ký", @"Bạn có thể sử dụng tên miền này để đăng ký hosting");
+}
+
+- (IBAction)icBackClick:(UIButton *)sender {
+    [self closeView];
 }
 
 @end

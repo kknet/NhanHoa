@@ -27,10 +27,10 @@
             <connections>
                 <outlet property="imgPromotion" destination="OWj-Zs-dfo" id="jpJ-Ku-SbL"/>
             </connections>
-            <point key="canvasLocation" x="-162" y="55"/>
+            <point key="canvasLocation" x="3" y="18"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="hosting_promotion.png" width="750" height="290"/>
+        <image name="hosting_promotion.png" width="1386" height="466"/>
     </resources>
 </document>

@@ -142,6 +142,30 @@
 		4C01879122EE83E900EDD030 /* callkit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879022EE83E900EDD030 /* callkit_logo.png */; };
 		4C01879B22EEB4D800EDD030 /* NewHomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01879922EEB4D800EDD030 /* NewHomeMenuCell.m */; };
 		4C01879C22EEB4D800EDD030 /* NewHomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C01879A22EEB4D800EDD030 /* NewHomeMenuCell.xib */; };
+		4C034F14237A8D3B0058EFFE /* EmailPromotionClvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F12237A8D3B0058EFFE /* EmailPromotionClvCell.m */; };
+		4C034F15237A8D3B0058EFFE /* EmailPromotionClvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F13237A8D3B0058EFFE /* EmailPromotionClvCell.xib */; };
+		4C034F19237A9DD30058EFFE /* EmailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F17237A9DD30058EFFE /* EmailsViewController.m */; };
+		4C034F1A237A9DD30058EFFE /* EmailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F18237A9DD30058EFFE /* EmailsViewController.xib */; };
+		4C034F1E237AA00E0058EFFE /* EmailHostingTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F1C237AA00E0058EFFE /* EmailHostingTbvCell.m */; };
+		4C034F1F237AA00E0058EFFE /* EmailHostingTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F1D237AA00E0058EFFE /* EmailHostingTbvCell.xib */; };
+		4C034F23237AA42B0058EFFE /* EmailDetailsTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F21237AA42B0058EFFE /* EmailDetailsTbvCell.m */; };
+		4C034F24237AA42B0058EFFE /* EmailDetailsTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F22237AA42B0058EFFE /* EmailDetailsTbvCell.xib */; };
+		4C034F27237AA6D40058EFFE /* ChooseEmailPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F26237AA6D40058EFFE /* ChooseEmailPackageView.m */; };
+		4C034F29237AA6E00058EFFE /* ChooseEmailPackageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F28237AA6E00058EFFE /* ChooseEmailPackageView.xib */; };
+		4C034F2D237AA7F30058EFFE /* EmailPackageTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F2B237AA7F30058EFFE /* EmailPackageTbvCell.m */; };
+		4C034F2E237AA7F30058EFFE /* EmailPackageTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F2C237AA7F30058EFFE /* EmailPackageTbvCell.xib */; };
+		4C034F33237AAC690058EFFE /* IntroduceServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F31237AAC690058EFFE /* IntroduceServersViewController.m */; };
+		4C034F34237AAC690058EFFE /* IntroduceServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F32237AAC690058EFFE /* IntroduceServersViewController.xib */; };
+		4C034F38237AB6E80058EFFE /* ServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F36237AB6E80058EFFE /* ServersViewController.m */; };
+		4C034F39237AB6E80058EFFE /* ServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F37237AB6E80058EFFE /* ServersViewController.xib */; };
+		4C034F3E237ABAAC0058EFFE /* CloudServerTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F3C237ABAAC0058EFFE /* CloudServerTbvCell.m */; };
+		4C034F3F237ABAAC0058EFFE /* CloudServerTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F3D237ABAAC0058EFFE /* CloudServerTbvCell.xib */; };
+		4C034F43237ABBC50058EFFE /* CloudServerDetailsTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F41237ABBC50058EFFE /* CloudServerDetailsTbvCell.m */; };
+		4C034F44237ABBC50058EFFE /* CloudServerDetailsTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F42237ABBC50058EFFE /* CloudServerDetailsTbvCell.xib */; };
+		4C034F47237AC0C00058EFFE /* ChooseCloudServerPackageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F46237AC0C00058EFFE /* ChooseCloudServerPackageView.m */; };
+		4C034F49237AC0CB0058EFFE /* ChooseCloudServerPackageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F48237AC0CB0058EFFE /* ChooseCloudServerPackageView.xib */; };
+		4C034F4D237AC1740058EFFE /* CloudServerTemplateTbvCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C034F4B237AC1740058EFFE /* CloudServerTemplateTbvCell.m */; };
+		4C034F4E237AC1740058EFFE /* CloudServerTemplateTbvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C034F4C237AC1740058EFFE /* CloudServerTemplateTbvCell.xib */; };
 		4C041EA222E841F600DA7405 /* UIMiniKeypad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */; };
 		4C041EA322E841F600DA7405 /* UIMiniKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C041EA122E841F600DA7405 /* UIMiniKeypad.m */; };
 		4C041EA522E8432600DA7405 /* ic_back_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C041EA422E8432600DA7405 /* ic_back_act.png */; };
@@ -537,6 +561,15 @@
 		4CF862EC23604DF6008B69EF /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862EA23604DF6008B69EF /* DomainCell.xib */; };
 		4CF862F123604E1B008B69EF /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */; };
 		4CF862F223604E1B008B69EF /* WhoisDomainPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */; };
+		4CFAF22B237A4D20009D9AF3 /* ic_dropdown_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF22A237A4D1F009D9AF3 /* ic_dropdown_up.png */; };
+		4CFAF230237A63D8009D9AF3 /* IntroduceEmailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAF22E237A63D8009D9AF3 /* IntroduceEmailsViewController.m */; };
+		4CFAF231237A63D8009D9AF3 /* IntroduceEmailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF22F237A63D8009D9AF3 /* IntroduceEmailsViewController.xib */; };
+		4CFAF233237A64B5009D9AF3 /* bg_email.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF232237A64B5009D9AF3 /* bg_email.png */; };
+		4CFAF236237A65B0009D9AF3 /* bg_email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF234237A65AF009D9AF3 /* bg_email@2x.png */; };
+		4CFAF237237A65B0009D9AF3 /* bg_email@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF235237A65B0009D9AF3 /* bg_email@3x.png */; };
+		4CFAF23B237A666C009D9AF3 /* ic_email_package.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF238237A666B009D9AF3 /* ic_email_package.png */; };
+		4CFAF23C237A666C009D9AF3 /* ic_email_package@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF239237A666B009D9AF3 /* ic_email_package@2x.png */; };
+		4CFAF23D237A666C009D9AF3 /* ic_email_package@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF23A237A666C009D9AF3 /* ic_email_package@3x.png */; };
 		4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */; };
 		4CFCBC9F22FD136F00427B86 /* HostingPackageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */; };
 		4CFDBBF9230FE8D100D21490 /* LaunchScreen~iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFDBBF8230FE8D100D21490 /* LaunchScreen~iPad.storyboard */; };
@@ -944,6 +977,42 @@
 		4C01879822EEB4D800EDD030 /* NewHomeMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewHomeMenuCell.h; sourceTree = "<group>"; };
 		4C01879922EEB4D800EDD030 /* NewHomeMenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewHomeMenuCell.m; sourceTree = "<group>"; };
 		4C01879A22EEB4D800EDD030 /* NewHomeMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHomeMenuCell.xib; sourceTree = "<group>"; };
+		4C034F11237A8D3B0058EFFE /* EmailPromotionClvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailPromotionClvCell.h; sourceTree = "<group>"; };
+		4C034F12237A8D3B0058EFFE /* EmailPromotionClvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailPromotionClvCell.m; sourceTree = "<group>"; };
+		4C034F13237A8D3B0058EFFE /* EmailPromotionClvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailPromotionClvCell.xib; sourceTree = "<group>"; };
+		4C034F16237A9DD30058EFFE /* EmailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailsViewController.h; sourceTree = "<group>"; };
+		4C034F17237A9DD30058EFFE /* EmailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailsViewController.m; sourceTree = "<group>"; };
+		4C034F18237A9DD30058EFFE /* EmailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailsViewController.xib; sourceTree = "<group>"; };
+		4C034F1B237AA00E0058EFFE /* EmailHostingTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailHostingTbvCell.h; sourceTree = "<group>"; };
+		4C034F1C237AA00E0058EFFE /* EmailHostingTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailHostingTbvCell.m; sourceTree = "<group>"; };
+		4C034F1D237AA00E0058EFFE /* EmailHostingTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailHostingTbvCell.xib; sourceTree = "<group>"; };
+		4C034F20237AA42B0058EFFE /* EmailDetailsTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailDetailsTbvCell.h; sourceTree = "<group>"; };
+		4C034F21237AA42B0058EFFE /* EmailDetailsTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailDetailsTbvCell.m; sourceTree = "<group>"; };
+		4C034F22237AA42B0058EFFE /* EmailDetailsTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailDetailsTbvCell.xib; sourceTree = "<group>"; };
+		4C034F25237AA6D40058EFFE /* ChooseEmailPackageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseEmailPackageView.h; sourceTree = "<group>"; };
+		4C034F26237AA6D40058EFFE /* ChooseEmailPackageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseEmailPackageView.m; sourceTree = "<group>"; };
+		4C034F28237AA6E00058EFFE /* ChooseEmailPackageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseEmailPackageView.xib; sourceTree = "<group>"; };
+		4C034F2A237AA7F30058EFFE /* EmailPackageTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailPackageTbvCell.h; sourceTree = "<group>"; };
+		4C034F2B237AA7F30058EFFE /* EmailPackageTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailPackageTbvCell.m; sourceTree = "<group>"; };
+		4C034F2C237AA7F30058EFFE /* EmailPackageTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailPackageTbvCell.xib; sourceTree = "<group>"; };
+		4C034F30237AAC690058EFFE /* IntroduceServersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroduceServersViewController.h; sourceTree = "<group>"; };
+		4C034F31237AAC690058EFFE /* IntroduceServersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroduceServersViewController.m; sourceTree = "<group>"; };
+		4C034F32237AAC690058EFFE /* IntroduceServersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroduceServersViewController.xib; sourceTree = "<group>"; };
+		4C034F35237AB6E80058EFFE /* ServersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServersViewController.h; sourceTree = "<group>"; };
+		4C034F36237AB6E80058EFFE /* ServersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServersViewController.m; sourceTree = "<group>"; };
+		4C034F37237AB6E80058EFFE /* ServersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServersViewController.xib; sourceTree = "<group>"; };
+		4C034F3B237ABAAC0058EFFE /* CloudServerTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudServerTbvCell.h; sourceTree = "<group>"; };
+		4C034F3C237ABAAC0058EFFE /* CloudServerTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudServerTbvCell.m; sourceTree = "<group>"; };
+		4C034F3D237ABAAC0058EFFE /* CloudServerTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloudServerTbvCell.xib; sourceTree = "<group>"; };
+		4C034F40237ABBC50058EFFE /* CloudServerDetailsTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudServerDetailsTbvCell.h; sourceTree = "<group>"; };
+		4C034F41237ABBC50058EFFE /* CloudServerDetailsTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudServerDetailsTbvCell.m; sourceTree = "<group>"; };
+		4C034F42237ABBC50058EFFE /* CloudServerDetailsTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloudServerDetailsTbvCell.xib; sourceTree = "<group>"; };
+		4C034F45237AC0C00058EFFE /* ChooseCloudServerPackageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseCloudServerPackageView.h; sourceTree = "<group>"; };
+		4C034F46237AC0C00058EFFE /* ChooseCloudServerPackageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseCloudServerPackageView.m; sourceTree = "<group>"; };
+		4C034F48237AC0CB0058EFFE /* ChooseCloudServerPackageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseCloudServerPackageView.xib; sourceTree = "<group>"; };
+		4C034F4A237AC1740058EFFE /* CloudServerTemplateTbvCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudServerTemplateTbvCell.h; sourceTree = "<group>"; };
+		4C034F4B237AC1740058EFFE /* CloudServerTemplateTbvCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudServerTemplateTbvCell.m; sourceTree = "<group>"; };
+		4C034F4C237AC1740058EFFE /* CloudServerTemplateTbvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloudServerTemplateTbvCell.xib; sourceTree = "<group>"; };
 		4C041E9F22E841F600DA7405 /* UIMiniKeypad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIMiniKeypad.xib; sourceTree = "<group>"; };
 		4C041EA022E841F600DA7405 /* UIMiniKeypad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIMiniKeypad.h; sourceTree = "<group>"; };
 		4C041EA122E841F600DA7405 /* UIMiniKeypad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIMiniKeypad.m; sourceTree = "<group>"; };
@@ -1435,6 +1504,16 @@
 		4CF862EE23604E1A008B69EF /* WhoisDomainPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoisDomainPopupView.h; sourceTree = "<group>"; };
 		4CF862EF23604E1A008B69EF /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
 		4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoisDomainPopupView.m; sourceTree = "<group>"; };
+		4CFAF22A237A4D1F009D9AF3 /* ic_dropdown_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropdown_up.png; sourceTree = "<group>"; };
+		4CFAF22D237A63D8009D9AF3 /* IntroduceEmailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroduceEmailsViewController.h; sourceTree = "<group>"; };
+		4CFAF22E237A63D8009D9AF3 /* IntroduceEmailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroduceEmailsViewController.m; sourceTree = "<group>"; };
+		4CFAF22F237A63D8009D9AF3 /* IntroduceEmailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroduceEmailsViewController.xib; sourceTree = "<group>"; };
+		4CFAF232237A64B5009D9AF3 /* bg_email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_email.png; sourceTree = "<group>"; };
+		4CFAF234237A65AF009D9AF3 /* bg_email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_email@2x.png"; sourceTree = "<group>"; };
+		4CFAF235237A65B0009D9AF3 /* bg_email@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_email@3x.png"; sourceTree = "<group>"; };
+		4CFAF238237A666B009D9AF3 /* ic_email_package.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email_package.png; sourceTree = "<group>"; };
+		4CFAF239237A666B009D9AF3 /* ic_email_package@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_email_package@2x.png"; sourceTree = "<group>"; };
+		4CFAF23A237A666C009D9AF3 /* ic_email_package@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_email_package@3x.png"; sourceTree = "<group>"; };
 		4CFCBC9B22FD136F00427B86 /* HostingPackageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingPackageCell.h; sourceTree = "<group>"; };
 		4CFCBC9C22FD136F00427B86 /* HostingPackageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostingPackageCell.m; sourceTree = "<group>"; };
 		4CFCBC9D22FD136F00427B86 /* HostingPackageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HostingPackageCell.xib; sourceTree = "<group>"; };
@@ -1790,6 +1869,8 @@
 		150845F1226EBF2400428514 /* NhanHoa */ = {
 			isa = PBXGroup;
 			children = (
+				4C034F2F237AAC4C0058EFFE /* Servers */,
+				4CFAF22C237A63B3009D9AF3 /* Emails */,
 				4C2EE1A52376AEFD00B13A2F /* Hosting */,
 				4C330771236840B9008DD2F0 /* DomainsManagement */,
 				4C32526D2362EE9C00246DEB /* Wallet */,
@@ -1971,7 +2052,14 @@
 				4CD7D8BF236C30F100418E8D /* bank_logo */,
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				4CFAF238237A666B009D9AF3 /* ic_email_package.png */,
+				4CFAF239237A666B009D9AF3 /* ic_email_package@2x.png */,
+				4CFAF23A237A666C009D9AF3 /* ic_email_package@3x.png */,
+				4CFAF232237A64B5009D9AF3 /* bg_email.png */,
+				4CFAF234237A65AF009D9AF3 /* bg_email@2x.png */,
+				4CFAF235237A65B0009D9AF3 /* bg_email@3x.png */,
 				4CDE63EC237945F700A674EA /* ic_dropdown.png */,
+				4CFAF22A237A4D1F009D9AF3 /* ic_dropdown_up.png */,
 				4CDE63C523791A8E00A674EA /* bg_hosting.png */,
 				4CDE63C623791A8E00A674EA /* bg_hosting@2x.png */,
 				4CDE63C723791A8F00A674EA /* bg_hosting@3x.png */,
@@ -2437,6 +2525,61 @@
 				4C2EE19B2376603300B13A2F /* DomainInfoRowTbvCell.h */,
 				4C2EE19C2376603300B13A2F /* DomainInfoRowTbvCell.m */,
 				4C2EE19D2376603300B13A2F /* DomainInfoRowTbvCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4C034F10237A8CF50058EFFE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C034F11237A8D3B0058EFFE /* EmailPromotionClvCell.h */,
+				4C034F12237A8D3B0058EFFE /* EmailPromotionClvCell.m */,
+				4C034F13237A8D3B0058EFFE /* EmailPromotionClvCell.xib */,
+				4C034F1B237AA00E0058EFFE /* EmailHostingTbvCell.h */,
+				4C034F1C237AA00E0058EFFE /* EmailHostingTbvCell.m */,
+				4C034F1D237AA00E0058EFFE /* EmailHostingTbvCell.xib */,
+				4C034F20237AA42B0058EFFE /* EmailDetailsTbvCell.h */,
+				4C034F21237AA42B0058EFFE /* EmailDetailsTbvCell.m */,
+				4C034F22237AA42B0058EFFE /* EmailDetailsTbvCell.xib */,
+				4C034F25237AA6D40058EFFE /* ChooseEmailPackageView.h */,
+				4C034F26237AA6D40058EFFE /* ChooseEmailPackageView.m */,
+				4C034F28237AA6E00058EFFE /* ChooseEmailPackageView.xib */,
+				4C034F2A237AA7F30058EFFE /* EmailPackageTbvCell.h */,
+				4C034F2B237AA7F30058EFFE /* EmailPackageTbvCell.m */,
+				4C034F2C237AA7F30058EFFE /* EmailPackageTbvCell.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4C034F2F237AAC4C0058EFFE /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+				4C034F3A237ABA790058EFFE /* UI */,
+				4C034F30237AAC690058EFFE /* IntroduceServersViewController.h */,
+				4C034F31237AAC690058EFFE /* IntroduceServersViewController.m */,
+				4C034F32237AAC690058EFFE /* IntroduceServersViewController.xib */,
+				4C034F35237AB6E80058EFFE /* ServersViewController.h */,
+				4C034F36237AB6E80058EFFE /* ServersViewController.m */,
+				4C034F37237AB6E80058EFFE /* ServersViewController.xib */,
+			);
+			path = Servers;
+			sourceTree = "<group>";
+		};
+		4C034F3A237ABA790058EFFE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C034F3B237ABAAC0058EFFE /* CloudServerTbvCell.h */,
+				4C034F3C237ABAAC0058EFFE /* CloudServerTbvCell.m */,
+				4C034F3D237ABAAC0058EFFE /* CloudServerTbvCell.xib */,
+				4C034F40237ABBC50058EFFE /* CloudServerDetailsTbvCell.h */,
+				4C034F41237ABBC50058EFFE /* CloudServerDetailsTbvCell.m */,
+				4C034F42237ABBC50058EFFE /* CloudServerDetailsTbvCell.xib */,
+				4C034F45237AC0C00058EFFE /* ChooseCloudServerPackageView.h */,
+				4C034F46237AC0C00058EFFE /* ChooseCloudServerPackageView.m */,
+				4C034F48237AC0CB0058EFFE /* ChooseCloudServerPackageView.xib */,
+				4C034F4A237AC1740058EFFE /* CloudServerTemplateTbvCell.h */,
+				4C034F4B237AC1740058EFFE /* CloudServerTemplateTbvCell.m */,
+				4C034F4C237AC1740058EFFE /* CloudServerTemplateTbvCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2978,6 +3121,20 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		4CFAF22C237A63B3009D9AF3 /* Emails */ = {
+			isa = PBXGroup;
+			children = (
+				4C034F10237A8CF50058EFFE /* UI */,
+				4CFAF22D237A63D8009D9AF3 /* IntroduceEmailsViewController.h */,
+				4CFAF22E237A63D8009D9AF3 /* IntroduceEmailsViewController.m */,
+				4CFAF22F237A63D8009D9AF3 /* IntroduceEmailsViewController.xib */,
+				4C034F16237A9DD30058EFFE /* EmailsViewController.h */,
+				4C034F17237A9DD30058EFFE /* EmailsViewController.m */,
+				4C034F18237A9DD30058EFFE /* EmailsViewController.xib */,
+			);
+			path = Emails;
+			sourceTree = "<group>";
+		};
 		5600E8F822A5EEAD00F7DECE /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -3435,6 +3592,7 @@
 				15E92AFD2272BB88004AB658 /* SignInViewController.xib in Resources */,
 				4C3307702368199E008DD2F0 /* UpdatePersonalProfileView.xib in Resources */,
 				4CD7D908236C3F5200418E8D /* MHBBank_Logo.png in Resources */,
+				4CFAF236237A65B0009D9AF3 /* bg_email@2x.png in Resources */,
 				4C6580E822F937FD00F38087 /* checked_blue.png in Resources */,
 				4C49FA88235711AB001D0EEF /* HomeExploreView.xib in Resources */,
 				4C28B92E22F5985900910F54 /* RegisterVPSViewController.xib in Resources */,
@@ -3510,6 +3668,7 @@
 				4C49FA5D2356F3B7001D0EEF /* tabbar_invoices_act@3x.png in Resources */,
 				4C49FA5C2356F3B7001D0EEF /* tabbar_invoices_act@2x.png in Resources */,
 				1517FB5F2274465B0044E878 /* menu_support.png in Resources */,
+				4CFAF23D237A666C009D9AF3 /* ic_email_package@3x.png in Resources */,
 				15865BD2227FDFB7004A8575 /* AccountInfoView.xib in Resources */,
 				4C6580ED22FBC42F00F38087 /* email_server_act.png in Resources */,
 				4C017AE1230A38B7000E2780 /* tabbar_acc_act@2x.png in Resources */,
@@ -3523,6 +3682,7 @@
 				4CD7D904236C3F5200418E8D /* ANZ_Logo.png in Resources */,
 				4CD0C4CD23614673007AA56A /* no_notification_en.png in Resources */,
 				15D1BD7C2283CB8A004C0452 /* ProfileManagerCell.xib in Resources */,
+				4CFAF233237A64B5009D9AF3 /* bg_email.png in Resources */,
 				4CD0C4E7236159AD007AA56A /* promos5.png in Resources */,
 				845D32C7227943A20047B196 /* tick_orange.png in Resources */,
 				4CD7D8FE236C3F5200418E8D /* Sacombank_Logo.png in Resources */,
@@ -3561,9 +3721,12 @@
 				4C2171B1236FC70100BF0442 /* BankCell.xib in Resources */,
 				840F5DF322770962005BFC57 /* warning.png in Resources */,
 				845D32B82279335C0047B196 /* show_pass_white.png in Resources */,
+				4CFAF22B237A4D20009D9AF3 /* ic_dropdown_up.png in Resources */,
 				4C041ED422E8443100DA7405 /* numpad_hash_hover.png in Resources */,
+				4CFAF237237A65B0009D9AF3 /* bg_email@3x.png in Resources */,
 				56158E34235C4AA900220A38 /* bg_intro.png in Resources */,
 				4C49FA5F2356F3B7001D0EEF /* tabbar_invoices_def.png in Resources */,
+				4CFAF23B237A666C009D9AF3 /* ic_email_package.png in Resources */,
 				4CD7D905236C3F5200418E8D /* MBBank_Logo.png in Resources */,
 				56D0295522B3F90400280127 /* OrderResultView.xib in Resources */,
 				4CEFDCC523599E6F00CE9451 /* NewSignUpViewController.xib in Resources */,
@@ -3587,6 +3750,7 @@
 				56FED7C322AD050F00FAD541 /* ic_add.png in Resources */,
 				846EA90D2276E95C00F1D7DB /* search_smile.png in Resources */,
 				4C041EA822E8437500DA7405 /* numpad_one_hover.png in Resources */,
+				4CFAF231237A63D8009D9AF3 /* IntroduceEmailsViewController.xib in Resources */,
 				4C49FA6C2356F5C7001D0EEF /* tabbar_notif_act@3x.png in Resources */,
 				4C2171AD236FB1C800BF0442 /* UpdateBankInfoView.xib in Resources */,
 				4C3AFA99236C14FC009799CF /* WhoIsCell.xib in Resources */,
@@ -3616,6 +3780,7 @@
 				4C016A3F235EE3FB00EBDE67 /* search_gray.png in Resources */,
 				5612F8D222E70DDC00ECBBB1 /* keypad_enable.png in Resources */,
 				4CD7D8C4236C36A000418E8D /* VCB_logo.jpg in Resources */,
+				4C034F29237AA6E00058EFFE /* ChooseEmailPackageView.xib in Resources */,
 				4C3307612367F2D9008DD2F0 /* ProfileDetailViewController.xib in Resources */,
 				842F81B5227561ED00D6DE6D /* Roboto-LightItalic.ttf in Resources */,
 				4CEA116E23584D7700762C45 /* TransactionsViewController.xib in Resources */,
@@ -3635,6 +3800,7 @@
 				1517FBAB22745D810044E878 /* tabbar_BO_act@2x.png in Resources */,
 				4CEFDCF62359BFAC00CE9451 /* ic_dropdow.png in Resources */,
 				4CD7D8F2236C3F5200418E8D /* Citibank_Logo.png in Resources */,
+				4C034F44237ABBC50058EFFE /* CloudServerDetailsTbvCell.xib in Resources */,
 				56C1F6B323657C060006C4D1 /* bg_wallet.png in Resources */,
 				4C765F0422F81756002AFEC8 /* windows.png in Resources */,
 				4C8B4597235DB30E00D54F0F /* CartMoreInfoClvCell.xib in Resources */,
@@ -3649,6 +3815,7 @@
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				564619C622A812B400867B21 /* PaymentViewController.xib in Resources */,
 				842F81B4227561ED00D6DE6D /* Roboto-BlackItalic.ttf in Resources */,
+				4C034F3F237ABAAC0058EFFE /* CloudServerTbvCell.xib in Resources */,
 				4C2EE1AA2376AF1300B13A2F /* HostingViewController.xib in Resources */,
 				1517FBBB22745D9B0044E878 /* notify.png in Resources */,
 				4CD0C513236190CD007AA56A /* more_bank.png in Resources */,
@@ -3675,6 +3842,7 @@
 				4C9A16DF236AE9260022CC0C /* AddDNSRecordsView.xib in Resources */,
 				4C017AE2230A38B7000E2780 /* tabbar_acc_act@3x.png in Resources */,
 				5612F8D322E70DDC00ECBBB1 /* keypad_normal.png in Resources */,
+				4C034F1A237A9DD30058EFFE /* EmailsViewController.xib in Resources */,
 				4CD7D8F5236C3F5200418E8D /* seabank_Logo.jpg in Resources */,
 				4CD7D90A236C3F5200418E8D /* VPBank_Logo.jpg in Resources */,
 				84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */,
@@ -3706,6 +3874,7 @@
 				842F81B1227561ED00D6DE6D /* Roboto-BoldItalic.ttf in Resources */,
 				4C49FA492356DB5A001D0EEF /* menu_promotions.png in Resources */,
 				8471D259228A39DF00445A88 /* OnepayPaymentView.xib in Resources */,
+				4CFAF23C237A666C009D9AF3 /* ic_email_package@2x.png in Resources */,
 				4C28B92822F5983C00910F54 /* RegisterEmailViewController.xib in Resources */,
 				4C041EB822E843C600DA7405 /* numpad_five_default.png in Resources */,
 				4CEFDCBE2359774000CE9451 /* ic_active.png in Resources */,
@@ -3800,6 +3969,7 @@
 				4C8B4580235D54E500D54F0F /* photo_empty_cart_en.png in Resources */,
 				4CD7D906236C3F5200418E8D /* HSBC_Logo.png in Resources */,
 				84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */,
+				4C034F24237AA42B0058EFFE /* EmailDetailsTbvCell.xib in Resources */,
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
 				4CD7A63123558B3300044E1A /* NewHomeViewController.xib in Resources */,
 				841966932276077400C14516 /* comvn.png in Resources */,
@@ -3822,21 +3992,25 @@
 				4CEFDCA023594C7F00CE9451 /* SignInDescClvCell.xib in Resources */,
 				4CDE63DB23793C8F00A674EA /* hosting_slider.png in Resources */,
 				4C28B90622F58CF700910F54 /* mene_order_list.png in Resources */,
+				4C034F4E237AC1740058EFFE /* CloudServerTemplateTbvCell.xib in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				4C49FA372356C366001D0EEF /* HomeSliderClvCell.xib in Resources */,
 				4CD0C4EB236159AD007AA56A /* promos3.png in Resources */,
 				4C49FA83235705A9001D0EEF /* slider_3.png in Resources */,
 				4C041EB722E843C600DA7405 /* numpad_four_hover.png in Resources */,
 				5612F8C022E6CAC900ECBBB1 /* mute_dis.png in Resources */,
+				4C034F39237AB6E80058EFFE /* ServersViewController.xib in Resources */,
 				5612F8B622E6CA6B00ECBBB1 /* speaker_enable.png in Resources */,
 				4CEFDCA323594F6500CE9451 /* login_desc_2.png in Resources */,
 				4C01687B23064A8800C43D5F /* banner.png in Resources */,
 				4C041EC122E843E400DA7405 /* numpad_seven_default.png in Resources */,
+				4C034F34237AAC690058EFFE /* IntroduceServersViewController.xib in Resources */,
 				4CB7B573236301C2008AA0BF /* WalletTransHistoryCell.xib in Resources */,
 				4C49FA8123570559001D0EEF /* slider_2.png in Resources */,
 				4C016A46235F044B00EBDE67 /* ic_arrow_down.png in Resources */,
 				4C6DDD0F2339A8C0009FE41C /* momo_icon.png in Resources */,
 				56A58E61229C3B99003402C1 /* ios_upload_file.php in Resources */,
+				4C034F1F237AA00E0058EFFE /* EmailHostingTbvCell.xib in Resources */,
 				842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */,
 				4C0844F52366A10400E76F7F /* ic_facebook.png in Resources */,
 				4CEFDCAA2359545200CE9451 /* dot.png in Resources */,
@@ -3870,6 +4044,7 @@
 				158174652281854700DD8EC9 /* close_blue.png in Resources */,
 				5612F8CB22E7094700ECBBB1 /* hold_enable.png in Resources */,
 				4C49FA452356DAE3001D0EEF /* menu_withdraw.png in Resources */,
+				4C034F15237A8D3B0058EFFE /* EmailPromotionClvCell.xib in Resources */,
 				843F5AC6228B8D5A00DC179F /* list_price.png in Resources */,
 				4C45168F23701CE7003D5686 /* DomainAvailableTbvCell.xib in Resources */,
 				1517FBAC22745D810044E878 /* tabbar_BO_act@3x.png in Resources */,
@@ -3931,6 +4106,7 @@
 				1517FBA522745D810044E878 /* tababr_acc_act.png in Resources */,
 				4C1566D623629E3600A3D0FF /* UpdateNewPersonalProfileView.xib in Resources */,
 				5612F8AC22E6C8FD00ECBBB1 /* call-bg.png in Resources */,
+				4C034F2E237AA7F30058EFFE /* EmailPackageTbvCell.xib in Resources */,
 				4C178585235AB7C200943E14 /* arrow_right.png in Resources */,
 				4C49FA322356BEA9001D0EEF /* HomePromotionView.xib in Resources */,
 				1517FBB822745D9B0044E878 /* search.png in Resources */,
@@ -3966,6 +4142,7 @@
 				843F5ACB228B8E1600DC179F /* PriceListView.xib in Resources */,
 				4C0844F32366A0B000E76F7F /* ic_earth.png in Resources */,
 				4CDE63C923791A8F00A674EA /* bg_hosting@2x.png in Resources */,
+				4C034F49237AC0CB0058EFFE /* ChooseCloudServerPackageView.xib in Resources */,
 				845D32B322792C540047B196 /* show_pass.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4038,6 +4215,7 @@
 				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
 				56FC5DCE22CEF0D700254F25 /* CustomSwitchButton.m in Sources */,
 				845D32CE227967750047B196 /* BusinessProfileView.m in Sources */,
+				4C034F43237ABBC50058EFFE /* CloudServerDetailsTbvCell.m in Sources */,
 				842F81CA2275BD4600D6DE6D /* CustomTextAttachment.m in Sources */,
 				4C33076A23681596008DD2F0 /* UpdateProfileViewController.m in Sources */,
 				4C65812622FC2C1300F38087 /* PaddingLabel.m in Sources */,
@@ -4061,9 +4239,11 @@
 				4C49FA3F2356C7A4001D0EEF /* HomePromotionClvCell.m in Sources */,
 				84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */,
 				4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */,
+				4C034F23237AA42B0058EFFE /* EmailDetailsTbvCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
 				841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */,
 				8464D734227BB7C900381DE5 /* ProfileDetailCell.m in Sources */,
+				4C034F47237AC0C00058EFFE /* ChooseCloudServerPackageView.m in Sources */,
 				15865BD622803AE9004A8575 /* SettingMenuCell.m in Sources */,
 				4C6580E522F92BA600F38087 /* VPSTbvCell.m in Sources */,
 				56064F3422C7696B003D8859 /* SigningDomainViewController.m in Sources */,
@@ -4073,6 +4253,7 @@
 				8481F88D22832DA100C88EB1 /* TopupViewController.m in Sources */,
 				4C330775236842A2008DD2F0 /* DomainsViewController.m in Sources */,
 				4C65810322FC084800F38087 /* OrderDetailView.m in Sources */,
+				4C034F3E237ABAAC0058EFFE /* CloudServerTbvCell.m in Sources */,
 				4C2EE1A92376AF1300B13A2F /* HostingViewController.m in Sources */,
 				4C49FA542356F172001D0EEF /* NotificationsViewController.m in Sources */,
 				4CD7A6512355BF1C00044E1A /* HMLocalization.m in Sources */,
@@ -4091,6 +4272,9 @@
 				4C45168E23701CE7003D5686 /* DomainAvailableTbvCell.m in Sources */,
 				4CEFDCC423599E6F00CE9451 /* NewSignUpViewController.m in Sources */,
 				56FED7CF22AD2D9B00FAD541 /* OTPConfirmView.m in Sources */,
+				4C034F1E237AA00E0058EFFE /* EmailHostingTbvCell.m in Sources */,
+				4C034F19237A9DD30058EFFE /* EmailsViewController.m in Sources */,
+				4C034F2D237AA7F30058EFFE /* EmailPackageTbvCell.m in Sources */,
 				8430B552227C887000548480 /* WriteLogsUtils.m in Sources */,
 				4CD0C51723619F41007AA56A /* ProfileInfoViewController.m in Sources */,
 				1517FB6B227446980044E878 /* HomeViewController.m in Sources */,
@@ -4105,6 +4289,7 @@
 				4C3AFA85236BDEE3009799CF /* DNSRecordPopupView.m in Sources */,
 				4C49FA722356F89C001D0EEF /* SearchDomainsViewController.m in Sources */,
 				8460F646227A651400A185B0 /* PromotionCodeView.m in Sources */,
+				4C034F27237AA6D40058EFFE /* ChooseEmailPackageView.m in Sources */,
 				4C65811D22FC2AF500F38087 /* HostingDetailTbvCell.m in Sources */,
 				153035F022868056005E7DB2 /* CityCell.m in Sources */,
 				4C49FA302356BDAE001D0EEF /* HomePromotionView.m in Sources */,
@@ -4112,6 +4297,7 @@
 				4CD0C4F823617E7C007AA56A /* NewMoreViewController.m in Sources */,
 				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
+				4C034F38237AB6E80058EFFE /* ServersViewController.m in Sources */,
 				4C8B4596235DB30E00D54F0F /* CartMoreInfoClvCell.m in Sources */,
 				56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */,
 				15D1BD802283D618004C0452 /* RenewDomainCartViewController.m in Sources */,
@@ -4119,6 +4305,7 @@
 				4CDE63EA2379458700A674EA /* QuesttionTbvCell.m in Sources */,
 				15865BD0227FDFA5004A8575 /* AccountInfoView.m in Sources */,
 				4C65810D22FC1DDF00F38087 /* OrderDetailDescriptionView.m in Sources */,
+				4C034F14237A8D3B0058EFFE /* EmailPromotionClvCell.m in Sources */,
 				4CAAFDFF236A8BFF00C0DA57 /* DomainDetailsViewController.m in Sources */,
 				8471D257228A39CE00445A88 /* OnepayPaymentView.m in Sources */,
 				849E31192280632E003A8813 /* AccountSettingViewController.m in Sources */,
@@ -4209,6 +4396,7 @@
 				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,
 				56E477EA22F9A20800296A55 /* SSLTbvCell.m in Sources */,
 				845D8134227EE56C005734CF /* Reachability.m in Sources */,
+				4CFAF230237A63D8009D9AF3 /* IntroduceEmailsViewController.m in Sources */,
 				4C016A43235EF62400EBDE67 /* OrderItemTbvCell.m in Sources */,
 				4C3307602367F2D9008DD2F0 /* ProfileDetailViewController.m in Sources */,
 				4C0844DF2366997B00E76F7F /* ContactViewController.m in Sources */,
@@ -4224,6 +4412,8 @@
 				84555EFB22863D2600FE77C1 /* AddProfileViewController.m in Sources */,
 				4CB7B572236301C2008AA0BF /* WalletTransHistoryCell.m in Sources */,
 				4CAAFDFA236A734400C0DA57 /* DomainInfoTbvCell.m in Sources */,
+				4C034F33237AAC690058EFFE /* IntroduceServersViewController.m in Sources */,
+				4C034F4D237AC1740058EFFE /* CloudServerTemplateTbvCell.m in Sources */,
 				4CEA116D23584D7700762C45 /* TransactionsViewController.m in Sources */,
 				4CEFDCB3235969F100CE9451 /* NewSignInViewController.m in Sources */,
 				4C2EE19E2376603300B13A2F /* DomainInfoRowTbvCell.m in Sources */,

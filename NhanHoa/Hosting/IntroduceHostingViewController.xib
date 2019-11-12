@@ -22,6 +22,7 @@
                 <outlet property="lbCount" destination="613-o5-ror" id="pTz-Xf-z3Z"/>
                 <outlet property="lbHeader" destination="8KE-Dx-ECU" id="9YW-do-kkd"/>
                 <outlet property="lbLinux" destination="tWz-1Z-gGO" id="hAp-en-eya"/>
+                <outlet property="lbTitle" destination="UBQ-X3-Dtg" id="Tnh-k9-SKd"/>
                 <outlet property="lbWindows" destination="aDD-sk-P3h" id="sTt-8f-loE"/>
                 <outlet property="lbWordpress" destination="tDv-1n-siT" id="voY-yk-kiV"/>
                 <outlet property="scvContent" destination="Oub-y9-Dem" id="kvG-bV-v17"/>
@@ -46,6 +47,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chọn loại hosting muốn đăng ký" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UBQ-X3-Dtg">
+                            <rect key="frame" x="8" y="52" width="304" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <view contentMode="scaleToFill" id="zD2-5H-QpO">
                             <rect key="frame" x="8" y="89" width="89" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -170,7 +178,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-514" y="162"/>
+            <point key="canvasLocation" x="-213" y="41"/>
         </view>
     </objects>
     <resources>

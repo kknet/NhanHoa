@@ -1,15 +1,15 @@
 //
-//  HostingSliderClvCell.m
+//  EmailPromotionClvCell.m
 //  NhanHoa
 //
-//  Created by OS on 11/11/19.
+//  Created by OS on 11/12/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "HostingSliderClvCell.h"
+#import "EmailPromotionClvCell.h"
 
-@implementation HostingSliderClvCell
-@synthesize lbTitle, lbContent, imgSlider;
+@implementation EmailPromotionClvCell
+@synthesize imgSlider, lbTitle, lbContent;
 
 - (void)awakeFromNib {
     [super awakeFromNib];

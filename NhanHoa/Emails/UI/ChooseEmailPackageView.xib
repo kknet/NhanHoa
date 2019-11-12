@@ -11,39 +11,47 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChooseHostingPackgeView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChooseEmailPackageView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PwF-zX-mnD">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DHv-Lt-Y5m">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" id="x8G-UG-Ztk">
+                <view contentMode="scaleToFill" id="fJh-Oq-onf">
                     <rect key="frame" x="0.0" y="62" width="320" height="418"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K0b-1E-7bp">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mjB-hi-hIC">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Sq2-ii-HWa">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wik-al-ybU">
+                            <rect key="frame" x="12" y="12" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="close_gray.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="C9i-6F-fPL"/>
+                            </connections>
+                        </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="h09-JW-zUV">
                             <rect key="frame" x="8" y="55" width="304" height="304"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cHL-e1-C48">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QSo-Si-Uzh">
                             <rect key="frame" x="8" y="375" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Confirm"/>
                             <connections>
-                                <action selector="btnConfirmPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Uj4-l7-27q"/>
+                                <action selector="btnConfirmPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nv6-dq-2TR"/>
                             </connections>
                         </button>
                     </subviews>
@@ -53,13 +61,17 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnConfirm" destination="cHL-e1-C48" id="Fws-D9-jtf"/>
-                <outlet property="lbBackground" destination="PwF-zX-mnD" id="zww-3k-WaZ"/>
-                <outlet property="lbTitle" destination="K0b-1E-7bp" id="7U7-N6-gpi"/>
-                <outlet property="tbContent" destination="Sq2-ii-HWa" id="9Qn-iF-M1E"/>
-                <outlet property="viewContent" destination="x8G-UG-Ztk" id="Zk6-KE-jMP"/>
+                <outlet property="btnConfirm" destination="QSo-Si-Uzh" id="Xnz-mb-o09"/>
+                <outlet property="icClose" destination="wik-al-ybU" id="pxZ-cN-7Rc"/>
+                <outlet property="lbBackground" destination="DHv-Lt-Y5m" id="dsM-GD-fht"/>
+                <outlet property="lbTitle" destination="mjB-hi-hIC" id="Ael-xy-b97"/>
+                <outlet property="tbContent" destination="h09-JW-zUV" id="ga0-3c-hNq"/>
+                <outlet property="viewContent" destination="fJh-Oq-onf" id="Vsh-uF-OSK"/>
             </connections>
-            <point key="canvasLocation" x="-501" y="123"/>
+            <point key="canvasLocation" x="-62.318840579710148" y="110.49107142857143"/>
         </view>
     </objects>
+    <resources>
+        <image name="close_gray.png" width="93" height="93"/>
+    </resources>
 </document>

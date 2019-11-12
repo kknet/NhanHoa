@@ -1,8 +1,8 @@
 //
-//  HostingViewController.h
+//  EmailsViewController.h
 //  NhanHoa
 //
-//  Created by OS on 11/9/19.
+//  Created by OS on 11/12/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
@@ -10,13 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum HostingMenuType{
-    eMenuWindowsHosting,
-    eMenuLinuxHosting,
-    eMenuWordpressHosting,
-}HostingMenuType;
-
-@interface HostingViewController : UIViewController
+@interface EmailsViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
@@ -24,20 +18,20 @@ typedef enum HostingMenuType{
 @property (weak, nonatomic) IBOutlet UIButton *icCart;
 @property (weak, nonatomic) IBOutlet UILabel *lbCount;
 @property (weak, nonatomic) IBOutlet UIScrollView *scvMenu;
-@property (weak, nonatomic) IBOutlet UIButton *btnWindowsHosting;
-@property (weak, nonatomic) IBOutlet UIButton *btnLinuxHosting;
-@property (weak, nonatomic) IBOutlet UIButton *btnWordpressHosting;
+@property (weak, nonatomic) IBOutlet UIButton *btnHosting;
+@property (weak, nonatomic) IBOutlet UIButton *btnGoogle;
+@property (weak, nonatomic) IBOutlet UIButton *btnMicrosoft;
+@property (weak, nonatomic) IBOutlet UIButton *btnServer;
 @property (weak, nonatomic) IBOutlet UILabel *lbMenu;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
 - (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;
-- (IBAction)btnWindowsHostingPress:(UIButton *)sender;
-- (IBAction)btnLinuxHostingPress:(UIButton *)sender;
-- (IBAction)btnWordpressHostingPress:(UIButton *)sender;
-
-@property (nonatomic, assign) HostingMenuType curMenu;
+- (IBAction)btnHostingPress:(UIButton *)sender;
+- (IBAction)btnGooglePress:(UIButton *)sender;
+- (IBAction)btnMicrosoftPress:(UIButton *)sender;
+- (IBAction)btnServerPress:(UIButton *)sender;
 
 @end
 
