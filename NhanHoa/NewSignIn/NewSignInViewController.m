@@ -14,7 +14,6 @@
 @interface NewSignInViewController ()<UITextFieldDelegate, WebServiceUtilsDelegate, OTPConfirmViewDelegate>{
     AppDelegate *appDelegate;
     float padding;
-    UIFont *boldFont;
     UIFont *textFont;
     
     OTPConfirmView *otpView;
@@ -44,6 +43,8 @@
     {
         [self autoSignInWithSavedInformation];
     }else{
+        [tfEmail becomeFirstResponder];
+        
         [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:login_state];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -96,7 +97,7 @@
     [btnForgotPassword setTitle:[appDelegate.localization localizedStringForKey:@"Forgot password?"] forState:UIControlStateNormal];
     
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:SFM(@"%@ %@", [appDelegate.localization localizedStringForKey:@"Haven't you had an account yet?"], [appDelegate.localization localizedStringForKey:@"Sign Up"])];
-    [attr addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(0, attr.string.length)];
+    [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoBold size:textFont.pointSize] range:NSMakeRange(0, attr.string.length)];
     [attr addAttribute:NSForegroundColorAttributeName value:GRAY_80 range:NSMakeRange(0, attr.string.length)];
     
     NSRange range = [attr.string rangeOfString:[appDelegate.localization localizedStringForKey:@"Sign Up"]];
@@ -113,7 +114,7 @@
         imgEmailState.image = [UIImage imageNamed:@"ic_active"];
         lbBotEmail.backgroundColor = BLUE_COLOR;
     }else{
-        imgEmail.image = [UIImage imageNamed:@"ic_email"];
+        imgEmail.image = [UIImage imageNamed:@"ic_email_def"];
         imgEmailState.image = [UIImage imageNamed:@"ic_unactive"];
         lbBotEmail.backgroundColor = GRAY_200;
     }
@@ -139,41 +140,30 @@
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     
-    padding = 15.0;
-    float hItem = 52.0;
-    float hBTN = 55.0;
-    float originYEmail = (SCREEN_HEIGHT - hStatus)/2;
     float wPhoto = (SCREEN_WIDTH/2) + 50.0;
-    float tfPadding = 25.0;
     
     textFont = [UIFont fontWithName:RobotoRegular size:21.0];
-    boldFont = [UIFont fontWithName:RobotoBold size:21.0];
+    float tfPadding = 25.0;
+    float hBTN = 53.0;
+    padding = 15.0;
     
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:17.0];
-        boldFont = [UIFont fontWithName:RobotoBold size:17.0];
         tfPadding = 15.0;
-        hItem = 45.0;
-        hBTN = 50.0;
+        hBTN = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:19.0];
-        boldFont = [UIFont fontWithName:RobotoBold size:19.0];
         tfPadding = 15.0;
-        hItem = 45.0;
-        hBTN = 50.0;
+        hBTN = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
+        textFont = [UIFont fontWithName:RobotoRegular size:21.0];
+        tfPadding = 25.0;
+        hBTN = 53.0;
+        
         padding = 25.0;
         
-        textFont = [UIFont fontWithName:RobotoRegular size:21.0];
-        boldFont = [UIFont fontWithName:RobotoBold size:21.0];
-        tfPadding = 25.0;
-        
-        hItem = 50.0;
-        hBTN = 52.0;
-        
-        originYEmail = (SCREEN_HEIGHT - hStatus)/2 + 50.0;
         wPhoto = SCREEN_WIDTH * 2/3;
     }
     
@@ -223,7 +213,7 @@
     
     tfEmail.textColor = tfPassword.textColor = GRAY_80;
     
-    tfEmail.font = boldFont;
+    tfEmail.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     tfEmail.returnKeyType = UIReturnKeyNext;
     tfEmail.delegate = self;
     tfEmail.keyboardType = UIKeyboardTypeEmailAddress;
@@ -231,7 +221,7 @@
         make.left.equalTo(imgEmail.mas_right).offset(padding);
         make.right.equalTo(imgEmailState.mas_left).offset(-padding);
         make.centerY.equalTo(imgEmail.mas_centerY);
-        make.height.mas_equalTo(hItem);
+        make.height.mas_equalTo(hBTN);
     }];
     [tfEmail addTarget:self
                 action:@selector(onTextfieldDidChanged)
@@ -246,14 +236,14 @@
     }];
     
     //  password
-    tfPassword.font = boldFont;
+    tfPassword.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     tfPassword.returnKeyType = UIReturnKeyDone;
     tfPassword.delegate = self;
     tfPassword.secureTextEntry = TRUE;
     [tfPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(tfEmail.mas_bottom).offset(tfPadding);
         make.left.right.equalTo(tfEmail);
-        make.height.mas_equalTo(hItem);
+        make.height.mas_equalTo(hBTN);
     }];
     [tfPassword addTarget:self
                    action:@selector(onTextfieldDidChanged)
@@ -282,13 +272,13 @@
     [btnForgotPassword setTitleColor:YELLOW_COLOR forState:UIControlStateNormal];
     btnForgotPassword.titleLabel.font = textFont;
     [btnForgotPassword mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(lbBotPassword);
+        make.centerX.equalTo(lbBotPassword.mas_centerX);
         make.top.equalTo(lbBotPassword.mas_bottom).offset(padding);
         make.height.mas_equalTo(hBTN);
     }];
     
     btnSignIn.layer.cornerRadius = 8.0;
-    btnSignIn.titleLabel.font = boldFont;
+    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     btnSignIn.backgroundColor = BLUE_COLOR;
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSignIn setTitleColor:GRAY_100 forState:UIControlStateDisabled];
@@ -298,16 +288,13 @@
         make.right.equalTo(lbTop).offset(-padding);
         make.height.mas_equalTo(hBTN);
     }];
-    [AppUtils addBoxShadowForView:btnSignIn color:[UIColor colorWithRed:(200/255.0) green:(200/255.0)
-                                                                   blue:(200/255.0) alpha:1.0]
-                          opacity:0.8 offsetX:1 offsetY:1];
     
     
     //  attribute title for sign up button
     [btnSignUp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbTop);
-        make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - hItem - padding);
-        make.height.mas_equalTo(hItem);
+        make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - hBTN - padding);
+        make.height.mas_equalTo(hBTN);
     }];
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];

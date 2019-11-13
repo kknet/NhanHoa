@@ -27,14 +27,21 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UYm-5D-Sxy">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HCT-D2-4rv">
+                            <rect key="frame" x="139" y="30" width="42" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rvc-Sw-4iY">
-                            <rect key="frame" x="12" y="12" width="30" height="30"/>
+                            <rect key="frame" x="12" y="0.0" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="close_gray.png"/>
                             <connections>
@@ -64,11 +71,12 @@
                 <outlet property="btnConfirm" destination="njt-86-Jju" id="ITt-8r-zl8"/>
                 <outlet property="icClose" destination="rvc-Sw-4iY" id="ZHE-4F-y4C"/>
                 <outlet property="lbBackground" destination="CX1-Q9-FA1" id="W6P-7t-JTU"/>
+                <outlet property="lbDesc" destination="HCT-D2-4rv" id="VCT-k5-as4"/>
                 <outlet property="lbTitle" destination="UYm-5D-Sxy" id="WdH-bX-Ojt"/>
                 <outlet property="tbContent" destination="XKv-81-VyP" id="7rz-Xi-JLv"/>
                 <outlet property="viewContent" destination="CTu-pP-OV9" id="uiL-xL-oBp"/>
             </connections>
-            <point key="canvasLocation" x="-181" y="9"/>
+            <point key="canvasLocation" x="-433" y="-20"/>
         </view>
     </objects>
     <resources>

@@ -28,7 +28,7 @@
     float padding = 15.0;
     float hTitle = 50.0;
     
-    wCell = (SCREEN_WIDTH - 2*padding)/4;
+    wCell = SCREEN_WIDTH/4;
     hCell = 100.0;
     if (IS_IPHONE || IS_IPOD)
     {
@@ -71,8 +71,8 @@
     [clvMenu registerNib:[UINib nibWithNibName:@"HomeMenuClvCell" bundle:nil] forCellWithReuseIdentifier:@"HomeMenuClvCell"];
     [clvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTitle.mas_bottom).offset(10.0);
-        make.left.equalTo(viewContent).offset(padding);
-        make.right.equalTo(viewContent).offset(-padding);
+        make.left.equalTo(viewContent).offset(0);
+        make.right.equalTo(viewContent).offset(-0);
         make.bottom.equalTo(viewContent).offset(-10.0-[AppDelegate sharedInstance].safeAreaBottomPadding);
     }];
     
@@ -128,7 +128,7 @@
             break;
         }
         case eExploreEmail:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Register email"];
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Email"];
             cell.imgType.image = [UIImage imageNamed:@"menu_register_email"];
             break;
         }
@@ -171,55 +171,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
-    
-    //    HomeMenuCell *cell = (HomeMenuCell *)[collectionView cellForItemAtIndexPath: indexPath];
-    //
-    //    NSString *title = cell.lbName.text;
-    //    if ([title isEqualToString: text_register_domains]) {
-    //        RegisterDomainViewController *registerDomainVC = [[RegisterDomainViewController alloc] initWithNibName:@"RegisterDomainViewController" bundle:nil];
-    //        registerDomainVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: registerDomainVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_domains_pricing_list])
-    //    {
-    //        PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
-    //        pricingVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: pricingVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_search_domains])
-    //    {
-    //        WhoIsViewController *whoIsVC = [[WhoIsViewController alloc] initWithNibName:@"WhoIsViewController" bundle:nil];
-    //        whoIsVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: whoIsVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_top_up_into_account])
-    //    {
-    //        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-    //        topupVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: topupVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_bonus_account])
-    //    {
-    //        BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-    //        bonusAccVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: bonusAccVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_domains_management])
-    //    {
-    //        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-    //        renewedVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: renewedVC animated:TRUE];
-    //
-    //    }else if ([title isEqualToString: text_profiles_list])
-    //    {
-    
-    //    }else if ([title isEqualToString: text_customers_support])
-    //    {
-    //        SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
-    //        supportVC.hidesBottomBarWhenPushed = TRUE;
-    //        [self.navigationController pushViewController: supportVC animated:TRUE];
-    //    }
+    if ([delegate respondsToSelector:@selector(selectedMenuFromExploreView:)]) {
+        [delegate selectedMenuFromExploreView: (ExploreType)indexPath.row];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

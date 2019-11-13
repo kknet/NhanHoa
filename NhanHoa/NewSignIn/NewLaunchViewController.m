@@ -48,30 +48,41 @@
     float hLabel = 60.0;
     float hContent = 60.0;
     float hSlider = 60.0;
+    float hButton = 53.0;
+    hDot = 9.0;
     
+    UIFont *textFont = [UIFont fontWithName:RobotoBold size:20.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         marginY = 10.0;
         hLabel = 40.0;
         hContent = 40.0;
         hSlider = 15.0;
+        hButton = 45.0;
+        hDot = 8.0;
+        textFont = [UIFont fontWithName:RobotoBold size:16.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
         marginY = 15.0;
         hLabel = 40.0;
         hContent = 50.0;
         hSlider = 15.0;
+        hButton = 48.0;
+        hDot = 8.0;
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         marginY = 30.0;
         hLabel = 60.0;
         hContent = 60.0;
+        hButton = 53.0;
+        hDot = 9.0;
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
     }
     
     UIImage *image = [UIImage imageNamed:@"signin_logo"];
     float realWidth = SCREEN_WIDTH * 2/4 + 50;
     float realHeight = realWidth * image.size.height / image.size.width;
     
-    //  NSLog(@"top: %f", [AppDelegate sharedInstance].safeAreaTopPadding);
     [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(hStatus+marginY);
         make.centerX.equalTo(self.view.mas_centerX);
@@ -80,12 +91,11 @@
     }];
     
     float sizeButton = (SCREEN_WIDTH - 3*padding)/2;
-    float hButton = 50.0;
     
-    btnSignIn.layer.cornerRadius = btnSignUp.layer.cornerRadius = 7.0;
+    btnSignIn.layer.cornerRadius = btnSignUp.layer.cornerRadius = 8.0;
     
     btnSignIn.backgroundColor = BLUE_COLOR;
-    btnSignIn.titleLabel.font = [UIFont fontWithName:RobotoMedium size:19.0];
+    btnSignIn.titleLabel.font = textFont;
     [btnSignIn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSignIn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
@@ -93,21 +103,16 @@
         make.width.mas_equalTo(sizeButton);
         make.height.mas_equalTo(hButton);
     }];
-    [AppUtils addBoxShadowForView:btnSignIn color:[UIColor colorWithRed:(150/255.0) green:(150/255.0)
-                                                                   blue:(150/255.0) alpha:0.8]
-                          opacity:1.0 offsetX:1.0 offsetY:1.0];
     
     btnSignUp.backgroundColor = UIColor.whiteColor;
-    btnSignUp.titleLabel.font = [UIFont fontWithName:RobotoMedium size:19.0];
+    btnSignUp.titleLabel.font = textFont;
     [btnSignUp setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     [btnSignUp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(btnSignIn.mas_right).offset(padding);
         make.top.bottom.equalTo(btnSignIn);
         make.width.mas_equalTo(sizeButton);
     }];
-    [AppUtils addBoxShadowForView:btnSignUp color:[UIColor colorWithRed:(200/255.0) green:(200/255.0)
-                                                                   blue:(200/255.0) alpha:0.8]
-                          opacity:1.0 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:btnSignUp color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     //  collection view content
     float wImgCollection = (SCREEN_WIDTH - 2*padding);
@@ -132,7 +137,7 @@
     }];
     
     //  page control view
-    hDot = 9.0;
+    
     
     viewPageControl.backgroundColor = UIColor.clearColor;
     [viewPageControl mas_makeConstraints:^(MASConstraintMaker *make) {

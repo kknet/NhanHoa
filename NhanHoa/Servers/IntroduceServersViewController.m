@@ -9,8 +9,8 @@
 #import "IntroduceServersViewController.h"
 #import "ServersViewController.h"
 #import "QuesttionTbvCell.h"
-#import "HostingPromotionClvCell.h"
-#import "HostingSliderClvCell.h"
+#import "OnlyPhotoClvCell.h"
+#import "PromotionClvCell.h"
 
 @interface IntroduceServersViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -74,7 +74,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:18.0];
-        sizeIcon = 30.0;
+        sizeIcon = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
@@ -154,13 +154,13 @@
         make.top.equalTo(bgHeader.mas_bottom).offset(-35.0);
         make.left.equalTo(bgHeader).offset(padding);
         make.width.mas_equalTo(widthBlock);
-        make.height.mas_equalTo(sizeIcon + 50.0);
+        make.height.mas_equalTo(sizeIcon + 55.0);
     }];
     [AppUtils addBoxShadowForView:viewWindowsServer color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     [imgWindowsServer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewWindowsServer.mas_centerX);
-        make.bottom.equalTo(viewWindowsServer.mas_centerY);
+        make.bottom.equalTo(viewWindowsServer.mas_centerY).offset(5.0);
         make.width.height.mas_equalTo(sizeIcon);
     }];
     
@@ -209,7 +209,7 @@
     clvPromotions.collectionViewLayout = layoutPromos;
     clvPromotions.delegate = self;
     clvPromotions.dataSource = self;
-    [clvPromotions registerNib:[UINib nibWithNibName:@"HostingPromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"HostingPromotionClvCell"];
+    [clvPromotions registerNib:[UINib nibWithNibName:@"OnlyPhotoClvCell" bundle:nil] forCellWithReuseIdentifier:@"OnlyPhotoClvCell"];
     clvPromotions.showsHorizontalScrollIndicator = FALSE;
     clvPromotions.pagingEnabled = TRUE;
     
@@ -234,7 +234,7 @@
     clvSliders.collectionViewLayout = layoutSlider;
     clvSliders.delegate = self;
     clvSliders.dataSource = self;
-    [clvSliders registerNib:[UINib nibWithNibName:@"HostingSliderClvCell" bundle:nil] forCellWithReuseIdentifier:@"HostingSliderClvCell"];
+    [clvSliders registerNib:[UINib nibWithNibName:@"PromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"PromotionClvCell"];
     clvSliders.showsHorizontalScrollIndicator = FALSE;
     clvSliders.pagingEnabled = TRUE;
     
@@ -263,7 +263,7 @@
         make.height.mas_equalTo(0);
     }];
     
-    hTopContent = hBackground + ((sizeIcon + 50.0) - 35.0) + padding + heightPromotion + padding + heightSlider + padding;
+    hTopContent = hBackground + ((sizeIcon + 55.0) - 35.0) + padding + heightPromotion + padding + heightSlider + padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hTopContent);
 }
 
@@ -415,11 +415,11 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == clvPromotions) {
-        HostingPromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HostingPromotionClvCell" forIndexPath:indexPath];
-        
+        OnlyPhotoClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"OnlyPhotoClvCell" forIndexPath:indexPath];
+        cell.imgPromotion.image = [UIImage imageNamed:@"hosting_promotion"];
         return cell;
     }else {
-        HostingSliderClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HostingSliderClvCell" forIndexPath:indexPath];
+        PromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PromotionClvCell" forIndexPath:indexPath];
         cell.lbTitle.text = @"Vì sao nên thuê Server Nhân Hòa";
         cell.lbContent.text = @"Hệ thống máy chủ được đặt tại Trung tâm dữ liệu lớn, đáp ứng theo chuẩn quốc tế. Cam kết ổn định, an toàn, bảo mật, tiết kiệm thời gian.";
         return cell;

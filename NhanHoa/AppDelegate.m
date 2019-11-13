@@ -58,7 +58,7 @@
 @synthesize supportCall, ringbackPlayer, beepPlayer;
 @synthesize del, voipRegistry, callToken, callTokenReady, accCallInfo, current_call_id, pjsipConfAudioId;
 @synthesize callViewController, remoteName, needChangeDNS;
-@synthesize localization, safeAreaBottomPadding, btnSearchBar, lbTopTabbar;
+@synthesize localization, safeAreaBottomPadding, btnSearchBar;
 
 AppDelegate      *app;
 
@@ -893,15 +893,15 @@ AppDelegate      *app;
     if (duration) {
         if (hide) {
             [UIView animateWithDuration:0.05 animations:^{
-                lbTopTabbar.alpha = btnSearchBar.alpha = 0;
+                btnSearchBar.alpha = 0;
             }];
         }else{
             [UIView animateWithDuration:0.05 animations:^{
-                lbTopTabbar.alpha = btnSearchBar.alpha = 1;
+                btnSearchBar.alpha = 1;
             }];
         }
     }else{
-        lbTopTabbar.alpha = btnSearchBar.alpha = (hide) ? 0 : 1;
+        btnSearchBar.alpha = (hide) ? 0 : 1;
     }
 }
 

@@ -426,6 +426,7 @@
 "Profiles"              =   "Profiles"
 "Register email"        =   "Register email"
 "Hosting"               =   "Hosting"
+"Email"                 =   "Email"
 "More"                  =   "More"
 "SSL"                   =   "SSL"
 "VPS"                   =   "VPS"

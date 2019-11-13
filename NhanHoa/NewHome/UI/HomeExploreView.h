@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HomeExploreViewDelegate <NSObject>
 @optional
 - (void)closeExploreView;
+- (void)selectedMenuFromExploreView: (ExploreType)menu;
 @end
 
 @interface HomeExploreView : UIView<UICollectionViewDelegate, UICollectionViewDataSource>

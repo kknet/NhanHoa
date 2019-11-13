@@ -8,12 +8,15 @@
 
 #import "ServersViewController.h"
 #import "CloudServerTbvCell.h"
+#import "ChooseCloudServerPackageView.h"
 
-@interface ServersViewController ()<UITableViewDataSource, UITableViewDelegate>{
+@interface ServersViewController ()<UITableViewDataSource, UITableViewDelegate, ChooseCloudServerPackageViewDelegate>
+{
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
     float hWindowsServerCell;
+    ChooseCloudServerPackageView *choosePackageView;
 }
 @end
 
@@ -25,6 +28,11 @@
     // Do any additional setup after loading the view from its nib.
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self setupUIForView];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    lbHeader.text = @"SSD Cloud Server";
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -217,63 +225,64 @@
 }
 
 - (void)onBuyButtonPress: (UIButton *)sender {
-//    if (choosePackageView == nil) {
-//        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseHostingPackgeView" owner:nil options:nil];
-//        for(id currentObject in toplevelObject){
-//            if ([currentObject isKindOfClass:[ChooseHostingPackgeView class]]) {
-//                choosePackageView = (ChooseHostingPackgeView *) currentObject;
-//                break;
-//            }
-//        }
-//        choosePackageView.delegate = self;
-//        [appDelegate.window addSubview: choosePackageView];
-//    }
-//    [choosePackageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.left.bottom.right.equalTo(appDelegate.window);
-//    }];
-//    [choosePackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
-//
-//    if (sender.tag == eWindowsHostingStudent) {
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Sinh viên");
-//
-//    }else if (sender.tag == eWindowsHostingPersonal){
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân");
-//
-//    }else if (sender.tag == eWindowsHostingPersonalPlus){
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân+");
-//
-//    }else if (sender.tag == eWindowsHostingBusiness){
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Doanh nghiệp");
-//
-//    }else if (sender.tag == eWindowsHostingECommerce){
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Thương mại điện tử");
-//
-//    }else if (sender.tag == eWindowsHostingProfessional){
-//        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Chuyên nghiệp");
-//    }
-//
-//    [choosePackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
+    if (choosePackageView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseCloudServerPackageView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[ChooseCloudServerPackageView class]]) {
+                choosePackageView = (ChooseCloudServerPackageView *) currentObject;
+                break;
+            }
+        }
+        choosePackageView.delegate = self;
+        [appDelegate.window addSubview: choosePackageView];
+    }
+    [choosePackageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(appDelegate.window);
+    }];
+    [choosePackageView setupUIForViewWithInfo:[self getListDataInfoForCurrentPackage]];
+    choosePackageView.lbTitle.text = @"Chọn template";
+    [choosePackageView.btnConfirm setTitle:[appDelegate.localization localizedStringForKey:@"Continue"] forState:UIControlStateNormal];
+    
+    if (sender.tag == 0) {
+        choosePackageView.lbDesc.text = @"SSD Cloud Server A";
+
+    }else if (sender.tag == 1){
+        choosePackageView.lbDesc.text = @"SSD Cloud Server B";
+
+    }else if (sender.tag == 2){
+        choosePackageView.lbDesc.text = @"SSD Cloud Server C";
+
+    }else if (sender.tag == 3){
+        choosePackageView.lbDesc.text = @"SSD Cloud Server D";
+
+    }else if (sender.tag == 4){
+        choosePackageView.lbDesc.text = @"SSD Cloud Server E";
+
+    }else if (sender.tag == 5){
+        choosePackageView.lbDesc.text = @"SSD Cloud Server F";
+    }
+
+    [choosePackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];
 }
 
-- (NSArray *)getListTimeInfoForCurrentPackage {
-    NSMutableArray *times = [[NSMutableArray alloc] init];
-    
-    NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:@"6", @"month", @"36000", @"price", @"432000", @"total", nil];
-    [times addObject: info];
-    
-    NSDictionary *info1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"12", @"month", @"32400", @"price", @"777000", @"total", nil];
-    [times addObject: info1];
-    
-    NSDictionary *info2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"36", @"month", @"30600", @"price", @"1101600", @"total", nil];
-    [times addObject: info2];
-    
-    NSDictionary *info3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"48", @"month", @"28800", @"price", @"1382400", @"total", nil];
-    [times addObject: info3];
-    
-    NSDictionary *info4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"60", @"month", @"27000", @"price", @"1620000", @"total", nil];
-    [times addObject: info4];
-    
+- (NSArray *)getListDataInfoForCurrentPackage {
+    NSMutableArray *times = [[NSMutableArray alloc] initWithObjects:@"CentOS6 64bit + WHM", @"CentOS6 64bit + Zimbra", @"CentOS7 64bit", @"Ubuntu12 64bit", @"Ubuntu14 64bit", @"CentOS7 64bit + DirectAdmin", @"CentOS6 64bit + DirectAdmin", @"Ubuntu16 64bit", @"CentOS6 64bit", @"CentOS6 32bit", @"CentOS7 64bit + Plesk", @"CentOS7 64bit + WHM", @"Ubuntu14 64bit + DirectAdmin", @"Ubuntu16 64bit + DirectAdmin", @"CentOS6 64bit + Kerio", @"Ubuntu18 64bit", @"CentOS7 NextCloud", @"Ubuntu18 NextCloud", @"CentOS7 Owncloud", @"Ubuntu18 Owncloud", @"Pfsense-2.3", @"CentOS7 64bit Pritunl", @"CentOS7 VestaCP", @"CentOS8 64bit", @"CentOS7 LAMP", @"CentOS7 LEMP", @"CentOS7 Zabbix", nil];
     return times;
+}
+
+#pragma mark - ChooseCloudServerPackageViewDelegate
+-(void)closeChooseSSDCloudServerPackageView {
+    if (choosePackageView) {
+        [choosePackageView removeFromSuperview];
+        choosePackageView = nil;
+    }
+}
+
+-(void)confirmAfterChooseSSDCloudServerPackageView {
+    if (choosePackageView) {
+        [choosePackageView removeFromSuperview];
+        choosePackageView = nil;
+    }
 }
 
 @end

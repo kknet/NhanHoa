@@ -136,13 +136,13 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-209" y="143"/>
+            <point key="canvasLocation" x="-509" y="149"/>
         </view>
     </objects>
     <resources>
         <image name="close_gray.png" width="93" height="93"/>
         <image name="ic_active.png" width="96" height="96"/>
-        <image name="ic_email.png" width="111" height="84"/>
+        <image name="ic_email.png" width="76" height="60"/>
         <image name="ic_password.png" width="87" height="129"/>
         <image name="login_desc_1.png" width="1314" height="1451"/>
         <image name="show_pass.png" width="80" height="80"/>

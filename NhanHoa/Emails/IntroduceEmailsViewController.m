@@ -8,7 +8,7 @@
 
 #import "IntroduceEmailsViewController.h"
 #import "EmailsViewController.h"
-#import "EmailPromotionClvCell.h"
+#import "PromotionClvCell.h"
 #import "QuesttionTbvCell.h"
 
 @interface IntroduceEmailsViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource>
@@ -267,7 +267,7 @@
     clvSliders.collectionViewLayout = layoutSlider;
     clvSliders.delegate = self;
     clvSliders.dataSource = self;
-    [clvSliders registerNib:[UINib nibWithNibName:@"EmailPromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"EmailPromotionClvCell"];
+    [clvSliders registerNib:[UINib nibWithNibName:@"PromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"PromotionClvCell"];
     clvSliders.showsHorizontalScrollIndicator = FALSE;
     clvSliders.pagingEnabled = TRUE;
 
@@ -403,7 +403,7 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    EmailPromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EmailPromotionClvCell" forIndexPath:indexPath];
+    PromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PromotionClvCell" forIndexPath:indexPath];
     cell.lbTitle.text = @"Giới thiệu dịch vụ Email Nhân Hòa";
     cell.lbContent.text = @"Để có một hệ thống email chuyên nghiệp, tin cậy các tổ chức/ doanh nghiệp nên sử dụng dịch vụ email từ các nhà cung cấp có uy tín và kinh nghiệm như Nhân Hòa. Tùy theo nhu cầu Quý khách hàng có thể chọn 1 trong 2 dịch vụ Email Hosting hoặc Email server cho tổ chức/ doanh nghiệp của mình.";
     return cell;

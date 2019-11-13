@@ -8,8 +8,8 @@
 
 #import "IntroduceHostingViewController.h"
 #import "HostingViewController.h"
-#import "HostingPromotionClvCell.h"
-#import "HostingSliderClvCell.h"
+#import "OnlyPhotoClvCell.h"
+#import "PromotionClvCell.h"
 #import "QuesttionTbvCell.h"
 
 @interface IntroduceHostingViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
@@ -138,8 +138,6 @@
     
     //  view content
     viewWindows.layer.cornerRadius = viewLinux.layer.cornerRadius = viewWordpress.layer.cornerRadius = 8.0;
-    viewWindows.layer.cornerRadius = viewLinux.layer.cornerRadius = viewWordpress.layer.cornerRadius = 8.0;
-    
     lbWindows.font = lbLinux.font = lbWordpress.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-3];
     lbWindows.textColor = lbLinux.textColor = lbWordpress.textColor = GRAY_80;
     
@@ -226,7 +224,7 @@
     clvPromotions.collectionViewLayout = layoutPromos;
     clvPromotions.delegate = self;
     clvPromotions.dataSource = self;
-    [clvPromotions registerNib:[UINib nibWithNibName:@"HostingPromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"HostingPromotionClvCell"];
+    [clvPromotions registerNib:[UINib nibWithNibName:@"OnlyPhotoClvCell" bundle:nil] forCellWithReuseIdentifier:@"OnlyPhotoClvCell"];
     clvPromotions.showsHorizontalScrollIndicator = FALSE;
     clvPromotions.pagingEnabled = TRUE;
     
@@ -251,7 +249,7 @@
     clvSliders.collectionViewLayout = layoutSlider;
     clvSliders.delegate = self;
     clvSliders.dataSource = self;
-    [clvSliders registerNib:[UINib nibWithNibName:@"HostingSliderClvCell" bundle:nil] forCellWithReuseIdentifier:@"HostingSliderClvCell"];
+    [clvSliders registerNib:[UINib nibWithNibName:@"PromotionClvCell" bundle:nil] forCellWithReuseIdentifier:@"PromotionClvCell"];
     clvSliders.showsHorizontalScrollIndicator = FALSE;
     clvSliders.pagingEnabled = TRUE;
     
@@ -366,11 +364,13 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == clvPromotions) {
-        HostingPromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HostingPromotionClvCell" forIndexPath:indexPath];
+        OnlyPhotoClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"OnlyPhotoClvCell" forIndexPath:indexPath];
+        
+        cell.imgPromotion.image = [UIImage imageNamed:@"hosting_promotion"];
         
         return cell;
     }else {
-        HostingSliderClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HostingSliderClvCell" forIndexPath:indexPath];
+        PromotionClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PromotionClvCell" forIndexPath:indexPath];
         cell.lbTitle.text = @"Vì sao nên thuê hosting Nhân Hòa";
         cell.lbContent.text = @"Với bề dày kinh nghiệm, Nhân Hòa luôn nằm trong top đầu các đơn vị cùng lĩnh vực cung cấp dịch vụ chuyên nghiệp nhất.";
         return cell;

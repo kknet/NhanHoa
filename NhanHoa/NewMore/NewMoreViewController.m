@@ -71,17 +71,25 @@
     self.view.backgroundColor = UIColor.whiteColor;
     scvContent.backgroundColor = GRAY_240;
     
-    hCell = 60.0;
+    hCell = 70.0;
     hSection = 15.0;
+    float hInfo = 120.0;
+    
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
+        hInfo = 80.0;
+        hCell = 60.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
+        hInfo = 100.0;
+        hCell = 65.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        hInfo = 120.0;
+        hCell = 70.0;
     }
     
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +129,7 @@
     }];
     
     //  info view
-    float hInfo = 80.0;
+    
     
     UITapGestureRecognizer *tapOnProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnProfile)];
     [viewInfo addGestureRecognizer: tapOnProfile];
@@ -225,9 +233,9 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.backgroundColor = UIColor.clearColor.CGColor;
     gradientLayer.frame = CGRectMake(0, 0, width, height);
-    gradientLayer.startPoint = CGPointMake(0.5, 1);
-    gradientLayer.endPoint = CGPointMake(0.5, 0);
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(27/255.0) green:(100/255.0) blue:(202/255.0) alpha:1].CGColor, (id)[UIColor colorWithRed:(29/255.0) green:(104/255.0) blue:(209/255.0) alpha:0.9].CGColor];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 1);
+    gradientLayer.colors = @[(id)[UIColor colorWithRed:(15/255.0) green:(99/255.0) blue:(218/255.0) alpha:1.0].CGColor, (id)[UIColor colorWithRed:(10/255.0) green:(74/255.0) blue:(192/255.0) alpha:1.0].CGColor];
     
     [view.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;

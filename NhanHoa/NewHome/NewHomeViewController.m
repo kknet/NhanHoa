@@ -7,7 +7,6 @@
 //
 
 #import "NewHomeViewController.h"
-#import "SearchDomainsViewController.h"
 #import "WithdrawalBonusAccountViewController.h"
 #import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
@@ -16,6 +15,11 @@
 #import "IntroduceHostingViewController.h"
 #import "IntroduceEmailsViewController.h"
 #import "IntroduceServersViewController.h"
+#import "IntroduceSSLViewController.h"
+#import "IntroduceVPSViewController.h"
+#import "DomainsViewController.h"
+#import "SearchMultiDomainsViewController.h"
+
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
 #import "HomePromotionView.h"
@@ -222,7 +226,7 @@
             break;
         }
         case eMenuRegisterEmail:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Register email"];
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Email"];
             cell.imgType.image = [UIImage imageNamed:@"menu_register_email"];
             break;
         }
@@ -248,37 +252,21 @@
     [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
     
     if (indexPath.row == eMenuDomain) {
-        SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
-        searchDomainsVC.hidesBottomBarWhenPushed = TRUE;
-        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
-     
+        [self goToSearchDomainViewController];
+        
     }else if (indexPath.row == eMenuCloudServer){
-        IntroduceServersViewController *serversVC = [[IntroduceServersViewController alloc] initWithNibName:@"IntroduceServersViewController" bundle:nil];
-        serversVC.hidesBottomBarWhenPushed = TRUE;
-        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: serversVC animated:TRUE];
+        [self goToCloudServerViewController];
         
     }else if (indexPath.row == eMenuProfiles){
-        ProfilesViewController *profileVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
-        profileVC.hidesBottomBarWhenPushed = TRUE;
-        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: profileVC animated:TRUE];
+        [self goToProfilesViewController];
         
     }else if (indexPath.row == eMenuRegisterEmail){
-        IntroduceEmailsViewController *emailVC = [[IntroduceEmailsViewController alloc] initWithNibName:@"IntroduceEmailsViewController" bundle:nil];
-        emailVC.hidesBottomBarWhenPushed = TRUE;
-        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: emailVC animated:TRUE];
+        [self goToRegisterEmailsViewController];
         
     }else if (indexPath.row == eMenuHosting){
-        IntroduceHostingViewController *hostingVC = [[IntroduceHostingViewController alloc] initWithNibName:@"IntroduceHostingViewController" bundle:nil];
-        hostingVC.hidesBottomBarWhenPushed = TRUE;
-        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-        [self.navigationController pushViewController: hostingVC animated:TRUE];
+        [self goToRegisterHostingViewController];
         
-    }
-    else if (indexPath.row == eMenuMore) {
+    }else if (indexPath.row == eMenuMore) {
         [self showExploreMenuForView];
     }
     
@@ -357,6 +345,7 @@
     }];
 }
 
+#pragma mark - ExploreViewDelegate
 - (void)closeExploreView {
     viewExplore.lbTransparent.hidden = TRUE;
     [UIView animateWithDuration:0.3 animations:^{
@@ -366,6 +355,131 @@
         [viewExplore removeFromSuperview];
         viewExplore = nil;
     }];
+}
+
+-(void)selectedMenuFromExploreView:(ExploreType)menu {
+    viewExplore.lbTransparent.hidden = TRUE;
+    [UIView animateWithDuration:0.3 animations:^{
+        viewExplore.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, viewExplore.hContent);
+        
+    }completion:^(BOOL finished) {
+        [viewExplore removeFromSuperview];
+        viewExplore = nil;
+        
+        switch (menu) {
+            case eExploreDomain:{
+                [self goToSearchDomainViewController];
+                break;
+            }
+            case eExploreCloudServer:{
+                [self goToCloudServerViewController];
+                break;
+            }
+            case eExploreVfone:{
+                break;
+            }
+            case eExploreOrders:{
+                break;
+            }
+            case eExploreProfiles:{
+                [self goToProfilesViewController];
+                break;
+            }
+            case eExploreEmail:{
+                [self goToRegisterEmailsViewController];
+                break;
+            }
+            case eExploreHosting:{
+                [self goToRegisterHostingViewController];
+                break;
+            }
+            case eExploreSSL:{
+                [self goToRegisterSSLViewController];
+                break;
+            }
+            case eExploreVPS:{
+                [self goToRegisterVPSViewController];
+                break;
+            }
+            case eExploreManagerDomains:{
+                [self goToDomainsManagementViewController];
+                break;
+            }
+            case eExplorePricingDomains:{
+                break;
+            }
+            case eExploreCheckDomains:{
+                [self goToSearchMultiDomainsViewController];
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)goToSearchDomainViewController {
+    SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
+    searchDomainsVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
+}
+
+- (void)goToCloudServerViewController {
+    IntroduceServersViewController *serversVC = [[IntroduceServersViewController alloc] initWithNibName:@"IntroduceServersViewController" bundle:nil];
+    serversVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: serversVC animated:TRUE];
+}
+
+- (void)goToProfilesViewController {
+    ProfilesViewController *profileVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
+    profileVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: profileVC animated:TRUE];
+}
+
+- (void)goToRegisterEmailsViewController {
+    IntroduceEmailsViewController *emailVC = [[IntroduceEmailsViewController alloc] initWithNibName:@"IntroduceEmailsViewController" bundle:nil];
+    emailVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: emailVC animated:TRUE];
+}
+
+- (void)goToRegisterHostingViewController {
+    IntroduceHostingViewController *hostingVC = [[IntroduceHostingViewController alloc] initWithNibName:@"IntroduceHostingViewController" bundle:nil];
+    hostingVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: hostingVC animated:TRUE];
+}
+
+- (void)goToRegisterSSLViewController {
+    IntroduceSSLViewController *registerSSLVC = [[IntroduceSSLViewController alloc] initWithNibName:@"IntroduceSSLViewController" bundle:nil];
+    registerSSLVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: registerSSLVC animated:TRUE];
+}
+
+- (void)goToRegisterVPSViewController {
+    IntroduceVPSViewController *registerVPSVC = [[IntroduceVPSViewController alloc] initWithNibName:@"IntroduceVPSViewController" bundle:nil];
+    registerVPSVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: registerVPSVC animated:TRUE];
+}
+
+- (void)goToDomainsManagementViewController {
+    DomainsViewController *domainsVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
+    domainsVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController:domainsVC animated:TRUE];
+}
+
+- (void)goToSearchMultiDomainsViewController {
+    SearchMultiDomainsViewController *searchMultiVC = [[SearchMultiDomainsViewController alloc] initWithNibName:@"SearchMultiDomainsViewController" bundle:nil];
+    searchMultiVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController:searchMultiVC animated:TRUE];
 }
 
 #pragma mark - UIScrollView

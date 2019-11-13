@@ -18,33 +18,28 @@
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     UIFont *titleFont = [UIFont fontWithName:RobotoBold size:24.0];
     
-    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-        titleFont = [UIFont fontWithName:RobotoBold size:20.0];
-        
-    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
-        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
-        titleFont = [UIFont fontWithName:RobotoBold size:22.0];
-        
-    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
-        titleFont = [UIFont fontWithName:RobotoBold size:24.0];
-    }
-    
-    
     float padding = 15.0;
     float hLabel = 60.0;
     float hContent = 60.0;
     
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        titleFont = [UIFont fontWithName:RobotoBold size:20.0];
+        
         hLabel = 40.0;
         hContent = 40.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
+        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        titleFont = [UIFont fontWithName:RobotoBold size:22.0];
+        
         hLabel = 40.0;
         hContent = 50.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        titleFont = [UIFont fontWithName:RobotoBold size:24.0];
+        
         hLabel = 60.0;
         hContent = 60.0;
     }

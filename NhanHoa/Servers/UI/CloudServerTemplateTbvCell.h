@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *imgChecked;
 
 -(void)setSelected:(BOOL)selected animated:(BOOL)animated;
+- (void)setCellIsSelected: (BOOL)selected;
 
 @end
 

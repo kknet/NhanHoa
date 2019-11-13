@@ -58,6 +58,23 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    if (selected) {
+        viewWrap.layer.borderColor = [UIColor colorWithRed:(240/255.0) green:(155/255.0) blue:(52/255.0) alpha:1.0].CGColor;
+        imgChecked.hidden = FALSE;
+    }else{
+        viewWrap.layer.borderColor = UIColor.clearColor.CGColor;
+        imgChecked.hidden = TRUE;
+    }
+}
+
+- (void)setCellIsSelected: (BOOL)selected {
+    if (selected) {
+        viewWrap.layer.borderColor = [UIColor colorWithRed:(240/255.0) green:(155/255.0) blue:(52/255.0) alpha:1.0].CGColor;
+        imgChecked.hidden = FALSE;
+    }else{
+        viewWrap.layer.borderColor = UIColor.clearColor.CGColor;
+        imgChecked.hidden = TRUE;
+    }
 }
 
 @end

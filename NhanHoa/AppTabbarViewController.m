@@ -22,6 +22,7 @@
     
     UIButton *btnCall;
     float sizeCall;
+    CALayer *topBorder;
 }
 
 @end
@@ -165,29 +166,92 @@
 //        imageView.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y);
 //    }
     
+    topBorder = [CALayer layer];
+    topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 1.0f);
+    topBorder.backgroundColor = BORDER_COLOR.CGColor;
+    [self.tabBarController.tabBar.layer addSublayer:topBorder];
+    
+    [self setupMiddleButton];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+}
+
+- (void)setupMiddleButton
+{
+    /*
+    float sizeIcon = self.tabBarController.tabBar.frame.size.height;
+    
     appDelegate.btnSearchBar = [UIButton buttonWithType:UIButtonTypeCustom];
     appDelegate.btnSearchBar.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding, sizeIcon, sizeIcon);
-    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_domains_100"] forState:UIControlStateNormal];
+    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
     appDelegate.btnSearchBar.alpha = 0;
-
+    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
+    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
+    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
+    appDelegate.btnSearchBar.layer.cornerRadius = sizeIcon/2;
+    [self.view addSubview: appDelegate.btnSearchBar];
+    
     if (appDelegate.safeAreaBottomPadding > 0) {
         appDelegate.btnSearchBar.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y-appDelegate.safeAreaBottomPadding + 5.0);
     }else{
         appDelegate.btnSearchBar.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y);
     }
-    [appDelegate.window addSubview: appDelegate.btnSearchBar];
+    [self.view addSubview: appDelegate.btnSearchBar];
     [appDelegate.btnSearchBar addTarget:self
                                  action:@selector(onButtonSearchTabbarPress)
                        forControlEvents:UIControlEventTouchUpInside];
+    */
     
-    appDelegate.lbTopTabbar = [[UILabel alloc] init];
-    appDelegate.lbTopTabbar.backgroundColor = BORDER_COLOR;
-    [appDelegate.window addSubview: appDelegate.lbTopTabbar];
-    appDelegate.lbTopTabbar.alpha = 0;
-    [appDelegate.lbTopTabbar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(appDelegate.window); make.bottom.equalTo(appDelegate.window).offset(-tabBarController.tabBar.frame.size.height-appDelegate.safeAreaBottomPadding);
-        make.height.mas_equalTo(1.0);
-    }];
+    appDelegate.btnSearchBar = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+
+    CGRect menuButtonFrame = appDelegate.btnSearchBar.frame;
+    menuButtonFrame.origin.y = self.view.bounds.size.height - menuButtonFrame.size.height - appDelegate.safeAreaBottomPadding;
+    menuButtonFrame.origin.x = self.view.bounds.size.width/2 - menuButtonFrame.size.width/2;
+    appDelegate.btnSearchBar.frame = menuButtonFrame;
+    
+    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
+    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
+    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
+    appDelegate.btnSearchBar.layer.cornerRadius = menuButtonFrame.size.height/2;
+    [self.view addSubview: appDelegate.btnSearchBar];
+
+    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
+    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
+    [appDelegate.btnSearchBar addTarget:self
+                                 action:@selector(onButtonSearchTabbarPress)
+                       forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void) orientationChanged
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationUnknown || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp || [UIDevice currentDevice].orientation == UIDeviceOrientationFaceDown) {
+        return;
+    }
+    
+    [topBorder removeFromSuperlayer];
+    
+    topBorder = [CALayer layer];
+    topBorder.backgroundColor = BORDER_COLOR.CGColor;
+    
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait || [UIDevice currentDevice].orientation == UIDeviceOrientationPortraitUpsideDown) {
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_HEIGHT, 1.0f);
+        }else{
+            topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 1.0f);
+        }
+    }else if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
+            topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 1.0f);
+        }else{
+            topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_HEIGHT, 1.0f);
+        }
+    }
+    [self.tabBarController.tabBar.layer addSublayer:topBorder];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -31,10 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbMainWallet;
 @property (weak, nonatomic) IBOutlet UILabel *lbMainMoney;
 @property (weak, nonatomic) IBOutlet UIButton *icMainMoney;
+@property (weak, nonatomic) IBOutlet UIView *viewMainWallet;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 @property (weak, nonatomic) IBOutlet UILabel *lbBonusWallet;
 @property (weak, nonatomic) IBOutlet UILabel *lbBonusMoney;
 @property (weak, nonatomic) IBOutlet UIButton *icBonusMoney;
+@property (weak, nonatomic) IBOutlet UIView *viewBonusWallet;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbTopup;
 @property (weak, nonatomic) IBOutlet UIButton *icTopup;

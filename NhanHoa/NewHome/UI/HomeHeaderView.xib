@@ -49,6 +49,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="arrow_right.png"/>
                         </button>
+                        <view contentMode="scaleToFill" id="9ze-ep-bAR">
+                            <rect key="frame" x="24" y="-14" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4y2-yz-ZZJ">
                             <rect key="frame" x="0.0" y="50" width="288" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,6 +81,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="arrow_right.png"/>
                         </button>
+                        <view contentMode="scaleToFill" id="CR9-4g-YXE">
+                            <rect key="frame" x="24" y="-14" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </view>
@@ -178,9 +188,11 @@
                 <outlet property="lbTopup" destination="fUz-78-bjd" id="gPL-aT-6Pq"/>
                 <outlet property="lbTrans" destination="5nB-vz-GOs" id="fVC-ha-RoI"/>
                 <outlet property="lbWithdraw" destination="Sn6-pT-GJ3" id="wA9-qL-aYF"/>
+                <outlet property="viewBonusWallet" destination="CR9-4g-YXE" id="PXP-kU-Dgw"/>
+                <outlet property="viewMainWallet" destination="9ze-ep-bAR" id="OcM-PD-lel"/>
                 <outlet property="viewWallet" destination="r2B-rn-fvZ" id="ydD-oY-rJm"/>
             </connections>
-            <point key="canvasLocation" x="-106" y="-157"/>
+            <point key="canvasLocation" x="-771" y="-207"/>
         </view>
     </objects>
     <resources>

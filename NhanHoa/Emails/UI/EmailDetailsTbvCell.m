@@ -15,15 +15,15 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:21.0];
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:17.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:15.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:19.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:17.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
-        textFont = [UIFont fontWithName:RobotoRegular size:21.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     }
     
     [imgChecked mas_makeConstraints:^(MASConstraintMaker *make) {

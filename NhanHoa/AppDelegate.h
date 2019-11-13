@@ -130,7 +130,6 @@ typedef enum PaymentMethod{
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
 @property (nonatomic, strong) UIButton *btnSearchBar;
-@property (nonatomic, strong) UILabel *lbTopTabbar;
 
 @property (nonatomic, strong) NSMutableDictionary *errorMsgDict;
 @property (nonatomic, strong) NSMutableArray *listPricingVN;

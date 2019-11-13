@@ -17,19 +17,17 @@
     UIFont *textFont = [UIFont systemFontOfSize:20.0 weight:UIFontWeightThin];
     float sizeIcon = 54.0;
     
-    if (IS_IPHONE || IS_IPOD)
-    {
-        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-            textFont = [UIFont fontWithName:RobotoRegular size:13.0];
-            sizeIcon = 45.0;
-            
-        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
-            textFont = [UIFont fontWithName:RobotoRegular size:13.0];
-            sizeIcon = 48.0;
-            
-        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
-            textFont = [UIFont fontWithName:RobotoRegular size:14.5];
-        }
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoRegular size:13.0];
+        sizeIcon = 45.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        textFont = [UIFont fontWithName:RobotoRegular size:14.5];
+        sizeIcon = 48.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        sizeIcon = 54.0;
+        textFont = [UIFont fontWithName:RobotoRegular size:16];
     }
     
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {

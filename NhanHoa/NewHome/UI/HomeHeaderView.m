@@ -11,26 +11,21 @@
 
 @implementation HomeHeaderView
 
-@synthesize lbHello, icCart, lbCount, viewWallet, lbMainWallet, lbMainMoney, icMainMoney, lbSepa, lbBonusWallet, lbBonusMoney, icBonusMoney, lbTopup, icTopup, lbPromotion, icPromotion, lbTrans, icTrans, icWithdraw, lbWithdraw, imgBanner;
+@synthesize lbHello, icCart, lbCount, viewWallet, lbMainWallet, lbMainMoney, icMainMoney, lbSepa, lbBonusWallet, lbBonusMoney, icBonusMoney, lbTopup, icTopup, lbPromotion, icPromotion, lbTrans, icTrans, icWithdraw, lbWithdraw, imgBanner, viewMainWallet, viewBonusWallet;
 @synthesize hContentView, delegate;
 
 - (void)setupUIForView {
     self.backgroundColor = UIColor.clearColor;
-    
-    float padding = 20.0;
-    float smallPadding = 10.0;
-    float sizeIcon = 28.0;
-    
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    float sizeButton = 50.0;
-    float hLabel = 20.0;
-    float marginY = 5.0;
-    float moreHeight = 40.0;
-    float hIcon = 45.0;
-    
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.5];
-    UIFont *titleFont = [UIFont fontWithName:RobotoBold size:20.0];
+    float padding = 15.0;
+    UIFont *titleFont = [UIFont fontWithName:RobotoBold size:22.0];
+    float sizeIcon = 20.0;
+    float smallPadding = 10.0;
+    float moreHeight = 65.0;
+    float sizeButton = 60.0;
+    float hWallet = 90.0;
+    float marginY = 15.0;
+    float hCartIcon = 45.0;
     
     //  edge for buttons
     icTopup.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
@@ -38,33 +33,36 @@
     icPromotion.imageEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 11);
     icTrans.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
     
-    float hWallet = 70.0;
-    
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:14];
-        titleFont = [UIFont fontWithName:RobotoBold size:19.0];
-        padding = 15.0;
-        
-        smallPadding = 5.0;
-        moreHeight = 25.0;
-        hIcon = 35.0;
+        titleFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hWallet = 70.0;
+        hCartIcon = 35.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+        sizeIcon = 18.0;
+        moreHeight = 45.0;
+        marginY = 5.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
-        textFont = [UIFont fontWithName:RobotoRegular size:15.5];
         titleFont = [UIFont fontWithName:RobotoBold size:20.0];
-        padding = 15.0;
-        smallPadding = 10.0;
+        hWallet = 80.0;
+        hCartIcon = 40.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        sizeIcon = 20.0;
+        moreHeight = 55.0;
+        marginY = 5.0;
         
-        moreHeight = 25.0;
-        hIcon = 35.0;
+        icTopup.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+        icWithdraw.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
+        icPromotion.imageEdgeInsets = UIEdgeInsetsMake(13, 13, 13, 13);
+        icTrans.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
-        textFont = [UIFont fontWithName:RobotoRegular size:16];
-        titleFont = [UIFont fontWithName:RobotoBold size:21.0];
-        smallPadding = 10.0;
-        
-        sizeButton = 60.0;
-        hLabel = 30.0;
+        titleFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hWallet = 90.0;
+        hCartIcon = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+        sizeIcon = 22.0;
+        moreHeight = 65.0;
         marginY = 15.0;
         
         icTopup.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
@@ -81,11 +79,10 @@
         make.height.mas_equalTo(hBanner);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgBanner).offset(5.0);
-        make.right.equalTo(self).offset(-padding);
-        make.width.height.mas_equalTo(hIcon);
+        make.right.equalTo(self).offset(-padding/2);
+        make.width.height.mas_equalTo(hCartIcon);
     }];
     
     lbCount.backgroundColor = ORANGE_COLOR;
@@ -107,16 +104,15 @@
     }];
     
     //  view wallet
-    lbMainWallet.font = lbBonusWallet.font = textFont;
-    lbMainMoney.font = lbBonusMoney.font = [UIFont fontWithName:RobotoMedium size:(textFont.pointSize + 2)];
+    lbMainWallet.font = lbBonusWallet.font = [UIFont fontWithName:RobotoRegular size:titleFont.pointSize-4];
+    lbMainMoney.font = lbBonusMoney.font = [UIFont fontWithName:RobotoMedium size:titleFont.pointSize-3];
     
-    icMainMoney.imageEdgeInsets = icBonusMoney.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     lbMainWallet.textColor = lbBonusWallet.textColor = GRAY_100;
-    lbMainWallet.textColor = lbBonusWallet.textColor = GRAY_50;
+    lbMainMoney.textColor = lbBonusMoney.textColor = GRAY_50;
     
-    viewWallet.layer.cornerRadius = 10.0;
-    viewWallet.layer.borderColor = GRAY_200.CGColor;
-    viewWallet.layer.borderWidth = 1.0;
+    viewWallet.layer.cornerRadius = 15.0;
+    //  viewWallet.layer.borderColor = GRAY_200.CGColor;
+    //  viewWallet.layer.borderWidth = 1.0;
     
     [viewWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbHello.mas_bottom).offset(10.0);
@@ -125,47 +121,57 @@
         make.height.mas_equalTo(hWallet);
     }];
     
-    lbSepa.backgroundColor = GRAY_150;
+    lbSepa.backgroundColor = GRAY_200;
     [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewWallet.mas_centerX);
-        make.top.equalTo(viewWallet).offset(15.0);
-        make.bottom.equalTo(viewWallet).offset(-15.0);
+        make.centerX.equalTo(viewWallet.mas_centerX);
+        make.top.equalTo(lbMainWallet);
+        make.bottom.equalTo(lbMainMoney);
         make.width.mas_equalTo(1.0);
     }];
     
     //  main wallet
+    [viewMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.equalTo(viewWallet);
+        make.right.equalTo(lbSepa.mas_left);
+    }];
+
     lbMainWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Main wallet"];
     [lbMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewWallet).offset(smallPadding);
-        make.bottom.equalTo(viewWallet.mas_centerY).offset(-2.0);
+        make.bottom.equalTo(viewWallet.mas_centerY).offset(-3.0);
     }];
-    
+
     [icMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(lbSepa.mas_left).offset(-smallPadding);
         make.centerY.equalTo(lbMainWallet.mas_centerY);
         make.width.height.mas_equalTo(sizeIcon);
     }];
-    
+
     [lbMainMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewWallet.mas_centerY).offset(2.0);
+        make.top.equalTo(viewWallet.mas_centerY).offset(3.0);
         make.left.equalTo(lbMainWallet);
         make.right.equalTo(lbSepa.mas_left).offset(-smallPadding);
     }];
-    
-    
+
+
     //  bonus wallet
+    [viewBonusWallet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.equalTo(viewWallet);
+        make.left.equalTo(lbSepa.mas_right);
+    }];
+
     lbBonusWallet.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Bonus wallet"];
     [lbBonusWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbSepa.mas_right).offset(smallPadding);
         make.bottom.equalTo(lbMainWallet);
     }];
-    
+
     [icBonusMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewWallet).offset(-smallPadding);
         make.centerY.equalTo(lbBonusWallet.mas_centerY);
         make.width.height.mas_equalTo(sizeIcon);
     }];
-    
+
     [lbBonusMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbMainMoney);
         make.left.equalTo(lbBonusWallet);
@@ -184,7 +190,7 @@
     [lbWithdraw mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(icWithdraw.mas_bottom).offset(-3.0);
         make.centerX.equalTo(icWithdraw.mas_centerX);
-        make.height.mas_equalTo(hLabel);
+        //  make.height.mas_equalTo(hLabel);
     }];
     
     [icTopup mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -194,7 +200,7 @@
     }];
     
     [lbTopup mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbWithdraw);
+        make.top.equalTo(lbWithdraw);
         make.centerX.equalTo(icTopup.mas_centerX);
     }];
     
@@ -205,7 +211,7 @@
     }];
     
     [lbPromotion mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbWithdraw);
+        make.top.equalTo(lbWithdraw);
         make.centerX.equalTo(icPromotion.mas_centerX);
     }];
     
@@ -216,15 +222,15 @@
     }];
     
     [lbTrans mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbPromotion);
+        make.top.equalTo(lbPromotion);
         make.centerX.equalTo(icTrans.mas_centerX);
     }];
     
-    hContentView = hStatus + hIcon + 10.0 + hWallet + marginY + sizeButton + hLabel + moreHeight;
+    hContentView = hStatus + hCartIcon + 10.0 + hWallet + marginY + sizeButton + moreHeight;
     
     [self addCurvePathForViewWithHeight: hContentView];
     
-    lbTopup.font = lbWithdraw.font = lbPromotion.font = lbTrans.font = [UIFont systemFontOfSize:(textFont.pointSize-2) weight:UIFontWeightThin];
+    lbTopup.font = lbWithdraw.font = lbPromotion.font = lbTrans.font = [UIFont fontWithName:RobotoRegular size:titleFont.pointSize-4];
 }
 
 - (void)addCurvePathForViewWithHeight: (float)height {
@@ -244,10 +250,9 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.backgroundColor = UIColor.clearColor.CGColor;
     gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
-    gradientLayer.startPoint = CGPointMake(0.25, 1);
-    gradientLayer.endPoint = CGPointMake(0.5, 0);
-    //  gradientLayer.colors = @[(id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:0].CGColor, (id)[UIColor colorWithRed:(23/255.0) green:(92/255.0) blue:(188/255.0) alpha:1.0].CGColor];
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(23/255.0) green:(92/255.0) blue:(188/255.0) alpha:1].CGColor, (id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:0.8].CGColor];
+    gradientLayer.startPoint = CGPointMake(0.5, 0);
+    gradientLayer.endPoint = CGPointMake(0.5, 1);
+    gradientLayer.colors = @[(id)[UIColor colorWithRed:(16/255.0) green:(102/255.0) blue:(220/255.0) alpha:1].CGColor, (id)[UIColor colorWithRed:(13/255.0) green:(87/255.0) blue:(191/255.0) alpha:1.0].CGColor];
     
     [self.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;
