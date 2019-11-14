@@ -17,20 +17,24 @@
     
     float padding = 15.0;
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    float sizeIcon = 28.0;
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        sizeIcon = 24.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        sizeIcon = 26.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        sizeIcon = 28.0;
     }
     
     [imgMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.height.mas_equalTo(28.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [imgArrow mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -404,6 +404,10 @@
 
 "Register hosting"          =   "Register hosting"
 
+"Front"      =   "Front"
+"Backside"   =   "Backside"
+"Please choose photos to update"    =   "Please choose photos to update"
+"The data is invalidate"            =   "The data is invalidate"
 
 
 

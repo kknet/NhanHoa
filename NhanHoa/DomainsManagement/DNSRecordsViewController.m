@@ -57,20 +57,26 @@
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hBTN = 45.0;
+    hBTN = 53.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hBTN = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hBTN = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hBTN = 53.0;
     }
     
-    self.view.backgroundColor = GRAY_240;
+    self.view.backgroundColor = UIColor.whiteColor;
     //  header view
     viewHeader.backgroundColor = UIColor.whiteColor;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,22 +101,21 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(icCart);
         make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  scrollview content
@@ -119,7 +124,7 @@
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(hBTN + 2*padding);
     }];
-    [AppUtils addBoxShadowForView:viewFooter color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:-1.0];
+    [AppUtils addBoxShadowForView:viewFooter color:GRAY_200 opacity:0.8 offsetX:0.0 offsetY:-4.0];
     
     //  footer buttons
     btnAddRecord.backgroundColor = BLUE_COLOR;
@@ -138,13 +143,12 @@
     hCell = 10.0 + 18.0 + 28.0 + 28.0 + 18.0 + 10.0 + 10.0;
     [tbRecords registerNib:[UINib nibWithNibName:@"DNSRecordsTbvCell" bundle:nil] forCellReuseIdentifier:@"DNSRecordsTbvCell"];
     tbRecords.separatorStyle = UITableViewCellSelectionStyleNone;
-    tbRecords.backgroundColor = UIColor.clearColor;
+    tbRecords.backgroundColor = GRAY_240;
     tbRecords.delegate = self;
     tbRecords.dataSource = self;
     [tbRecords mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(3.0);
-        make.left.equalTo(self.view).offset(padding/2);
-        make.right.equalTo(self.view).offset(-padding/2);
+        make.left.right.equalTo(self.view);
         make.bottom.equalTo(viewFooter.mas_top).offset(-3.0);
     }];
     
@@ -340,7 +344,8 @@
     lbCount.textColor = GRAY_150;
     [viewSection addSubview: lbCount];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(viewSection);
+        make.left.equalTo(viewSection).offset(padding);
+        make.top.bottom.equalTo(viewSection);
         make.right.equalTo(viewSection.mas_centerX);
     }];
     
@@ -350,7 +355,8 @@
     lbRecords.textColor = GRAY_150;
     [viewSection addSubview: lbRecords];
     [lbRecords mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(viewSection);
+        make.right.equalTo(viewSection).offset(-padding);
+        make.top.bottom.equalTo(viewSection);
         make.left.equalTo(viewSection.mas_centerX);
     }];
     

@@ -12,10 +12,12 @@
 #import "DomainModel.h"
 #import "DomainDescriptionPoupView.h"
 #import "WhoisDomainPopupView.h"
+#import "DomainInfoPopupView.h"
 
 @interface SearchResultsViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, UITextFieldDelegate>
 {
     AppDelegate *appDelegate;
+    float hBGBottom;
     
     UIFont *textFont;
     float padding;
@@ -35,7 +37,7 @@
 
 @implementation SearchResultsViewController
 
-@synthesize viewHeader, icBack, lbHeader, lbCount, icCart, scvContent, viewTop, tfSearch, imgSearch, icClear, imgResult, lbContent, viewResult, lbFirstDomain, lbFirstPrice, btnChoose, tbRelated, viewFooter, btnContinue;
+@synthesize viewHeader, imgBGTop, icBack, lbHeader, lbCount, icCart, scvContent, imgBGBottom, tfSearch, imgSearch, icClear, imgResult, lbContent, viewResult, lbFirstDomain, lbFirstPrice, btnChoose, tbRelated, viewFooter, btnContinue;
 @synthesize strSearch;
 
 - (void)viewDidLoad {
@@ -174,40 +176,67 @@
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hTextfield = 45.0;
-    hResult = 5.0 + 30.0 + 30.0 + 5.0;
+    hTextfield = 50.0;
     hSmallCell = 80.0;
-    hImgResult = 120.0;
-    hFooter = 70.0;
     hSection = 50.0;
     
     unselectColor = [UIColor colorWithRed:(176/255.0) green:(181/255.0)
                                      blue:(193/255.0) alpha:1.0];
     
-    textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    textFont = [UIFont fontWithName:RobotoBold size:22.0];
+    hResult = 5.0 + 35.0 + 35.0 + 5.0;
+    hImgResult = 120.0;
+    float hBTN = 53.0;
+    float hSmallBTN = 46.0;
+    
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-        hTextfield = 40.0;
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hTextfield = 45.0;
+        hResult = 5.0 + 30.0 + 30.0 + 5.0;
         hImgResult = 80.0;
         hSmallCell = 70.0;
+        hBTN = 45.0;
+        hSmallBTN = 42.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
-        hTextfield = 42.0;
-        hImgResult = 100.0;
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        hTextfield = 48.0;
+        hResult = 5.0 + 30.0 + 30.0 + 5.0;
+        hImgResult = 90.0;
         hSmallCell = 75.0;
+        hBTN = 48.0;
+        hSmallBTN = 44.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
-        hTextfield = 45.0;
-        hImgResult = 120.0;
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hTextfield = 50.0;
+        hResult = 5.0 + 35.0 + 35.0 + 5.0;
+        hImgResult = 100.0;
         hSmallCell = 80.0;
+        hBTN = 53.0;
+        hSmallBTN = 46.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
-    viewHeader.backgroundColor = BLUE_COLOR;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooter = hBTN + padding + appDelegate.safeAreaBottomPadding;
+    }else{
+        hFooter = hBTN + 2*padding;
+    }
+    
+    UIImage *imgTop = [UIImage imageNamed:@"bg_search_result_top"];
+    float hHeader = SCREEN_WIDTH * imgTop.size.height / imgTop.size.width;
+    
+    viewHeader.backgroundColor = UIColor.clearColor;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
+        make.height.mas_equalTo(hHeader);
+    }];
+    
+    [imgBGTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(viewHeader);
     }];
     
     lbHeader.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
@@ -218,32 +247,30 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(3.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.backgroundColor = ORANGE_COLOR;
     lbCount.clipsToBounds = TRUE;
-    lbCount.layer.cornerRadius = 22.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart.mas_right);
-        make.width.height.mas_equalTo(22.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  footer view
-    viewFooter.backgroundColor = [UIColor colorWithRed:(243/255.0) green:(244/255.0)
-                                                  blue:(246/255.0) alpha:1.0];
+    viewFooter.backgroundColor = GRAY_240;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(hFooter);
@@ -256,8 +283,8 @@
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewFooter).offset(padding);
         make.right.equalTo(viewFooter).offset(-padding);
-        make.centerY.equalTo(viewFooter.mas_centerY);
-        make.height.mas_equalTo(45.0);
+        make.top.equalTo(viewFooter).offset(padding);
+        make.height.mas_equalTo(hBTN);
     }];
     
     //  content
@@ -270,33 +297,26 @@
         make.bottom.equalTo(viewFooter.mas_top);
     }];
     
-    viewTop.backgroundColor = UIColor.clearColor;
-    [viewTop mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIImage *imgBottom = [UIImage imageNamed:@"bg_search_result_bottom"];
+    hBGBottom = SCREEN_WIDTH * imgBottom.size.height / imgBottom.size.width;
+    [imgBGBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(padding + hTextfield);
-    }];
-    [AppUtils addCurvePathForViewWithHeight:(padding + hTextfield) forView:viewTop
-                                  withColor:BLUE_COLOR heightCurve:18.0];
-    
-    [viewTop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(scvContent);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(padding + hTextfield);
+        make.height.mas_equalTo(hBGBottom);
     }];
     
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeySearch;
     tfSearch.textColor = GRAY_80;
-    tfSearch.font = textFont;
-    tfSearch.layer.cornerRadius = 8.0;
+    tfSearch.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
+    tfSearch.layer.cornerRadius = 12.0;
     [tfSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(padding);
-        make.left.equalTo(viewTop).offset(padding);
-        make.right.equalTo(viewTop).offset(-padding);
+        make.centerY.equalTo(imgBGBottom.mas_bottom).offset(-hTextfield/4);
+        make.left.equalTo(imgBGBottom).offset(padding);
+        make.right.equalTo(imgBGBottom).offset(-padding);
         make.height.mas_equalTo(hTextfield);
     }];
-    [AppUtils addBoxShadowForView:tfSearch color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:tfSearch color:GRAY_200 opacity:0.8 offsetX:1.5 offsetY:1.5];
     
     tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10+22+5, hTextfield)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
@@ -315,16 +335,16 @@
     }];
     
     [imgResult mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tfSearch.mas_bottom).offset(padding);
-        make.centerX.equalTo(viewTop.mas_centerX);
+        make.top.equalTo(tfSearch.mas_bottom).offset(2*padding);
+        make.centerX.equalTo(imgBGBottom.mas_centerX);
         make.height.mas_equalTo(hImgResult);
         make.width.mas_equalTo(0);
     }];
     
     [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgResult.mas_bottom).offset(padding);
-        make.left.equalTo(viewTop).offset(padding);
-        make.right.equalTo(viewTop).offset(-padding);
+        make.left.equalTo(imgBGBottom).offset(padding);
+        make.right.equalTo(imgBGBottom).offset(-padding);
     }];
     
     //  view result
@@ -332,11 +352,11 @@
     viewResult.layer.cornerRadius = 7.0;
     [viewResult mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbContent.mas_bottom).offset(padding);
-        make.left.equalTo(viewTop).offset(padding);
-        make.right.equalTo(viewTop).offset(-padding);
+        make.left.equalTo(imgBGBottom).offset(padding);
+        make.right.equalTo(imgBGBottom).offset(-padding);
         make.height.mas_equalTo(0);
     }];
-    [AppUtils addBoxShadowForView:viewResult color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewResult color:GRAY_200 opacity:0.8 offsetX:1.5 offsetY:1.5];
     
     btnChoose.layer.borderColor = unselectColor.CGColor;
     btnChoose.layer.borderWidth = 1.0;
@@ -345,7 +365,7 @@
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewResult).offset(-padding);
         make.centerY.equalTo(viewResult.mas_centerY);
-        make.height.mas_equalTo(40.0);
+        make.height.mas_equalTo(hSmallBTN);
         make.width.mas_equalTo(0);
     }];
     
@@ -457,8 +477,8 @@
             NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
             [attr addAttribute:NSForegroundColorAttributeName value:GRAY_80 range:NSMakeRange(0, content.length)];
             [attr addAttribute:NSForegroundColorAttributeName value:BLUE_COLOR range:range];
-            [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, content.length)];
-            [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoBold size:textFont.pointSize] range:range];
+            [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-2] range:NSMakeRange(0, content.length)];
+            [attr addAttribute:NSFontAttributeName value:textFont range:range];
             lbContent.attributedText = attr;
             
             lbFirstDomain.text = firstDomain;
@@ -501,8 +521,8 @@
                 NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:content];
                 [attr addAttribute:NSForegroundColorAttributeName value:GRAY_80 range:NSMakeRange(0, content.length)];
                 [attr addAttribute:NSForegroundColorAttributeName value:BLUE_COLOR range:range];
-                [attr addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, content.length)];
-                [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoBold size:textFont.pointSize] range:range];
+                [attr addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-2] range:NSMakeRange(0, content.length)];
+                [attr addAttribute:NSFontAttributeName value:textFont range:range];
                 lbContent.attributedText = attr;
                 
                 lbFirstDomain.text = domainName;
@@ -527,7 +547,7 @@
 
 - (void)reUpdateLayoutForView {
     //  layout for choose button
-    float hContent = padding + hTextfield + padding + hImgResult;
+    float hContent = hBGBottom + (hTextfield - hTextfield/4) + 2*padding + hImgResult;
     
     float hText = [AppUtils getSizeWithText:lbContent.text withFont:lbContent.font andMaxWidth:SCREEN_WIDTH].height;
     hContent += padding + hText;
@@ -656,12 +676,7 @@
                  forControlEvents:UIControlEventTouchUpInside];
         
     }else if (available != nil && [available isKindOfClass:[NSString class]] && [available isEqualToString:@"not support"]){
-        cell.btnWarning.hidden = TRUE;
-        [cell.btnChoose setTitle:[appDelegate.localization localizedStringForKey:@"Not support"] forState:UIControlStateNormal];
-        cell.btnChoose.backgroundColor = OLD_PRICE_COLOR;
-        cell.btnChoose.enabled = FALSE;
-        
-        [cell showPriceForDomainCell: FALSE];
+        [cell setStateForNotSupportDomain];
         
     }else{
         cell.btnWarning.hidden = TRUE;
@@ -679,7 +694,6 @@
                              action:@selector(viewInfoOfDomain:)
                    forControlEvents:UIControlEventTouchUpInside];
     }
-    //[cell addBoxShadowForView:cell.parentView withColor:UIColor.blackColor];
     
     return cell;
 }
@@ -762,21 +776,29 @@
     [AppUtils addBoxShadowForView:popupView withColor:UIColor.whiteColor];
 }
 
-- (void)viewInfoOfDomain: (UIButton *)sender {
+- (void)viewInfoOfDomain: (UIButton *)sender
+{
     NSDictionary *info = [listDomains objectAtIndex: sender.tag];
     NSString *domain = [info objectForKey:@"domain"];
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
     
     float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[AppDelegate sharedInstance].fontRegular heightItem:28.0 maxSize:maxSize];
+    hPopup = 40.0 + 8*40.0;
     
     float marginX = 5.0;
     if (!IS_IPHONE && !IS_IPOD) {
         marginX = 40.0;
     }
-    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
+    
+    DomainInfoPopupView *popupView = [[DomainInfoPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
     popupView.domain = domain;
     [popupView showInView:self.view animated:TRUE];
+    
+    
+//    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
+//    popupView.domain = domain;
+//    [popupView showInView:self.view animated:TRUE];
 }
 
 #pragma mark - UIScrollDelegate

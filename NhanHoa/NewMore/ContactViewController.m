@@ -33,16 +33,20 @@
 - (void)setupUIForView
 {
     float padding = 15.0;
-    hCell = 60.0;
+    hCell = 80.0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoMedium size:18.0];
+        hCell = 60.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
+        hCell = 70.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        hCell = 80.0;
     }
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -54,7 +58,7 @@
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
-    lbHeader.textColor = GRAY_100;
+    lbHeader.textColor = GRAY_50;
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(hStatus);
@@ -148,6 +152,7 @@
             break;
         }
         case 3:{
+            cell.lbSepa.hidden = TRUE;
             cell.imgType.image = [UIImage imageNamed:@"ic_facebook"];
             cell.lbTitle.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Facebook"];
             [cell.btnValue setTitle:@"nhanhoacom" forState:UIControlStateNormal];
@@ -159,7 +164,6 @@
             break;
         }
     }
-    [cell updateTitleWithCurrentContent];
     
     return cell;
 }

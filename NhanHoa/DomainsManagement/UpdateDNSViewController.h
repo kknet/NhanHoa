@@ -11,6 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdateDNSViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbDNS1;
 @property (weak, nonatomic) IBOutlet UITextField *tfDNS1;
 @property (weak, nonatomic) IBOutlet UILabel *lbDNS2;
@@ -24,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *domain;
 
+- (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 - (IBAction)btnCancelPress:(UIButton *)sender;
 - (IBAction)btnSavePress:(UIButton *)sender;
 

@@ -9,7 +9,7 @@
 #import "DomainCell.h"
 
 @implementation DomainCell
-@synthesize lbDomain, lbPrice, btnChoose, btnWarning, parentView, padding, marginX, btnViewInfo;
+@synthesize lbDomain, lbPrice, btnChoose, btnWarning, parentView, padding, marginX, btnViewInfo, hBTN;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -19,20 +19,20 @@
     
     marginX = 15.0;
     padding = 15.0;
-    float hBTN = 50.0;
+    hBTN = 46.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
-        hBTN = 40.0;
+        hBTN = 42.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
-        hBTN = 42.0;
+        hBTN = 44.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
-        hBTN = 50.0;
+        hBTN = 46.0;
     }
     
     [parentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,7 +86,7 @@
     }];
     
     lbPrice.textColor = ORANGE_COLOR;
-    lbPrice.font = [UIFont fontWithName:RobotoThin size:textFont.pointSize];
+    lbPrice.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
     [lbPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(parentView).offset(padding);
         make.top.equalTo(parentView.mas_centerY).offset(2.0);
@@ -109,7 +109,7 @@
         make.centerY.equalTo(parentView.mas_centerY);
         make.right.equalTo(parentView).offset(-marginX);
         make.width.mas_equalTo(size);
-        make.height.mas_equalTo(36.0);
+        make.height.mas_equalTo(hBTN);
     }];
 }
 
@@ -123,7 +123,7 @@
         make.centerY.equalTo(parentView.mas_centerY);
         make.right.equalTo(parentView).offset(-marginX);
         make.width.mas_equalTo(size);
-        make.height.mas_equalTo(36.0);
+        make.height.mas_equalTo(hBTN);
     }];
     
     if (show) {
@@ -157,6 +157,17 @@
         }];
         lbPrice.hidden = TRUE;
     }
+}
+
+- (void)setStateForNotSupportDomain {
+    [btnChoose setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Not support"] forState:UIControlStateNormal];
+    
+    btnChoose.backgroundColor = [UIColor colorWithRed:(176/255.0) green:(181/255.0) blue:(194/255.0) alpha:1.0];
+    [btnChoose setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    btnChoose.enabled = FALSE;
+    btnWarning.hidden = TRUE;
+    
+    [self showPriceForDomainCell: FALSE];
 }
 
 @end

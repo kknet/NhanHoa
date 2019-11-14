@@ -22,11 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
 @property (weak, nonatomic) IBOutlet UIScrollView *scvMenu;
+@property (weak, nonatomic) IBOutlet UIButton *btnAll;
+@property (weak, nonatomic) IBOutlet UIButton *btnAboutExpire;
+
 @property (weak, nonatomic) IBOutlet UITableView *tbDomains;
 @property (weak, nonatomic) IBOutlet UILabel *lbNoData;
 
 - (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;
+- (IBAction)btnAllPress:(UIButton *)sender;
+- (IBAction)btnAboutToExpirePress:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

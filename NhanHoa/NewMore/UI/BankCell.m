@@ -15,8 +15,19 @@
     [super awakeFromNib];
     // Initialization code
     
-    lbName.font = [AppDelegate sharedInstance].fontDesc;
-    lbName.textColor = TITLE_COLOR;
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    }
+    
+    lbName.font = textFont;
+    lbName.textColor = GRAY_50;
     
     lbName.numberOfLines = 5;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {

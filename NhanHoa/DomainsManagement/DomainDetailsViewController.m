@@ -104,19 +104,36 @@
 
 - (void)setupUIForView
 {
+    self.view.backgroundColor = UIColor.whiteColor;
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hBTN = 45.0;
+    hBTN = 53.0;
+    hCell = 15.0 + 35.0 + 15.0;
+    hLargeCell = hCell + 35.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hBTN = 45.0;
+        hCell = 15.0 + 25.0 + 15.0;
+        hLargeCell = hCell + 25.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hBTN = 48.0;
+        
+        hCell = 15.0 + 30.0 + 15.0;
+        hLargeCell = hCell + 30.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hBTN = 53.0;
+        
+        hCell = 15.0 + 35.0 + 15.0;
+        hLargeCell = hCell + 35.0;
     }
     
     //  header view
@@ -136,29 +153,28 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo( appDelegate.sizeCartCount);
     }];
     
     //  scrollview content
@@ -166,7 +182,7 @@
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
-    scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(4.0);
@@ -175,9 +191,6 @@
     }];
     
     //  table
-    hCell = 15.0 + 25.0 + 15.0;
-    hLargeCell = hCell + 25.0;
-    
     hTableView = 6*hCell + hLargeCell;
     
     [tbContent registerNib:[UINib nibWithNibName:@"DomainDetailTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainDetailTbvCell"];
@@ -346,6 +359,14 @@
         if ([(NSArray *)info count] > 0) {
             [self displayDomainInfoWithData: [(NSArray *)info firstObject]];
         }
+    }else{
+        //  do main not found
+        if ([info isKindOfClass:[NSString class]]) {
+            [self.view makeToast:(NSString *)info duration:2.0 position:CSToastPositionCenter style:appDelegate.warningStyle];
+        }else{
+            [self.view makeToast:[appDelegate.localization localizedStringForKey:@"The data is invalidate"] duration:2.0 position:CSToastPositionCenter style:appDelegate.warningStyle];
+        }
+        [self performSelector:@selector(dismissViewController) withObject:nil afterDelay:2.0];
     }
 }
 
@@ -521,6 +542,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     switch (indexPath.row) {
         case 0:{
+            cell.backgroundColor = GRAY_240;
             cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"ORD ID"];
             cell.lbValue.text = ordId;
             cell.backgroundColor = [UIColor colorWithRed:(243/255.0) green:(244/255.0)
@@ -544,7 +566,7 @@
                     NSString *subStr = SFM(@".%@", [tmpArr lastObject]);
                     NSRange range = [serviceName rangeOfString: subStr];
                     if (range.location != NSNotFound) {
-                        cell.lbDesc.text = subStr;
+                        cell.lbDesc.text = SFM(@" %@ ", subStr);
                         cell.lbValue.text = [serviceName substringToIndex:range.location];
                     }else{
                         cell.lbValue.text = (![AppUtils isNullOrEmpty: serviceName]) ? serviceName : @"";
@@ -630,8 +652,6 @@
     }else{
         cell.imgStatus.hidden = TRUE;
     }
-    
-    [cell updateFrameWithContentValue];
     
     return cell;
 }

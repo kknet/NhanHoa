@@ -26,7 +26,7 @@
         padding = 15.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoMedium size:16.0];
+        textFont = [UIFont fontWithName:RobotoMedium size:17.0];
         padding = 15.0;
     }
     float maxSize = [AppUtils getSizeWithText:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Registration date"] withFont:textFont andMaxWidth:SCREEN_WIDTH].width + 10.0;

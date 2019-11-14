@@ -21,9 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) float padding;
 @property (nonatomic, assign) float marginX;
+@property (nonatomic, assign) float hBTN;
 
 - (void)updateSizeButtonWithContent: (NSString *)content;
 - (void)showPriceForDomainCell: (BOOL)show;
+- (void)setStateForNotSupportDomain;
 
 @end
 

@@ -139,27 +139,27 @@
         }
         case eExploreSSL:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"SSL"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_more"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_ssl"];
             break;
         }
         case eExploreVPS:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"VPS"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_more"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_vps"];
             break;
         }
         case eExploreManagerDomains:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Domain management"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_more"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_domains_management"];
             break;
         }
         case eExplorePricingDomains:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Pricing domains"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_more"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_pricing"];
             break;
         }
         case eExploreCheckDomains:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Check domains"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_more"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_check_domains"];
             break;
         }
         default:

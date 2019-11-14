@@ -12,11 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SigningDomainViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+
+
 @property (weak, nonatomic) IBOutlet UIWebView *wvContent;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
 
 @property (nonatomic, strong) NSString *domain_signed_url;
 @property (nonatomic, strong) NSString *domain_signing_url;
+
+- (IBAction)icBackClick:(UIButton *)sender;
 
 @end
 

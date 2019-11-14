@@ -96,14 +96,14 @@
 }
 
 + (void)writeForGoToScreen: (NSString *)screen {
-    NSString *content = SFM(@"\n\n>>>>>>>>>>>>>>> GO TO SCREEN %@ <<<<<<<<<<<<<<<", screen);
-    DDLogInfo(@"%@", content);
+//    NSString *content = SFM(@"\n\n>>>>>>>>>>>>>>> GO TO SCREEN %@ <<<<<<<<<<<<<<<", screen);
+//    DDLogInfo(@"%@", content);
 }
 
 + (void)writeLogContent: (NSString *)logContent
 {
-    NSString *content = SFM(@"%@", logContent);
-    DDLogInfo(@"%@", content);
+//    NSString *content = SFM(@"%@", logContent);
+//    DDLogInfo(@"%@", content);
 }
 
 @end

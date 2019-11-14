@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SupportCustomerViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
-@property (weak, nonatomic) IBOutlet UIImageView *imgBgTop;
+@property (weak, nonatomic) IBOutlet UIView *viewBackground;
 
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbCount;
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTop;
-@property (weak, nonatomic) IBOutlet UIImageView *imgBGSupport;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSupport;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbDesc;
 @property (weak, nonatomic) IBOutlet UILabel *lbYourQuestion;

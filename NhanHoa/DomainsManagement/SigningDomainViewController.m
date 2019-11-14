@@ -14,7 +14,7 @@
 @end
 
 @implementation SigningDomainViewController
-@synthesize wvContent, icWaiting, domain_signing_url, domain_signed_url;
+@synthesize viewHeader, icBack, lbHeader, wvContent, icWaiting, domain_signing_url, domain_signed_url;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,27 +24,64 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    self.navigationController.navigationBarHidden = FALSE;
+    self.navigationController.navigationBarHidden = TRUE;
     
     wvContent.hidden = TRUE;
     icWaiting.hidden = FALSE;
     [icWaiting startAnimating];
     
     if (![AppUtils isNullOrEmpty: domain_signed_url]) {
-        self.title = text_signed_contract;
+        lbHeader.text = text_signed_contract;
         [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: domain_signed_url]]];
         
     }else if (![AppUtils isNullOrEmpty: domain_signing_url]) {
-        self.title = text_signing_contract;
+        lbHeader.text = text_signing_contract;
         [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: domain_signing_url]]];
         
     }else{
         [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng kiểm tra lại." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
-    
 }
 
-- (void)setupUIForView {
+- (IBAction)icBackClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (void)setupUIForView
+{
+    float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        lbHeader.font = [UIFont fontWithName:RobotoBold size:18.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        lbHeader.font = [UIFont fontWithName:RobotoBold size:20.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        lbHeader.font = [UIFont fontWithName:RobotoBold size:22.0];
+    }
+    
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
+    }];
+    
+    lbHeader.textColor = GRAY_50;
+    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewHeader).offset(hStatus);
+        make.bottom.equalTo(viewHeader);
+        make.centerX.equalTo(viewHeader.mas_centerX);
+        make.width.mas_equalTo(250.0);
+    }];
+    
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewHeader).offset(5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:1.0 offsetX:1.0 offsetY:1.0];
+    
     wvContent.keyboardDisplayRequiresUserAction = FALSE;
     //  wvContent.usesGUIFixes = YES;
     wvContent.opaque = NO;
@@ -53,7 +90,7 @@
     wvContent.backgroundColor = UIColor.whiteColor;
     [wvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(5.0);
+        make.top.equalTo(viewHeader.mas_bottom).offset(5.0);
         make.bottom.equalTo(self.view).offset(-5.0);
     }];
     
@@ -113,8 +150,6 @@
         NSString *query = [webView.request.URL query];
         if (query != nil && ![query isEqualToString:@""])
         {
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] query = %@", __FUNCTION__, query)];
-            
             NSDictionary *info = [self getResultInfoFromString: query];
             if (info != nil) {
                 NSString *status = [info objectForKey:@"status"];
@@ -138,13 +173,5 @@
 - (void)backToPreviousView {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
-
-/*
-"cus_id" = 127115;
-"domain_id" = 105257;
-hash = 97046ec8a290c4ff214acddfcf1fa363;
-
-status = 0;
-*/
 
 @end

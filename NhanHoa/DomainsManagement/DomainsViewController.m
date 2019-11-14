@@ -25,10 +25,6 @@ typedef enum TypeForGetDomain{
     float hSection;
     float hTop;
     
-    UIButton *btnAll;
-    UIButton *btnAboutToExpire;
-    UIButton *btnExpired;
-    
     TypeForGetDomain type;
     BOOL searching;
     
@@ -39,7 +35,7 @@ typedef enum TypeForGetDomain{
 @end
 
 @implementation DomainsViewController
-@synthesize scvContent, imgTop, viewHeader, icBack, lbHeader, icCart, lbCount, tfSearch, imgSearch, scvMenu, tbDomains, lbNoData;
+@synthesize scvContent, imgTop, viewHeader, icBack, lbHeader, icCart, lbCount, tfSearch, imgSearch, scvMenu, btnAll, btnAboutExpire, tbDomains, lbNoData;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,9 +46,11 @@ typedef enum TypeForGetDomain{
 
 - (void)setupUIForView
 {
+    self.view.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hTextfield = 42.0;
+    hTextfield = 50.0;
     
     activeMenuColor = [UIColor colorWithRed:(228/255.0) green:(236/255.0)
                                        blue:(247/255.0) alpha:1.0];
@@ -60,18 +58,24 @@ typedef enum TypeForGetDomain{
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hTextfield = 42.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hTextfield = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hTextfield = 50.0;
     }
     
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -98,40 +102,38 @@ typedef enum TypeForGetDomain{
     //  header
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader).offset(hStatus);
+        make.top.bottom.equalTo(viewHeader);
         make.centerX.equalTo(viewHeader.mas_centerX);
-        make.bottom.equalTo(viewHeader);
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius =  appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo( appDelegate.sizeCartCount);
     }];
     
     //  search textfield
     tfSearch.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
-    tfSearch.layer.cornerRadius = 8.0;
+    tfSearch.layer.cornerRadius = 15.0;
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeyDone;
     tfSearch.textColor = GRAY_80;
@@ -141,31 +143,57 @@ typedef enum TypeForGetDomain{
         make.centerY.equalTo(imgTop.mas_bottom).offset(-padding/2);
         make.height.mas_equalTo(hTextfield);
     }];
-    [AppUtils addBoxShadowForView:tfSearch color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:tfSearch color:GRAY_200 opacity:1.0 offsetX:1.5 offsetY:1.5];
     
     [tfSearch addTarget:self
                  action:@selector(searchTextfieldChanged:)
        forControlEvents:UIControlEventEditingChanged];
     
-    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, (10.0 + 20.0 + 10.0), hTextfield)];
+    tfSearch.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, (padding + 18.0 + padding), hTextfield)];
     tfSearch.leftViewMode = UITextFieldViewModeAlways;
     
     tfSearch.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, hTextfield, hTextfield)];
     tfSearch.rightViewMode = UITextFieldViewModeAlways;
     
     [imgSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(tfSearch).offset(10.0);
+        make.left.equalTo(tfSearch).offset(padding);
         make.centerY.equalTo(tfSearch.mas_centerY);
-        make.width.height.mas_equalTo(20.0);
+        make.width.height.mas_equalTo(18.0);
     }];
     
     //  scrollview menu
+    scvMenu.contentSize = CGSizeMake(SCREEN_WIDTH-2*padding, hTextfield);
     scvMenu.backgroundColor = UIColor.clearColor;
     [scvMenu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgTop).offset(padding);
         make.right.equalTo(imgTop).offset(-padding);
         make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.height.mas_equalTo(hTextfield);
+    }];
+    
+    btnAll.titleLabel.font = btnAboutExpire.titleLabel.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-3];
+    btnAll.layer.cornerRadius = btnAboutExpire.layer.cornerRadius = 17.0;
+    
+    float sizeText = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"All"] withFont:btnAll.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 20.0;
+    
+    float hBTN = 33.0;
+    [btnAll setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    btnAll.backgroundColor = activeMenuColor;
+    [btnAll mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(scvMenu);
+        make.centerY.equalTo(scvMenu.mas_centerY);
+        make.height.mas_equalTo(hBTN);
+        make.width.mas_equalTo(sizeText);
+    }];
+    
+    //  pending menu button
+    sizeText = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"About to expire"] withFont:btnAboutExpire.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 20.0;
+    
+    [btnAboutExpire setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    [btnAboutExpire mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btnAll.mas_right).offset(padding/2);
+        make.top.bottom.equalTo(btnAll);
+        make.width.mas_equalTo(sizeText);
     }];
     
     //  table
@@ -181,7 +209,7 @@ typedef enum TypeForGetDomain{
     [tbDomains mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgTop).offset(padding/2);
         make.right.equalTo(imgTop).offset(-padding/2);
-        make.top.equalTo(scvMenu.mas_bottom).offset(padding);
+        make.top.equalTo(scvMenu.mas_bottom);
         make.height.mas_equalTo(0);
     }];
     
@@ -206,12 +234,7 @@ typedef enum TypeForGetDomain{
     }else{
         [listSearch removeAllObjects];
     }
-    
-    [self addMenuContentToScrollView];
-    
-    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Domains management"];
-    tfSearch.placeholder = [appDelegate.localization localizedStringForKey:@"Search domain..."];
-    lbNoData.text = [appDelegate.localization localizedStringForKey:@"No data"];
+    [self showContentWithCurrentLanguage];
     
     type = eGetAllDomain;
     [self getDomainsWasRegisteredWithType: eGetAllDomain];
@@ -222,6 +245,17 @@ typedef enum TypeForGetDomain{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)showContentWithCurrentLanguage {
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Domains management"];
+    tfSearch.placeholder = [appDelegate.localization localizedStringForKey:@"Search domain..."];
+    lbNoData.text = [appDelegate.localization localizedStringForKey:@"No data"];
+    
+    [btnAll setTitle:[appDelegate.localization localizedStringForKey:@"All"]
+            forState:UIControlStateNormal];
+    [btnAboutExpire setTitle:[appDelegate.localization localizedStringForKey:@"About to expire"]
+                    forState:UIControlStateNormal];
 }
 
 - (void)keyboardDidShow:(NSNotification *)notif {
@@ -245,72 +279,73 @@ typedef enum TypeForGetDomain{
 - (IBAction)icCartClick:(UIButton *)sender {
 }
 
-- (void)addMenuContentToScrollView {
-    //  remove all subviews was added before
-    [scvMenu.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-    float contentSize = 0;
+- (IBAction)btnAllPress:(UIButton *)sender {
+    if (type == eGetAllDomain) {
+        return;
+    }
+    type = eGetAllDomain;
+    tfSearch.text = @"";
+    searching = FALSE;
     
-    UIFont *menuFont = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-3];
+    [tbDomains mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
+    }];
     
-    float sizeText = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"All"] withFont:menuFont andMaxWidth:SCREEN_WIDTH].width + 20.0;
-    
-    //  all menu button
-    float hBTN = 33.0;
-    btnAll = [UIButton buttonWithType: UIButtonTypeCustom];
-    [btnAll setTitle:[appDelegate.localization localizedStringForKey:@"All"]
-            forState:UIControlStateNormal];
-    [btnAll setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnAll.backgroundColor = activeMenuColor;
-    [scvMenu addSubview: btnAll];
-    [btnAll addTarget:self
-               action:@selector(selectAllDomainsMenu)
-     forControlEvents:UIControlEventTouchUpInside];
-    [btnAll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(scvMenu);
-        make.centerY.equalTo(scvMenu.mas_centerY);
-        make.height.mas_equalTo(hBTN);
-        make.width.mas_equalTo(sizeText);
+    [btnAll setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    
+    btnAboutExpire.backgroundColor = UIColor.clearColor;
+    [btnAboutExpire setTitleColor:GRAY_150 forState:UIControlStateNormal];
+    
+    if (appDelegate.listAllDomains != nil) {
+        if (appDelegate.listAllDomains.count > 0) {
+            lbNoData.hidden = TRUE;
+            tbDomains.hidden = FALSE;
+        }else{
+            lbNoData.hidden = FALSE;
+            tbDomains.hidden = TRUE;
+        }
+        [tbDomains reloadData];
+        [self reUpdateLayoutAfterPreparedData];
+    }else{
+        [tbDomains reloadData];
+        [self getDomainsWasRegisteredWithType: type];
+    }
+}
+
+- (IBAction)btnAboutToExpirePress:(UIButton *)sender {
+    if (type == eGetAboutExpireDomain) {
+        return;
+    }
+    type = eGetAboutExpireDomain;
+    
+    tfSearch.text = @"";
+    searching = FALSE;
+    
+    [tbDomains mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
     }];
-    contentSize += sizeText;
     
-    //  pending menu button
-    sizeText = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"About to expire"] withFont:menuFont andMaxWidth:SCREEN_WIDTH].width + 20.0;
+    btnAll.backgroundColor = UIColor.clearColor;
+    [btnAll setTitleColor:GRAY_150 forState:UIControlStateNormal];
     
-    btnAboutToExpire = [UIButton buttonWithType: UIButtonTypeCustom];
-    [btnAboutToExpire setTitle:[appDelegate.localization localizedStringForKey:@"About to expire"]
-                      forState:UIControlStateNormal];
-    [btnAboutToExpire setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    [scvMenu addSubview: btnAboutToExpire];
-    [btnAboutToExpire addTarget:self
-                         action:@selector(selectAboutToExpiresDomains)
-               forControlEvents:UIControlEventTouchUpInside];
-    [btnAboutToExpire mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(btnAll.mas_right).offset(padding/2);
-        make.top.bottom.equalTo(btnAll);
-        make.width.mas_equalTo(sizeText);
-    }];
-    contentSize = contentSize + padding/2 + sizeText;
+    btnAboutExpire.backgroundColor = activeMenuColor;
+    [btnAboutExpire setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     
-    //  creating menu button
-//    sizeText = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"Expired"] withFont:menuFont andMaxWidth:SCREEN_WIDTH].width + 20.0;
-//
-//    btnExpired = [UIButton buttonWithType: UIButtonTypeCustom];
-//    [btnExpired setTitle:[appDelegate.localization localizedStringForKey:@"Expired"]
-//                forState:UIControlStateNormal];
-//    [btnExpired setTitleColor:GRAY_150 forState:UIControlStateNormal];
-//    [scvMenu addSubview: btnExpired];
-//    [btnExpired mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(btnAboutToExpire.mas_right).offset(padding/2);
-//        make.top.bottom.equalTo(btnAboutToExpire);
-//        make.width.mas_equalTo(sizeText);
-//    }];
-//    contentSize = contentSize + padding/2 + sizeText;
-    
-    btnAll.titleLabel.font = btnAboutToExpire.titleLabel.font = btnExpired.titleLabel.font = menuFont;
-    
-    btnAll.layer.cornerRadius = btnAboutToExpire.layer.cornerRadius = btnExpired.layer.cornerRadius = 17.0;
-    
-    scvMenu.contentSize = CGSizeMake(contentSize, hTextfield);
+    if (appDelegate.listExpireDomains != nil) {
+        if ([AppDelegate sharedInstance].listExpireDomains.count > 0) {
+            lbNoData.hidden = TRUE;
+            tbDomains.hidden = FALSE;
+        }else{
+            lbNoData.hidden = FALSE;
+            tbDomains.hidden = TRUE;
+        }
+        [tbDomains reloadData];
+        [self reUpdateLayoutAfterPreparedData];
+    }else{
+        [tbDomains reloadData];
+        [self getDomainsWasRegisteredWithType: type];
+    }
 }
 
 - (void)searchTextfieldChanged: (UITextField *)textfield {
@@ -366,76 +401,6 @@ typedef enum TypeForGetDomain{
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getDomainsWasRegisteredWithType: type];
 }
-
-- (void)selectAllDomainsMenu {
-    if (type == eGetAllDomain) {
-        return;
-    }
-    type = eGetAllDomain;
-    tfSearch.text = @"";
-    searching = FALSE;
-    
-    [tbDomains mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(0);
-    }];
-    
-    btnAll.backgroundColor = activeMenuColor;
-    [btnAll setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    
-    btnAboutToExpire.backgroundColor = UIColor.clearColor;
-    [btnAboutToExpire setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    
-    if (appDelegate.listAllDomains != nil) {
-        if (appDelegate.listAllDomains.count > 0) {
-            lbNoData.hidden = TRUE;
-            tbDomains.hidden = FALSE;
-        }else{
-            lbNoData.hidden = FALSE;
-            tbDomains.hidden = TRUE;
-        }
-        [tbDomains reloadData];
-        [self reUpdateLayoutAfterPreparedData];
-    }else{
-        [tbDomains reloadData];
-        [self getDomainsWasRegisteredWithType: type];
-    }
-}
-
-- (void)selectAboutToExpiresDomains {
-    if (type == eGetAboutExpireDomain) {
-        return;
-    }
-    type = eGetAboutExpireDomain;
-    
-    tfSearch.text = @"";
-    searching = FALSE;
-    
-    [tbDomains mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(0);
-    }];
-    
-    btnAll.backgroundColor = UIColor.clearColor;
-    [btnAll setTitleColor:GRAY_150 forState:UIControlStateNormal];
-    
-    btnAboutToExpire.backgroundColor = activeMenuColor;
-    [btnAboutToExpire setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    
-    if (appDelegate.listExpireDomains != nil) {
-        if ([AppDelegate sharedInstance].listExpireDomains.count > 0) {
-            lbNoData.hidden = TRUE;
-            tbDomains.hidden = FALSE;
-        }else{
-            lbNoData.hidden = FALSE;
-            tbDomains.hidden = TRUE;
-        }
-        [tbDomains reloadData];
-        [self reUpdateLayoutAfterPreparedData];
-    }else{
-        [tbDomains reloadData];
-        [self getDomainsWasRegisteredWithType: type];
-    }
-}
-
 
 #pragma mark - WebServiceUtils delegate
 
@@ -586,7 +551,7 @@ typedef enum TypeForGetDomain{
     UIView *viewSection = [[UIView alloc] initWithFrame:CGRectMake(padding/2, 0, SCREEN_WIDTH-padding, hSection)];
     
     UILabel *lbSection = [[UILabel alloc] init];
-    lbSection.textColor = GRAY_100;
+    lbSection.textColor = GRAY_50;
     lbSection.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
     [viewSection addSubview: lbSection];
     [lbSection mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -594,12 +559,12 @@ typedef enum TypeForGetDomain{
     }];
     
     if (searching) {
-        lbSection.text = SFM(@"%@ %d %@", [appDelegate.localization localizedStringForKey:@"All"], (int)listSearch.count, [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString]);
+        lbSection.text = SFM(@"%@ %@ (%d)", [appDelegate.localization localizedStringForKey:@"All"], [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString], (int)listSearch.count);
     }else {
         if (type == eGetAllDomain) {
-            lbSection.text = SFM(@"%@ %d %@", [appDelegate.localization localizedStringForKey:@"All"], (int)appDelegate.listAllDomains.count, [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString]);
+            lbSection.text = SFM(@"%@ %@ (%d)", [appDelegate.localization localizedStringForKey:@"All"], [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString], (int)appDelegate.listAllDomains.count);
         }else{
-            lbSection.text = SFM(@"%@ %d %@", [appDelegate.localization localizedStringForKey:@"All"], (int)appDelegate.listExpireDomains.count, [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString]);
+            lbSection.text = SFM(@"%@ %@ (%d)", [appDelegate.localization localizedStringForKey:@"All"], [[appDelegate.localization localizedStringForKey:@"domains"] lowercaseString], (int)appDelegate.listExpireDomains.count);
         }
     }
     

@@ -35,16 +35,21 @@
 
 - (void)setupUIForView
 {
-    hCell = 60.0;
+    hCell = 80.0;
+    float padding = 15.0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoMedium size:18.0];
+        hCell = 60.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
+        hCell = 70.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        hCell = 80.0;
     }
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -56,7 +61,7 @@
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
-    lbHeader.textColor = GRAY_100;
+    lbHeader.textColor = GRAY_50;
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(hStatus);
@@ -80,8 +85,9 @@
     tbContent.dataSource = self;
     [tbContent registerNib:[UINib nibWithNibName:@"MoreTbvCell" bundle:nil] forCellReuseIdentifier:@"MoreTbvCell"];
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
-        make.bottom.left.right.equalTo(self.view);
+        make.top.equalTo(viewHeader.mas_bottom).offset(padding);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-[AppDelegate sharedInstance].safeAreaBottomPadding);
     }];
 }
 
@@ -133,8 +139,6 @@
 
 
 - (void)clearTokenOfUser {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    
     [ProgressHUD backgroundColor: ProgressHUD_BG];
     [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please wait a moment..."] Interaction:NO];
     

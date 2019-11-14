@@ -11,19 +11,18 @@
 
 @interface UpdateDNSViewController ()<WebServiceUtilsDelegate>{
     NSDictionary *dictDNS;
+    UIFont *textFont;
 }
 
 @end
 
 @implementation UpdateDNSViewController
-@synthesize lbDNS1, tfDNS1, lbDNS2, tfDNS2, lbDNS3, tfDNS3, lbDNS4, tfDNS4, btnCancel, btnSave;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, lbDNS1, tfDNS1, lbDNS2, tfDNS2, lbDNS3, tfDNS3, lbDNS4, tfDNS4, btnCancel, btnSave;
 @synthesize domain;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Đổi DNS";
-    
     [self setupUIForView];
     
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
@@ -32,14 +31,15 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    self.navigationController.navigationBarHidden = FALSE;
+    self.navigationController.navigationBarHidden = TRUE;
     
     dictDNS = [[NSDictionary alloc] init];
     
+    lbHeader.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Change Name Server"];
     tfDNS1.text = tfDNS2.text = tfDNS3.text = tfDNS4.text = @"";
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:text_checking Interaction:FALSE];
+    [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Checking..."] Interaction:FALSE];
     
     [self getDNSValueForDomain: domain];
 }
@@ -48,17 +48,15 @@
     [super viewWillDisappear: animated];
 }
 
-- (IBAction)btnCancelPress:(UIButton *)sender {
-    [self.view endEditing: TRUE];
-    sender.backgroundColor = UIColor.whiteColor;
-    [sender setTitleColor:OLD_PRICE_COLOR forState:UIControlStateNormal];
-    
-    [self performSelector:@selector(onCancelButtonPress) withObject:nil afterDelay:0.05];
+- (IBAction)icBackClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated: TRUE];
 }
 
-- (void)onCancelButtonPress {
-    btnCancel.backgroundColor = OLD_PRICE_COLOR;
-    [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+- (IBAction)icCartClick:(UIButton *)sender {
+}
+
+- (IBAction)btnCancelPress:(UIButton *)sender {
+    [self.view endEditing: TRUE];
     
     [self showDNSContent];
 }
@@ -67,40 +65,21 @@
 {
     [self.view endEditing: TRUE];
     
-    sender.backgroundColor = UIColor.whiteColor;
-    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    
-    [self performSelector:@selector(onSaveButtonPress) withObject:nil afterDelay:0.05];
-}
-
-- (void)onSaveButtonPress {
-    btnSave.backgroundColor = BLUE_COLOR;
-    [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
     if ([AppUtils isNullOrEmpty: tfDNS1.text] && [AppUtils isNullOrEmpty: tfDNS2.text] && [AppUtils isNullOrEmpty: tfDNS3.text] && [AppUtils isNullOrEmpty: tfDNS4.text]){
         [self.view makeToast:@"Vui lòng nhập giá trị để cập nhật!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
         return;
     }
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
-    [ProgressHUD show:text_updating Interaction:NO];
+    [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
     
-    [self changeDNSValueForDomain];
+    [[WebServiceUtils getInstance] changeDNSForDomain:domain dns1:tfDNS1.text dns2:tfDNS2.text dns3:tfDNS3.text dns4:tfDNS4.text];
 }
 
 - (void)getDNSValueForDomain: (NSString *)domainName
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] domainName = %@", __FUNCTION__, domainName)];
-    
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] getDNSValueForDomain: domainName];
-}
-
-- (void)changeDNSValueForDomain {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
-    
-    [WebServiceUtils getInstance].delegate = self;
-    [[WebServiceUtils getInstance] changeDNSForDomain:domain dns1:tfDNS1.text dns2:tfDNS2.text dns3:tfDNS3.text dns4:tfDNS4.text];
 }
 
 - (void)closeKeyboard {
@@ -109,25 +88,76 @@
 
 - (void)setupUIForView {
     float padding = 15.0;
-    float hBTN = 45.0;
+    float hBTN = 53.0;
     float mTop = 15.0;
     
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-    }
-    
-    if (!IS_IPHONE && !IS_IPOD) {
-        padding = 30.0;
-        hBTN = 55.0;
-    }
-    
     float smallSize = (SCREEN_WIDTH - 3*padding)/4;
+    float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    textFont = [UIFont fontWithName:RobotoBold size:22.0];
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hBTN = 45.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hBTN = 48.0;
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hBTN = 53.0;
+    }
+    
+    //  header view
+    viewHeader.backgroundColor = UIColor.whiteColor;
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
+    }];
+    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    
+    //  header
+    lbHeader.font = textFont;
+    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewHeader).offset(hStatus);
+        make.centerX.equalTo(viewHeader.mas_centerX);
+        make.bottom.equalTo(viewHeader);
+        make.width.mas_equalTo(250.0);
+    }];
+    
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewHeader).offset(5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = [AppDelegate sharedInstance].sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].sizeCartCount);
+    }];
     
     //  DNS1
     [lbDNS1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view).offset(padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(2*padding);
+        make.left.equalTo(self.view).offset(padding);
         make.width.mas_equalTo(smallSize);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS1 borderColor:BORDER_COLOR];
@@ -141,7 +171,7 @@
     [lbDNS2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbDNS1);
         make.top.equalTo(lbDNS1.mas_bottom).offset(mTop);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS2 borderColor:BORDER_COLOR];
@@ -154,7 +184,7 @@
     [lbDNS3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbDNS2);
         make.top.equalTo(lbDNS2.mas_bottom).offset(mTop);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS3 borderColor:BORDER_COLOR];
@@ -167,7 +197,7 @@
     [lbDNS4 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(lbDNS3);
         make.top.equalTo(lbDNS3.mas_bottom).offset(mTop);
-        make.height.mas_equalTo([AppDelegate sharedInstance].hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
     
     [AppUtils setBorderForTextfield:tfDNS4 borderColor:BORDER_COLOR];
@@ -177,17 +207,15 @@
     }];
     
     btnCancel.backgroundColor = OLD_PRICE_COLOR;
-    btnCancel.layer.borderColor = OLD_PRICE_COLOR.CGColor;
     [btnCancel setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
-        make.bottom.equalTo(self.view).offset(-padding);
+        make.bottom.equalTo(self.view).offset(-padding-[AppDelegate sharedInstance].safeAreaBottomPadding);
         make.right.equalTo(self.view.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(hBTN);
     }];
     
     btnSave.backgroundColor = BLUE_COLOR;
-    btnSave.layer.borderColor = BLUE_COLOR.CGColor;
     [btnSave setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSave mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(btnCancel.mas_right).offset(padding);
@@ -195,12 +223,11 @@
         make.right.equalTo(self.view).offset(-padding);
     }];
     
-    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius = hBTN/2;
-    btnSave.titleLabel.font = btnCancel.titleLabel.font = [AppDelegate sharedInstance].fontBTN;
-    btnCancel.layer.borderWidth = btnSave.layer.borderWidth = 1.0;
+    btnSave.layer.cornerRadius = btnCancel.layer.cornerRadius = 8.0;
+    btnSave.titleLabel.font = btnCancel.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2.0];
     
-    lbDNS1.font = lbDNS2.font = lbDNS3.font = lbDNS4.font = [AppDelegate sharedInstance].fontMedium;
-    tfDNS1.font = tfDNS2.font = tfDNS3.font = tfDNS4.font = [AppDelegate sharedInstance].fontRegular;
+    lbDNS1.font = lbDNS2.font = lbDNS3.font = lbDNS4.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2.0];
+    tfDNS1.font = tfDNS2.font = tfDNS3.font = tfDNS4.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2.0];
     
     lbDNS1.textColor = lbDNS2.textColor = lbDNS3.textColor = lbDNS4.textColor = tfDNS1.textColor = tfDNS2.textColor = tfDNS3.textColor = tfDNS4.textColor = TITLE_COLOR;
 }
@@ -245,22 +272,17 @@
 #pragma mark - Webservice delegate
 
 -(void)failedToGetDNSForDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
-    
     [ProgressHUD dismiss];
     [self.view makeToast:@"Không lấy được giá trị DNS của tên miền!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
 }
 
 -(void)getDNSForDomainSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     [ProgressHUD dismiss];
     
     [self prepareDataToDisplay: data];
 }
 
 -(void)failedToChangeDNSForDomainWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
-    
     [ProgressHUD dismiss];
     
     if ([error isKindOfClass:[NSDictionary class]]) {
@@ -273,7 +295,6 @@
 }
 
 -(void)changeDNSForDomainSuccessful {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [ProgressHUD dismiss];
     
     [self.view makeToast:@"Cập nhật DNS thành công" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];

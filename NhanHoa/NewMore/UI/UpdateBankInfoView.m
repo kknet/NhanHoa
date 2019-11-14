@@ -22,23 +22,29 @@
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    float hBTN = 50.0;
-    float hLabel = 40.0;
-    float hTextfield = 45.0;
-    hCell = 50.0;
+    float hBTN = 53.0;
     
-    UIFont *textFont = [UIFont fontWithName:RobotoBold size:20.0];
+    float hLabel = 50.0;
+    hCell = 70.0;
+    
+    UIFont *textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoBold size:16.0];
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
         hBTN = 45.0;
+        hLabel = 40.0;
+        hCell = 50.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
         hBTN = 48.0;
+        hLabel = 45.0;
+        hCell = 60.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoBold size:20.0];
-        hBTN = 50.0;
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hBTN = 53.0;
+        hLabel = 50.0;
+        hCell = 70.0;
     }
     
     //  header view
@@ -74,7 +80,7 @@
     [btnCancel setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Reset"] forState:UIControlStateNormal];
     [btnCancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.bottom.equalTo(self).offset(-padding);
+        make.bottom.equalTo(self).offset(-padding-[AppDelegate sharedInstance].safeAreaBottomPadding);
         make.right.equalTo(self.mas_centerX).offset(-padding/2);
         make.height.mas_equalTo(hBTN);
     }];
@@ -93,7 +99,7 @@
     lbBankName.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Bank name"];
     [lbBankName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.top.equalTo(viewHeader.mas_bottom).offset(padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(2*padding);
         make.right.equalTo(self).offset(-padding);
         make.height.mas_equalTo(hLabel);
     }];
@@ -104,9 +110,9 @@
     [tfBankName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBankName.mas_bottom);
         make.left.right.equalTo(lbBankName);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
-    tfBankName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, padding, hTextfield)];
+    tfBankName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hBTN)];
     tfBankName.leftViewMode = UITextFieldViewModeAlways;
     
     [tfBankName addTarget:self
@@ -127,9 +133,9 @@
     [tfOwnerName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbOwnerName.mas_bottom);
         make.left.right.equalTo(lbOwnerName);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
-    tfOwnerName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, padding, hTextfield)];
+    tfOwnerName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hBTN)];
     tfOwnerName.leftViewMode = UITextFieldViewModeAlways;
     
     //  bank account number
@@ -146,9 +152,9 @@
     [tfBankAccountNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbBankAccountNumber.mas_bottom);
         make.left.right.equalTo(lbBankAccountNumber);
-        make.height.mas_equalTo(hTextfield);
+        make.height.mas_equalTo(hBTN);
     }];
-    tfBankAccountNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, padding, hTextfield)];
+    tfBankAccountNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, hBTN)];
     tfBankAccountNumber.leftViewMode = UITextFieldViewModeAlways;
     
     btnCancel.titleLabel.font = btnSave.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize+2];
@@ -160,7 +166,7 @@
     
     tfBankName.layer.borderWidth = tfOwnerName.layer.borderWidth = tfBankAccountNumber.layer.borderWidth = 1.0;
     tfBankName.layer.cornerRadius = tfOwnerName.layer.cornerRadius = tfBankAccountNumber.layer.cornerRadius = 5.0;
-    tfBankName.layer.borderColor = tfOwnerName.layer.borderColor = tfBankAccountNumber.layer.borderColor = GRAY_150.CGColor;
+    tfBankName.layer.borderColor = tfOwnerName.layer.borderColor = tfBankAccountNumber.layer.borderColor = GRAY_200.CGColor;
     
     tbBank = [[UITableView alloc] init];
     tbBank.backgroundColor = UIColor.whiteColor;

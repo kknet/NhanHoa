@@ -64,8 +64,7 @@
     
     lbHalfTop.clipsToBounds = lbHalfBot.clipsToBounds = TRUE;
     lbHalfTop.layer.cornerRadius = lbHalfBot.layer.cornerRadius = 12.0/2;
-    lbHalfTop.backgroundColor = lbHalfBot.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0)
-                                                                             blue:(245/255.0) alpha:1.0];
+    lbHalfTop.backgroundColor = lbHalfBot.backgroundColor = GRAY_245;
     [lbHalfTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(viewParent.mas_top);
         make.centerX.equalTo(lbSepa);
@@ -108,7 +107,7 @@
     
     line.fillColor = nil;
     line.opacity = 1.0;
-    line.strokeColor = GRAY_200.CGColor;
+    line.strokeColor = GRAY_220.CGColor;
     [label.layer addSublayer:line];
 }
 

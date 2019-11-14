@@ -18,6 +18,7 @@
     
     NSMutableArray *searchList;
     UpdateBankInfoView *updateInfoView;
+    float hLogoBank;
 }
 
 @end
@@ -72,7 +73,7 @@
         BankObject *bank = [filter firstObject];
         
         UIImage *bankIMG = [UIImage imageNamed:bank.logo];
-        float wLogo = 50.0 * bankIMG.size.width / bankIMG.size.height;
+        float wLogo = hLogoBank * bankIMG.size.width / bankIMG.size.height;
         imgBank.image = bankIMG;
         
         [imgBank mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -203,31 +204,41 @@
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hNav = self.navigationController.navigationBar.frame.size.height;
-    float hInfo = 230.0;
+    float hInfo = 250.0;
+    hLogoBank = 70.0;
     
     padding = 15.0;
-    hBTN = 50.0;
+    hBTN = 53.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         hBTN = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hInfo = 230.0;
+        hLogoBank = 50.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         hBTN = 48.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hInfo = 230.0;
+        hLogoBank = 50.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hInfo = 250.0;
+        hLogoBank = 70.0;
     }
     
     //  scrollview content
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    
-    scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    self.view.backgroundColor = GRAY_240;
+    scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -241,7 +252,7 @@
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hTop);
     }];
-    [self addCurvePathForViewWithHeight:viewTop withHeight:hTop];
+    [AppUtils addCurvePathForViewWithHeight:hTop forView:viewTop heightCurve:15.0 startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5) startColor:[UIColor colorWithRed:(16/255.0) green:(103/255.0) blue:(222/255.0) alpha:1] endColor:[UIColor colorWithRed:(16/255.0) green:(103/255.0) blue:(222/255.0) alpha:1]];
     
     //  header view
     viewHeader.backgroundColor = UIColor.clearColor;
@@ -266,28 +277,27 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  view info
     viewInfo.layer.cornerRadius = 10.0;
     [viewInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom).offset(padding);
+        make.top.equalTo(viewTop.mas_bottom).offset(-hInfo/4);
         make.left.equalTo(viewHeader).offset(padding);
         make.right.equalTo(viewHeader).offset(-padding);
         make.height.mas_equalTo(hInfo);
@@ -318,13 +328,13 @@
     }];
     
     UIImage *bankIMG = [UIImage imageNamed:@"VCB_logo.jpg"];
-    float wLogo = 50.0 * bankIMG.size.width / bankIMG.size.height;
+    float wLogo = hLogoBank * bankIMG.size.width / bankIMG.size.height;
     
     [imgBank mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(lbBankName.mas_top);
         make.left.equalTo(lbBankName);
         make.width.mas_equalTo(wLogo);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(hLogoBank);
     }];
     
     
@@ -335,7 +345,7 @@
     btnUpdate.layer.cornerRadius = 8.0;
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - padding - hBTN);
+        make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - padding - hBTN - appDelegate.safeAreaBottomPadding);
         make.left.right.equalTo(viewInfo);
         make.height.mas_equalTo(hBTN);
     }];
@@ -357,32 +367,6 @@
     [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     sender.backgroundColor = UIColor.whiteColor;
     [self performSelector:@selector(startShowUpdateBankInfoView) withObject:nil afterDelay:0.1];
-}
-
-- (void)addCurvePathForViewWithHeight: (UIView *)view withHeight: (float)height {
-    float hCurve = 15.0;
-    UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint: CGPointMake(0, 0)];
-    [path addLineToPoint: CGPointMake(0, height-hCurve)];
-    [path addQuadCurveToPoint:CGPointMake(SCREEN_WIDTH, height-hCurve) controlPoint:CGPointMake(SCREEN_WIDTH/2, height)];
-    [path addLineToPoint: CGPointMake(SCREEN_WIDTH, 0)];
-    [path closePath];
-    
-    //Add gradient layer to top view
-    
-    CAShapeLayer *shapeLayer = [CAShapeLayer new];
-    shapeLayer.path = path.CGPath;
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.backgroundColor = UIColor.clearColor.CGColor;
-    gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
-    gradientLayer.startPoint = CGPointMake(0, 0.5);
-    gradientLayer.endPoint = CGPointMake(1, 0.5);
-    //  gradientLayer.colors = @[(id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:0].CGColor, (id)[UIColor colorWithRed:(23/255.0) green:(92/255.0) blue:(188/255.0) alpha:1.0].CGColor];
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(23/255.0) green:(92/255.0) blue:(188/255.0) alpha:1].CGColor, (id)[UIColor colorWithRed:(18/255.0) green:(101/255.0) blue:(203/255.0) alpha:0.8].CGColor];
-    
-    [view.layer insertSublayer:gradientLayer atIndex:0];
-    gradientLayer.mask = shapeLayer;
 }
 
 - (void)startShowUpdateBankInfoView {

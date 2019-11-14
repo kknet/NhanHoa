@@ -66,6 +66,9 @@ typedef enum PaymentMethod{
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, assign) float sizeCartCount;
+
+
 @property (nonatomic, strong) HMLocalization *localization;
 
 @property (strong, nonatomic) CSToastStyle *errorStyle;

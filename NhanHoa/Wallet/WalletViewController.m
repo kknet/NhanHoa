@@ -34,11 +34,6 @@
     [self setupUIForView];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear: animated];
-    
-}
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
@@ -70,9 +65,9 @@
 
 - (void)reUpdateFrameForView{
     [tbHistory mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(hCell * 6 + hSection);
+        make.height.mas_equalTo(hCell * 10 + hSection);
     }];
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hBgWallet + hSection + hCell*6 + padding);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hBgWallet + hSection + hCell*10 + padding);
 }
 
 - (void)showContentWithCurrentLanguage {
@@ -89,7 +84,7 @@
                                                  blue:(246/255.0) alpha:1.0];
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    float hBTN = 50.0;
+    float hBTN = 53.0;
     hCell = 80.0;
     hSection = 60.0;
     
@@ -98,15 +93,18 @@
     textFont = [UIFont fontWithName:RobotoRegular size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
-        hBTN = 42.0;
+        hBTN = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
-        hBTN = 45.0;
+        hBTN = 48.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     //  content
@@ -121,16 +119,22 @@
         make.height.mas_equalTo(hBgWallet);
     }];
     
+    float hFooterView;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooterView = hBTN + 10.0;
+    }else{
+        hFooterView = hBTN + 20.0;
+    }
+    
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    //  scvContent.contentInset = UIEdgeInsetsMake(hBgWallet, 0, 0, 0);
     scvContent.backgroundColor = UIColor.clearColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-hBTN - 20.0);
+        make.bottom.equalTo(self.view).offset(-hFooterView - appDelegate.safeAreaBottomPadding);
     }];
     
     //  header view
@@ -145,9 +149,8 @@
     //  header
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader).offset(hStatus);
+        make.top.bottom.equalTo(viewHeader);
         make.centerX.equalTo(viewHeader.mas_centerX);
-        make.bottom.equalTo(viewHeader);
         make.width.mas_equalTo(250.0);
     }];
     
@@ -158,29 +161,29 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     btnMainWallet.layer.cornerRadius = btnBonusWallet.layer.cornerRadius = hBTN/2;
     btnMainWallet.titleLabel.font = btnBonusWallet.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
 
     float sizeBTN = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"Bonus wallet"]
-                                     withFont:btnMainWallet.titleLabel.font andMaxWidth:SCREEN_WIDTH].width + 20.0;
+                                     withFont:btnMainWallet.titleLabel.font
+                                  andMaxWidth:SCREEN_WIDTH].width + 20.0;
 
     btnMainWallet.backgroundColor = UIColor.whiteColor;
     [btnMainWallet setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
@@ -241,22 +244,32 @@
     //  footer view
     viewFooter.backgroundColor = UIColor.clearColor;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(hBTN + 20.0);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
+        make.height.mas_equalTo(hFooterView);
     }];
 
     btnTopUp.layer.cornerRadius = 8.0;
-    btnTopUp.backgroundColor = BLUE_COLOR;
+    btnTopUp.backgroundColor = [UIColor colorWithRed:(47/255.0) green:(125/255.0) blue:(215/255.0) alpha:1.0];
     btnTopUp.titleLabel.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
     [btnTopUp setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnTopUp setTitle:[appDelegate.localization localizedStringForKey:@"Top up"]
               forState:UIControlStateNormal];
-    [btnTopUp mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewFooter).offset(padding);
-        make.right.equalTo(viewFooter).offset(-padding);
-        make.centerY.equalTo(viewFooter.mas_centerY);
-        make.height.mas_equalTo(hBTN);
-    }];
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        [btnTopUp mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(viewFooter).offset(padding);
+            make.right.equalTo(viewFooter).offset(-padding);
+            make.bottom.equalTo(viewFooter);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }else{
+        [btnTopUp mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(viewFooter).offset(padding);
+            make.right.equalTo(viewFooter).offset(-padding);
+            make.centerY.equalTo(viewFooter.mas_centerY);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -329,7 +342,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -381,7 +394,7 @@
     [btnMore setTitle:[appDelegate.localization localizedStringForKey:@"View more"] forState:UIControlStateNormal];
     [btnMore setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     btnMore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    btnMore.titleLabel.font = textFont;
+    btnMore.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-1];
     [viewSection addSubview: btnMore];
     [btnMore mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewSection);

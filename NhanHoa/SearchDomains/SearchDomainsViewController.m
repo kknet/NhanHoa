@@ -25,15 +25,16 @@
     float sizeBlock;
     float hSliderView;
     float hPostView;
+    float hTopView;
     
     NSMutableArray *listBanners;
-    UIFont *searchFont;
+    UIFont *textFont;
 }
 @end
 
 @implementation SearchDomainsViewController
-@synthesize viewHeader, icClose, lbHeader, icCart, bgHeader;
-@synthesize scvContent, viewTop, tfSearch, lbWWW, icClear, viewCheckMultiDomains, imgCheckMultiDomains, lbCheckMultiDomains, viewRenewDomain, imgRenewDomain, lbRenewDomain, viewTransferDomains, imgTransferDomain, lbTransferDomain, clvSlider, clvPosts, tbDomainsType, imgSearch;
+@synthesize viewHeader, icClose, lbHeader, icCart, bgHeader, lbCount;
+@synthesize scvContent, viewTop, imgBGBottom, tfSearch, lbWWW, icClear, viewCheckMultiDomains, imgCheckMultiDomains, lbCheckMultiDomains, viewRenewDomain, imgRenewDomain, lbRenewDomain, viewTransferDomains, imgTransferDomain, lbTransferDomain, clvSlider, clvPosts, tbDomainsType, imgSearch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -85,7 +86,7 @@
 
 - (void)keyboardWillHide: (NSNotification *) notif{
     [scvContent mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
 }
 
@@ -145,7 +146,7 @@
         make.height.mas_equalTo(listData.count * hCell + hSection);
     }];
     
-    float hContent = padding + hTextfield + padding + sizeBlock;
+    float hContent = hTopView + sizeBlock/2;
     if (hSliderView > 0) {
         hContent += (padding + hSliderView);
         
@@ -210,20 +211,27 @@
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     [self.view addGestureRecognizer: tapOnScreen];
     
-    hTextfield = 42.0;
-    
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    float hNav = self.navigationController.navigationBar.frame.size.height;
+    float sizeIcon = 40.0;
     
-    searchFont = [UIFont fontWithName:RobotoMedium size:21.0];
+    textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        searchFont = [UIFont fontWithName:RobotoMedium size:17.0];
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hTextfield = 45.0;
+        sizeIcon = 30.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        searchFont = [UIFont fontWithName:RobotoMedium size:19.0];
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hTextfield = 48.0;
+        sizeIcon = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        searchFont = [UIFont fontWithName:RobotoMedium size:21.0];
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hTextfield = 50.0;
+        sizeIcon = 40.0;
     }
     
     hSection = 50.0;
@@ -232,14 +240,14 @@
     
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(hStatus + hNav);
+        make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
     [bgHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(viewHeader);
     }];
     
-    lbHeader.font = [UIFont fontWithName:RobotoRegular size:searchFont.pointSize];
+    lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
         make.bottom.equalTo(viewHeader);
@@ -254,38 +262,55 @@
         make.width.height.mas_equalTo(40);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewHeader).offset(-5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40);
     }];
     
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius =  appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo( appDelegate.sizeCartCount);
+    }];
+    
+    self.view.backgroundColor = GRAY_240;
+    
     //  content
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     scvContent.delegate = self;
-    scvContent.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0)
-                                                  blue:(245/255.0) alpha:1.0];
+    scvContent.backgroundColor = UIColor.clearColor;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     
     sizeBlock = (SCREEN_WIDTH - 4*padding)/3;
-    float hTop = padding + hTextfield + padding + sizeBlock*2/3;
+    
+    UIImage *imgBottom = [UIImage imageNamed:@"bg_search_domains_bottom"];
+    hTopView = SCREEN_WIDTH * imgBottom.size.height / imgBottom.size.width;
     
     [viewTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(hTop);
+        make.height.mas_equalTo(hTopView);
     }];
-    [self addCurvePathForViewWithHeight:hTop forView:viewTop];
     viewTop.backgroundColor = UIColor.clearColor;
     
-    tfSearch.font = searchFont;
-    tfSearch.layer.cornerRadius = 8.0;
+    [imgBGBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(viewTop);
+    }];
+    
+    tfSearch.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-1];
+    tfSearch.layer.cornerRadius = 12.0;
     tfSearch.delegate = self;
     tfSearch.returnKeyType = UIReturnKeySearch;
     tfSearch.textColor = GRAY_80;
@@ -319,7 +344,7 @@
         make.width.mas_equalTo(hTextfield);
     }];
     
-    lbWWW.font = searchFont;
+    lbWWW.font = tfSearch.font;
     lbWWW.textColor = BLUE_COLOR;
     [lbWWW mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(imgSearch.mas_right);
@@ -328,25 +353,25 @@
     }];
     
     //  three top views
-    viewRenewDomain.layer.cornerRadius = viewCheckMultiDomains.layer.cornerRadius = viewTransferDomains.layer.cornerRadius = 8.0;
-    lbRenewDomain.font = lbCheckMultiDomains.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:searchFont.pointSize-6];
-    lbRenewDomain.textColor = lbCheckMultiDomains.textColor = lbTransferDomain.textColor = GRAY_50;
+    viewRenewDomain.layer.cornerRadius = viewCheckMultiDomains.layer.cornerRadius = viewTransferDomains.layer.cornerRadius = 10.0;
+    lbRenewDomain.font = lbCheckMultiDomains.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-7];
+    lbRenewDomain.textColor = lbCheckMultiDomains.textColor = lbTransferDomain.textColor = GRAY_80;
     
     //  view renew domain
     UITapGestureRecognizer *tapOnRenew = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToRenewalDomains)];
     [viewRenewDomain addGestureRecognizer: tapOnRenew];
     
     [viewRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(padding + hTextfield + padding);
+        make.top.equalTo(viewTop.mas_bottom).offset(-sizeBlock/2);
         make.centerX.equalTo(viewTop.mas_centerX);
         make.width.height.mas_equalTo(sizeBlock);
     }];
-    [AppUtils addBoxShadowForView:viewRenewDomain color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewRenewDomain color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     [imgRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewRenewDomain.mas_centerY).offset(-3.0);
         make.centerX.equalTo(viewRenewDomain.mas_centerX);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbRenewDomain mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -364,12 +389,12 @@
         make.right.equalTo(viewRenewDomain.mas_left).offset(-padding);
         make.width.height.mas_equalTo(sizeBlock);
     }];
-    [AppUtils addBoxShadowForView:viewCheckMultiDomains color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewCheckMultiDomains color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     [imgCheckMultiDomains mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewCheckMultiDomains.mas_centerY).offset(-3.0);
         make.centerX.equalTo(viewCheckMultiDomains.mas_centerX);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbCheckMultiDomains mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -384,12 +409,12 @@
         make.left.equalTo(viewRenewDomain.mas_right).offset(padding);
         make.width.height.mas_equalTo(sizeBlock);
     }];
-    [AppUtils addBoxShadowForView:viewTransferDomains color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewTransferDomains color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     [imgTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewTransferDomains.mas_centerY).offset(-3.0);
         make.centerX.equalTo(viewTransferDomains.mas_centerX);
-        make.width.height.mas_equalTo(30.0);
+        make.width.height.mas_equalTo(sizeIcon);
     }];
     
     [lbTransferDomain mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -440,32 +465,7 @@
         make.height.mas_equalTo(0.0);
     }];
     
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
-}
-
-- (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view {
-    float hCurve = 15.0;
-    UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint: CGPointMake(0, 0)];
-    [path addLineToPoint: CGPointMake(0, height-hCurve)];
-    [path addQuadCurveToPoint:CGPointMake(SCREEN_WIDTH, height-hCurve) controlPoint:CGPointMake(SCREEN_WIDTH/2, height+hCurve)];
-    [path addLineToPoint: CGPointMake(SCREEN_WIDTH, 0)];
-    [path closePath];
-    
-    //Add gradient layer to top view
-    
-    CAShapeLayer *shapeLayer = [CAShapeLayer new];
-    shapeLayer.path = path.CGPath;
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.backgroundColor = UIColor.clearColor.CGColor;
-    gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
-    gradientLayer.startPoint = CGPointMake(0.5, 0);
-    gradientLayer.endPoint = CGPointMake(0.5, 1);
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(27/255.0) green:(100/255.0) blue:(202/255.0) alpha:1].CGColor, (id)[UIColor colorWithRed:(29/255.0) green:(104/255.0) blue:(209/255.0) alpha:1.0].CGColor];
-    
-    [view.layer insertSublayer:gradientLayer atIndex:0];
-    gradientLayer.mask = shapeLayer;
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 - (void)searchTextfieldDidChange {
@@ -536,7 +536,7 @@
     UILabel *lbTitle = [[UILabel alloc] init];
     lbTitle.text = [appDelegate.localization localizedStringForKey:@"Many options with attractive offers"];
     lbTitle.textColor = GRAY_50;
-    lbTitle.font = [UIFont fontWithName:RobotoBold size:searchFont.pointSize];
+    lbTitle.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     [sectionView addSubview: lbTitle];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sectionView).offset(padding);
@@ -553,6 +553,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return hSection;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.1;
 }
 
 #pragma mark - UICollectionview menu

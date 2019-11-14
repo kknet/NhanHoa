@@ -68,6 +68,6 @@ typedef enum {
 + (NSString *)getHashHmacSHA256OfString:(NSString *)data key:(NSString *)key;
 + (BOOL)checkVersionAppToAcceptLogin: (NSString *)requireVersion;
 
-+ (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view withColor: (UIColor *)color heightCurve: (float)hCurve;
++ (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view heightCurve: (float)hCurve startPoint:(CGPoint)start endPoint:(CGPoint)end startColor: (UIColor *)startColor endColor:(UIColor *)endColor;
 
 @end

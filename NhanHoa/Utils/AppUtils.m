@@ -842,7 +842,7 @@
     }
 }
 
-+ (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view withColor: (UIColor *)color heightCurve: (float)hCurve
++ (void)addCurvePathForViewWithHeight: (float)height forView: (UIView *)view heightCurve: (float)hCurve startPoint:(CGPoint)start endPoint:(CGPoint)end startColor: (UIColor *)startColor endColor:(UIColor *)endColor
 {
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint: CGPointMake(0, 0)];
@@ -856,8 +856,16 @@
     shapeLayer.path = path.CGPath;
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.backgroundColor = color.CGColor;
+    gradientLayer.backgroundColor = (__bridge CGColorRef _Nullable)(UIColor.clearColor);
     gradientLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+    
+    gradientLayer.startPoint = start;
+    gradientLayer.endPoint = end;
+    
+    gradientLayer.colors = @[(id)startColor.CGColor, (id)endColor.CGColor];
+    
+    [view.layer insertSublayer:gradientLayer atIndex:0];
+    gradientLayer.mask = shapeLayer;
     
     [view.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;

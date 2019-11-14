@@ -85,11 +85,14 @@
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         hInfo = 100.0;
         hCell = 65.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hInfo = 120.0;
         hCell = 70.0;
+        
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     }
     
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,7 +110,6 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewHeader).offset(-5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
@@ -235,7 +237,7 @@
     gradientLayer.frame = CGRectMake(0, 0, width, height);
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(1, 1);
-    gradientLayer.colors = @[(id)[UIColor colorWithRed:(15/255.0) green:(99/255.0) blue:(218/255.0) alpha:1.0].CGColor, (id)[UIColor colorWithRed:(10/255.0) green:(74/255.0) blue:(192/255.0) alpha:1.0].CGColor];
+    gradientLayer.colors = @[(id)[UIColor colorWithRed:(15/255.0) green:(99/255.0) blue:(218/255.0) alpha:0.8].CGColor, (id)[UIColor colorWithRed:(10/255.0) green:(74/255.0) blue:(192/255.0) alpha:1.0].CGColor];
     
     [view.layer insertSublayer:gradientLayer atIndex:0];
     gradientLayer.mask = shapeLayer;

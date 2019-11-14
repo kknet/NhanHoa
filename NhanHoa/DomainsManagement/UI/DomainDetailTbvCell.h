@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIFont *textFont;
 @property (nonatomic, assign) float padding;
 
-- (void)updateFrameWithContentValue;
-
 @end
 
 NS_ASSUME_NONNULL_END

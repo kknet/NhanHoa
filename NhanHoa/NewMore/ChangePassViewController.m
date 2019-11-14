@@ -83,18 +83,21 @@
 
 - (void)setupUIForView
 {
-    hTextfield = 50.0;
+    hTextfield = 53.0;
     padding = 15.0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
+        hTextfield = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
+        hTextfield = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
+        hTextfield = 53.0;
     }
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -106,7 +109,7 @@
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
-    lbHeader.textColor = GRAY_100;
+    lbHeader.textColor = GRAY_50;
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(hStatus);

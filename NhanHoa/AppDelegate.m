@@ -49,6 +49,7 @@
 @end
 
 @implementation AppDelegate
+@synthesize sizeCartCount;
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
@@ -94,6 +95,7 @@ AppDelegate      *app;
     [application registerForRemoteNotifications];
     
     [self setupFontForApp];
+    sizeCartCount = 22.0;
     
     safeAreaBottomPadding = 0;
     if (@available(iOS 11.0, *)) {
@@ -131,9 +133,6 @@ AppDelegate      *app;
     [self setupForWriteLogFileForApp];
     [AppUtils createDirectoryAndSubDirectory:@"avatars"];
     [self createErrorMessagesInfo];
-    
-    NSString *version = [AppUtils getAppVersionWithBuildVersion: TRUE];
-    [WriteLogsUtils writeLogContent:[NSString stringWithFormat:@"==================================================\n==               START APPLICATION VERSION (%@)             ==\n==================================================", version]];
     
     //  custom tabbar & navigation bar
     hStatusBar = application.statusBarFrame.size.height;

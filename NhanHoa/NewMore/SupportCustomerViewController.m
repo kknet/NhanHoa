@@ -19,7 +19,7 @@
 @end
 
 @implementation SupportCustomerViewController
-@synthesize imgBGSupport, imgBgTop, viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, lbTop, lbTitle, lbDesc, lbYourQuestion, tvYourQuestion, btnSendQuestion, viewFooter, imgFooter, lbFooter;
+@synthesize imgSupport, viewBackground, viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, lbTop, lbTitle, lbDesc, lbYourQuestion, tvYourQuestion, btnSendQuestion, viewFooter, imgFooter, lbFooter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,15 +62,6 @@
                      forState:UIControlStateNormal];
     
     lbFooter.text = [appDelegate.localization localizedStringForKey:@"Call to Nhan Hoa"];
-    float size = [AppUtils getSizeWithText:lbFooter.text withFont:lbFooter.font andMaxWidth:SCREEN_WIDTH].width + 10.0;
-    float originX = (SCREEN_WIDTH - (28.0 + 5.0 + size))/2;
-    [imgFooter mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewFooter).offset(originX);
-    }];
-    
-    [lbFooter mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(size);
-    }];
 }
 
 - (void)setupUIForView
@@ -78,99 +69,59 @@
     self.view.backgroundColor = GRAY_245;
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hBTN = 45.0;
-    float hLabel = 40.0;
+    hBTN = 53.0;
+    float hLabel = 60.0;
+    float hIMG = 140.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         hLabel = 30.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hBTN = 45.0;
+        hIMG = 100.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         hLabel = 40.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hBTN = 48.0;
+        hIMG = 110.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
-        hLabel = 40.0;
+        hLabel = 60.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hBTN = 53.0;
+        hIMG = 140.0;
     }
-    
-    //  header view
-    UIImage *topBg = [UIImage imageNamed:@"support_top_bg"];
-    float hHeader = SCREEN_WIDTH * topBg.size.height / topBg.size.width;
-    
-    viewHeader.backgroundColor = BLUE_COLOR;
-    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(hHeader);
-    }];
-    
-    [imgBgTop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(viewHeader);
-    }];
-    
-    lbHeader.font = textFont;
-    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader).offset(hStatus);
-        make.centerX.equalTo(viewHeader.mas_centerX);
-        make.bottom.equalTo(viewHeader);
-        make.width.mas_equalTo(250.0);
-    }];
-    
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
-    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewHeader).offset(5.0);
-        make.centerY.equalTo(lbHeader.mas_centerY);
-        make.width.height.mas_equalTo(40.0);
-    }];
-    
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
-    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
-        make.centerY.equalTo(lbHeader.mas_centerY);
-        make.width.height.mas_equalTo(40.0);
-    }];
-    
-    lbCount.textColor = UIColor.whiteColor;
-    lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
-    lbCount.clipsToBounds = TRUE;
-    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
-    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
-    }];
     
     UITapGestureRecognizer *tapOnCallFooter = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToCallCustomerSupportView)];
     [viewFooter addGestureRecognizer: tapOnCallFooter];
     
     viewFooter.backgroundColor = UIColor.whiteColor;
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
-        make.height.mas_equalTo(hBTN + padding);
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(hBTN + padding + appDelegate.safeAreaBottomPadding);
+    }];
+    
+    lbFooter.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
+    lbFooter.textColor = [UIColor colorWithRed:(23/255.0) green:(191/255.0) blue:(101/255.0) alpha:1.0];
+    [lbFooter mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(viewFooter.mas_centerX).offset(28.0/2);
+        make.top.equalTo(viewFooter);
+        make.height.mas_equalTo(padding + hBTN);
     }];
     
     [imgFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(viewFooter);
-        make.centerY.equalTo(viewFooter.mas_centerY);
+        make.right.equalTo(lbFooter.mas_left).offset(-10.0);
+        make.centerY.equalTo(lbFooter.mas_centerY);
         make.width.height.mas_equalTo(28.0);
-    }];
-    
-    lbFooter.font = textFont;
-    lbFooter.textColor = [UIColor colorWithRed:(23/255.0) green:(191/255.0) blue:(101/255.0) alpha:1.0];
-    [lbFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(imgFooter.mas_right).offset(5.0);
-        make.centerY.equalTo(viewFooter.mas_centerY);
-        make.height.mas_equalTo(hBTN);
-        make.width.mas_equalTo(0.0);
     }];
     
     //  scrollview content
     UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
     [scvContent addGestureRecognizer: tapOnScreen];
-    
     
     if (@available(iOS 11.0, *)) {
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -178,8 +129,7 @@
     scvContent.backgroundColor = UIColor.whiteColor;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom);
-        make.left.right.equalTo(self.view);
+        make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(viewFooter.mas_top).offset(-padding);
     }];
     
@@ -189,32 +139,88 @@
         make.height.mas_equalTo(0);
     }];
     
-    //  background
-    UIImage *supportBg = [UIImage imageNamed:@"support_bot_bg"];
-    float hSupportBg = SCREEN_WIDTH * supportBg.size.height / supportBg.size.width;
-    [imgBGSupport mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent);
+    //  header view
+    viewHeader.backgroundColor = UIColor.clearColor;
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(scvContent).offset(hStatus);
         make.left.right.equalTo(lbTop);
-        make.height.mas_equalTo(hSupportBg);
+        make.height.mas_equalTo(self.navigationController.navigationBar.frame.size.height);
     }];
     
+    lbHeader.font = textFont;
+    [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(viewHeader);
+        make.centerX.equalTo(viewHeader.mas_centerX);
+        make.width.mas_equalTo(250.0);
+    }];
+    
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewHeader).offset(5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
+    }];
+    
+    float hBGView = hStatus + self.navigationController.navigationBar.frame.size.height + padding + 60.0 + padding + hIMG;
+    [viewBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(scvContent);
+        make.left.right.equalTo(lbTop);
+        make.height.mas_equalTo(hBGView);
+    }];
+    [AppUtils addCurvePathForViewWithHeight:hBGView forView:viewBackground heightCurve:15.0 startPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) startColor:[UIColor colorWithRed:(27/255.0) green:(111/255.0) blue:(219/255.0) alpha:1.0] endColor:[UIColor colorWithRed:(26/255.0) green:(103/255.0) blue:(220/255.0) alpha:1.0]];
+    
     lbTitle.textColor = UIColor.whiteColor;
-    lbTitle.font = textFont;
+    lbTitle.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(padding);
+        make.top.equalTo(viewHeader.mas_bottom).offset(padding/2);
         make.left.equalTo(lbTop).offset(padding);
         make.right.equalTo(lbTop).offset(-padding);
-        make.height.mas_equalTo(50.0);
+        make.height.mas_equalTo(60.0);
+    }];
+    
+    UIImage *supportIMG = [UIImage imageNamed:@"img_support"];
+    float wSupportBg = hIMG * supportIMG.size.width / supportIMG.size.height;
+    [imgSupport mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
+        make.centerX.equalTo(lbTop.mas_centerX);
+        make.width.mas_equalTo(wSupportBg);
+        make.height.mas_equalTo(hIMG);
     }];
     
     lbDesc.textColor = GRAY_100;
     lbDesc.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
-    [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imgBGSupport.mas_bottom);
-        make.left.equalTo(lbTop).offset(padding);
-        make.right.equalTo(lbTop).offset(-padding);
-        make.height.mas_equalTo(50.0);
-    }];
+    if (SCREEN_WIDTH >= SCREEN_WIDTH_IPHONE_6PLUS) {
+        [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(viewBackground.mas_bottom).offset(2*padding);
+            make.left.equalTo(lbTop).offset(padding);
+            make.right.equalTo(lbTop).offset(-padding);
+            make.height.mas_equalTo(50.0);
+        }];
+    }else{
+        [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(viewBackground.mas_bottom).offset(padding);
+            make.left.equalTo(lbTop).offset(padding);
+            make.right.equalTo(lbTop).offset(-padding);
+        }];
+    }
+    
     
     //  email
     lbYourQuestion.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
@@ -222,9 +228,8 @@
     lbYourQuestion.textColor = GRAY_100;
     tvYourQuestion.textColor = GRAY_50;
     
-    
     [lbYourQuestion mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbDesc.mas_bottom);
+        make.top.equalTo(lbDesc.mas_bottom).offset(padding);
         make.left.right.equalTo(lbDesc);
         make.height.mas_equalTo(hLabel);
     }];
@@ -237,7 +242,7 @@
     [tvYourQuestion mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbYourQuestion.mas_bottom);
         make.left.right.equalTo(lbYourQuestion);
-        make.height.mas_equalTo(3.0*hBTN);
+        make.height.mas_equalTo(3*hBTN);
     }];
     
     btnSendQuestion.titleLabel.font = textFont;
@@ -250,8 +255,7 @@
         make.height.mas_equalTo(hBTN);
     }];
     
-    float hContent = hSupportBg + 50.0 + (hLabel + hBTN) + padding + (hLabel + 2.0*hBTN) + 2*padding + hBTN + padding;
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hContent);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (hBTN + padding + appDelegate.safeAreaBottomPadding + padding));
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

@@ -357,7 +357,7 @@
 "Please enter domains you want to check"        =   "Vui lòng nhập tên miền bạn muốn kiểm tra"
 
 "Bank account"          =   "Tài khoản ngân hàng"
-"Update bank account"   =   "Cập nhật tài khoản ngân hàng"
+"Update bank account"   =   "Cập nhật tài khoản"
 "Bank name"             =   "Tên ngân hàng"
 "Owner name"            =   "Tên chủ sở hữu"
 "Bank account number"   =   "Số tài khoản"
@@ -404,9 +404,10 @@
 
 "Register hosting"          =   "Đăng ký hosting"
 
-
-
-
+"Front"      =   "Mặt trước"
+"Backside"   =   "Mặt sau"
+"Please choose photos to update"    =   "Vui lòng chọn ảnh để cập nhật"
+"The data is invalidate"            =   "Dữ liệu không hợp lệ"
 
 
 

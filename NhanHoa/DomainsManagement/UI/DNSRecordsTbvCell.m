@@ -34,7 +34,9 @@
     viewWrap.clipsToBounds = TRUE;
     viewWrap.layer.cornerRadius = 8.0;
     [viewWrap mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self);
+        make.top.equalTo(self);
+        make.left.equalTo(self).offset(padding);
+        make.right.equalTo(self).offset(-padding);
         make.bottom.equalTo(self).offset(-10.0);
     }];
     

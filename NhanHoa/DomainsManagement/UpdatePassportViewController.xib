@@ -13,20 +13,54 @@
             <connections>
                 <outlet property="btnCMND_a" destination="ACe-BU-vtv" id="X0Z-D4-su2"/>
                 <outlet property="btnCMND_b" destination="9Cq-gd-YPD" id="2yc-At-O8x"/>
+                <outlet property="icBack" destination="oP1-ep-iyV" id="H63-q7-0vJ"/>
+                <outlet property="icSave" destination="acO-bE-3Ld" id="8fC-j0-e0V"/>
                 <outlet property="imgWaitCMND_a" destination="7bz-Uw-L8V" id="X1d-2f-MgE"/>
                 <outlet property="imgWaitCMND_b" destination="w5A-C9-Q7H" id="L4x-ff-OM2"/>
                 <outlet property="lbCMND_a" destination="TuO-px-TBN" id="6gB-DU-Xaa"/>
                 <outlet property="lbCMND_b" destination="GRs-Tg-xxL" id="Gcb-zi-j66"/>
+                <outlet property="lbHeader" destination="DMa-9s-Zlr" id="8Qf-6W-hGW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeader" destination="Sr2-yH-YGo" id="fgK-cw-VRi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="675"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sr2-yH-YGo">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP1-ep-iyV">
+                            <rect key="frame" x="8" y="7" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="back_gray.png"/>
+                            <connections>
+                                <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="NYo-1W-nl5"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMa-9s-Zlr">
+                            <rect key="frame" x="139" y="12" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acO-bE-3Ld">
+                            <rect key="frame" x="282" y="7" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="save_gray.png"/>
+                            <connections>
+                                <action selector="icSaveClick:" destination="-1" eventType="touchUpInside" id="NEa-A7-DpY"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACe-BU-vtv">
-                    <rect key="frame" x="31" y="208" width="251" height="158"/>
+                    <rect key="frame" x="35" y="85" width="251" height="158"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="passport_empty_front.png"/>
                     <connections>
@@ -34,25 +68,25 @@
                     </connections>
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7bz-Uw-L8V">
-                    <rect key="frame" x="146" y="277" width="20" height="20"/>
+                    <rect key="frame" x="150" y="154" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Front" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuO-px-TBN">
-                    <rect key="frame" x="152" y="374" width="41" height="21"/>
+                    <rect key="frame" x="156" y="251" width="41" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Backside" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRs-Tg-xxL">
-                    <rect key="frame" x="138" y="584" width="70" height="21"/>
+                    <rect key="frame" x="142" y="461" width="70" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cq-gd-YPD">
-                    <rect key="frame" x="31" y="420" width="248" height="156"/>
+                    <rect key="frame" x="35" y="297" width="248" height="156"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="passport_empty_behind.png"/>
                     <connections>
@@ -60,17 +94,19 @@
                     </connections>
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w5A-C9-Q7H">
-                    <rect key="frame" x="146" y="488" width="20" height="20"/>
+                    <rect key="frame" x="150" y="365" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-170" y="-40"/>
+            <point key="canvasLocation" x="-175" y="-400"/>
         </view>
     </objects>
     <resources>
+        <image name="back_gray.png" width="96" height="96"/>
         <image name="passport_empty_behind.png" width="400" height="252"/>
         <image name="passport_empty_front.png" width="400" height="252"/>
+        <image name="save_gray.png" width="96" height="96"/>
     </resources>
 </document>

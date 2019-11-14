@@ -99,10 +99,10 @@
                 <outlet property="lbStatusValue" destination="PSs-Uh-aB0" id="7Ug-Vb-V73"/>
                 <outlet property="viewWrap" destination="2X2-Eo-CVS" id="mfV-S0-ATA"/>
             </connections>
-            <point key="canvasLocation" x="46" y="101"/>
+            <point key="canvasLocation" x="-213" y="72"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="tick_green.png" width="40.069564819335938" height="40.069564819335938"/>
+        <image name="tick_green.png" width="100" height="100"/>
     </resources>
 </document>

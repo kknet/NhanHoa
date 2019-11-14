@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdatePassportViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icSave;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *btnCMND_a;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *imgWaitCMND_a;
 
@@ -34,7 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)btnCMND_a_Press:(UIButton *)sender;
 - (IBAction)btnCMND_b_Press:(UIButton *)sender;
-- (IBAction)btnBanKhaiPress:(UIButton *)sender;
+
+- (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icSaveClick:(UIButton *)sender;
 
 @end
 
