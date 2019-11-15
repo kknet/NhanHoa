@@ -29,7 +29,7 @@
 @end
 
 @implementation SearchResultViewController
-@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, tbResult, viewFooter, btnContinue;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, tbResult, viewFooter, btnContinue, lbSepa;
 @synthesize strSearch, listSearch;
 
 - (void)viewDidLoad {
@@ -93,7 +93,7 @@
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hBTN = 45.0;
+    hBTN = 53.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
@@ -101,14 +101,20 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:14.0];
+        hBTN = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:15.0];
+        hBTN = 50.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
+        hBTN = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     leftMaxSize = [AppUtils getSizeWithText:[appDelegate.localization localizedStringForKey:@"Registration date"] withFont:fontForGetHeight andMaxWidth:SCREEN_WIDTH].width + 10.0;
     
@@ -130,35 +136,46 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  footer view
+    float hFooter;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooter = padding + hBTN + appDelegate.safeAreaBottomPadding;
+    }else{
+        hFooter = padding + hBTN + padding;
+    }
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
-        make.height.mas_equalTo(hBTN + padding);
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(hFooter);
+    }];
+    
+    lbSepa.backgroundColor = GRAY_220;
+    [lbSepa mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(viewFooter);
+        make.height.mas_equalTo(2.0);
     }];
     
     btnContinue.backgroundColor = BLUE_COLOR;
@@ -167,9 +184,9 @@
     btnContinue.clipsToBounds = TRUE;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(viewFooter).offset(padding);
         make.left.equalTo(viewFooter).offset(padding);
         make.right.equalTo(viewFooter).offset(-padding);
-        make.centerY.equalTo(viewFooter.mas_centerY);
         make.height.mas_equalTo(hBTN);
     }];
     

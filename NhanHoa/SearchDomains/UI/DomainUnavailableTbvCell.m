@@ -60,7 +60,7 @@
         make.bottom.equalTo(imgBackground.mas_centerY).offset(-10.0);
     }];
     
-    lbDesc.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-4.0];
+    lbDesc.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2.0];
     [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lbTopDomain.mas_bottom).offset(2.0);
         make.left.right.equalTo(lbTopDomain);

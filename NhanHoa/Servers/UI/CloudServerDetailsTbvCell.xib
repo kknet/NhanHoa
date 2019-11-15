@@ -29,7 +29,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1GV-j1-rD0">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1GV-j1-rD0">
                         <rect key="frame" x="166" y="11" width="144" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -43,7 +43,7 @@
                 <outlet property="lbTitle" destination="RUs-8A-krj" id="uGQ-m7-ICZ"/>
                 <outlet property="lbValue" destination="1GV-j1-rD0" id="2qY-L2-ctf"/>
             </connections>
-            <point key="canvasLocation" x="-142" y="23"/>
+            <point key="canvasLocation" x="-280" y="23"/>
         </tableViewCell>
     </objects>
     <resources>

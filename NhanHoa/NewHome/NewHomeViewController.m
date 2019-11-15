@@ -7,7 +7,7 @@
 //
 
 #import "NewHomeViewController.h"
-#import "WithdrawalBonusAccountViewController.h"
+#import "WalletViewController.h"
 #import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
@@ -19,6 +19,8 @@
 #import "IntroduceVPSViewController.h"
 #import "DomainsViewController.h"
 #import "SearchMultiDomainsViewController.h"
+#import "PaymentViewController.h"
+#import "PricingDomainViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -26,10 +28,11 @@
 #import "HomeMenuClvCell.h"
 #import "HomeExploreView.h"
 #import "FLAnimatedImage.h"
+#import "TopUpMoneyView.h"
 
 #define NUM_OF_MENU 8
 
-@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, HomeExploreViewDelegate, HomeHeaderViewDelegate>
+@interface NewHomeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, HomeExploreViewDelegate, HomeHeaderViewDelegate, TopUpMoneyViewDelegate, WebServiceUtilsDelegate>
 {
     AppDelegate *appDelegate;
     float padding;
@@ -41,6 +44,8 @@
     float hMenuCell;
     
     UILabel *lbBgStatus;
+    
+    TopUpMoneyView *topupView;
 }
 
 @end
@@ -249,8 +254,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] selected index = %d", __FUNCTION__, (int)indexPath.row)];
-    
     if (indexPath.row == eMenuDomain) {
         [self goToSearchDomainViewController];
         
@@ -290,10 +293,6 @@
 //
 //    }else if ([title isEqualToString: text_bonus_account])
 //    {
-//        BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-//        bonusAccVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: bonusAccVC animated:TRUE];
-//
 //    }else if ([title isEqualToString: text_domains_management])
 //    {
 //        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
@@ -406,6 +405,7 @@
                 break;
             }
             case eExplorePricingDomains:{
+                [self goToDomainsPricingViewController];
                 break;
             }
             case eExploreCheckDomains:{
@@ -475,6 +475,13 @@
     [self.navigationController pushViewController:domainsVC animated:TRUE];
 }
 
+- (void)goToDomainsPricingViewController {
+    PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
+    pricingVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController:pricingVC animated:TRUE];
+}
+
 - (void)goToSearchMultiDomainsViewController {
     SearchMultiDomainsViewController *searchMultiVC = [[SearchMultiDomainsViewController alloc] initWithNibName:@"SearchMultiDomainsViewController" bundle:nil];
     searchMultiVC.hidesBottomBarWhenPushed = TRUE;
@@ -526,32 +533,136 @@
         make.height.mas_equalTo(viewHomeHeader.hContentView);
     }];
     
-    //  add target
-    [viewHomeHeader.icMainMoney addTarget:self
-                                   action:@selector(selectOnTopupHeaderMenu)
-                         forControlEvents:UIControlEventTouchUpInside];
-    
-    [viewHomeHeader.icBonusMoney addTarget:self
-                                    action:@selector(selectOnWithdrawHeaderMenu)
-                          forControlEvents:UIControlEventTouchUpInside];
-    
     [viewHomeHeader.icCart addTarget:self
                               action:@selector(onIconCartClicked)
                     forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)selectOnTopupHeaderMenu {
-    TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-    topupVC.hidesBottomBarWhenPushed = TRUE;
+    [self addTopupMoneyViewIfNeed];
+    
+//    TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
+//    topupVC.hidesBottomBarWhenPushed = TRUE;
+//    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+//    [self.navigationController pushViewController: topupVC animated:TRUE];
+}
+
+- (void)addTopupMoneyViewIfNeed {
+    if (topupView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"TopUpMoneyView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[TopUpMoneyView class]]) {
+                topupView = (TopUpMoneyView *) currentObject;
+                break;
+            }
+        }
+        topupView.delegate = self;
+        [topupView setupUIForView];
+        [appDelegate.window addSubview: topupView];
+        [topupView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.bottom.equalTo(appDelegate.window);
+        }];
+    }
+    topupView.popupType = ePopupTopup;
+    [topupView performSelector:@selector(showMoneyListToTopUp) withObject:nil afterDelay:0.2];
+}
+
+-(void)selectOnBonusWallet
+{
+    WalletViewController *walletVC = [[WalletViewController alloc] initWithNibName:@"WalletViewController" bundle:nil];
+    walletVC.curMenu = eBonusWalletMenu;
+    walletVC.hidesBottomBarWhenPushed = TRUE;
     [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController: topupVC animated:TRUE];
+    [self.navigationController pushViewController:walletVC animated:TRUE];
+}
+
+-(void)selectOnMainWallet {
+    WalletViewController *walletVC = [[WalletViewController alloc] initWithNibName:@"WalletViewController" bundle:nil];
+    walletVC.curMenu = eMainWalletMenu;
+    walletVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController:walletVC animated:TRUE];
+}
+
+#pragma mark - TopupMoneyViewDelegate
+-(void)closeTopupMoneyView {
+    [UIView animateWithDuration:0.2 animations:^{
+        topupView.viewContent.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, topupView.hContent);
+    }completion:^(BOOL finished) {
+        [topupView removeFromSuperview];
+        topupView = nil;
+    }];
+}
+
+-(void)startTopupToAccountWithMoneyValue:(long)money {
+    if (money >= MIN_MONEY_TOPUP) {
+        PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+        paymentVC.hidesBottomBarWhenPushed = TRUE;
+        paymentVC.money = money;
+        [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+        [self.navigationController pushViewController:paymentVC animated:TRUE];
+        
+    }else{
+        [self.view makeToast:@"Số tiền nạp không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    }
+}
+
+- (void)showAlertConfirmToWithDraw:(long)money
+{
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    }
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn rút tiền thưởng?"];
+    [attrTitle addAttribute:NSFontAttributeName value:textFont range:NSMakeRange(0, attrTitle.string.length)];
+    [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+    
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Close"] style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         
+                                                     }];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Yes"] style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                         [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:FALSE];
+                                                         
+                                                         [WebServiceUtils getInstance].delegate = self;
+                                                         [[WebServiceUtils getInstance] withdrawWithAmout: money];
+                                                     }];
+    [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnClose];
+    [alertVC addAction:btnRenew];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 -(void)selectOnWithdrawHeaderMenu {
-    WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-    withdrawVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController: withdrawVC animated:TRUE];
+    if (topupView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"TopUpMoneyView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[TopUpMoneyView class]]) {
+                topupView = (TopUpMoneyView *) currentObject;
+                break;
+            }
+        }
+        topupView.delegate = self;
+        [topupView setupUIForView];
+        [appDelegate.window addSubview: topupView];
+        [topupView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.bottom.equalTo(appDelegate.window);
+        }];
+    }
+    topupView.popupType = ePopupWithdraw;
+    [topupView performSelector:@selector(showMoneyListToTopUp) withObject:nil afterDelay:0.2];
 }
 
 -(void)selectOnPromotionHeaderMenu {
@@ -571,5 +682,28 @@
 - (void)onIconCartClicked {
     [appDelegate showCartScreenContent];
 }
+
+#pragma mark - WebServiceUtils Delegate
+-(void)failedToWithdrawWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)withdrawSuccessfulWithData:(NSDictionary *)data {
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Tiền thưởng đã được rút thành công.\nChúng tôi sẽ liên hệ lại với bạn sớm." duration:3.0 position:CSToastPositionCenter style:appDelegate.successStyle];
+}
+
 
 @end

@@ -262,8 +262,7 @@
 "Passport's front"      =   "Passport's front"
 "Passport's backside"   =   "Passport's backside"
 
-"Edit personal profile" =   "Edit personal profile"
-"Edit business profile" =   "Edit business profile"
+"Edit profile"          =   "Edit profile"
 
 "Save info"     =   "Save info"
 

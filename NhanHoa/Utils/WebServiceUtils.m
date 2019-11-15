@@ -520,6 +520,14 @@
         if ([delegate respondsToSelector:@selector(failedToGetVoipAccount:)]) {
             [delegate failedToGetVoipAccount: error];
         }
+    }else if ([link isEqualToString: Vnpay_func]){
+        if ([delegate respondsToSelector:@selector(failedToGetFunWithVNPay:)]) {
+            [delegate failedToGetFunWithVNPay: error];
+        }
+    }else if ([link isEqualToString: Momo_func]){
+        if ([delegate respondsToSelector:@selector(failedToTopupMoneyWithMoMo:)]) {
+            [delegate failedToTopupMoneyWithMoMo: error];
+        }
     }
 }
 
@@ -650,6 +658,14 @@
     }else if ([link isEqualToString: GetAccVoipAction]){
         if ([delegate respondsToSelector:@selector(getVoipAccountSuccessfulWithData:)]) {
             [delegate getVoipAccountSuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: Vnpay_func]){
+        if ([delegate respondsToSelector:@selector(getFunVNPaySuccessfulWithData:)]) {
+            [delegate getFunVNPaySuccessfulWithData: data];
+        }
+    }else if ([link isEqualToString: Momo_func]){
+        if ([delegate respondsToSelector:@selector(topupMoneyWithMoMoSuccessfulWithData:)]) {
+            [delegate topupMoneyWithMoMoSuccessfulWithData: data];
         }
     }
 }
@@ -814,6 +830,30 @@
     [jsonDict setObject:record_id forKey:@"record_id"];
     
     [webService apiWSForRecordDNSWithParams:jsonDict andAction:@"delete"];
+}
+
+- (void)MoMoPaymentWithAmount: (NSNumber *)amount appData:(NSString *)appData customerNumber:(NSString *)customerNumber
+{
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:momo_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:amount forKey:@"amount"];
+    [jsonDict setObject:appData forKey:@"appData"];
+    [jsonDict setObject:customerNumber forKey:@"customerNumber"];
+    
+    [webService callWebServiceWithLink:Momo_func withParams:jsonDict inBackgroundMode:TRUE];
+}
+
+- (void)VNPayGetFunWithAmount: (NSNumber *)amount type: (NSNumber *)type {
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:vnpay_mod forKey:@"mod"];
+    [jsonDict setObject:USERNAME forKey:@"username"];
+    [jsonDict setObject:PASSWORD forKey:@"password"];
+    [jsonDict setObject:amount forKey:@"amount"];
+    [jsonDict setObject:type forKey:@"type"];
+    
+    [webService callWebServiceWithLink:Vnpay_func withParams:jsonDict inBackgroundMode:TRUE];
 }
 
 @end

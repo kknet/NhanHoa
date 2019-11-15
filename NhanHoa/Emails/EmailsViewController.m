@@ -48,20 +48,28 @@
 - (void)setupUIForView
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    float hMenu = 50.0;
-    
-    padding = 15.0;
+    float hMenu = 60.0;
     float hBTN = 45.0;
+    padding = 15.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hBTN = 45.0;
+        hMenu = 50.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        hBTN = 48.0;
+        hMenu = 55.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hBTN = 53.0;
+        hMenu = 60.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     hEmailHostingCell = padding + 40.0 + padding + 35.0*4 + padding + 1.0 + padding + hBTN + padding + 15.0;
     
@@ -83,29 +91,28 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  scrollview menu
@@ -268,22 +275,22 @@
     [chooseEmailPackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
     
     if (sender.tag == 0) {
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 1");
+        chooseEmailPackageView.lbDesc.text = @"CLASSIC 1";
         
     }else if (sender.tag == 1){
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 2");
+        chooseEmailPackageView.lbTitle.text = @"CLASSIC 2";
         
     }else if (sender.tag == 2){
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"CLASSIC 3");
+        chooseEmailPackageView.lbTitle.text = @"CLASSIC 3";
         
     }else if (sender.tag == 3){
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 1");
+        chooseEmailPackageView.lbTitle.text = @"BASIC 1";
         
     }else if (sender.tag == 4){
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 2");
+        chooseEmailPackageView.lbTitle.text = @"BASIC 2";
         
     }else if (sender.tag == 5){
-        chooseEmailPackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"BASIC 3");
+        chooseEmailPackageView.lbTitle.text = @"BASIC 3";
     }
     
     [chooseEmailPackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];

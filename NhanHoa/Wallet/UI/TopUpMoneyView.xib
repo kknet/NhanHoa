@@ -55,6 +55,13 @@
                                 <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Sdv-bq-vcF"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VNĐ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38p-oE-EGc">
+                            <rect key="frame" x="270" y="259" width="42" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -64,12 +71,13 @@
             <connections>
                 <outlet property="btnConfirm" destination="PVu-R6-EPo" id="O7Q-7T-Ajm"/>
                 <outlet property="icClose" destination="qjG-rJ-WHD" id="ZM2-YB-CJ2"/>
+                <outlet property="lbCurrency" destination="38p-oE-EGc" id="xpk-A3-fe6"/>
                 <outlet property="tbMoney" destination="qrZ-39-pe2" id="OqI-W4-m8O"/>
                 <outlet property="tfMoney" destination="gWD-2T-y2O" id="U8N-Uq-Bgl"/>
                 <outlet property="viewBg" destination="PIc-fc-m5g" id="IzD-Km-Zj4"/>
                 <outlet property="viewContent" destination="Fbd-pN-WfV" id="kmL-Cr-Vc2"/>
             </connections>
-            <point key="canvasLocation" x="-117" y="1"/>
+            <point key="canvasLocation" x="-117.39130434782609" y="0.6696428571428571"/>
         </view>
     </objects>
     <resources>

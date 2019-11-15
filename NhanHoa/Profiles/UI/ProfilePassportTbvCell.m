@@ -27,7 +27,7 @@
         textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     }
     
-    lbFront.textColor = lbBackside.textColor = GRAY_150;
+    lbFront.textColor = lbBackside.textColor = GRAY_100;
     lbFront.font = lbBackside.font = textFont;
     
     [lbFront mas_makeConstraints:^(MASConstraintMaker *make) {

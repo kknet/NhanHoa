@@ -12,6 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PaymentViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *viewHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icBack;
+@property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
+
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
 
@@ -19,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) PaymentMethod typePaymentMethod;
 @property (nonatomic, strong) OnepayPaymentView *paymentView;
 - (IBAction)btnContinuePress:(UIButton *)sender;
+- (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 
 @end
 

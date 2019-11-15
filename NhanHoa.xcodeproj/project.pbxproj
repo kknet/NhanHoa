@@ -217,6 +217,15 @@
 		4C178589235ABF7500943E14 /* ic_personal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C178587235ABF7400943E14 /* ic_personal.png */; };
 		4C178591235AC55C00943E14 /* SignUpBusinessProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C178590235AC55C00943E14 /* SignUpBusinessProfileView.m */; };
 		4C178593235AC56900943E14 /* SignUpBusinessProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C178592235AC56900943E14 /* SignUpBusinessProfileView.xib */; };
+		4C17FC7D237E4D9300E37FC1 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17FC7B237E4D9200E37FC1 /* PaymentViewController.m */; };
+		4C17FC7E237E4D9300E37FC1 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC7C237E4D9300E37FC1 /* PaymentViewController.xib */; };
+		4C17FC80237E542C00E37FC1 /* vnpay_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC7F237E542C00E37FC1 /* vnpay_logo.png */; };
+		4C17FC84237E5B0000E37FC1 /* VNPayPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17FC82237E5B0000E37FC1 /* VNPayPaymentView.m */; };
+		4C17FC85237E5B0000E37FC1 /* VNPayPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC83237E5B0000E37FC1 /* VNPayPaymentView.xib */; };
+		4C17FC8F237EB5DA00E37FC1 /* ic_email_microsoft.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC8B237EB5D900E37FC1 /* ic_email_microsoft.png */; };
+		4C17FC90237EB5DA00E37FC1 /* ic_email_hosting.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC8C237EB5D900E37FC1 /* ic_email_hosting.png */; };
+		4C17FC91237EB5DA00E37FC1 /* ic_email_google.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC8D237EB5D900E37FC1 /* ic_email_google.png */; };
+		4C17FC92237EB5DA00E37FC1 /* ic_email_server.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C17FC8E237EB5DA00E37FC1 /* ic_email_server.png */; };
 		4C1F7AB3237BA1FA00CDA210 /* IntroduceSSLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7AB1237BA1FA00CDA210 /* IntroduceSSLViewController.m */; };
 		4C1F7AB4237BA1FA00CDA210 /* IntroduceSSLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1F7AB2237BA1FA00CDA210 /* IntroduceSSLViewController.xib */; };
 		4C1F7AB8237BA2CD00CDA210 /* bg_ssl_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1F7AB5237BA2CB00CDA210 /* bg_ssl_header@2x.png */; };
@@ -569,7 +578,6 @@
 		4CF862EB23604DF6008B69EF /* DomainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862E923604DF6008B69EF /* DomainCell.m */; };
 		4CF862EC23604DF6008B69EF /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CF862EA23604DF6008B69EF /* DomainCell.xib */; };
 		4CF862F123604E1B008B69EF /* DomainDescriptionPoupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */; };
-		4CF862F223604E1B008B69EF /* WhoisDomainPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */; };
 		4CFAF22B237A4D20009D9AF3 /* ic_dropdown_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF22A237A4D1F009D9AF3 /* ic_dropdown_up.png */; };
 		4CFAF230237A63D8009D9AF3 /* IntroduceEmailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAF22E237A63D8009D9AF3 /* IntroduceEmailsViewController.m */; };
 		4CFAF231237A63D8009D9AF3 /* IntroduceEmailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAF22F237A63D8009D9AF3 /* IntroduceEmailsViewController.xib */; };
@@ -641,8 +649,6 @@
 		562362DF22E2DF03001AE97A /* SupportCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 562362DD22E2DF03001AE97A /* SupportCustomerCell.m */; };
 		562362E022E2DF03001AE97A /* SupportCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 562362DE22E2DF03001AE97A /* SupportCustomerCell.xib */; };
 		563B8DC622B9B6D6004A037D /* ck.pem in Resources */ = {isa = PBXBuildFile; fileRef = 563B8DC522B9B6D6004A037D /* ck.pem */; };
-		564619C522A812B400867B21 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564619C322A812B400867B21 /* PaymentViewController.m */; };
-		564619C622A812B400867B21 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 564619C422A812B400867B21 /* PaymentViewController.xib */; };
 		5649C7912299A3D90015DB1D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5649C7902299A3D90015DB1D /* MobileCoreServices.framework */; };
 		566A159D22AEBDF800604FE8 /* ic_his_topup.png in Resources */ = {isa = PBXBuildFile; fileRef = 566A159C22AEBDF800604FE8 /* ic_his_topup.png */; };
 		567FDFD522CD17710081616B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567FDFD422CD17700081616B /* QuartzCore.framework */; };
@@ -717,8 +723,6 @@
 		841F008A2274B0A100F1B314 /* HomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841F00882274B0A100F1B314 /* HomeMenuCell.m */; };
 		841F008B2274B0A100F1B314 /* HomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F00892274B0A100F1B314 /* HomeMenuCell.xib */; };
 		841F008F2274B2E000F1B314 /* HomeMenuObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 841F008E2274B2E000F1B314 /* HomeMenuObject.m */; };
-		8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8428FBFF22786F3B006BF4DB /* WhoIsNoResult.m */; };
-		8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428FC0122786F49006BF4DB /* WhoIsNoResult.xib */; };
 		842D754D22960A8F0028F392 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842D754C22960A8F0028F392 /* AVFoundation.framework */; };
 		842F81AE227561ED00D6DE6D /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F81A2227561EC00D6DE6D /* Roboto-MediumItalic.ttf */; };
 		842F81AF227561ED00D6DE6D /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842F81A3227561EC00D6DE6D /* Roboto-ThinItalic.ttf */; };
@@ -801,16 +805,8 @@
 		849E312B228074C5003A8813 /* ContactInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E3129228074C5003A8813 /* ContactInfoCell.xib */; };
 		84A1646D2284EA5C0001B833 /* atm.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A1646B2284EA5C0001B833 /* atm.png */; };
 		84A1646E2284EA5C0001B833 /* visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A1646C2284EA5C0001B833 /* visa.png */; };
-		84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A63C3D22839E9100C52B8A /* BonusAccountViewController.m */; };
-		84A63C4022839E9100C52B8A /* BonusAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A63C3E22839E9100C52B8A /* BonusAccountViewController.xib */; };
-		84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A63C432283A11400C52B8A /* BonusHistoryCell.m */; };
-		84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A63C442283A11400C52B8A /* BonusHistoryCell.xib */; };
 		84A63C482283A91500C52B8A /* gift-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A63C472283A91500C52B8A /* gift-box.png */; };
-		84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A63C4A2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m */; };
-		84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A63C4B2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib */; };
 		84C78F2D227B351200FCFC58 /* ic_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C78F2B227B350F00FCFC58 /* ic_profile.png */; };
-		84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DE29A62277F133005691AD /* WhoIsDomainView.m */; };
-		84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE29A82277F13E005691AD /* WhoIsDomainView.xib */; };
 		84F1730622833310006AEE87 /* wallet_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F1730522833310006AEE87 /* wallet_white.png */; };
 /* End PBXBuildFile section */
 
@@ -1086,6 +1082,17 @@
 		4C17858F235AC55C00943E14 /* SignUpBusinessProfileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpBusinessProfileView.h; sourceTree = "<group>"; };
 		4C178590235AC55C00943E14 /* SignUpBusinessProfileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpBusinessProfileView.m; sourceTree = "<group>"; };
 		4C178592235AC56900943E14 /* SignUpBusinessProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpBusinessProfileView.xib; sourceTree = "<group>"; };
+		4C17FC7A237E4D9100E37FC1 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		4C17FC7B237E4D9200E37FC1 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
+		4C17FC7C237E4D9300E37FC1 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
+		4C17FC7F237E542C00E37FC1 /* vnpay_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vnpay_logo.png; sourceTree = "<group>"; };
+		4C17FC81237E5B0000E37FC1 /* VNPayPaymentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VNPayPaymentView.h; sourceTree = "<group>"; };
+		4C17FC82237E5B0000E37FC1 /* VNPayPaymentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VNPayPaymentView.m; sourceTree = "<group>"; };
+		4C17FC83237E5B0000E37FC1 /* VNPayPaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VNPayPaymentView.xib; sourceTree = "<group>"; };
+		4C17FC8B237EB5D900E37FC1 /* ic_email_microsoft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email_microsoft.png; sourceTree = "<group>"; };
+		4C17FC8C237EB5D900E37FC1 /* ic_email_hosting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email_hosting.png; sourceTree = "<group>"; };
+		4C17FC8D237EB5D900E37FC1 /* ic_email_google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email_google.png; sourceTree = "<group>"; };
+		4C17FC8E237EB5DA00E37FC1 /* ic_email_server.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email_server.png; sourceTree = "<group>"; };
 		4C1F7AB0237BA1FA00CDA210 /* IntroduceSSLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroduceSSLViewController.h; sourceTree = "<group>"; };
 		4C1F7AB1237BA1FA00CDA210 /* IntroduceSSLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroduceSSLViewController.m; sourceTree = "<group>"; };
 		4C1F7AB2237BA1FA00CDA210 /* IntroduceSSLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroduceSSLViewController.xib; sourceTree = "<group>"; };
@@ -1525,9 +1532,7 @@
 		4CF862E923604DF6008B69EF /* DomainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainCell.m; sourceTree = "<group>"; };
 		4CF862EA23604DF6008B69EF /* DomainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomainCell.xib; sourceTree = "<group>"; };
 		4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomainDescriptionPoupView.m; sourceTree = "<group>"; };
-		4CF862EE23604E1A008B69EF /* WhoisDomainPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoisDomainPopupView.h; sourceTree = "<group>"; };
 		4CF862EF23604E1A008B69EF /* DomainDescriptionPoupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomainDescriptionPoupView.h; sourceTree = "<group>"; };
-		4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoisDomainPopupView.m; sourceTree = "<group>"; };
 		4CFAF22A237A4D1F009D9AF3 /* ic_dropdown_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropdown_up.png; sourceTree = "<group>"; };
 		4CFAF22D237A63D8009D9AF3 /* IntroduceEmailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroduceEmailsViewController.h; sourceTree = "<group>"; };
 		4CFAF22E237A63D8009D9AF3 /* IntroduceEmailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroduceEmailsViewController.m; sourceTree = "<group>"; };
@@ -1614,9 +1619,6 @@
 		562362DD22E2DF03001AE97A /* SupportCustomerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportCustomerCell.m; sourceTree = "<group>"; };
 		562362DE22E2DF03001AE97A /* SupportCustomerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportCustomerCell.xib; sourceTree = "<group>"; };
 		563B8DC522B9B6D6004A037D /* ck.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ck.pem; sourceTree = "<group>"; };
-		564619C222A812B400867B21 /* PaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
-		564619C322A812B400867B21 /* PaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
-		564619C422A812B400867B21 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
 		5649C7902299A3D90015DB1D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		566A159C22AEBDF800604FE8 /* ic_his_topup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_his_topup.png; sourceTree = "<group>"; };
 		567FDFD422CD17700081616B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1715,9 +1717,6 @@
 		841F00892274B0A100F1B314 /* HomeMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeMenuCell.xib; sourceTree = "<group>"; };
 		841F008D2274B2E000F1B314 /* HomeMenuObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeMenuObject.h; sourceTree = "<group>"; };
 		841F008E2274B2E000F1B314 /* HomeMenuObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeMenuObject.m; sourceTree = "<group>"; };
-		8428FBFE22786F3B006BF4DB /* WhoIsNoResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsNoResult.h; sourceTree = "<group>"; };
-		8428FBFF22786F3B006BF4DB /* WhoIsNoResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsNoResult.m; sourceTree = "<group>"; };
-		8428FC0122786F49006BF4DB /* WhoIsNoResult.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsNoResult.xib; sourceTree = "<group>"; };
 		842D754C22960A8F0028F392 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		842F81A2227561EC00D6DE6D /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		842F81A3227561EC00D6DE6D /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -1823,20 +1822,8 @@
 		849E3129228074C5003A8813 /* ContactInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoCell.xib; sourceTree = "<group>"; };
 		84A1646B2284EA5C0001B833 /* atm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atm.png; sourceTree = "<group>"; };
 		84A1646C2284EA5C0001B833 /* visa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa.png; sourceTree = "<group>"; };
-		84A63C3C22839E9100C52B8A /* BonusAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BonusAccountViewController.h; sourceTree = "<group>"; };
-		84A63C3D22839E9100C52B8A /* BonusAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BonusAccountViewController.m; sourceTree = "<group>"; };
-		84A63C3E22839E9100C52B8A /* BonusAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BonusAccountViewController.xib; sourceTree = "<group>"; };
-		84A63C422283A11400C52B8A /* BonusHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BonusHistoryCell.h; sourceTree = "<group>"; };
-		84A63C432283A11400C52B8A /* BonusHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BonusHistoryCell.m; sourceTree = "<group>"; };
-		84A63C442283A11400C52B8A /* BonusHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BonusHistoryCell.xib; sourceTree = "<group>"; };
 		84A63C472283A91500C52B8A /* gift-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gift-box.png"; sourceTree = "<group>"; };
-		84A63C492283A98B00C52B8A /* WithdrawalBonusAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalBonusAccountViewController.h; sourceTree = "<group>"; };
-		84A63C4A2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalBonusAccountViewController.m; sourceTree = "<group>"; };
-		84A63C4B2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawalBonusAccountViewController.xib; sourceTree = "<group>"; };
 		84C78F2B227B350F00FCFC58 /* ic_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_profile.png; sourceTree = "<group>"; };
-		84DE29A52277F133005691AD /* WhoIsDomainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhoIsDomainView.h; sourceTree = "<group>"; };
-		84DE29A62277F133005691AD /* WhoIsDomainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoIsDomainView.m; sourceTree = "<group>"; };
-		84DE29A82277F13E005691AD /* WhoIsDomainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhoIsDomainView.xib; sourceTree = "<group>"; };
 		84F1730522833310006AEE87 /* wallet_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wallet_white.png; sourceTree = "<group>"; };
 		84FA12602272783D002E290D /* AppString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppString.h; sourceTree = "<group>"; };
 		BFB713FC581A7341037EFCDC /* Pods-NhanHoa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NhanHoa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NhanHoa/Pods-NhanHoa.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1918,7 +1905,6 @@
 				4C28B91122F596C600910F54 /* OrdersList */,
 				5612F8A422E6BFCB00ECBBB1 /* Call */,
 				15A496E222AA080C007609E8 /* NhanHoa.entitlements */,
-				564619C122A812A000867B21 /* Payments */,
 				845D8130227EE54B005734CF /* Outsources */,
 				847E9AA4227EAB1C00C83F5A /* Model */,
 				156B8C20226ECF6D0020EDCB /* Resources */,
@@ -2092,6 +2078,11 @@
 				4CD7D8BF236C30F100418E8D /* bank_logo */,
 				4CD0C4DB2361599B007AA56A /* promos */,
 				4CD0C4D1236149C6007AA56A /* ic_call.png */,
+				4C17FC8D237EB5D900E37FC1 /* ic_email_google.png */,
+				4C17FC8C237EB5D900E37FC1 /* ic_email_hosting.png */,
+				4C17FC8B237EB5D900E37FC1 /* ic_email_microsoft.png */,
+				4C17FC8E237EB5DA00E37FC1 /* ic_email_server.png */,
+				4C17FC7F237E542C00E37FC1 /* vnpay_logo.png */,
 				4CFAF616237D44AD0013EE46 /* bg_search_domains_bottom.png */,
 				4CFAF617237D44AD0013EE46 /* bg_search_domains_top.png */,
 				4CFAF61A237D4CAA0013EE46 /* bg_search_result_bottom.png */,
@@ -2565,8 +2556,6 @@
 				4CF862EA23604DF6008B69EF /* DomainCell.xib */,
 				4CF862EF23604E1A008B69EF /* DomainDescriptionPoupView.h */,
 				4CF862ED23604E1A008B69EF /* DomainDescriptionPoupView.m */,
-				4CF862EE23604E1A008B69EF /* WhoisDomainPopupView.h */,
-				4CF862F023604E1B008B69EF /* WhoisDomainPopupView.m */,
 				4C3AFA95236C14FC009799CF /* WhoIsCell.h */,
 				4C3AFA96236C14FC009799CF /* WhoIsCell.m */,
 				4C3AFA97236C14FC009799CF /* WhoIsCell.xib */,
@@ -2751,6 +2740,9 @@
 				4C32526E2362EEBA00246DEB /* WalletViewController.h */,
 				4C32526F2362EEBA00246DEB /* WalletViewController.m */,
 				4C3252702362EEBA00246DEB /* WalletViewController.xib */,
+				4C17FC7A237E4D9100E37FC1 /* PaymentViewController.h */,
+				4C17FC7B237E4D9200E37FC1 /* PaymentViewController.m */,
+				4C17FC7C237E4D9300E37FC1 /* PaymentViewController.xib */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -2925,6 +2917,9 @@
 				56C1F6AD236571220006C4D1 /* ChooseMoneyTbvCell.h */,
 				56C1F6AE236571220006C4D1 /* ChooseMoneyTbvCell.m */,
 				56C1F6AF236571220006C4D1 /* ChooseMoneyTbvCell.xib */,
+				4C17FC81237E5B0000E37FC1 /* VNPayPaymentView.h */,
+				4C17FC82237E5B0000E37FC1 /* VNPayPaymentView.m */,
+				4C17FC83237E5B0000E37FC1 /* VNPayPaymentView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3244,20 +3239,9 @@
 			path = PemFiles;
 			sourceTree = "<group>";
 		};
-		564619C122A812A000867B21 /* Payments */ = {
-			isa = PBXGroup;
-			children = (
-				564619C222A812B400867B21 /* PaymentViewController.h */,
-				564619C322A812B400867B21 /* PaymentViewController.m */,
-				564619C422A812B400867B21 /* PaymentViewController.xib */,
-			);
-			path = Payments;
-			sourceTree = "<group>";
-		};
 		840F5DF622773137005BFC57 /* WhoIsDomain */ = {
 			isa = PBXGroup;
 			children = (
-				8446F4AC2277C150008F4EE9 /* UI */,
 				56FDEB6022B684C5001A14AE /* PricingDomainViewController.h */,
 				56FDEB6122B684C5001A14AE /* PricingDomainViewController.m */,
 				56FDEB6222B684C5001A14AE /* PricingDomainViewController.xib */,
@@ -3328,19 +3312,6 @@
 				842F81A3227561EC00D6DE6D /* Roboto-ThinItalic.ttf */,
 			);
 			path = roboto;
-			sourceTree = "<group>";
-		};
-		8446F4AC2277C150008F4EE9 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				84DE29A52277F133005691AD /* WhoIsDomainView.h */,
-				84DE29A62277F133005691AD /* WhoIsDomainView.m */,
-				84DE29A82277F13E005691AD /* WhoIsDomainView.xib */,
-				8428FBFE22786F3B006BF4DB /* WhoIsNoResult.h */,
-				8428FBFF22786F3B006BF4DB /* WhoIsNoResult.m */,
-				8428FC0122786F49006BF4DB /* WhoIsNoResult.xib */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		845D32BE227940880047B196 /* UI */ = {
@@ -3451,16 +3422,9 @@
 		8481F88922832D5100C88EB1 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				84A63C412283A0F300C52B8A /* UI */,
 				8481F88A22832DA100C88EB1 /* TopupViewController.h */,
 				8481F88B22832DA100C88EB1 /* TopupViewController.m */,
 				8481F88C22832DA100C88EB1 /* TopupViewController.xib */,
-				84A63C3C22839E9100C52B8A /* BonusAccountViewController.h */,
-				84A63C3D22839E9100C52B8A /* BonusAccountViewController.m */,
-				84A63C3E22839E9100C52B8A /* BonusAccountViewController.xib */,
-				84A63C492283A98B00C52B8A /* WithdrawalBonusAccountViewController.h */,
-				84A63C4A2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m */,
-				84A63C4B2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -3498,16 +3462,6 @@
 				84999C14227C86CB0006C80A /* JSONKit.m */,
 			);
 			path = "Web services";
-			sourceTree = "<group>";
-		};
-		84A63C412283A0F300C52B8A /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				84A63C422283A11400C52B8A /* BonusHistoryCell.h */,
-				84A63C432283A11400C52B8A /* BonusHistoryCell.m */,
-				84A63C442283A11400C52B8A /* BonusHistoryCell.xib */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		9A0A7850FCA5CEB26AD039E1 /* Frameworks */ = {
@@ -3729,7 +3683,6 @@
 				4CD0C51D2361A59D007AA56A /* ProfileInfoTbvCell.xib in Resources */,
 				4C017AE0230A38B7000E2780 /* tabbar_acc_act.png in Resources */,
 				4CEFDCA62359534A00CE9451 /* signin_logo.png in Resources */,
-				84A63C462283A11400C52B8A /* BonusHistoryCell.xib in Resources */,
 				4CD7D8FC236C3F5200418E8D /* Nam_A_Bank_Logo.jpg in Resources */,
 				4CB7B5772363043E008AA0BF /* money_out.png in Resources */,
 				4C765F0622F81756002AFEC8 /* windows_act.png in Resources */,
@@ -3804,6 +3757,7 @@
 				4C041EC922E8440A00DA7405 /* numpad_zero_hover.png in Resources */,
 				5612F8B922E6CAA000ECBBB1 /* end_call_def.png in Resources */,
 				4C041ED222E8443100DA7405 /* numpad_star_hover.png in Resources */,
+				4C17FC92237EB5DA00E37FC1 /* ic_email_server.png in Resources */,
 				4CD0C50D236190CD007AA56A /* more_wallet.png in Resources */,
 				4C178583235AA89500943E14 /* flag_vietnam.png in Resources */,
 				56D0295A22B3FAA500280127 /* DomainResultView.xib in Resources */,
@@ -3818,6 +3772,7 @@
 				5612F8B422E6CA6B00ECBBB1 /* speaker_dis.png in Resources */,
 				4C33075C2367DCDE008DD2F0 /* ProfileTbvCell.xib in Resources */,
 				846A41932275C759003C5D87 /* search_multi_domain.png in Resources */,
+				4C17FC91237EB5DA00E37FC1 /* ic_email_google.png in Resources */,
 				4CD0C50F236190CD007AA56A /* more_help.png in Resources */,
 				4CD0C50C236190CD007AA56A /* more_setting.png in Resources */,
 				4CFAF61C237D4CAB0013EE46 /* bg_search_result_bottom.png in Resources */,
@@ -3842,6 +3797,7 @@
 				157E2E702285380800D1ACDA /* circle_not_full_blue.png in Resources */,
 				4CDE63BA2378F21700A674EA /* HostingPackageTbvCell.xib in Resources */,
 				4C49FA752356F9D5001D0EEF /* search_domains.png in Resources */,
+				4C17FC85237E5B0000E37FC1 /* VNPayPaymentView.xib in Resources */,
 				4C33076B23681596008DD2F0 /* UpdateProfileViewController.xib in Resources */,
 				4C28B90E22F5957000910F54 /* menu_vps.png in Resources */,
 				4C1F7AB8237BA2CD00CDA210 /* bg_ssl_header@2x.png in Resources */,
@@ -3849,7 +3805,6 @@
 				5612F8BA22E6CAA000ECBBB1 /* end_call_act.png in Resources */,
 				845D32D02279677E0047B196 /* BusinessProfileView.xib in Resources */,
 				4CFAF602237CFBA50013EE46 /* UpdatePassportViewController.xib in Resources */,
-				564619C622A812B400867B21 /* PaymentViewController.xib in Resources */,
 				842F81B4227561ED00D6DE6D /* Roboto-BlackItalic.ttf in Resources */,
 				4C034F3F237ABAAC0058EFFE /* CloudServerTbvCell.xib in Resources */,
 				4C2EE1AA2376AF1300B13A2F /* HostingViewController.xib in Resources */,
@@ -3929,6 +3884,7 @@
 				4C28B91622F596E000910F54 /* OrdersListViewController.xib in Resources */,
 				4CD7D903236C3F5200418E8D /* GPBank_Logo.jpg in Resources */,
 				4CC376982366F2CC0029879E /* bg_profile_top.png in Resources */,
+				4C17FC90237EB5DA00E37FC1 /* ic_email_hosting.png in Resources */,
 				1517FB562274465B0044E878 /* menu_bonus.png in Resources */,
 				4CD7D8EE236C3F5200418E8D /* ABBANK_Logo.png in Resources */,
 				841966922276077400C14516 /* xyz.png in Resources */,
@@ -3970,6 +3926,7 @@
 				4C787834235EA37C00F8CDA0 /* ic_search_domains.png in Resources */,
 				56FCB6FC235E092600CD9D5F /* bottom_header.png in Resources */,
 				4CAAFDFB236A734400C0DA57 /* DomainInfoTbvCell.xib in Resources */,
+				4C17FC7E237E4D9300E37FC1 /* PaymentViewController.xib in Resources */,
 				1517FBA822745D810044E878 /* tabbar_home_def@2x.png in Resources */,
 				4CD0C4CA23613CDA007AA56A /* round_orange.png in Resources */,
 				4C041EB122E8439600DA7405 /* numpad_two_default.png in Resources */,
@@ -3995,14 +3952,11 @@
 				4CD7A6662355D54C00044E1A /* slider_1.png in Resources */,
 				1517FB5C2274465B0044E878 /* menu_search_domain.png in Resources */,
 				4C65811922FC28F300F38087 /* HostingUpgradeViewController.xib in Resources */,
-				84A63C4022839E9100C52B8A /* BonusAccountViewController.xib in Resources */,
 				56EAB3392377FD7600DAEE79 /* HostingDetailsTbvCell.xib in Resources */,
 				15E92AD32272A2F3004AB658 /* graphic.png in Resources */,
 				842F81B3227561ED00D6DE6D /* Roboto-Black.ttf in Resources */,
-				8428FC0222786F49006BF4DB /* WhoIsNoResult.xib in Resources */,
 				4C8B4580235D54E500D54F0F /* photo_empty_cart_en.png in Resources */,
 				4CD7D906236C3F5200418E8D /* HSBC_Logo.png in Resources */,
-				84A63C4D2283A98B00C52B8A /* WithdrawalBonusAccountViewController.xib in Resources */,
 				4C034F24237AA42B0058EFFE /* EmailDetailsTbvCell.xib in Resources */,
 				1517FBAA22745D810044E878 /* tabbar_home_def@3x.png in Resources */,
 				4CD7A63123558B3300044E1A /* NewHomeViewController.xib in Resources */,
@@ -4030,6 +3984,7 @@
 				4C034F4E237AC1740058EFFE /* CloudServerTemplateTbvCell.xib in Resources */,
 				1517FB9C22745D810044E878 /* tabbar_history_def@3x.png in Resources */,
 				4C49FA372356C366001D0EEF /* HomeSliderClvCell.xib in Resources */,
+				4C17FC80237E542C00E37FC1 /* vnpay_logo.png in Resources */,
 				4CD0C4EB236159AD007AA56A /* promos3.png in Resources */,
 				4C49FA83235705A9001D0EEF /* slider_3.png in Resources */,
 				4C1F7AB9237BA2CD00CDA210 /* bg_ssl_header@3x.png in Resources */,
@@ -4117,6 +4072,7 @@
 				4CD0C501236189E1007AA56A /* MoreTbvCell.xib in Resources */,
 				4C041ED522E8443100DA7405 /* numpad_star_default.png in Resources */,
 				4C041EC822E8440A00DA7405 /* numpad_nine_hover.png in Resources */,
+				4C17FC8F237EB5DA00E37FC1 /* ic_email_microsoft.png in Resources */,
 				843A0CA72281FD9C00A51CC6 /* com.vn.png in Resources */,
 				4CD7A63D2355AAA300044E1A /* HomeHeaderView.xib in Resources */,
 				1517FBA722745D810044E878 /* tabbar_home_act@3x.png in Resources */,
@@ -4170,7 +4126,6 @@
 				4CD0C4F323617DFF007AA56A /* search_domain_notfound.png in Resources */,
 				4CF862E523600C4C008B69EF /* close_round.png in Resources */,
 				4CD7A64D2355BE9100044E1A /* en.txt in Resources */,
-				84DE29A92277F13E005691AD /* WhoIsDomainView.xib in Resources */,
 				4C3307662367F8D5008DD2F0 /* ProfilePassportTbvCell.xib in Resources */,
 				4C041ED322E8443100DA7405 /* numpad_hash_default.png in Resources */,
 				4CEFDCBC235976DC00CE9451 /* ic_password.png in Resources */,
@@ -4256,7 +4211,6 @@
 			files = (
 				841E7C602284E2E80074DDF5 /* PaymentMethodCell.m in Sources */,
 				4C3AFA8A236C0AE8009799CF /* DNSRecordTypeCell.m in Sources */,
-				84A63C3F22839E9100C52B8A /* BonusAccountViewController.m in Sources */,
 				4CFAF620237D5B170013EE46 /* DomainInfoPopupView.m in Sources */,
 				56FC5DCE22CEF0D700254F25 /* CustomSwitchButton.m in Sources */,
 				845D32CE227967750047B196 /* BusinessProfileView.m in Sources */,
@@ -4284,7 +4238,6 @@
 				4C33075B2367DCDE008DD2F0 /* ProfileTbvCell.m in Sources */,
 				4CD7A6602355CAA200044E1A /* HomeSliderView.m in Sources */,
 				4C49FA3F2356C7A4001D0EEF /* HomePromotionClvCell.m in Sources */,
-				84A63C452283A11400C52B8A /* BonusHistoryCell.m in Sources */,
 				4CD7A6472355BB8700044E1A /* HomeMenuClvCell.m in Sources */,
 				4C034F23237AA42B0058EFFE /* EmailDetailsTbvCell.m in Sources */,
 				150845F7226EBF2400428514 /* ViewController.m in Sources */,
@@ -4311,7 +4264,6 @@
 				157A01CA22A7733D00A0B11F /* PECropView.m in Sources */,
 				4CEFDCC82359AC2900CE9451 /* NewPersonalProfileView.m in Sources */,
 				4C1566D423629E0000A3D0FF /* UpdateNewPersonalProfileView.m in Sources */,
-				84DE29A72277F133005691AD /* WhoIsDomainView.m in Sources */,
 				4C8B4590235DB25200D54F0F /* CartMoreInfoView.m in Sources */,
 				4C49FA362356C366001D0EEF /* HomeSliderClvCell.m in Sources */,
 				4C45168E23701CE7003D5686 /* DomainAvailableTbvCell.m in Sources */,
@@ -4342,6 +4294,7 @@
 				4CD0C4F823617E7C007AA56A /* NewMoreViewController.m in Sources */,
 				4C28B91522F596E000910F54 /* OrdersListViewController.m in Sources */,
 				15543EB322B1F759007E5966 /* ShoppingCartView.m in Sources */,
+				4C17FC84237E5B0000E37FC1 /* VNPayPaymentView.m in Sources */,
 				4C034F38237AB6E80058EFFE /* ServersViewController.m in Sources */,
 				4C8B4596235DB30E00D54F0F /* CartMoreInfoClvCell.m in Sources */,
 				56078BEC22E7F1540009A3AF /* DeviceUtils.m in Sources */,
@@ -4357,17 +4310,16 @@
 				56D0295322B3F8F700280127 /* OrderResultView.m in Sources */,
 				4C45169323701D03003D5686 /* DomainUnavailableTbvCell.m in Sources */,
 				4CEA116623584C3000762C45 /* PromotionsViewController.m in Sources */,
-				4CF862F223604E1B008B69EF /* WhoisDomainPopupView.m in Sources */,
 				157A01CC22A7733D00A0B11F /* UIImage+PECrop.m in Sources */,
 				56D0295822B3FA9900280127 /* DomainResultView.m in Sources */,
 				159F7DBB227AF63300A64586 /* DomainProfileCell.m in Sources */,
-				564619C522A812B400867B21 /* PaymentViewController.m in Sources */,
 				4C49FA86235711A1001D0EEF /* HomeExploreView.m in Sources */,
 				4CFCBC9E22FD136F00427B86 /* HostingPackageCell.m in Sources */,
 				4C1F7AC4237BA62400CDA210 /* OnlyPhotoClvCell.m in Sources */,
 				843F5AC9228B8E0B00DC179F /* PriceListView.m in Sources */,
 				849E312A228074C5003A8813 /* ContactInfoCell.m in Sources */,
 				4C1F7AE0237BB62B00CDA210 /* SSLDetailsTbvCell.m in Sources */,
+				4C17FC7D237E4D9300E37FC1 /* PaymentViewController.m in Sources */,
 				4CD7D8BD236C29CA00418E8D /* BankAccountViewController.m in Sources */,
 				4C2EE1AF2376B9F400B13A2F /* HostingTbvCell.m in Sources */,
 				4C28B92D22F5985900910F54 /* RegisterVPSViewController.m in Sources */,
@@ -4415,7 +4367,6 @@
 				4C9A16D7236ADA3C0022CC0C /* DNSRecordsTbvCell.m in Sources */,
 				4C0844F023669BF100E76F7F /* ContactTbvCell.m in Sources */,
 				159F7D97227AC92B00A64586 /* PaymentStepView.m in Sources */,
-				84A63C4C2283A98B00C52B8A /* WithdrawalBonusAccountViewController.m in Sources */,
 				560B16EA22B2AAFE0004DD29 /* AddOrderViewController.m in Sources */,
 				4CD0C51C2361A59D007AA56A /* ProfileInfoTbvCell.m in Sources */,
 				4CD0C500236189E1007AA56A /* MoreTbvCell.m in Sources */,
@@ -4434,7 +4385,6 @@
 				849827832285D50C00201ED7 /* NewProfileView.m in Sources */,
 				157F0C15228297C500DCB7D4 /* CartModel.m in Sources */,
 				56FDCBE023644C9F0036A69D /* TopUpMoneyView.m in Sources */,
-				8428FC0022786F3B006BF4DB /* WhoIsNoResult.m in Sources */,
 				4CC061FC232642DD00FE1F7E /* ALCommonHMAC.m in Sources */,
 				4C6DDD132339C82B009FE41C /* RSA.m in Sources */,
 				15D1BD7B2283CB8A004C0452 /* ProfileManagerCell.m in Sources */,

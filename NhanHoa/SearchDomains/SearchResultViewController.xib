@@ -16,6 +16,7 @@
                 <outlet property="icCart" destination="OUM-PD-xlR" id="hYP-Y2-kYN"/>
                 <outlet property="lbCount" destination="5xe-xq-2ND" id="M4e-uT-Ye4"/>
                 <outlet property="lbHeader" destination="fyB-A8-b2y" id="a0O-1b-QpL"/>
+                <outlet property="lbSepa" destination="mk1-su-kZd" id="Xia-mW-TNa"/>
                 <outlet property="tbResult" destination="hjU-04-0C7" id="JnA-x9-xBu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewFooter" destination="L8V-ih-H2K" id="V29-ur-wNi"/>
@@ -68,6 +69,14 @@
                     <rect key="frame" x="0.0" y="425" width="320" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mk1-su-kZd">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0j5-qb-Gcv">
                             <rect key="frame" x="18" y="12" width="283" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -87,7 +96,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-203" y="58"/>
+            <point key="canvasLocation" x="-561" y="52"/>
         </view>
     </objects>
     <resources>

@@ -27,20 +27,19 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mjB-hi-hIC">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wik-al-ybU">
-                            <rect key="frame" x="12" y="12" width="30" height="30"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gos-Ya-N1I">
+                            <rect key="frame" x="0.0" y="30" width="320" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="close_gray.png"/>
-                            <connections>
-                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="C9i-6F-fPL"/>
-                            </connections>
-                        </button>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="h09-JW-zUV">
                             <rect key="frame" x="8" y="55" width="304" height="304"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,6 +53,14 @@
                                 <action selector="btnConfirmPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nv6-dq-2TR"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wik-al-ybU">
+                            <rect key="frame" x="8" y="0.0" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="close_gray.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="C9i-6F-fPL"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -64,11 +71,12 @@
                 <outlet property="btnConfirm" destination="QSo-Si-Uzh" id="Xnz-mb-o09"/>
                 <outlet property="icClose" destination="wik-al-ybU" id="pxZ-cN-7Rc"/>
                 <outlet property="lbBackground" destination="DHv-Lt-Y5m" id="dsM-GD-fht"/>
+                <outlet property="lbDesc" destination="gos-Ya-N1I" id="9N4-GK-w1o"/>
                 <outlet property="lbTitle" destination="mjB-hi-hIC" id="Ael-xy-b97"/>
                 <outlet property="tbContent" destination="h09-JW-zUV" id="ga0-3c-hNq"/>
                 <outlet property="viewContent" destination="fJh-Oq-onf" id="Vsh-uF-OSK"/>
             </connections>
-            <point key="canvasLocation" x="-62.318840579710148" y="110.49107142857143"/>
+            <point key="canvasLocation" x="-343" y="47"/>
         </view>
     </objects>
     <resources>

@@ -90,7 +90,7 @@
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
-    lbHeader.textColor = GRAY_100;
+    lbHeader.textColor = GRAY_50;
     lbHeader.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize];
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
@@ -192,10 +192,15 @@
     btnContinue.backgroundColor = BLUE_COLOR;
     btnContinue.titleLabel.font = textFont;
     [btnContinue setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    float bottomY = padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        bottomY = appDelegate.safeAreaBottomPadding;
+    }
+    
     [btnContinue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewType).offset(padding);
         make.right.equalTo(viewType).offset(-padding);
-        make.bottom.equalTo(viewType).offset(-padding);
+        make.bottom.equalTo(viewType).offset(-bottomY);
         make.height.mas_equalTo(hBTN);
     }];
 }

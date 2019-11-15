@@ -261,9 +261,7 @@
 
 "Passport's front"      =   "CMND mặt trước"
 "Passport's backside"   =   "CMND mặt sau"
-
-"Edit personal profile" =   "Chỉnh sửa hồ sơ cá nhân"
-"Edit business profile" =   "Chỉnh sửa hồ sơ doanh nghiệp"
+"Edit profile"          =   "Chỉnh sửa hồ sơ"
 
 "Save info"     =   "Lưu thông tin"
 

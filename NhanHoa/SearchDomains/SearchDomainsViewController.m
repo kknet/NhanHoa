@@ -218,18 +218,21 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        icClear.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         hTextfield = 45.0;
         sizeIcon = 30.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        icClear.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         hTextfield = 48.0;
         sizeIcon = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
         icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        icClear.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
         hTextfield = 50.0;
         sizeIcon = 40.0;
     }
@@ -263,7 +266,7 @@
     }];
     
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40);
     }];
@@ -337,7 +340,6 @@
         make.width.height.mas_equalTo(20.0);
     }];
     
-    icClear.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icClear mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(tfSearch);
         make.top.bottom.equalTo(tfSearch);

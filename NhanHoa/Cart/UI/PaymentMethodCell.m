@@ -15,16 +15,23 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    float sizeIcon = 40.0;
-    float sizeTick = 20.0;
+    float sizeIcon = 50.0;
+    float sizeTick = 25.0;
     
-    if ([DeviceUtils isScreen320]) {
-        padding = 5.0;
-        sizeIcon = 30.0;
-    }
-    
-    if (!IS_IPHONE && !IS_IPOD) {
-        sizeTick = 30.0;
+    if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+        sizeTick = 20.0;
+        sizeIcon = 40.0;
+        lbTitle.font = [UIFont fontWithName:RobotoRegular size:16.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+        sizeTick = 23.0;
+        sizeIcon = 45.0;
+        lbTitle.font = [UIFont fontWithName:RobotoRegular size:18.0];
+        
+    }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+        sizeTick = 25.0;
+        sizeIcon = 50.0;
+        lbTitle.font = [UIFont fontWithName:RobotoRegular size:20.0];
     }
     
     [imgChoose mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -39,7 +46,7 @@
         make.width.height.mas_equalTo(sizeIcon);
     }];
     
-    lbTitle.font = [AppDelegate sharedInstance].fontRegular;
+    
     lbTitle.textColor = TITLE_COLOR;
     lbTitle.numberOfLines = 2;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {

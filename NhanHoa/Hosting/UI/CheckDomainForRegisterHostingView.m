@@ -9,7 +9,7 @@
 #import "CheckDomainForRegisterHostingView.h"
 
 @implementation CheckDomainForRegisterHostingView
-@synthesize lbBackground, viewContent, lbTitle, tfDomain, btnRegister, viewResult, imgResult, lbResult, icCheck, icBack;
+@synthesize lbBackground, viewContent, lbTitle, tfDomain, btnRegister, viewResult, imgResult, lbResult, icCheck, icBack, lbDesc;
 @synthesize hContentView, padding, hImgResult;
 @synthesize delegate;
 
@@ -18,7 +18,9 @@
     self.backgroundColor = UIColor.clearColor;
     
     padding = 15.0;
-    float hBTN = 50.0;
+    float hBTN = 53.0;
+    float hTitle = 40.0;
+    float hDesc = 30.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
@@ -31,7 +33,7 @@
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
     }
     
     UITapGestureRecognizer *tapClose = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboardView)];
@@ -44,7 +46,11 @@
     }];
     
     float hResultView = 300;
-    hContentView = padding + 50.0 + padding + hBTN + padding + hResultView + padding + hBTN + 2*padding;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding > 0) {
+        hContentView = padding + hTitle + hDesc + padding + hBTN + padding + hResultView + padding + hBTN + [AppDelegate sharedInstance].safeAreaBottomPadding;
+    }else{
+        hContentView = padding + hTitle + hDesc + padding + hBTN + padding + hResultView + padding + hBTN + 2*padding;
+    }
     
     viewContent.backgroundColor = UIColor.whiteColor;
     viewContent.layer.cornerRadius = 10.0;
@@ -55,27 +61,36 @@
         make.height.mas_equalTo(hContentView);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewContent).offset(padding);
-        make.left.equalTo(viewContent);
-        make.width.height.mas_equalTo(40.0);
-    }];
-    
     lbTitle.textColor = GRAY_50;
     lbTitle.font = textFont;
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewContent).offset(padding);
-        make.left.equalTo(icBack.mas_right).offset(5.0);
-        make.right.equalTo(viewContent).offset(-40.0 - 5.0);
-        make.height.mas_equalTo(50.0);
+        make.centerX.equalTo(viewContent.mas_centerX);
+        make.width.mas_equalTo(250.0);
+        make.height.mas_equalTo(hTitle);
+    }];
+    
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewContent).offset(5.0);
+        make.centerY.equalTo(lbTitle.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbDesc.textColor = GRAY_100;
+    lbDesc.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(lbTitle.mas_bottom);
+        make.left.equalTo(viewContent).offset(5.0);
+        make.right.equalTo(viewContent).offset(-5.0);
+        make.height.mas_equalTo(hDesc);
     }];
     
     icCheck.layer.cornerRadius = 10.0;
     icCheck.backgroundColor = BLUE_COLOR;
     icCheck.imageEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14);
     [icCheck mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
+        make.top.equalTo(lbDesc.mas_bottom).offset(padding);
         make.right.equalTo(viewContent).offset(-padding);
         make.width.height.mas_equalTo(hBTN);
     }];
@@ -158,7 +173,13 @@
 }
 
 - (void)showContentInfoView {
-    float originY = SCREEN_HEIGHT - hContentView + padding;
+    float originY;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding > 0) {
+        originY = SCREEN_HEIGHT - hContentView;
+    }else{
+        originY = SCREEN_HEIGHT - hContentView + padding;
+    }
+    
     [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(originY);
     }];

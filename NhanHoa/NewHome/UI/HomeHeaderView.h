@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectOnWithdrawHeaderMenu;
 - (void)selectOnPromotionHeaderMenu;
 - (void)selectOnTransactionHeaderMenu;
+- (void)selectOnMainWallet;
+- (void)selectOnBonusWallet;
 @end
 
 @interface HomeHeaderView : UIView

@@ -278,7 +278,6 @@
     float hImgSlider = (SCREEN_WIDTH - 2*padding) * imgSlider.size.height / imgSlider.size.width;
     heightSlider = hImgSlider + 30.0 + 50.0;
     
-    clvSliders.backgroundColor = ORANGE_COLOR;
     clvSliders.layer.cornerRadius = 10.0;
     clvSliders.clipsToBounds = TRUE;
     [clvSliders mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -290,6 +289,7 @@
     
     tbQuestions.scrollEnabled = FALSE;
     tbQuestions.backgroundColor = UIColor.whiteColor;
+    tbQuestions.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbQuestions.delegate = self;
     tbQuestions.dataSource = self;
     [tbQuestions registerNib:[UINib nibWithNibName:@"QuesttionTbvCell" bundle:nil] forCellReuseIdentifier:@"QuesttionTbvCell"];

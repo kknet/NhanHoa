@@ -119,6 +119,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)failedToGetVoipAccount: (NSString *)error;
 - (void)getVoipAccountSuccessfulWithData: (NSDictionary *)data;
 
+- (void)failedToTopupMoneyWithMoMo: (NSString *)error;
+- (void)topupMoneyWithMoMoSuccessfulWithData: (NSDictionary *)data;
+
+- (void)failedToGetFunWithVNPay: (NSString *)error;
+- (void)getFunVNPaySuccessfulWithData: (NSDictionary *)data;
+
 @end
 
 @interface WebServiceUtils : NSObject<WebServicesDelegate>
@@ -155,6 +161,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addOrderForDomain: (NSString *)domain contact_id: (NSString *)contact_id year: (int)year protect: (NSNumber *)protect;
 - (void)getAddfunWithAmout: (NSString *)amount type: (int)type;
 - (void)updateWhoisProtectForDomain: (NSString *)domain domainId: (NSString *)domainId protectValue: (BOOL)protect;
+
+- (void)MoMoPaymentWithAmount: (NSNumber *)amount appData:(NSString *)appData customerNumber:(NSString *)customerNumber;
+
+- (void)VNPayGetFunWithAmount: (NSNumber *)amount type: (NSNumber *)type;
 
 #pragma mark - Call API
 - (void)updateTokenForCallWithToken: (NSString *)token;

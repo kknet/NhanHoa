@@ -68,17 +68,15 @@
     
     isRegistrantInfo = TRUE;
     
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Chi tiết hồ sơ"];
+    
     if (profileType == type_personal) {
-        lbHeader.text = [appDelegate.localization localizedStringForKey:@"Personal profile details"];
-        
         [viewMenu mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
         }];
         
         [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:2.0];
     }else{
-        lbHeader.text = [appDelegate.localization localizedStringForKey:@"Business profile details"];
-        
         [viewMenu mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(hMenu);
         }];
@@ -96,7 +94,7 @@
     self.view.backgroundColor = UIColor.whiteColor;
     
     hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    hBTN = 50.0;
+    hBTN = 53.0;
     
     hSection = 15.0;
     hCell = 65.0;
@@ -118,7 +116,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hCell = 65.0;
-        hBTN = 50.0;
+        hBTN = 53.0;
     }
     
     float widthPassport = (SCREEN_WIDTH - 3*padding)/2;
@@ -187,7 +185,8 @@
     tbInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewMenu.mas_bottom).offset(paddingTop);
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     
     viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 2*padding + hBTN + padding)];
@@ -324,7 +323,6 @@
             }
             cell.lbSepa.hidden = (indexPath.row == (NUM_ROWS_PERSONAL_SEC_1-1))? TRUE : FALSE;
             
-            [cell updateFrameWithContent];
             return cell;
         }else if (indexPath.section == 1){
             ProfileInfoTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileInfoTbvCell"];
@@ -359,7 +357,7 @@
                 }
             }
             cell.lbSepa.hidden = (indexPath.row == (NUM_ROWS_PERSONAL_SEC_2-1))? TRUE : FALSE;
-            [cell updateFrameWithContent];
+
             return cell;
         }else{
             ProfilePassportTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfilePassportTbvCell"];
@@ -456,7 +454,6 @@
                 }
                 cell.lbSepa.hidden = (indexPath.row == (NUM_ROWS_REGISTRANT_SEC_1-1))? TRUE : FALSE;
                 
-                [cell updateFrameWithContent];
                 return cell;
                 
             }else if (indexPath.section == 1){
@@ -470,7 +467,6 @@
                 
                 cell.lbSepa.hidden = (indexPath.row == (NUM_ROWS_REGISTRANT_SEC_2-1))? TRUE : FALSE;
                 
-                [cell updateFrameWithContent];
                 return cell;
             }else{
                 ProfilePassportTbvCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfilePassportTbvCell"];
@@ -556,7 +552,6 @@
             }
             cell.lbSepa.hidden = (indexPath.row == 5)? TRUE : FALSE;
             
-            [cell updateFrameWithContent];
             return cell;
         }
     }
@@ -622,7 +617,8 @@
 - (IBAction)btnRegistrantPress:(UIButton *)sender
 {
     float hTableView = NUM_ROWS_REGISTRANT_SEC_1 * hCell + (NUM_ROWS_REGISTRANT_SEC_2-1)*hCell + hAddress + NUM_ROWS_REGISTRANT_SEC_3*hPassportView + 2*hSection;
-    float realHeight = hStatus + self.navigationController.navigationBar.frame.size.height + hMenu + hTableView + paddingTop;
+    float realHeight = hStatus + self.navigationController.navigationBar.frame.size.height + hMenu + hTableView + paddingTop + appDelegate.safeAreaBottomPadding;
+    
     if (realHeight + 2*padding + hBTN + padding < SCREEN_HEIGHT) {
         viewFooter.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-realHeight);
     }else{
@@ -648,7 +644,7 @@
 - (IBAction)btnBusinessPress:(UIButton *)sender
 {
     float hTableView = (NUM_ROWS_BUSINESS-1) * hCell + hAddress;
-    float realHeight = hStatus + self.navigationController.navigationBar.frame.size.height + hMenu + hTableView + paddingTop;
+    float realHeight = hStatus + self.navigationController.navigationBar.frame.size.height + hMenu + hTableView + paddingTop + appDelegate.safeAreaBottomPadding;
 
     if (realHeight + 2*padding + hBTN + padding < SCREEN_HEIGHT) {
         viewFooter.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-realHeight);

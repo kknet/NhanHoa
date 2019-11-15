@@ -678,8 +678,6 @@
             }
         }
         
-        [cell updateFrameWithContent];
-        
         return cell;
         
     }else if (tableView == tbBusiness){
@@ -720,7 +718,6 @@
                 break;
             }
         }
-        [cell updateFrameWithContent];
         return cell;
     }
     else{

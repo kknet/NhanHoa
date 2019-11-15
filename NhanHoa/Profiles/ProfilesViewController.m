@@ -108,30 +108,44 @@
     lbNoData.text = [appDelegate.localization localizedStringForKey:@"Empty list"];
 }
 
-- (void)setupUIForView {
-    padding = 20.0;
-    float hBTN = 50.0;
-    hTextfield = 45.0;
-    hCell = 100.0;
+- (void)setupUIForView
+{
+    float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    padding = 15.0;
+    float hBTN = 53.0;
+    
+    hTextfield = 50.0;
+    hCell = 120.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        hTextfield = 40.0;
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hBTN = 45.0;
+        hTextfield = 40.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        hCell = 100.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        hTextfield = 45.0;
-        hBTN = 48.0;
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        hBTN = 48.0;
+        hTextfield = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        hCell = 110.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        hTextfield = 45.0;
-        hBTN = 50.0;
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hBTN = 53.0;
+        hTextfield = 50.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        hCell = 120.0;
     }
-    hFooter = hBTN + padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooter = padding + hBTN + appDelegate.safeAreaBottomPadding;
+    }else{
+        hFooter = padding + hBTN + padding;
+    }
     
-    float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     
     UIImage *imgTop = [UIImage imageNamed:@"bg_profile_top"];
     float hHeader = SCREEN_WIDTH * imgTop.size.height / imgTop.size.width;
@@ -159,22 +173,21 @@
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     UITapGestureRecognizer *tapOnHeader = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
@@ -182,8 +195,7 @@
     
     //  footer view
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
+        make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(hFooter);
     }];
     
@@ -194,7 +206,7 @@
     [btnAddProfile mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewFooter).offset(padding);
         make.right.equalTo(viewFooter).offset(-padding);
-        make.centerY.equalTo(viewFooter.mas_centerY);
+        make.top.equalTo(viewFooter).offset(padding);
         make.height.mas_equalTo(hBTN);
     }];
     
@@ -226,12 +238,6 @@
         //  make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(hBottom);
     }];
-    
-//    [bgBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.left.equalTo(scvContent);
-//        make.width.mas_equalTo(SCREEN_WIDTH);
-//        make.height.mas_equalTo(hBottom);
-//    }];
     
     tfSearch.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
     tfSearch.layer.cornerRadius = 12.0;
@@ -268,8 +274,8 @@
     tbProfiles.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tbProfiles registerNib:[UINib nibWithNibName:@"ProfileTbvCell" bundle:nil] forCellReuseIdentifier:@"ProfileTbvCell"];
     [tbProfiles mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bgBottom).offset(padding/2);
-        make.right.equalTo(bgBottom).offset(-padding/2);
+        make.left.equalTo(bgBottom).offset(padding);
+        make.right.equalTo(bgBottom).offset(-padding);
         make.top.equalTo(tfSearch.mas_bottom).offset(padding);
         make.height.mas_equalTo(0);
     }];

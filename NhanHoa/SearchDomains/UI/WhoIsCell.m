@@ -15,19 +15,21 @@
     [super awakeFromNib];
     // Initialization code
     float padding = 15.0;
-    float hTextfield = 44.0;
+    float hTextfield = 50.0;
     self.backgroundColor = UIColor.clearColor;
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        hTextfield = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
+        hTextfield = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        hTextfield = 50.0;
     }
     
     tfDomain.font = textFont;

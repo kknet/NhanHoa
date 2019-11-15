@@ -16,17 +16,20 @@
     // Initialization code
     self.backgroundColor = UIColor.clearColor;
     float padding = 10.0;
-    float hLabel = 25.0;
+    float bottomPadding = 15.0;
     
-    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+    UIFont *textFont = [UIFont fontWithName:RobotoRegular size:19.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        bottomPadding = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:17.0];
+        bottomPadding = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        textFont = [UIFont fontWithName:RobotoRegular size:20.0];
+        textFont = [UIFont fontWithName:RobotoRegular size:19.0];
+        bottomPadding = 15.0;
     }
     
     float sizeText = [AppUtils getSizeWithText:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Representative"] withFont:textFont andMaxWidth:SCREEN_WIDTH].width + 10;
@@ -34,21 +37,20 @@
     viewWrap.layer.cornerRadius = 10.0;
     [viewWrap mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.bottom.equalTo(self).offset(-10.0);
+        make.bottom.equalTo(self).offset(-bottomPadding);
     }];
     
-    lbRepresentative.textColor = lbPhone.textColor = lbProfile.textColor = [UIColor colorWithRed:(120/255.0) green:(120/255.0) blue:(120/255.0) alpha:1.0];
-    lbRepresentativeValue.textColor = lbPhoneNumber.textColor = lbProfileValue.textColor = GRAY_80;
+    lbRepresentative.textColor = lbPhone.textColor = lbProfile.textColor = GRAY_100;
+    lbRepresentativeValue.textColor = lbPhoneNumber.textColor = lbProfileValue.textColor = GRAY_50;
     
     lbRepresentative.font = lbPhone.font = lbProfile.font = textFont;
     lbRepresentativeValue.font = lbPhoneNumber.font = lbProfileValue.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
     
     //  phone number
-    lbPhone.text = SFM(@"%@:", [[AppDelegate sharedInstance].localization localizedStringForKey:@"Phone number"]);
+    lbPhone.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Phone number"];
     [lbPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewWrap).offset(padding);
         make.centerY.equalTo(viewWrap.mas_centerY);
-        make.height.mas_equalTo(hLabel);
         make.width.mas_equalTo(sizeText);
     }];
     
@@ -59,11 +61,10 @@
     }];
     
     //  representative
-    lbRepresentative.text = SFM(@"%@:", [[AppDelegate sharedInstance].localization localizedStringForKey:@"Representative"]);
+    lbRepresentative.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Representative"];
     [lbRepresentative mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(lbPhone.mas_top);
+        make.bottom.equalTo(lbPhone.mas_top).offset(-3.0);
         make.left.right.equalTo(lbPhone);
-        make.height.mas_equalTo(hLabel);
     }];
     
     [lbRepresentativeValue mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,11 +73,10 @@
     }];
     
     //  profile type
-    lbProfile.text = SFM(@"%@:", [[AppDelegate sharedInstance].localization localizedStringForKey:@"Profile"]);
+    lbProfile.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Profile"];
     [lbProfile mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbPhone.mas_bottom);
+        make.top.equalTo(lbPhone.mas_bottom).offset(3.0);
         make.left.right.equalTo(lbPhone);
-        make.height.mas_equalTo(hLabel);
     }];
     
     [lbProfileValue mas_makeConstraints:^(MASConstraintMaker *make) {

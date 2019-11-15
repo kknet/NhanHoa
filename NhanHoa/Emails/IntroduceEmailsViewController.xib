@@ -110,7 +110,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_package.png" id="TGO-0l-XXQ">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_hosting.png" id="TGO-0l-XXQ">
                                             <rect key="frame" x="48" y="14" width="45" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -121,7 +121,7 @@
                                     <rect key="frame" x="150" y="0.0" width="140" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_package.png" id="mvm-wy-5qA">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_google.png" id="mvm-wy-5qA">
                                             <rect key="frame" x="54" y="1" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -139,7 +139,7 @@
                                     <rect key="frame" x="0.0" y="75" width="140" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_package.png" id="dXQ-nC-MAV">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_microsoft.png" id="dXQ-nC-MAV">
                                             <rect key="frame" x="54" y="8" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -157,7 +157,7 @@
                                     <rect key="frame" x="150" y="75" width="140" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_package.png" id="1zh-oE-FBM">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_email_server.png" id="1zh-oE-FBM">
                                             <rect key="frame" x="54" y="8" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -195,13 +195,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-1157" y="-6"/>
+            <point key="canvasLocation" x="-1458" y="14"/>
         </view>
     </objects>
     <resources>
         <image name="back.png" width="96" height="96"/>
         <image name="bg_email.png" width="750" height="339.5"/>
         <image name="cart.png" width="100" height="100"/>
-        <image name="ic_email_package.png" width="87.5" height="44.5"/>
+        <image name="ic_email_google.png" width="120" height="120"/>
+        <image name="ic_email_hosting.png" width="144" height="112"/>
+        <image name="ic_email_microsoft.png" width="123" height="124"/>
+        <image name="ic_email_server.png" width="115" height="134"/>
     </resources>
 </document>

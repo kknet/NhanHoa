@@ -23,16 +23,31 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="x8G-UG-Ztk">
-                    <rect key="frame" x="0.0" y="62" width="320" height="418"/>
+                    <rect key="frame" x="0.0" y="36" width="320" height="444"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K0b-1E-7bp">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wb7-vz-Ahb">
+                            <rect key="frame" x="0.0" y="30" width="320" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cyX-i9-uwJ">
+                            <rect key="frame" x="8" y="8" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="close_gray.png"/>
+                            <connections>
+                                <action selector="icCloseClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="iL2-Ui-ShI"/>
+                            </connections>
+                        </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Sq2-ii-HWa">
                             <rect key="frame" x="8" y="55" width="304" height="304"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,12 +69,17 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btnConfirm" destination="cHL-e1-C48" id="Fws-D9-jtf"/>
+                <outlet property="icClose" destination="cyX-i9-uwJ" id="wKf-jZ-h0d"/>
                 <outlet property="lbBackground" destination="PwF-zX-mnD" id="zww-3k-WaZ"/>
+                <outlet property="lbDesc" destination="Wb7-vz-Ahb" id="90D-Eg-Iz5"/>
                 <outlet property="lbTitle" destination="K0b-1E-7bp" id="7U7-N6-gpi"/>
                 <outlet property="tbContent" destination="Sq2-ii-HWa" id="9Qn-iF-M1E"/>
                 <outlet property="viewContent" destination="x8G-UG-Ztk" id="Zk6-KE-jMP"/>
             </connections>
-            <point key="canvasLocation" x="-501" y="123"/>
+            <point key="canvasLocation" x="-635" y="145"/>
         </view>
     </objects>
+    <resources>
+        <image name="close_gray.png" width="93" height="93"/>
+    </resources>
 </document>

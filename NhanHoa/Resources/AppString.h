@@ -18,12 +18,11 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
-#define MoMo_Merchant_ID    @"MOMOIQA420180417"
-#define MoMo_Partner_Code   @"MOMOIQA420180417"
-#define MoMo_IOS_SCHEME_ID  @"momoiqa420180417"
-#define MoMo_PublicKey      @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa+qMXS6O11x7jBGo9W3yxeHEsAdyDE40UoXhoQf9K6attSIclTZMEGfq6gmJm2BogVJtPkjvri5/j9mBntA8qKMzzanSQaBEbr8FyByHnf226dsLt1RbJSMLjCd3UC1n0Yq8KKvfHhvmvVbGcWfpgfo7iQTVmL0r1eQxzgnSq31EL1yYNMuaZjpHmQuT24Hmxl9W9enRtJyVTUhwKhtjOSOsR03sMnsckpFT9pn1/V9BE2Kf3rFGqc6JukXkqK6ZW9mtmGLSq3K+JRRq2w8PVmcbcvTr/adW4EL2yc1qk9Ec4HtiDhtSYd6/ov8xLVkKAQjLVt7Ex3/agRPfPrNwIDAQAB"
-#define MoMo_SecretKey      @"PPuDXq1KowPT1ftR8DvlQTHhC03aul17"
-#define MoMo_AccessKey      @"TNWFx9JWayevKPiB8LyTgODiCSrjstXN"
+#define MoMo_Merchant_ID    @"MOMOPEQ920190708"
+#define MoMo_Partner_Code   @"MOMOPEQ920190708"
+#define MoMo_IOS_SCHEME_ID  @"momopeq920190708"
+#define MoMo_PublicKey      @"MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxr6RyQxi1r31rfv4FNVq1NZ7YDZdB01QwbcG4R6T6lNMwOTggR8D5gvzx39KDvolZfUClyzCel5iYjRpqzQSxZJP81GZTRTso1ho9ltPt0rN6TRK0016jP1GItft3y+Qnr5eWNQltpKjju0oXOndaaBrUX8L7VUnrr/itM0DKA5KCZluE56GC/i9cySDTkHuD7Y/Mzjq7CHsrHqZsS2w8gfXtthGIT0Ih+1lUNKO+DDUQ79Q1Cn/FK6B13MQoyfFPOq23Qn8XwGg+hpina753Q5QuwLYPRzXdN/muZvELOJKgn6uWpLHLhm91HlMWATkloO6Zv6gGJ5VVnSgqX64kz/LKo4loRqUg6TZPS/HqEYpZzCPxS2bcE0PjYKkgQhS0Ssr1U3no42KCOaVZ8MtfJN3Xa8QItHSq6O9kNT/UYm+ceyiTR2FA+Jf88TINPf5C1PQimoFLKJVlgLC2poCfxi8+T2yrSOafNL+OEsOtrepiv0ksbojnDMpSQZzyQhsoYtwvd8uYx4gNQbPt4aLCSWhEEIW1KXpbXS5Anq2lNrhDiXiLir73ekc4C0fcUGM6vrnZKyu97aUGxRbfF4Q7CEL3D5pSnjwh6I49wDHr37tF71fFVPw02PoZ0GNpoupioskRbMS6AzN8DRMl1kWPjRMJxU+hAIw5F22YmCZhBsCAwEAAQ=="
+#define MoMo_SecretKey      @"kVDRJvFLj5N5Bd7pwc0Uaz0KdBxwgUQD"
 
 #define MoMo_Request_Type_Confirm   @"capture"
 #define MoMo_Request_Type_Cancel    @"revertAuthorize"
@@ -195,6 +194,8 @@
 #define addfun_func             @"Addfun"
 #define WhoisProtect_func       @"WhoisProtect"
 #define DNSRecord_func          @"DNSRecord"
+#define Momo_func               @"Momo"
+#define Vnpay_func              @"Vnpay"
 
 
 #define login_mod               @"login"
@@ -226,6 +227,9 @@
 #define addfun_mod              @"addfun"
 #define whois_protect_mod       @"whois_protect"
 #define dns_record_mod          @"dns_record"
+#define momo_mod                @"momo"
+#define vnpay_mod               @"vnpay"
+
 
 #define GetAccVoipAction        @"GetAccVoip"
 #define UpdateTokenAction       @"UpdateToken"
@@ -466,7 +470,6 @@
 #define otp_code_has_been_sent_to_your_phone_number     @"Mã OTP đã được gửi đến số điện thoại của bạn"
 #define your_account_has_been_activated_successfully    @"Tài khoản của bạn đã được kích hoạt thành công"
 
-#define no_internet             @"Không có kết nối internet. Vui lòng kiểm tra lại!"
 #define text_welcome_to         @"Chào mừng đến với"
 #define text_sign_in            @"Đăng nhập"
 #define text_sign_up            @"Đăng ký"

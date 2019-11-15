@@ -11,8 +11,6 @@
 #import "SearchMultiDomainsViewController.h"
 #import "DomainsViewController.h"
 #import "TopupViewController.h"
-#import "BonusAccountViewController.h"
-#import "WithdrawalBonusAccountViewController.h"
 #import "PricingDomainViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
@@ -278,9 +276,7 @@
         
     }else if ([title isEqualToString: text_bonus_account])
     {
-        BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-        bonusAccVC.hidesBottomBarWhenPushed = TRUE;
-        [self.navigationController pushViewController: bonusAccVC animated:TRUE];
+        
         
     }else if ([title isEqualToString: text_domains_management])
     {
@@ -290,9 +286,7 @@
         
     }else if ([title isEqualToString: text_draw_bonuses])
     {
-        WithdrawalBonusAccountViewController *withdrawVC = [[WithdrawalBonusAccountViewController alloc] initWithNibName:@"WithdrawalBonusAccountViewController" bundle:nil];
-        withdrawVC.hidesBottomBarWhenPushed = TRUE;
-        [self.navigationController pushViewController: withdrawVC animated:TRUE];
+        
         
     }else if ([title isEqualToString: text_profiles_list])
     {
@@ -579,9 +573,7 @@
 - (void)whenTapOnPoints {
     [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     
-    BonusAccountViewController *bonusAccVC = [[BonusAccountViewController alloc] initWithNibName:@"BonusAccountViewController" bundle:nil];
-    bonusAccVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController: bonusAccVC animated:YES];
+    
 }
 
 #pragma mark - UITextfield delegate

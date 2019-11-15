@@ -64,92 +64,24 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
     if ([self isMovingFromParentViewController]) {
-        [WriteLogsUtils writeLogContent:SFM(@"[%s] clear hash_key", __FUNCTION__)];
-        
         [AppDelegate sharedInstance].hashKey = @"";
     }
 }
 
 - (IBAction)btn500KPress:(UIButton *)sender {
-    topupMoney = 500000;
-    tfMoney.text = @"";
-    
-    sender.backgroundColor = ORANGE_COLOR;
-    [sender setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
-    btn1000K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
-    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
 }
 
 - (IBAction)btn1000KPress:(UIButton *)sender {
-    topupMoney = 1000000;
-    tfMoney.text = @"";
-    
-    sender.backgroundColor = ORANGE_COLOR;
-    [sender setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
-    btn500K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
-    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
 }
 
 - (IBAction)btn1500kPress:(UIButton *)sender {
-    topupMoney = 1500000;
-    tfMoney.text = @"";
-    
-    sender.backgroundColor = ORANGE_COLOR;
-    [sender setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    
-    btn500K.backgroundColor = btn1000K.backgroundColor = unselectedColor;
-    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
 }
 
 - (IBAction)btnTopupPress:(UIButton *)sender {
-    sender.backgroundColor = UIColor.whiteColor;
-    [sender setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    [self performSelector:@selector(startTopupMoney) withObject:nil afterDelay:0.05];
 }
 
 - (void)startTopupMoney{
-    btnTopup.backgroundColor = BLUE_COLOR;
-    [btnTopup setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     
-    if (![AppUtils checkNetworkAvailable]) {
-        [self.view makeToast:no_internet duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    //  check topup money
-    NSString *strMoney = tfMoney.text;
-    strMoney = [strMoney stringByReplacingOccurrencesOfString:@"." withString:@""];
-    strMoney = [strMoney stringByReplacingOccurrencesOfString:@"," withString:@""];
-    
-    if (![AppUtils checkValidCurrency: strMoney]) {
-        [self.view makeToast:@"Số tiền bạn muốn nạp không đúng định dạng. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-        return;
-    }
-    
-    if (![AppUtils isNullOrEmpty: strMoney] && ![strMoney isEqualToString:@"0"]) {
-        topupMoney = (long)[strMoney longLongValue];
-    }
-    
-    if (topupMoney == 0) {
-        [self.view makeToast:@"Vui lòng chọn hoặc nhập số tiền bạn muốn nạp!" duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-        return;
-    }
-    if (topupMoney < MIN_MONEY_TOPUP) {
-        NSString *strMinTopup = [AppUtils convertStringToCurrencyFormat:[NSString stringWithFormat:@"%d", MIN_MONEY_TOPUP]];
-        [self.view makeToast:[NSString stringWithFormat:@"Số tiền tối thiểu để nạp là %@VNĐ", strMinTopup] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].warningStyle];
-        return;
-    }
-    
-    int curUnixTime = (int)[[NSDate date] timeIntervalSince1970];
-    NSString *total = [NSString stringWithFormat:@"%@%d", PASSWORD, curUnixTime];
-    [AppDelegate sharedInstance].hashKey = [AppUtils getMD5StringOfString: total];
-    
-    [self goToPaymentView];
 }
 
 - (void)closeKeyboard {
@@ -325,14 +257,6 @@
 }
 
 - (void)textfieldMoneyChanged:(UITextField *)textField {
-    btn500K.backgroundColor = btn1000K.backgroundColor = btn1500K.backgroundColor = unselectedColor;
-    [btn500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1000K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    [btn1500K setTitleColor:TITLE_COLOR forState:UIControlStateNormal];
-    
-    NSString *cleanValue = [[textField.text componentsSeparatedByCharactersInSet: [[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-    NSString *result = [AppUtils convertStringToCurrencyFormat: cleanValue];
-    textField.text = result;
 }
 
 #pragma mark - PaymentDelegate

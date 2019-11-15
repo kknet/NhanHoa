@@ -73,6 +73,7 @@
         tbInfo.dataSource = self;
         tbInfo.scrollEnabled = FALSE;
         [tbInfo registerNib:[UINib nibWithNibName:@"DomainInfoRowTbvCell" bundle:nil] forCellReuseIdentifier:@"DomainInfoRowTbvCell"];
+        tbInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview: tbInfo];
         [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(lbHeader.mas_bottom);

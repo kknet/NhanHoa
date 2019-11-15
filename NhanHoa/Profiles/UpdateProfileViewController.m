@@ -59,12 +59,13 @@
     }
 }
 
-- (void)displayProfileInformation {
+- (void)displayProfileInformation
+{
+    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Edit profile"];
+    
     NSString *type = [appDelegate.profileEdit objectForKey:@"cus_own_type"];
     if (type != nil && [type isKindOfClass:[NSString class]]) {
         if ([type isEqualToString:@"0"]) {
-            lbHeader.text = [appDelegate.localization localizedStringForKey:@"Edit personal profile"];
-            
             profileType = type_personal;
             
             [self addUpdatePersonalProfileViewIfNeed];
@@ -72,7 +73,6 @@
             
             [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
         }else{
-            lbHeader.text = [appDelegate.localization localizedStringForKey:@"Edit business profile"];
             profileType = type_business;
 
             [self addUpdateBusinessProfileViewIfNeed];
@@ -97,12 +97,12 @@
     personalView.typeOfView = eUpdatePersonalProfile;
     personalView.tfFullname.enabled = FALSE;
     personalView.tfFullname.textColor = GRAY_150;
-    //  personalView.tfFullname.backgroundColor = LIGHT_GRAY_COLOR;
     [personalView setupUIForView];
     
     [personalView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
-        make.left.bottom.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     personalView.delegate = self;
 }
@@ -125,7 +125,8 @@
 
     [businessView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom);
-        make.left.bottom.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     businessView.delegate = self;
 }

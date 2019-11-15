@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum TypeWalletMenu{
+    eMainWalletMenu,
+    eBonusWalletMenu,
+}TypeWalletMenu;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WalletViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
@@ -29,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIView *viewFooter;
 @property (weak, nonatomic) IBOutlet UIButton *btnTopUp;
+
+@property (nonatomic, assign) TypeWalletMenu curMenu;
 
 - (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icCartClick:(UIButton *)sender;

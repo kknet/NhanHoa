@@ -11,7 +11,6 @@
 #import "CartModel.h"
 #import "DomainModel.h"
 #import "DomainDescriptionPoupView.h"
-#import "WhoisDomainPopupView.h"
 #import "DomainInfoPopupView.h"
 
 @interface SearchResultsViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, WebServiceUtilsDelegate, UITextFieldDelegate>
@@ -665,7 +664,7 @@
             [cell.btnWarning addTarget:self
                                 action:@selector(showDescriptionForCurrentDomain)
                       forControlEvents:UIControlEventTouchUpInside];
-            
+
         }else{
             cell.btnWarning.hidden = TRUE;
         }
@@ -765,9 +764,9 @@
 
 - (void)showDescriptionForCurrentDomain
 {
-    NSString *content = @"Lưu ý: Trong một số trường hợp, các tên miền gắn liền với tên thương hiệu riêng đã bảo hộ hoặc thương hiệu nổi tiếng hoặc các tên miền đang đấu giá, chính sách giá sẽ được căn cứ theo giá thực tế trong hệ thống tại thời điểm đăng ký (không theo CTKM). Khi đó, bộ phận kinh doanh của chúng tôi sẽ thông báo lại Quý khách.";
+    NSString *content = @"Lưu ý: Trong một số trường hợp, các tên miền gắn liền với tên thương hiệu riêng đã bảo hộ hoặc thương hiệu nổi tiếng hoặc các tên miền đang đấu giá, chính sách giá sẽ được căn cứ theo giá thực tế trong hệ thống tại thời điểm đăng ký (không theo CTKM).\n\nKhi đó, bộ phận kinh doanh của chúng tôi sẽ thông báo lại Quý khách.";
     
-    float sizeContent = [AppUtils getSizeWithText:content withFont:[AppDelegate sharedInstance].fontRegular andMaxWidth:(280-30.0)].height;
+    float sizeContent = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-2] andMaxWidth:(280-30.0)].height;
     float hPopup = 40.0 + sizeContent + 5.0 + 15.0;
     
     DomainDescriptionPoupView *popupView = [[DomainDescriptionPoupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-300)/2, (SCREEN_HEIGHT - hPopup)/2, 300, hPopup)];
@@ -794,11 +793,6 @@
     DomainInfoPopupView *popupView = [[DomainInfoPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
     popupView.domain = domain;
     [popupView showInView:self.view animated:TRUE];
-    
-    
-//    WhoisDomainPopupView *popupView = [[WhoisDomainPopupView alloc] initWithFrame:CGRectMake(marginX, (SCREEN_HEIGHT - hPopup)/2, SCREEN_WIDTH-2*marginX, hPopup)];
-//    popupView.domain = domain;
-//    [popupView showInView:self.view animated:TRUE];
 }
 
 #pragma mark - UIScrollDelegate

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIView *viewFooter;
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
+@property (weak, nonatomic) IBOutlet UILabel *lbSepa;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbResult;
 

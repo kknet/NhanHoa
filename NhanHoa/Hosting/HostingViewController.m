@@ -45,7 +45,7 @@
 - (void)setupUIForView
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
-    float hMenu = 50.0;
+    float hMenu = 60.0;
     
     padding = 15.0;
     float hBTN = 45.0;
@@ -53,12 +53,18 @@
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        hMenu = 50.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        hMenu = 55.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        hMenu = 60.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     hWindowsHostingCell = padding + 40.0 + padding + 35.0*9 + padding + 1.0 + padding + hBTN + padding + 15.0;
     
@@ -80,29 +86,28 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  scrollview menu
@@ -170,12 +175,21 @@
     tbContent.delegate = self;
     tbContent.dataSource = self;
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvMenu.mas_bottom).offset(padding);
-        make.left.equalTo(self.view).offset(padding);
-        make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
-    }];
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(scvMenu.mas_bottom).offset(padding);
+            make.left.equalTo(self.view).offset(padding);
+            make.right.equalTo(self.view).offset(-padding);
+            make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
+        }];
+    }else{
+        [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(scvMenu.mas_bottom).offset(padding);
+            make.left.equalTo(self.view).offset(padding);
+            make.right.equalTo(self.view).offset(-padding);
+            make.bottom.equalTo(self.view).offset(-padding);
+        }];
+    }
 }
 
 
@@ -298,6 +312,14 @@
     return hWindowsHostingCell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.1;
+}
+
 - (void)onBuyButtonPress: (UIButton *)sender {
     if (choosePackageView == nil) {
         NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"ChooseHostingPackgeView" owner:nil options:nil];
@@ -316,22 +338,22 @@
     [choosePackageView setupUIForViewWithInfo:[self getListTimeInfoForCurrentPackage]];
     
     if (sender.tag == eWindowsHostingStudent) {
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Sinh viên");
+        choosePackageView.lbDesc.text = @"Gói Sinh viên";
         
     }else if (sender.tag == eWindowsHostingPersonal){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân");
+        choosePackageView.lbDesc.text = @"Gói Cá nhân";
         
     }else if (sender.tag == eWindowsHostingPersonalPlus){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Cá nhân+");
+        choosePackageView.lbDesc.text = @"Gói Cá nhân+";
         
     }else if (sender.tag == eWindowsHostingBusiness){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Doanh nghiệp");
+        choosePackageView.lbDesc.text = @"Gói Doanh nghiệp";
         
     }else if (sender.tag == eWindowsHostingECommerce){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Thương mại điện tử");
+        choosePackageView.lbDesc.text = @"Gói Thương mại điện tử";
         
     }else if (sender.tag == eWindowsHostingProfessional){
-        choosePackageView.lbTitle.text = SFM(@"%@\n%@", @"Chọn thời gian cho gói", @"Chuyên nghiệp");
+        choosePackageView.lbDesc.text = @"Gói Chuyên nghiệp";
     }
     
     [choosePackageView performSelector:@selector(showContentInfoView) withObject:nil afterDelay:0.05];

@@ -23,7 +23,7 @@
         
         icClose = [[UIButton alloc] init];
         icClose.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-        [icClose setImage:[UIImage imageNamed:@"close_blue"] forState:UIControlStateNormal];
+        [icClose setImage:[UIImage imageNamed:@"close_gray"] forState:UIControlStateNormal];
         [icClose addTarget:self
                      action:@selector(fadeOut)
            forControlEvents:UIControlEventTouchUpInside];
@@ -35,7 +35,6 @@
         
         lbContent = [[UILabel alloc] init];
         lbContent.numberOfLines = 30;
-        lbContent.font = [AppDelegate sharedInstance].fontRegular;
         lbContent.textColor = TITLE_COLOR;
         [self addSubview: lbContent];
         [lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -43,6 +42,17 @@
             make.right.bottom.equalTo(self).offset(-padding);
             make.top.equalTo(self.icClose.mas_bottom);
         }];
+        
+        lbContent.font = [UIFont fontWithName:RobotoRegular size:20.0];
+        if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
+            lbContent.font = [UIFont fontWithName:RobotoRegular size:16.0];
+            
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
+            lbContent.font = [UIFont fontWithName:RobotoRegular size:18.0];
+            
+        }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
+            lbContent.font = [UIFont fontWithName:RobotoRegular size:20.0];
+        }
     }
     return self;
 }

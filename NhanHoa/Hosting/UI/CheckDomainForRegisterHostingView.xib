@@ -23,7 +23,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="vOc-oK-ycC">
-                    <rect key="frame" x="0.0" y="262" width="320" height="218"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xYS-HO-JsY">
@@ -34,8 +34,15 @@
                                 <action selector="icBackClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="60T-zI-Rlk"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập tên miền sử dụng cho dịch vụ Doanh nghiệp" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HRh-b6-300">
-                            <rect key="frame" x="47" y="8" width="227" height="50"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập tên miền áp dụng" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HRh-b6-300">
+                            <rect key="frame" x="47" y="0.0" width="227" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="desc" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jr3-oU-pg4">
+                            <rect key="frame" x="0.0" y="30" width="320" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -66,14 +73,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k7c-IN-yh5">
-                            <rect key="frame" x="8" y="173" width="304" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Register hosting"/>
-                            <connections>
-                                <action selector="btnRegisterPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="1xX-Ok-CUa"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dbq-pD-2Dr">
                             <rect key="frame" x="245" y="69" width="27" height="27"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -81,6 +80,14 @@
                             <state key="normal" image="search.png"/>
                             <connections>
                                 <action selector="icCheckClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="b0d-lC-QpU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k7c-IN-yh5">
+                            <rect key="frame" x="8" y="364" width="304" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Register hosting"/>
+                            <connections>
+                                <action selector="btnRegisterPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="1xX-Ok-CUa"/>
                             </connections>
                         </button>
                     </subviews>
@@ -95,13 +102,14 @@
                 <outlet property="icCheck" destination="dbq-pD-2Dr" id="nzF-TO-lZo"/>
                 <outlet property="imgResult" destination="Xkv-cE-pgd" id="Pci-vJ-s0o"/>
                 <outlet property="lbBackground" destination="WWf-gm-VWs" id="wTj-oa-Qig"/>
+                <outlet property="lbDesc" destination="Jr3-oU-pg4" id="h0Y-HG-OTS"/>
                 <outlet property="lbResult" destination="E2X-k2-vpe" id="fnh-4Z-Tyx"/>
                 <outlet property="lbTitle" destination="HRh-b6-300" id="cb5-HE-kJw"/>
                 <outlet property="tfDomain" destination="0uq-PN-ic0" id="xSM-Yq-y0R"/>
                 <outlet property="viewContent" destination="vOc-oK-ycC" id="UGK-5x-ZMR"/>
                 <outlet property="viewResult" destination="fFv-2b-RsM" id="blT-ns-qZE"/>
             </connections>
-            <point key="canvasLocation" x="-597.10144927536237" y="7.3660714285714279"/>
+            <point key="canvasLocation" x="-793" y="-35"/>
         </view>
     </objects>
     <resources>

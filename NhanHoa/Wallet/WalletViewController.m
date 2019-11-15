@@ -9,8 +9,10 @@
 #import "WalletViewController.h"
 #import "TopUpMoneyView.h"
 #import "WalletTransHistoryCell.h"
+#import "PaymentViewController.h"
 
-@interface WalletViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>{
+@interface WalletViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, TopUpMoneyViewDelegate, WebServiceUtilsDelegate>
+{
     AppDelegate *appDelegate;
     float padding;
     UIFont *textFont;
@@ -25,7 +27,7 @@
 
 @implementation WalletViewController
 
-@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, btnMainWallet, btnBonusWallet, lbBalance, lbCurrency, lbMoney, tbHistory, viewFooter, btnTopUp, bgWallet;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, scvContent, btnMainWallet, btnBonusWallet, lbBalance, lbCurrency, lbMoney, tbHistory, viewFooter, btnTopUp, bgWallet, curMenu;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,10 +39,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
+    if (curMenu == eMainWalletMenu) {
+        [self activeMenuMainWallet: TRUE];
+        [self showUserMainWalletView: TRUE];
+    }else{
+        [self activeMenuMainWallet: FALSE];
+        [self showUserMainWalletView: FALSE];
+    }
+    
     [self reUpdateFrameForView];
     [self showContentWithCurrentLanguage];
-    
-    [self showUserMainWalletView: TRUE];
 }
 
 - (void)showUserMainWalletView: (BOOL)showMain {
@@ -52,6 +60,7 @@
         }else{
             lbMoney.text = @"0";
         }
+        [btnTopUp setTitle:@"Nạp tiền" forState:UIControlStateNormal];
     }else{
         NSString *bonus = [AccountModel getCusPoint];
         if (![AppUtils isNullOrEmpty: bonus]) {
@@ -60,6 +69,7 @@
         }else{
             lbMoney.text = @"0";
         }
+        [btnTopUp setTitle:@"Rút tiền thưởng" forState:UIControlStateNormal];
     }
 }
 
@@ -75,7 +85,6 @@
     [btnMainWallet setTitle:[appDelegate.localization localizedStringForKey:@"Main wallet"] forState:UIControlStateNormal];
     [btnBonusWallet setTitle:[appDelegate.localization localizedStringForKey:@"Bonus wallet"] forState:UIControlStateNormal];
     lbBalance.text = [appDelegate.localization localizedStringForKey:@"Balance"];
-    [btnTopUp setTitle:[appDelegate.localization localizedStringForKey:@"Top up"] forState:UIControlStateNormal];
 }
 
 - (void)setupUIForView
@@ -253,8 +262,6 @@
     btnTopUp.backgroundColor = [UIColor colorWithRed:(47/255.0) green:(125/255.0) blue:(215/255.0) alpha:1.0];
     btnTopUp.titleLabel.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
     [btnTopUp setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [btnTopUp setTitle:[appDelegate.localization localizedStringForKey:@"Top up"]
-              forState:UIControlStateNormal];
     if (appDelegate.safeAreaBottomPadding > 0) {
         [btnTopUp mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(viewFooter).offset(padding);
@@ -280,11 +287,15 @@
 }
 
 - (IBAction)btnMainWalletPress:(UIButton *)sender {
+    curMenu = eMainWalletMenu;
+    
     [self activeMenuMainWallet: TRUE];
     [self showUserMainWalletView: TRUE];
 }
 
 - (IBAction)btnBonusWalletPress:(UIButton *)sender {
+    curMenu = eBonusWalletMenu;
+    
     [self activeMenuMainWallet: FALSE];
     [self showUserMainWalletView: FALSE];
 }
@@ -322,6 +333,13 @@
         [topupView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(self.view);
         }];
+    }
+    topupView.delegate = self;
+    
+    if (curMenu == eMainWalletMenu) {
+        topupView.popupType = ePopupTopup;
+    }else{
+        topupView.popupType = ePopupWithdraw;
     }
     [topupView performSelector:@selector(showMoneyListToTopUp) withObject:nil afterDelay:0.2];
 }
@@ -441,15 +459,79 @@
         [bgWallet mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(-scrollView.contentOffset.y);
         }];
-        
-        //  NSLog(@"y = %f", scrollView.contentOffset.y);
     }
+}
+
+#pragma mark - TopupMoneyViewDelegate
+-(void)closeTopupMoneyView {
+    [UIView animateWithDuration:0.2 animations:^{
+        topupView.viewContent.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, topupView.hContent);
+    }completion:^(BOOL finished) {
+        [topupView removeFromSuperview];
+        topupView = nil;
+    }];
+}
+
+-(void)startTopupToAccountWithMoneyValue:(long)money {
+    if (money >= MIN_MONEY_TOPUP) {
+        PaymentViewController *paymentVC = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+        paymentVC.money = money;
+        [self.navigationController pushViewController:paymentVC animated:TRUE];
+        
+    }else{
+        [self.view makeToast:@"Số tiền nạp không hợp lệ. Vui lòng kiểm tra lại!" duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+    }
+}
+
+- (void)showAlertConfirmToWithDraw:(long)money
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-//    float y = hBgWallet - (scrollView.contentOffset.y + hBgWallet);
-//    float height = MIN(MAX(y, hBgWallet), 400);
-//    [bgWallet mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.height.mas_equalTo(height);
-//    }];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:@"Bạn chắc chắn muốn rút tiền thưởng?"];
+    [attrTitle addAttribute:NSFontAttributeName value:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-2] range:NSMakeRange(0, attrTitle.string.length)];
+    [alertVC setValue:attrTitle forKey:@"attributedTitle"];
+    
+    UIAlertAction *btnClose = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Close"] style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         
+                                                     }];
+    [btnClose setValue:UIColor.redColor forKey:@"titleTextColor"];
+    
+    UIAlertAction *btnRenew = [UIAlertAction actionWithTitle:[appDelegate.localization localizedStringForKey:@"Yes"] style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action){
+                                                         [ProgressHUD backgroundColor: ProgressHUD_BG];
+                                                         [ProgressHUD show:[appDelegate.localization localizedStringForKey:@"Processing..."] Interaction:FALSE];
+                                                         
+                                                         [WebServiceUtils getInstance].delegate = self;
+                                                         [[WebServiceUtils getInstance] withdrawWithAmout: money];
+                                                     }];
+    [btnRenew setValue:BLUE_COLOR forKey:@"titleTextColor"];
+    
+    [alertVC addAction:btnClose];
+    [alertVC addAction:btnRenew];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+#pragma mark - WebServiceUtils Delegate
+-(void)failedToWithdrawWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)withdrawSuccessfulWithData:(NSDictionary *)data {
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self.view makeToast:content duration:2.0 position:CSToastPositionCenter style:appDelegate.errorStyle];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    [self.view makeToast:@"Tiền thưởng đã được rút thành công.\nChúng tôi sẽ liên hệ lại với bạn sớm." duration:3.0 position:CSToastPositionCenter style:appDelegate.successStyle];
 }
 
 @end

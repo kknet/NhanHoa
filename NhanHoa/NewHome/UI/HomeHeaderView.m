@@ -130,6 +130,9 @@
     }];
     
     //  main wallet
+    UITapGestureRecognizer *tapOnMainWallet = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnViewMainWallet)];
+    [viewMainWallet addGestureRecognizer: tapOnMainWallet];
+    
     [viewMainWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.equalTo(viewWallet);
         make.right.equalTo(lbSepa.mas_left);
@@ -155,6 +158,9 @@
 
 
     //  bonus wallet
+    UITapGestureRecognizer *tapOnBonusWallet = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnViewBonusWallet)];
+    [viewBonusWallet addGestureRecognizer: tapOnBonusWallet];
+    
     [viewBonusWallet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(viewWallet);
         make.left.equalTo(lbSepa.mas_right);
@@ -231,6 +237,18 @@
     [self addCurvePathForViewWithHeight: hContentView];
     
     lbTopup.font = lbWithdraw.font = lbPromotion.font = lbTrans.font = [UIFont fontWithName:RobotoRegular size:titleFont.pointSize-4];
+}
+
+- (void)whenTapOnViewMainWallet {
+    if ([delegate respondsToSelector:@selector(selectOnMainWallet)]) {
+        [delegate selectOnMainWallet];
+    }
+}
+
+- (void)whenTapOnViewBonusWallet {
+    if ([delegate respondsToSelector:@selector(selectOnBonusWallet)]) {
+        [delegate selectOnBonusWallet];
+    }
 }
 
 - (void)addCurvePathForViewWithHeight: (float)height {

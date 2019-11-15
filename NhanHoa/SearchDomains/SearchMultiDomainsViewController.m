@@ -52,9 +52,9 @@
     }
     
     if (listDomain.count == 0) {
-        [listDomain addObject:@"nhanhoa.com.vn"];
-        [listDomain addObject:@"khaile76.com.vn"];
-        [listDomain addObject:@"taolaobidao.tele"];
+        [listDomain addObject:@""];
+        [listDomain addObject:@""];
+        [listDomain addObject:@""];
     }
     
     [self reUpdateLayoutForView];
@@ -105,20 +105,31 @@
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
-    hBTN = 50.0;
+    hBTN = 53.0;
+    hCell = 65.0;
+    float hTitle = 120.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         hBTN = 45.0;
+        hTitle = 80.0;
+        hCell = 55.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         hBTN = 48.0;
+        hTitle = 100.0;
+        hCell = 60.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
+        hTitle = 120.0;
+        hCell = 65.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     //  header view
@@ -138,29 +149,28 @@
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  footer button
@@ -180,12 +190,11 @@
         scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 
-    self.view.backgroundColor = scvContent.backgroundColor = [UIColor colorWithRed:(240/255.0) green:(240/255.0) blue:(240/255.0) alpha:1.0];
+    self.view.backgroundColor = scvContent.backgroundColor = GRAY_240;
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader.mas_bottom).offset(7.0);
         make.left.right.equalTo(self.view);
-        //  make.bottom.equalTo(btnCheck.mas_top).offset(-padding);
         make.bottom.equalTo(self.view).offset(-padding - hBTN - appDelegate.safeAreaBottomPadding);
     }];
 
@@ -193,12 +202,10 @@
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(scvContent);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(80.0);
+        make.height.mas_equalTo(hTitle);
     }];
 
     //  table
-    hCell = 55.0;
-
     [tbDomains registerNib:[UINib nibWithNibName:@"WhoIsCell" bundle:nil] forCellReuseIdentifier:@"WhoIsCell"];
     tbDomains.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbDomains.backgroundColor = UIColor.clearColor;

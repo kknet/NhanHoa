@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lbDesc;
+@property (weak, nonatomic) IBOutlet UIButton *icClose;
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnConfirm;
 
@@ -35,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showContentInfoView;
 
 - (IBAction)btnConfirmPress:(UIButton *)sender;
+- (IBAction)icCloseClick:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

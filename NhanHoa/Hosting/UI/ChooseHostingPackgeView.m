@@ -10,7 +10,7 @@
 #import "HostingPackageTbvCell.h"
 
 @implementation ChooseHostingPackgeView
-@synthesize lbBackground, viewContent, lbTitle, tbContent, btnConfirm;
+@synthesize lbBackground, viewContent, lbTitle, tbContent, btnConfirm, lbDesc, icClose;
 @synthesize hContentView, padding, listData, hCell;
 @synthesize delegate;
 
@@ -19,30 +19,35 @@
     listData = infos;
     
     padding = 15.0;
-    float hBTN = 50.0;
-    hCell = 75.0;
+    float hBTN = 53.0;
+    hCell = 85.0;
+    float hTitle = 40.0;
+    float hDesc = 30.0;
     
     UIFont *textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         hBTN = 45.0;
+        hCell = 75.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         hBTN = 48.0;
+        hCell = 80.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
+        hCell = 85.0;
     }
     
-    hContentView = padding + 50.0 + padding + infos.count * hCell + padding + hBTN + 2*padding;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding > 0) {
+        hContentView = padding + hTitle + hDesc + padding + infos.count * hCell + padding + hBTN + [AppDelegate sharedInstance].safeAreaBottomPadding;
+    }else{
+        hContentView = padding + hTitle + hDesc + padding + infos.count * hCell + padding + hBTN + 2*padding;
+    }
     
     self.backgroundColor = UIColor.clearColor;
-    
-    UITapGestureRecognizer *tapClose = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
-    lbBackground.userInteractionEnabled = TRUE;
-    [lbBackground addGestureRecognizer: tapClose];
     
     lbBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [lbBackground mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,11 +65,28 @@
     
     lbTitle.textColor = GRAY_50;
     lbTitle.font = textFont;
+    lbTitle.text = @"Chọn thời gian";
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewContent).offset(padding);
-        make.left.equalTo(viewContent).offset(padding);
-        make.right.equalTo(viewContent).offset(-padding);
-        make.height.mas_equalTo(50.0);
+        make.centerX.equalTo(viewContent.mas_centerX);
+        make.width.mas_equalTo(250.0);
+        make.height.mas_equalTo(hTitle);
+    }];
+    
+    icClose.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+    [icClose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewContent).offset(5.0);
+        make.centerY.equalTo(lbTitle.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbDesc.textColor = GRAY_100;
+    lbDesc.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
+    [lbDesc mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(lbTitle.mas_bottom);
+        make.left.equalTo(viewContent).offset(5.0);
+        make.right.equalTo(viewContent).offset(-5.0);
+        make.height.mas_equalTo(hDesc);
     }];
     
     [btnConfirm setTitle:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Confirm"] forState:UIControlStateNormal];
@@ -72,12 +94,21 @@
     [btnConfirm setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnConfirm.layer.cornerRadius = 8.0;
     btnConfirm.titleLabel.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
-    [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(viewContent).offset(-2*padding);
-        make.left.equalTo(viewContent).offset(padding);
-        make.right.equalTo(viewContent).offset(-padding);
-        make.height.mas_equalTo(hBTN);
-    }];
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding > 0) {
+        [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(viewContent).offset(-[AppDelegate sharedInstance].safeAreaBottomPadding);
+            make.left.equalTo(viewContent).offset(padding);
+            make.right.equalTo(viewContent).offset(-padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }else{
+        [btnConfirm mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(viewContent).offset(-2*padding);
+            make.left.equalTo(viewContent).offset(padding);
+            make.right.equalTo(viewContent).offset(-padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }
     
     tbContent.backgroundColor = UIColor.clearColor;
     tbContent.delegate = self;
@@ -85,29 +116,20 @@
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tbContent registerNib:[UINib nibWithNibName:@"HostingPackageTbvCell" bundle:nil] forCellReuseIdentifier:@"HostingPackageTbvCell"];
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbTitle.mas_bottom).offset(padding);
+        make.top.equalTo(lbDesc.mas_bottom).offset(padding);
         make.left.right.equalTo(btnConfirm);
         make.bottom.equalTo(btnConfirm.mas_top).offset(-padding);
     }];
 }
 
-- (void)closeView {
-    [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(SCREEN_HEIGHT);
-    }];
-    
-    [UIView animateWithDuration:0.1 animations:^{
-        [self layoutIfNeeded];
-    }completion:^(BOOL finished) {
-        lbBackground.hidden = TRUE;
-        if ([delegate respondsToSelector:@selector(closeChooseHostingPackageView)]) {
-            [delegate closeChooseHostingPackageView];
-        }
-    }];
-}
-
 - (void)showContentInfoView {
-    float originY = SCREEN_HEIGHT - hContentView + padding;
+    float originY;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding > 0) {
+        originY = SCREEN_HEIGHT - hContentView;
+    }else{
+        originY = SCREEN_HEIGHT - hContentView + padding;
+    }
+    
     [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(originY);
     }];
@@ -121,6 +143,21 @@
     if ([delegate respondsToSelector:@selector(confirmAfterChooseHostingPackageView)]) {
         [delegate confirmAfterChooseHostingPackageView];
     }
+}
+
+- (IBAction)icCloseClick:(UIButton *)sender {
+    [viewContent mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(SCREEN_HEIGHT);
+    }];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        lbBackground.hidden = TRUE;
+        if ([delegate respondsToSelector:@selector(closeChooseHostingPackageView)]) {
+            [delegate closeChooseHostingPackageView];
+        }
+    }];
 }
 
 #pragma mark - UITableview delegate
