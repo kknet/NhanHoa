@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lbVersion;
@@ -25,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)btnCheckUpdatePress:(UIButton *)sender;
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

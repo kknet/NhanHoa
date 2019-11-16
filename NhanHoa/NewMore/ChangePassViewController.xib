@@ -15,6 +15,7 @@
                 <outlet property="btnForgotPass" destination="ZD2-Gt-YuK" id="ORI-QQ-Hb7"/>
                 <outlet property="btnSaveNewPass" destination="kvv-Ti-BeH" id="C8l-13-vXh"/>
                 <outlet property="icBack" destination="RuO-u4-1WH" id="NAa-xz-VlS"/>
+                <outlet property="icCart" destination="aug-rd-Zyd" id="hyP-Yw-8qH"/>
                 <outlet property="icShowConfirm" destination="K9L-7x-l71" id="CDT-Hs-xuU"/>
                 <outlet property="icShowNewPass" destination="O1c-nD-b5l" id="CrC-YE-wOh"/>
                 <outlet property="icShowPass" destination="BZT-gA-rEl" id="3xL-kG-td7"/>
@@ -23,6 +24,7 @@
                 <outlet property="imgNewPass" destination="Hx9-RG-BEZ" id="Knj-by-SPd"/>
                 <outlet property="lbBotConfirmPass" destination="xZf-1E-qsm" id="Cm0-Pb-Ver"/>
                 <outlet property="lbBotNewPass" destination="jSC-pD-ceY" id="QGO-mU-mB5"/>
+                <outlet property="lbCount" destination="kcn-hs-9Ru" id="nOh-R1-dGx"/>
                 <outlet property="lbHeader" destination="Pp6-CB-ff8" id="leV-Zb-xln"/>
                 <outlet property="lbSepa" destination="IZ3-cJ-xCW" id="F5B-fh-qLK"/>
                 <outlet property="tfConfirmPass" destination="f19-bB-Rak" id="zE4-fF-TqH"/>
@@ -55,6 +57,22 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aug-rd-Zyd">
+                            <rect key="frame" x="271" y="6" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cart_gray.png"/>
+                            <connections>
+                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="dTt-xT-Aok"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kcn-hs-9Ru">
+                            <rect key="frame" x="291" y="6" width="21" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -175,11 +193,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-728.98550724637687" y="-113.16964285714285"/>
+            <point key="canvasLocation" x="-1013" y="-118"/>
         </view>
     </objects>
     <resources>
         <image name="back_gray.png" width="96" height="96"/>
+        <image name="cart_gray.png" width="96" height="96"/>
         <image name="ic_password.png" width="87" height="129"/>
         <image name="show_pass.png" width="80" height="80"/>
     </resources>

@@ -15,10 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbContent;
 
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 
 @end
 

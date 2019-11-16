@@ -19,7 +19,7 @@
 @end
 
 @implementation AboutViewController
-@synthesize viewHeader, icBack, lbHeader, imgInfo, lbVersion, lbTitle, lbReleaseDate, btnCheckUpdate;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, imgInfo, lbVersion, lbTitle, lbReleaseDate, btnCheckUpdate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +33,17 @@
     
     linkToAppStore = @"";
     [self displayContentWithCurrentLanguage];
+    
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)btnCheckUpdatePress:(UIButton *)sender {
@@ -44,6 +55,9 @@
 
 - (IBAction)icBackClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+- (IBAction)icCartClick:(UIButton *)sender {
 }
 
 - (void)displayContentWithCurrentLanguage
@@ -131,21 +145,24 @@
 //  setup ui trong view
 - (void)setupUIForView
 {
-    float hBTN = 50.0;
+    float hBTN = 53.0;
     
     float padding = 15.0;
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         hBTN = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         hBTN = 48.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -171,6 +188,24 @@
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
+    }];
+    
     [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     //  content

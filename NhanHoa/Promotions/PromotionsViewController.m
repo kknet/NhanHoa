@@ -90,15 +90,15 @@
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
     
-    textFont = [UIFont fontWithName:RobotoRegular size:17.0];
+    textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        textFont = [UIFont fontWithName:RobotoRegular size:15.0];
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:16.0];
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:17.0];
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
     }
     
     //  header view
@@ -109,7 +109,7 @@
     [AppUtils addBoxShadowForView:viewHeader color:GRAY_100 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     lbHeader.textColor = GRAY_50;
-    lbHeader.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize+3];
+    lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
         make.bottom.equalTo(viewHeader);
@@ -135,7 +135,7 @@
         make.top.equalTo(viewHeader.mas_bottom).offset(padding);
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
 }
 
@@ -181,7 +181,7 @@
     
     //  height content
     NSString *content = [info objectForKey:@"content"];
-    float hContent = [AppUtils getSizeWithText:content withFont:textFont andMaxWidth:(SCREEN_WIDTH - 4*padding)].height;
+    float hContent = [AppUtils getSizeWithText:content withFont:[UIFont fontWithName:RobotoRegular size:textFont.pointSize-4] andMaxWidth:(SCREEN_WIDTH - 4*padding)].height;
     hCell += (hContent + 5.0);
     
     hCell += padding + padding;

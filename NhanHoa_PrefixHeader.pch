@@ -10,6 +10,7 @@
 #define NhanHoa_PrefixHeader_pch
 
 #ifdef __OBJC__
+#import "CartModel.h"
 #import "Masonry.h"
 #import "JSONKit.h"
 #import "AppString.h"

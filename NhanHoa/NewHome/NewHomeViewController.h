@@ -11,13 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum{
-    eMenuDomain,
-    eMenuCloudServer,
-    eMenuVfone,
-    eMenuOrders,
-    eMenuProfiles,
-    eMenuRegisterEmail,
+    eMenuRegisterDomains,
     eMenuHosting,
+    eMenuCloudVPS,
+    eMenuCloudServer,
+    eMenuDomainsManagement,
+    eMenuRegisterEmail,
+    eMenuOrdersManagement,
     eMenuMore,
 }NewHomeLayoutType;
 

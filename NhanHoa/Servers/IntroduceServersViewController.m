@@ -47,6 +47,16 @@
     selectedIndex = -1;
     
     [self setFrameForContentViewWithTableHeight];
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

@@ -33,6 +33,20 @@
     [self setupUIForView];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
+}
+
 - (IBAction)btnHostingPress:(UIButton *)sender {
 }
 

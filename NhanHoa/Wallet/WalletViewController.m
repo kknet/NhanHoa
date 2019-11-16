@@ -39,6 +39,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
+    [self updateCartCountForView];
+    
     if (curMenu == eMainWalletMenu) {
         [self activeMenuMainWallet: TRUE];
         [self showUserMainWalletView: TRUE];
@@ -49,6 +51,15 @@
     
     [self reUpdateFrameForView];
     [self showContentWithCurrentLanguage];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)showUserMainWalletView: (BOOL)showMain {

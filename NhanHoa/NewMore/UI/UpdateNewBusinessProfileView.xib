@@ -11,31 +11,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UpdateBusinessProfileView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="817"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UpdateNewBusinessProfileView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="FU3-w6-o8I">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                <view contentMode="scaleToFill" id="t52-CI-hd7">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9lR-bO-zVx">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ug0-lh-IOq">
                             <rect key="frame" x="25" y="5" width="71" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Registrant"/>
                             <connections>
-                                <action selector="btnRegistrantInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="KNB-xM-dJf"/>
+                                <action selector="btnRegistrantInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="S5H-Rq-ahn"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IIH-Zc-pXD">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cLH-8C-1gN">
                             <rect key="frame" x="239" y="5" width="62" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Business"/>
                             <connections>
-                                <action selector="btnBusinessInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="aOs-Yc-hIG"/>
+                                <action selector="btnBusinessInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="dCn-2F-7pS"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fcg-zE-C6g">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VeK-gc-Nfn">
                             <rect key="frame" x="8" y="36" width="100" height="4"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -46,25 +46,25 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="al0-Xc-cFT">
-                    <rect key="frame" x="0.0" y="48" width="320" height="572"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="iF8-2l-zvq">
+                    <rect key="frame" x="0.0" y="50" width="320" height="572"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hDB-Lv-rk1">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xJp-y2-tMX">
                             <rect key="frame" x="8" y="64" width="115" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="yMP-fw-5M0">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="YHx-Fi-QFS">
                             <rect key="frame" x="8" y="93" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dE1-R9-Iyu">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kib-qW-8QT">
                             <rect key="frame" x="8" y="121" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,21 +72,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OcF-QO-JYC">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rhd-lJ-y2k">
                             <rect key="frame" x="8" y="138" width="69" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="ZBJ-1x-WQm">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="YOj-B8-8Hh">
                             <rect key="frame" x="8" y="167" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hOn-WN-dka">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Sc-Xg-gQV">
                             <rect key="frame" x="8" y="195" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,21 +94,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Vf-Qg-weJ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hv5-Cs-uVE">
                             <rect key="frame" x="8" y="213" width="134" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="bxS-et-uRQ">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="bZX-0Q-SrR">
                             <rect key="frame" x="8" y="242" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NaA-5n-dAF">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sfi-zI-bjs">
                             <rect key="frame" x="8" y="270" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -116,21 +116,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="btf-eq-fTw">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mjW-Zx-ZkI">
                             <rect key="frame" x="8" y="288" width="185" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="TL4-dJ-ayg">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="x1B-KC-flc">
                             <rect key="frame" x="8" y="317" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dgz-rc-QWp">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b9V-pt-oEl">
                             <rect key="frame" x="8" y="345" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -138,21 +138,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XyJ-rW-LM4">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J5k-um-wVe">
                             <rect key="frame" x="8" y="365" width="62" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ryq-ap-Rfd">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="woR-2p-LbS">
                             <rect key="frame" x="8" y="394" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="icW-jh-dr9">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bFw-6a-pT5">
                             <rect key="frame" x="8" y="422" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -160,21 +160,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Province/ City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZK4-9u-3Bu">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Province/ City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PoM-Vb-Jkq">
                             <rect key="frame" x="8" y="432" width="107" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="GT0-56-WzU">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="TSB-hV-j0g">
                             <rect key="frame" x="8" y="461" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3PZ-Kv-pyZ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vac-bs-9Jm">
                             <rect key="frame" x="8" y="489" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -182,47 +182,44 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dropdow.png" id="t4Z-Q8-99x">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dropdow.png" id="kOa-Wb-xjg">
                             <rect key="frame" x="281" y="461" width="31" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jj5-lZ-au0">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MVk-Jz-bdG">
                             <rect key="frame" x="8" y="459" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
-                            <connections>
-                                <action selector="btnChooseBusinessCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="QkD-KL-22g"/>
-                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n7i-Zb-mrW">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rvl-j0-uwf">
                             <rect key="frame" x="8" y="524" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Continue"/>
                             <connections>
-                                <action selector="btnSaveInfoBusinessPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="zZv-Uj-RYX"/>
+                                <action selector="btnSaveInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="vF3-qg-pYM"/>
                             </connections>
                         </button>
                     </subviews>
                 </scrollView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UUU-Ez-nZq">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="817"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="rh5-a0-e2N">
+                    <rect key="frame" x="0.0" y="50" width="320" height="846"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CvY-vt-gvE">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZVS-Ar-Spx">
                             <rect key="frame" x="8" y="69" width="69" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="NNE-ZI-WLp">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Udk-WL-vJY">
                             <rect key="frame" x="8" y="98" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ALn-TQ-8aS">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P5j-Ay-dpb">
                             <rect key="frame" x="8" y="126" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -230,66 +227,66 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0d1-Hv-aTf">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cHT-Hg-Obr">
                             <rect key="frame" x="8" y="148" width="57" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fqu-aZ-ji4">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nwJ-Cb-Xmm">
                             <rect key="frame" x="8" y="177" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_tick_active.png"/>
                             <connections>
-                                <action selector="icMaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="zxc-Xv-28A"/>
+                                <action selector="icMaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="WLr-ON-LDs"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RPg-LB-kRP">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="abU-jO-v2u">
                             <rect key="frame" x="46" y="182" width="37" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J6D-cb-HIX">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5ec-TK-vJQ">
                             <rect key="frame" x="99" y="177" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="ic_tick.png"/>
                             <connections>
-                                <action selector="icFemaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="K4x-Fl-aZq"/>
+                                <action selector="icFemaleClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="RKf-a3-cTX"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Female" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ulc-iu-CeR">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Female" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fGm-bm-uf7">
                             <rect key="frame" x="137" y="182" width="56" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0k1-89-FYN">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J4n-Ev-lkq">
                             <rect key="frame" x="206" y="148" width="65" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="gbH-tQ-9p4">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="fcE-xg-mq6">
                             <rect key="frame" x="206" y="173" width="106" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bgl-di-WER">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ofp-CX-fsa">
                             <rect key="frame" x="201" y="172" width="111" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
-                                <action selector="btnChooseDOBPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="s9u-uA-aaP"/>
+                                <action selector="btnChooseDOBPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="9it-DR-e1f"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fL3-6A-IIZ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x97-nm-eh5">
                             <rect key="frame" x="206" y="200" width="106" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -297,21 +294,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Postition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DQd-16-FOk">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Postition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jSq-1Y-bSE">
                             <rect key="frame" x="8" y="237" width="67" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="8to-RN-3dK">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="PX3-fi-L0T">
                             <rect key="frame" x="8" y="266" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ana-dn-ocd">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NWt-An-aPk">
                             <rect key="frame" x="8" y="294" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -319,21 +316,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Rp-rl-BxY">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PgM-On-Kb0">
                             <rect key="frame" x="8" y="313" width="68" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="SP2-qt-JSC">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="XzU-zr-f3w">
                             <rect key="frame" x="8" y="342" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2wb-VV-mJM">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NZP-ze-FHe">
                             <rect key="frame" x="8" y="370" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -341,21 +338,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lBU-Wc-sYH">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="k28-1G-8c9">
                             <rect key="frame" x="8" y="393" width="112" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="TVG-qF-dNB">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Kew-lv-a9s">
                             <rect key="frame" x="8" y="422" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nru-1h-MnQ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TTN-B3-nu0">
                             <rect key="frame" x="8" y="450" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -363,21 +360,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wZy-PQ-Abm">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hQ7-rK-oQD">
                             <rect key="frame" x="8" y="474" width="41" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="QKg-1e-QQb">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="5rb-Sf-9Ww">
                             <rect key="frame" x="8" y="503" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QgZ-Nh-OzT">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="psu-QJ-uBp">
                             <rect key="frame" x="8" y="531" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -385,21 +382,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nuS-QQ-GoX">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xgg-uk-np2">
                             <rect key="frame" x="8" y="541" width="63" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="rNI-wF-bIJ">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="9hN-iv-G5o">
                             <rect key="frame" x="8" y="570" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="esX-7t-6Qn">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dej-dU-Ng1">
                             <rect key="frame" x="8" y="598" width="304" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -407,36 +404,14 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HIw-sa-beH">
-                            <rect key="frame" x="9" y="767" width="304" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AyT-mk-8s2">
+                            <rect key="frame" x="8" y="640" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Đăng ký"/>
+                            <state key="normal" title="Button"/>
                             <connections>
-                                <action selector="btnSaveRegistrantInfoPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="JKT-8G-bzu"/>
+                                <action selector="btnSaveRegistrantPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="424-Jm-UcW"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport's front" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mGY-kk-HUP">
-                            <rect key="frame" x="8" y="617" width="122" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport's backside" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K3e-Up-0iO">
-                            <rect key="frame" x="161" y="617" width="154" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passport_empty_front.png" id="YAd-0t-Nhy">
-                            <rect key="frame" x="8" y="645" width="131" height="90"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passport_empty_behind.png" id="0Wl-ke-jWe">
-                            <rect key="frame" x="173" y="645" width="131" height="90"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </scrollView>
@@ -444,74 +419,68 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnBusinessInfo" destination="IIH-Zc-pXD" id="3aE-g6-But"/>
-                <outlet property="btnChooseBusinessCity" destination="jj5-lZ-au0" id="BNa-HY-wZw"/>
-                <outlet property="btnChooseDOB" destination="Bgl-di-WER" id="RwA-69-BlS"/>
-                <outlet property="btnRegistrantInfo" destination="9lR-bO-zVx" id="SIN-Nu-nBO"/>
-                <outlet property="btnSaveInfo" destination="n7i-Zb-mrW" id="32C-Re-g2W"/>
-                <outlet property="btnSaveRegistrantInfo" destination="HIw-sa-beH" id="L7R-v4-zvC"/>
-                <outlet property="icFemale" destination="J6D-cb-HIX" id="nfH-Bf-i7X"/>
-                <outlet property="icMale" destination="Fqu-aZ-ji4" id="Sb7-x5-Kth"/>
-                <outlet property="imgBackside" destination="0Wl-ke-jWe" id="cQe-JW-QLx"/>
-                <outlet property="imgBusinessCity" destination="t4Z-Q8-99x" id="TFg-CX-pv5"/>
-                <outlet property="imgFront" destination="YAd-0t-Nhy" id="Zrq-HO-Laj"/>
-                <outlet property="lbAddress" destination="nuS-QQ-GoX" id="AxG-NI-4WR"/>
-                <outlet property="lbBackside" destination="K3e-Up-0iO" id="3Nl-fW-yIN"/>
-                <outlet property="lbBotAddress" destination="esX-7t-6Qn" id="9vN-gD-eJ7"/>
-                <outlet property="lbBotBusinessAddr" destination="NaA-5n-dAF" id="waa-0P-X6S"/>
-                <outlet property="lbBotBusinessCountry" destination="icW-jh-dr9" id="j0X-uA-7Yf"/>
-                <outlet property="lbBotBusinessName" destination="dE1-R9-Iyu" id="VrR-PF-atB"/>
-                <outlet property="lbBotBusinessPhone" destination="Dgz-rc-QWp" id="lXe-OU-hl1"/>
-                <outlet property="lbBotDOB" destination="fL3-6A-IIZ" id="2kq-zg-ReZ"/>
-                <outlet property="lbBotEmail" destination="QgZ-Nh-OzT" id="RGn-VY-fJD"/>
-                <outlet property="lbBotFullname" destination="ALn-TQ-8aS" id="C8o-Gh-oCi"/>
-                <outlet property="lbBotPPostition" destination="Ana-dn-ocd" id="YHd-4Q-xQB"/>
-                <outlet property="lbBotPassport" destination="2wb-VV-mJM" id="hM6-Cg-Vab"/>
-                <outlet property="lbBotPhoneNumber" destination="Nru-1h-MnQ" id="puS-Y2-Gj2"/>
-                <outlet property="lbBotTaxCode" destination="hOn-WN-dka" id="bdo-cX-nu5"/>
-                <outlet property="lbBusinessAddr" destination="2Vf-Qg-weJ" id="fAf-md-g8I"/>
-                <outlet property="lbBusinessBotCity" destination="3PZ-Kv-pyZ" id="SfN-o8-BIV"/>
-                <outlet property="lbBusinessCity" destination="ZK4-9u-3Bu" id="q4U-JM-lMJ"/>
-                <outlet property="lbBusinessCountry" destination="XyJ-rW-LM4" id="jgV-hV-P55"/>
-                <outlet property="lbBusinessName" destination="hDB-Lv-rk1" id="fW0-x6-ZHb"/>
-                <outlet property="lbBusinessPhone" destination="btf-eq-fTw" id="Ij1-So-Gso"/>
-                <outlet property="lbDOB" destination="0k1-89-FYN" id="AXB-kO-Z2X"/>
-                <outlet property="lbEmail" destination="wZy-PQ-Abm" id="RGb-8r-aXU"/>
-                <outlet property="lbFemale" destination="ulc-iu-CeR" id="ENe-Of-VUJ"/>
-                <outlet property="lbFront" destination="mGY-kk-HUP" id="FOk-EQ-kfe"/>
-                <outlet property="lbFullname" destination="CvY-vt-gvE" id="nRH-qa-FLt"/>
-                <outlet property="lbGender" destination="0d1-Hv-aTf" id="kef-cD-6Wa"/>
-                <outlet property="lbMale" destination="RPg-LB-kRP" id="Ry5-hQ-hpq"/>
-                <outlet property="lbMenuActive" destination="Fcg-zE-C6g" id="Qwl-Ch-AEB"/>
-                <outlet property="lbPassport" destination="3Rp-rl-BxY" id="Feo-8l-xtR"/>
-                <outlet property="lbPhoneNumber" destination="lBU-Wc-sYH" id="Bd4-BR-Lq2"/>
-                <outlet property="lbPostition" destination="DQd-16-FOk" id="FKT-yQ-E8F"/>
-                <outlet property="lbTaxCode" destination="OcF-QO-JYC" id="WvC-hj-Yf9"/>
-                <outlet property="scvBusiness" destination="al0-Xc-cFT" id="kKM-jC-NZS"/>
-                <outlet property="scvRegistrant" destination="UUU-Ez-nZq" id="Osl-2V-SS7"/>
-                <outlet property="tfAddress" destination="rNI-wF-bIJ" id="o4i-sF-dHV"/>
-                <outlet property="tfBusinessAddr" destination="bxS-et-uRQ" id="Muu-bP-ACI"/>
-                <outlet property="tfBusinessCity" destination="GT0-56-WzU" id="G5n-2G-pmZ"/>
-                <outlet property="tfBusinessCountry" destination="Ryq-ap-Rfd" id="yAT-1z-eE0"/>
-                <outlet property="tfBusinessName" destination="yMP-fw-5M0" id="gV0-Z8-C0d"/>
-                <outlet property="tfBusinessPhone" destination="TL4-dJ-ayg" id="Adp-H6-QEQ"/>
-                <outlet property="tfDOB" destination="gbH-tQ-9p4" id="1it-E6-rzS"/>
-                <outlet property="tfEmail" destination="QKg-1e-QQb" id="XeQ-ZM-SCS"/>
-                <outlet property="tfFullname" destination="NNE-ZI-WLp" id="6iL-qn-h4a"/>
-                <outlet property="tfPassport" destination="SP2-qt-JSC" id="l7y-bh-nsX"/>
-                <outlet property="tfPhoneNumber" destination="TVG-qF-dNB" id="JkA-gg-dOB"/>
-                <outlet property="tfPostition" destination="8to-RN-3dK" id="VM5-xq-q00"/>
-                <outlet property="tfTaxCode" destination="ZBJ-1x-WQm" id="Lpx-47-Cab"/>
-                <outlet property="viewMenu" destination="FU3-w6-o8I" id="mbv-RS-Xe1"/>
+                <outlet property="btnBusinessInfo" destination="cLH-8C-1gN" id="5od-8d-eix"/>
+                <outlet property="btnChooseBusinessCity" destination="MVk-Jz-bdG" id="P8Y-aw-CoC"/>
+                <outlet property="btnChooseDOB" destination="Ofp-CX-fsa" id="lhq-dB-h7Q"/>
+                <outlet property="btnRegistrantInfo" destination="Ug0-lh-IOq" id="C59-KD-dzI"/>
+                <outlet property="btnSaveInfo" destination="rvl-j0-uwf" id="rzi-mp-fwS"/>
+                <outlet property="btnSaveRegistrantInfo" destination="AyT-mk-8s2" id="PEO-ti-8N7"/>
+                <outlet property="icFemale" destination="5ec-TK-vJQ" id="gmn-Rt-aWr"/>
+                <outlet property="icMale" destination="nwJ-Cb-Xmm" id="jZO-NT-Atl"/>
+                <outlet property="imgBusinessCity" destination="kOa-Wb-xjg" id="hbC-uA-vof"/>
+                <outlet property="lbAddress" destination="xgg-uk-np2" id="adj-8e-Fmy"/>
+                <outlet property="lbBotAddress" destination="Dej-dU-Ng1" id="VCp-cc-Zuc"/>
+                <outlet property="lbBotBusinessAddr" destination="sfi-zI-bjs" id="SOg-Sf-ejp"/>
+                <outlet property="lbBotBusinessCountry" destination="bFw-6a-pT5" id="7mP-zE-R7l"/>
+                <outlet property="lbBotBusinessName" destination="kib-qW-8QT" id="a3z-yH-bUj"/>
+                <outlet property="lbBotBusinessPhone" destination="b9V-pt-oEl" id="yLc-1L-oHT"/>
+                <outlet property="lbBotDOB" destination="x97-nm-eh5" id="Qqg-GK-2r6"/>
+                <outlet property="lbBotEmail" destination="psu-QJ-uBp" id="OGR-69-Ggf"/>
+                <outlet property="lbBotFullname" destination="P5j-Ay-dpb" id="dx4-mJ-pel"/>
+                <outlet property="lbBotPPostition" destination="NWt-An-aPk" id="0Kx-wU-fWW"/>
+                <outlet property="lbBotPassport" destination="NZP-ze-FHe" id="QOV-o3-g53"/>
+                <outlet property="lbBotPhoneNumber" destination="TTN-B3-nu0" id="2mX-be-MkU"/>
+                <outlet property="lbBotTaxCode" destination="6Sc-Xg-gQV" id="krL-Xs-q6A"/>
+                <outlet property="lbBusinessAddr" destination="Hv5-Cs-uVE" id="aCk-db-26l"/>
+                <outlet property="lbBusinessBotCity" destination="vac-bs-9Jm" id="iCO-AV-xnj"/>
+                <outlet property="lbBusinessCity" destination="PoM-Vb-Jkq" id="8Ub-gw-ul3"/>
+                <outlet property="lbBusinessCountry" destination="J5k-um-wVe" id="6lp-cu-5p5"/>
+                <outlet property="lbBusinessName" destination="xJp-y2-tMX" id="WBk-ZW-Sfm"/>
+                <outlet property="lbBusinessPhone" destination="mjW-Zx-ZkI" id="czG-10-2Tx"/>
+                <outlet property="lbDOB" destination="J4n-Ev-lkq" id="b0n-qY-vrg"/>
+                <outlet property="lbEmail" destination="hQ7-rK-oQD" id="F8R-cZ-uJ3"/>
+                <outlet property="lbFemale" destination="fGm-bm-uf7" id="n19-Am-ceV"/>
+                <outlet property="lbFullname" destination="ZVS-Ar-Spx" id="UPx-xs-0cK"/>
+                <outlet property="lbGender" destination="cHT-Hg-Obr" id="XgO-Gf-qmc"/>
+                <outlet property="lbMale" destination="abU-jO-v2u" id="mIM-7w-2rZ"/>
+                <outlet property="lbMenuActive" destination="VeK-gc-Nfn" id="fLv-oo-ueF"/>
+                <outlet property="lbPassport" destination="PgM-On-Kb0" id="tjz-wt-DPW"/>
+                <outlet property="lbPhoneNumber" destination="k28-1G-8c9" id="GUB-9G-oJR"/>
+                <outlet property="lbPostition" destination="jSq-1Y-bSE" id="Era-NU-qkt"/>
+                <outlet property="lbTaxCode" destination="Rhd-lJ-y2k" id="YL1-ZH-bTs"/>
+                <outlet property="scvBusiness" destination="iF8-2l-zvq" id="8RX-im-HmT"/>
+                <outlet property="scvRegistrant" destination="rh5-a0-e2N" id="Gq3-IF-en0"/>
+                <outlet property="tfAddress" destination="9hN-iv-G5o" id="fGA-oG-Rri"/>
+                <outlet property="tfBusinessAddr" destination="bZX-0Q-SrR" id="2Zh-wP-mB2"/>
+                <outlet property="tfBusinessCity" destination="TSB-hV-j0g" id="2wC-eo-qV4"/>
+                <outlet property="tfBusinessCountry" destination="woR-2p-LbS" id="4KK-EO-Yme"/>
+                <outlet property="tfBusinessName" destination="YHx-Fi-QFS" id="tqd-pY-lpp"/>
+                <outlet property="tfBusinessPhone" destination="x1B-KC-flc" id="0Co-NX-zSU"/>
+                <outlet property="tfDOB" destination="fcE-xg-mq6" id="IqR-UG-Xbh"/>
+                <outlet property="tfEmail" destination="5rb-Sf-9Ww" id="8F5-XH-ZhK"/>
+                <outlet property="tfFullname" destination="Udk-WL-vJY" id="MoA-ao-JHG"/>
+                <outlet property="tfPassport" destination="XzU-zr-f3w" id="Yg0-0w-K5s"/>
+                <outlet property="tfPhoneNumber" destination="Kew-lv-a9s" id="V7a-L2-Pkl"/>
+                <outlet property="tfPostition" destination="PX3-fi-L0T" id="2W4-Ks-Fc6"/>
+                <outlet property="tfTaxCode" destination="YOj-B8-8Hh" id="zOh-l6-hRr"/>
+                <outlet property="viewMenu" destination="t52-CI-hd7" id="syr-Up-djh"/>
             </connections>
-            <point key="canvasLocation" x="-1984" y="-21"/>
+            <point key="canvasLocation" x="-383" y="-264"/>
         </view>
     </objects>
     <resources>
         <image name="ic_dropdow.png" width="82" height="82"/>
         <image name="ic_tick.png" width="120" height="120"/>
         <image name="ic_tick_active.png" width="120" height="120"/>
-        <image name="passport_empty_behind.png" width="400" height="252"/>
-        <image name="passport_empty_front.png" width="400" height="252"/>
     </resources>
 </document>

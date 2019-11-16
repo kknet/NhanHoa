@@ -29,7 +29,7 @@
 @end
 
 @implementation NewMoreViewController
-@synthesize viewHeader, lbHeader, icCart, scvContent, lbTop, viewInfo, lbMoreBG, imgAvatar, lbName, lbEmail, tbContent, imgLogo, lbVersion;
+@synthesize viewHeader, lbHeader, icCart, scvContent, lbTop, viewInfo, lbMoreBG, imgAvatar, lbName, lbEmail, tbContent, imgLogo, lbVersion, lbCount;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,9 +43,20 @@
     self.navigationController.navigationBarHidden = TRUE;
     [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
     
+    [self updateCartCountForView];
+    
     [self displayAccountInfo];
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Account"];
     lbVersion.text = SFM(@"%@: %@", [appDelegate.localization localizedStringForKey:@"Version"], [AppUtils getAppVersionWithBuildVersion: FALSE]);
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)displayAccountInfo
@@ -80,6 +91,7 @@
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         hInfo = 80.0;
         hCell = 60.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
@@ -91,8 +103,7 @@
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hInfo = 120.0;
         hCell = 70.0;
-        
-        icCart.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,9 +122,20 @@
     }];
     
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  scrollview

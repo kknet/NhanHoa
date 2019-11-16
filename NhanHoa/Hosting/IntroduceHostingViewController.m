@@ -50,6 +50,17 @@
     selectedIndex = -1;
     
     [self setFrameForContentViewWithTableHeight];
+    
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)setupUIForView
@@ -60,25 +71,29 @@
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
     float sizeIcon = 35.0;
+    float marginTop = 45.0;
     
     fontForGetHeight = [UIFont fontWithName:RobotoRegular size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
-        sizeIcon = 25.0;
+        sizeIcon = 30.0;
         icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        marginTop = 35.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:18.0];
-        sizeIcon = 30.0;
+        sizeIcon = 35.0;
         icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        marginTop = 50.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:20.0];
-        sizeIcon = 35.0;
+        sizeIcon = 40.0;
         icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        marginTop = 45.0;
     }
     
     if (@available(iOS 11.0, *)) {
@@ -147,16 +162,19 @@
     UITapGestureRecognizer *tapOnLinux = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnLinuxView)];
     [viewLinux addGestureRecognizer: tapOnLinux];
     [viewLinux mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgHosting.mas_bottom).offset(-35.0);
+        make.top.equalTo(bgHosting.mas_bottom).offset(-marginTop);
         make.centerX.equalTo(bgHosting.mas_centerX);
         make.width.height.mas_equalTo(sizeBlock);
     }];
     [AppUtils addBoxShadowForView:viewLinux color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
+    UIImage *iconImg = [UIImage imageNamed:@"ic_linux_hosting"];
+    float wIcon = sizeIcon * iconImg.size.width / iconImg.size.height;
     [imgLinux mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewLinux.mas_centerX);
         make.bottom.equalTo(viewLinux.mas_centerY).offset(-5.0);
-        make.width.height.mas_equalTo(sizeIcon);
+        make.height.mas_equalTo(sizeIcon);
+        make.width.mas_equalTo(wIcon);
     }];
     
     [lbLinux mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,10 +192,13 @@
     }];
     [AppUtils addBoxShadowForView:viewWindows color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
+    iconImg = [UIImage imageNamed:@"ic_windows_hosting"];
+    wIcon = sizeIcon * iconImg.size.width / iconImg.size.height;
     [imgWindows mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewWindows.mas_centerX);
         make.bottom.equalTo(viewWindows.mas_centerY).offset(-5.0);
-        make.width.height.mas_equalTo(sizeIcon);
+        make.height.mas_equalTo(sizeIcon);
+        make.width.mas_equalTo(wIcon);
     }];
     
     [lbWindows mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -195,10 +216,13 @@
     }];
     [AppUtils addBoxShadowForView:viewWordpress color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
+    iconImg = [UIImage imageNamed:@"ic_wordpress_hosting"];
+    wIcon = sizeIcon * iconImg.size.width / iconImg.size.height;
     [imgWordpress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewWordpress.mas_centerX);
         make.bottom.equalTo(viewWordpress.mas_centerY).offset(-5.0);
-        make.width.height.mas_equalTo(sizeIcon);
+        make.height.mas_equalTo(sizeIcon);
+        make.width.mas_equalTo(wIcon);
     }];
     
     [lbWordpress mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -208,7 +232,7 @@
     }];
     
     //  lbtitle
-    lbTitle.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
+    lbTitle.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-2];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bgHosting).offset(padding);
         make.right.equalTo(bgHosting).offset(-padding);

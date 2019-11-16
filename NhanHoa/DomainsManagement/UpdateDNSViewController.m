@@ -32,6 +32,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    [self updateCartCountForView];
     
     dictDNS = [[NSDictionary alloc] init];
     
@@ -46,6 +47,15 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

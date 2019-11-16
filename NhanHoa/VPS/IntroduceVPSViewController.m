@@ -45,6 +45,16 @@
     selectedIndex = -1;
     
     [self setFrameForContentViewWithTableHeight];
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -61,23 +71,34 @@
     hSection = 70.0;
     
     textFont = [UIFont fontWithName:RobotoBold size:22.0];
-    float sizeIcon = 35.0;
+    float hIcon = 35.0;
+    float marginTop = 45.0;
+    float hBlock = hIcon + 65.0;
     
     fontForGetHeight = [UIFont fontWithName:RobotoRegular size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoBold size:18.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:16.0];
-        sizeIcon = 25.0;
+        hIcon = 25.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
+        marginTop = 35.0;
+        hBlock = hIcon + 55.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:18.0];
-        sizeIcon = 35.0;
+        hIcon = 30.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        marginTop = 50.0;
+        hBlock = hIcon + 60.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoBold size:22.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:20.0];
-        sizeIcon = 35.0;
+        hIcon = 35.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        marginTop = 45.0;
+        hBlock = hIcon + 65.0;
     }
     
     if (@available(iOS 11.0, *)) {
@@ -107,35 +128,33 @@
     //  header
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader).offset(hStatus);
+        make.top.bottom.equalTo(viewHeader);
         make.centerX.equalTo(viewHeader.mas_centerX);
-        make.bottom.equalTo(viewHeader);
         make.width.mas_equalTo(250.0);
     }];
     
-    icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+    icBack.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
-    icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(viewHeader).offset(-5.0);
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
     
     lbCount.textColor = UIColor.whiteColor;
     lbCount.backgroundColor = ORANGE_COLOR;
-    lbCount.layer.cornerRadius = 18.0/2;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
     lbCount.clipsToBounds = TRUE;
     lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(icCart);
-        make.right.equalTo(icCart);
-        make.width.height.mas_equalTo(18.0);
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  view content
@@ -149,17 +168,20 @@
     UITapGestureRecognizer *tapOnWindowsVPS = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnWindowsVPS)];
     [viewWindowsVPS addGestureRecognizer: tapOnWindowsVPS];
     [viewWindowsVPS mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgHeader.mas_bottom).offset(-35.0);
+        make.top.equalTo(bgHeader.mas_bottom).offset(-marginTop);
         make.left.equalTo(bgHeader).offset(padding);
         make.width.mas_equalTo(widthBlock);
-        make.height.mas_equalTo(sizeIcon + 55.0);
+        make.height.mas_equalTo(hBlock);
     }];
-    [AppUtils addBoxShadowForView:viewWindowsVPS color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewWindowsVPS color:GRAY_200 opacity:1.0 offsetX:1.5 offsetY:1.5];
     
+    UIImage *imgIcon = [UIImage imageNamed:@"ic_windows_hosting"];
+    float wIcon = hIcon * imgIcon.size.width / imgIcon.size.height;
     [imgWindowsVPS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewWindowsVPS.mas_centerX);
         make.bottom.equalTo(viewWindowsVPS.mas_centerY).offset(5.0);
-        make.width.height.mas_equalTo(sizeIcon);
+        make.height.mas_equalTo(hIcon);
+        make.width.mas_equalTo(wIcon);
     }];
     
     [lbWindowsVPS mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,12 +197,15 @@
         make.left.equalTo(viewWindowsVPS.mas_right).offset(padding);
         make.width.mas_equalTo(widthBlock);
     }];
-    [AppUtils addBoxShadowForView:viewLinuxVPS color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewLinuxVPS color:GRAY_200 opacity:1.0 offsetX:1.5 offsetY:1.5];
     
+    imgIcon = [UIImage imageNamed:@"ic_linux_hosting"];
+    wIcon = hIcon * imgIcon.size.width / imgIcon.size.height;
     [imgLinuxVPS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(viewLinuxVPS.mas_centerX);
-        make.bottom.equalTo(viewLinuxVPS.mas_centerY);
-        make.width.height.mas_equalTo(sizeIcon);
+        make.bottom.equalTo(viewLinuxVPS.mas_centerY).offset(5.0);
+        make.height.mas_equalTo(hIcon);
+        make.width.mas_equalTo(wIcon);
     }];
     
     [lbLinuxVPS mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -190,7 +215,7 @@
     }];
     
     //  lbtitle
-    lbTitle.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize+2];
+    lbTitle.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize-1];
     [lbTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bgHeader).offset(padding);
         make.right.equalTo(bgHeader).offset(-padding);
@@ -261,7 +286,7 @@
         make.height.mas_equalTo(0);
     }];
     
-    hTopContent = hBackground + ((sizeIcon + 55.0) - 35.0) + padding + heightPromotion + padding + heightSlider + padding;
+    hTopContent = hBackground + (hBlock - marginTop) + padding + heightPromotion + padding + heightSlider + padding;
     scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hTopContent);
 }
 
@@ -387,6 +412,10 @@
 
 - (void)setFrameForContentViewWithTableHeight {
     float hTableView = [self getHeightForTableView] + hSection;
+    if (hTableView < SCREEN_HEIGHT-hTopContent) {
+        hTableView = SCREEN_HEIGHT - hTopContent;
+    }
+    
     [tbQuestions mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(hTableView);
     }];

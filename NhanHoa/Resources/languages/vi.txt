@@ -413,7 +413,7 @@
 
 
 "Home"              =   "Trang chủ"
-"Orders"            =   "Đơn hàng"
+"Orders"            =   "Q.lý đơn hàng"
 "Notifications"     =   "Thông báo"
 "Account"           =   "Tài khoản"
 
@@ -421,10 +421,11 @@
 "Main wallet"       =   "Tài khoản chính"
 "Bonus wallet"      =   "Tài khoản thưởng"
 
+"Register domains"      =   "Đ.ký tên miền"
 "Domains"               =   "Tên miền"
+"Cloud VPS"             =   "Cloud VPS"
 "Cloud server"          =   "Cloud server"
-"Vfone"                 =   "Vfone"
-"Invoices"              =   "Hóa đơn"
+"Domain management"     =   "Q.lý tên miền"
 "Profiles"              =   "Hồ sơ"
 "Register email"        =   "Đăng ký email"
 "Email"                 =   "Email"
@@ -432,7 +433,6 @@
 "More"                  =   "Xem thêm"
 "SSL"                   =   "Đ.ký SSL"
 "VPS"                   =   "Đ.ký VPS"
-"Domain management"     =   "Q.lý tên miền"
 "Pricing domains"       =   "Bảng giá"
 "Check domains"         =   "K.tra tên miền"
 "Explore"               =   "Khám phá"

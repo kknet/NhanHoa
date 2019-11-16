@@ -31,6 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self showContentWithCurrentLanguage];
+    [self updateCartCountForView];
     
     //  register observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:)
@@ -38,6 +39,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)keyboardDidShow:(NSNotification *)notif {

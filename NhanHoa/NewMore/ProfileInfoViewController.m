@@ -14,6 +14,7 @@
 #import "UploadPicture.h"
 #import <Photos/PHAsset.h>
 #import "UpdateNewPersonalProfileView.h"
+#import "UpdateNewBusinessProfileView.h"
 
 #define PERSONAL_NUM_ROWS_SECTION_1     5
 #define PERSONAL_NUM_ROWS_SECTION_2     3
@@ -48,6 +49,8 @@
     NSString *avatarUploadURL;
     
     UpdateNewPersonalProfileView *updatePersonalView;
+    UpdateNewBusinessProfileView *updateBusinessView;
+    
     int cusOwnType;
     
     UIView *viewFooterBusinessInfo;
@@ -190,7 +193,7 @@
 
 - (void)setupUIForView
 {
-    self.view.backgroundColor = [UIColor colorWithRed:(241/255.0) green:(242/255.0) blue:(245/255.0) alpha:1.0];
+    self.view.backgroundColor = UIColor.whiteColor;
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     padding = 15.0;
@@ -288,7 +291,8 @@
     tbInfo.backgroundColor = UIColor.clearColor;
     [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewMenu.mas_bottom).offset(7.0);
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     
     
@@ -302,7 +306,7 @@
         make.left.right.bottom.equalTo(self.view);
     }];
     
-    float hBusinessFooter = SCREEN_HEIGHT - (hStatus + self.navigationController.navigationBar.frame.size.height + 7.0 + hMenu + 6*hCell);
+    float hBusinessFooter = SCREEN_HEIGHT - (hStatus + self.navigationController.navigationBar.frame.size.height + 7.0 + hMenu + 6*hCell + 15.0 + appDelegate.safeAreaBottomPadding);
     
     viewFooterBusinessInfo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBusinessFooter)];
     
@@ -326,7 +330,7 @@
     
     hTbHeader = 2*padding + hAvatar + 1.5*padding + 30.0 + 2*padding;
     viewHeaderTB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hTbHeader)];
-    viewHeaderTB.backgroundColor = self.view.backgroundColor;
+    viewHeaderTB.backgroundColor = GRAY_240;
     tbInfo.tableHeaderView = viewHeaderTB;
     
     imgAvatar = [[UIImageView alloc] init];
@@ -416,7 +420,28 @@
         [updatePersonalView displayPersonalProfileInfo];
         updatePersonalView.hidden = FALSE;
     }else{
+        icBack.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+        [icBack setImage:[UIImage imageNamed:@"close_gray"] forState:UIControlStateNormal];
+        lbHeader.text = [appDelegate.localization localizedStringForKey:@"Update profile"];
         
+        if (updateBusinessView == nil) {
+            NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UpdateNewBusinessProfileView" owner:nil options:nil];
+            for(id currentObject in toplevelObject){
+                if ([currentObject isKindOfClass:[UpdateNewBusinessProfileView class]]) {
+                    updateBusinessView = (UpdateNewBusinessProfileView *) currentObject;
+                    break;
+                }
+            }
+            [self.view addSubview: updateBusinessView];
+            //  updatePersonalView.delegate = self;
+            [updateBusinessView setupUIForView];
+            [updateBusinessView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(viewHeader.mas_bottom).offset(2.0);
+                make.left.right.bottom.equalTo(self.view);
+            }];
+        }
+        [updateBusinessView displayBusinessProfileInfo];
+        updateBusinessView.hidden = FALSE;
     }
 }
 
@@ -427,7 +452,13 @@
         sender.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         [sender setImage:[UIImage imageNamed:@"back_gray"] forState:UIControlStateNormal];
     
-        updatePersonalView.hidden = TRUE;
+        if (updatePersonalView != nil) {
+            updatePersonalView.hidden = TRUE;
+        }
+        
+        if (updateBusinessView != nil) {
+            updateBusinessView.hidden = TRUE;
+        }
     }else{
         [self.navigationController popViewControllerAnimated: TRUE];
     }
@@ -688,33 +719,36 @@
         switch (indexPath.row) {
             case 0:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Business name"];
-                cell.lbValue.text = [AccountModel getCusRealName];
+                cell.lbValue.text = [AccountModel getCusCompanyName];
                 break;
             }
             case 1:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Tax code"];
-                cell.lbValue.text = [AccountModel getCusGenderValue];
+                cell.lbValue.text = [AccountModel getCusCompanyTax];
                 
                 break;
             }
             case 2:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Business address"];
-                cell.lbValue.text = [AccountModel getCusBirthday];
+                cell.lbValue.text = [AccountModel getCusCompanyAddress];
                 break;
             }
             case 3:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Business phone number"];
-                cell.lbValue.text = [AccountModel getCusPassport];
+                cell.lbValue.text = [AccountModel getCusCompanyPhone];
                 break;
             }
             case 4:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Province/ City"];
-                cell.lbValue.text = [AccountModel getCusPhone];
+                NSString *cityCode = [AccountModel getCusCityCode];
+                NSString *cityName = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cityCode];
+                cell.lbValue.text = (![AppUtils isNullOrEmpty: cityName]) ? cityName : @"";
+                
                 break;
             }
             case 5:{
                 cell.lbTitle.text = [appDelegate.localization localizedStringForKey:@"Country"];
-                cell.lbValue.text = [AccountModel getCusCompanyPosition];
+                cell.lbValue.text = [appDelegate.localization localizedStringForKey:@"Viet Nam"];
                 break;
             }
         }

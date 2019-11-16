@@ -14,7 +14,7 @@
 @end
 
 @implementation SigningDomainViewController
-@synthesize viewHeader, icBack, lbHeader, wvContent, icWaiting, domain_signing_url, domain_signed_url;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, wvContent, icWaiting, domain_signing_url, domain_signed_url;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,24 +41,43 @@
     }else{
         [self.view makeToast:@"Dữ liệu không hợp lệ. Vui lòng kiểm tra lại." duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
     }
+    
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 
+- (IBAction)icCartClick:(UIButton *)sender {
+}
+
 - (void)setupUIForView
 {
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
+    float padding = 15.0;
     
+    UIFont *textFont = [UIFont fontWithName:RobotoBold size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-        lbHeader.font = [UIFont fontWithName:RobotoBold size:18.0];
+        textFont = [UIFont fontWithName:RobotoBold size:18.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        lbHeader.font = [UIFont fontWithName:RobotoBold size:20.0];
+        textFont = [UIFont fontWithName:RobotoBold size:20.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-        lbHeader.font = [UIFont fontWithName:RobotoBold size:22.0];
+        textFont = [UIFont fontWithName:RobotoBold size:22.0];
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,6 +85,7 @@
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
     
+    lbHeader.font = textFont;
     lbHeader.textColor = GRAY_50;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
@@ -80,6 +100,24 @@
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = [AppDelegate sharedInstance].sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].sizeCartCount);
+    }];
+    
     [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:1.0 offsetX:1.0 offsetY:1.0];
     
     wvContent.keyboardDisplayRequiresUserAction = FALSE;

@@ -45,7 +45,7 @@
 @end
 
 @implementation ProfileDetailViewController
-@synthesize viewHeader, icBack, lbHeader, viewMenu, btnRegistrant, btnBusiness, lbMenuActive, tbInfo;
+@synthesize viewHeader, icBack, lbHeader, icCart, lbCount, viewMenu, btnRegistrant, btnBusiness, lbMenuActive, tbInfo;
 @synthesize profileInfo;
 
 - (void)viewDidLoad {
@@ -55,8 +55,12 @@
     [self setupUIForView];
 }
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear: animated];
+    
+    [self updateCartCountForView];
+    
     NSString *type = [profileInfo objectForKey:@"cus_own_type"];
     if (type != nil && [type isKindOfClass:[NSString class]]) {
         if ([type isEqualToString:@"0"]) {
@@ -89,6 +93,15 @@
                    forState:UIControlStateNormal];
 }
 
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
+}
+
 - (void)setupUIForView {
     //  self.view.backgroundColor = GRAY_235;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -107,16 +120,19 @@
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         hCell = 60.0;
         hBTN = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         hCell = 60.0;
         hBTN = 48.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hCell = 65.0;
         hBTN = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     float widthPassport = (SCREEN_WIDTH - 3*padding)/2;
@@ -142,6 +158,23 @@
         make.left.equalTo(viewHeader).offset(5.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
+    }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
     }];
     
     //  menu
@@ -666,6 +699,9 @@
         [btnBusiness setTitleColor:GRAY_50 forState:UIControlStateNormal];
         [btnRegistrant setTitleColor:GRAY_150 forState:UIControlStateNormal];
     }];
+}
+
+- (IBAction)icCartClick:(UIButton *)sender {
 }
 
 @end

@@ -14,6 +14,8 @@
                 <outlet property="btnBusiness" destination="oTa-yM-G2i" id="ZHk-s5-XgN"/>
                 <outlet property="btnRegistrant" destination="rkV-SV-Ovv" id="4Xz-3S-xy9"/>
                 <outlet property="icBack" destination="Iuu-Jq-kqY" id="yRX-An-hQy"/>
+                <outlet property="icCart" destination="yvJ-n0-u2w" id="0qt-EM-eCh"/>
+                <outlet property="lbCount" destination="D9D-WW-0FV" id="uTq-hE-XWp"/>
                 <outlet property="lbHeader" destination="5js-q5-uSj" id="nHu-NX-XSH"/>
                 <outlet property="lbMenuActive" destination="uzP-yK-TwV" id="6jj-zC-xSd"/>
                 <outlet property="tbInfo" destination="YlY-nF-LeQ" id="Qry-1D-6Jg"/>
@@ -77,6 +79,22 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yvJ-n0-u2w">
+                            <rect key="frame" x="278" y="7" width="34" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cart_gray.png"/>
+                            <connections>
+                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="ae2-l6-vJH"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D9D-WW-0FV">
+                            <rect key="frame" x="300" y="7" width="20" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -93,5 +111,6 @@
     </objects>
     <resources>
         <image name="back_gray.png" width="96" height="96"/>
+        <image name="cart_gray.png" width="96" height="96"/>
     </resources>
 </document>

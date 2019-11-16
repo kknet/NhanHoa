@@ -13,7 +13,9 @@
             <connections>
                 <outlet property="btnCheckUpdate" destination="7aE-c0-sRu" id="53K-YS-xIh"/>
                 <outlet property="icBack" destination="s3q-la-wYm" id="ivH-ri-AIW"/>
+                <outlet property="icCart" destination="F2n-tM-TAI" id="OIB-4v-6ya"/>
                 <outlet property="imgInfo" destination="N0i-O5-ZL7" id="iFR-TN-S9E"/>
+                <outlet property="lbCount" destination="8F6-pj-OV2" id="u8f-iX-2FA"/>
                 <outlet property="lbHeader" destination="cMM-Fy-9X9" id="9CJ-jO-jte"/>
                 <outlet property="lbReleaseDate" destination="3o8-M0-A9a" id="XBu-W3-mzn"/>
                 <outlet property="lbTitle" destination="yJr-cB-yuK" id="kXP-KS-tua"/>
@@ -44,6 +46,22 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2n-tM-TAI">
+                            <rect key="frame" x="269" y="7" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cart_gray.png"/>
+                            <connections>
+                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="kC4-2A-9dR"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8F6-pj-OV2">
+                            <rect key="frame" x="291" y="7" width="21" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -86,11 +104,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-30" y="157"/>
+            <point key="canvasLocation" x="-347" y="85"/>
         </view>
     </objects>
     <resources>
         <image name="about_photo.png" width="1367" height="1325"/>
         <image name="back_gray.png" width="96" height="96"/>
+        <image name="cart_gray.png" width="96" height="96"/>
     </resources>
 </document>

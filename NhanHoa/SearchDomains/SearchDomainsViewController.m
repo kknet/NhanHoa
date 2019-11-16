@@ -48,6 +48,7 @@
     self.navigationController.navigationBarHidden = TRUE;
     
     [self showContentWithCurrentLanguage];
+    [self updateCartCountForView];
     
     [self displayBannerPhotosIfNeed];
     [self createListDomainPriceIfNeed];
@@ -67,6 +68,15 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)registerObservers {
@@ -356,7 +366,7 @@
     
     //  three top views
     viewRenewDomain.layer.cornerRadius = viewCheckMultiDomains.layer.cornerRadius = viewTransferDomains.layer.cornerRadius = 10.0;
-    lbRenewDomain.font = lbCheckMultiDomains.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-7];
+    lbRenewDomain.font = lbCheckMultiDomains.font = lbTransferDomain.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-5];
     lbRenewDomain.textColor = lbCheckMultiDomains.textColor = lbTransferDomain.textColor = GRAY_80;
     
     //  view renew domain
@@ -380,6 +390,7 @@
         make.top.equalTo(viewRenewDomain.mas_centerY).offset(2.0);
         make.left.equalTo(viewRenewDomain).offset(2.0);
         make.right.equalTo(viewRenewDomain).offset(-2.0);
+        make.bottom.equalTo(viewRenewDomain);
     }];
     
     //  view check multi domains
@@ -403,6 +414,7 @@
         make.top.equalTo(viewCheckMultiDomains.mas_centerY).offset(2.0);
         make.left.equalTo(viewCheckMultiDomains).offset(2.0);
         make.right.equalTo(viewCheckMultiDomains).offset(-2.0);
+        make.bottom.equalTo(viewCheckMultiDomains);
     }];
     
     //  view transfer domains
@@ -423,6 +435,7 @@
         make.top.equalTo(viewTransferDomains.mas_centerY).offset(2.0);
         make.left.equalTo(viewTransferDomains).offset(2.0);
         make.right.equalTo(viewTransferDomains).offset(-2.0);
+        make.bottom.equalTo(viewTransferDomains);
     }];
     
     //  collection view slider

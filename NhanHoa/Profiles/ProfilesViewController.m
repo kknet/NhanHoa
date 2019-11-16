@@ -44,6 +44,10 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
+    [appDelegate hideTabbarCustomSubviews:FALSE withDuration:TRUE];
+    icBack.hidden = TRUE;
+    
+    [self updateCartCountForView];
     
     if (appDelegate.needReloadListProfile) {
         appDelegate.needReloadListProfile = FALSE;
@@ -78,6 +82,15 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)keyboardDidShow:(NSNotification *)notif {
@@ -140,12 +153,8 @@
         icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
         hCell = 120.0;
     }
-    if (appDelegate.safeAreaBottomPadding > 0) {
-        hFooter = padding + hBTN + appDelegate.safeAreaBottomPadding;
-    }else{
-        hFooter = padding + hBTN + padding;
-    }
     
+    hFooter = padding + hBTN + padding;
     
     UIImage *imgTop = [UIImage imageNamed:@"bg_profile_top"];
     float hHeader = SCREEN_WIDTH * imgTop.size.height / imgTop.size.width;
@@ -195,7 +204,8 @@
     
     //  footer view
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
         make.height.mas_equalTo(hFooter);
     }];
     
@@ -292,6 +302,8 @@
 
 - (IBAction)btnAddProfilePress:(UIButton *)sender {
     NewProfileViewController *newProfileVC = [[NewProfileViewController alloc] initWithNibName:@"NewProfileViewController" bundle:nil];
+    newProfileVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController:newProfileVC animated:TRUE];
 }
 
@@ -467,6 +479,8 @@
     }else{
         detailVC.profileInfo = [listProfiles objectAtIndex: indexPath.row];
     }
+    detailVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController:detailVC animated:TRUE];
 }
 

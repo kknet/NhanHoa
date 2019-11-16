@@ -10,17 +10,14 @@
 
 typedef enum{
     eExploreDomain,
-    eExploreCloudServer,
-    eExploreVfone,
-    eExploreOrders,
-    eExploreProfiles,
-    eExploreEmail,
     eExploreHosting,
-    eExploreSSL,
-    eExploreVPS,
+    eExploreCloudVPS,
+    eExploreCloudServer,
     eExploreManagerDomains,
-    eExplorePricingDomains,
-    eExploreCheckDomains,
+    eExploreEmail,
+    eExploreOrders,
+    eExploreSSL,
+    eExploreProfiles,
 }ExploreType;
 
 NS_ASSUME_NONNULL_BEGIN

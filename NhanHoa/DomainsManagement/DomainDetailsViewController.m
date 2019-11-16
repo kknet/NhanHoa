@@ -58,6 +58,8 @@
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
     
+    [self updateCartCountForView];
+    
     [self showContentWithCurrentLanguage];
     supportWhoIsProtect = FALSE;
     
@@ -77,6 +79,15 @@
     
     [swWhoIsProtect removeFromSuperview];
     swWhoIsProtect = nil;
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)showContentWithCurrentLanguage {

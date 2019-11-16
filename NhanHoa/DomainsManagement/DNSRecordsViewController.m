@@ -40,6 +40,8 @@
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
     
+    [self updateCartCountForView];
+    
     [btnAddRecord setTitle:[appDelegate.localization localizedStringForKey:@"Add New Record"] forState:UIControlStateNormal];
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"DNS Records management"];
     [btnChange setTitle:[appDelegate.localization localizedStringForKey:@"Change Name Server"] forState:UIControlStateNormal];
@@ -50,6 +52,15 @@
         [self getDNSRecordListForDomain];
     }else{
         viewNotSupport.hidden = FALSE;
+    }
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
     }
 }
 

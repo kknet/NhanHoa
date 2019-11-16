@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
-
+@property (weak, nonatomic) IBOutlet UIButton *icCart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCount;
 
 @property (weak, nonatomic) IBOutlet UIWebView *wvContent;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *icWaiting;
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *domain_signing_url;
 
 - (IBAction)icBackClick:(UIButton *)sender;
+- (IBAction)icCartClick:(UIButton *)sender;
 
 @end
 

@@ -33,6 +33,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     lbHeader.text = @"SSD Cloud Server";
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

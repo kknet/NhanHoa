@@ -44,6 +44,16 @@
     selectedIndex = -1;
     
     [self setFrameForContentViewWithTableHeight];
+    [self updateCartCountForView];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {
@@ -74,7 +84,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoBold size:20.0];
         fontForGetHeight = [UIFont fontWithName:RobotoRegular size:18.0];
-        hIcon = 22.0;
+        hIcon = 24.0;
         hBlock = 80.0;
         icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
@@ -162,7 +172,7 @@
     
     //  email hosting
     UIImage *imgIcon = [UIImage imageNamed:@"ic_email_hosting"];
-    float wIcon = hIcon * imgIcon.size.width / imgIcon.size.height;
+    float wIcon = (hIcon+3) * imgIcon.size.width / imgIcon.size.height;
     
     UITapGestureRecognizer *tapOnEmailHosting = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnEmailHosting)];
     [viewEmailHosting addGestureRecognizer: tapOnEmailHosting];
@@ -171,11 +181,11 @@
         make.width.mas_equalTo(widthBlock);
         make.height.mas_equalTo(hBlock);
     }];
-
+    
     [imgEmailHosting mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewEmailHosting.mas_centerY).offset(-2.0);
         make.centerX.equalTo(viewEmailHosting.mas_centerX);
-        make.height.mas_equalTo(hIcon);
+        make.height.mas_equalTo(hIcon+3);
         make.width.mas_equalTo(wIcon);
     }];
 
@@ -219,11 +229,11 @@
     }];
 
     imgIcon = [UIImage imageNamed:@"ic_email_microsoft"];
-    wIcon = hIcon * imgIcon.size.width / imgIcon.size.height;
+    wIcon = (hIcon + 5) * imgIcon.size.width / imgIcon.size.height;
     [imgEmailMicrosoft mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewEmailMicrosoft.mas_centerY).offset(-2.0);
         make.centerX.equalTo(viewEmailMicrosoft.mas_centerX);
-        make.height.mas_equalTo(hIcon);
+        make.height.mas_equalTo(hIcon + 5);
         make.width.mas_equalTo(wIcon);
     }];
 
@@ -243,11 +253,11 @@
     }];
 
     imgIcon = [UIImage imageNamed:@"ic_email_server"];
-    wIcon = hIcon * imgIcon.size.width / imgIcon.size.height;
+    wIcon = (hIcon+8) * imgIcon.size.width / imgIcon.size.height;
     [imgEmailServerRieng mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(viewEmailServerRieng.mas_centerY).offset(-2.0);
         make.centerX.equalTo(viewEmailServerRieng.mas_centerX);
-        make.height.mas_equalTo(hIcon);
+        make.height.mas_equalTo(hIcon+8);
         make.width.mas_equalTo(wIcon);
     }];
 

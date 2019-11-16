@@ -27,7 +27,7 @@
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         sizeIcon = 54.0;
-        textFont = [UIFont fontWithName:RobotoRegular size:16];
+        textFont = [UIFont fontWithName:RobotoRegular size:15.5];
     }
     
     [imgType mas_makeConstraints:^(MASConstraintMaker *make) {

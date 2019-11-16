@@ -51,6 +51,7 @@
     }
     [listResults removeAllObjects];
     
+    [self updateCartCountForView];
     [self checkToEnableContinueButton];
     
     [ProgressHUD backgroundColor: ProgressHUD_BG];
@@ -65,6 +66,15 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)popToRootView {
@@ -349,6 +359,9 @@
         [sender mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(widthBTN);
         }];
+        
+        [self updateCartCountForView];
+        [self checkToEnableContinueButton];
     }
 }
 

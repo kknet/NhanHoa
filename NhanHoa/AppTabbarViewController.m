@@ -8,7 +8,7 @@
 
 #import "AppTabbarViewController.h"
 #import "NewHomeViewController.h"
-#import "OrdersListViewController.h"
+#import "ProfilesViewController.h"
 #import "NotificationsViewController.h"
 #import "SearchDomainsViewController.h"
 #import "NewMoreViewController.h"
@@ -58,20 +58,20 @@
     
     homeNav.tabBarItem = homeItem;
     
-    //  Tabbar Invoices
-    OrdersListViewController *ordersVC = [[OrdersListViewController alloc] initWithNibName:@"OrdersListViewController" bundle:nil];
-    UINavigationController *ordersNav = [[UINavigationController alloc] initWithRootViewController: ordersVC];
+    //  Tabbar Profiles
+    ProfilesViewController *profilesVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
+    UINavigationController *profilesNav = [[UINavigationController alloc] initWithRootViewController: profilesVC];
     
-    UIImage *imgOrders = [UIImage imageNamed:@"tabbar_invoices_def"];
-    imgOrders = [imgOrders imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imgProfiles = [UIImage imageNamed:@"tabbar_invoices_def"];
+    imgProfiles = [imgProfiles imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIImage *imgOrdersAct = [UIImage imageNamed:@"tabbar_invoices_act"];
-    imgOrdersAct = [imgOrdersAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imgProfilesAct = [UIImage imageNamed:@"tabbar_invoices_act"];
+    imgProfilesAct = [imgProfilesAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UITabBarItem *ordersItem = [[UITabBarItem alloc] initWithTitle:[appDelegate.localization localizedStringForKey:@"Orders"] image:imgOrders selectedImage:imgOrdersAct];
+    UITabBarItem *ordersItem = [[UITabBarItem alloc] initWithTitle:[appDelegate.localization localizedStringForKey:@"Profiles"] image:imgProfiles selectedImage:imgProfilesAct];
     [ordersItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: itemFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     
-    ordersNav.tabBarItem = ordersItem;
+    profilesNav.tabBarItem = ordersItem;
     
     //  search domains
     SearchDomainsViewController *searchDomainsVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
@@ -112,7 +112,7 @@
     moreNav.tabBarItem = accItem;
     
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
-    tabBarController.viewControllers = @[homeNav, ordersNav, searchDomainsNav, notifNav, moreNav];
+    tabBarController.viewControllers = @[homeNav, profilesNav, searchDomainsNav, notifNav, moreNav];
     [self.view addSubview: tabBarController.view];
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];

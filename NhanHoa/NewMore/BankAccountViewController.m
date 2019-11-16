@@ -37,6 +37,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
+    [self updateCartCountForView];
+    
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Bank account"];
     [btnUpdate setTitle:[appDelegate.localization localizedStringForKey:@"Update"] forState:UIControlStateNormal];
     
@@ -53,11 +55,20 @@
     [self displayBankInfo];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
     if (updateInfoView) {
         [updateInfoView removeFromSuperview];
         updateInfoView = nil;
+    }
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
     }
 }
 

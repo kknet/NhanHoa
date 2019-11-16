@@ -229,6 +229,8 @@ typedef enum TypeForGetDomain{
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
     
+    [self updateCartCountForView];
+    
     if (listSearch == nil) {
         listSearch = [[NSMutableArray alloc] init];
     }else{
@@ -245,6 +247,15 @@ typedef enum TypeForGetDomain{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)showContentWithCurrentLanguage {

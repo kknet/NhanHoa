@@ -19,7 +19,7 @@
 @end
 
 @implementation ChangePassViewController
-@synthesize viewHeader, icBack, lbHeader, tfCurPass, imgCurPass, icShowPass, btnForgotPass, btnContinue, lbSepa;
+@synthesize viewHeader, icBack, lbHeader, icCart,lbCount, tfCurPass, imgCurPass, icShowPass, btnForgotPass, btnContinue, lbSepa;
 @synthesize viewNewPass, imgNewPass, tfNewPass, icShowNewPass, lbBotNewPass, imgConfirmPass, tfConfirmPass, icShowConfirm, lbBotConfirmPass, btnSaveNewPass;
 
 - (void)viewDidLoad {
@@ -33,6 +33,7 @@
     [super viewWillAppear: animated];
     [tfCurPass becomeFirstResponder];
     [self showContentWithCurrentLanguage];
+    [self updateCartCountForView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
@@ -40,6 +41,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
+}
+
 
 - (void)showContentWithCurrentLanguage {
     lbHeader.text = [appDelegate.localization localizedStringForKey:@"Change password"];
@@ -90,14 +101,17 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         hTextfield = 45.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         hTextfield = 48.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hTextfield = 53.0;
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     }
     
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -124,6 +138,24 @@
         make.centerY.equalTo(lbHeader.mas_centerY);
         make.width.height.mas_equalTo(40.0);
     }];
+    
+    [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(viewHeader).offset(-padding+5.0);
+        make.centerY.equalTo(lbHeader.mas_centerY);
+        make.width.height.mas_equalTo(40.0);
+    }];
+    
+    lbCount.textColor = UIColor.whiteColor;
+    lbCount.backgroundColor = ORANGE_COLOR;
+    lbCount.layer.cornerRadius = appDelegate.sizeCartCount/2;
+    lbCount.clipsToBounds = TRUE;
+    lbCount.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize - 5.0];
+    [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(icCart).offset(-3.0);
+        make.right.equalTo(icCart).offset(3.0);
+        make.width.height.mas_equalTo(appDelegate.sizeCartCount);
+    }];
+    
     [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
     
     float sizeLock = 24.0;
@@ -378,6 +410,9 @@
     
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] changePasswordWithCurrentPass:PASSWORD newPass:newPass];
+}
+
+- (IBAction)icCartClick:(UIButton *)sender {
 }
 
 #pragma mark - UITextfield delegate

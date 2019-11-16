@@ -113,6 +113,8 @@
         }
         [[AppDelegate sharedInstance] updateShoppingCartCount];
         [self updateLayoutForChooseMainDomain];
+        
+        [self updateCartItemCount];
     }
     
     [self checkToEnableContinueButton];
@@ -360,7 +362,7 @@
     btnChoose.layer.borderColor = unselectColor.CGColor;
     btnChoose.layer.borderWidth = 1.0;
     btnChoose.layer.cornerRadius = 8.0;
-    btnChoose.titleLabel.font = textFont;
+    btnChoose.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize];
     [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(viewResult).offset(-padding);
         make.centerY.equalTo(viewResult.mas_centerY);

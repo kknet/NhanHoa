@@ -12,7 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactViewController">
             <connections>
                 <outlet property="icBack" destination="1d4-Np-pZa" id="9bL-WP-QDu"/>
+                <outlet property="icCart" destination="k9f-3Q-itX" id="h2N-jN-Wh5"/>
                 <outlet property="imgBanner" destination="cHO-0o-CWg" id="xgm-V5-pVj"/>
+                <outlet property="lbCount" destination="Nk5-kI-5B2" id="3AV-dn-WXz"/>
                 <outlet property="lbHeader" destination="uNB-pw-Y6I" id="qZQ-fX-we9"/>
                 <outlet property="tbInfo" destination="Rc0-ha-3er" id="mAn-GS-Ig1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -43,6 +45,22 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k9f-3Q-itX">
+                            <rect key="frame" x="290" y="0.0" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cart_gray.png"/>
+                            <connections>
+                                <action selector="icCartClick:" destination="-1" eventType="touchUpInside" id="qbM-RK-V5Y"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nk5-kI-5B2">
+                            <rect key="frame" x="294" y="4" width="21" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -58,11 +76,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-265" y="1"/>
+            <point key="canvasLocation" x="-494" y="-11"/>
         </view>
     </objects>
     <resources>
         <image name="back_gray.png" width="96" height="96"/>
-        <image name="contact_banner.png" width="1380" height="460"/>
+        <image name="cart_gray.png" width="96" height="96"/>
+        <image name="contact_banner.png" width="2079" height="729"/>
     </resources>
 </document>

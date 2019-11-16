@@ -1,22 +1,23 @@
 //
-//  UpdateBusinessProfileView.m
+//  UpdateNewBusinessProfileView.m
 //  NhanHoa
 //
-//  Created by OS on 10/29/19.
+//  Created by OS on 11/16/19.
 //  Copyright © 2019 Nhan Hoa. All rights reserved.
 //
 
-#import "UpdateBusinessProfileView.h"
-#import "UploadPicture.h"
+#import "UpdateNewBusinessProfileView.h"
 
-@implementation UpdateBusinessProfileView
+@implementation UpdateNewBusinessProfileView
 
-@synthesize viewMenu, btnBusinessInfo, btnRegistrantInfo, lbMenuActive;
+@synthesize viewMenu, btnRegistrantInfo, btnBusinessInfo, lbMenuActive;
+
 @synthesize scvBusiness, lbBusinessName, tfBusinessName, lbBotBusinessName, lbTaxCode, tfTaxCode, lbBotTaxCode, lbBusinessAddr, tfBusinessAddr, lbBotBusinessAddr, lbBusinessPhone, tfBusinessPhone, lbBotBusinessPhone, lbBusinessCountry, tfBusinessCity, lbBotBusinessCountry, lbBusinessCity, tfBusinessCountry, lbBusinessBotCity, imgBusinessCity, btnChooseBusinessCity, btnSaveInfo;
 
-@synthesize scvRegistrant, lbFullname, tfFullname, lbBotFullname, lbGender, icMale, lbMale, icFemale, lbFemale, lbDOB, tfDOB, lbBotDOB, btnChooseDOB, lbPostition, tfPostition, lbBotPPostition, lbPassport, tfPassport, lbBotPassport, lbPhoneNumber, tfPhoneNumber, lbBotPhoneNumber, lbEmail, tfEmail, lbBotEmail, btnSaveRegistrantInfo, lbAddress, tfAddress, lbBotAddress, imgFront, lbFront, imgBackside, lbBackside;
+@synthesize scvRegistrant, lbFullname, tfFullname, lbBotFullname, lbGender, icMale, lbMale, icFemale, lbFemale, lbDOB, tfDOB, lbBotDOB, btnChooseDOB, lbPostition, tfPostition, lbBotPPostition, lbPassport, tfPassport, lbBotPassport, lbPhoneNumber, tfPhoneNumber, lbBotPhoneNumber, lbEmail, tfEmail, lbBotEmail, btnSaveRegistrantInfo, lbAddress, tfAddress, lbBotAddress;
+@synthesize datePicker, toolBar, viewDatePicker, lbBGPicker;
 
-@synthesize padding, businessCity, gender, linkFrontPassport, linkBacksidePassport, delegate, datePicker, toolBar, typeOfView;
+@synthesize padding, gender, cityCode;
 
 - (void)activeRegistrantMenu: (BOOL)select {
     if (select) {
@@ -54,7 +55,7 @@
     
     padding = 15.0;
     float paddingY = 25.0;
-    float hBTN = 55.0;
+    float hBTN = 53.0;
     float hLabel = 25.0;
     float hTextfield = 50.0;
     
@@ -66,6 +67,7 @@
         textFont = [UIFont fontWithName:RobotoRegular size:16.0];
         hTextfield = 40.0;
         paddingY = 20.0;
+        hBTN = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         mediumFont = [UIFont fontWithName:RobotoMedium size:18.0];
@@ -80,7 +82,7 @@
         hTextfield = 50.0;
         paddingY = 25.0;
         
-        hBTN = 55.0;
+        hBTN = 53.0;
     }
     
     //  scrollview content
@@ -526,45 +528,6 @@
         make.height.mas_equalTo(1);
     }];
     
-    //  passport
-    lbFront.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Passport's front"];
-    [lbFront mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbBotAddress.mas_bottom).offset(paddingY);
-        make.left.equalTo(lbBotAddress);
-        make.right.equalTo(lbBotAddress.mas_centerX).offset(-padding/2);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
-    float hPassport = (SCREEN_WIDTH -3*padding)/2 * 2/3;
-    
-    //  tap to change photo
-    UITapGestureRecognizer *tapOnFront = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnFrontImage)];
-    imgFront.userInteractionEnabled = TRUE;
-    [imgFront addGestureRecognizer: tapOnFront];
-    
-    [imgFront mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lbFront.mas_bottom);
-        make.left.right.equalTo(lbFront);
-        make.height.mas_equalTo(hPassport);
-    }];
-    
-    lbBackside.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Passport's backside"];
-    [lbBackside mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbFront);
-        make.left.equalTo(lbFront.mas_right).offset(padding);
-        make.right.equalTo(lbFullname);
-    }];
-    
-    //  tap to change photo
-    UITapGestureRecognizer *tapOnBackside = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(whenTapOnBacksideImage)];
-    imgBackside.userInteractionEnabled = TRUE;
-    [imgBackside addGestureRecognizer: tapOnBackside];
-    
-    [imgBackside mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(lbBackside);
-        make.top.bottom.equalTo(imgFront);
-    }];
-    
     btnSaveRegistrantInfo.titleLabel.font = mediumFont;
     btnSaveRegistrantInfo.backgroundColor = BLUE_COLOR;
     btnSaveRegistrantInfo.layer.cornerRadius = 8.0;
@@ -572,20 +535,20 @@
                            forState:UIControlStateNormal];
     [btnSaveRegistrantInfo setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [btnSaveRegistrantInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imgFront.mas_bottom).offset(2*paddingY);
+        make.top.equalTo(lbBotAddress.mas_bottom).offset(2*paddingY);
         make.left.right.equalTo(lbBotAddress);
         make.height.mas_equalTo(hBTN);
     }];
     
-    lbFullname.font = lbGender.font = lbDOB.font = lbPostition.font = lbPassport.font = lbPhoneNumber.font = lbEmail.font = lbAddress.font = lbFront.font = lbBackside.font = mediumFont;
+    lbFullname.font = lbGender.font = lbDOB.font = lbPostition.font = lbPassport.font = lbPhoneNumber.font = lbEmail.font = lbAddress.font = mediumFont;
     tfFullname.font = lbMale.font = lbFemale.font = tfDOB.font = tfPostition.font = tfPassport.font = tfPhoneNumber.font = tfEmail.font = tfAddress.font = textFont;
     
-    lbFullname.textColor = lbGender.textColor = lbDOB.textColor = lbPostition.textColor = lbPassport.textColor = lbPhoneNumber.textColor = lbEmail.textColor = lbAddress.textColor = lbFront.textColor = lbBackside.textColor = GRAY_50;
+    lbFullname.textColor = lbGender.textColor = lbDOB.textColor = lbPostition.textColor = lbPassport.textColor = lbPhoneNumber.textColor = lbEmail.textColor = lbAddress.textColor = GRAY_50;
     tfFullname.textColor = lbMale.textColor = lbFemale.textColor = tfDOB.textColor = tfPostition.textColor = tfPassport.textColor = tfPhoneNumber.textColor = tfEmail.textColor = tfAddress.textColor = GRAY_80;
     
     lbBotFullname.backgroundColor = lbBotDOB.backgroundColor = lbBotPPostition.backgroundColor = lbBotPassport.backgroundColor = lbBotPhoneNumber.backgroundColor = lbBotEmail.backgroundColor = lbBotAddress.backgroundColor = GRAY_220;
     
-    float hPersonal = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hPassport) + 2*paddingY + hBTN + 2*paddingY;
+    float hPersonal = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + 2*paddingY + hBTN + 2*paddingY;
     
     scvRegistrant.contentSize = CGSizeMake(SCREEN_WIDTH, hPersonal);
     
@@ -598,6 +561,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
+
 
 - (void)keyboardDidShow:(NSNotification *)notif {
     [self closePickerView];
@@ -622,87 +586,6 @@
     }];
 }
 
-- (void)addDatePickerForViewWithFont: (UIFont *)textFont {
-    
-    
-    
-    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
-    datePicker.backgroundColor = UIColor.whiteColor;
-    [datePicker setValue:BLUE_COLOR forKey:@"textColor"];
-    [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [self addSubview: datePicker];
-    [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(0);
-    }];
-    
-    toolBar = [[UIView alloc] init];
-    toolBar.clipsToBounds = TRUE;
-    toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
-    [self addSubview: toolBar];
-    [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.bottom.equalTo(datePicker.mas_top);
-        make.height.mas_equalTo(0);
-    }];
-    
-    UIButton *btnClose = [[UIButton alloc] init];
-    [btnClose setTitle:text_close forState:UIControlStateNormal];
-    btnClose.titleLabel.font = textFont;
-    [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
-    btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [btnClose addTarget:self
-                 action:@selector(closePickerView)
-       forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview: btnClose];
-    [btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(toolBar).offset(15.0);
-        make.bottom.top.equalTo(toolBar);
-        make.width.mas_equalTo(100);
-    }];
-    
-    UIButton *btnChoose = [[UIButton alloc] init];
-    [btnChoose setTitle:text_choose forState:UIControlStateNormal];
-    btnChoose.titleLabel.font = textFont;
-    [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
-    btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [btnChoose addTarget:self
-                  action:@selector(chooseDatePicker)
-        forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview: btnChoose];
-    [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(toolBar).offset(-15.0);
-        make.bottom.top.equalTo(toolBar);
-        make.width.mas_equalTo(100);
-    }];
-}
-
-- (void)closePickerView {
-    [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(0);
-    }];
-    
-    [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.bottom.equalTo(datePicker.mas_top);
-        make.height.mas_equalTo(0);
-    }];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        [self layoutIfNeeded];
-    }];
-}
-
-- (void)chooseDatePicker {
-    [self closePickerView];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/YYYY"];
-    
-    tfDOB.text = [dateFormatter stringFromDate:datePicker.date];
-}
-
 - (IBAction)btnRegistrantInfoPress:(UIButton *)sender {
     [self activeRegistrantMenu: TRUE];
     
@@ -715,28 +598,6 @@
     
     scvRegistrant.hidden = TRUE;
     scvBusiness.hidden = FALSE;
-}
-
-- (IBAction)btnChooseBusinessCityPress:(UIButton *)sender {
-    [self endEditing: TRUE];
-    
-    float realHeight = SCREEN_HEIGHT - ([UIApplication sharedApplication].statusBarFrame.size.height + 50.0);
-    float wPopup = 300.0;
-    if (!IS_IPHONE && !IS_IPOD) {
-        wPopup = 500;
-    }
-    
-    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, realHeight-100)];
-    popupView.delegate = self;
-    [popupView showInView:self animated:TRUE];
-}
-
-- (IBAction)btnSaveInfoBusinessPress:(UIButton *)sender {
-    [self checkToUpdateBusinessProfile];
-}
-
-- (IBAction)btnSaveRegistrantInfoPress:(UIButton *)sender {
-    [self checkToUpdateBusinessProfile];
 }
 
 - (IBAction)icMaleClick:(UIButton *)sender {
@@ -773,11 +634,11 @@
     }
     
     [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
+        make.left.right.bottom.equalTo(viewDatePicker);
         make.height.mas_equalTo(hPickerView);
     }];
     [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo(viewDatePicker);
         make.bottom.equalTo(datePicker.mas_top);
         make.height.mas_equalTo(hToolbar);
     }];
@@ -786,107 +647,20 @@
         [self layoutIfNeeded];
     }completion:^(BOOL finished) {
         datePicker.maximumDate = [NSDate date];
+        if (hPickerView == 0) {
+            viewDatePicker.hidden = TRUE;
+        }else{
+            viewDatePicker.hidden = FALSE;
+        }
     }];
 }
 
-
-- (void)displayInfoForProfileWithInfo: (NSDictionary *)info
-{
-    //  display business informations
-    
-    NSString *company = [info objectForKey:@"cus_company"];
-    tfBusinessName.text = (![AppUtils isNullOrEmpty: company])? company : @"";
-    
-    NSString *taxcode = [info objectForKey:@"cus_taxcode"];
-    tfTaxCode.text = (![AppUtils isNullOrEmpty: taxcode])? taxcode : @"";
-    
-    NSString *company_address = [info objectForKey:@"cus_company_address"];
-    tfBusinessAddr.text = (![AppUtils isNullOrEmpty: company_address])? company_address : @"";
-    
-    NSString *company_phone = [info objectForKey:@"cus_company_phone"];
-    tfBusinessPhone.text = (![AppUtils isNullOrEmpty: company_phone])? company_phone : @"";
-    
-    NSString *cus_city = [info objectForKey:@"cus_city"];
-    if (![AppUtils isNullOrEmpty: cus_city]) {
-        businessCity = cus_city;
-        tfBusinessCity.text = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cus_city];
-    }else{
-        businessCity = @"";
-        tfBusinessCity.text = @"";
-    }
-    
-    //  registrant informations
-    NSString *cus_realname = [info objectForKey:@"cus_realname"];
-    tfFullname.text = (![AppUtils isNullOrEmpty: cus_realname])? cus_realname : @"";
-    
-    NSString *cus_birthday = [info objectForKey:@"cus_birthday"];
-    tfDOB.text = (![AppUtils isNullOrEmpty: cus_birthday])? cus_birthday : @"";
-    
-    NSString *gender = [info objectForKey:@"cus_gender"];
-    if ([gender isEqualToString:@"1"]) {
-        [self selectMaleGender];
-    }else{
-        [self selectFemaleGender];
-    }
-    
-    NSString *cus_position = [info objectForKey:@"cus_position"];
-    tfPostition.text = (![AppUtils isNullOrEmpty: cus_position])? cus_position : @"";
-    
-    NSString *cus_idcard_number = [info objectForKey:@"cus_idcard_number"];
-    tfPassport.text = (![AppUtils isNullOrEmpty: cus_idcard_number])? cus_idcard_number : @"";
-    
-    NSString *cus_phone = [info objectForKey:@"cus_phone"];
-    tfPhoneNumber.text = (![AppUtils isNullOrEmpty: cus_phone])? cus_phone : @"";
-    
-    NSString *email = [info objectForKey:@"cus_rl_email"];
-    tfEmail.text = (![AppUtils isNullOrEmpty: email])? email : @"";
-    
-    NSString *cus_address = [info objectForKey:@"cus_address"];
-    tfAddress.text = (![AppUtils isNullOrEmpty: cus_address])? cus_address : @"";
-    
-    //  cmnd mat truoc
-    if ([AppDelegate sharedInstance].editCMND_a != nil) {
-        imgFront.image = [AppDelegate sharedInstance].editCMND_a;
-    }else{
-        NSString *cmnd_a = [info objectForKey:@"cmnd_a"];
-        if (![AppUtils isNullOrEmpty: cmnd_a]) {
-            [imgFront sd_setImageWithURL:[NSURL URLWithString:cmnd_a] placeholderImage:FRONT_EMPTY_IMG];
-        }else{
-            imgFront.image = FRONT_EMPTY_IMG;
-        }
-    }
-
-    //  cmnd mat sau
-    if ([AppDelegate sharedInstance].editCMND_b != nil) {
-        imgBackside.image = [AppDelegate sharedInstance].editCMND_b;
-    }else{
-        NSString *cmnd_b = [info objectForKey:@"cmnd_b"];
-        if (![AppUtils isNullOrEmpty: cmnd_b]) {
-            [imgBackside sd_setImageWithURL:[NSURL URLWithString:cmnd_b] placeholderImage:BEHIND_EMPTY_IMG];
-            linkBacksidePassport = cmnd_b;
-        }else{
-            imgBackside.image = BEHIND_EMPTY_IMG;
-            linkBacksidePassport = @"";
-        }
-    }
+- (IBAction)btnSaveRegistrantPress:(UIButton *)sender {
+    [self startToCheckAndUpdateProfileInformation];
 }
 
-- (void)saveAllValueBeforeChangeView {
-    //  business info
-    
-    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessName.text forKey:@"cus_company"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfTaxCode.text forKey:@"cus_taxcode"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessAddr.text forKey:@"cus_company_address"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfBusinessPhone.text forKey:@"cus_company_phone"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfFullname.text forKey:@"cus_realname"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfDOB.text forKey:@"cus_birthday"];
-    [[AppDelegate sharedInstance].profileEdit setObject:[NSString stringWithFormat:@"%d", gender] forKey:@"cus_gender"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfPostition.text forKey:@"cus_position"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfPassport.text forKey:@"cus_idcard_number"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfPhoneNumber.text forKey:@"cus_phone"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfEmail.text forKey:@"cus_rl_email"];
-    [[AppDelegate sharedInstance].profileEdit setObject:tfAddress.text forKey:@"cus_address"];
-    [[AppDelegate sharedInstance].profileEdit setObject:businessCity forKey:@"cus_city"];
+- (IBAction)btnSaveInfoPress:(UIButton *)sender {
+    [self startToCheckAndUpdateProfileInformation];
 }
 
 - (void)selectMaleGender {
@@ -903,242 +677,132 @@
     [icFemale setImage:[UIImage imageNamed:@"ic_tick_active.png"] forState:UIControlStateNormal];
 }
 
-- (void)whenTapOnFrontImage {
-    if ([delegate respondsToSelector:@selector(clickOnFrontBusinessProfile)]) {
-        [delegate clickOnFrontBusinessProfile];
+- (void)displayBusinessProfileInfo
+{
+    //  display registrant info
+    tfFullname.text = [AccountModel getCusRealName];
+    
+    gender = [AccountModel getCusGender];
+    if (gender == type_men) {
+        [icMale setImage:[UIImage imageNamed:@"ic_tick_active"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"ic_tick"] forState:UIControlStateNormal];
+
+    }else {
+        [icMale setImage:[UIImage imageNamed:@"ic_tick"] forState:UIControlStateNormal];
+        [icFemale setImage:[UIImage imageNamed:@"ic_tick_active"] forState:UIControlStateNormal];
     }
+
+    tfDOB.text = [AccountModel getCusBirthday];
+    tfPostition.text = [AccountModel getCusCompanyPosition];
+    tfPassport.text = [AccountModel getCusPassport];
+    tfPhoneNumber.text = [AccountModel getCusPhone];
+    tfAddress.text = [AccountModel getCusAddress];
+    tfEmail.text = [AccountModel getCusEmail];
+    
+    tfBusinessName.text = [AccountModel getCusCompanyName];
+    tfTaxCode.text = [AccountModel getCusCompanyTax];
+    tfBusinessAddr.text = [AccountModel getCusCompanyAddress];
+    tfBusinessPhone.text = [AccountModel getCusCompanyPhone];
+    
+    cityCode = [AccountModel getCusCityCode];
+    NSString *cityName = [[AppDelegate sharedInstance] findCityObjectWithCityCode: cityCode];
+    tfBusinessCity.text = (![AppUtils isNullOrEmpty: cityName]) ? cityName : @"";
 }
 
-- (void)whenTapOnBacksideImage {
-    if ([delegate respondsToSelector:@selector(clickOnBacksideBusinessProfile)]) {
-        [delegate clickOnBacksideBusinessProfile];
-    }
+- (void)addDatePickerForViewWithFont: (UIFont *)textFont
+{
+    viewDatePicker = [[UIView alloc] init];
+    viewDatePicker.hidden = TRUE;
+    viewDatePicker.backgroundColor = UIColor.clearColor;
+    [[AppDelegate sharedInstance].window addSubview: viewDatePicker];
+    [viewDatePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo([AppDelegate sharedInstance].window);
+    }];
+    
+    lbBGPicker = [[UILabel alloc] init];
+    lbBGPicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    [viewDatePicker addSubview: lbBGPicker];
+    [lbBGPicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(viewDatePicker);
+    }];
+    
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    datePicker.backgroundColor = UIColor.whiteColor;
+    [datePicker setValue:BLUE_COLOR forKey:@"textColor"];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    [viewDatePicker addSubview: datePicker];
+    [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(viewDatePicker);
+        make.height.mas_equalTo(0);
+    }];
+    
+    toolBar = [[UIView alloc] init];
+    toolBar.clipsToBounds = TRUE;
+    toolBar.backgroundColor = [UIColor colorWithRed:(245/255.0) green:(245/255.0) blue:(245/255.0) alpha:1.0];
+    [viewDatePicker addSubview: toolBar];
+    [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(viewDatePicker);
+        make.bottom.equalTo(datePicker.mas_top);
+        make.height.mas_equalTo(0);
+    }];
+    
+    UIButton *btnClose = [[UIButton alloc] init];
+    [btnClose setTitle:text_close forState:UIControlStateNormal];
+    btnClose.titleLabel.font = textFont;
+    [btnClose setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+    btnClose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btnClose addTarget:self
+                 action:@selector(closePickerView)
+       forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview: btnClose];
+    [btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(toolBar).offset(15.0);
+        make.bottom.top.equalTo(toolBar);
+        make.width.mas_equalTo(100);
+    }];
+    
+    UIButton *btnChoose = [[UIButton alloc] init];
+    [btnChoose setTitle:text_choose forState:UIControlStateNormal];
+    btnChoose.titleLabel.font = textFont;
+    [btnChoose setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+    btnChoose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btnChoose addTarget:self
+                  action:@selector(chooseDatePicker)
+        forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview: btnChoose];
+    [btnChoose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(toolBar).offset(-15.0);
+        make.bottom.top.equalTo(toolBar);
+        make.width.mas_equalTo(100);
+    }];
 }
 
-- (void)checkToUpdateBusinessProfile {
-    [self endEditing: TRUE];
+- (void)chooseDatePicker {
+    [self closePickerView];
     
-    if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business name"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/YYYY"];
     
-    if ([AppUtils isNullOrEmpty: tfTaxCode.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business tax code"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfBusinessAddr.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business address"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfBusinessPhone.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business phone number"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: businessCity]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please choose city for business"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    //  check registration infor
-    
-    if ([AppUtils isNullOrEmpty: tfFullname.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant name"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfDOB.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please choose registrant's date of birth"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfPostition.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant position"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfPassport.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant passport"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfPhoneNumber.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant phone number"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfEmail.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant email"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if ([AppUtils isNullOrEmpty: tfAddress.text]) {
-        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant address"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
-        return;
-    }
-    
-    if (typeOfView == eAddNewBusinessProfile) {
-        [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Adding..."] Interaction:NO];
-    }else{
-        [ProgressHUD backgroundColor: ProgressHUD_BG];
-        [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
-    }
-    
-    if ([AppDelegate sharedInstance].editCMND_a != nil || [AppDelegate sharedInstance].editCMND_b != nil) {
-        [self startUploadPassportPictures];
-    }else{
-        linkFrontPassport = linkBacksidePassport = @"";
-        
-        [self startUpdateProfileForBusiness];
-    }
+    tfDOB.text = [dateFormatter stringFromDate:datePicker.date];
 }
 
-- (void)startUploadPassportPictures {
-    if ([AppDelegate sharedInstance].editCMND_a != nil) {
-        [AppDelegate sharedInstance].editCMND_a = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_a];
-        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_a);
-        
-        NSString *imageName = SFM(@"%@_front_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]);
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            UploadPicture *session = [[UploadPicture alloc] init];
-            [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
-                    {
-                        linkFrontPassport = @"";
-                    }else{
-                        linkFrontPassport = [NSString stringWithFormat:@"%@/%@", link_upload_photo, uploadSession.namePicture];
-                    }
-                    
-                    [self startUploadPassportBehindPictures];
-                });
-            }];
-        });
-    }else{
-        linkFrontPassport = @"";
-
-        [self startUploadPassportBehindPictures];
-    }
-}
-
-- (void)startUploadPassportBehindPictures {
-    if ([AppDelegate sharedInstance].editCMND_b != nil) {
-        [AppDelegate sharedInstance].editCMND_b = [AppUtils resizeImage: [AppDelegate sharedInstance].editCMND_b];
-        NSData *uploadData = UIImagePNGRepresentation([AppDelegate sharedInstance].editCMND_b);
-        
-        NSString *imageName = SFM(@"%@_behind_%@", [AppUtils getCurrentDateTime], [AccountModel getCusIdOfUser]);
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            UploadPicture *session = [[UploadPicture alloc] init];
-            [session uploadData:uploadData withName:imageName beginUploadBlock:nil finishUploadBlock:^(UploadPicture *uploadSession) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (uploadSession.uploadError != nil || [uploadSession.namePicture isEqualToString:@"Error"])
-                    {
-                        linkBacksidePassport = @"";
-                    }else{
-                        linkBacksidePassport = SFM(@"%@/%@", link_upload_photo, uploadSession.namePicture);
-                    }
-                    [self startUpdateProfileForBusiness];
-                });
-            }];
-        });
-    }else{
-        linkBacksidePassport = @"";
-        
-        [self startUpdateProfileForBusiness];
-    }
-}
-
-- (void)startUpdateProfileForBusiness {
-    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:USERNAME forKey:@"username"];
-    [info setObject:PASSWORD forKey:@"password"];
+- (void)closePickerView {
+    [datePicker mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.mas_equalTo(0);
+    }];
     
-    [info setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
-    //  business info
-    [info setObject:tfBusinessName.text forKey:@"tc_tc_name"];
-    [info setObject:tfTaxCode.text forKey:@"tc_tc_mst"];
-    [info setObject:tfBusinessAddr.text forKey:@"tc_tc_address"];
-    [info setObject:tfBusinessPhone.text forKey:@"tc_tc_phone"];
-    [info setObject:COUNTRY_CODE forKey:@"tc_tc_country"];
-    [info setObject:businessCity forKey:@"tc_tc_city"];
+    [toolBar mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.bottom.equalTo(datePicker.mas_top);
+        make.height.mas_equalTo(0);
+    }];
     
-    //  personal info
-    [info setObject:tfPostition.text forKey:@"cn_position"];
-    [info setObject:tfFullname.text forKey:@"cn_name"];
-    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
-    [info setObject:tfDOB.text forKey:@"cn_birthday"];
-    
-    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
-    [info setObject:tfPhoneNumber.text forKey:@"cn_phone"];
-    [info setObject:tfAddress.text forKey:@"cn_address"];
-    [info setObject:linkFrontPassport forKey:@"cmnd_a"];
-    [info setObject:linkBacksidePassport forKey:@"cmnd_b"];
-    [info setObject:tfEmail.text forKey:@"cn_email"];
-    
-    if (typeOfView == eAddNewBusinessProfile) {
-        [info setObject:add_contact_mod forKey:@"mod"];
-        
-        [WebServiceUtils getInstance].delegate = self;
-        [[WebServiceUtils getInstance] addProfileWithContent: info];
-        
-    }else{
-        [info setObject:edit_contact_mod forKey:@"mod"];
-        
-        if ([AppDelegate sharedInstance].profileEdit != nil) {
-            NSString *cus_id = [[AppDelegate sharedInstance].profileEdit objectForKey:@"cus_id"];
-            [info setObject:cus_id forKey:@"contact_id"];
-            
-            [WebServiceUtils getInstance].delegate = self;
-            [[WebServiceUtils getInstance] editProfileWithContent: info];
-            
-        }else{
-            [WriteLogsUtils writeLogContent:SFM(@"[%s] Contact_id not exitst in profile info", __FUNCTION__)];
-        }
-    }
-}
-
--(void)failedToEditProfileWithError:(NSString *)error {
-    [ProgressHUD dismiss];
-    
-    NSString *content = [AppUtils getErrorContentFromData: error];
-    if ([delegate respondsToSelector:@selector(failedToUpdateBusinessProfileWithError:)]) {
-        [delegate failedToUpdateBusinessProfileWithError: content];
-    }
-}
-
--(void)editProfileSuccessful {
-    [ProgressHUD dismiss];
-    if ([delegate respondsToSelector:@selector(updateBusinessProfileSuccessfully)]) {
-        [delegate updateBusinessProfileSuccessfully];
-    }
-}
-
--(void)failedToAddProfileWithError:(NSString *)error {
-    [ProgressHUD dismiss];
-    
-    NSString *content = [AppUtils getErrorContentFromData: error];
-    if ([delegate respondsToSelector:@selector(failedToAddBusinessProfileWithError:)]) {
-        [delegate failedToAddBusinessProfileWithError: content];
-    }
-}
-
--(void)addProfileSuccessful {
-    [ProgressHUD dismiss];
-    [AppDelegate sharedInstance].editCMND_a = [AppDelegate sharedInstance].editCMND_b = nil;
-    if ([delegate respondsToSelector:@selector(addBusinessProfileSuccessfully)]) {
-        [delegate addBusinessProfileSuccessfully];
-    }
-}
-
-#pragma mark - ChooseCityPopupView
-- (void)choosedCity:(CityObject *)city {
-    businessCity = city.code;
-    tfBusinessCity.text = city.name;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        viewDatePicker.hidden = TRUE;
+    }];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -1184,6 +848,87 @@
         [self endEditing: TRUE];
     }
     return TRUE;
+}
+
+- (void)startToCheckAndUpdateProfileInformation
+{
+    //  check registration info
+    if ([AppUtils isNullOrEmpty: tfFullname.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant name"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfDOB.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please choose registrant's date of birth"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPostition.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant position"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPassport.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant passport"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfPhoneNumber.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant phone number"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfAddress.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter registrant address"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    //  check business info
+    if ([AppUtils isNullOrEmpty: tfBusinessName.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business name"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfTaxCode.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business tax code"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessAddr.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business address"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: tfBusinessPhone.text]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please enter business phone number"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    if ([AppUtils isNullOrEmpty: cityCode]) {
+        [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Please choose city for business"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+        return;
+    }
+    
+    [ProgressHUD backgroundColor: ProgressHUD_BG];
+    [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
+    
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+    [info setObject:tfFullname.text forKey:@"cn_name"];
+    [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfDOB.text forKey:@"cn_birthday"];
+    [info setObject:tfPassport.text forKey:@"cn_cmnd"];
+    [info setObject:tfPhone.text forKey:@"cn_phone"];
+    [info setObject:tfPermanentAddr.text forKey:@"cn_address"];
+    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
+    [info setObject:cityCode forKey:@"cn_city"];
+    
+    [info setObject:edit_profile_mod forKey:@"mod"];
+    [info setObject:USERNAME forKey:@"username"];
+    [info setObject:PASSWORD forKey:@"password"];
+    
+    [WebServiceUtils getInstance].delegate = self;
+    [[WebServiceUtils getInstance] updateAccountProfileWithInfo: info];
 }
 
 @end

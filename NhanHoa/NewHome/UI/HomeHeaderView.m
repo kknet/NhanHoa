@@ -25,7 +25,7 @@
     float sizeButton = 60.0;
     float hWallet = 90.0;
     float marginY = 15.0;
-    float hCartIcon = 45.0;
+    float hCartIcon = 40.0;
     
     //  edge for buttons
     icTopup.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
@@ -36,8 +36,7 @@
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         titleFont = [UIFont fontWithName:RobotoBold size:18.0];
         hWallet = 70.0;
-        hCartIcon = 35.0;
-        icCart.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         sizeIcon = 18.0;
         moreHeight = 45.0;
         marginY = 5.0;
@@ -45,8 +44,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6) {
         titleFont = [UIFont fontWithName:RobotoBold size:20.0];
         hWallet = 80.0;
-        hCartIcon = 40.0;
-        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
         sizeIcon = 20.0;
         moreHeight = 55.0;
         marginY = 5.0;
@@ -59,8 +57,7 @@
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS) {
         titleFont = [UIFont fontWithName:RobotoBold size:22.0];
         hWallet = 90.0;
-        hCartIcon = 45.0;
-        icCart.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+        icCart.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
         sizeIcon = 22.0;
         moreHeight = 65.0;
         marginY = 15.0;
@@ -81,18 +78,18 @@
     
     [icCart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imgBanner).offset(5.0);
-        make.right.equalTo(self).offset(-padding/2);
+        make.right.equalTo(self).offset(-padding+5.0);
         make.width.height.mas_equalTo(hCartIcon);
     }];
     
     lbCount.backgroundColor = ORANGE_COLOR;
     lbCount.clipsToBounds = TRUE;
     lbCount.text = @"1";
-    lbCount.layer.cornerRadius = 20.0/2;
+    lbCount.layer.cornerRadius = [AppDelegate sharedInstance].sizeCartCount/2;
     [lbCount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(icCart).offset(-3.0);
         make.right.equalTo(icCart).offset(3.0);
-        make.width.height.mas_equalTo(20.0);
+        make.width.height.mas_equalTo([AppDelegate sharedInstance].sizeCartCount);
     }];
     
     lbHello.textColor = UIColor.whiteColor;

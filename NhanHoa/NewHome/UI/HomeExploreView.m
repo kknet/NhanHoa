@@ -95,7 +95,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 12;
+    return 9;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -107,44 +107,19 @@
             cell.imgType.image = [UIImage imageNamed:@"menu_domains"];
             break;
         }
-        case eExploreCloudServer:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Cloud server"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_cloud_server"];
-            break;
-        }
-        case eExploreVfone:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Vfone"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_vfone"];
-            break;
-        }
-        case eExploreOrders:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Orders"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
-            break;
-        }
-        case eExploreProfiles:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Profiles"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_profiles"];
-            break;
-        }
-        case eExploreEmail:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Email"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_register_email"];
-            break;
-        }
         case eExploreHosting:{
             cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Hosting"];
             cell.imgType.image = [UIImage imageNamed:@"menu_hosting"];
             break;
         }
-        case eExploreSSL:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"SSL"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_ssl"];
+        case eExploreCloudVPS:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Cloud VPS"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_vps"];
             break;
         }
-        case eExploreVPS:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"VPS"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_vps"];
+        case eExploreCloudServer:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Cloud server"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_cloud_server"];
             break;
         }
         case eExploreManagerDomains:{
@@ -152,16 +127,31 @@
             cell.imgType.image = [UIImage imageNamed:@"menu_domains_management"];
             break;
         }
-        case eExplorePricingDomains:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Pricing domains"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_pricing"];
+            
+        case eExploreEmail:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Email"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_register_email"];
             break;
         }
-        case eExploreCheckDomains:{
-            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Check domains"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_check_domains"];
+            
+        case eExploreOrders:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Orders"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
             break;
         }
+            
+        case eExploreSSL:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"SSL"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_ssl"];
+            break;
+        }
+            
+        case eExploreProfiles:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Profiles"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_profiles"];
+            break;
+        }
+        
         default:
             break;
     }

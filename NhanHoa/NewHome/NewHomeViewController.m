@@ -18,9 +18,7 @@
 #import "IntroduceSSLViewController.h"
 #import "IntroduceVPSViewController.h"
 #import "DomainsViewController.h"
-#import "SearchMultiDomainsViewController.h"
 #import "PaymentViewController.h"
-#import "PricingDomainViewController.h"
 
 #import "HomeHeaderView.h"
 #import "HomeSliderView.h"
@@ -205,9 +203,19 @@
     HomeMenuClvCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeMenuClvCell" forIndexPath:indexPath];
     
     switch (indexPath.row) {
-        case eMenuDomain:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Domains"];
+        case eMenuRegisterDomains:{
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Register domains"];
             cell.imgType.image = [UIImage imageNamed:@"menu_domains"];
+            break;
+        }
+        case eMenuHosting:{
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Hosting"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_hosting"];
+            break;
+        }
+        case eMenuCloudVPS:{
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Cloud VPS"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_vps"];
             break;
         }
         case eMenuCloudServer:{
@@ -215,19 +223,9 @@
             cell.imgType.image = [UIImage imageNamed:@"menu_cloud_server"];
             break;
         }
-        case eMenuVfone:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Vfone"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_vfone"];
-            break;
-        }
-        case eMenuOrders:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Orders"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
-            break;
-        }
-        case eMenuProfiles:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Profiles"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_profiles"];
+        case eMenuDomainsManagement:{
+            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Domain management"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_domains_management"];
             break;
         }
         case eMenuRegisterEmail:{
@@ -235,9 +233,9 @@
             cell.imgType.image = [UIImage imageNamed:@"menu_register_email"];
             break;
         }
-        case eMenuHosting:{
-            cell.lbMenu.text = [appDelegate.localization localizedStringForKey:@"Hosting"];
-            cell.imgType.image = [UIImage imageNamed:@"menu_hosting"];
+        case eMenuOrdersManagement:{
+            cell.lbMenu.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Orders"];
+            cell.imgType.image = [UIImage imageNamed:@"menu_invoices"];
             break;
         }
         case eMenuMore:{
@@ -254,57 +252,29 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == eMenuDomain) {
+    if (indexPath.row == eMenuRegisterDomains) {
         [self goToSearchDomainViewController];
-        
-    }else if (indexPath.row == eMenuCloudServer){
-        [self goToCloudServerViewController];
-        
-    }else if (indexPath.row == eMenuProfiles){
-        [self goToProfilesViewController];
-        
-    }else if (indexPath.row == eMenuRegisterEmail){
-        [self goToRegisterEmailsViewController];
         
     }else if (indexPath.row == eMenuHosting){
         [self goToRegisterHostingViewController];
         
+    }else if (indexPath.row == eMenuCloudVPS){
+        [self goToCloudVPSViewController];
+        
+    }else if (indexPath.row == eMenuCloudServer){
+        [self goToCloudServerViewController];
+        
+    }else if (indexPath.row == eMenuDomainsManagement){
+        [self goToDomainsManagementViewController];
+        
+    }else if (indexPath.row == eMenuRegisterEmail){
+        [self goToRegisterEmailsViewController];
+        
+    }else if (indexPath.row == eMenuOrdersManagement){
+        
     }else if (indexPath.row == eMenuMore) {
         [self showExploreMenuForView];
     }
-    
-//    HomeMenuCell *cell = (HomeMenuCell *)[collectionView cellForItemAtIndexPath: indexPath];
-//
-//    NSString *title = cell.lbName.text;
-//    if ([title isEqualToString: text_domains_pricing_list])
-//    {
-//        PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
-//        pricingVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: pricingVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_search_domains])
-//    {
-//
-//    }else if ([title isEqualToString: text_top_up_into_account])
-//    {
-//        TopupViewController *topupVC = [[TopupViewController alloc] initWithNibName:@"TopupViewController" bundle:nil];
-//        topupVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: topupVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_bonus_account])
-//    {
-//    }else if ([title isEqualToString: text_domains_management])
-//    {
-//        RenewedDomainViewController *renewedVC = [[RenewedDomainViewController alloc] initWithNibName:@"RenewedDomainViewController" bundle:nil];
-//        renewedVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: renewedVC animated:TRUE];
-//
-//    }else if ([title isEqualToString: text_customers_support])
-//    {
-//        SupportViewController *supportVC = [[SupportViewController alloc] initWithNibName:@"SupportViewController" bundle:nil];
-//        supportVC.hidesBottomBarWhenPushed = TRUE;
-//        [self.navigationController pushViewController: supportVC animated:TRUE];
-//    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -370,11 +340,24 @@
                 [self goToSearchDomainViewController];
                 break;
             }
+            case eExploreHosting:{
+                [self goToRegisterHostingViewController];
+                break;
+            }
+            case eExploreCloudVPS:{
+                [self goToCloudVPSViewController];
+                break;
+            }
             case eExploreCloudServer:{
                 [self goToCloudServerViewController];
                 break;
             }
-            case eExploreVfone:{
+            case eExploreManagerDomains:{
+                [self goToDomainsManagementViewController];
+                break;
+            }
+            case eExploreEmail:{
+                [self goToRegisterEmailsViewController];
                 break;
             }
             case eExploreOrders:{
@@ -384,35 +367,10 @@
                 [self goToProfilesViewController];
                 break;
             }
-            case eExploreEmail:{
-                [self goToRegisterEmailsViewController];
-                break;
-            }
-            case eExploreHosting:{
-                [self goToRegisterHostingViewController];
-                break;
-            }
             case eExploreSSL:{
                 [self goToRegisterSSLViewController];
                 break;
             }
-            case eExploreVPS:{
-                [self goToRegisterVPSViewController];
-                break;
-            }
-            case eExploreManagerDomains:{
-                [self goToDomainsManagementViewController];
-                break;
-            }
-            case eExplorePricingDomains:{
-                [self goToDomainsPricingViewController];
-                break;
-            }
-            case eExploreCheckDomains:{
-                [self goToSearchMultiDomainsViewController];
-                break;
-            }
-                
             default:
                 break;
         }
@@ -424,6 +382,13 @@
     searchDomainsVC.hidesBottomBarWhenPushed = TRUE;
     [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController: searchDomainsVC animated:TRUE];
+}
+
+- (void)goToCloudVPSViewController {
+    IntroduceVPSViewController *cloudVPSVC = [[IntroduceVPSViewController alloc] initWithNibName:@"IntroduceVPSViewController" bundle:nil];
+    cloudVPSVC.hidesBottomBarWhenPushed = TRUE;
+    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+    [self.navigationController pushViewController: cloudVPSVC animated:TRUE];
 }
 
 - (void)goToCloudServerViewController {
@@ -461,32 +426,11 @@
     [self.navigationController pushViewController: registerSSLVC animated:TRUE];
 }
 
-- (void)goToRegisterVPSViewController {
-    IntroduceVPSViewController *registerVPSVC = [[IntroduceVPSViewController alloc] initWithNibName:@"IntroduceVPSViewController" bundle:nil];
-    registerVPSVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController: registerVPSVC animated:TRUE];
-}
-
 - (void)goToDomainsManagementViewController {
     DomainsViewController *domainsVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
     domainsVC.hidesBottomBarWhenPushed = TRUE;
     [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController:domainsVC animated:TRUE];
-}
-
-- (void)goToDomainsPricingViewController {
-    PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
-    pricingVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController:pricingVC animated:TRUE];
-}
-
-- (void)goToSearchMultiDomainsViewController {
-    SearchMultiDomainsViewController *searchMultiVC = [[SearchMultiDomainsViewController alloc] initWithNibName:@"SearchMultiDomainsViewController" bundle:nil];
-    searchMultiVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController:searchMultiVC animated:TRUE];
 }
 
 #pragma mark - UIScrollView
