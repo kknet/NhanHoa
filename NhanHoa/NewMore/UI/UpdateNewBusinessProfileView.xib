@@ -190,6 +190,9 @@
                             <rect key="frame" x="8" y="459" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="btnChooseBusinessCityPress:" destination="iN0-l3-epB" eventType="touchUpInside" id="hf8-MM-4SY"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rvl-j0-uwf">
                             <rect key="frame" x="8" y="524" width="304" height="30"/>
@@ -475,7 +478,7 @@
                 <outlet property="tfTaxCode" destination="YOj-B8-8Hh" id="zOh-l6-hRr"/>
                 <outlet property="viewMenu" destination="t52-CI-hd7" id="syr-Up-djh"/>
             </connections>
-            <point key="canvasLocation" x="-383" y="-264"/>
+            <point key="canvasLocation" x="-129" y="-127"/>
         </view>
     </objects>
     <resources>

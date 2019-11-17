@@ -586,7 +586,6 @@
 -(void)loginSucessfulWithData:(NSDictionary *)data {
     [ProgressHUD dismiss];
     
-    [AppDelegate sharedInstance].userInfo = [[NSDictionary alloc] initWithDictionary: data];
     [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Your info has been updated successfully"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
     
     [self performSelector:@selector(updateSuccessfully) withObject:nil afterDelay:2.0];

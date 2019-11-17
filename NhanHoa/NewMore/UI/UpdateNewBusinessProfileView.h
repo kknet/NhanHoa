@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChooseCityPopupView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UpdateNewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UITextFieldDelegate>
+@protocol UpdateNewBusinessProfileViewDelegate <NSObject>
+
+@optional
+- (void)updateBusinessProfileInfoSuccessfully;
+- (void)updateBusinessProfileInfoFailed;
+@end
+
+@interface UpdateNewBusinessProfileView : UIView<UIGestureRecognizerDelegate, UITextFieldDelegate, WebServiceUtilsDelegate, ChooseCityPopupViewDelegate>
+
+@property (nonatomic, strong) id<NSObject, UpdateNewBusinessProfileViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *viewMenu;
 @property (weak, nonatomic) IBOutlet UIButton *btnBusinessInfo;
@@ -46,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btnChooseBusinessCity;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnSaveInfo;
+- (IBAction)btnChooseBusinessCityPress:(UIButton *)sender;
 
 //  registrant info
 @property (weak, nonatomic) IBOutlet UIScrollView *scvRegistrant;

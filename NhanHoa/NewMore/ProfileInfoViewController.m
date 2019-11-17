@@ -22,7 +22,7 @@
 #define BUSINESS_NUM_ROWS_SECTION_1     7
 #define BUSINESS_NUM_ROWS_SECTION_2     3
 
-@interface ProfileInfoViewController ()<UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PECropViewControllerDelegate, WebServiceUtilsDelegate, UpdateNewPersonalProfileViewDelegate>
+@interface ProfileInfoViewController ()<UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PECropViewControllerDelegate, WebServiceUtilsDelegate, UpdateNewPersonalProfileViewDelegate, UpdateNewBusinessProfileViewDelegate>
 {
     AppDelegate *appDelegate;
     UIFont *textFont;
@@ -200,27 +200,32 @@
     hCell = 65.0;
     hAvatar = 100.0;
     hMenu = 50.0;
-    
-    float hFooter = 100.0;
+    float hBTN = 53.0;
     
     textFont = [UIFont fontWithName:RobotoMedium size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoMedium size:18.0];
         hAvatar = 80.0;
         hCell = 60.0;
-        hFooter = 80.0;
+        hBTN = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoMedium size:20.0];
         hAvatar = 80.0;
         hCell = 60.0;
-        hFooter = 80.0;
+        hBTN = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoMedium size:22.0];
         hAvatar = 100.0;
         hCell = 65.0;
-        hFooter = 100.0;
+        hBTN = 53.0;
+    }
+    float hFooter;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooter = padding + hBTN;
+    }else{
+        hFooter = padding + hBTN + padding;
     }
     
     //  view header
@@ -228,6 +233,7 @@
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
     }];
+    
     if (cusOwnType == type_personal) {
         [AppUtils addBoxShadowForView:viewMenu color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:2.0];
     }
@@ -256,7 +262,7 @@
         make.height.mas_equalTo(0);
     }];
     if (cusOwnType == type_business) {
-        [AppUtils addBoxShadowForView:viewMenu color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:2.0];
+        [AppUtils addBoxShadowForView:viewMenu color:GRAY_150 opacity:0.8 offsetX:1.0 offsetY:2.0];
     }
     
     btnRegistrant.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
@@ -288,9 +294,9 @@
     tbInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
     tbInfo.delegate = self;
     tbInfo.dataSource = self;
-    tbInfo.backgroundColor = UIColor.clearColor;
+    tbInfo.backgroundColor = UIColor.whiteColor;
     [tbInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewMenu.mas_bottom).offset(7.0);
+        make.top.equalTo(viewMenu.mas_bottom);
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
@@ -302,11 +308,12 @@
     tbBusiness.dataSource = self;
     tbBusiness.backgroundColor = UIColor.clearColor;
     [tbBusiness mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewMenu.mas_bottom).offset(7.0);
-        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(viewMenu.mas_bottom);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     
-    float hBusinessFooter = SCREEN_HEIGHT - (hStatus + self.navigationController.navigationBar.frame.size.height + 7.0 + hMenu + 6*hCell + 15.0 + appDelegate.safeAreaBottomPadding);
+    float hBusinessFooter = SCREEN_HEIGHT - (hStatus + self.navigationController.navigationBar.frame.size.height + hMenu + 6*hCell + appDelegate.safeAreaBottomPadding);
     
     viewFooterBusinessInfo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hBusinessFooter)];
     
@@ -320,12 +327,22 @@
                               action:@selector(btnUpdateInformationPress)
                     forControlEvents:UIControlEventTouchUpInside];
     [viewFooterBusinessInfo addSubview: btnFooterBusinessInfo];
-    [btnFooterBusinessInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(viewFooterBusinessInfo).offset(-padding);
-        make.left.equalTo(viewFooterBusinessInfo).offset(padding);
-        make.right.equalTo(viewFooterBusinessInfo).offset(-padding);
-        make.height.mas_equalTo(50.0);
-    }];
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        [btnFooterBusinessInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(viewFooterBusinessInfo);
+            make.left.equalTo(viewFooterBusinessInfo).offset(padding);
+            make.right.equalTo(viewFooterBusinessInfo).offset(-padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }else{
+        [btnFooterBusinessInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(viewFooterBusinessInfo).offset(-padding);
+            make.left.equalTo(viewFooterBusinessInfo).offset(padding);
+            make.right.equalTo(viewFooterBusinessInfo).offset(-padding);
+            make.height.mas_equalTo(hBTN);
+        }];
+    }
+    
     tbBusiness.tableFooterView = viewFooterBusinessInfo;
     
     hTbHeader = 2*padding + hAvatar + 1.5*padding + 30.0 + 2*padding;
@@ -372,7 +389,7 @@
     
     //  footer for tableview
     viewFooterTB = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
-    viewFooterTB.backgroundColor = UIColor.whiteColor;
+    viewFooterTB.backgroundColor = UIColor.clearColor;
     
     btnUpdate = [UIButton buttonWithType: UIButtonTypeCustom];
     btnUpdate.backgroundColor = BLUE_COLOR;
@@ -385,8 +402,8 @@
         forControlEvents:UIControlEventTouchUpInside];
     [viewFooterTB addSubview: btnUpdate];
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(viewFooterTB.mas_centerY);
-        make.height.mas_equalTo(50.0);
+        make.top.equalTo(viewFooterTB).offset(padding);
+        make.height.mas_equalTo(hBTN);
         make.left.equalTo(viewFooterTB).offset(padding);
         make.right.equalTo(viewFooterTB).offset(-padding);
     }];
@@ -414,7 +431,8 @@
             [updatePersonalView setupUIForView];
             [updatePersonalView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(viewHeader.mas_bottom).offset(2.0);
-                make.left.right.bottom.equalTo(self.view);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
             }];
         }
         [updatePersonalView displayPersonalProfileInfo];
@@ -433,11 +451,12 @@
                 }
             }
             [self.view addSubview: updateBusinessView];
-            //  updatePersonalView.delegate = self;
+            updateBusinessView.delegate = self;
             [updateBusinessView setupUIForView];
             [updateBusinessView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(viewHeader.mas_bottom).offset(2.0);
-                make.left.right.bottom.equalTo(self.view);
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
             }];
         }
         [updateBusinessView displayBusinessProfileInfo];
@@ -806,7 +825,7 @@
             return nil;
         }else{
             UILabel *lbSection = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15.0)];
-            lbSection.backgroundColor = self.view.backgroundColor;
+            lbSection.backgroundColor = GRAY_240;
             return lbSection;
         }
     }else{
@@ -946,6 +965,15 @@
 }
 
 -(void)updateProfileInfoSuccessfully {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+#pragma mark - UpdateNewBusinessProfileViewDelegate
+-(void)updateBusinessProfileInfoFailed {
+    [self.navigationController popViewControllerAnimated: TRUE];
+}
+
+-(void)updateBusinessProfileInfoSuccessfully {
     [self.navigationController popViewControllerAnimated: TRUE];
 }
 

@@ -115,30 +115,37 @@
     float hStatus = [UIApplication sharedApplication].statusBarFrame.size.height;
     float hNav = self.navigationController.navigationBar.frame.size.height;
     
-    hSection = 50.0;
+    hSection = 70.0;
     padding = 15.0;
     float hBTN = 55.0;
     
     float hCellLabel = 25.0;
     float hCellBTN = 40.0;
+    float paddingTop = 15.0;
     
     textFont = [UIFont fontWithName:RobotoRegular size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:18.0];
         hBTN = 45.0;
+        hSection = 50.0;
+        paddingTop = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
         hBTN = 48.0;
         padding = 15.0;
+        hSection = 60.0;
+        paddingTop = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:22.0];
         hBTN = 50.0;
+        hSection = 70.0;
+        paddingTop = 15.0;
     }
     
-    hCell = 10 + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0;
-    hProtectCell = 10 + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0 + 1.0 + (hCellBTN + 10.0) + 5.0;
+    hCell = paddingTop + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0;
+    hProtectCell = paddingTop + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0 + 1.0 + (hCellBTN + 10.0) + 5.0;
     
     viewHeader.backgroundColor = BLUE_COLOR;
     [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -225,7 +232,7 @@
     [lbTopTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewTop).offset(hStatus);
         make.left.equalTo(viewTop).offset(40.0 + 10.0);
-        make.right.equalTo(viewTop).offset(-padding);
+        make.right.equalTo(viewTop).offset(-40.0 + 10.0);
         make.bottom.equalTo(viewTop);
     }];
     
@@ -235,7 +242,7 @@
         make.left.equalTo(viewTop);
         make.width.height.mas_equalTo(40.0);
     }];
-    [AppUtils addBoxShadowForView:viewTop color:GRAY_200 opacity:0.8 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewTop color:GRAY_150 opacity:1.0 offsetX:1.0 offsetY:1.0];
     
     //  setup for tableview
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -368,8 +375,8 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hSection)];
-    viewSection.backgroundColor = [UIColor colorWithRed:(238/255.0) green:(238/255.0)
-                                                   blue:(238/255.0) alpha:1.0];
+    viewSection.backgroundColor = GRAY_240;
+    
     UILabel *lbSection = [[UILabel alloc] init];
     lbSection.text = [appDelegate.localization localizedStringForKey:@"Order's informations"];
     lbSection.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize-1];
@@ -381,7 +388,7 @@
     }];
     
     UIButton *btnBuyMore = [[UIButton alloc] init];
-    btnBuyMore.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-1];
+    btnBuyMore.titleLabel.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
     [btnBuyMore setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
     [btnBuyMore setTitle:[appDelegate.localization localizedStringForKey:@"Buy more"]
                 forState:UIControlStateNormal];

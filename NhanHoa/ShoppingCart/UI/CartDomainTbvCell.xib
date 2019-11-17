@@ -135,7 +135,7 @@
                 <outlet property="tfYear" destination="qzj-Co-f9u" id="geE-6h-MFg"/>
                 <outlet property="viewWhoisProtect" destination="9L5-va-4gu" id="Fcj-fq-oPy"/>
             </connections>
-            <point key="canvasLocation" x="-348" y="-114"/>
+            <point key="canvasLocation" x="91" y="-132"/>
         </tableViewCell>
     </objects>
     <resources>

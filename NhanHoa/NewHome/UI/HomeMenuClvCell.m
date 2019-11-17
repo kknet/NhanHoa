@@ -22,7 +22,7 @@
         sizeIcon = 45.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-        textFont = [UIFont fontWithName:RobotoRegular size:14.5];
+        textFont = [UIFont fontWithName:RobotoRegular size:14];
         sizeIcon = 48.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){

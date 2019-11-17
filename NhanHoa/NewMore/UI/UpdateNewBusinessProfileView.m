@@ -17,7 +17,7 @@
 @synthesize scvRegistrant, lbFullname, tfFullname, lbBotFullname, lbGender, icMale, lbMale, icFemale, lbFemale, lbDOB, tfDOB, lbBotDOB, btnChooseDOB, lbPostition, tfPostition, lbBotPPostition, lbPassport, tfPassport, lbBotPassport, lbPhoneNumber, tfPhoneNumber, lbBotPhoneNumber, lbEmail, tfEmail, lbBotEmail, btnSaveRegistrantInfo, lbAddress, tfAddress, lbBotAddress;
 @synthesize datePicker, toolBar, viewDatePicker, lbBGPicker;
 
-@synthesize padding, gender, cityCode;
+@synthesize padding, gender, cityCode, delegate;
 
 - (void)activeRegistrantMenu: (BOOL)select {
     if (select) {
@@ -308,7 +308,10 @@
     
     lbBotBusinessName.backgroundColor = lbBotTaxCode.backgroundColor = lbBotBusinessAddr.backgroundColor = lbBotBusinessPhone.backgroundColor = lbBusinessBotCity.backgroundColor = lbBotBusinessCountry.backgroundColor = GRAY_220;
     
-    float hContentView = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + 2*paddingY + hBTN + 2*paddingY;
+    float hContentView = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + 2*paddingY + hBTN;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding == 0) {
+        hContentView += 2*paddingY;
+    }
     
     scvBusiness.contentSize = CGSizeMake(SCREEN_WIDTH, hContentView);
     
@@ -548,7 +551,10 @@
     
     lbBotFullname.backgroundColor = lbBotDOB.backgroundColor = lbBotPPostition.backgroundColor = lbBotPassport.backgroundColor = lbBotPhoneNumber.backgroundColor = lbBotEmail.backgroundColor = lbBotAddress.backgroundColor = GRAY_220;
     
-    float hPersonal = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + 2*paddingY + hBTN + 2*paddingY;
+    float hPersonal = padding + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + paddingY + (hLabel + hTextfield + 1.0) + 2*paddingY + hBTN;
+    if ([AppDelegate sharedInstance].safeAreaBottomPadding == 0) {
+        hPersonal += 2*paddingY;
+    }
     
     scvRegistrant.contentSize = CGSizeMake(SCREEN_WIDTH, hPersonal);
     
@@ -653,6 +659,19 @@
             viewDatePicker.hidden = FALSE;
         }
     }];
+}
+
+- (IBAction)btnChooseBusinessCityPress:(UIButton *)sender {
+    [self endEditing: TRUE];
+    
+    float wPopup = 300.0;
+    if (!IS_IPHONE && !IS_IPOD) {
+        wPopup = 500;
+    }
+    
+    ChooseCityPopupView *popupView = [[ChooseCityPopupView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wPopup)/2, 50, wPopup, SCREEN_HEIGHT-100)];
+    popupView.delegate = self;
+    [popupView showInView:[AppDelegate sharedInstance].window animated:TRUE];
 }
 
 - (IBAction)btnSaveRegistrantPress:(UIButton *)sender {
@@ -913,15 +932,25 @@
     [ProgressHUD show:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Updating..."] Interaction:NO];
     
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:[NSNumber numberWithInt:type_personal] forKey:@"own_type"];
+    [info setObject:[NSNumber numberWithInt:type_business] forKey:@"own_type"];
+    
+    //  set business info
+    [info setObject:tfBusinessName.text forKey:@"tc_tc_name"];
+    [info setObject:tfTaxCode.text forKey:@"tc_tc_mst"];
+    [info setObject:tfBusinessAddr.text forKey:@"tc_tc_address"];
+    [info setObject:tfBusinessPhone.text forKey:@"tc_tc_phone"];
+    [info setObject:COUNTRY_CODE forKey:@"tc_tc_country"];
+    [info setObject:cityCode forKey:@"tc_tc_city"];
+    
+    //  set registrant info
+    [info setObject:tfPostition.text forKey:@"cn_position"];
     [info setObject:tfFullname.text forKey:@"cn_name"];
     [info setObject:[NSNumber numberWithInt:gender] forKey:@"cn_sex"];
+    [info setObject:tfEmail.text forKey:@"cn_email"];
     [info setObject:tfDOB.text forKey:@"cn_birthday"];
     [info setObject:tfPassport.text forKey:@"cn_cmnd"];
-    [info setObject:tfPhone.text forKey:@"cn_phone"];
-    [info setObject:tfPermanentAddr.text forKey:@"cn_address"];
-    [info setObject:COUNTRY_CODE forKey:@"cn_country"];
-    [info setObject:cityCode forKey:@"cn_city"];
+    [info setObject:tfPhoneNumber.text forKey:@"cn_phone"];
+    [info setObject:tfAddress.text forKey:@"cn_address"];
     
     [info setObject:edit_profile_mod forKey:@"mod"];
     [info setObject:USERNAME forKey:@"username"];
@@ -930,5 +959,53 @@
     [WebServiceUtils getInstance].delegate = self;
     [[WebServiceUtils getInstance] updateAccountProfileWithInfo: info];
 }
+
+#pragma mark - WebserviceUtil Delegate
+-(void)failedToUpdateAccountInfoWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    NSString *content = [AppUtils getErrorContentFromData: error];
+    [self makeToast:content duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].errorStyle];
+    [self performSelector:@selector(updateFailed) withObject:nil afterDelay:2.0];
+}
+
+-(void)updateAccountInfoSuccessfulWithData:(NSDictionary *)data {
+    [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
+}
+
+-(void)failedToLoginWithError:(NSString *)error {
+    [ProgressHUD dismiss];
+    
+    [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Your info has been updated successfully"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    
+    [self performSelector:@selector(updateSuccessfully) withObject:nil afterDelay:2.0];
+}
+
+-(void)loginSucessfulWithData:(NSDictionary *)data {
+    [ProgressHUD dismiss];
+    
+    [self makeToast:[[AppDelegate sharedInstance].localization localizedStringForKey:@"Your info has been updated successfully"] duration:2.0 position:CSToastPositionCenter style:[AppDelegate sharedInstance].successStyle];
+    
+    [self performSelector:@selector(updateSuccessfully) withObject:nil afterDelay:2.0];
+}
+
+- (void)updateSuccessfully {
+    if ([delegate respondsToSelector:@selector(updateBusinessProfileInfoSuccessfully)]) {
+        [delegate updateBusinessProfileInfoSuccessfully];
+    }
+}
+
+- (void)updateFailed {
+    if ([delegate respondsToSelector:@selector(updateBusinessProfileInfoFailed)]) {
+        [delegate updateBusinessProfileInfoFailed];
+    }
+}
+
+#pragma mark - City popup delegate
+-(void)choosedCity:(CityObject *)city {
+    tfBusinessCity.text = city.name;
+    cityCode = city.code;
+}
+
 
 @end

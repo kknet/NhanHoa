@@ -25,55 +25,60 @@
     lbFirstPriceTitle.textColor = lbFirstPriceMoney.textColor = lbWhoisProtect.textColor = GRAY_80;
     lbWhoisProtectFee.textColor = GRAY_100;
     
+    float paddingTop = 15.0;
+    
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:20.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
         textFont = [UIFont fontWithName:RobotoRegular size:15.0];
         hBTN = 40.0;
+        paddingTop = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:17.0];
         hBTN = 40.0;
         padding = 10.0;
+        paddingTop = 10.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:19.0];
         hBTN = 45.0;
+        paddingTop = 15.0;
     }
+    
+    lbDomain.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize+1];
+    [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(paddingTop);
+        make.left.equalTo(self).offset(padding + 25.0 + 3.0);
+        make.right.equalTo(self).offset(-padding);
+        make.height.mas_equalTo(hLabel);
+    }];
     
     lbNo.font = textFont;
     [lbNo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(padding);
-        make.top.equalTo(self).offset(10.0);
+        make.centerY.equalTo(lbDomain.mas_centerY);
         make.width.mas_equalTo(25.0);
-        make.height.mas_equalTo(hLabel);
     }];
     
-    lbDomain.font = [UIFont fontWithName:RobotoBold size:textFont.pointSize+1];
-    [lbDomain mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(lbNo.mas_right).offset(3.0);
-        make.top.bottom.equalTo(lbNo);
-        make.right.equalTo(self).offset(-padding);
+    lbFirstPriceMoney.font = lbFirstPriceTitle.font;
+    [lbFirstPriceMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(lbDomain);
+        make.top.equalTo(lbDomain.mas_bottom).offset(5.0);
+        make.height.mas_equalTo(hLabel);
     }];
     
     lbFirstPriceTitle.text = [[AppDelegate sharedInstance].localization localizedStringForKey:@"Price for first year"];
     lbFirstPriceTitle.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-1];
     [lbFirstPriceTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbDomain);
-        make.top.equalTo(lbDomain.mas_bottom);
-        make.height.mas_equalTo(hLabel);
-    }];
-    
-    lbFirstPriceMoney.font = lbFirstPriceTitle.font;
-    [lbFirstPriceMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(lbFirstPriceTitle);
-        make.right.equalTo(self).offset(-padding);
-        make.left.equalTo(lbFirstPriceTitle.mas_right).offset(5.0);
+        make.top.bottom.equalTo(lbFirstPriceMoney);
+        make.right.equalTo(lbFirstPriceMoney.mas_left).offset(-5.0);
     }];
     
     tfYear.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
     [tfYear mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lbFirstPriceTitle);
-        make.top.equalTo(lbFirstPriceTitle.mas_bottom).offset(7.5);
+        make.top.equalTo(lbFirstPriceTitle.mas_bottom).offset(5.0);
         make.height.mas_equalTo(hBTN);
         make.width.mas_equalTo(100.0);
     }];

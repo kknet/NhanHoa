@@ -188,12 +188,17 @@
     btnCheck.backgroundColor = BLUE_COLOR;
     [btnCheck setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnCheck.titleLabel.font = [UIFont fontWithName:RobotoMedium size:textFont.pointSize];
+    float bottomY = padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        bottomY = appDelegate.safeAreaBottomPadding;
+    }
     [btnCheck mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view).offset(-padding-appDelegate.safeAreaBottomPadding);
+        make.bottom.equalTo(self.view).offset(-bottomY);
         make.height.mas_equalTo(hBTN);
     }];
+    
     
     //  scrollview content
     if (@available(iOS 11.0, *)) {
