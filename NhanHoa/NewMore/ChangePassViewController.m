@@ -413,6 +413,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 #pragma mark - UITextfield delegate

@@ -137,6 +137,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 #pragma mark - UITableview Delegate

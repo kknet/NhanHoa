@@ -58,6 +58,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (void)displayContentWithCurrentLanguage
@@ -213,10 +214,14 @@
     btnCheckUpdate.backgroundColor = BLUE_COLOR;
     [btnCheckUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnCheckUpdate.titleLabel.font = textFont;
+    float bottomY = padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        bottomY = appDelegate.safeAreaBottomPadding;
+    }
     [btnCheckUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(padding);
         make.right.equalTo(self.view).offset(-padding);
-        make.bottom.equalTo(self.view).offset(-padding-appDelegate.safeAreaBottomPadding);
+        make.bottom.equalTo(self.view).offset(-bottomY);
         make.height.mas_equalTo(hBTN);
     }];
     

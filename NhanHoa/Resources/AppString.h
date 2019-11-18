@@ -260,7 +260,7 @@
 #define ORANGE_COLOR [UIColor colorWithRed:(255/255.0) green:(152/255.0) blue:(33/255.0) alpha:1.0]
 #define YELLOW_COLOR [UIColor colorWithRed:(253/255.0) green:(169/255.0) blue:(70/255.0) alpha:1.0]
 #define TITLE_COLOR [UIColor colorWithRed:(61/255.0) green:(77/255.0) blue:(103/255.0) alpha:1.0]
-#define BLUE_COLOR [UIColor colorWithRed:(29/255.0) green:(104/255.0) blue:(209/255.0) alpha:1.0]
+#define BLUE_COLOR [UIColor colorWithRed:(41/255.0) green:(122/255.0) blue:(218/255.0) alpha:1.0]
 #define GREEN_COLOR [UIColor colorWithRed:(28/255.0) green:(189/255.0) blue:(92/255.0) alpha:1.0]
 #define NEW_PRICE_COLOR [UIColor colorWithRed:(213/255.0) green:(53/255.0) blue:(93/255.0) alpha:1.0]
 #define OLD_PRICE_COLOR [UIColor colorWithRed:(172/255.0) green:(185/255.0) blue:(204/255.0) alpha:1.0]

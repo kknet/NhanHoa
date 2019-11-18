@@ -23,6 +23,7 @@
 
 #import "CallViewController.h"
 #import "HMLocalization.h"
+#import "FLAnimatedImage.h"
 
 typedef enum HostingWindowsType{
     eWindowsHostingStudent,
@@ -134,7 +135,7 @@ typedef enum PaymentMethod{
 - (void)hideCartView;
 
 @property (nonatomic, strong) ShoppingCartView *cartView;
-@property (nonatomic, strong) UIButton *btnSearchBar;
+@property (nonatomic, strong) FLAnimatedImageView *imgSearchBar;
 
 @property (nonatomic, strong) NSMutableDictionary *errorMsgDict;
 @property (nonatomic, strong) NSMutableArray *listPricingVN;

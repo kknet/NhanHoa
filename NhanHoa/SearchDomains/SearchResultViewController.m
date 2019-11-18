@@ -230,6 +230,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)icBackClick:(UIButton *)sender {

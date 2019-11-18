@@ -14,7 +14,8 @@
 #import "SelectYearsCell.h"
 #import "CartMoreInfoView.h"
 
-@interface ShoppingCartViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface ShoppingCartViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate>
+{
     AppDelegate *appDelegate;
     UIFont *textFont;
     
@@ -31,7 +32,7 @@
 @end
 
 @implementation ShoppingCartViewController
-@synthesize viewHeader, icBack, lbHeader, viewEmpty, imgEmpty;
+@synthesize viewEmpty, imgEmpty, viewHeader, icBack, lbHeader;
 @synthesize scvContent, viewTop, icViewTopBack, lbTopTitle, tbContent, viewPrices, lbTotal, lbTotalMoney, lbVAT, lbVATMoney;
 @synthesize viewFooter, lbTotalPayment, lbTotalPaymentMoney, btnProceedToRegister;
 
@@ -87,8 +88,6 @@
 }
 
 - (void)showContentWithCurrentLanguage {
-    lbHeader.text = [appDelegate.localization localizedStringForKey:@"Shopping cart"];
-    
     NSString *imgName = SFM(@"photo_empty_cart_%@", [appDelegate.localization activeLanguage]);
     imgEmpty.image = [UIImage imageNamed: imgName];
 }
@@ -117,11 +116,12 @@
     
     hSection = 70.0;
     padding = 15.0;
-    float hBTN = 55.0;
+    float hBTN = 53.0;
     
-    float hCellLabel = 25.0;
-    float hCellBTN = 40.0;
+    float hCellLabel = 30.0;
+    float hCellBTN = 45.0;
     float paddingTop = 15.0;
+    float hPriceView = 90.0;
     
     textFont = [UIFont fontWithName:RobotoRegular size:22.0];
     if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
@@ -129,6 +129,9 @@
         hBTN = 45.0;
         hSection = 50.0;
         paddingTop = 10.0;
+        hCellBTN = 20.0;
+        hCellLabel = 25.0;
+        hPriceView = 70.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
         textFont = [UIFont fontWithName:RobotoRegular size:20.0];
@@ -136,23 +139,37 @@
         padding = 15.0;
         hSection = 60.0;
         paddingTop = 10.0;
+        hCellBTN = 40.0;
+        hCellLabel = 25.0;
+        hPriceView = 80.0;
         
     }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
         textFont = [UIFont fontWithName:RobotoRegular size:22.0];
-        hBTN = 50.0;
+        hBTN = 53.0;
         hSection = 70.0;
+        
         paddingTop = 15.0;
+        hCellBTN = 45.0;
+        hCellLabel = 30.0;
+        hPriceView = 90.0;
     }
     
-    hCell = paddingTop + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0;
-    hProtectCell = paddingTop + hCellLabel + hCellLabel + 7.5 + hCellBTN + 10.0 + 1.0 + (hCellBTN + 10.0) + 5.0;
+    hCell = paddingTop + hCellLabel + (hCellLabel-5.0) + 15.0 + hCellBTN + 15.0 + 5.0;
+    hProtectCell = paddingTop + hCellLabel + (hCellLabel-5.0) + 15.0 + hCellBTN + 15.0 + 1.0 + (hCellBTN + 25.0) + 5.0;
     
-    viewHeader.backgroundColor = BLUE_COLOR;
-    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(hStatus + hNav);
+    //  empty view
+    [viewEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
     }];
     
+    [viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(viewEmpty);
+        make.height.mas_equalTo(hStatus + self.navigationController.navigationBar.frame.size.height);
+    }];
+    [AppUtils addBoxShadowForView:viewHeader color:GRAY_200 opacity:1.0 offsetX:1.0 offsetY:1.0];
+    
+    lbHeader.text = @"Giỏ hàng";
+    lbHeader.textColor = GRAY_50;
     lbHeader.font = textFont;
     [lbHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewHeader).offset(hStatus);
@@ -163,15 +180,9 @@
     
     icBack.imageEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
     [icBack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(viewHeader).offset(padding-8.0);
         make.centerY.equalTo(lbHeader.mas_centerY);
-        make.left.equalTo(viewHeader);
         make.width.height.mas_equalTo(40.0);
-    }];
-    
-    //  empty view
-    [viewEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewHeader.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
     }];
     
     [imgEmpty mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,10 +192,15 @@
     }];
     
     //  footer view
-    hFooterView = 50.0 + hBTN + padding;
-    viewFooter.backgroundColor = UIColor.whiteColor;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooterView = 50.0 + hBTN;
+    }else{
+        hFooterView = 50.0 + hBTN + padding;
+    }
+    
     [viewFooter mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
         make.height.mas_equalTo(hFooterView);
     }];
     
@@ -207,15 +223,23 @@
     btnProceedToRegister.layer.cornerRadius = 10.0;
     [btnProceedToRegister setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btnProceedToRegister.backgroundColor = BLUE_COLOR;
+    float buttonY = padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        buttonY = 0;
+    }
     [btnProceedToRegister mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewFooter).offset(padding);
         make.right.equalTo(viewFooter).offset(-padding);
-        make.bottom.equalTo(viewFooter).offset(-padding);
+        make.bottom.equalTo(viewFooter).offset(-buttonY);
         make.height.mas_equalTo(hBTN);
     }];
     
     //  cart content view
     scvContent.backgroundColor = GRAY_240;
+    if (@available(iOS 11.0, *)) {
+        scvContent.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(viewFooter.mas_top);
@@ -242,7 +266,7 @@
         make.left.equalTo(viewTop);
         make.width.height.mas_equalTo(40.0);
     }];
-    [AppUtils addBoxShadowForView:viewTop color:GRAY_150 opacity:1.0 offsetX:1.0 offsetY:1.0];
+    [AppUtils addBoxShadowForView:viewTop color:GRAY_200 opacity:1.0 offsetX:1.0 offsetY:1.0];
     
     //  setup for tableview
     tbContent.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -250,10 +274,11 @@
     tbContent.delegate = self;
     tbContent.dataSource = self;
     tbContent.scrollEnabled = FALSE;
+    tbContent.backgroundColor = UIColor.redColor;
     
     float hTableView = [self getHeightForTableView] + hSection;
     [tbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(viewTop.mas_bottom).offset(2.0);
+        make.top.equalTo(viewTop.mas_bottom);
         make.left.right.equalTo(viewTop);
         make.height.mas_equalTo(hTableView);
     }];
@@ -262,10 +287,10 @@
     
     //  view prices
     float curHeight = hStatus + hNav + hTableView + viewMoreInfo.hContentView;
-    float hPriceView = 70.0;
+    
     
     viewPrices.backgroundColor = viewFooter.backgroundColor;
-    if (curHeight + hPriceView > SCREEN_HEIGHT - hFooterView) {
+    if (curHeight + hPriceView > SCREEN_HEIGHT - hFooterView - appDelegate.safeAreaBottomPadding) {
         [viewPrices mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(viewMoreInfo.mas_bottom);
             make.left.right.equalTo(viewTop);
@@ -273,11 +298,13 @@
         }];
     }else{
         [viewPrices mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(viewMoreInfo.mas_bottom).offset(SCREEN_HEIGHT - (hFooterView + curHeight + hPriceView));
+            make.top.equalTo(viewMoreInfo.mas_bottom).offset(SCREEN_HEIGHT - (hFooterView + appDelegate.safeAreaBottomPadding + curHeight + hPriceView));
             make.left.right.equalTo(viewTop);
             make.height.mas_equalTo(hPriceView);
         }];
     }
+    
+    lbVAT.font = lbVATMoney.font = lbTotal.font = lbTotalMoney.font = [UIFont fontWithName:RobotoRegular size:textFont.pointSize-2];
     
     [lbTotal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewPrices).offset(15.0);
@@ -305,8 +332,9 @@
     
     lbTotal.textColor = lbTotalMoney.textColor = lbVAT.textColor = lbVATMoney.textColor = GRAY_80;
     
-    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hStatus + hNav + hTableView + viewMoreInfo.hCollectionView + hPriceView);
+    scvContent.contentSize = CGSizeMake(SCREEN_WIDTH, hStatus + hNav + hTableView + viewMoreInfo.hContentView + hPriceView);
 }
+
 
 - (IBAction)icBackClick:(UIButton *)sender {
     [appDelegate hideCartView];
@@ -319,6 +347,10 @@
 - (IBAction)btnProceedToRegisterPress:(UIButton *)sender {
     NSString *strBalance = [AccountModel getCusBalance];
     long totalPrice = [[CartModel getInstance] getTotalPriceForCart];
+    
+    AddOrderViewController *addOrderVC = [[AddOrderViewController alloc] initWithNibName:@"AddOrderViewController" bundle:nil];
+    [self.navigationController pushViewController:addOrderVC animated:TRUE];
+    return;
     
     if ([strBalance longLongValue] >= totalPrice) {
         AddOrderViewController *addOrderVC = [[AddOrderViewController alloc] initWithNibName:@"AddOrderViewController" bundle:nil];
@@ -550,6 +582,14 @@
     
     NSString *strTotalPrice = SFM(@"%ld", [totalPrice longValue]);
     lbTotalPaymentMoney.text = SFM(@"%@VNĐ", [AppUtils convertStringToCurrencyFormat:strTotalPrice]);
+}
+
+#pragma mark - UIScrollview Delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y < 0) {
+        scrollView.contentOffset = CGPointZero;
+    }
 }
 
 @end

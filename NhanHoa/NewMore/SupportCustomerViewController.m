@@ -273,6 +273,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnSendQuestionPress:(UIButton *)sender {

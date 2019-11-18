@@ -440,3 +440,4 @@
 
 "Renew domains"     =   "Renew domains"
 
+"Can not get list pricing for domains"  =   "Can not get list pricing for domains"

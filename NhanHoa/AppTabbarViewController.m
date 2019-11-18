@@ -16,6 +16,8 @@
 #import "BOViewController.h"
 #import "FLAnimatedImage.h"
 
+const CGFloat kBarHeight = 100;
+
 @interface AppTabbarViewController (){
     AppDelegate *appDelegate;
     UIColor *actColor;
@@ -37,7 +39,6 @@
     actColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
     
     tabBarController = [[UITabBarController alloc] init];
-    
     // Do any additional setup after loading the view.
     [self setupUIForView];
     
@@ -62,10 +63,10 @@
     ProfilesViewController *profilesVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
     UINavigationController *profilesNav = [[UINavigationController alloc] initWithRootViewController: profilesVC];
     
-    UIImage *imgProfiles = [UIImage imageNamed:@"tabbar_invoices_def"];
+    UIImage *imgProfiles = [UIImage imageNamed:@"tabbar_profiles_def"];
     imgProfiles = [imgProfiles imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIImage *imgProfilesAct = [UIImage imageNamed:@"tabbar_invoices_act"];
+    UIImage *imgProfilesAct = [UIImage imageNamed:@"tabbar_profiles_act"];
     imgProfilesAct = [imgProfilesAct imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     UITabBarItem *ordersItem = [[UITabBarItem alloc] initWithTitle:[appDelegate.localization localizedStringForKey:@"Profiles"] image:imgProfiles selectedImage:imgProfilesAct];
@@ -118,13 +119,13 @@
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     if (IS_IPHONE || IS_IPOD) {
         if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_5) {
-            textFont = [UIFont fontWithName:RobotoRegular size:13.0];
+            textFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
             
         }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6){
-            textFont = [UIFont fontWithName:RobotoRegular size:14.0];
+            textFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
             
         }else if (SCREEN_WIDTH <= SCREEN_WIDTH_IPHONE_6PLUS){
-            textFont = [UIFont fontWithName:RobotoRegular size:15.0];
+            textFont = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
         }
     }
     [homeItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
@@ -140,44 +141,52 @@
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
     
     //  size button
-    float sizeIcon;
-    if (appDelegate.safeAreaBottomPadding > 0) {
-        sizeIcon = self.tabBarController.tabBar.frame.size.height;
-    }else{
-        sizeIcon = self.tabBarController.tabBar.frame.size.height - 3.0;
-    }
-    
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"search" ofType: @"gif"];
-//    NSData *data = [NSData dataWithContentsOfFile: filePath];
-//
-//    //  FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.websudo.xyz/fruits-apple.gif"]]];
-//    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:data];
-//    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
-//    imageView.animatedImage = image;
-//    imageView.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding, sizeIcon, sizeIcon);
-//    imageView.backgroundColor = BLUE_COLOR;
-//    imageView.clipsToBounds = TRUE;
-//    imageView.layer.cornerRadius = sizeIcon/2;
-//    //  imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
-//    [appDelegate.window addSubview:imageView];
+    float sizeIcon = 60.0;
+    float minus = 4.0;
+    sizeIcon = self.tabBarController.tabBar.frame.size.height - minus;
 //    if (appDelegate.safeAreaBottomPadding > 0) {
-//        imageView.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y-appDelegate.safeAreaBottomPadding + 5.0);
+//        sizeIcon = self.tabBarController.tabBar.frame.size.height;
 //    }else{
-//        imageView.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y);
+//        sizeIcon = self.tabBarController.tabBar.frame.size.height - 3.0;
 //    }
     
+    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"search" ofType: @"gif"];
+    NSData *data = [NSData dataWithContentsOfFile: filePath];
+
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:data];
+    appDelegate.imgSearchBar = [[FLAnimatedImageView alloc] init];
+    appDelegate.imgSearchBar.animatedImage = image;
+    appDelegate.imgSearchBar.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding-minus/2, sizeIcon, sizeIcon);
+    
+    CGRect menuButtonFrame = appDelegate.imgSearchBar.frame;
+    menuButtonFrame.origin.y = self.view.bounds.size.height - menuButtonFrame.size.height - appDelegate.safeAreaBottomPadding-minus/2;
+    menuButtonFrame.origin.x = self.view.bounds.size.width/2 - menuButtonFrame.size.width/2;
+    appDelegate.imgSearchBar.frame = menuButtonFrame;
+    
+    appDelegate.imgSearchBar.backgroundColor = UIColor.clearColor;
+    appDelegate.imgSearchBar.clipsToBounds = TRUE;
+    appDelegate.imgSearchBar.layer.cornerRadius = (sizeIcon-minus)/2;
+    
+    //  imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
+    [self.view addSubview: appDelegate.imgSearchBar];
+
     topBorder = [CALayer layer];
     topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 1.0f);
     topBorder.backgroundColor = BORDER_COLOR.CGColor;
     [self.tabBarController.tabBar.layer addSublayer:topBorder];
     
-    [self setupMiddleButton];
+    //  [self setupMiddleButton];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(whenSelectOnProfileTabbar)
+                                                 name:@"selectedProfilesMenuTab" object:nil];
     
     if (!IS_IPHONE && !IS_IPOD) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
                                                      name:UIDeviceOrientationDidChangeNotification object:nil];
     }
+    
+    self.tabBarController.view.backgroundColor = BLUE_COLOR;
 }
 
 - (void)setupMiddleButton
@@ -207,24 +216,24 @@
                        forControlEvents:UIControlEventTouchUpInside];
     */
     
-    appDelegate.btnSearchBar = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-
-    CGRect menuButtonFrame = appDelegate.btnSearchBar.frame;
-    menuButtonFrame.origin.y = self.view.bounds.size.height - menuButtonFrame.size.height - appDelegate.safeAreaBottomPadding;
-    menuButtonFrame.origin.x = self.view.bounds.size.width/2 - menuButtonFrame.size.width/2;
-    appDelegate.btnSearchBar.frame = menuButtonFrame;
-    
-    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
-    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
-    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
-    appDelegate.btnSearchBar.layer.cornerRadius = menuButtonFrame.size.height/2;
-    [self.view addSubview: appDelegate.btnSearchBar];
-
-    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
-    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
-    [appDelegate.btnSearchBar addTarget:self
-                                 action:@selector(onButtonSearchTabbarPress)
-                       forControlEvents:UIControlEventTouchUpInside];
+//    appDelegate.btnSearchBar = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+//
+//    CGRect menuButtonFrame = appDelegate.btnSearchBar.frame;
+//    menuButtonFrame.origin.y = self.view.bounds.size.height - menuButtonFrame.size.height - appDelegate.safeAreaBottomPadding;
+//    menuButtonFrame.origin.x = self.view.bounds.size.width/2 - menuButtonFrame.size.width/2;
+//    appDelegate.btnSearchBar.frame = menuButtonFrame;
+//
+//    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
+//    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
+//    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
+//    appDelegate.btnSearchBar.layer.cornerRadius = menuButtonFrame.size.height/2;
+//    [self.view addSubview: appDelegate.btnSearchBar];
+//
+//    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
+//    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
+//    [appDelegate.btnSearchBar addTarget:self
+//                                 action:@selector(onButtonSearchTabbarPress)
+//                       forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) orientationChanged
@@ -324,6 +333,10 @@
     }
     
     //  [tabBarController setSelectedIndex: 2];
+}
+
+- (void)whenSelectOnProfileTabbar {
+    [tabBarController setSelectedIndex: 1];
 }
 
 @end

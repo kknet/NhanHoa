@@ -11,7 +11,6 @@
 #import "SearchDomainsViewController.h"
 #import "TopupViewController.h"
 #import "PromotionsViewController.h"
-#import "ProfilesViewController.h"
 #import "IntroduceHostingViewController.h"
 #import "IntroduceEmailsViewController.h"
 #import "IntroduceServersViewController.h"
@@ -364,7 +363,7 @@
                 break;
             }
             case eExploreProfiles:{
-                [self goToProfilesViewController];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"selectedProfilesMenuTab" object:nil];
                 break;
             }
             case eExploreSSL:{
@@ -396,13 +395,6 @@
     serversVC.hidesBottomBarWhenPushed = TRUE;
     [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
     [self.navigationController pushViewController: serversVC animated:TRUE];
-}
-
-- (void)goToProfilesViewController {
-    ProfilesViewController *profileVC = [[ProfilesViewController alloc] initWithNibName:@"ProfilesViewController" bundle:nil];
-    profileVC.hidesBottomBarWhenPushed = TRUE;
-    [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
-    [self.navigationController pushViewController: profileVC animated:TRUE];
 }
 
 - (void)goToRegisterEmailsViewController {

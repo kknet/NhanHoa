@@ -44,7 +44,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [WriteLogsUtils writeForGoToScreen:@"AddOrderViewController"];
     
     [self setupUIForView];
     
@@ -222,8 +221,6 @@
 }
 
 - (void)startToAddAllDomainInYourCart {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] cart count = %d", __FUNCTION__, [[CartModel getInstance] countItemInCart])];
-    
     if ([CartModel getInstance].listDomain.count > 0) {
         NSDictionary *domainInfo = [[CartModel getInstance].listDomain firstObject];
         [[CartModel getInstance].listDomain removeObjectAtIndex: 0];
@@ -295,7 +292,6 @@
 }
 
 - (void)tryToLoginAfterRegisteredDomains {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s]", __FUNCTION__)];
     [[WebServiceUtils getInstance] loginWithUsername:USERNAME password:PASSWORD];
 }
 
@@ -557,7 +553,6 @@
 
 #pragma mark - WebServiceUtil Delegate
 -(void)failedToAddNewOrderWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"failed" forKey:buyingDomain];
     }
@@ -565,7 +560,6 @@
 }
 
 -(void)addNewOrderSuccessfulWithData:(NSDictionary *)data {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] data = %@", __FUNCTION__, @[data])];
     if (![AppUtils isNullOrEmpty: buyingDomain]) {
         [paymentResult setObject:@"success" forKey:buyingDomain];
     }
@@ -577,7 +571,7 @@
 }
 
 -(void)failedToLoginWithError:(NSString *)error {
-    [WriteLogsUtils writeLogContent:SFM(@"[%s] error = %@", __FUNCTION__, @[error])];
+    
 }
 
 #pragma mark - PaymentStepView Delegate

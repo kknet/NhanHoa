@@ -82,7 +82,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
-    [[AppDelegate sharedInstance] showCartScreenContent];
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {
@@ -111,7 +111,7 @@
             sender.backgroundColor = unselectColor;
             [sender setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         }
-        [[AppDelegate sharedInstance] updateShoppingCartCount];
+        [appDelegate updateShoppingCartCount];
         [self updateLayoutForChooseMainDomain];
         
         [self updateCartItemCount];
@@ -784,9 +784,7 @@
     
     float maxSize = (SCREEN_WIDTH - 4*padding)/2 + 35.0;
     
-    float hPopup = [AppUtils getHeightOfWhoIsDomainViewWithContent:@"" font:[AppDelegate sharedInstance].fontRegular heightItem:28.0 maxSize:maxSize];
-    hPopup = 40.0 + 8*40.0;
-    
+    float hPopup = 40.0 + 8*40.0;
     float marginX = 5.0;
     if (!IS_IPHONE && !IS_IPOD) {
         marginX = 40.0;

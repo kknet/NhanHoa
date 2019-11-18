@@ -63,6 +63,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 - (IBAction)btnCancelPress:(UIButton *)sender {

@@ -12,12 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShoppingCartViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *viewEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *imgEmpty;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIButton *icBack;
 @property (weak, nonatomic) IBOutlet UILabel *lbHeader;
-
-@property (weak, nonatomic) IBOutlet UIView *viewEmpty;
-@property (weak, nonatomic) IBOutlet UIImageView *imgEmpty;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scvContent;
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
@@ -35,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTotalPaymentMoney;
 @property (weak, nonatomic) IBOutlet UIButton *btnProceedToRegister;
 
-- (IBAction)icBackClick:(UIButton *)sender;
 - (IBAction)icViewTopBackClick:(UIButton *)sender;
 - (IBAction)btnProceedToRegisterPress:(UIButton *)sender;
+- (IBAction)icBackClick:(UIButton *)sender;
 
 @end
 

@@ -295,6 +295,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnMainWalletPress:(UIButton *)sender {

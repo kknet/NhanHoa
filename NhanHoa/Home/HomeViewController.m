@@ -11,7 +11,7 @@
 #import "SearchMultiDomainsViewController.h"
 #import "DomainsViewController.h"
 #import "TopupViewController.h"
-#import "PricingDomainViewController.h"
+#import "PricingViewController.h"
 #import "HomeMenuCell.h"
 #import "HomeMenuObject.h"
 #import "CartModel.h"
@@ -258,7 +258,7 @@
         
     }else if ([title isEqualToString: text_domains_pricing_list])
     {
-        PricingDomainViewController *pricingVC = [[PricingDomainViewController alloc] initWithNibName:@"PricingDomainViewController" bundle:nil];
+        PricingViewController *pricingVC = [[PricingViewController alloc] initWithNibName:@"PricingViewController" bundle:nil];
         pricingVC.hidesBottomBarWhenPushed = TRUE;
         [self.navigationController pushViewController: pricingVC animated:TRUE];
         

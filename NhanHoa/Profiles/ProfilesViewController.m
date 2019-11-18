@@ -298,6 +298,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnAddProfilePress:(UIButton *)sender {

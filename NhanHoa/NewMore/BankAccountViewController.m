@@ -78,7 +78,7 @@
     lbAccountNo.text = [AccountModel getCusBankNumber];
     
     NSString *bankName = [AccountModel getCusBankName];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@ OR code = %@", bankName, bankName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR code CONTAINS[cd] %@", bankName, bankName];
     NSArray *filter = [appDelegate.listBank filteredArrayUsingPredicate: predicate];
     if (filter.count > 0) {
         BankObject *bank = [filter firstObject];
@@ -355,8 +355,13 @@
     btnUpdate.backgroundColor = BLUE_COLOR;
     btnUpdate.layer.cornerRadius = 8.0;
     [btnUpdate setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    float topY = SCREEN_HEIGHT - padding - hBTN;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        topY = SCREEN_HEIGHT - hBTN - appDelegate.safeAreaBottomPadding;
+    }
+    
     [btnUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scvContent).offset(SCREEN_HEIGHT - padding - hBTN - appDelegate.safeAreaBottomPadding);
+        make.top.equalTo(scvContent).offset(topY);
         make.left.right.equalTo(viewInfo);
         make.height.mas_equalTo(hBTN);
     }];
@@ -372,6 +377,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnUpdatePress:(UIButton *)sender {

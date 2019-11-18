@@ -222,7 +222,12 @@
         make.bottom.equalTo(self.view).offset(-appDelegate.safeAreaBottomPadding);
     }];
     
-    viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 2*padding + hBTN + padding)];
+    float hFooter = 2*padding + hBTN + padding;
+    if (appDelegate.safeAreaBottomPadding > 0) {
+        hFooter = 2*padding + hBTN;
+    }
+    
+    viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, hFooter)];
     tbInfo.tableFooterView = viewFooter;
     
     btnUpdateInfo = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -234,7 +239,8 @@
     [viewFooter addSubview: btnUpdateInfo];
     [btnUpdateInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(viewFooter).offset(padding);
-        make.bottom.right.equalTo(viewFooter).offset(-padding);
+        make.right.equalTo(viewFooter).offset(-padding);
+        make.top.equalTo(viewFooter).offset(2*padding);
         make.height.mas_equalTo(hBTN);
     }];
     [btnUpdateInfo addTarget:self
@@ -702,6 +708,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 @end

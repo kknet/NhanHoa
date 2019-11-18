@@ -438,3 +438,5 @@
 "Explore"               =   "Khám phá"
 
 "Renew domains"     =   "Gia hạn tên miền"
+
+"Can not get list pricing for domains"  =   "Không thể tải bảng giá tên miền vào lúc này"

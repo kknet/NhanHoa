@@ -59,6 +59,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 - (void)setupUIForView

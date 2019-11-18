@@ -12,10 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingCartViewController">
             <connections>
                 <outlet property="btnProceedToRegister" destination="Oav-L9-T9R" id="CzM-Zy-b6c"/>
-                <outlet property="icBack" destination="bZK-bH-hnN" id="pNc-EP-xB1"/>
+                <outlet property="icBack" destination="RdL-4w-W63" id="Gr0-tQ-E1D"/>
                 <outlet property="icViewTopBack" destination="IS3-f5-jXn" id="8zY-2G-q8O"/>
                 <outlet property="imgEmpty" destination="5du-zo-tlY" id="bVF-my-ipI"/>
-                <outlet property="lbHeader" destination="qWQ-B9-SJF" id="Y7c-Pz-EZs"/>
+                <outlet property="lbHeader" destination="HaY-2d-TBs" id="AR8-vG-6e7"/>
                 <outlet property="lbTopTitle" destination="z59-DT-1gE" id="KaG-HA-vvB"/>
                 <outlet property="lbTotal" destination="MYD-yl-WU7" id="PSt-n2-oCT"/>
                 <outlet property="lbTotalMoney" destination="fen-Aa-m0V" id="Cvg-SL-z5z"/>
@@ -28,7 +28,7 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewEmpty" destination="Ike-4h-K3y" id="zni-rJ-Qqe"/>
                 <outlet property="viewFooter" destination="WDq-u9-4g8" id="8dO-hD-cHA"/>
-                <outlet property="viewHeader" destination="K0Z-1N-07K" id="7gU-2a-Eot"/>
+                <outlet property="viewHeader" destination="N3N-eC-oYc" id="49p-q6-vlG"/>
                 <outlet property="viewPrices" destination="rVk-ZS-Ozg" id="xow-Ia-k3i"/>
                 <outlet property="viewTop" destination="CSE-eg-ZQ9" id="Rbg-o6-Abq"/>
             </connections>
@@ -42,6 +42,28 @@
                     <rect key="frame" x="0.0" y="44" width="320" height="438"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <view contentMode="scaleToFill" id="N3N-eC-oYc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RdL-4w-W63">
+                                    <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="back_gray.png"/>
+                                    <connections>
+                                        <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="Mz5-xS-Ley"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HaY-2d-TBs">
+                                    <rect key="frame" x="139" y="11" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo_empty_cart_en.png" id="5du-zo-tlY">
                             <rect key="frame" x="59" y="118" width="203" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -53,6 +75,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="394"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LzS-zj-Y92">
+                            <rect key="frame" x="0.0" y="44" width="320" height="200"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
                         <view contentMode="scaleToFill" id="CSE-eg-ZQ9">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -75,11 +102,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LzS-zj-Y92">
-                            <rect key="frame" x="0.0" y="44" width="320" height="200"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </tableView>
                         <view contentMode="scaleToFill" id="rVk-ZS-Ozg">
                             <rect key="frame" x="0.0" y="244" width="320" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -147,36 +169,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <view contentMode="scaleToFill" id="K0Z-1N-07K">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qWQ-B9-SJF">
-                            <rect key="frame" x="139" y="12" width="42" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bZK-bH-hnN">
-                            <rect key="frame" x="8" y="4" width="36" height="36"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="back.png"/>
-                            <connections>
-                                <action selector="icBackClick:" destination="-1" eventType="touchUpInside" id="Ne0-K1-mFG"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-4.3478260869565224" y="-92.410714285714278"/>
+            <point key="canvasLocation" x="-626" y="-215"/>
         </view>
     </objects>
     <resources>
-        <image name="back.png" width="96" height="96"/>
         <image name="back_gray.png" width="96" height="96"/>
         <image name="photo_empty_cart_en.png" width="439" height="439"/>
     </resources>

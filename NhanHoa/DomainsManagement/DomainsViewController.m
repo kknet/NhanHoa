@@ -288,6 +288,7 @@ typedef enum TypeForGetDomain{
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnAllPress:(UIButton *)sender {

@@ -12,6 +12,7 @@
 #import "SearchResultsViewController.h"
 #import "DomainsViewController.h"
 #import "SearchMultiDomainsViewController.h"
+#import "PricingViewController.h"
 
 @interface SearchDomainsViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 {
@@ -107,7 +108,7 @@
 
 - (void)displayBannerPhotosIfNeed {
     //  show banner image
-    NSArray *photos = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_banner"];
+    NSArray *photos = [appDelegate.userInfo objectForKey:@"list_banner"];
     if ([photos isKindOfClass:[NSArray class]] && photos.count > 0) {
         if (listBanners == nil) {
             listBanners = [[NSMutableArray alloc] init];
@@ -145,7 +146,7 @@
         [listData removeAllObjects];
     }
     
-    id listPrice = [[AppDelegate sharedInstance].userInfo objectForKey:@"list_price"];
+    id listPrice = [appDelegate.userInfo objectForKey:@"list_price"];
     if (listPrice != nil && [listPrice isKindOfClass:[NSArray class]]) {
         [listData addObjectsFromArray: listPrice];
     }
@@ -194,6 +195,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)icClearClick:(UIButton *)sender {
@@ -214,6 +216,11 @@
 - (void)goToRenewalDomains {
     DomainsViewController *domainsVC = [[DomainsViewController alloc] initWithNibName:@"DomainsViewController" bundle:nil];
     [self.navigationController pushViewController: domainsVC animated:TRUE];
+}
+
+- (void)goToPricingDomainsView {
+    PricingViewController *pricingsVC = [[PricingViewController alloc] initWithNibName:@"PricingViewController" bundle:nil];
+    [self.navigationController pushViewController: pricingsVC animated:TRUE];
 }
 
 - (void)setupUIForView
@@ -418,6 +425,9 @@
     }];
     
     //  view transfer domains
+    UITapGestureRecognizer *tapOnPricing = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToPricingDomainsView)];
+    [viewTransferDomains addGestureRecognizer: tapOnPricing];
+    
     [viewTransferDomains mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(viewRenewDomain);
         make.left.equalTo(viewRenewDomain.mas_right).offset(padding);
@@ -529,6 +539,9 @@
         
     }else if ([price isKindOfClass:[NSString class]]) {
         cell.lbPrice.text = SFM(@"%@đ/%@", [AppUtils convertStringToCurrencyFormat: (NSString *)price], text_year);
+        
+    }else{
+        cell.lbPrice.text = @"Giá liên hệ";
     }
     
     NSString *image = name;

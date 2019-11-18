@@ -218,7 +218,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
-    
+    [appDelegate showCartScreenContent];
 }
 
 #pragma mark - UITableview delegate

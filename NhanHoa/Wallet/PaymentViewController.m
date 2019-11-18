@@ -43,6 +43,8 @@
     [super viewWillAppear: animated];
     self.navigationController.navigationBarHidden = TRUE;
     
+    [self updateCartCountForView];
+    
     lbHeader.text = @"Nạp tiền vào ví";
     
     [self prepareInfoForMoMoPayment];
@@ -52,6 +54,15 @@
     btnContinue.hidden = FALSE;
     
     [self registerObServers];
+}
+
+- (void)updateCartCountForView {
+    if ([[CartModel getInstance] countItemInCart] == 0) {
+        lbCount.hidden = TRUE;
+    }else{
+        lbCount.hidden = FALSE;
+        lbCount.text = SFM(@"%d", [[CartModel getInstance] countItemInCart]);
+    }
 }
 
 - (void)registerObServers {
@@ -268,6 +279,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [appDelegate showCartScreenContent];
 }
 
 - (void)startContinuePayment {

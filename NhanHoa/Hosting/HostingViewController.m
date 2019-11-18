@@ -208,7 +208,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
-    
+    [appDelegate showCartScreenContent];
 }
 
 - (IBAction)btnWindowsHostingPress:(UIButton *)sender

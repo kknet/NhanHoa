@@ -128,6 +128,7 @@
 }
 
 - (IBAction)icCartClick:(UIButton *)sender {
+    [[AppDelegate sharedInstance] showCartScreenContent];
 }
 
 - (void)showLogoutConfirm {
