@@ -77,7 +77,6 @@
 - (void)setupUIForView
 {
     padding = 15.0;
-    float hTabbar = self.tabBarController.tabBar.frame.size.height;
     
     hMenuCell = 100.0;
     if (IS_IPHONE || IS_IPOD)
@@ -98,7 +97,7 @@
     scvContent.delegate = self;
     [scvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-hTabbar);
+        make.bottom.equalTo(self.view).offset(-self.tabBarController.tabBar.frame.size.height);
     }];
     
     [lbTop mas_makeConstraints:^(MASConstraintMaker *make) {

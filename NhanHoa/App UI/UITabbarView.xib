@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UITabbarView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="A7t-hb-7rT">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBp-te-wAy">
+                            <rect key="frame" x="16" y="0.0" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_home_act.png"/>
+                            <connections>
+                                <action selector="icHomeClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="828-Dr-pOL"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trang chủ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JVt-th-ni4">
+                            <rect key="frame" x="-2" y="33" width="65" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="A6p-7o-vPt">
+                    <rect key="frame" x="60" y="0.0" width="60" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ifu-Gf-EEl">
+                            <rect key="frame" x="16" y="0.0" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_profile_def.png"/>
+                            <connections>
+                                <action selector="icProfileClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="uuI-fX-w7o"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hồ sơ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Meh-7O-Y3f">
+                            <rect key="frame" x="11" y="33" width="38" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="pRx-TF-huF">
+                    <rect key="frame" x="180" y="0.0" width="60" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lKx-yg-qdR">
+                            <rect key="frame" x="16" y="0.0" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_notif_def.png"/>
+                            <connections>
+                                <action selector="icNotifClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="3e8-ci-eKZ"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thông báo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="unX-ac-hbc">
+                            <rect key="frame" x="-5" y="33" width="70" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" id="sbP-2F-w54">
+                    <rect key="frame" x="260" y="0.0" width="60" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wfd-oF-Mo9">
+                            <rect key="frame" x="16" y="0.0" width="28" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="icon_acc_def.png"/>
+                            <connections>
+                                <action selector="icAccountClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="179-u8-O7E"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tài khoản" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bjf-yQ-Hey">
+                            <rect key="frame" x="-1" y="36" width="62" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vfH-Zn-Ern">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="icAccount" destination="Wfd-oF-Mo9" id="vdB-VM-AiV"/>
+                <outlet property="icHome" destination="GBp-te-wAy" id="7gT-7x-ILO"/>
+                <outlet property="icNotif" destination="lKx-yg-qdR" id="EGg-bL-Uj0"/>
+                <outlet property="icProfile" destination="Ifu-Gf-EEl" id="Byv-KI-6y7"/>
+                <outlet property="lbAccount" destination="bjf-yQ-Hey" id="tIX-4o-KbY"/>
+                <outlet property="lbHome" destination="JVt-th-ni4" id="4YW-61-1Ru"/>
+                <outlet property="lbNotif" destination="unX-ac-hbc" id="plU-dh-nHy"/>
+                <outlet property="lbProfile" destination="Meh-7O-Y3f" id="LD6-Um-Lqw"/>
+                <outlet property="lbTopSepa" destination="vfH-Zn-Ern" id="AiS-qG-BiT"/>
+                <outlet property="viewAccountMenu" destination="sbP-2F-w54" id="6id-jQ-MOA"/>
+                <outlet property="viewHomeMenu" destination="A7t-hb-7rT" id="gzN-fV-hh8"/>
+                <outlet property="viewNotifMenu" destination="pRx-TF-huF" id="HOv-lc-vLS"/>
+                <outlet property="viewProfileMenu" destination="A6p-7o-vPt" id="qRK-AY-xEI"/>
+            </connections>
+            <point key="canvasLocation" x="-88" y="-111"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_acc_def.png" width="200" height="200"/>
+        <image name="icon_home_act.png" width="200" height="200"/>
+        <image name="icon_notif_def.png" width="200" height="200"/>
+        <image name="icon_profile_def.png" width="200" height="200"/>
+    </resources>
+</document>

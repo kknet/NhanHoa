@@ -15,10 +15,11 @@
 #import "HomeViewController.h"
 #import "BOViewController.h"
 #import "FLAnimatedImage.h"
+#import "UITabbarView.h"
 
 const CGFloat kBarHeight = 100;
 
-@interface AppTabbarViewController (){
+@interface AppTabbarViewController ()<UITabbarViewDelegate>{
     AppDelegate *appDelegate;
     UIColor *actColor;
     
@@ -30,7 +31,7 @@ const CGFloat kBarHeight = 100;
 @end
 
 @implementation AppTabbarViewController
-@synthesize tabBarController;
+//  @synthesize tabBarController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +39,7 @@ const CGFloat kBarHeight = 100;
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     actColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
     
-    tabBarController = [[UITabBarController alloc] init];
+    appDelegate.tabBarController = [[UITabBarController alloc] init];
     // Do any additional setup after loading the view.
     [self setupUIForView];
     
@@ -113,8 +114,8 @@ const CGFloat kBarHeight = 100;
     moreNav.tabBarItem = accItem;
     
     //  tabBarController.viewControllers = @[homeNav, boNav , transHisNav, moreNav];
-    tabBarController.viewControllers = @[homeNav, profilesNav, searchDomainsNav, notifNav, moreNav];
-    [self.view addSubview: tabBarController.view];
+    appDelegate.tabBarController.viewControllers = @[homeNav, profilesNav, searchDomainsNav, notifNav, moreNav];
+    [self.view addSubview: appDelegate.tabBarController.view];
     
     UIFont *textFont = [UIFont fontWithName:RobotoRegular size:16.0];
     if (IS_IPHONE || IS_IPOD) {
@@ -140,19 +141,31 @@ const CGFloat kBarHeight = 100;
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: TITLE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateNormal];
     [accItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: BLUE_COLOR, NSForegroundColorAttributeName, textFont, NSFontAttributeName, nil] forState:UIControlStateSelected];
     
-    //  size button
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(whenSelectOnProfileTabbar)
+                                                 name:@"selectedProfilesMenuTab" object:nil];
+    
+    if (!IS_IPHONE && !IS_IPOD) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+    
+    if (appDelegate.customTabbar) {
+        [self setupForCustomBarView];
+        
+    }else{
+        [self addSearchIconForTabbarView];
+    }
+}
+
+- (void)addSearchIconForTabbarView {
     float sizeIcon = 60.0;
     float minus = 4.0;
-    sizeIcon = self.tabBarController.tabBar.frame.size.height - minus;
-//    if (appDelegate.safeAreaBottomPadding > 0) {
-//        sizeIcon = self.tabBarController.tabBar.frame.size.height;
-//    }else{
-//        sizeIcon = self.tabBarController.tabBar.frame.size.height - 3.0;
-//    }
+    sizeIcon = appDelegate.tabBarController.tabBar.frame.size.height - minus;
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource: @"search" ofType: @"gif"];
     NSData *data = [NSData dataWithContentsOfFile: filePath];
-
+    
     FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:data];
     appDelegate.imgSearchBar = [[FLAnimatedImageView alloc] init];
     appDelegate.imgSearchBar.animatedImage = image;
@@ -169,71 +182,33 @@ const CGFloat kBarHeight = 100;
     
     //  imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
     [self.view addSubview: appDelegate.imgSearchBar];
-
+    
     topBorder = [CALayer layer];
     topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 1.0f);
     topBorder.backgroundColor = BORDER_COLOR.CGColor;
-    [self.tabBarController.tabBar.layer addSublayer:topBorder];
-    
-    //  [self setupMiddleButton];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(whenSelectOnProfileTabbar)
-                                                 name:@"selectedProfilesMenuTab" object:nil];
-    
-    if (!IS_IPHONE && !IS_IPOD) {
-        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
-                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
-    }
-    
-    self.tabBarController.view.backgroundColor = BLUE_COLOR;
+    [appDelegate.tabBarController.tabBar.layer addSublayer:topBorder];
 }
 
-- (void)setupMiddleButton
-{
-    /*
-    float sizeIcon = self.tabBarController.tabBar.frame.size.height;
-    
-    appDelegate.btnSearchBar = [UIButton buttonWithType:UIButtonTypeCustom];
-    appDelegate.btnSearchBar.frame = CGRectMake(0.0, -appDelegate.safeAreaBottomPadding, sizeIcon, sizeIcon);
-    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
-    appDelegate.btnSearchBar.alpha = 0;
-    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
-    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
-    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
-    appDelegate.btnSearchBar.layer.cornerRadius = sizeIcon/2;
-    [self.view addSubview: appDelegate.btnSearchBar];
-    
-    if (appDelegate.safeAreaBottomPadding > 0) {
-        appDelegate.btnSearchBar.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y-appDelegate.safeAreaBottomPadding + 5.0);
-    }else{
-        appDelegate.btnSearchBar.center = CGPointMake(self.tabBarController.tabBar.center.x, self.tabBarController.tabBar.center.y);
+- (void)setupForCustomBarView {
+    if (appDelegate.myTabbarView == nil) {
+        NSArray *toplevelObject = [[NSBundle mainBundle] loadNibNamed:@"UITabbarView" owner:nil options:nil];
+        for(id currentObject in toplevelObject){
+            if ([currentObject isKindOfClass:[UITabbarView class]]) {
+                appDelegate.myTabbarView = (UITabbarView *) currentObject;
+                break;
+            }
+        }
+        [self.view addSubview: appDelegate.myTabbarView];
     }
-    [self.view addSubview: appDelegate.btnSearchBar];
-    [appDelegate.btnSearchBar addTarget:self
-                                 action:@selector(onButtonSearchTabbarPress)
-                       forControlEvents:UIControlEventTouchUpInside];
-    */
+    appDelegate.myTabbarView.delegate = self;
+    [appDelegate.myTabbarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(appDelegate.hTabbar);
+    }];
+    [appDelegate.myTabbarView setupUIForMenuView];
     
-//    appDelegate.btnSearchBar = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-//
-//    CGRect menuButtonFrame = appDelegate.btnSearchBar.frame;
-//    menuButtonFrame.origin.y = self.view.bounds.size.height - menuButtonFrame.size.height - appDelegate.safeAreaBottomPadding;
-//    menuButtonFrame.origin.x = self.view.bounds.size.width/2 - menuButtonFrame.size.width/2;
-//    appDelegate.btnSearchBar.frame = menuButtonFrame;
-//
-//    appDelegate.btnSearchBar.backgroundColor = [UIColor colorWithRed:(21/255.0) green:(101/255.0) blue:(212/255.0) alpha:1.0];
-//    appDelegate.btnSearchBar.layer.borderColor = [UIColor colorWithRed:(6/255.0) green:(89/255.0) blue:(203/255.0) alpha:1.0].CGColor;
-//    appDelegate.btnSearchBar.layer.borderWidth = 3.0;
-//    appDelegate.btnSearchBar.layer.cornerRadius = menuButtonFrame.size.height/2;
-//    [self.view addSubview: appDelegate.btnSearchBar];
-//
-//    appDelegate.btnSearchBar.imageEdgeInsets = UIEdgeInsetsMake(12, 12, 12, 12);
-//    [appDelegate.btnSearchBar setImage:[UIImage imageNamed:@"search_www"] forState:UIControlStateNormal];
-//    [appDelegate.btnSearchBar addTarget:self
-//                                 action:@selector(onButtonSearchTabbarPress)
-//                       forControlEvents:UIControlEventTouchUpInside];
+    appDelegate.tabBarController.view.backgroundColor = ORANGE_COLOR;
+    appDelegate.tabBarController.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-appDelegate.hTabbar + appDelegate.tabBarController.tabBar.frame.size.height);
 }
 
 - (void) orientationChanged
@@ -260,12 +235,11 @@ const CGFloat kBarHeight = 100;
             topBorder.frame = CGRectMake(0.0f, 0.0f, SCREEN_HEIGHT, 1.0f);
         }
     }
-    [self.tabBarController.tabBar.layer addSublayer:topBorder];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    tabBarController.navigationController.navigationBarHidden = TRUE;
+    appDelegate.tabBarController.navigationController.navigationBarHidden = TRUE;
 }
 
 
@@ -308,7 +282,7 @@ const CGFloat kBarHeight = 100;
             center.y = sizeCall/2;
             
         }else if (center.y > SCREEN_HEIGHT - sizeCall/2) {
-            center.y = SCREEN_HEIGHT - tabBarController.tabBar.frame.size.height - sizeCall/2;
+            center.y = SCREEN_HEIGHT - appDelegate.tabBarController.tabBar.frame.size.height - sizeCall/2;
         }
         
         pgr.view.center = center;
@@ -317,13 +291,13 @@ const CGFloat kBarHeight = 100;
 }
 
 - (void)setupUIForView {
-    tabBarController.tabBar.tintColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
-    tabBarController.tabBar.barTintColor = UIColor.whiteColor;
-    tabBarController.tabBar.backgroundColor = UIColor.whiteColor;
+    appDelegate.tabBarController.tabBar.tintColor = [UIColor colorWithRed:(58/255.0) green:(75/255.0) blue:(101/255.0) alpha:1.0];
+    appDelegate.tabBarController.tabBar.barTintColor = UIColor.whiteColor;
+    appDelegate.tabBarController.tabBar.backgroundColor = UIColor.whiteColor;
 }
 
 - (void)onButtonSearchTabbarPress {
-    UIViewController *selectedVC = tabBarController.selectedViewController;
+    UIViewController *selectedVC = appDelegate.tabBarController.selectedViewController;
     
     SearchDomainsViewController *searchVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
     if ([selectedVC isKindOfClass:[UINavigationController class]]) {
@@ -336,7 +310,25 @@ const CGFloat kBarHeight = 100;
 }
 
 - (void)whenSelectOnProfileTabbar {
-    [tabBarController setSelectedIndex: 1];
+    [appDelegate.tabBarController setSelectedIndex: 1];
+}
+
+#pragma mark - UITabbarView Delegate
+-(void)selectedMenuTabbar:(TypeTabbarMenu)selectedMenu
+{
+    if (selectedMenu == eTabbarMenuSearch) {
+        UIViewController *selectedVC = appDelegate.tabBarController.selectedViewController;
+        
+        SearchDomainsViewController *searchVC = [[SearchDomainsViewController alloc] initWithNibName:@"SearchDomainsViewController" bundle:nil];
+        if ([selectedVC isKindOfClass:[UINavigationController class]]) {
+            searchVC.hidesBottomBarWhenPushed = TRUE;
+            [appDelegate hideTabbarCustomSubviews:TRUE withDuration:FALSE];
+            [(UINavigationController *)selectedVC pushViewController:searchVC animated:FALSE];
+        }
+        
+    }else{
+        [appDelegate.tabBarController setSelectedIndex: selectedMenu];
+    }
 }
 
 @end

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppTabbarViewController : UIViewController
 
-@property (nonatomic, strong) UITabBarController *tabBarController;
+//  @property (nonatomic, strong) UITabBarController *tabBarController;
 
 @end
 

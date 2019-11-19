@@ -7,7 +7,7 @@
 //
 
 #import "ShoppingCartViewController.h"
-#import "AddOrderViewController.h"
+#import "CartPaymentViewController.h"
 #import "TopupViewController.h"
 #import "CartDomainTbvCell.h"
 #import "CartModel.h"
@@ -348,13 +348,13 @@
     NSString *strBalance = [AccountModel getCusBalance];
     long totalPrice = [[CartModel getInstance] getTotalPriceForCart];
     
-    AddOrderViewController *addOrderVC = [[AddOrderViewController alloc] initWithNibName:@"AddOrderViewController" bundle:nil];
-    [self.navigationController pushViewController:addOrderVC animated:TRUE];
+    CartPaymentViewController *cartPaymentVC = [[CartPaymentViewController alloc] initWithNibName:@"CartPaymentViewController" bundle:nil];
+    [self.navigationController pushViewController:cartPaymentVC animated:TRUE];
     return;
     
     if ([strBalance longLongValue] >= totalPrice) {
-        AddOrderViewController *addOrderVC = [[AddOrderViewController alloc] initWithNibName:@"AddOrderViewController" bundle:nil];
-        [self.navigationController pushViewController:addOrderVC animated:TRUE];
+        CartPaymentViewController *cartPaymentVC = [[CartPaymentViewController alloc] initWithNibName:@"CartPaymentViewController" bundle:nil];
+        [self.navigationController pushViewController:cartPaymentVC animated:TRUE];
         
     }else{
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];

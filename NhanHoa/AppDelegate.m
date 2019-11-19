@@ -49,7 +49,8 @@
 @end
 
 @implementation AppDelegate
-@synthesize sizeCartCount;
+@synthesize sizeCartCount, hTabbar, myTabbarView, tabBarController, customTabbar;
+
 @synthesize errorStyle, warningStyle, successStyle;
 @synthesize hStatusBar, hNav, userInfo, internetReachable, internetActive, listCity, listNumber;
 @synthesize fontBold, fontMedium, fontRegular, fontItalic, fontThin, fontDesc, fontNormal, fontMediumDesc, hTextfield, radius, fontBTN, fontItalicDesc;
@@ -95,11 +96,18 @@ AppDelegate      *app;
     [application registerForRemoteNotifications];
     
     [self setupFontForApp];
-    sizeCartCount = 22.0;
     
     safeAreaBottomPadding = 0;
     if (@available(iOS 11.0, *)) {
         safeAreaBottomPadding = self.window.safeAreaInsets.bottom;
+    }
+    
+    customTabbar = FALSE;
+    sizeCartCount = 22.0;
+    if (safeAreaBottomPadding > 0) {
+        hTabbar = 62.0 + safeAreaBottomPadding;
+    }else{
+        hTabbar = 60.0;
     }
     
     //  Register remote notifications
@@ -889,18 +897,27 @@ AppDelegate      *app;
 }
 
 - (void)hideTabbarCustomSubviews: (BOOL)hide withDuration: (BOOL)duration {
-    if (duration) {
+    if (customTabbar) {
+        myTabbarView.hidden = hide;
         if (hide) {
-            [UIView animateWithDuration:0.05 animations:^{
-                imgSearchBar.alpha = 0;
-            }];
+            tabBarController.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         }else{
-            [UIView animateWithDuration:0.05 animations:^{
-                imgSearchBar.alpha = 1;
-            }];
+            tabBarController.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-hTabbar + tabBarController.tabBar.frame.size.height);
         }
     }else{
-        imgSearchBar.alpha = (hide) ? 0 : 1;
+        if (duration) {
+            if (hide) {
+                [UIView animateWithDuration:0.05 animations:^{
+                    imgSearchBar.alpha = 0;
+                }];
+            }else{
+                [UIView animateWithDuration:0.05 animations:^{
+                    imgSearchBar.alpha = 1;
+                }];
+            }
+        }else{
+            imgSearchBar.alpha = (hide) ? 0 : 1;
+        }
     }
 }
 

@@ -83,6 +83,13 @@
 #define RobotoThin          @"Roboto-Thin"
 #define RobotoThinItalic    @"Roboto-ThinItalic"
 
+#define HelveticaNeue           @"HelveticaNeue"
+#define HelveticaNeueBold       @"HelveticaNeue-Bold"
+#define HelveticaNeueConBold    @"HelveticaNeue-CondensedBold"
+#define HelveticaNeueItalic     @"HelveticaNeue-Italic"
+#define HelveticaNeueLight      @"HelveticaNeue-Light"
+#define HelveticaNeueThin       @"HelveticaNeue-Thin"
+
 #define link_forgot_password    @"https://id.nhanhoa.com/login/forgot.html"
 #define nhanhoa_website_link    @"https://nhanhoa.com/"
 #define nhanhoa_link            @"nhanhoa.com/"

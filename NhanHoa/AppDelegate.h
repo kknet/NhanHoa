@@ -24,6 +24,7 @@
 #import "CallViewController.h"
 #import "HMLocalization.h"
 #import "FLAnimatedImage.h"
+#import "UITabbarView.h"
 
 typedef enum HostingWindowsType{
     eWindowsHostingStudent,
@@ -70,6 +71,10 @@ typedef enum PaymentMethod{
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, assign) float sizeCartCount;
+@property (nonatomic, assign) float hTabbar;
+@property (nonatomic, strong) UITabbarView *myTabbarView;
+@property (nonatomic, strong) UITabBarController *tabBarController;
+@property (nonatomic, assign) BOOL customTabbar;
 
 
 @property (nonatomic, strong) HMLocalization *localization;

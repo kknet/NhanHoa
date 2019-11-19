@@ -63,7 +63,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
     //  show keyboard
-    [tfSearch becomeFirstResponder];
+    //  [tfSearch becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
